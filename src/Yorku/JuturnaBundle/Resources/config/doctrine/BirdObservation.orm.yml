@@ -1,0 +1,97 @@
+Yorku\JuturnaBundle\Entity\BirdObservation:
+    type: entity
+    table: bird_observation
+    gedmo:
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        images:
+            type: json
+            nullable: true
+            column: images
+        videos:
+            type: json
+            nullable: true
+            column: videos
+        audios:
+            type: json
+            nullable: true
+            column: audios
+        enabled:
+            type: boolean
+            column: enabled
+            nullable: true
+        lng:
+            type: decimal
+            unsigned: false
+            nullable: true
+        lat:
+            type: decimal
+            unsigned: false
+            nullable: true
+        observationDescription:
+            type: string
+            length: 10
+            nullable: true
+            column: observation_description
+        observedAt:
+            type: datetime
+            nullable: true
+            column: observed_at
+        createdAt:
+            type: date
+            nullable: true
+            column: created_at
+            gedmo:
+              timestampable:
+                on: create
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+            gedmo:
+              timestampable:
+                on: update
+        description:
+            type: text
+            nullable: true
+            column: description
+    manyToOne:
+        species:
+            targetEntity: Species
+            cascade: {  }
+            inversedBy: bird_observations
+            joinColumns:
+                species_id:
+                    referencedColumnName: id
+            orphanRemoval: false            
+        bird:
+            targetEntity: Bird
+            cascade: {  }
+            inversedBy: observations
+            joinColumns:
+                bird_id:
+                    referencedColumnName: id
+            orphanRemoval: false            
+        station:
+            targetEntity: Station
+            cascade: {  }
+            inversedBy: observations
+            joinColumns:
+                station_id:
+                    referencedColumnName: id
+            orphanRemoval: false            
+        breedingStatus:
+            targetEntity: BreedingStatus
+            cascade: {  }
+            inversedBy: bird_observations
+            joinColumns:
+                breedingstatus_id:
+                    referencedColumnName: id
+            orphanRemoval: false            
+    lifecycleCallbacks: {  }

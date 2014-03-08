@@ -1,0 +1,61 @@
+{#% extends '::base.html.twig' %#}
+
+{% block body -%}
+    <h1>Logo creation</h1>
+<form action="{{path("logo_create")}}" method="post" {{ form_enctype(form) }}>
+
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+    <div class="flash-notice">
+            {{ flashMessage }}
+    </div>
+    {% endfor %}
+    
+    
+    
+    <table>
+        
+        
+        <tr>
+            <td>{{ form_label(form.imagename) }}</td>
+            <td>{{ form_widget(form.imagename) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.imagefile) }}</td>
+            <td>{{ form_widget(form.imagefile) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.imageFilename) }}</td>
+            <td>{{ form_widget(form.imageFilename) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.imageTip) }}</td>
+            <td>{{ form_widget(form.imageTip) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.websiteUrl) }}</td>
+            <td>{{ form_widget(form.websiteUrl) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.showSeq) }}</td>
+            <td>{{ form_widget(form.showSeq) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.enabled) }}</td>
+            <td>{{ form_widget(form.enabled) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.description) }}</td>
+            <td>{{ form_widget(form.description) }}</td>
+        </tr>
+    </table>
+   {{ form_rest(form) }}
+</form>
+    <ul class="record_actions">
+    <li>
+        <a href="{{ path('logo') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+    
+{% endblock %}

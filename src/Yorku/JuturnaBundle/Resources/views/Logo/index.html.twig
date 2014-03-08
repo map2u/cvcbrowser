@@ -1,0 +1,57 @@
+{#% extends '::base.html.twig' %#}
+
+{% block body -%}
+    <h1>Logo list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Imagename</th>
+                <th>Imagefilename</th>
+                <th>Description</th>
+                <th>Websiteurl</th>
+                <th>Imagetip</th>
+                <th>Enabled</th>
+                <th>Showseq</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('logo_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.imagename }}</td>
+                <td>{{ entity.imageFilename }}</td>
+                <td>{{ entity.description }}</td>
+                <td>{{ entity.websiteUrl }}</td>
+                <td>{{ entity.imageTip }}</td>
+                <td>{{ entity.enabled }}</td>
+                <td>{{ entity.showSeq }}</td>
+                <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.updatedAt %}{{ entity.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('logo_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('logo_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('logo_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

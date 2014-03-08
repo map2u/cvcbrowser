@@ -1,0 +1,7 @@
+parameters:
+#    map2u_web.example.class: Map2u\WebBundle\Example
+
+services:
+#    map2u_web.example:
+#        class: %map2u_web.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,0 +1,123 @@
+{#% extends '::base.html.twig' %#}
+
+{% block body -%}
+<h1>System Parameter:</h1>
+{% if(entities and entities | length > 0) %}
+    {% set entity=entities[0] %}
+<table class="records_list">
+    <thead>
+        <tr>
+            <th style="text-align:left">Name</th>
+            <th style="text-align:left">Value</th>
+        </tr>
+    </thead>            
+
+
+    <tbody>
+
+        <tr>
+            <td >Logo1 Name:</td>
+            <td>{{ entity.logo1Name }}</td>
+        </tr>
+        <tr>
+            <td>Logo1 Url:</td>
+            <td>{{ entity.logo1Url }}</td>
+        </tr>
+        <tr>
+            <td>Logo1 Filename:</td>
+            <td>{{ entity.logo1Filename }}</td>
+        </tr>
+        <tr>
+            <td>Logo1 Imagetype:</td>
+            <td>{{ entity.logo1Imagetype }}</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <hr/>
+            </td>
+        </tr>
+
+        <tr>
+
+            <td>Logo2 Name:</td>
+            <td>{{ entity.logo2Name }}</td>
+        </tr>
+        <tr>
+            <td>Logo2 Url:</td>
+            <td>{{ entity.logo2Url }}</td>
+        </tr>
+        <tr>
+            <td>Logo2 Filename:</td>
+            <td>{{ entity.logo2Filename }}</td>
+        </tr>
+        <tr>
+            <td>Logo2 Image Type:</td>
+            <td>{{ entity.logo2Imagetype }}</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <hr/>
+            </td>
+        </tr>
+
+
+        <tr>
+            <td>Logo3 Name:</td>
+            <td>{{ entity.logo3Name }}</td>
+        </tr>
+        <tr>
+            <td>Logo3 Url:</td>
+            <td>{{ entity.logo3Url }}</td>
+        </tr>
+        <tr>
+            <td>Logo3 Filename:</td>
+            <td>{{ entity.logo3Filename }}</td>
+        </tr>
+        <tr>
+            <td>Logo3 Image Type:</td>
+            <td>{{ entity.logo3Imagetype }}</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <hr/>
+            </td>
+        </tr>
+
+
+        <tr>
+            <td>Master Email:</td>
+            <td>{{ entity.masteremail }}</td>
+        </tr>
+        <tr>
+            <td>Geoserver Host:</td>
+            <td>{{ entity.geoserverHost }}</td>
+        </tr>
+        <tr>
+            <td>Geoserver Port:</td>
+            <td>{{ entity.geoserverPort }}</td>
+        </tr>
+        <tr>
+            <td>Geoserver Workspace:</td>
+            <td>{{ entity.geoserverWorkspace }}</td>
+        </tr>
+
+    </tbody>
+</table>
+<ul>
+    <li>
+        <a href="{{ path('systemparams_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+</ul>
+ {% else %}
+<p><h2>No System parameter defined</h2></p>
+<ul>
+    <li>
+        <a href="{{ path('systemparams_new') }}">
+            Create a new entry
+        </a>
+    </li>
+</ul>
+{% endif %}
+    {% endblock %}

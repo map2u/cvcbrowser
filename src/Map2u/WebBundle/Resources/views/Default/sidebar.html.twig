@@ -1,0 +1,32 @@
+{# empty Twig template #}
+
+<div id="sidebar">
+    <form accept-charset="UTF-8" action="/search" class="search_form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="BHr3t+u31e1Ou03+/dWSEDEI223LFgcWfoQf7aSgMNM=" type="hidden"></div>
+  <input name="commit" value="Go" type="submit">
+  <div class="query_wrapper">
+    <input autofocus="autofocus" id="query" name="query" placeholder="Search" type="text">
+    <a class="describe_location" href="#" title="Describe the current location using the search engine">Where am I?</a>
+  </div>
+</form>
+
+
+    <div id="flash"></div>
+
+    <div id="browse_status"></div>
+
+    <div id="sidebar_loader" style="display: none;">
+      <img alt="Loading..." class="loader" src="/assets/searching-000a5378efc9d9ee709b2439563e28db.gif">
+    </div>
+
+    <div id="sidebar_content">
+    </div>
+
+      <div style="display: none;" class="welcome">
+        <h2><a><span class="icon close"></span></a>Welcome to OpenStreetMap!</h2>
+        <p>OpenStreetMap is a map of the world, created by people like you and free to use under an open license.</p>
+        <a class="button learn-more" href="/about">Learn More</a>
+        <a class="button sign-up" href="/user/new">Start Mapping</a>
+      </div>
+</div>
+
+ 

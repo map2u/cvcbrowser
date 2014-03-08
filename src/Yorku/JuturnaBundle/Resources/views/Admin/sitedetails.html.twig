@@ -1,0 +1,170 @@
+{# empty Twig template #}
+<h2>Station Details Information</h2>
+    {% if station != null %}
+<table width="556px"><tbody><tr><td style="width:160px;"> <!-- start of site info for data list -->
+                <b>Watershed Name:</b></td><td>
+		{% if station.watershed_id != null and station.watershed_id > 0 %}
+			{% if watershed and watershed.watershed_name %}
+                            {{watershed.watershed_name }}
+                       {% else %}
+                unkown watershed name
+        		{% endif %}
+                {% else %}
+                unkown watershed name
+		{% endif %}</td></tr>
+        <tr><td>        <b>Subwatershed Name:</b></td><td>
+		{% if subwatershed %}
+			{{ subwatershed.subwatershed_name }}
+		{% else %}
+                        unkown subwatershed name
+		{% endif %}</td></tr>
+                <tr><td>
+                        <b>Station ID:</b></td><td colspan=2>
+            {% if app.user and ( app.user.id == station.user_id or app.user.hasRole("Admin")) %}
+                        <a href="#" onClick="addnewstation(null, null, '{{station.lat}}', '{{station.lng}}', 'update',{{station.id}});
+                        return false;">{{station.station_name}}</a>
+{% else %}
+        {{ station.station_name }}
+{% endif %} &nbsp;|&nbsp;
+                        <a href="#" onClick="sitereport_dateselection('{{station.station_name}}');
+                        return false;">Create Report</a>
+
+                           &nbsp;|&nbsp;
+
+                           <a href="#" onClick="station_datadownload('{{station.station_name}}');
+                        return false;">Data Download</a>
+
+                           </td></tr> <!-- end of site info for data list -->
+                        <tr><td colspan="3">&nbsp;</td></tr>
+
+                        <tr><td  align="left" style="border-bottom:1px solid black;border-top:1px solid black;">
+                                <font color="green"><b>Site Description:</b></font></td><td colspan=2 style="border-bottom:1px solid black;border-top:1px solid black;">
+                    {{ sitedescriptions|length }} records
+                            </td></tr>
+                        <tr><th align="left" style="border-bottom:1px solid black;">Sampling Date</th><th align="left" style="border-bottom:1px solid black;">Group Name</th><th align="left" style="border-bottom:1px solid black;">Action</th></tr>
+		{% if watershed %}
+			{#% watershedname = watershed.watershed_name %#}
+		{% endif %}
+          {% if sitedescriptions == null or sitedescriptions|length == 0 %}
+                                <tr><td colspan="3">No Data</td></tr>		
+          {% else %}
+                {% for sitedesc in sitedescriptions %}
+                                <tr><td>{{ sitedesc.samplingDate.format('Y-m-d H:i:s') }}</td>
+                                    <td>&nbsp;|&nbsp;
+                                        <a href="#" onClick="showschoolsite('{{sitedesc.stationName}}', '{{sitedesc.groupnameId}}');
+                        return false;">{% if sitedesc.groupname %} {{ sitedesc.groupname.groupName}}{% endif %}</a>
+                                        </td>
+                                        <td >&nbsp;|&nbsp;
+                                            <a href="/report/sitedescription?id={{sitedesc.id}}&station_name={{station.station_name}}" target="_blank">Report</a>
+
+                                            &nbsp;
+{% if app.user and ( app.user.id == station.user_id or  app.user.hasRole("Administrator")) %}|&nbsp;
+                                            <a href="#" onClick="Sitedescription_Pictures('{{sitedesc.id}}');
+                        return false;">Pictures</a>
+
+
+{#%#= link_to("Download",{:controller=>"downloads",:action=>"sitedescription",:id=>sitedesc,:method=>"get"},:target=>"_blank") %#}
+                                               &nbsp;|&nbsp;
+                                               <a href="#" onClick="onSetSiteDescriptionData('{{sitedesc.id}}', '{{station.station_name}}', '{{station.near_inter}}', '{{station.municipality}}', '{{station.minwidth}}', '{{station.lat}}', '{{station.lng}}', '{{watershed.watershed_name}}', 'update');
+                        return false;">Edit</a>
+                                                  &nbsp;|&nbsp;
+                                                  <a href="#" onClick="if (confirm('Are you sure you want to delete this site description data?'))
+                            onDeleteSiteDescription('{{station.site_idname}}',{{sitedesc.id}});
+                        return false;">Delete</a>
+        {% endif %}</td></tr>		
+        {% endfor %}
+        {% endif %}
+                                            
+{% if app.user and ( app.user.id == station.user_id or app.user.hasRole('Admin')) %}
+<tr><td colspan="3" style="border-top:1px solid black;"><b>
+                                <a href="#" onClick="onSetSiteDescriptionData('{{sitedesc.id}}', '{{station.station_name}}', '{{station.near_inter}}', '{{station.municipality}}', '{{station.minwidth}}', '{{station.lat}}', '{{station.lng}}', '{{watershed.watershed_name}}', 'create');
+                        return false;">Add New Data</a>
+</b></td></tr>
+{% endif %}		
+                                                        <tr><td colspan="3" style="border-top:1px solid black;">&nbsp;</td></tr>
+
+                                                        <tr><td  align="left" style="border-bottom:1px solid black;border-top:1px solid black;">
+                                                                <font color="green"><b>Benthics:</b></font></td><td align="left" colspan=2 style="border-bottom:1px solid black;border-top:1px solid black;">{{ samplesbenthic|length }} records
+                                                            </td></tr>
+                                                        <tr><th align="left" style="border-bottom:1px solid black;">Sampling Date</th><th align="left" style="border-bottom:1px solid black;">Group Name</th><th align="left" style="border-bottom:1px solid black;">Action</th></tr>
+          {% if samplesbenthic == null or samplesbenthic|length == 0 %}
+                                                                <tr><td colspan="3">No Data</td></tr>		
+          {% else %}
+          {% for sitebenthic in samplesbenthic %}
+                                                                <tr><td>{% if sitebenthic.samplingDate %}
+                    {{sitebenthic.samplingDate.format('Y-m-d H:i:s') }}
+            {% endif %}</td><td>&nbsp;|&nbsp;
+
+               <a href="#" onClick="showschoolsite('{{sitebenthic.stationName}}', '{% if sitebenthic.groupname %} {{sitebenthic.groupname.groupName}} {% endif %}');
+                        return false;">{% if sitebenthic.groupname %} {{sitebenthic.groupname.groupName}} {% endif %}</a>
+
+                                                                                </td><td>&nbsp;|&nbsp;
+              <a href="/report/benthic?id={{sitebenthic.id}}&station_name={{station.station_name}}" target="_blank">Report</a>
+
+                                                                                    &nbsp;|&nbsp;{#%#= link_to("Download",{:controller=>"downloads",:action=>"benthic",:id=>sitebenthic,:method=>"get"},:target=>"_blank") %#}
+{% if app.user and ( app.user.id == station.user_id or app.user.hasRole('Admin')) %}&nbsp;|&nbsp;
+              
+<a href="#" onClick="onSetBenthicData('{{sitebenthic.id}}','{{station.station_name}}','update');
+                        return false;">Edit</a>
+
+&nbsp;|&nbsp;
+
+<a href="#" onClick="if (confirm('Are you sure you want to delete this benthic data?')) onDeleteBenthic('{{station.site_idname}}',{{sitebenthic.id}});
+                        return false;">Delete</a>
+
+          {% endif %}</td></tr>		
+        {% endfor %}
+          {% endif %}
+                                                                            
+{% if app.user and ( app.user.id == station.user_id or app.user.hasRole('Admin')) %}
+ <tr><td colspan="3" style="border-top:1px solid black;"><b>                                                                                                   
+<a href="#" onClick="onSetBenthicData('','{{station.station_name}}','create'));
+                        return false;">Add New Data</a>
+</b></td></tr>
+{% endif %}		
+                                                                                        <tr><td colspan="3" style="border-top:1px solid black;">&nbsp;</td></tr>
+
+                                                                                        <tr><td align="left" style="border-bottom:1px solid black;border-top:1px solid black;">
+                                                                                                <font color="green"><b>Water Chemistry:</b></font></td><td colspan=2 style="border-bottom:1px solid black;border-top:1px solid black;">{{ waterchemistry|length }} records
+                                                                                            </td></tr>
+                                                                                        <tr><th align="left" style="border-bottom:1px solid black;">Sampling Date</th><th align="left" style="border-bottom:1px solid black;">Group Name</th><th align="left" style="border-bottom:1px solid black;">Action</th></tr>
+          {% if waterchemistry == null or waterchemistry|length == 0 %}
+                                                                                                <tr><td colspan="3">No Data</td></tr>		
+          {% else %}
+          {% for sitewater in waterchemistry %}
+                                                                                                <tr><td>
+{{ sitewater.samplingDate.format('Y-m-d H:i:s') }}</td><td>&nbsp;|&nbsp;
+
+                                                                                                                
+                                   <a href="#" onClick="showschoolsite('{{sitewater.stationName}}', '{% if sitewater.groupname %} {{sitewater.groupname.groupName}} {% endif %}');
+                        return false;">{% if sitewater.groupname %} {{sitewater.groupname.groupName}} {% endif %}</a>
+
+                                                                                </td><td>&nbsp;|&nbsp;
+              <a href="/report/waterchemistry?id={{sitewater.id}}&station_name={{station.station_name}}" target="_blank">Report</a>
+
+ 
+              
+{#%#= link_to("Download",{:controller=>"downloads",:action=>"waterchemistry",:id=>sitewater,:method=>"get"},:target=>"_blank") %#}
+{% if app.user and ( app.user.id == station.user_id or app.user.hasRole('Administrator')) %}&nbsp;|&nbsp;
+
+<a href="#" onClick="onSetWaterchemistryData('{{sitewater.id}}','{{station.station_name}}','update');
+                        return false;">Edit</a>
+
+&nbsp;|&nbsp;
+
+<a href="#" onClick="if (confirm('Are you sure you want to delete this water chemistry data?')) onDeleteWaterChemistry('{{station.site_idname}}',{{sitewater.id}});
+                        return false;">Delete</a>
+{% endif %}</td></tr>		
+        {% endfor %}
+        {% endif %}
+                                                                                                        
+{% if app.user and ( app.user.id == station.user_id or app.user.hasRole('Admin')) %}
+ <tr><td colspan="3" style="border-top:1px solid black;"><b>                                                                                                                               
+<a href="#" onClick="onSetWaterchemistryData('','{{station.station_name}}','create'));
+                        return false;">Add New Data</a>
+</b></td></tr>
+{% endif %}		
+
+                                     </tbody></table>
+    {% endif %}
+

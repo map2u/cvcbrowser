@@ -1,0 +1,6 @@
+ED;; Endemic
+CO;; Costa Rica Only
+CA;; Central America
+SA;; South and Central America
+RS;; Resident
+MG;; Migratory

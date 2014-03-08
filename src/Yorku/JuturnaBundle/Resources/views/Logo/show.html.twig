@@ -1,0 +1,64 @@
+{#% extends '::base.html.twig' %#}
+
+{% block body -%}
+    <h1>Logo</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Imagename</th>
+                <td>{{ entity.imagename }}</td>
+            </tr>
+            <tr>
+                <th>Imagefilename</th>
+                <td>{{ entity.imageFilename }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ entity.description }}</td>
+            </tr>
+            <tr>
+                <th>Websiteurl</th>
+                <td>{{ entity.websiteUrl }}</td>
+            </tr>
+            <tr>
+                <th>Imagetip</th>
+                <td>{{ entity.imageTip }}</td>
+            </tr>
+            <tr>
+                <th>Enabled</th>
+                <td>{{ entity.enabled }}</td>
+            </tr>
+            <tr>
+                <th>Showseq</th>
+                <td>{{ entity.showSeq }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ entity.updatedAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('logo') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('logo_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

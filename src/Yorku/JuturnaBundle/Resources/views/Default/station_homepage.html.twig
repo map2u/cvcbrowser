@@ -1,0 +1,65 @@
+{# empty Twig template #}
+<div id="homepage_station_id" class="container-fluid" style="height:450px;padding-bottom: 10px;margin-bottom: 10px;border-bottom: 2px   #090 ridge;">
+    <div class="row-fluid" style="height:35px;padding-bottom: 10px;">
+        <table><tbody><tr><td><h3>Stations:</h3></td><td><div>{#<a href="#" class="btn btn-primary" role="button">Input new observation</a>#}</div></td></tr></tbody></table>
+    </div>
+    <div class="row-fluid">
+        <div class="tabbable well" style="height:360px">
+            
+            {{ render(controller("YorkuJuturnaBundle:Default:station_tabform")) }}
+{#            
+            <ul class="nav nav-tabs">
+                    {% set i=1 %}
+                    {% for station in stations %}
+                <li {% if i==1 %} class="active" {% endif %}><a href="#station_homepage_pane{{i}}"  data-toggle="tab">{{station.getCode()}}&nbsp;&nbsp;<span class="badge">{{station.getBirdObservations|length}}/{{ station.getSpecies()|length}}</span></a></li>
+                    {% set i= i+1 %}
+                    {% endfor %}
+            </ul>
+            <div class="tab-content">
+                    {% set i=1 %}
+                    {% for station in stations %}
+                    {% set species = station.getSpecies() %}
+                <div id="station_homepage_pane{{i}}" class="tab-pane {% if i==1 %} active {% endif %}" style="text-align:left;">
+                    <tabel><tbody><tr><td><h4> Station Name:{{station.getStationName() }}</h4></td></tr></tbody></tabel>
+                    <div id="station_homepage_pane_{{station.getCode()}}_id" style="height:270px;overflow: auto">
+                        <table>
+                            <tbody>
+                                <tr>
+                                {% set k= (species|length)|bcdiv(14.0) %}
+                                {% set j=0 %}
+                                {% for specie in species %}
+                               
+                                    <td style="border-bottom: 1px #04408c dashed"><a href="{{path('species_show')}}?id={{specie.getId()}}" target="_blank">{{specie.getSpeciesName()}}</a></td>
+                                {% set j=j+1 %}
+                                  {%if j|bcmod(7) == 0 and j !=0 %}
+                                 </tr>    
+                                <tr>
+                                {% endif %}
+                               
+                                {% endfor %}
+                                
+                                    </tr>
+                              
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <script type='text/javascript'>
+                    var options = {
+                        currentPage: 3,
+                        totalPages: 10,
+                        size: "normal",
+                        alignment: "left"
+                    };
+                //    $('#station_homepage_pane_{{station.getCode()}}_id').bootstrapPaginator(options);
+                </script>
+
+                    {% set i= i+1 %}
+                    {% endfor %}
+
+            </div>
+            #}
+        </div>
+    </div>
+</div>

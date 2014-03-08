@@ -1,0 +1,3 @@
+RA;; Rainy
+DR;; Dry
+YR;; Year Round

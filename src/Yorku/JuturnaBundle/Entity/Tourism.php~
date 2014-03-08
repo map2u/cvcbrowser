@@ -1,0 +1,408 @@
+<?php
+
+namespace Yorku\JuturnaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Tourism
+ */
+class Tourism
+{
+    /**
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var string
+     */
+    private $code;
+
+    /**
+     * @var boolean
+     */
+    private $isEnabled;
+
+    /**
+     * @var boolean
+     */
+    private $isPublished;
+
+    /**
+     * @var string
+     */
+    private $images;
+
+    /**
+     * @var string
+     */
+    private $videos;
+
+    /**
+     * @var string
+     */
+    private $audios;
+
+    /**
+     * @var string
+     */
+    private $description;
+
+    /**
+     * @var \DateTime
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     */
+    private $updatedAt;
+
+    /**
+     * @var \Yorku\JuturnaBundle\Entity\TourismGeoms
+     */
+    private $tourismgeoms;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $tourism_comments;
+
+    /**
+     * @var \Application\Sonata\UserBundle\Entity\User
+     */
+    private $user;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tourism_comments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Tourism
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     * @return Tourism
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+    
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string 
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * Set isEnabled
+     *
+     * @param boolean $isEnabled
+     * @return Tourism
+     */
+    public function setIsEnabled($isEnabled)
+    {
+        $this->isEnabled = $isEnabled;
+    
+        return $this;
+    }
+
+    /**
+     * Get isEnabled
+     *
+     * @return boolean 
+     */
+    public function getIsEnabled()
+    {
+        return $this->isEnabled;
+    }
+
+    /**
+     * Set isPublished
+     *
+     * @param boolean $isPublished
+     * @return Tourism
+     */
+    public function setIsPublished($isPublished)
+    {
+        $this->isPublished = $isPublished;
+    
+        return $this;
+    }
+
+    /**
+     * Get isPublished
+     *
+     * @return boolean 
+     */
+    public function getIsPublished()
+    {
+        return $this->isPublished;
+    }
+
+    /**
+     * Set images
+     *
+     * @param string $images
+     * @return Tourism
+     */
+    public function setImages($images)
+    {
+        $this->images = $images;
+    
+        return $this;
+    }
+
+    /**
+     * Get images
+     *
+     * @return string 
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    /**
+     * Set videos
+     *
+     * @param string $videos
+     * @return Tourism
+     */
+    public function setVideos($videos)
+    {
+        $this->videos = $videos;
+    
+        return $this;
+    }
+
+    /**
+     * Get videos
+     *
+     * @return string 
+     */
+    public function getVideos()
+    {
+        return $this->videos;
+    }
+
+    /**
+     * Set audios
+     *
+     * @param string $audios
+     * @return Tourism
+     */
+    public function setAudios($audios)
+    {
+        $this->audios = $audios;
+    
+        return $this;
+    }
+
+    /**
+     * Get audios
+     *
+     * @return string 
+     */
+    public function getAudios()
+    {
+        return $this->audios;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Tourism
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return Tourism
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return Tourism
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set tourismgeoms
+     *
+     * @param \Yorku\JuturnaBundle\Entity\TourismGeoms $tourismgeoms
+     * @return Tourism
+     */
+    public function setTourismgeoms(\Yorku\JuturnaBundle\Entity\TourismGeoms $tourismgeoms = null)
+    {
+        $this->tourismgeoms = $tourismgeoms;
+    
+        return $this;
+    }
+
+    /**
+     * Get tourismgeoms
+     *
+     * @return \Yorku\JuturnaBundle\Entity\TourismGeoms 
+     */
+    public function getTourismgeoms()
+    {
+        return $this->tourismgeoms;
+    }
+
+    /**
+     * Add tourism_comments
+     *
+     * @param \Yorku\JuturnaBundle\Entity\TourismComments $tourismComments
+     * @return Tourism
+     */
+    public function addTourismComment(\Yorku\JuturnaBundle\Entity\TourismComments $tourismComments)
+    {
+        $this->tourism_comments[] = $tourismComments;
+    
+        return $this;
+    }
+
+    /**
+     * Remove tourism_comments
+     *
+     * @param \Yorku\JuturnaBundle\Entity\TourismComments $tourismComments
+     */
+    public function removeTourismComment(\Yorku\JuturnaBundle\Entity\TourismComments $tourismComments)
+    {
+        $this->tourism_comments->removeElement($tourismComments);
+    }
+
+    /**
+     * Get tourism_comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTourismComments()
+    {
+        return $this->tourism_comments;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Application\Sonata\UserBundle\Entity\User $user
+     * @return Tourism
+     */
+    public function setUser(\Application\Sonata\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Application\Sonata\UserBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+}

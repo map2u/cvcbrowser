@@ -1,0 +1,31 @@
+{# empty Twig template #}
+<div id="homepage_bird_id" class="container-fluid" style="height:600px;padding-bottom: 10px;margin-bottom: 10px;border-bottom: 2px   #090 ridge;">
+    <div class="row-fluid">
+         <div class="row-fluid" style="height:35px;padding-bottom: 10px;">
+        <table><tbody><tr><td><h3>Birds:</h3></td><td><div>{#<a href="#" class="btn btn-primary" role="button">Input new observation</a>#}</div></td></tr></tbody></table>
+        {% if species is defined and species|length > 0 %}
+        <table>
+                            <tbody>
+                                <tr>
+        {% set i=0 %}
+            {% for specie in species %}
+                {% set images=specie.getImages()|unserialize %}
+                {% if images|length > 0 %}
+                                    
+                                    <td><a href="{{path('species_show')}}?id={{specie.getId()}}" target="_blank"><img style="border: 1px #0000FF solid" src="{{ asset('uploads/images/species/pictures/')}}{{images[0]}}" style="width:120px;height:180px;"/>
+                                            <br>{{specie.getSpeciesName()}}</a></td>
+                {% endif %}
+                            {%if i|bcmod(5) == 0 and i !=0 %}
+                                 </tr>    
+                                <tr>
+                                {% endif %}
+                {% set i = i+1 %}
+            {% endfor %} 
+                              </tr>
+                              
+                            </tbody>
+                        </table>
+        {% endif %}
+         </div>
+    </div>
+</div>

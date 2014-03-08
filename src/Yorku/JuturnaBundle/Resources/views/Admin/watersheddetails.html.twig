@@ -1,0 +1,25 @@
+<div style="padding:10px;">
+    <table>
+        <tbody>
+{% if subwatersheds is defined and subwatersheds != null %}
+                <tr><th colspan="2" nowrap="true" style="border:1px solid gray;">Watershed Details Information: {{ subwatersheds|length }} Subwatersheds</th></tr>
+
+{% for subwatershed in subwatersheds %}
+                <tr>
+                    <td  style="border-bottom:1px solid gray;border-left:1px solid gray;text-align:right">Subwatershed Name:</td><td style="border-bottom:1px solid gray;border-left:1px solid gray;border-right:1px solid gray;text-align:left"><a href="#" onClick="Extapp.onSelectSubwatershed({{subwatershed.id}});
+        return false;">{{ subwatershed.subwatershed_name }}</a></td>
+                </tr>
+                <tr><td style="border-bottom:1px solid gray;border-left:1px solid gray;text-align:right">
+                        Description:</td><td  style="border-bottom:1px solid gray;border-left:1px solid gray;border-right:1px solid gray;text-align:left">{{ subwatershed.description }}&nbsp;</td>
+                </tr>
+{% endfor %}
+
+{% if app.user and app.user.getRole('Administrator') %}
+                <tr><td colspan="2" style="border-left:1px solid gray;border-right:1px solid gray;border-bottom:1px solid gray;"><a href="#" onClick="Extapp.addnewsubwatershed();
+        return false;">Add New Subwatershed</a></td></tr>
+{% endif %}
+{% endif %}
+            </tbody>
+        </table>
+    </div>
+

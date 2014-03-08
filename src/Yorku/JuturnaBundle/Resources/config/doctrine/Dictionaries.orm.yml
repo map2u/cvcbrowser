@@ -1,0 +1,35 @@
+Yorku\JuturnaBundle\Entity\Dictionaries:
+    type: entity
+    table: dictionaries
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: SEQUENCE
+        tableName:
+            type: string
+            length: 20
+            fixed: false
+            nullable: true
+            column: table_name
+        columnName:
+            type: string
+            length: 30
+            fixed: false
+            nullable: true
+            column: column_name
+        description:
+            type: string
+            length: 100
+            fixed: false
+            nullable: true
+        dataType:
+            type: string
+            length: 40
+            fixed: false
+            nullable: true
+            column: data_type
+    lifecycleCallbacks: {  }

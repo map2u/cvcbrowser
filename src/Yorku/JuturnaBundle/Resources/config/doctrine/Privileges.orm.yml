@@ -1,0 +1,22 @@
+Yorku\JuturnaBundle\Entity\Privileges:
+    type: entity
+    table: privileges
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: SEQUENCE
+        roleId:
+            type: integer
+            unsigned: false
+            nullable: true
+            column: role_id
+        name:
+            type: string
+            length: 100
+            fixed: false
+            nullable: true
+    lifecycleCallbacks: {  }

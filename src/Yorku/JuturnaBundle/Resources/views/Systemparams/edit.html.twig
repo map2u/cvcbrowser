@@ -1,0 +1,127 @@
+
+
+{% block body -%}
+    <h1>System Parameter Edit</h1>
+
+    <form action="{{ path('systemparams_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+        <input type="hidden" name="_method" value="PUT" />
+        {#{ form_widget(edit_form) }#}
+ 
+        <table class="records_list">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                </tr>
+            </thead>            
+
+
+            <tbody>
+
+                <tr>
+                    <td>{{ form_label(edit_form.logo1Name) }}</td>
+                    <td>{{ form_widget(edit_form.logo1Name,{required:true}) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(edit_form.logo1Url) }}</td>
+                    <td>{{ form_widget(edit_form.logo1Url) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(edit_form.logo1Filename) }}</td>
+                    <td>{{ form_widget(edit_form.logo1Filename, {'attr': {'disabled': 'disabled'}}) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(edit_form.file1) }}</td>
+                    <td>{{ form_widget(edit_form.file1) }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <hr/>
+                    </td>
+                </tr>
+                <tr>
+
+                    <td>{{ form_label(edit_form.logo2Name) }}</td>
+                    <td>{{ form_widget(edit_form.logo2Name) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(edit_form.logo2Url) }}</td>
+                    <td>{{ form_widget(edit_form.logo2Url) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(edit_form.logo2Filename) }}</td>
+                    <td>{{ form_widget(edit_form.logo2Filename,{'attr': {'disabled': 'disabled'}}) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(edit_form.file2) }}</td>
+                    <td>{{ form_widget(edit_form.file2) }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <hr/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(edit_form.logo3Name) }}</td>
+                    <td>{{ form_widget(edit_form.logo3Name) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(edit_form.logo3Url) }}</td>
+                    <td>{{ form_widget(edit_form.logo3Url) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(edit_form.logo3Filename) }}</td>
+                    <td>{{ form_widget(edit_form.logo3Filename, {'attr': {'disabled': 'disabled'}}) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(edit_form.file3) }}</td>
+                    <td>{{ form_widget(edit_form.file3) }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <hr/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(edit_form.masteremail) }}</td>
+                    <td>{{ form_widget(edit_form.masteremail) }}</td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(edit_form.geoserverHost) }}</td>
+                    <td>{{ form_widget(edit_form.geoserverHost) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(edit_form.geoserverPort) }}</td>
+                    <td>{{ form_widget(edit_form.geoserverPort) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(edit_form.geoserverWorkspace) }}</td>
+                    <td>{{ form_widget(edit_form.geoserverWorkspace) }}</td>
+                </tr>
+ {{ form_rest(edit_form) }}
+            </tbody>
+        </table>
+    
+           <p>
+            <button type="submit">Update</button>
+        </p>
+    </form>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('systemparams') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('systemparams_delete', { 'id': entity.id }) }}" method="post">
+            <input type="hidden" name="_method" value="DELETE" />
+            {{ form_widget(delete_form) }}
+            <button type="submit">Delete</button>
+        </form>
+    </li>
+</ul>
+{% endblock %}

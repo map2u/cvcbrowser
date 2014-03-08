@@ -1,0 +1,147 @@
+	DATE	27/08/2007	17/09/2007	26/09/2007	05/10/2007	18/10/2007	02/11/2007	09/11/2007	21/11/2007	27/11/2007	12/7/2007	1/14/2008	1/22/2008	2/1/2008	2/12/2008	03/03/2008	12/03/2008	3/31/2008			
+ CODE	SPECIES NAME/PERIOD	1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17			
+AMRE	American Red Start	-	-	Ob	Ob	Oe	-	-	-	-	-	-	Oe	Oe	Oe	Oe	-	-			
+ASTK	American Swift Tailed Kite	-	-	-	-	-	-	-	-	-	-	Ob	Oo	Oo	Oo	Oe	Oo	-			
+BAOR	Baltimore Oriole	-	-	-	Oe	Oo	Oe	ps	ps	ps	Ps	Ob	Oe	Oe	Oe	Oe	Oe	Oe			
+BANA	Bananaquit	Ob	Ob	Ob	Ob	Oe	Ob	Oe	Ob	-	Ob	Ob	Ob	Ob	Oe	Oe	-	Ob			
+BAAN	Barred Antshrike	-	-	-	Ps	Ps	Ob	-	-	Ps	-	Ps	Ps	Ps	Ps	-	Ps	Ps			
+BWWA	Black & White Warbler	-	-	Oe	Oe	Oe	Oe	-	-	-	-	Oe	Oe	Ob	Oe	Ob	-	-			
+BCTI	Black Capped Tityra	-	-	-	-	-	-	-	Oe	-	-	-	-	-	-	-	-	-			
+BSSP	Black Striped Sparrow	Ob	Ps	-	-	Ps	-	-	-	-	-	-	-	Oe	Oe	Ps	-	Ps			
+BLVU	Black Vulture	Oo	Oo	Oo	Oo	Oe	Oo	-	Oe	Oe	Oo	Oe	Oo	Oo	Oo	Oo	Oo	-			
+BLWA	Blackburnian Warbler	-	-	Oe	-	-	-	Oe	-	-	-	-	-	-	-	-	-	-			
+BBGR	Blue Black Grassquit	-	-	Oe	-	-	Ob	Ob	-	-	Ob	-	-	-	-	-	-	Ob			
+BCMO	Blue Crowned Motmot	-	-	Ps	Ps	Ps	Ps	-	Oe	-	Ps	Ps	Ps	Ps	Ps	Ps	-	Ob			
+BLDA	Blue Dacnis	-	-	-	-	-	Oe	-	-	-	-	-	-	-	-	-	-	-			
+BGTA	Blue Gray Tanager	Ps	-	-	Oo	Oe	Oe	Oe	-	Oe	Ob	-	Oe	Oe	Oe	Oe	Oe	Oe			
+BGDO	Blue Ground Dove	-	-	-	-	-	-	-	-	-	-	Ob	-	-	-	-	-	-			
+BTGO	Blue throated Goldentail	Ob	-	-	-	-	-	-	-	-	-	Ob	-	-	-	Ob	-	-			
+BCFL	Bran Collared Flycatcher	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	Ob			
+BHPA	Brown Headed Parrot	-	-	-	-	Oe	-	Oe	-	-	Oe	-	Ps	Ps	-	-	-	-			
+BRJA	Brown Jay	Ps	Ps	-	Ps	Ps	Ps	-	Ps	Oe	Ps	Ct	Ps	-	Ps	Ps	Ps	Ps			
+BVEA	Brown Violet Ear	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	Ob	-			
+BTSA	Buff throated Saltator	Ob	Ps	Ps	Ob	Ob	Ps	Ps	Oe	Oe	Oe	Oe	Oe	Ps	Oe	Ps	-	Ob			
+BTWO	Buff Throated woodcreeper	-	-	-	-	-	-	Ps	Ps	-	Ps	-	-	-	-	Ps	-	Ps			
+CAWA	Canada Warbler	-	-	Ob	-	-	-	-	-	-	-	-	-	-	-	-	-	-			
+CMTO	Chesnut Mandibled Toucan	-	-	-	Ps	-	Ps	Ps	-	-	Ps	-	-	Ps	-	-	-	-			
+CSWA	Chesnut Sided Warbler	-	-	-	Ob	Oe	Oe	Oe	Ob	Oe	Ob	Oe	Ob	Ob	Oe	Oe	Oe	Oe			
+CCRO	Clay Colored Robin	Ob	Ob	Ob	Ob	Ob	Ob	Oe	Ps	Ps	Ob	Oe	Oe	Ob	Ob	Ps	Ob	Ob			
+CTFL	Common Toddy Flycatcher	-	Ob	-	Oe	-	Ob	-	-	Ob	-	-	-	-	-	-	-	-			
+CFPA	Crimson Fronted Parakeet	Oo	Oo	Oe	-	Oe	Oe	Ps	-	Oo	Oe	-	Ps	Ps	Oe	-	-	-			
+DCFL	Dusky Caped Flycatcher	-	Ps	Ob	-	Oe	Ps	-	Ps	Ps	Ps	Ob	Ps	-	Ob	Ps	-	-			
+FBAR	Fiery Billed Aracary	-	Oe	-	-	Ps	-	-	-	Ps	Ps	Ps	Oe	Ps	Oe	-	-	Ps			
+FTEM	Fork tailed Emmerald	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-			
+GOHT	Golden Headed Tanager	Ob	Ps	Oe	Oe	Oe	Ob	Oe	-	-	Ps	-	Oe	Oe	Oe	Ob	-	Oe			
+GNWO	Golden Naped Woodpecker	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-			
+GWWA	Golden Winged Warbler	-	-	-	-	-	-	Oe	-	-	-	-	Oe	-	-	-	-	-			
+PLCH	Gray Headed Chachalaca	Ps	Ps	-	-	Ps	-	-	Ps	Ps	Ps	-	-	-	-	Ps	-	-			
+GHTA	Gray Headed Tanager	-	Ps	-	-	-	-	-	Ob	Ob	Ob	Ob	Ob	Ob	-	-	-	-			
+GNWR	Gray Necked Wood Rail	Ps	Oe	-	Ps	Ps	Ps	Ps	Ps	Ps	Ps	Ps	-	-	-	Ps	Ps	Ps			
+GCFL	Great Crested Flycatcher	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-			
+GRKI	Great Kiskadee	-	-	Ps	Ps	Ps	Ps	-	Ps	Oe	Ps	Ob	Ps	-	Ps	-	Ps	Ps			
+GRHO	Green Honeycreeper	-	Oe	-	Oe	Oe	Oe	-	-	-	-	-	Oe	-	-	-	-	-			
+GCDO	Grey Chested Dove	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-			
+HOWR	House Wren	-	Ob	Ps	Ps	Ps	Oe	Oe	-	Ps	-	Ps	Ps	Ob	Ps	Ps	Ps	Ps			
+LAFA	Laughing Falcon	-	Ps	Ps	Ps	Ps	Ps	-	Ps	Ps	-	-	-	-	Oo	-	-	Ps			
+LEEL	Lesser Elania	-	-	-	-	-	-	-	-	-	-	-	-	-	-	Ps	-	-			
+LIWO	Lineated Woodpecker	-	-	-	-	-	-	-	-	-	-	Oe	Ps	Ps	-	-	Ps	Ps			
+LIHE	Little Hermit	-	-	Ob	-	Ob	-	-	Ob	-	Oe	Ob	-	-	-	-	Ob	-			
+LBGN	Long Billed Gnat Wren	-	-	Ob	-	-	-	-	-	-	-	-	-	-	-	-	-	-			
+MAHU	Magnificent Hummingbird	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-			
+MATI	Masked Titira	Ps	Oe	Oe	Ob	Ps	Ps	Ps	Ps	Ps	Ps	Ps	Ps	Ps	Ps	Ps	Oe	Ps			
+MITY	Mistletoe Tyranulet	Ob	-	-	Ob	-	-	Ob	-	-	-	Ps	Ps	Ps	-	-	Ps	-			
+MOEL	Mountain Elania	-	-	-	-	-	-	-	-	Ob	Ob	-	Ob	-	-	-	-	-			
+MOWA	Mourning Warbler	-	-	Ob	Ob	Ob	-	-	-	-	Ob	-	Oe	-	Ob	-	Ob	Ob			
+NOBE	Northern Benbill	-	-	-	-	Ps	-	-	Ps	Ps	Ps	-	-	-	-	Ps	-	-			
+NOWA	Northern Waterthrush	-	-	-	-	-	-	-	-	Ob	Ob	Ob	-	-	-	-	-	-			
+OBFL	Ochre Belied Flycatcher	-	-	Ob	Ob	-	Oe	Ob	Ob	-	Ob	-	Ob	-	Ob	-	-	-			
+OLPI	Olivaceous Piculet	-	-	Ps	-	Ob	Ob	Ob	Ps	-	-	Ob	Oe	Oe	Oe	-	-	-			
+OBNT	Orange Billed Nigthingdlae Thrush	-	-	-	-	-	Ps	-	-	Ps	-	-	Ob	-	-	-	Ob	Ps			
+OCPA	Orange Chined Parakeet	Ps	Ps	Ps	-	Oe	Oe	Oe	Oe	-	Ps	-	Ps	-	-	Ps	Oe	Oo			
+OCMA	Orange Collared Manakin	Ob	Ps	Ps	Ob	Ob	Ob	Ob	Ob	Ob	Ob	Ob	Ob	Ps	Ob	Ob	Ps	Ob			
+OVEN	Ovenbird	-	-	-	-	-	-	-	-	-	-	-	Ob	-	-	-	-	-			
+PABU	Painted Bunting	-	-	-	-	-	-	-	-	-	-	-	-	Ob	-	-	-	-			
+PATA	Palm Tanager	-	-	Oe	-	-	-	-	-	-	-	-	-	-	-	Oe	-	-			
+PHVI	Philadelphia Vireo	-	-	-	-	-	-	-	-	-	-	-	-	-	Oe	-	-	-			
+PCST	Plain Capped Starthroat	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-			
+PLWR	Plain Wren	-	-	-	-	-	-	-	-	-	Ob	-	-	-	-	-	-	-			
+PTMG	Purple throated Mountain Gem	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-			
+RCMA	Red Capped Manakin	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-			
+RCWO	Red Crowned Woodpecker	Ps	Ps	Ps	Ps	Ps	Ps	Oe	Ps	Ps	Ps	Oe	Oe	Oe	Ps	Ps	-	Ps			
+RHBA	Red Headed Barbet	-	-	-	-	Ob	-	-	-	-	-	-	-	-	-	-	-	-			
+RLHO	Red Legged Honeycreeper	Oe	-	Oe	-	-	-	-	-	-	-	-	-	-	-	Oe	-	-			
+ROHA	Roadside Hawk	Oe	Ps	-	Ps	Ps	Ps	Ps	Ps	Ps	-	Ps	Ps	Oe	Oe	Ps	Ps	-			
+RBGR	Rose Breasted Grossbeak	-	-	-	-	-	Oe	-	-	-	-	-	-	-	-	-	-	-			
+RUGD	Ruddy Ground Dove	-	Ob	-	-	-	-	-	-	-	-	-	-	-	Oe	-	-	-			
+RQDO	Ruddy Quail Dove	-	-	-	-	Ob	-	Oe	Oe	Ob	-	Oe	-	Ob	Ob	-	-	-			
+RUWO	Ruddy Woodcreeper	-	-	-	-	-	-	-	-	-	-	Ob	-	-	-	-	-	-			
+RCWA	Rufous Caped Warbler	Ob	Ob	-	-	Ob	-	-	-	-	Ob	Ob	-	-	-	-	Ob	Ob			
+RTHU	Rufous Tailed Hummingbird	Ob	Ob	Ob	Ps	-	-	-	Ob	Ob	Ob	Ob	Ob	Ob	Ob	Ob	Ob	Ob			
+SCPI	Scaled Pigeon	-	-	Oe	-	-	-	-	-	-	-	-	-	-	-	-	-	Oe			
+SBHU	Scaly Breasted Hummingbird	Ob	Ob	Ob	Ob	-	Ob	-	-	-	-	-	Ob	-	Ob	-	-	-			
+SRTA	Scarlet Rumped Tanager	Ob	Oe	Oe	Ob	Ps	Ps	Oe	Ob	Ps	Oe	Oe	Oe	Ps	Ob	Ob	Ob	Ob			
+SCHU	Scintilliant Hummingbird	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-			
+SHHO	Shining Honeycreeper	-	-	Oe	-	-	Oe	Oe	-	-	-	-	-	-	-	-	-	-			
+STHA	Short Tailed Hawk	Oe	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-			
+SBPI	Shortbilled Pigeon	-	-	-	-	-	-	-	Ps	Ps	-	-	Ps	Ps	-	Ps	Ps	Ps			
+SHTF	Slatty Headed Toddy Flycatcher	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-			
+SBAN	Smooth Billed Ani	-	-	Oe	-	-	-	-	-	-	-	-	-	-	-	-	-	-			
+SNBH	Snowy Bellied Hummingbird	-	-	-	-	-	-	-	-	-	-	-	Ob	Ob	Ob	-	Ob	-			
+SOEA	Soltary Eagle	-	-	Ps	Ps	Ps	Ps	-	-	-	Ps	Ps	Ps	Ps	-	-	-	-			
+SPTA	Speckled Tanager	Ob	-	Oe	-	-	Oe	-	-	-	-	-	-	-	-	-	-	Ps			
+SQCU	Squirrel Cuckoo	-	Ps	Ps	Ps	Ps	-	-	Ps	Ps	Ps	-	-	-	-	-	Ps	Ps			
+STFL	Streakaed Flycatcher	-	-	-	-	-	-	-	-	Oe	-	-	-	-	Ps	-	Oe	-			
+SHWO	Streaked Headed Woodcreeper	-	-	-	-	-	-	Oe	-	-	-	-	Oe	-	Ob	-	-	Ob			
+STSA	Streaked Saltator	-	Ob	-	Ps	Ob	-	Oe	-	-	-	-	-	-	-	Ps	-	Ps			
+SWPA	Sulphur Winged Parakeet	-	-	-	-	-	-	-	-	Oo	Oe	Ps	Ps	-	Ps	-	-	-			
+SUTA	Summer Tanager	-	-	-	-	Ob	Oe	Ob	Oe	Ob	Ps	Ob	Ps	Ps	Ps	Ps	Ps	Ps			
+SWTH	Swainsons Thrush	-	-	-	Ps	Ob	Oe	Oo	Oe	Ob	Ob	-	Ps	Ps	Ob	Ps	Ob	Ps			
+TWWO	Tawny Winged Woodcreeper	-	-	-	-	-	-	Ps	-	-	-	-	-	-	-	-	-	-			
+TEWA	Tennessee Warbler	-	-	-	-	-	Oe	Ob	Ob	Ob	Ob	Ob	Ob	Ob	Ob	Ob	Ob	-			
+TBSF	Thick Billed Seed Finsch	Ob	-	-	-	-	-	-	-	-	-	-	-	Oe	-	-	-	-			
+TWBE	Three Wattled Bellbird	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-			
+TRGN	Tropical Gnatcatcher	Ps	Ps	Ps	Ps	Ps	Ps	Oe	Ob	-	Ps	Ob	Ps	-	Ob	Ps	Ps	Ps			
+TUVU	Turkey Vulture	Oe	Oo	Oo	Ps	-	Oo	-	-	Oo	Oo	Oo	Oo	Oo	Oo	-	Oo	-			
+VASE	Variable Seedeater	Ob	-	Oe	Ob	-	Ob	Ob	Ob	-	-	Ob	-	-	Ob	Ob	-	Ob			
+VITR	Violaceous Trogon	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	Ps			
+VCWO	Violetcrowned Woodnymph	-	-	-	-	-	Ob	-	-	-	-	-	-	-	-	-	-	-			
+WBWO	Wedge Bellied woodcreeper	-	-	-	Ob	-	-	Oe	-	-	-	-	Ob	-	-	-	-	Ob			
+WWPE	Western Wood Pewee	Ob	-	-	-	-	-	-	Ob	-	-	-	-	-	-	-	-	-			
+WCPA	White Crowned Parrot	Oe	Oe	-	-	Oe	Oe	Ps	Ps	Oe	Oe	Ob	Ps	Ps	Oe	Oe	-	-			
+WLTA	White Lined Tanager	Ob	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-			
+WNJA	White necked Jacobine	-	-	-	-	-	-	-	-	-	-	-	-	-	-	Ob	-	-			
+WRMA	White Ruffed Manakin	-	-	-	Ob	Ob	Ob	Oe	Ob	-	Ob	-	Ob	Ob	-	-	-	-			
+WTDO	White Tipped Dove	-	Oe	Oe	-	Ob	Oe	-	Ob	-	Ob	Oe	Ob	Ob	Oe	Oe	-	-			
+WIWA	Wilsons Warbler	-	-	-	-	Oe	-	-	-	-	-	-	-	-	-	-	-	-			
+WOTH	Wood Thrush	-	-	-	-	-	Ob	-	-	-	-	-	-	-	-	-	-	-			
+YBFL	Yellow Bellied Flycatcher	-	-	-	Ob	-	-	-	-	-	-	-	-	Ob	Oe	-	-	-			
+YBSE	Yellow Bellied Seedeater	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-			
+YCTY	Yellow Crested Tyranulet	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-			
+YCEU	Yellow Crowned Euphonia	Ps	Ps	Ps	Ps	Ps	Ps	Ps	Ps	Ps	-	-	Ps	-	-	-	Ps	Ps			
+YFGR	Yellow Faced Grassquit	-	Ob	Oe	Ob	Ob	Ob	-	-	-	-	Ob	-	Ob	Ob	-	Ob	-			
+YGVI	Yellow Green Vireo	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-			
+YHCA	Yellow Headed Caracara	-	-	Oe	-	-	-	Oe	-	Ps	Ps	Ps	Ps	-	Ps	-	-	-			
+YOFL	Yellow Olive Flycatcher	-	-	-	-	-	-	-	Ob	-	-	-	-	-	-	-	-	-			
+YTVI	Yellow Throated Vireo	-	-	-	-	-	Oe	-	Oe	-	-	-	-	-	Oe	-	Ob	-			
+YETY	Yellow Tyranulet	-	-	-	-	-	Ob	-	Ob	-	-	-	Ob	-	-	-	-	-			
+YEWA	Yellow warbler	-	-	-	-	-	-	Ob	Ob	-	Ob	Ob	-	-	Oe	-	-	-			
+LEGR	Lesser Greenlet	-	-	-	-	-	-	-	-	-	-	-	-	-	Ob	-	-	-			
+DTKI	Double Toothed Kite	-	-	-	-	-	-	-	-	-	-	-	-	-	Oe	-	Oe	-			
+BWHA	Broad Winged Hawk	-	-	-	-	-	-	-	-	-	-	-	-	-	-	Oe	-	-			
+SCEU	Spotted Crowned Euphonia	-	-	-	-	-	-	-	-	-	-	-	-	-	-	Oe	Ps	-			
+WCSE	White Collared Seedeater	-	-	-	-	-	-	-	-	-	-	-	-	-	-	Ob	-	-			
+BRCO	Bronzed Cowbird	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	Ps			
+TUCO	Turqouise Cutinga	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	Ps			
+GBWW	Gray Breasted Wood Wren	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	Ps			
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					

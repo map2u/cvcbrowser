@@ -1,0 +1,178 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Users</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ entity.email }}</td>
+            </tr>
+            <tr>
+                <th>Cryptedpassword</th>
+                <td>{{ entity.cryptedPassword }}</td>
+            </tr>
+            <tr>
+                <th>Resetpasswordtoken</th>
+                <td>{{ entity.resetPasswordToken }}</td>
+            </tr>
+            <tr>
+                <th>Resetpasswordsentat</th>
+                <td>{{ entity.resetPasswordSentAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Remembercreatedat</th>
+                <td>{{ entity.rememberCreatedAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Signincount</th>
+                <td>{{ entity.signInCount }}</td>
+            </tr>
+            <tr>
+                <th>Currentsigninat</th>
+                <td>{{ entity.currentSignInAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Lastsigninat</th>
+                <td>{{ entity.lastSignInAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Currentsigninip</th>
+                <td>{{ entity.currentSignInIp }}</td>
+            </tr>
+            <tr>
+                <th>Lastsigninip</th>
+                <td>{{ entity.lastSignInIp }}</td>
+            </tr>
+            <tr>
+                <th>Confirmationtoken</th>
+                <td>{{ entity.confirmationToken }}</td>
+            </tr>
+            <tr>
+                <th>Confirmedat</th>
+                <td>{{ entity.confirmedAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Confirmationsentat</th>
+                <td>{{ entity.confirmationSentAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Unconfirmedemail</th>
+                <td>{{ entity.unconfirmedEmail }}</td>
+            </tr>
+            <tr>
+                <th>Failedattempts</th>
+                <td>{{ entity.failedAttempts }}</td>
+            </tr>
+            <tr>
+                <th>Unlocktoken</th>
+                <td>{{ entity.unlockToken }}</td>
+            </tr>
+            <tr>
+                <th>Lockedat</th>
+                <td>{{ entity.lockedAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Remembertoken</th>
+                <td>{{ entity.rememberToken }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ entity.updatedAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Username</th>
+                <td>{{ entity.username }}</td>
+            </tr>
+            <tr>
+                <th>Firstname</th>
+                <td>{{ entity.firstName }}</td>
+            </tr>
+            <tr>
+                <th>Lastname</th>
+                <td>{{ entity.lastName }}</td>
+            </tr>
+            <tr>
+                <th>Phonenumber</th>
+                <td>{{ entity.phoneNumber }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ entity.address }}</td>
+            </tr>
+            <tr>
+                <th>Postalcode</th>
+                <td>{{ entity.postalCode }}</td>
+            </tr>
+            <tr>
+                <th>Reason</th>
+                <td>{{ entity.reason }}</td>
+            </tr>
+            <tr>
+                <th>Acceptterms</th>
+                <td>{{ entity.acceptterms }}</td>
+            </tr>
+            <tr>
+                <th>Salt</th>
+                <td>{{ entity.salt }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ entity.status }}</td>
+            </tr>
+            <tr>
+                <th>Remembertokenexpiresat</th>
+                <td>{{ entity.rememberTokenExpiresAt }}</td>
+            </tr>
+            <tr>
+                <th>Registip</th>
+                <td>{{ entity.registIp }}</td>
+            </tr>
+            <tr>
+                <th>Activationcode</th>
+                <td>{{ entity.activationCode }}</td>
+            </tr>
+            <tr>
+                <th>Deletedat</th>
+                <td>{{ entity.deletedAt }}</td>
+            </tr>
+            <tr>
+                <th>Activatedat</th>
+                <td>{{ entity.activatedAt }}</td>
+            </tr>
+            <tr>
+                <th>Groupnameid</th>
+                <td>{{ entity.groupnameId }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('users') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('users_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('users_delete', { 'id': entity.id }) }}" method="post">
+            <input type="hidden" name="_method" value="DELETE" />
+            {{ form_widget(delete_form) }}
+            <button type="submit">Delete</button>
+        </form>
+    </li>
+</ul>
+{% endblock %}

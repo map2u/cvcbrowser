@@ -1,0 +1,20 @@
+{# empty Twig template #}
+<table>
+    <tbody>
+{% if ( watersheds is defined and watersheds != null ) %}
+            <tr><th colspan="3" nowrap="true" style="border:1px solid gray;">Watershed General Information: {{  watersheds.length }} Watersheds</th></tr>
+            {% for watershed in watersheds %}
+                    <tr>
+                        <td  style="border-bottom:1px solid left;border-bottom:1px solid gray;text-align:right">Watershed Name:</td><td style="border-left:1px solid gray;border-right:1px solid gray;border-bottom:1px solid gray;text-align:left"><a href="#" onClick="onSelectWatershed({{ watershed.id }}); return false;">{{ watershed.name }}</a></td><td style="border-left:1px solid gray;border-right:1px solid gray;border-bottom:1px solid gray;text-align:left"><a href="{#% path(downloads_watershed) watershed.id %#}" onClick="onSelectWatershed({{ watershed.id }}); return false;">Data Download</a></td>
+                    </tr>
+                    <tr><td style="border-left:1px solid gray;border-bottom:1px solid gray;text-align:right">
+                            Description:</td><td colspan="2" style="border-left:1px solid gray;border-right:1px solid gray;border-bottom:1px solid gray;text-align:right">{{ watershed.description }}&nbsp;</td>
+                    </tr>
+            {% endfor %}
+{% endif %}
+{% if app.user != null and app.user.hasGroup('ADMIN') %}
+      <tr><td colspan="3" style="border-left:1px solid gray;border-right:1px solid gray;border-bottom:1px solid gray;"><a href="#" onClick="addnewwatershed(); return false;">Add New Watershed</a></td></tr>
+{% endif %}
+</tbody>
+</table>
+

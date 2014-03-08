@@ -1,0 +1,179 @@
+{#% extends '::base.html.twig' %#}
+
+{% block body -%}
+    <h1>Bird creation</h1>
+
+<form id="createnew_new_birdinfo_id" action="{{path("bird_create")}}" method="post" {{ form_enctype(form) }}>
+    
+                       <table class="records_list">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                </tr>
+            </thead>            
+            <tbody>
+                <tr>
+                    <td>{{ form_label(form.birdname) }}</td>
+                    <td>{{ form_widget(form.birdname,{required:true}) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.lat) }}</td>
+                    <td>{{ form_widget(form.lat) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.lng) }}</td>
+                    <td>{{ form_widget(form.lng) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.user) }}</td>
+                    <td>{{ form_widget(form.user,{required:true}) }}</td>
+                </tr>
+               <tr>
+                    <td>{{ form_label(form.station) }}</td>
+                    <td>{{ form_widget(form.station,{required:true}) }}</td>
+                </tr>
+                 <tr>
+                    <td>{{ form_label(form.imageName) }}</td>
+                    <td>{{ form_widget(form.imageName) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.imagefiles) }}</td>
+                    <td>{{ form_widget(form.imagefiles) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.imagePath) }}</td>
+                    <td>{{ form_widget(form.imagePath) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.websiteUrl) }}</td>
+                    <td>{{ form_widget(form.websiteUrl) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.imageTip) }}</td>
+                    <td>{{ form_widget(form.imageTip) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.enabled) }}</td>
+                    <td>{{ form_widget(form.enabled) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.description) }}</td>
+                    <td>{{ form_widget(form.description,{required:false}) }}</td>
+                </tr>
+                
+                {{ form_rest(form) }}
+            </tbody>
+        </table>
+        <p>
+            <input type="submit" value="Create">  <button onclick=" Ext.getCmp('win_create_new_birdinfo_panel_id').close(); return false">Cancel</button>
+        </p>
+    </form>
+ 
+    
+{% endblock %}
+    
+<script type="text/javascript">
+  
+    $(document).ready(function() {
+
+  //      $('#createnew_new_birdinfo_id').submit( function(e){       
+
+ //       e.preventDefault();
+  //      var $form = $(this);
+  //      var $formPHP = $form.serializeArray();
+  //      var $url = $form.attr('action');
+
+
+function getDoc(frame) {
+     var doc = null;
+ 
+     // IE8 cascading access check
+     try {
+         if (frame.contentWindow) {
+             doc = frame.contentWindow.document;
+         }
+     } catch(err) {
+     }
+ 
+     if (doc) { // successful getting content
+         return doc;
+     }
+ 
+     try { // simply checking may throw in ie8 under ssl or mismatched protocol
+         doc = frame.contentDocument ? frame.contentDocument : frame.document;
+     } catch(err) {
+         // last attempt
+         doc = frame.document;
+     }
+     return doc;
+ }
+ 
+$("#createnew_new_birdinfo_id").submit(function(e)
+{
+ 
+    var formObj = $(this);
+    var formURL = formObj.attr("action");
+ 
+    if(window.FormData !== undefined)  // for HTML5 browsers
+    {
+ 
+        var formData = new FormData(this);
+        $.ajax({
+            url: formURL,
+            type: 'POST',
+            data:  formData,
+            mimeType:"multipart/form-data",
+            contentType: false,
+            cache: false,
+            processData:false,
+            success: function(data, textStatus, jqXHR)
+            {
+                alert("bird data successfully uploaded!");
+            },
+            error: function(jqXHR, textStatus, errorThrown) 
+            {
+                alert("bird data upload failed, please try again!");
+ 
+            }           
+       });
+        e.preventDefault();
+   }
+   else  //for olden browsers
+    {
+        //generate a random id
+        var  iframeId = 'unique' + (new Date().getTime());
+ 
+        //create an empty iframe
+        var iframe = $('<iframe src="javascript:false;" name="'+iframeId+'" />');
+ 
+        //hide it
+        iframe.hide();
+ 
+        //set form target to iframe
+        formObj.attr('target',iframeId);
+ 
+        //Add iframe to body
+        iframe.appendTo('body');
+        iframe.load(function(e)
+        {
+            var doc = getDoc(iframe[0]);
+            var docRoot = doc.body ? doc.body : doc.documentElement;
+            var data = docRoot.innerHTML;
+            //data is returned from server.
+ 
+        });
+ 
+    }
+ 
+});
+//        $('#createnew_new_birdinfo_id').fileupload($formPHP );
+
+ //   });    
+
+
+
+    })
+    
+    
+</script>

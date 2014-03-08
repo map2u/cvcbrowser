@@ -1,0 +1,62 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Users list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Username</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Phonenumber</th>
+                <th>Address</th>
+                <th>Postalcode</th>
+                <th>Reason</th>
+                <th>Acceptterms</th>
+                <th>Status</th>
+                <th>Groupnameid</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('users_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.email }}</td>
+                <td>{{ entity.username }}</td>
+                <td>{{ entity.firstName }}</td>
+                <td>{{ entity.lastName }}</td>
+                <td>{{ entity.phoneNumber }}</td>
+                <td>{{ entity.address }}</td>
+                <td>{{ entity.postalCode }}</td>
+                <td>{{ entity.reason }}</td>
+                <td>{{ entity.acceptterms }}</td>
+                <td>{{ entity.salt }}</td>
+                <td>{{ entity.status }}</td>
+                <td>{{ entity.groupnameId }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('users_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('users_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('users_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

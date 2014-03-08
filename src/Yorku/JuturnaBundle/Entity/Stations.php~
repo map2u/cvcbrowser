@@ -1,0 +1,488 @@
+<?php
+
+namespace Yorku\JuturnaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Stations
+ *
+ * @ORM\Table(name="stations")
+ * @ORM\Entity
+ */
+class Stations {
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="stations_id_seq", allocationSize=1, initialValue=1)
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nearest_intersection", type="text", nullable=true)
+     */
+    private $nearestIntersection;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="location_description", type="text", nullable=true)
+     */
+    private $locationDescription;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="municipality", type="string", length=40, nullable=true)
+     */
+    private $municipality;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="watershed_id", type="integer", nullable=false)
+     */
+    private $watershedId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="watershed_name", type="string", length=60, nullable=true)
+     */
+    private $watershedName;
+
+    /**
+     * @var \Watershed
+     *
+     * @ORM\ManyToOne(targetEntity="Watersheds")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="watershed_id", referencedColumnName="id")
+     * })
+     */
+    private $watershed;
+
+    /**
+     * @var \Subwatershed
+     *
+     * @ORM\ManyToOne(targetEntity="Subwatersheds")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="subwatershed_id", referencedColumnName="id")
+     * })
+     */
+    private $subwatershed;
+   
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="subwatershed_id", type="integer", nullable=false)
+     */
+    private $subwatershedId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="station_name", type="string", length=40, nullable=true)
+     */
+    private $stationName;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="overall_assessment", type="string", length=20, nullable=true)
+     */
+    private $overallAssessment;
+
+    /**
+     * @var \Users
+     *
+     * @ORM\ManyToOne(targetEntity="Users")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
+     */
+    private $user;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * Set nearestIntersection
+     *
+     * @param string $nearestIntersection
+     * @return Stations
+     */
+    public function setNearestIntersection($nearestIntersection) {
+        $this->nearestIntersection = $nearestIntersection;
+
+        return $this;
+    }
+
+    /**
+     * Get nearestIntersection
+     *
+     * @return string 
+     */
+    public function getNearestIntersection() {
+        return $this->nearestIntersection;
+    }
+
+    /**
+     * Set locationDescription
+     *
+     * @param string $locationDescription
+     * @return Stations
+     */
+    public function setLocationDescription($locationDescription) {
+        $this->locationDescription = $locationDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get locationDescription
+     *
+     * @return string 
+     */
+    public function getLocationDescription() {
+        return $this->locationDescription;
+    }
+
+    /**
+     * Set municipality
+     *
+     * @param string $municipality
+     * @return Stations
+     */
+    public function setMunicipality($municipality) {
+        $this->municipality = $municipality;
+
+        return $this;
+    }
+
+    /**
+     * Get municipality
+     *
+     * @return string 
+     */
+    public function getMunicipality() {
+        return $this->municipality;
+    }
+
+    /**
+     * Set watershedId
+     *
+     * @param integer $watershedId
+     * @return Stations
+     */
+    public function setWatershedId($watershedId) {
+        $this->watershedId = $watershedId;
+
+        return $this;
+    }
+
+    /**
+     * Get watershedId
+     *
+     * @return integer 
+     */
+    public function getWatershedId() {
+        return $this->watershedId;
+    }
+
+    /**
+     * Set subwatershedId
+     *
+     * @param integer $subwatershedId
+     * @return Stations
+     */
+    public function setSubwatershedId($subwatershedId) {
+        $this->subwatershedId = $subwatershedId;
+
+        return $this;
+    }
+
+    /**
+     * Get subwatershedId
+     *
+     * @return integer 
+     */
+    public function getSubwatershedId() {
+        return $this->subwatershedId;
+    }
+
+    /**
+     * Set theGeom
+     *
+     * @param geometry $theGeom
+     * @return Stations
+     */
+    public function setTheGeom($theGeom) {
+        $this->theGeom = $theGeom;
+
+        return $this;
+    }
+
+    /**
+     * Get theGeom
+     *
+     * @return geometry 
+     */
+    public function getTheGeom() {
+        return $this->theGeom;
+    }
+
+    /**
+     * Set stationName
+     *
+     * @param string $stationName
+     * @return Stations
+     */
+    public function setStationName($stationName) {
+        $this->stationName = $stationName;
+
+        return $this;
+    }
+
+    /**
+     * Get stationName
+     *
+     * @return string 
+     */
+    public function getStationName() {
+        return $this->stationName;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return Stations
+     */
+    public function setCreatedAt($createdAt) {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt() {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return Stations
+     */
+    public function setUpdatedAt($updatedAt) {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt() {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set overallAssessment
+     *
+     * @param string $overallAssessment
+     * @return Stations
+     */
+    public function setOverallAssessment($overallAssessment) {
+        $this->overallAssessment = $overallAssessment;
+
+        return $this;
+    }
+
+    /**
+     * Get overallAssessment
+     *
+     * @return string 
+     */
+    public function getOverallAssessment() {
+        return $this->overallAssessment;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Yorku\JuturnaBundle\Entity\Users $user
+     * @return Stations
+     */
+    public function setUser(\Yorku\JuturnaBundle\Entity\Users $user = null) {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Yorku\JuturnaBundle\Entity\Users 
+     */
+    public function getUser() {
+        return $this->user;
+    }
+    /**
+     * Set watershedName
+     *
+     * @param string $watershedName
+     * @return Stations
+     */
+    public function setWatershedName($watershedName)
+    {
+        $this->watershedName = $watershedName;
+    
+        return $this;
+    }
+
+    /**
+     * Get watershedName
+     *
+     * @return string 
+     */
+    public function getWatershedName()
+    {
+        return $this->watershedName;
+    }
+
+    /**
+     * Set watershed
+     *
+     * @param \Yorku\JuturnaBundle\Entity\Watersheds $watershed
+     * @return Stations
+     */
+    public function setWatershed(\Yorku\JuturnaBundle\Entity\Watersheds $watershed = null)
+    {
+        $this->watershed = $watershed;
+    
+        return $this;
+    }
+
+    /**
+     * Get watershed
+     *
+     * @return \Yorku\JuturnaBundle\Entity\Watersheds 
+     */
+    public function getWatershed()
+    {
+        return $this->watershed;
+    }
+
+    /**
+     * @var geometry
+     */
+    private $theGeom;
+
+  
+
+    /**
+     * Set subwatershed
+     *
+     * @param \Yorku\JuturnaBundle\Entity\Subwatersheds $subwatershed
+     * @return Stations
+     */
+    public function setSubwatershed(\Yorku\JuturnaBundle\Entity\Subwatersheds $subwatershed = null)
+    {
+        $this->subwatershed = $subwatershed;
+    
+        return $this;
+    }
+
+    /**
+     * Get subwatershed
+     *
+     * @return \Yorku\JuturnaBundle\Entity\Subwatersheds 
+     */
+    public function getSubwatershed()
+    {
+        return $this->subwatershed;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $birds;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->birds = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add birds
+     *
+     * @param \Yorku\JuturnaBundle\Entity\Bird $birds
+     * @return Stations
+     */
+    public function addBird(\Yorku\JuturnaBundle\Entity\Bird $birds)
+    {
+        $this->birds[] = $birds;
+    
+        return $this;
+    }
+
+    /**
+     * Remove birds
+     *
+     * @param \Yorku\JuturnaBundle\Entity\Bird $birds
+     */
+    public function removeBird(\Yorku\JuturnaBundle\Entity\Bird $birds)
+    {
+        $this->birds->removeElement($birds);
+    }
+
+    /**
+     * Get birds
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBirds()
+    {
+        return $this->birds;
+    }
+    public function __toString()
+    {
+        return $this->stationName;
+    }
+}

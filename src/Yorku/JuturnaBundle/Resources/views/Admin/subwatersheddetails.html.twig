@@ -1,0 +1,37 @@
+{% if stations  is defined and stations != null %}
+<table>
+<tbody>
+<tr><th colspan="2" nowrap="true" style="border:1px solid gray;">Subwatershed details Information: {{ stations | length }} Stations</th></tr>
+{% for station in stations %}
+<tr>
+<td  style="border-bottom:1px solid gray;text-align:right">ID Name:</td><td style="border-bottom:1px solid gray;text-align:left">
+<a href="#" onClick="Extapp.onShowStationInfoOnGoogleMap('','{{station.station_name}}',stationMarkers);
+        return false;">{{station.station_name}}</a>
+&nbsp;|&nbsp;
+<a href="{{path('report_station', {'id': station.station_name})}}" target="_blank">Report</a>
+{% if app.user and (app.user.id==station.user_id or app.user.hasRole("Administrator")) %}&nbsp;|&nbsp;
+    <a href="{{path('downloads_station', {'id': station.station_name})}}" target="_blank">Download</a>
+&nbsp;|&nbsp;
+ 
+       
+
+    
+    <a href="#" onClick="Extapp.addnewstation(null,null,'{{station.lat}}','{{station.lng}}','update',{{station.id}});
+        return false;">Edit</a>    
+&nbsp;|&nbsp;
+<a href="#" onClick="if (confirm('Are you sure you want to delete this station {{station.station_name}}?')) Extapp.onDeleteStation({{station.id}},{{content_id}});
+        return false;">Delete</a>    
+{% endif %}</td>
+</tr>
+<tr><td style="border-bottom:1px solid gray;text-align:right">
+Description:</td><td  style="border-bottom:1px solid gray;text-align:left">{{ station.location_description }}&nbsp;</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% else %}
+<div style="padding:10px">
+Subwatershed:<b>{{subwatershed.subwatershedName}}</b><br><br>
+There is no stations 
+</div>
+{% endif %}

@@ -1,0 +1,103 @@
+Yorku\JuturnaBundle\Entity\Station:
+    type: entity
+    table: station
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        stationName:
+            type: string
+            length: 40
+            fixed: false
+            nullable: true
+            column: station_name
+        code:
+            type: string
+            length: 40
+            fixed: false
+            nullable: true
+            column: code
+        geometryType:
+            type: string
+            length: 40
+            fixed: false
+            nullable: true
+            column: geometry_type
+        lng:
+            type: float
+            unsigned: false
+            nullable: true
+        lat:
+            type: float
+            unsigned: false
+            nullable: true            
+        theGeom:
+            type: geometry
+            nullable: true
+            requireSQLConversion: true
+            column: the_geom
+        radius:
+            type: decimal
+            unsigned: false
+            nullable: true
+            column: radius
+        intersection:
+            type: text
+            nullable: true
+            column: intersection
+        description:
+            type: text
+            nullable: true
+            column: description
+        createdAt:
+            type: datetime
+            nullable: true
+            column: created_at
+            gedmo:
+                timestampable:
+                    on: create
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+            gedmo:
+                timestampable:
+                    on: update
+    manyToMany:                 
+       species:
+         targetEntity: Species
+         inversedBy: stations
+         orderBy:
+             speciesName: ASC
+         joinTable:
+           name: stations_species
+           joinColumns:
+             station_id:
+               referencedColumnName: id
+           inverseJoinColumns:
+             species_id:
+               referencedColumnName: id                    
+    oneToMany:        
+        observations:
+               targetEntity: BirdObservation
+               cascade: {  }
+               mappedBy: station            
+        birds:
+            targetEntity: Bird
+            cascade: {  }
+            mappedBy: station
+    manyToOne:
+        user:
+            targetEntity: Application\Sonata\UserBundle\Entity\User
+            cascade: {  }
+            mappedBy: null
+            inversedBy: stations
+            joinColumns:
+                user_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

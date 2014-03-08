@@ -1,0 +1,115 @@
+Yorku\JuturnaBundle\Entity\Systemparams:
+    type: entity
+    table: systemparams
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: SEQUENCE
+        logo1Name:
+            type: string
+            length: 60
+            fixed: false
+            nullable: true
+            column: logo1_name
+        logo2Name:
+            type: string
+            length: 60
+            fixed: false
+            nullable: true
+            column: logo2_name
+        logo3Name:
+            type: string
+            length: 60
+            fixed: false
+            nullable: true
+            column: logo3_name
+        logo1Blob:
+            type: blob
+            nullable: true
+            column: logo1_blob
+        logo2Blob:
+            type: blob
+            nullable: true
+            column: logo2_blob
+        logo3Blob:
+            type: blob
+            nullable: true
+            column: logo3_blob
+        logo1Url:
+            type: string
+            length: 120
+            fixed: false
+            nullable: true
+            column: logo1_url
+        logo2Url:
+            type: string
+            length: 120
+            fixed: false
+            nullable: true
+            column: logo2_url
+        logo3Url:
+            type: string
+            length: 120
+            fixed: false
+            nullable: true
+            column: logo3_url
+        logo1Imagetype:
+            type: string
+            length: 20
+            fixed: false
+            nullable: true
+            column: logo1_imagetype
+        logo2Imagetype:
+            type: string
+            length: 20
+            fixed: false
+            nullable: true
+            column: logo2_imagetype
+        logo3Imagetype:
+            type: string
+            length: 20
+            fixed: false
+            nullable: true
+            column: logo3_imagetype
+        logo1Filename:
+            type: string
+            length: 120
+            fixed: false
+            nullable: true
+            column: logo1_filename
+        logo2Filename:
+            type: string
+            length: 120
+            fixed: false
+            nullable: true
+            column: logo2_filename
+        logo3Filename:
+            type: string
+            length: 120
+            fixed: false
+            nullable: true
+            column: logo3_filename
+        masteremail:
+            type: string
+            length: 60
+            fixed: false
+            nullable: true
+        geoserverHost:
+            type: string
+            length: 60
+            fixed: false
+            nullable: true
+        geoserverPort:
+            type: integer
+            fixed: false
+            nullable: true
+        geoserverWorkspace:
+            type: string
+            length: 60
+            fixed: false
+            nullable: true
+    lifecycleCallbacks: {  }

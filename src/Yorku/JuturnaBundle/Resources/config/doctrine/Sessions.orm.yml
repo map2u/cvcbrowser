@@ -1,0 +1,29 @@
+Yorku\JuturnaBundle\Entity\Sessions:
+    type: entity
+    table: sessions
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: SEQUENCE
+        sessionId:
+            type: string
+            length: 255
+            fixed: false
+            nullable: false
+            column: session_id
+        data:
+            type: text
+            nullable: true
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at
+    lifecycleCallbacks: {  }

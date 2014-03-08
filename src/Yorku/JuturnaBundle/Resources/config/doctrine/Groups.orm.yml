@@ -1,0 +1,26 @@
+Yorku\JuturnaBundle\Entity\Groups:
+    type: entity
+    table: groups
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: SEQUENCE
+        name:
+            type: string
+            length: 1000
+            fixed: false
+            nullable: false
+        leaderName:
+            type: string
+            length: 40
+            fixed: false
+            nullable: true
+            column: leader_name
+        description:
+            type: text
+            nullable: true
+    lifecycleCallbacks: {  }

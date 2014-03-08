@@ -1,0 +1,150 @@
+"";;DATE;;8/31/2007;;9/7/2007;;9/28/2007;;10/11/2007;;10/22/2007;;10/31/2007;;11/14/2007;;11/23/2007;;11/23/2007;;1/12/2007;;1/16/2008;;1/24/2008;;2/5/2008;;2/13/2008;;3/5/2008;;3/14/2008;;3/26/2008
+ CODE;;SPECIES NAME/Period;;1;;2;;3;;4;;5;;6;;7;;8;;9;;10;;11;;12;;13;;14;;15;;16;;17
+ALFL;;Aldler Flycatcher;;-;;-;;-;;Ob;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+AMRE;;American Red Start;;-;;-;;Ob;;-;;Oe;;-;;-;;-;;-;;-;;-;;Ob;;Ob;;-;;-;;-;;-
+ASTK;;American Swift Tailed Kite;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Oe;;Oe;;Oo;;-;;-;;Oo
+BAOR;;Baltimore Oriole;;-;;-;;-;;-;;-;;Oe;;Oe;;Oe;;-;;Ps;;-;;Oe;;Oe;;Ps;;Ps;;-;;-
+BANA;;Bananaquit;;Ob;;-;;Ob;;Oe;;-;;Ps;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Oe
+BAAN;;Barred Antshrike;;-;;-;;-;;-;;-;;-;;Ps;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+BFFA;;Barred Forest Falcon;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Ob;;-;;-;;-;;-;;-;;-;;-
+BHTA;;Bay Headed Tanager;;Oe;;-;;-;;Ob;;Oe;;-;;-;;Ob;;Oe;;Ob;;Oe;;-;;Oe;;-;;-;;-;;-
+BWWA;;Black & White Warbler;;-;;-;;Ob;;-;;-;;-;;Ob;;-;;-;;-;;-;;-;;-;;Ob;;Oe;;-;;-
+BCTI;;Black Capped Tityra;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+BFSO;;Black Faced Soltarie;;-;;-;;-;;-;;Ob;;-;;-;;-;;Ob;;Ob;;Ob;;-;;-;;-;;Ob;;-;;-
+BHBF;;Black headed Brush Finsch;;Ob;;Ob;;-;;Ob;;-;;-;;Oe;;-;;-;;-;;-;;Ob;;-;;-;;-;;-;;-
+BSSP;;Black Striped Sparrow;;-;;-;;-;;-;;Oe;;-;;-;;-;;-;;-;;Ob;;Ob;;Ps;;Ps;;Ob;;Ps;;Ps
+BTFL;;Black Tailed Flycatcher;;-;;-;;Ob;;Ob;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Ob;;-
+BLVU;;Black Vulture;;-;;Oo;;Oo;;-;;Oe;;Oo;;Oe;;Oo;;Oo;;-;;Oo;;Oo;;Oo;;Oo;;Oo;;Oo;;Oo
+BBGQ;;Blue Black Grassquit;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+BBGR;;Blue Black Grossbeak;;-;;-;;Ps;;-;;Oe;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+BCMA;;Blue Crowned Manakin;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Ob;;-;;-;;-;;-;;-;;-
+BCMO;;Blue Crowned Motmot;;Oe;;Oe;;Ps;;Ct;;-;;Ps;;-;;-;;Oe;;Ps;;-;;Ps;;-;;-;;-;;-;;Ob
+BGTA;;Blue Gray Tanager;;Oe;;Oe;;Oe;;Oe;;Oe;;Ps;;Oe;;Oe;;Ps;;-;;Ob;;Oe;;Ob;;Oe;;Oe;;Oe;;Ob
+BTGO;;Blue Throated Golden Tail;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Ob;;-
+BRAT;;Brigth Rumped Attilia;;-;;-;;-;;Ps;;Oe;;-;;Ob;;-;;-;;-;;Pb;;-;;Ps;;-;;-;;Ps;;Ob
+BWHA;;Broad Wing Hawk;;-;;-;;-;;-;;-;;-;;Oe;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+BRCO;;Bronzed Cowbird;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+BHPA;;Brown headed Parrot;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Ps;;-
+BRJA;;Brown Jay;;Ps;;Ps;;Ps;;Ps;;Ps;;Ps;;Ps;;Ps;;Ps;;Ps;;Ps;;Ps;;Ps;;Ps;;Ps;;Oe;;Ps
+BVEA;;Brown Violet Ear;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Ps;;Ps;;Ps;;Ob;;Ps
+BRWA;;Buff Rumped Warbler;;Ob;;Ob;;Oe;;Ps;;Ob;;Ob;;-;;Oe;;-;;Ob;;-;;Ps;;Ob;;Oe;;-;;Ob;;Oe
+BTSA;;Buff Throated Saltator;;Ob;;Ps;;Ob;;Ps;;Ob;;Ob;;Ob;;Ps;;Ps;;-;;Ob;;Ps;;Ob;;Ob;;Ob;;Ob;;Ob
+CAWA;;Canada Warbler;;-;;-;;Ob;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+CAEG;;Cattle Eagret;;-;;-;;-;;-;;Oe;;-;;Oo;;-;;-;;Ps;;-;;-;;-;;Oo;;-;;-;;-
+CSWA;;Chesnut Sided Warbler;;-;;-;;-;;Ob;;Ob;;-;;Oe;;Oe;;Oe;;-;;Oe;;Oe;;Oe;;Oo;;Ob;;-;;-
+CCRO;;Clay Colored Robin;;Ob;;Ob;;Ob;;Ob;;Ob;;Ob;;Ob;;Ob;;Ps;;Ob;;Oe;;Ob;;Oe;;Ob;;Ob;;Ps;;Ps
+COPA;;Common Pauraque;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+CTFL;;Common toddy Flycatcher;;-;;-;;-;;-;;-;;-;;Oe;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Oe
+COHA;;Coopers Hawk;;-;;-;;-;;Ps;;-;;Oe;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+CRCA;;Crested Caracara;;-;;-;;-;;-;;-;;-;;Oe;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+CFPA;;Crimsson Fronted Parrot;;-;;-;;Ps;;Oo;;-;;Ps;;Ps;;-;;-;;-;;Ps;;Ps;;Ps;;Oo;;-;;-;;-
+DTKI;;Double Toothed Kite;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Oe;;Oe;;-;;-;;Oe
+DCFL;;Dusky Capped Flycatcher;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Oe;;-;;-;;Ob;;-
+FATH;;Fasciated Tiger Heron;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+FBAR;;Fiery Billed Aracari;;Ps;;Ps;;-;;Ps;;-;;Ps;;-;;-;;Ps;;Ps;;Ps;;-;;-;;Ps;;Oe;;Ps;;-
+GOHT;;Golden Hooded Tanager;;Ob;;Ps;;Ps;;Oe;;Ps;;Ps;;Oe;;Ps;;Ps;;Ps;;Ps;;Ps;;Ps;;Oe;;Oe;;Ps;;Ps
+GWWA;;Golden Winged Warbler;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+GCDO;;Gray chested Dove;;-;;Oe;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+GHCH;;Gray Headed Chachalaca;;Oe;;Oe;;-;;-;;-;;-;;-;;-;;-;;-;;Oe;;-;;-;;Oe;;-;;-;;Ps
+GNWR;;Gray Necked Wood Rail;;Ps;;Ps;;Oe;;Oe;;Oe;;Oe;;Ps;;Ps;;Oe;;Ps;;Oe;;Oe;;Ps;;Oe;;Ps;;Ps;;Oe
+GRKI;;Great kiskadee;;Ps;;Ps;;Ps;;Ps;;-;;-;;-;;Ps;;-;;Ps;;-;;-;;Oe;;Ps;;-;;Ps;;Ps
+GFLA;;Green Fronted Lancebill;;-;;-;;-;;-;;Ob;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+GRHE;;Green Hermit;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Ob;;-;;-;;-;;-
+GRHO;;Green Honeycreeper;;-;;-;;-;;-;;-;;-;;Oe;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+GVEA;;Green Violet Ear;;-;;-;;-;;-;;Ob;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+GREL;;Greenish Elania;;-;;-;;-;;Ob;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+GHTA;;Grey Headed Tanager;;Ob;;Ob;;-;;Ob;;Ps;;Oe;;Oe;;-;;-;;Ps;;-;;Ob;;-;;Ob;;Ob;;-;;Ob
+HOWR;;House Wren;;-;;-;;-;;-;;-;;-;;-;;Ps;;Ps;;-;;Ps;;-;;-;;Ps;;-;;-;;Ps
+KEWA;;Kentucky Warbler;;-;;-;;Ob;;-;;Ob;;-;;-;;-;;-;;-;;Ob;;Ob;;-;;-;;-;;-;;-
+LAFA;;Laughing Falcon;;Ps;;-;;-;;-;;Ps;;Ps;;-;;Ps;;Ps;;-;;-;;Ps;;Ps;;-;;-;;-;;-
+LEGR;;Lesser Greenlet;;Oe;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+LIWO;;Lineated Woodpecker;;-;;-;;-;;-;;-;;-;;Ps;;Oe;;-;;Ps;;Ps;;-;;Ps;;-;;-;;Ps;;Ps
+LIHE;;Little Hermit;;Oe;;Ob;;-;;Oe;;-;;-;;-;;Oe;;-;;-;;Oe;;Oe;;Oe;;-;;-;;Ob;;-
+LOWA;;Louisiana Waterthrush;;-;;-;;-;;Ob;;Ob;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+MATI;;Masked Tityra;;Ob;;Oe;;Ps;;Ps;;-;;-;;-;;-;;-;;-;;Ps;;-;;Ps;;-;;Ps;;-;;Ps
+MITY;;Mistletoe Tyranulet;;-;;-;;Ob;;-;;-;;Ob;;Oe;;-;;Ps;;Oe;;-;;-;;-;;-;;-;;Ps;;Oe
+MOEL;;Mountain elania;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+MOWA;;Mourning Warbler;;-;;-;;Ob;;-;;Ob;;-;;Ob;;-;;-;;Ob;;-;;-;;-;;-;;-;;-;;-
+NOWA;;Northern waterthrush;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+OBFL;;Ochre Belied Flycatcher;;Ob;;-;;Ob;;Ob;;Ob;;Ob;;Ob;;Ob;;-;;-;;-;;Ob;;Ob;;Ob;;Ob;;Ob;;Ob
+OLPI;;Olivaceous Piculet;;Oe;;-;;Ob;;-;;-;;-;;Oe;;Oe;;Oe;;Ps;;-;;-;;-;;-;;-;;-;;Ob
+OSFL;;Olive Streaked Flycatcher;;-;;-;;-;;-;;Ob;;-;;-;;-;;-;;-;;-;;Ob;;-;;-;;-;;-;;Ob
+OBNT;;Orange Billed Nigthingdale Thrush;;Ps;;Ob;;Ob;;Ob;;-;;Ob;;Ps;;Ps;;Ob;;Ob;;-;;-;;Ob;;-;;Ps;;Ob;;Ob
+OBSP;;Orange Billed Sparrow;;Ob;;Ob;;Ob;;Ob;;-;;-;;-;;-;;-;;-;;Ob;;-;;Ob;;-;;-;;-;;Ps
+OCPA;;Orange Chined Parakeet;;-;;-;;Oe;;Oe;;Ps;;-;;-;;Ps;;-;;-;;Ps;;Ps;;-;;-;;-;;Ps;;-
+OCMA;;Orange Collared Manakin;;Ob;;Ob;;Ob;;Ob;;Ob;;Ob;;Ob;;Ob;;Ob;;Ob;;Ob;;Ob;;Ob;;Ob;;Ob;;Ob;;Ob
+OVEN;;Ovenbird;;-;;-;;-;;Ob;;-;;Ob;;Ob;;Ob;;Ob;;-;;-;;-;;Ob;;-;;Ob;;-;;Ob
+PABU;;Painted Bunting;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+PLXE;;Plain Xenops;;-;;-;;Oe;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+RCAT;;Red Crowned Ant Tanager;;-;;-;;Ob;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Ob;;-;;-
+RCWO;;Red Crowned Woodpecker;;Oe;;-;;Oe;;Oe;;-;;-;;Ps;;-;;-;;Ps;;Oe;;-;;-;;Oe;;Ps;;Ps;;Oe
+REVI;;Red Eyed Vireo;;-;;-;;Ob;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+RHBA;;Red Headed Barbet;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Ob;;-;;-;;-;;-;;-;;-;;-
+RLHO;;Red Legged Honeycreeper;;-;;-;;-;;-;;-;;Oe;;-;;-;;-;;-;;-;;-;;Oe;;-;;-;;-;;-
+RIKI;;Ringed Kingfisher;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+RIWR;;Riverside Wren;;Ob;;-;;-;;Ob;;Ob;;Ps;;Oe;;Ps;;Ps;;Ob;;Ps;;Ob;;Ps;;Ps;;-;;-;;-
+ROHA;;Roadside Hawk;;-;;Ps;;-;;Ps;;Ps;;Ps;;-;;-;;-;;-;;-;;Oe;;-;;Ps;;-;;-;;-
+ROBB;;Rose Breasted Becard;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+RBGR;;Rose Breasted GrossBeak;;-;;-;;-;;-;;-;;-;;-;;-;;Oe;;-;;-;;-;;Oe;;-;;-;;-;;-
+RUGD;;Ruddy Ground Dove;;-;;-;;-;;-;;-;;-;;-;;Ps;;-;;Ps;;-;;-;;-;;-;;-;;-;;-
+RUPI;;Ruddy Pigeoun;;-;;-;;Ps;;-;;-;;-;;Ob;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+RBWW;;Rufous Breasted Wood Wren;;-;;-;;Ob;;-;;-;;-;;Oe;;-;;Oe;;-;;-;;-;;-;;-;;-;;-;;Oe
+RTHU;;Rufous Tailed Hummingbird;;-;;Ob;;Ob;;-;;Ob;;-;;Ob;;Ob;;Ob;;Ob;;Ob;;Ob;;Ob;;Ob;;Ob;;Ob;;Oe
+SBHU;;Scaly Breasted Humming ;;-;;Ob;;-;;-;;-;;-;;-;;-;;-;;Ob;;-;;-;;-;;-;;-;;-;;-
+SCPI;;Scaly Pigeon;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Oe;;Oe;;Oe;;Oe;;-;;-
+SRTA;;Scarlet Rumped Tanager;;Ps;;Ps;;Oe;;Ob;;Ob;;Ob;;Ob;;Oe;;Oe;;Ob;;Ob;;-;;Oe;;Oe;;Ob;;Ob;;Ob
+STDA;;Scarlet Thigted Dacnis;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Oe;;-;;-;;-;;-;;-
+STTA;;Silver Throated Tanager;;-;;-;;Ps;;-;;-;;-;;-;;Ob;;Oe;;Ob;;-;;-;;-;;-;;-;;-;;-
+SHTF;;Slate Headed Toddy Flycatcher;;-;;-;;Oe;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+SLSP;;Slaty Spinetail;;-;;-;;-;;-;;-;;-;;-;;-;;Oe;;Ps;;-;;Ps;;Ps;;-;;-;;-;;-
+SBWO;;Smoky Brown Woodpecker;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+SBAN;;Smooth Billed Ani;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+SNBH;;Snowy Bellied Hummingbird;;-;;-;;-;;-;;-;;Ob;;-;;-;;-;;-;;-;;Ob;;Oe;;-;;-;;-;;-
+SOFL;;Social Flycatcher;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+SOEA;;Soltary Eagle;;Oo;;Oe;;-;;-;;Ps;;Ps;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+SBTY;;Southern Breadless Tyrant;;-;;-;;-;;Oe;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+SPTA;;Speckled Tanager;;-;;-;;Oe;;-;;-;;-;;-;;-;;-;;-;;Oe;;-;;-;;-;;-;;Ob;;-
+SCEU;;Spotted Crowned Euphonia;;-;;-;;-;;-;;Ob;;Ob;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+SPSA;;Spotted Sandpipper;;-;;-;;Oe;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Oe;;-;;-;;-
+SQCU;;Squirrel Cuckoo;;-;;Ps;;Ps;;Ps;;-;;-;;Ps;;Oe;;-;;Ps;;-;;-;;-;;Ps;;Ps;;Oe;;Ps
+SHWO;;Streaked Headed Woodcreeper;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+STSA;;Streaked Saltator;;Oe;;-;;-;;-;;-;;Ob;;-;;-;;-;;-;;-;;Ob;;-;;-;;Ps;;Ps;;Ps
+SWPA;;Sulfur Winged Parrot;;-;;-;;-;;-;;-;;Oe;;-;;Oe;;Oo;;Oo;;Ps;;Ps;;Ps;;Ps;;-;;Ps;;-
+SRFL;;Sulphure Rumped flycatcher;;-;;-;;-;;-;;-;;-;;-;;-;;Ob;;-;;-;;Ob;;-;;-;;Ob;;Ob;;Ob
+SUTA;;Summer Tanager;;-;;-;;-;;-;;-;;Oe;;Oe;;-;;Ob;;-;;-;;Oe;;Ps;;Ps;;-;;-;;-
+SWTH;;Swainsons Thrush;;-;;-;;-;;-;;-;;-;;-;;Oe;;-;;-;;-;;Ob;;-;;-;;-;;Ob;;-
+TEWA;;Tenesse Warbler;;-;;-;;-;;-;;Ob;;-;;-;;-;;Ob;;-;;-;;-;;Oe;;Oe;;-;;Ob;;-
+TBSF;;Thick Billed Seed Finsch;;-;;-;;-;;-;;Ob;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+TRGN;;Tropical Gnatcatcher;;Ps;;Ps;;Ps;;Ps;;Ps;;-;;-;;-;;Ps;;-;;Oe;;Ps;;Ps;;-;;Ps;;-;;Oe
+TUVU;;Turkey Vulture;;Oo;;Oo;;Oo;;Oo;;-;;-;;Oo;;-;;-;;-;;Oo;;Oo;;Oo;;Oe;;-;;-;;Oo
+VASE;;Variable Seedeater;;Ob;;-;;Ob;;-;;Ob;;Ob;;Oe;;-;;-;;-;;-;;-;;-;;Oe;;-;;-;;-
+VITR;;Violaceous Trogon;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+VCWO;;Violet Crowned Woodnymph;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+VHHU;;Violet Headed Hummingbird;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Ob;;-;;-;;-;;-;;-;;-
+VISA;;Violet Sabrewing;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+WBWO;;Wedge Billed woodcreeper;;-;;-;;-;;Ob;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Ob;;-;;-;;-
+WCPA;;White Crowned Parrot;;Ps;;Ps;;Oe;;Oo;;Oe;;Ob;;Oe;;Oe;;Ps;;Oo;;Oo;;Oo;;Oo;;Oe;;Ps;;Ps;;-
+WHHA;;White Hawk;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+WRMA;;White Ruffed Manakin;;-;;-;;-;;Ob;;Ob;;Ob;;Ob;;Ob;;Ob;;Ob;;Ob;;Ob;;Ob;;Ob;;-;;-;;-
+WTDO;;White Tipped Dove;;-;;-;;Oe;;Ob;;-;;-;;Oo;;Oe;;Ob;;Ob;;Oe;;Oe;;-;;Oe;;-;;Ob;;Ob
+WTSI;;White Tipped Sicklebill;;Ob;;Ob;;-;;-;;-;;-;;-;;Ob;;-;;Ob;;Ob;;Ob;;-;;Ob;;Oe;;-;;-
+WWBE;;White Winged Becard;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Ob;;-;;-
+YBFL;;Yellow Bellied Flycatcher;;-;;-;;Ob;;-;;-;;-;;-;;Ob;;-;;-;;-;;Ps;;-;;-;;Ps;;Ob;;Ps
+YBEL;;Yellow Billed Elania;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+YCEU;;Yellow Crowned Euphonia;;-;;-;;Ps;;Ps;;-;;Ps;;-;;Ps;;-;;-;;-;;-;;-;;-;;-;;-;;-
+YFGR;;Yellow Faced Grassquit;;-;;-;;-;;Ob;;-;;-;;-;;-;;-;;-;;Oe;;-;;-;;-;;-;;-;;-
+YGVI;;Yellow Green Vireo;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+YOFL;;Yellow olive Flycatcher;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Ob;;-;;-;;-;;-;;-;;-;;-
+YTVI;;Yellow Throated Vireo;;-;;-;;-;;-;;Oe;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Ob;;-;;-
+YETY;;Yellow Tyranulet;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Ob;;-;;-;;-;;-;;-;;-
+YEWA;;Yellow Warbler;;-;;-;;Oe;;Oe;;Oe;;Oe;;-;;-;;Oe;;-;;Oe;;-;;-;;-;;-;;-;;-
+ZTHA;;Zone Tailed hawk;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-
+LTHE;;Long Tailed Hermit;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Ob;;-;;-;;-
+YFCA;;Yellow Headed Caracara;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Oe;;-;;Ps;;Ps
+BLWA;;BLACKBURNIAN Warbler;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Oe;;-;;-
+LEEL;;Lesser Elania;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Ob;;-;;-
+RCWA;;Rufous Capped Warbler;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Ob;;Ob;;-
+TWWO;;Tawny Winged Woodcreeper;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Ob;;-
+WOTH;;Wood Thrush;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Ob;;-
+GRHA;;Gray Hawk;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;-;;Oo
+"";;"";;"";;"";;"";;"";;"";;"";;"";;"";;"";;"";;"";;"";;"";;"";;"";;"";;""

@@ -1,0 +1,55 @@
+Yorku\JuturnaBundle\Entity\Species:
+    type: entity
+    table: bird_species
+    gedmo:
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        code:
+            type: string
+            length: 8
+            nullable: true
+            column: code
+        speciesName:
+            type: string
+            length: 255
+            nullable: false
+            column: species_name
+        images:
+            type: text
+            nullable: true
+            column: images
+        videos:
+            type: text
+            nullable: true
+            column: videos
+        audios:
+            type: text
+            nullable: true
+            column: audios
+        description:
+            type: text
+            nullable: true
+            column: description
+        IUCN:
+            type: string
+            length: 25
+            nullable: true
+            column: iucn
+    manyToMany:
+        stations:
+          targetEntity: Station
+          mappedBy: species  
+          orderBy:
+             stationName: ASC
+    oneToMany:
+           bird_observations:
+               targetEntity: BirdObservation
+               cascade: {  }
+               mappedBy: species            
+    lifecycleCallbacks: {  }

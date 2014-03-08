@@ -1,0 +1,34 @@
+{# empty Twig template #}
+<div id="homepage_maptourism_id" class="container-fluid">
+    <div class="row-fluid">
+       {% if tourisms is defined and tourisms|length > 0 %}
+    
+        
+            {% for tourism in tourisms %}
+        {% set i=0 %}
+          <div class="tourism_comments" style="border-bottom: 1px #E0E1E2 dotted">
+                <a href="{{path('tourism_show')}}?id={{tourism.getId()}}" target="_blank">{{tourism.getName()}}</a>
+                {% set images=tourism.getImages()|unserialize %}
+                {% for image in images %}
+                                    
+                <a href="{{path('tourism_showpicture')}}?id={{tourism.getId()}}&picture={{i}}" target="_blank"><img style="border: 1px #0000FF solid" src="{{ asset('uploads/images/tourisms/pictures/')}}{{tourism.getId()}}/{{image}}" width="20px" height="16px" style="width:20px;height:16px;"/></a>
+               
+                    {% set i = i+1 %}                 
+                {% endfor %}
+                <div class="tourism_comments_button pull-right"><button  onclick="onAddTourismComments({{tourism.getId()}})">Add Tourism Comments</button></div>
+          </div> <ul>
+                    {% for comment in tourism.getTourismComments() %}
+                        {% if comment.getContent() | trim | length > 0 %}
+                            <li>
+                                    <div class="tourism_comments" style="border-bottom: 1px #E0E1E2 dotted">
+                                        {{comment.getTitle()|raw}}
+                                    </div>
+                            </li>
+                          {% endif %}
+                    {% endfor %} 
+          </ul>
+            {% endfor %}               
+        {% endif %}
+        
+    </div>
+</div>

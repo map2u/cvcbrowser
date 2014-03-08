@@ -1,0 +1,30 @@
+Yorku\JuturnaBundle\Entity\MemberShip:
+    type: entity
+    table: user_membership
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        name:
+            type: string
+            length: 40
+            fixed: false
+            nullable: false
+            column: name
+        description:
+            type: string
+            length: 255
+            fixed: false
+            nullable: true
+            column: description
+    oneToMany:        
+        users:
+               targetEntity: Application\Sonata\UserBundle\Entity\User
+               cascade: {  }
+               inversedBy: users
+               mappedBy: membership                  
+    lifecycleCallbacks: {  }

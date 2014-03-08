@@ -1,0 +1,81 @@
+
+<div style='padding:15px;'>
+
+    {% if (( app.user  and app.user.hasRole("Administrator")) or (1==1)) %}
+    {% import "YorkuJuturnaBundle:Admin:forms.html.twig" as forms %}
+    <table valign="top">
+        <tbody>
+            <tr><td colspan=2><h2>
+                        System Backup Settings:</h2>
+                </td>
+            </tr>
+            <tr><td valign=top>
+                    <div style='padding:5px;border:1px solid black;'>
+                        <form action="database_backup" method="post" >
+                            <table valign="top">
+                                <tbody>
+                                    <tr><td>
+                                            <font size=3><b>Database Backup:</b></font></td>
+                                    </tr>
+                                    <tr><td>Backup to folder name:<br><b>/opt/systembackup/</b>{{ form_widget(databaseform.database_folder, { 'attr': {'size': '21'} })}}
+                                        </td>
+                                    </tr>
+                                    <tr><td>Backup to file name:<br>{{ form_widget(databaseform.database_file ,{ 'attr': {'size': '40'} }) }}
+                                        </td>
+                                    </tr>
+                                    <tr><td>{{ form_widget(databaseform.database_schedule)}}Database Backup on Schedule:</td></tr>
+                                    <tr><td>{{ form_widget (databaseform.database_backuptime)}}</td></tr>
+                                    <tr><td><hr></td></tr>
+                                    <tr>
+                                        <td>
+                                            <input type="submit" value="Run Backup Immediately" name="submit"></input>
+                                            <input type="submit" value="Save Settings" name="submit"></input>
+                                        </td>
+                                    </tr><tr><td><hr></td></tr>
+                                    <tr>
+                                        <td>
+                                            <a href="#" onclick="Extapp.showdatabasebackuphistory();">Show Database Backup History</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </td><td valign=top>
+                    <div style='padding:5px;border:1px solid black;'>
+                        <form action ="system_backup">
+                            <table valign="top">
+                                <tbody>
+                                    <tr><td>
+                                            <font size=3><b>System Files Backup:</b></font></td>
+                                    </tr>
+                                    <tr><td>Backup to folder name:<br><b>/opt/systembackup/</b>{{ form_widget(systemform.system_folder, { 'attr': {'size': '21'} })}}
+                                        </td>
+                                    </tr>
+                                    <tr><td>Backup to tar file:<br>{{ form_widget(systemform.system_file ,{ 'attr': {'size': '40'} }) }}</td>
+                                    </tr>
+                                    <tr><td>{{form_widget(systemform.system_schedule)}}System Backup on Schedule:</td></tr>
+                                    <tr><td>{{ form_widget (systemform.system_backuptime) }}</td></tr>
+                                    <tr><td><hr></td></tr>
+                                    <tr>
+                                        <td>
+                                            <input type="submit" value="Run Backup Immediately" name="submit"></input>
+                                            <input type="submit" value="Save Settings" name="submit"></input>
+                                        </td>
+                                    </tr><tr><td><hr></td></tr>
+                                    <tr>
+                                        <td>
+                                            <a href="#" onclick="Extapp.showsystembackuphistory();">Show System Backup History</a>
+                                        </td>        
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+

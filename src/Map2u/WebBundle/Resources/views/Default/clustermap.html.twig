@@ -1,0 +1,18 @@
+{# empty Twig template #}
+var vector = new OpenLayers.Layer.Vector("Features", {
+    protocol: new OpenLayers.Protocol.HTTP({
+        url: "world_cities.json",
+        format: new OpenLayers.Format.GeoJSON()
+    }),
+    renderers: ['Canvas','SVG'],
+    strategies: [
+        new OpenLayers.Strategy.Fixed(),
+        new OpenLayers.Strategy.AnimatedCluster({
+            distance: 45,
+            animationMethod: OpenLayers.Easing.Expo.easeOut,
+            animationDuration: 10
+        })
+    ],
+    styleMap:  new OpenLayers.StyleMap(style)
+});
+map.addLayer(vector);

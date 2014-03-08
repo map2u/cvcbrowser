@@ -1,0 +1,62 @@
+<br>
+    {% if errors is defined %}
+    {% for error in errors %}
+<div class="error" style="color:red">
+            {{ error }}
+</div>
+    {% endfor %}
+     {% endif %}
+
+
+<h3>New Juturna System Watersheds Polygons</h3>
+
+<form action="#" method="post" {{ form_enctype(form) }}>
+    Watershed Polygon Shape File (only EPSG4326/WGS84)<br><br>
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+    <div class="flash-notice">
+            {{ flashMessage }}
+    </div>
+    {% endfor %}
+    <table>
+        <tr>
+            <td>{{ form_label(form.shape_file) }}</td>
+            <td>{{ form_widget(form.shape_file) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.index_file) }}</td>
+            <td>{{ form_widget(form.index_file) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.dbf_file) }}</td>
+            <td>{{ form_widget(form.dbf_file) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.proj_file) }}</td>
+            <td>{{ form_widget(form.proj_file) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.epsg_number) }}</td>
+            <td>{{ form_widget(form.epsg_number) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.watershed_fieldname) }}</td>
+            <td>{{ form_widget(form.watershed_fieldname) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.subwatershed_fieldname) }}</td>
+            <td>{{ form_widget(form.subwatershed_fieldname) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.overwrite) }}</td>
+            <td>{{ form_widget(form.overwrite) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.description) }}</td>
+            <td>{{ form_widget(form.description) }}</td>
+        </tr>
+    </table>
+    {#{ form_widget(form) }#}
+    {{ form_rest(form) }}
+    <input type="submit" value="Start Upload" />
+</form>
+

@@ -1,0 +1,89 @@
+Yorku\JuturnaBundle\Entity\Tourism:
+    type: entity
+    table: user_tourism
+    gedmo:
+    translation:
+        locale: localeField
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        name:
+            type: string
+            length: 255
+            nullable: false
+            column: name
+            gedmo:
+                - translatable
+        code:
+            type: string
+            length: 25
+            nullable: true
+            column: code
+        isEnabled:
+            type: boolean
+            nullable: true
+            column: is_enabled
+        isPublished:
+            type: boolean
+            nullable: true
+            column: is_published
+        images:
+            type: text
+            nullable: true
+            column: images
+        videos:
+            type: text
+            nullable: true
+            column: videos
+        audios:
+            type: text
+            nullable: true
+            column: audios
+        description:
+            type: text
+            nullable: true
+            column: description
+        createdAt:
+            type: datetime
+            nullable: true
+            column: created_at
+            gedmo:
+              timestampable:
+                on: create
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+            gedmo:
+              timestampable:
+                on: update
+    oneToMany:        
+        tourism_comments:
+               targetEntity: TourismComments
+               cascade: {  }
+               mappedBy: tourism    
+    manyToOne:
+        tourismgeoms:
+                targetEntity: TourismGeoms
+                
+                inversedBy: tourisms
+                joinColumns:
+                    tourismgeoms_id:
+                        referencedColumnName: id      
+                orphanRemoval: false        
+        user:
+            targetEntity: Application\Sonata\UserBundle\Entity\User
+            cascade: {  }
+            mappedBy: null
+            inversedBy: user_tourisms
+            joinColumns:
+                user_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+         
+    lifecycleCallbacks: {  }

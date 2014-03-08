@@ -1,0 +1,643 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
+
+<!--***************************GENERAL NOTES************************************** -->
+<!--
+<!DOCTYPE html>
+
+ 
+    *This is the system help file
+    *Completely re-coded by Graeme Jones December 2011 for Juturna 2.6 release 
+    *sh_ is attached to the id attribute for cross-file linking 
+    *figure 7 in the 2.5 helpfile was not applicable in 2.6 that is why the src number and the figure number are different after 6
+    **Removed all inline styles and html automated generated code "bloat"
+    **styles located in header with .css (can be moved to referenced file)
+    **table of contents now links to the document already received from server instead of making new server calls when user links to sections
+-->    
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="keywords" content="Juturna, web-GIS, community-based environmental modelling, CBEM, volunteer monitoring, toronto watershed">
+    <meta name="description" content="Online help system and system information for the Juturna web-distibuted geographic information system.  The system is designed to support upload, analysis and reporting of community and volunteer collected water quality data in streams.">
+    <meta name="csrf-param" content="authenticity_token">
+    <meta name="csrf-token" content="7eIFKjnS2+jqMpdMQiObeE58jRn8Z8NcZ5ZPnY4ZgiA=">
+    <title>Juturna 2.6 Web-GIS: Help File and System Documentation</title>
+    <link href="{{ asset('bundles/yorkujuturna/stylesheets/')}}application.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="{{ asset('bundles/yorkujuturna/stylesheets/')}}example.css" media="screen" rel="stylesheet" type="text/css">   
+    <link href="{{ asset('bundles/yorkujuturna/stylesheets/')}}scaffold.css" media="screen" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        img
+        {
+            border: 0;
+        }
+        .lower_roman /*makes ordered list show roman numerals in lowercase*/
+        {
+            list-style-type:lower-roman; 
+        }
+        .bold
+        {
+            font-weight:bold;
+        }
+        .user_notice /*text at top of helpfile*/
+        {
+            font: "Times New Roman";
+            color:green; 
+        }
+        .s_toc /*section headers in table of contents*/
+        {
+            margin:0cm 0cm 0cm 0cm;
+        }
+        .ss_toc /*subsections in table of contents*/
+        {
+            margin:0cm 0cm 0cm 1cm;
+        }
+        .disclaimer /*disclaimer styles*/
+        {
+            font-size:large;
+        }
+        /**/
+    </style>
+</head>
+<body>
+    <div id="user_Notice" >
+        <h2 class="user_notice">Note to users: We are continually trying to improve this system, and its help files/system documentation. Please report any problems, bugs or suggestions to Professor
+        <a class="user_notice" href="mailto:bunchmj@yorku.ca?subject=Juturna%20bug%20report,%20comment%20or%20suggestion">Martin Bunch</a>, Faculty of Environmental Studies, York University.</h2>
+        <h3>Note: For System Administrators, please see the "System Administrator Help" button.</h3>
+    </div>
+<!--***************************Table of Contents ******************************************** -->
+    <div id="toc">
+        <h1>Table of Contents</h1>
+        <p class="s_toc"><a href="#sh_1.0">1.0 Overview of Juturna 2.6</a></p>
+        <p class="ss_toc"><a href="#sh_1.1">1.1 Purpose</a></p>
+        <p class="ss_toc"><a href="#sh_1.2">1.2 Partners</a></p>
+        <p class="ss_toc"><a href="#sh_1.3">1.3 History</a></p>
+        <p class="ss_toc"><a href="#sh_1.4">1.4 Software and System Design</a></p>
+        <p class="ss_toc"><a href="#sh_1.5">1.5 Copyright, distribution and adaptation of Juturna</a></p>
+        <p class="s_toc"><a href="#sh_2.0">2.0 The Juturna Interface</a></p>
+        <p class="ss_toc"><a href="#sh_2.1">2.1 Header Bar</a> </p>
+        <p class="ss_toc"><a href="#sh_2.2">2.2 Watersheds Info Panel</a></p>
+        <p class="ss_toc"><a href="#sh_2.3">2.3 Detail Info Panel</a></p>
+        <p class="ss_toc"><a href="#sh_2.4">2.4 Map Viewer</a></p>
+        <p class="s_toc"><a href="#sh_3.0">3.0 Accessing Juturna</a></p>
+        <p class="ss_toc"><a href="#sh_3.1">3.1 Types of accounts</a></p>
+        <p class="ss_toc"><a href="#sh_3.2">3.2 Logging in to the system</a></p>
+        <p class="ss_toc"><a href="#sh_3.3">3.3 Requesting a new account</a></p>
+        <p class="ss_toc"><a href="#sh_3.4">3.4 Logging out of the system</a></p>
+        <p class="s_toc"><a href="#sh_4.0">4.0 Using Primary Juturna Components</a></p>
+        <p class="ss_toc"><a href="#sh_4.1">4.1 Using Location Search</a></p>
+        <p class="ss_toc"><a href="#sh_4.2">4.2 Using the Map Viewer</a></p>
+        <p class="ss_toc"><a href="#sh_4.3">4.3 Using the Stations List</a></p>
+        <p class="ss_toc"><a href="#sh_4.4">4.4 Using the Watersheds List</a></p>
+        <p class="ss_toc"><a href="#sh_4.5">4.5 Using the Detail Info Panel</a></p>
+        <p class="s_toc"><a href="#sh_5.0">5.0 Juturna Core Functions</a></p>
+        <p class="ss_toc"><a href="#sh_5.1">5.1 Creating a Monitoring Station</a></p>
+        <p class="ss_toc"><a href="#sh_5.2">5.2 Uploading data</a></p>
+        <p class="ss_toc"><a href="#sh_5.3">5.3 Editing data</a></p>
+        <p class="ss_toc"><a href="#sh_5.4">5.4 Producing a monitoring station report</a></p>
+        <p class="ss_toc"><a href="#sh_5.5">5.5 Downloading data</a></p>
+        <p class="ss_toc"><a href="#sh_5.6">5.6 Deleting Monitoring Stations and their Data</a></p>
+        <p class="s_toc"><a href="#sh_6.0">6.0 Help, Support and Contact Information</a></p>
+    </div>
+<!--***************************Section 1 ******************************************** -->
+    <div id="sh_1.0">
+        <h1>1.0 Overview of Juturna 2.6</h1>
+        <div id="sh_1.1">
+            <h2>1.1 Purpose</h2>
+            <p>"Juturna" is a web-based geographic information system (web-GIS) that supports 
+            the collection, analysis, data sharing and reporting of community collected water 
+            quality data. It is currently implemented to support <a href="http://www.ecospark.ca/" target="_blank">EcoSpark's</a> 
+            <a href="http://www.ecospark.ca/changingcurrents" target="_blank">"Changing Currents"</a> 
+            program that links water quality monitoring to environmental and science curriculum 
+            in schools. This project addresses requirements of data sharing and monitoring 
+            specified in Annex 4 of the Canada-Ontario Agreement (COA).  It provides a collaborative 
+            mechanism among researchers at York University, the <a href="http://www.trca.on.ca/" target="_blank">Toronto and Region Conservation 
+            Authority</a> (TRCA) and the civil society organization <a href="http://www.ecospark.ca/" target="_blank">EcoSpark</a> (formerly Citizens' 
+            Environment Watch (CEW)) to monitor environmental conditions of local watersheds.</p>
+        </div>
+        <div id="sh_1.2">
+            <h2>1.2 Partners</h2>
+            <p>Development and maintenance of the Juturna system is led by <a href="http://www.yorku.ca/bunchmj" target="_blank">Professor Martin Bunch</a> 
+            out of the SpEAR lab at the <a href="http://www.fes.yorku.ca/" target="_blank">Faculty of Environmental Studies</a> at <a href="http://www.yorku.ca/">
+            York University</a>, in support of <a href="http://www.ecospark.ca/" target="_blank">EcoSpark</a>'s <a href="http://www.ecospark.ca/changingcurrents" target="_blank">
+            Changing Currents</a> program. This phase of the project is funded by the Ontario Ministry of Environment under the COA program.  
+            The Juturna project has previously been supported by the Ontario Ministry of Environment and the 
+            <a href="http://www.trca.on.ca/" target="_blank">Toronto and Region Conservation Authority</a>.</p>
+        </div>
+        <div id="sh_1.3">
+            <h2>1.3 History</h2>
+            <p>Since the 1990s, environmental monitoring in Ontario has undergone drastic changes.  Environmentally-focused departments at 
+            the provincial level continued to play a role in policy formation, but field work and ongoing sampling has been downloaded to 
+            local regulatory agencies - the City of Toronto and the TRCA in the Toronto region. The TRCA continues to implement monitoring 
+            programs either alone or by partnering. The <a href ="http://trca.on.ca/protect/monitoring/regional-watershed-monitoring-program/" target="_blank">
+            Regional Watershed Monitoring Program</a> (RWMP) is one such initiative that supports decision-making and reporting requirements 
+            to the Remedial Action Plan for Toronto, as well as for Municipal State of the Environment and TRCA Watershed Report Cards. The 
+            RWMP is focused on six areas of monitoring for its nine watersheds: aquatic habitat and species, fluvial geomorphology, 
+            terrestrial natural heritage, surface water quality, flow and precipitation, and ground water.</p>
+            <p>The TRCA's interest in this project derives from the need to support such initiatives, and a need to "facilitate the exchange 
+            of environmental monitoring data with program partners and the general public."  For example, in addition to collecting their 
+            own data, the TRCA supports community-based water quality monitoring. To ensure high quality of community-collected data, the 
+            TRCA (with the aid of CEW - now EcoSpark - as a community partner) developed monitoring protocols to use benthic macro-invertebrates 
+            as a biotic indicator of ecosystem health. EcoSpark's interest stems from a desire to provide access to geospatial analysis and 
+            visualization tools to the general public, so as to support public involvement in decision-making about environmental issues in 
+            the Toronto region.</p>
+            <p><a href="http://www.yorku.ca/bunchmj" target="_blank">Professor Martin Bunch</a> at the <a href="http://www.fes.yorku.ca/">Faculty of Environmental Studies</a> 
+            at <a href="http://www.yorku.ca/" target="_blank">York University</a>, <a href="http://www.trca.on.ca/">Toronto and Region Conservation Authority</a> 
+            and <a href="http://www.ecospark.ca/" target="_blank">EcoSpark</a> (formerly CEW) have previously collaborated in a pilot project that demonstrated 
+            'proof of concept' for web-GIS in support of data sharing and reporting of both expert and community-generated stream water quality data. 
+            That pilot project explored the use of web-based GIS for information sharing among the TRCA and volunteers engaged in a community-based environmental 
+            monitoring program to collect water quality indicators. The web-GIS system is known as 'Juturna' after the Roman goddess of wells 
+            and springs. Juturna was further developed to provide capability of supporting information collection, analysis and sharing in 
+            multiple watersheds (all watersheds within the TRCA jurisdiction) and to operate on an open-source platform (using Free and Open 
+            Source Software).  This development was undertaken using User Centred Design and Iterative Development methods (requiring several 
+            iterations in the development cycle).</p>
+            <p>The intent of this project is to continue and move forward from a recent successful pilot project so as to further develop and 
+            implement an internet-distributed geographic information system (web-GIS) infrastructure that will facilitate the reporting and 
+            sharing of benthic macroinvertebrate indicators as well as water chemistry data, collected by volunteer monitors. Currently, 
+            volunteer data is generated through EcoSpark's <a href="http://www.ecospark.ca/changingcurrents" target="_blank">Changing Currents</a> program 
+            that links water quality monitoring to environmental 
+            and science curriculum in schools.  The project is also intended to explore interoperability issues and data sharing 
+            collaborations among local/project specific systems such as Juturna, and regional data coordination and sharing efforts such 
+            as the University of Windsor's <a href="http://gems.uwindsor.ca/" target="_blank">Windsor-Essex Environmental Metadata System</a> (WEEMS). 
+            Furthermore, the project will explore and 
+            begin to implement mechanisms (both technical and organizational) to facilitate adoption of the Juturna web-based community 
+            monitoring system by organizations having different spatial areas of interest (e.g., other Conservation Authorities and 
+            environmental NGOs in the Great Lakes Basin).</p>
+        </div>
+        <div id="sh_1.4">
+            <h2>1.4 Software and System Design</h2>
+            <p>Juturna is a web-distributed geographic information system (web-GIS). It is composed of: (i) Free and Open Source System (FOSS) 
+            code written for the Juturna project, (ii) FOSS software modules developed by others and linked together to form the overall Juturna 
+            system and (iii) a Googlemaps mashup.  Juturna was developed using FOSS development tools.  (The only component that may potentially 
+            be propriety is the spatial data required to delineate watershed and subwatershed boundaries).</p>
+            <p>Primary Development Languages:</p>
+            <ul>
+                <li>Ruby 1.8.7:  based on rubyonrails</li>
+                <li>Rails 2.3.8: based on rubyonrails</li>
+                <li>Javascript</li>
+                <li>Ajax</li>
+                <li>Ext javascript framework 3.2</li>
+            </ul>
+            <p>Principle Open Source Software Components:</p>
+            <ul>
+                <li>PostgreSQL 8.1.3</li>
+                <li>PostGIS 1.1.2</li>
+                <li>phpPgAdmin 4.0.1</li>
+                <li>Ubuntu 9.1</li>
+                <li>Apache 2-2-2</li>
+                <li>pHp 5</li>
+            </ul>
+        </div>
+        <div id="sh_1.5">
+            <h2>1.5 Copyright, distribution and adaptation of Juturna</h2>
+            <p>This program is free open source software (FOSS) released under the <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GNU General Public License</a>
+             version 3: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, 
+             either version 3 of the License, or (at your option) any later version.</p>
+            <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more Details.</p>
+            <p>You should have received a copy of the GNU General Public License along with this program.  If not, see <a href="http://www.gnu.org/licenses" target="_blank">http://www.gnu.org/licenses</a></p>
+            <p>Several components of Juturna are themselves Free Open Source Software (FOSS) programs and have their own licensing arrangements. When available, 
+            Juturna FOSS licensing information will be posted, but in general the Juturna code will 
+            be available for download, modification, distribution, etc, on the condition that neither it or its derivations are sold or distributed for profit, 
+            and that any derivatives are also made available under a similar FOSS licence. Until the Juturna code is available for download please direct 
+            questions and queries to <a href="mailto:bunchmj@yorku.ca?subject=Query%20about%20the%20Juturna%20web-GIS" target="_blank">Professor Martin Bunch</a> at the Faculty 
+            of Environmental Studies at York University.  Click here for further information about 
+            <a href="http://en.wikipedia.org/wiki/Free_and_open_source_software" target="_blank">Free and Open Source Software</a>.</p>
+            <p>Disclaimer:</p>   
+            <p class="disclaimer">IN NO EVENT SHALL THE SPEAR LAB AT THE FACULTY OF ENVIRONMENTAL STUDIES AT YORK UNIVERSITY BE LIABLE TO ANY PARTY FOR DIRECT, 
+            INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN 
+            IF THE SPEAR LAB AT YORK UNIVERSITY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.THE SPEAR LAB AT THE FACULTY OF ENVIRONMENTAL STUDIES AT YORK 
+            UNIVERSITY SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
+            PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS" BASIS, AND THE SPEAR LAB AT THE FACULTY OF ENVIRONMENTAL STUDIES AT YORK UNIVERSITY HAS NO 
+            OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.</p>
+        </div>
+    </div>
+<!--***************************Section 2 ******************************************** -->
+    <div id="sh_2.0">
+        <h1>2.0 The Juturna Interface</h1>
+        <p>The Juturna interface consists of four main sections (<a href="#sh_fig_1">Figure 1</a> below): 1) the Header Bar, 2) the Map Viewer window, 3) the Watersheds Info panel, 
+        and 4) the Detail Info Panel. A brief description of these components is provided below, and instructions on how to use the various functions accessible 
+        via these interface components can be found in <a href="#sh_3.0">Section 3 (Accessing Juturna)</a>, <a href="#sh_4.0">Section 4 
+        (Using Primary Juturna Interface Components)</a>, and <a href="#sh_5.0">Section 5 (Juturna Core Functions)</a>.</p>
+        <img id="sh_fig_1" src="/images/systemhelp2.6/sh_1.png" width="1151" height="552" alt="" />
+        <p><span class="bold">Figure 1</span>: Four main sections of the Juturna interface: 1) the Header Bar, 2) the Watersheds Info panel, 3) the Detail Info Panel, 
+        and 4) the Map Viewer window.</p>
+        <div id="sh_2.1">
+            <h2>2.1 Header Bar</h2>
+            <p>The Header Bar runs across the top of the Juturna interface, above the Watersheds Info panel, the Detail Info Panel and the Map Viewer (#1 in 
+            <a href="#sh_fig_1">Figure 1</a>). On the left side of the Header Bar are the logos of the principle project partners. Clicking on these will open 
+            a browser window that 
+            loads the home page of these partners.  At the bottom of the Header Bar a strip extends across the Juturna interface.  This strip holds geographic 
+            search and system help functions, a function to "add new Station" and a "group" tab that allows the user to search for stations by group. On the 
+            right side you'll find the functions associated with logging into the Juturna system, retrieving a lost password, requesting a new account and 
+            contacting the web master.</p>
+            <p>Overall, the Header Bar is a stable component, but when a user is logged in the information at the right of the bar changes to display the 
+            username of the currently logged-in user, a logout button and a function to change the user's password.</p>
+            <p>Using the "Group" function: Left-click on the "Group" function to display water stations listed by School/Group in the Map Viewer. This is 
+            a handy search tool for volunteers looking only for their own specific group. You may left-click on the link to any water station to bring up 
+            "Site Details Information" in the map viewer. See <a href="#sh_4.5">4.5 "Using the Detail Info Panel"</a> (<a href="#sh_fig_8">Figure 8</a>).</p>
+        </div>
+        <div id="sh_2.2">
+            <h2>2.2 Watersheds Info Panel</h2>
+            <p>Immediately below the Header Bar on the left of the Juturna browser is the Watersheds Info panel with tabs labelled "Watershed List", 
+            "Stations List", "Settings", "System Information" and "User Profile" (users with administrator privileges will see a "System Administration" 
+            tab).  Select the tab to change between panels that access the "Stations List" and the "Watersheds List" functions.</p>  
+            <p><span class="bold">Stations List:</span> With the Stations List tab selected, a user can scroll can through and select from a list of monitoring stations in the 
+            Juturna database.  This panel is interactive with both the <a href="#sh_2.4">Map Viewer</a> and <a href="#sh_2.3">Detail Info Panel</a> 
+            to its right.  Selecting a monitoring station 
+            from the list will select the station's icon in the Map Viewer (the icon will turn green) and bring up an information window linked to the icon.  
+            In the <a href="#sh_2.3">Detail Info Panel</a>, information about the selected monitoring station and functions associated with managing its data will appear. 
+            See <a href="#sh_4.3">"Using the Stations List"</a> below, for more information.</p>
+            <p><span class="bold">Watersheds List:</span> With the Watersheds List tab selected, the user is presented with an expandable/collapsible list of watersheds, 
+            subwatersheds and monitoring stations (e.g., Watersheds > Don River Watershed> Lower Don Subwatershed > [List of Monitoring stations].  
+            Similar to the Stations list, this panel is interactive with both the <a href="#sh_2.4">Map Viewer</a> and the <a href="#sh_2.3">Detail Info Panel</a> 
+            to its right.  Selecting a monitoring station from the list will select the station's icon in the <a href="#sh_2.4">Map Viewer</a> 
+            (the icon will turn green) and bring up an information 
+            window linked to the icon.  In the <a href="#sh_2.3">Detail Info Panel</a>, information about the selected monitoring station, and functions 
+            associated with managing its data will appear. You may also use the Watersheds List to bring up a list of watersheds or subwatersheds 
+            in the <a href="#sh_2.3">Detail Info Panel</a>. 
+            See <a href="#sh_4.4">"Using the Watersheds List"</a> below, for more information.</p>
+            <p><span class="bold">User Profile:</span>  With the User Profile tab selected, the user is presented with a list of only those monitoring stations which that user has 
+            created.  For each monitoring station in the list, there will be a brief description of the monitoring station, and access to functions to select 
+            the station, generate a water quality report, download data, edit data, upload pictures, and delete the station.  Use of these functions are the 
+            same as those presented for user management of monitoring stations in "Using the Detail Info Panel" below.</p>
+        </div>
+        <div id="sh_2.3">
+            <h2>2.3 Detail Info Panel</h2>
+            <p>The Detail Info Panel is located on the right side of the Juturna browser window, directly below the section of the Header Bar where the 
+            functions associated with logging in to the Juturna system are displayed.  The Detail Info Panel is interactive with the Stations List/Watersheds 
+            List.  When a monitoring station, watershed or subwatershed is selected in the Stations List/Watersheds List, the Detail Info Panel will present 
+            a list of these entities, and provide access to functions to select a station, watershed or subwatershed, generate a monitoring report, edit data, 
+            download data, and delete data.  See "Using the Detail Info Panel" below, for more information.</p>
+        </div>
+        <div id="sh_2.4">
+            <h2>2.4 Map Viewer</h2>
+            <p>The Map Viewer (#2 in <a href="#sh_fig_1">Figure 1</a>) is located immediately below the header bar in the middle of the Juturna interface, 
+            between the Watersheds 
+            Info panel and the Detail Info Panel.  This is a <a href="http://en.wikipedia.org/wiki/Mashup_(web_application_hybrid)" target="_blank">googlemaps mashup</a> 
+            that combines spatial data from <a href="http://maps.google.com/" target="_blank">maps.google.com</a> (satellite imagery, street maps, 
+            etc.) with data provided by the Juturna system (e.g., watershed boundaries) and data entered by users (monitoring station locations and data stored 
+            in the Juturna database).  The Map Viewer provides basic geographic information system (GIS) capability to pan, zoom in, zoom out, select an entity, 
+            add data, turn on (view) or turn off various data layers, and access data management and reporting functions for water quality monitoring stations.  
+            In the strip ranging across the top of the map viewer, you will find buttons to reset the Map Viewer window and turn the display of watershed 
+            polygons on or off. (Some of this functionality operates in conjunction with other interface elements of the Juturna system).  See 
+            <a href="#sh_4.2">"Using the Map Viewer"</a> below, for more information.</p>
+        </div>
+    </div>
+<!--***************************Section 3 ******************************************** -->
+    <div id="sh_3.0">
+        <h1>3.0 Accessing Juturna</h1>
+        <div id="sh_3.1">
+            <h2>3.1 Types of accounts</h2>
+            <p>Many functions of the Juturna system can be accessed by the general public without needing a user account to log in to the system.  Only 
+            data upload, data editing, and data deleting functions and account management require a user account.</p>  
+            <p>There are two types of accounts in the Juturna Web-GIS system:  Volunteer accounts and Administrator accounts.  Volunteer accounts are 
+            intended for users of the system who participate in community-based environmental monitoring (CBEM) programs that generate water chemistry 
+            and benthic macroinvertebrate data to indicate stream health. Administrator accounts are intended for managers of CBEM programs that need 
+            to administer the data generated (quality control), assign new accounts, remove monitoring stations, etc.</p>
+            <!--This para needs to be checked for the profile tabs: is linking to 2.2 correct? -->  
+            <p>Depending upon the type of account, a user may be provided with different information or system functions. For example, if logged 
+            in as a Volunteer user, a "User Profile" tab will be presented in the Watersheds Info panel. If logged 
+            in as an Administrator, the user will instead see a "System Administration" tab.</p>
+        </div>
+        <div id="sh_3.2">
+            <h2>3.2 Logging in to the system</h2>
+            <p>To log into the Juturna system a user must have a valid user name and password.  Valid users can log into the Juturna system by clicking 
+            on the "Login" button in the upper right corner of the Juturna interface.  In the dialog box that appears, users must enter their username 
+            into the "Login Name" field and their password into the "Password" field, then click the "OK" button.  Please note that the system will take 
+            a couple of seconds to refresh itself after a user logs in.</p>
+            <p>If you have forgotten your password, you can request a password by clicking the "Forgot Password" button, and entering your Login Name 
+            and email address in the dialog box that appears.</p>
+        </div>
+        <div id="sh_3.3">
+            <h2>3.3 Requesting a new account</h2>
+            <p>To request an account on the Juturna system, contact the coordinator of your community-based environmental monitoring program, or click 
+            on the "Contact Webmaster" link in the upper right of the Juturna interface.</p>
+            <!-- Does the link exist to contact webmaster? -->
+            <p>Note that users of the Juturna Web-GIS system should be participants in a community-based environmental monitoring program, and have 
+            been trained in the protocols used for data collection associated with that program.  Currently the Juturna system is designed to support 
+            the <a href="http://www.ecospark.ca/changingcurrents" target="_blank">Changing Currents</a> program of the environmental NGO <a href="http://www.ecospark.ca/" target="_blank">
+            EcoSpark</a>, and supports the benthic macroinvertebrate sampling protocol of the <a href="http://www.trca.on.ca/" target="_blank">Toronto 
+            and Region Conservation Authority</a>, whose protocol is related to that of the 
+            <a href="http://www.eman-rese.ca/eman/ecotools/protocols/freshwater/obbn/intro.html" target="_blank">Ontario Benthos Biomonitoring Network</a>.</p>
+        </div>
+        <div id="sh_3.4">
+            <h2>3.4 Logging out of the system</h2>
+            <p>Users can log out of the Juturna system by clicking on the "Logout" button at the upper right of the Juturna interface.  
+            Please note that the system will take a couple of seconds to refresh itself after a user logs out.</p>
+        </div>
+    </div>
+<!--***************************Section 4 ******************************************** -->
+    <div id="sh_4.0">
+        <h1>4.0 Using Primary Juturna Interface Components</h1>
+        <div id="sh_4.1">
+            <h2>4.1 Using Location Search</h2>
+            <p>To find a location in the Juturna system:  On the toolbar above the Watersheds Info panel, type an address or other location information 
+            in the general area of your monitoring station in the "Location:" search box. Then click the "Search" button.</p>
+            <p>Note that you can type in postal codes, street addresses, geographic coordinates, street intersections, etc. Here are some examples that 
+            will find York University in Toronto, Ontario, Canada:</p> 
+            <ol class="lower_roman">
+            <li>M3J 1P3</li>
+            <li>4700 Keele Street, Toronto, ON</li>
+            <li>Keele and Finch, Toronto, ON</li>
+            <li>43.76N, 79.51W</li>
+            </ol>
+            <p>Once you submit your address, the system will pan and zoom to that location and place a temporary green icon there. The icon will be 
+            labelled L (for location).</p>
+        </div>
+        <div id="sh_4.2">
+            <h2>4.2 Using the Map Viewer</h2>
+            <img id="sh_fig_2" src="/images/systemhelp2.6/sh_2.png" width="1059" height="714" alt="" />
+            <p><span class="bold">Figure 2:</span> A screen capture of the Juturna Map Viewer (a googlemaps mashup) showing: (1) panning and zooming functions, 
+            (2) Google data layers ("map" currently selected), (3) map reset (4) watershed layer viewing buttons, (5) a selected watershed, (6) monitoring 
+            station icons, (7) the information window for a selected monitoring station, and (8) the button to call Juturna system help and documentation.</p>
+            <p><span class="bold">Panning (moving around the Map Viewer display):</span> You can pan around the Map Viewer in two ways: by clicking on the 
+            arrow buttons in the upper left corner of the Map Viewer window (#1 in <a href="#sh_fig_2">Figure 2</a>), or by moving the mouse over the window 
+            (the icon is in the shape of a hand) and clicking and dragging the map.</p>
+            <p><span class="bold">Zooming in or out (changing the scale):</span> Zoom in or out by clicking on the + (zoom in) or - (zoom out) button in 
+            the upper left corner of the Map Viewer window (#1 in <a href="#sh_fig_2">Figure 2</a>).  With the information window for a monitoring station open, 
+            you can also select "Zoom To Here" to centre and zoom on a monitoring station (#7 in <a href="#sh_fig_2">Figure 2</a>). Selecting a watershed or 
+            subwatershed in the Detail Info Panel to the right of the Map Viewer will cause the selected watershed/subwatershed to be highlighted and to 
+            centre and zoom the Map Viewer window on the selected feature (#5 in <a href="#sh_fig_2">Figure 2</a>).</p>
+            <p><span class="bold">Viewing (turning on or off) data layers:</span> For the display of background data in the Map Viewer, users can choose among 
+            general purpose land use maps, satellite imagery, or a hybrid of these using the buttons in the upper right of the Map Viewer window  (#2 in 
+            <a href="#sh_fig_2">Figure 2</a>). Watershed polygons can be turned on or off by selecting the "Show/Hide Watersheds" button in the upper right 
+            of the Map Viewer window (#4 in <a href="#sh_fig_2">Figure 2</a>). The map can be reset to its original state (as it was displayed upon logging 
+            into or loading the system in your browser) by selecting the "Reset Map Range" button in the upper right of the Map Viewer window (#3 in 
+            <a href="#sh_fig_2">Figure 2</a>).</p>
+            <p><span class="bold">Selecting a monitoring station:</span> To select a monitoring station, left-click its icon in the Map Viewer (#6 in 
+            <a href="#sh_fig_2">Figure 2</a>). Once selected, the icon will change colour to green with an "S" (selected) on the icon. An information 
+            window for the selected monitoring station will appear that will offer basic information about the monitoring station (e.g., its Station 
+            ID, descriptive and geographic location). The information window will also offer functions to the user, such as "Zoom to Here", "Generate 
+            Stream Health Report" and (if the user is logged in) "Add New Data".</p>
+        </div>
+        <div id="sh_4.3">
+            <h2>4.3 Using the Stations List</h2>
+            <p>The Stations List is located on the left side of the Juturna interface, below the Header Bar in the Watersheds Info panel, with the 
+            "Stations List" tab selected (<a href="#sh_fig_3">Figure 3</a>). A user can select a monitoring station by left-clicking on the Station ID 
+            and station name in the list presented in the Stations List panel. Scroll down using the scroll bar and/or scroll arrows at the right of 
+            the Stations List to see more monitoring stations.</p>
+            <img id="sh_fig_3" src="/images/systemhelp2.6/sh_3.png" alt="" />
+            <p><span class="bold">Figure 3:</span> Stations List, with monitoring station IDs and names displayed.</p>
+            <p>Monitoring stations IDs are displayed in the stations list, along with a Monitoring Station name, e.g.,: HU017CM-CEW_Humber_Islington&Dixon.  
+            While station names are provided by the user who created the station, station IDs are automatically generated by the Juturna system when a 
+            monitoring station is created.  The first two letters are assigned based on the watershed in which the station is located (e.g., "HU" 
+            for the Humber River watershed):</p>
+            <ul>
+                <li>HU - Humber River Watershed</li>
+                <li>DO - Don River Watershed</li>
+                <li>DU - Duffins Creek Watershed</li>
+                <li>CA - Carruthers Creek Watershed</li>
+                <li>ET - Etobicoke Creek Watershed</li>
+                <li>FB - Frenchman's Bay Watershed</li>
+                <li>HI - Highland Creek Watershed</li>
+                <li>MI - Mimico Creek Watershed</li>
+                <li>PE - Petticoat Creek Watershed</li>
+                <li>RO - Rouge River Watershed</li>
+                <li>ON - Drainage into Lake Ontario  (urbanized)</li>
+                <li>GT- Greater Toronto - areas outside the watersheds defined for the current implementation of Juturna</li>
+            </ul>
+            <p>The Stations List panel is interactive with both the <a href="#sh_2.4">Map Viewer</a> and <a href="#sh_2.3">Detail Info Panel</a> to its right. 
+            Selecting a monitoring station from the list will select the station's icon in the Map Viewer (the icon will turn green) and bring up an information 
+            window linked to the icon. In the Detail Info Panel, information about the selected monitoring station and functions associated with managing its 
+            data will appear.</p>
+        </div>
+        <div id="sh_4.4">
+            <h2>4.4 Using the Watersheds List</h2>
+            <p>The Watersheds List is located on the left side of the Juturna interface, below the Header Bar in the Watersheds Info Panel, with the 
+            "Watershed List" tab selected (Figures <a href="#sh_fig_4">4</a>, <a href="#sh_fig_5">5</a>, and <a href="#sh_fig_6">6</a>).  With the 
+            Watersheds List tab selected, the user is presented with an expandable/collapsible list of watersheds, subwatersheds and monitoring stations.  
+            The Watersheds List panel is interactive with both the <a href="#sh_2.4">Map Viewer</a> and <a href="#sh_2.3">the Detail Info Panel</a> to 
+            its right.  Selecting a watershed, subwatershed or monitoring station from the list will select and display it in the Map Viewer and bring 
+            up its details in the Detail Info Panel.</p>  
+            <p>To select a watershed, left-click on the "Watersheds List" tab in the Watersheds Info panel (the list may be in its collapsed position at this 
+            point). This will bring up a list of watersheds (<a href="#sh_fig_4">Figure 4</a>), which in turn may be selected to 
+            highlight a watershed in the Map Viewer.</p>
+            <img id="sh_fig_4" src="/images/systemhelp2.6/sh_4.png" alt="" />
+            <p><span class="bold">Figure 4:</span> The Watersheds List with the topmost watersheds level displayed.</p>
+            <p><span class="bold">To select a subwatershed</span>, expand the Watersheds List by left-clicking anywhere on the "Watersheds List" tab.  
+            This will expand the list to present the available watersheds. Select a watershed by left-clicking on the watershed name (<a href="#sh_fig_5">Figure 5)</a>.  
+            The watershed's subwatersheds will be listed in the <a href="#sh_2.3">Detail Info Panel</a>, which in turn may be selected to highlight a subwatershed 
+            in the <a href="#sh_2.4">Map Viewer</a>.</p>
+            <img id="sh_fig_5"src="/images/systemhelp2.6/sh_5a.png" alt="" />
+            <img src="/images/systemhelp2.6/sh_5b.png" alt="" />
+            <p><span class="bold">Figure 5:</span> The Watersheds List with the one of the principle watersheds selected, and part of the Detail Info Panel 
+            (listing subwatersheds of the selected watershed).</p>
+            <p><span class="bold">To select a monitoring station</span>, expand the Watersheds List by clicking on the arrows to the immediate left of the 
+            watershed and subwatershed names in the Watersheds List until the monitoring station IDs in the desired subwatershed are listed.  Select a 
+            monitoring station from the list by left-clicking on its station ID. This will select the station's icon in the <a href="#sh_2.4">Map Viewer</a> 
+            (the icon will turn green) and bring up an information window linked to the icon. In <a href="#sh_2.3">the Detail Info Panel</a>, information 
+            about the selected monitoring station, and functions associated with managing its data will appear (<a href="#sh_fig_6">Figure 6</a>). Adminstrator 
+            users may delete monitoring stations using the Watersheds List.</p>
+            <img id="sh_fig_6" src="/images/systemhelp2.6/sh_6a.png" alt="" />
+            <img src="/images/systemhelp2.6/sh_6b.png" alt="" />
+            <p><span class="bold">Figure 6:</span> The Watersheds List with a subwatershed selected, and part of the Detail Info Panel (listing monitoring stations 
+            located in the selected subwatershed).</p>
+        </div>
+        <div id="sh_4.5">
+            <h2>4.5 Using the Detail Info Panel</h2>
+            <p>Using the Detail Info Panel for watersheds: Selecting the top-most level in the Watersheds List will bring up a list of primary watersheds 
+            in the Detail Info Panel. Watershed names and brief descriptions (if provided) will be displayed in the list. Left Click on the 
+            watershed name to select it - the Map Viewer will zoom to, highlight, and centre the selected watershed.</p>
+            <!--<img src="" alt="" />
+            <p><span class="bold">Figure 7:</span> Watersheds listed in the Detail Info Panel.</p>
+            -->
+            <p><span class="bold">Using the Detail Info Panel for subwatersheds:</span> Selecting a primary watershed in the Watersheds List will bring up 
+            a list of its subwatersheds in the <a href="#sh_2.3">Detail Info Panel</a> (<a href="#sh_fig_7">Figure 7</a>). Subwatershed names and brief 
+            descriptions (if provided) will be displayed in the list. Left Click on the subwatershed name to select it - the Map Viewer will zoom to, 
+            highlight, and centre the selected subwatershed.</p>
+            <img id="sh_fig_7" src="/images/systemhelp2.6/sh_8.png" alt="" />
+            <p><span class="bold">Figure 7:</span> Subwatersheds listed in the Detail Info Panel.</p>
+            <p><span class="bold">Using the Detail Info Panel for a list of monitoring stations:</span> Selecting a subwatershed in the Watersheds List will 
+            bring up a list of monitoring stations within that subwatershed in the Detail Info Panel (<a href="#sh_fig_8">Figure 8</a>). Each monitoring 
+            station in the list will be presented with its Station IDs, some functions for managing data associated with the station and a brief description 
+            (if provided). Functions provided in (or initiated from) the Detail Info Panel are: station selection, report generation, data download, data edit, 
+            and data deletion. Please note that the "Edit" and "Delete" functions are only available to system administrators.</p>
+            <ol>
+                <li>Select Monitoring Station: Left-click on the monitoring station name to select it (#1 in <a href="#sh_fig_8">Figure 8</a>). This will 
+                select the station's icon in the Map Viewer (the icon will turn green) and bring up an information window linked to the icon.
+                </li>
+                <li>Report: Left-click on the "Report" link to generate a water quality report in .pdf format (#2 in <a href="#sh_fig_8">Figure 8</a>). 
+                This will bring up a dialog box from which to choose among data sets to use in the report (e.g., there may be multiple monitoring seasons, 
+                hence datasets, associated with one station).
+                </li>
+                <li>Download: Left-click on the "Download" link to download all data associated with the monitoring station in MS Excel (.xls) format (#3 in 
+                <a href="#sh_fig_8">Figure 8</a>). 
+                </li>
+                <li>Edit: Left-click on the "Edit" link to call the data entry functions, with entry boxes populated by existing data that may be edited (#4 
+                in <a href="#sh_fig_8">Figure 8</a>).
+                </li>
+                <li>Delete: Left-click on the "Delete" link to delete all data associated with the monitoring station (#5 in <a href="#sh_fig_8">Figure 8</a>). 
+                Note that only the user who entered the data, or an administrator user, may delete data.
+                </li>
+            </ol> 
+            <img id="sh_fig_8" src="/images/systemhelp2.6/sh_9.png" alt="" />
+            <p><span class="bold">Figure 8:</span> The Detail Info Panel for a list of monitoring stations.</p>
+            <p><span class="bold">Using the Detail Info Panel for a single monitoring station:</span> Selecting a monitoring station in the Watersheds List 
+            will bring up the details of a single monitoring station in the Detail Info Panel (<a href="#sh_fig_9">Figure 9</a>). The user will be presented 
+            with location information (watershed and subwatershed) and functions for managing data associated with the monitoring station. Functions provided 
+            in (or initiated from) the Detail Info Panel are: station selection, report generation and data download (for the overall station) and individual 
+            functions for data reporting, pictures, data editing, and data deletion for each set of data associated with site description, benthic 
+            macroinvertebrates, and water chemistry:</p>
+            <ol>
+                <li>Select Monitoring Station: Left-click on the monitoring station name to select it (#1 in <a href="#sh_fig_9">Figure 9</a>). This will select 
+                the station's icon in the Map Viewer (the icon will turn green) and bring up an information window linked to the icon. 
+                </li>
+                <li>Create Report (all): Left-click on the "Create Report" link to generate a water quality report in .pdf format (#2 in 
+                <a href="#sh_fig_9">Figure 9</a>). This will bring up a dialog box from which to choose among data sets to use in the report (e.g., there may be 
+                multiple monitoring seasons, hence datasets, associated with one station).
+                </li>
+                <li>Data Download: Left-click on the "Data Download" (#3 in <a href="#sh_fig_9">Figure 9</a>) link to bring up a table that will allow you to 
+                select the data that you wish to download. Left-click the "Start Data Download" button at the bottom left of the screen. 
+                </li>
+                <li>Report (part): Left-click on the "Report" link in the data sections to generate a report on data associated with either site description, 
+                benthic macroinvertebrate, or water chemistry data in .pdf format (#4 in <a href="#sh_fig_9">Figure 9</a>). If multiple datasets exist, 
+                these are presented separately. 
+                </li>
+                <li>Pictures: Left clicking the "pictures" link (#5 in <a href="#sh_fig_9">Figure 9</a>) will bring up a list of site description pictures. 
+                Left click on "New Site Picture" at the bottom left of the screen to bring up an open form for creating new site pictures. You may enter a 
+                name for the picture, browse for a picture file, and write a description of the file. When form is filled, left click the "Create" button. 
+                The picture will be shown along with a read only list of the data.
+                </li>
+                <li>Edit: Left-click on the "Edit" link to call the data entry functions, with entry boxes populated by existing data that may be edited, for 
+                site description, benthic macroinvertebrate, or water chemistry data (#6 in <a href="#sh_fig_9">Figure 9</a>). If multiple datasets exist, 
+                these are presented separately.
+                </li>
+                <li>Delete: Left-click on the "Delete" link to delete data associated with site description, benthic macroinvertebrate, or water chemistry 
+                information (#7 in <a href="#sh_fig_9">Figure 9</a>). If multiple datasets exist, these are presented separately. Note that only the user 
+                who entered the data, or an administrator user, may delete data.
+                </li>
+                <li>Add New Data: New data for each subcategory of data associated with a monitoring station may be added by calling the upload data function.  
+                Left-click on the "Add New Data" link to do so (#8 in <a href="#sh_fig_9">Figure 9</a>).
+                </li>
+            </ol> 
+             <img id="sh_fig_9" src="/images/systemhelp2.6/sh_10.png" alt="" />
+             <p><span class="bold">Figure 9:</span> The Detail Info Panel for a single monitoring station.</p>
+        </div>
+    </div>
+<!--***************************Section 5 ******************************************** -->
+    <div id="sh_5.0">
+        <h1>5.0 Juturna Core Functions</h1>
+        <p>The Juturna system is intended to support remote data entry of benthic macroinvertebrate and water chemistry data collected by volunteer water quality 
+        monitors. To support this the Juturna system allows a user to:</p>
+        <ul>
+            <li>create a record for a monitoring station composed of (a) a point location represented by an icon in the map viewer and (b) data records 
+            in the database,
+            </li>
+            <li>upload data to the records associated with their monitoring station(s),
+            </li>
+            <li>edit/modify monitoring data that has previously been entered ,
+            </li>
+            <li>produce a report that includes a copy of monitoring data and an analysis of the benthic macroinvertebrate data that assesses the stream 
+            health at the site of users' monitoring station.
+
+            </li>
+        </ul> 
+        <div id="sh_5.1">
+            <h2>5.1 Creating a monitoring station</h2>
+            <p class="bold">When to create a new station:</p>
+            <p>Create a new Station when:</p>
+            <ul>
+                <li>There is no Station located in the immediate area of the sampling site described on the data collection sheet.</li>
+                <li>There is a unique and/or major feature or condition described and/or drawn on a data collection sheet, although the 
+                site may be very close to an existing station nearby. For example, volunteers may routinely sample and re-sample a stream 
+                segment immediately downstream of a storm water culvert or pipe.</li> 
+            </ul>
+            <p>To create a monitoring station:</p>
+            <ul>
+                <li>Select “Add New Station” at the top of the Map Viewer.</li>
+                <li>In the <a href="#sh_2.4">Map Viewer</a>, find the location where you established the water quality monitoring station (e.g., pan 
+                and zoom using the map functions, or use the <a href="#sh_4.1">Location Search</a> function on the toolbar above the 
+                <a href="#sh_2.4">Map Viewer</a>).
+                </li> 
+                <li>Once you have found the location of the monitoring site, left-click the map window at that location. The "Add New Station" 
+                dialog box will appear.</li> 
+                <li>Check that the location of the monitoring station is in the correct location (you may have to move the dialog box to see the icon). 
+                If the icon is not in the correct location, click Cancel on the Add New Station dialog box (the icon will remain). Move the icon to the 
+                exact location of your monitoring station: place the cursor over the icon - it will change to a hand with a pointing index finger - and 
+                drag and drop the icon at the new location. Use the zoom in ( + ) and zoom out ( - ) buttons on the map window as needed. Once the icon 
+                is placed the Add New Station window will re-appear.</li>
+                <li>In the Add New Station dialog box, provide a name for your monitoring station, specify the nearest intersection and the municipality. 
+                You may also provide other descriptive comments. Once you have entered this information click on "Submit". (The letter on the icon will 
+                then change to N for new). 
+                <li>Left click on the new station icon to add new site description, water chemistry and benthic macroinvertebrate data 
+                (see <a href="#sh_5.2">Section 5.2 "Uploading Data"</a> below).</li>
+            </ul>
+        </div>
+        <div id="sh_5.2">
+            <h2>5.2 Uploading Data</h2>
+            <p class="bold">When to add data to an existing Station:</p>
+            <p>Add Data to an existing station when:</p>
+            <ul>
+                <li>The sampling site described and/or drawn on a data collection sheet matches the general location and description of an existing Station in the 
+                immediate vicinity. If you are unsure if the sampling sites are the same, click on and read the "Site Description" information in the data pane of 
+                the existing Station. <span class="bold">Hint:</span> checking to see if the "Estimated Forest Cover" measurements match is a good way to tell if 
+                the sampling sites are identical.</li>
+                <li>The same location is sampled and re-sampled regularly, at different times of the year. If you are sure that an existing station is your 
+                sampling site, enter your data there.</li>
+            </ul>
+            <p>To upload data:</p>
+            <p>Data upload functions may be called from the "Add New Data" links in the station information window in the <a href="#sh_2.4">Map Viewer</a>, 
+            and in <a href="#sh_2.3">the Detail Info Panel</a> (in each case a monitoring station must be selected). This will bring up the data entry window 
+            (<a href="#sh_fig_10">Figure 10</a>). The data entry dialog window will only display the category of monitoring station data that you have chosen 
+            to add data to. The three categories of monitoring station data include: site description, benthic macroinvertebrate data(#1 in <a href="#sh_fig_10">Figure 10</a>), and water chemistry data.</p>
+            <p>Each data entry window will present data entry boxes, text fields, radio buttons and drop down lists to facilitate data entry 
+            (#2 in <a href="#sh_fig_10">Figure 10</a> displays the benthic macroinvertebrate data entry window). These boxes are designed to reflect the 
+            <a href="http://www.ecospark.ca/sites/default/files/currents/field_manual.pdf" target="_blank">EcoSpark field data record sheets</a>. Once the user is satisfied 
+            that they have completed their data entry task they will click on the "Submit" button in the bottom-right of the window.  Alternatively, they may use 
+            the "Reset" or "Cancel" buttons to either set the window to its original condition or exit from the data entry window (#3 in <a href="#sh_fig_10">Figure 10</a>).
+            (The Site Description data entry has multiple windows and users can use "Next" and "Prev" buttons to navigate among these before committing to submit 
+            their data).</p> 
+            <p>Once the data is submitted, the "[type of data] not yet submitted" message (#4 in <a href="#sh_fig_10">Figure 10</a>) will change to indicate that 
+            the data was successfully written to the Juturna database. If the user changes data values after they have submitted data, they must click the submit 
+            button again. This will overwrite the previously submitted data with the updated/edited data.</p>
+            <img id="sh_fig_10" src="/images/systemhelp2.6/sh_11.png" alt="" />
+            <p><span class="bold">Figure 10:</span> Data entry dialogs in the Juturna web-GIS (the benthic macroinvertebrate data entry window is shown).</p>
+        </div>
+        <div id="sh_5.3">
+            <h2>5.3 Editing Data</h2>
+            <p>With a monitoring station selected, a user may choose to edit data previously entered and stored in the data base by selecting the "edit" links 
+            in the <a href="#sh_2.3">Detail Info Panel</a>. Doing so will call the data entry dialogs described in the <a href="#sh_5.2">data upload section</a> above. The process 
+            for editing monitoring station data is exactly the same as described for <a href="#sh_5.2">uploading data</a>, except that the data entry dialog will be populated by the 
+            stored data selected by the user. CAUTION: Submitting edited data will overwrite the original dataset.</p>
+        </div>
+        <div id="sh_5.4">
+            <h2>5.4 Producing a Monitoring Station Report</h2>
+            <p>Monitoring station reports may be called by the "Report" links in the Detail Info Panel (#2 in both <a href="#sh_fig_8">Figure 8</a> and 
+            <a href="#sh_fig_9">Figure 9</a>) and the "Generate Stream Health Report" in a monitoring station's information window in the 
+            <a href="#sh_2.4">Map Viewer</a> (#7 in <a href="#sh_fig_2">Figure 2</a>). A monitoring station must be selected to do so. When a report is produced 
+            for all three data categories, a dialog box (<a href="#sh_fig_11">Figure 11</a>) is called that requires the user to choose the date of the dataset 
+            being reported (there may be multiple datasets associated with a single monitoring station).</p>
+            <img id="sh_fig_11" src="/images/systemhelp2.6/sh_12.png" alt="" />
+            <p><span class="bold">Figure 11:</span> A user must select the dates of the datasets to report. Only one date per data category may be selected.</p>
+            <p>A full report includes all of the site description, benthic macroinvertebrate, and water chemistry data for the selected datasets.  It also includes 
+            maps of the location of the monitoring station and an analysis of the benthic macroinvertebrate data, with assessments based on several stream health 
+            indicators and an overall assessment of stream health that combines these indices (<a href="#sh_fig_12">Figure 12</a>).  Reports are produced in .pdf format and can be printed 
+            or saved by users.</p>
+            <img id="sh_fig_12" src="/images/systemhelp2.6/sh_13.png" alt="" />
+            <p><span class="bold">Figure 12:</span> Part of a monitoring station report, showing data analysis of a benthic macroinvertebrate dataset.</p>
+            <p>Partial reports for each of site description, benthic macroinvertebrate, and water chemistry data can be generated by selecting "Report" in the 
+            Detail Info Panel when a monitoring station is selected (#4 in <a href="#sh_fig_9">Figure 9</a>).</p>
+        </div>
+        <div id="sh_5.5">
+            <h2>5.5 Downloading Data</h2>
+            <p>To download data in MS Excel (.xls) format, select the subwatershed in the Watershed List that contains the desired monitoring station. In the 
+            list of stations presented in the Detail Info Panel, find the desired station and select "Download" (#3 in <a href="#sh_fig_8">Figure 8</a>). 
+            Note that the .xls file will be comprised of multiple worksheets and you will need to tab among them to access the different categories of data 
+            associated with the monitoring station.</p>
+        </div>
+        <div id="sh_5.6">
+            <h2>5.6 Deleting Monitoring Stations and their Data</h2>
+            <p>Administrator users may delete a monitoring station point location and all associated data. In the list of stations presented in the Detail 
+            Info Panel, find the desired station and select "Delete" (#5 in <a href="#sh_fig_8">Figure 8</a>).</p>
+        </div>
+    </div>
+<!--***************************Section 6 ******************************************** -->
+    <div id="sh_6.0">
+        <h1>6.0 Help, Support and Contact Information</h1>
+        <p>Click on the System Help button above the Map Viewer to access system help and system documentation.  This action will add a tab to the Map Viewer window, 
+        and load this help file.</p>
+        <p>We are continually trying to improve this system, and its help files/system documentation.  Please report any problems, bugs or suggestions to 
+        <a href="mailto:bunchmj@yorku.ca?subject=Juturna%20bug%20report,%20comment%20or%20suggestion" target="_blank">Professor Martin Bunch</a>, Faculty of Environmental Studies, 
+        York University.</p>
+    </div>
+</body>
+</html>

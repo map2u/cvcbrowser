@@ -1,0 +1,21 @@
+<div style="padding:8px;nowrap:nowrap">
+   {{ app.security.getToken().getUser() }}
+    {{ user }}
+{#% if app.user %#} {#%  app.user.hasRole('ROLE_ADMINISTRATOR') %#}
+
+    <br>
+    <a href="#" onClick="Extapp.useraccountmanagement(); return false;">User Account Management</a> <br><br> 
+    <a href="#" onClick="Extapp.GroupnameManagment(); return false;">Group Name Management</a>  <br><br>
+    <a href="#" onClick="Extapp.WatershedManagement(); return false;">Watershed Management</a>  <br><br>
+    <a href="#" onClick="Extapp.SubwatershedManagement(); return false;">Subwatershed Management</a>  <br><br>
+    <a href="#" onClick="Extapp.SystemLogo(); return false;">System Header Logo</a>  <br><br>
+    <a href="#" onClick="Extapp.SystemBackup(); return false;">System Backup</a>  <br><br>
+    <a href="#" onClick="Extapp.SystemParams(); return false;">System Parameters</a>  <br><br>
+    <a href="#" onClick="Extapp.SystemWaterhsedsPolygons(); return false;">System Watersheds Polygons Upload</a> <br><br> 
+    <a href="#" onClick="Extapp.ReCalculateOverallAssessment(); return false;">Re-Calculate Overall Assessments</a>  <br><br>
+{#% else %#}
+<!--   You are not allowed to use these functionalities. -->
+{#% endif %#} 
+
+</div>
+

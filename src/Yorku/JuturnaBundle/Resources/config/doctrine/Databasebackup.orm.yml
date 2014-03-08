@@ -1,0 +1,50 @@
+Yorku\JuturnaBundle\Entity\Databasebackup:
+    type: entity
+    table: databasebackup
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        filename:
+            type: string
+            length: 255
+            fixed: false
+            nullable: true
+            column: filename
+        foldername:
+            type: string
+            length: 255
+            fixed: false
+            nullable: true
+            column: foldername
+        backupAt:
+            type: datetime
+            nullable: true
+            column: backup_at
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at
+        finishedAt:
+            type: datetime
+            nullable: false
+            column: finished_at
+    manyToOne:
+        user:
+            targetEntity: Application\Sonata\UserBundle\Entity\User
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                user_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

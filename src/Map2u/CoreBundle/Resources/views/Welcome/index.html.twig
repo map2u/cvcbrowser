@@ -1,0 +1,23 @@
+{# empty Twig template #}
+{% extends '::base.html.twig' %}
+{% block body %}
+    {% block header %}
+        {{parent()}}
+    {% endblock %}
+    {% block maincontent %}
+            {% block juturna_map %}
+                {{parent()}}
+            {% endblock %}
+            {% block homepage_station %}
+
+                {{parent()}}
+            {% endblock %}
+
+            {% block homepage_bird %}
+
+                {{parent()}}
+            {% endblock %}
+    {% endblock %}
+{% endblock %}
+
+

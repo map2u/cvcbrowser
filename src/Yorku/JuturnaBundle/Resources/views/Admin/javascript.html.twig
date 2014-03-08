@@ -1,0 +1,3569 @@
+{# empty Twig template #}
+<script type="text/javascript">
+    var map;
+    var locale = "{{ app.request.locale }}";
+
+    var locale_img = "{{locale_switcher(null, null, 'Map2uCoreBundle:Default:switcher_links.html.twig')}}";
+    Ext.Loader.setConfig({
+        enabled: true,
+        disableCaching: true,
+        paths: {
+            GeoExt: "{{ asset('bundles/yorkujuturna/GeoExt')}}",
+            Ext: "http://cdn.sencha.io/ext-4.1.0-gpl/src"
+        }
+    });
+    var mappanel;
+    var current_layer;
+    var gridPanel;
+    var selected_layer;
+    var layergridpanel = [];
+    var selectlayers = [];
+    var popup;
+    var markers;
+    var logged_in_userid;
+    var logged_in_username;
+    var Extapp;
+    Ext.require(['Ext.container.Viewport',
+        'Ext.layout.container.Border',
+        'Ext.layout.container.Column',
+        'Ext.layout.container.Accordion',
+        'Ext.tree.plugin.TreeViewDragDrop',
+        'Ext.tab.Panel',
+   //     'Ext.BoxComponent',
+        'Ext.form.Panel',
+        'Ext.form.*',
+        'Ext.XTemplate',
+        'Ext.state.Manager',
+        'Ext.data.reader.Json',
+        'Ext.data.writer.Json',
+        'Ext.toolbar.Spacer',
+        'Ext.state.CookieProvider',
+        'Ext.window.MessageBox',
+        'GeoExt.Action',
+        'Ext.window.MessageBox',
+        'GeoExt.container.WmsLegend',
+        'GeoExt.container.UrlLegend',
+        'GeoExt.container.VectorLegend',
+        'GeoExt.panel.Legend',
+        'GeoExt.panel.SimpleIFrame',
+        'GeoExt.store.Watersheds',
+        'GeoExt.store.Subwatersheds',
+        'GeoExt.store.Stations',
+        'GeoExt.model.Station',
+        'GeoExt.store.Watershedtree',
+        'GeoExt.view.Watershedtree',
+        'GeoExt.store.Stationtree',
+        'GeoExt.view.Stationtree',
+        'GeoExt.data.FeatureStore',
+        'GeoExt.grid.Watersheds',
+        'GeoExt.view.Userlogin',
+        'GeoExt.view.Registration',
+        'GeoExt.view.Subwatershedsgrid',
+        'GeoExt.view.Watershedsgrid',
+        'GeoExt.view.Stationsgrid',
+        'GeoExt.view.Resetpassword',
+        'GeoExt.view.Changepassword',
+        'Ext.grid.Panel',
+        'GeoExt.selection.FeatureModel',
+        'GeoExt.grid.column.Symbolizer',
+        'Ext.grid.plugin.CellEditing',
+        'Ext.form.field.Number',
+        'GeoExt.data.proxy.Protocol',
+        'GeoExt.tree.Panel',
+        'GeoExt.tree.OverlayLayerContainer',
+        'GeoExt.tree.BaseLayerContainer',
+        'GeoExt.data.LayerTreeModel',
+        'GeoExt.tree.View',
+        'GeoExt.tree.Column',
+        'GeoExt.panel.Map']);
+    Ext.locale = locale;
+    OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
+    //   OpenLayers.ImgPath = "/img/";
+    // OpenLayers.Theme = "/theme/default/style.css";
+    var format = "image/png";
+    OpenLayers.IMAGE_RELOAD_ATTEMPTS = 3;
+    OpenLayers.Util.onImageLoadErrorColor = "transparent";
+//    Proj4js.defs["EPSG:6692"] = "+proj=utm +zone=13 +ellps=GRS80 +datum=NAD83 +units=m +no_defs";
+    Proj4js.defs["EPSG:6692"] = "+proj=tmerc +lat_0=0 +lon_0=-84 +k=0.9999 +x_0=500000 +y_0=0 +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs";
+    OpenLayers.Map.prototype.zoomToMaxExtent = function() {
+
+        var bounds = this.maxExtent;
+        this.zoomToExtent(bounds);
+    };
+
+    OpenLayers.Control.GetFeature.prototype.testrequest = function(bounds, options) {
+
+        options = options || {};
+//alert(bounds);
+//alert(this.internalProjection);
+//alert(this.externalProjection);
+
+
+
+        var filter = new OpenLayers.Filter.Spatial({
+            //  type: this.filterType,
+            type: OpenLayers.Filter.Spatial.INTERSECTS,
+            value: bounds//.transform(this.internalProjection, new OpenLayers.Projection("EPSG:6692"))
+//        value: bounds.transform(this.internalProjection, this.externalProjection)
+        });
+        var point = bounds.getCenterLonLat();
+//alert(filter.value);
+        // Set the cursor to "wait" to tell the user we're working.
+        OpenLayers.Element.addClass(this.map.viewPortDiv, "olCursorWait");
+
+        var response = this.protocol.read({
+            maxFeatures: options.single == true ? this.maxFeatures : undefined,
+            filter: filter,
+            callback: function(result) {
+
+
+
+                if (result.success()) {
+                    alert(result.features.length);
+
+                    if (result.features.length) {
+
+
+                        for (var i = 0, len = result.features.length; i < len; ++i) {
+
+//var p=new OpenLayers.Geometry.Polygon(result.features[i].geometry);
+
+//alert(result.features[i].intersects(point));
+
+                            result.features[i].geometry.transform(this.externalProjection, this.internalProjection);
+
+//                       alert(p.intersects(point));
+                        }
+
+                        if (options.single == true) {
+                            this.selectBestFeature(result.features,
+                                    bounds.getCenterLonLat().transform(this.externalProjection, this.internalProjection), options);
+                        } else {
+                            this.select(result.features);
+                        }
+                    } else if (options.hover) {
+                        this.hoverSelect();
+                    } else {
+                        this.events.triggerEvent("clickout");
+                        if (this.clickout) {
+                            this.unselectAll();
+                        }
+                    }
+                }
+                // Reset the cursor.
+                OpenLayers.Element.removeClass(this.map.viewPortDiv, "olCursorWait");
+            },
+            scope: this
+        });
+        if (options.hover == true) {
+            this.hoverResponse = response;
+        }
+    }
+
+
+    Ext.application({
+        user_id: logged_in_userid,
+        user_name: logged_in_username,
+        name: 'Juturna',
+        bounds: false,
+        layers_combobox: false,
+        map: false,
+        launch: function() {
+            var me = this;
+
+            Ext.state.Manager.setProvider(
+                    Ext.create('Ext.state.CookieProvider', {
+                        expires: new Date(new Date().getTime() + (1000 * 60 * 60 * 24 * 7)) //7 days from now
+                    }));
+
+            if (Ext.firefoxVersion >= 18) {
+                var noArgs = [];
+                Ext.override(Ext.Base, {
+                    callParent: function(args) {
+                        var method, superMethod = (method = this.callParent.caller) && (method.$previous || ((method = method.$owner ?
+                                method :
+                                method.caller) && method.$owner.superclass[method.$name]));
+                        // Workarround for Firefox 18. I don't know why this works, but it does. Perhaps functions wich have
+                        // a try-catch block are handled differently
+                        try {
+                        } catch (e) {
+                        }
+
+                        return superMethod.apply(this, args || noArgs);
+                    }
+                });
+            }
+            Extapp = this;
+            alert("01");
+            //    alert("05");
+            this.CreateModel();
+            this.CreateDataStore();
+            this.CreateAppMenu();
+            alert("02");
+            //          this.CreateMap();
+            //      alert("03");
+            this.CreateCOBASMap2();
+            alert("03");
+            //    this.CreateCOBASMap();
+            this.CreateToolBar();
+            alert("04");
+            //    this.CreateMap();
+            //    this.CreateToolBar();
+            //     alert("06");
+            this.CreateMapPanel();
+            this.CreateEditorBar();
+
+        },
+        SystemLogo: function() {
+            // get layout center_region object, all tabs in center region will be included.
+            var centerPanel = Ext.getCmp('center_region');
+            var bExist = false;
+            centerPanel.items.each(function(el, ce, index) {
+// if system help tab panel is already there, make it as active tab
+                if ((el.title === "System Header Logo") && (bExist === false)) {
+                    bExist = true;
+                    centerPanel.setActiveTab(ce);
+                    var iframe = centerPanel.getActiveTab(ce);
+                    iframe.src = '/' + locale + '/logo';
+                    iframe.items.items[0].reload();
+                }
+            });
+            // if there is no system help tab panel, create one and show it
+            if (bExist === false) {
+                var panel = Ext.create('GeoExt.panel.SimpleIFrame', {
+                    border: false,
+                    src: '/' + locale + '/logo'
+                });
+                centerPanel.add({
+                    id: 'system_header_logo_tabpanel_id',
+                    title: 'System Header Logo',
+                    layout: 'fit',
+                    closable: true,
+                    items: panel
+                });
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+                centerPanel.setActiveTab(0);
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+            }
+
+        },
+        AddNewBirdInformation: function() {
+
+            var newBirdInfoPanel = Ext.create('Ext.panel.Panel', {id: "create_new_birdinfo_panel_id", map: this.map, width: 367,
+                bodyStyle: 'padding:5px;',
+                loader: {
+                    url: '/' + locale + "/bird/new", //<-- page from the same domain
+                    method: 'GET',
+                    scripts: true,
+                    autoLoad: true
+                },
+                height: 353});
+            //      var newStationPanel = Ext.create("GeoExt.view.Stationform", {id: "create_new_station_from_map_id", map: this.map});
+            var newbirdinfowin = new Ext.Window({
+                id: 'win_create_new_birdinfo_panel_id',
+                title: "Add Bird Information",
+                width: 389,
+                modal: true,
+                bodyStyle: 'padding:5px;',
+                height: 395,
+                closable: true,
+                resizable: false,
+                items: [newBirdInfoPanel]
+            });
+            newBirdInfoPanel.panelWindow = newbirdinfowin;
+            newbirdinfowin.show();
+        },
+        BirdManagement: function() {
+            // get layout center_region object, all tabs in center region will be included.
+            var centerPanel = Ext.getCmp('center_region');
+            var bExist = false;
+            centerPanel.items.each(function(el, ce, index) {
+// if system help tab panel is already there, make it as active tab
+                if ((el.title === "Bird Management") && (bExist === false)) {
+                    bExist = true;
+                    centerPanel.setActiveTab(ce);
+                    var iframe = centerPanel.getActiveTab(ce);
+                    iframe.src = '/' + locale + '/bird';
+                    iframe.items.items[0].reload();
+                }
+            });
+            // if there is no system help tab panel, create one and show it
+            if (bExist === false) {
+                var panel = Ext.create('GeoExt.panel.SimpleIFrame', {
+                    border: false,
+                    src: '/' + locale + '/bird'
+                });
+                centerPanel.add({
+                    id: 'bird_management_tabpanel_id',
+                    title: 'Bird Management',
+                    layout: 'fit',
+                    closable: true,
+                    items: panel
+                });
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+                centerPanel.setActiveTab(0);
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+            }
+
+        },
+        CreateAppMenu: function() {
+            var mainbbar;
+            var logo1 = '';
+            var logo2 = '';
+            var logo3 = '';
+            var logo4 = '';
+            this.headerhtml = new Array();
+              {% if (systemparams is defined) and (systemparams | length >0 ) and systemparams[0] %}
+                     {% if systemparams[0].logo1Filename | length >0 %}
+            logo1 = {width: 275, html: "<a href='{{systemparams[0].logo1Url}}' target='_blank'><img src='{{asset('img/')}}{{systemparams[0].logo1Filename}}'></a>"};
+                     {% endif %}
+                     {% if systemparams[0].logo2Filename | length >0 %}
+            logo2 = {width: 275, html: "<a href='{{systemparams[0].logo2Url}}' target='_blank'><img src='{{asset('img/')}}{{systemparams[0].logo2Filename}}'></a>"};
+
+                     {% endif %}
+                     {% if systemparams[0].logo3Filename | length >0 %}
+            logo3 = {width: 275, html: "<a href='{{systemparams[0].logo3Url}}' target='_blank'><img src='{{asset('img/')}}{{systemparams[0].logo3Filename}}'></a>"};
+                     {% endif %}
+             {% endif %}
+            var head_html = '';
+            {% if (logos is defined) and (logos | length >0 ) %}
+                {% for logo in logos %}
+            //               this.headerhtml.push({html: "<a href='http://{{logo.websiteUrl}}' target='_blank'><img src='{{asset('img/')}}{{logo.imageFilename|e}}'></a>"});
+            head_html = head_html + '<a href="http://{{logo.websiteUrl}}" target="_blank"><img src="/img/{{logo.imageFilename|e}}"></a>';
+                {% endfor %}
+            {% endif %}
+            //          if (logo1)
+            //              this.headerhtml.push(logo1);
+            //          if (logo2)
+            //              this.headerhtml.push(logo2);
+            //          if (logo3)
+            //              this.headerhtml.push(logo3);
+
+            //             if(length(this.headerhtml)>0)   
+            //             this.headerhtml=[logo1,logo2,logo3];  
+
+            //   this.headerhtml = [{width: 275, html: "<a href='http://www.juturna.ca' target='_blank'><img src='" + "{#{ asset('bundles/yorkujuturna/')}#}images/Juturna splash.png'></a>"}, {width: 275, html: "<a href='http://www.ecospark.ca' target='_blank'><img src='" + "{#{ asset('bundles/yorkujuturna/')#}}images/intrigue_ecospark_logo.png' height='80'></a>"}, {width: 275, html: "<a href='http://www.yorku.ca/fes' target='_blank'><img src='" + "{#{ asset('bundles/yorkujuturna/')}#}images/Spear&York logo_small.png'></a>"}, {columnWidth: 1}, {width: 140, html: "<b><br>Contact Webmaster: <br>bunchmj@yorku.ca</b>"}];
+            this.headerhtml = [{width: '100%', height: 80, html: head_html}];
+            var e = document.createElement('div');
+            e.innerHTML = locale_image;
+            this.newtext = e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+            this.user_id = "{{app.user}}";
+            if (this.user_id === undefined || this.user_id === '')  // create toolbar for no user logged in 
+            {
+                mainbbar = Ext.create('Ext.toolbar.Toolbar', {
+                    items: ['-', {xtype: 'tbspacer', width: 5}, '-', {xtype: 'button', iconCls: 'iconhelp', text: '{{'System Help'|trans}}', handler: this.system_help}, {xtype: 'button', iconCls: 'iconhelp', text: "{{'System Administrator Help'|trans}}", handler: this.system_admin_help}, {xtype: 'button', iconCls: 'iconhelp', text: "{{'Add Bird Info'|trans}}", handler: Extapp.AddNewBirdInformation}, '-', {xtype: 'tbspacer', width: 5}, {xtype: 'box', html: this.newtext}, '->', {xtype: 'button', text: '{{'Login'|trans}}', handler: this.userlogin}, {xtype: 'button', text: "{{'Forgot Password'|trans}}", handler: this.forgetpassword}, {xtype: 'button', text: '{{'Create New Account'|trans}}', handler: this.registration}]});
+            }
+            else   // create toolbar for user logged in 
+            {
+                mainbbar = Ext.create('Ext.toolbar.Toolbar', {
+                    items: ['-', {xtype: 'tbspacer', width: 5}, {xtype: 'button', text: '{{'Group'|trans}}', handler: Extapp.groupinfosearch}, '-', {xtype: 'button', iconCls: 'iconhelp', text: '{{'System Help'|trans}}', handler: this.system_help}, {xtype: 'button', iconCls: 'iconhelp', text: '{{'System Administrator Help'|trans}}', handler: this.system_admin_help}, {xtype: 'button', iconCls: 'iconhelp', text: '{{'Add Bird Info'|trans}}', handler: Extapp.AddNewBirdInformation}, '-', {xtype: 'tbspacer', width: 5}, {xtype: 'box', html: this.newtext}, '->', {xtype: 'button', text: '{{'Current User: '|trans}}' + this.user_id, handler: this.UserProfile}, {xtype: 'button', text: '{{'Change Password'|trans}}', handler: this.changepassword}, {xtype: 'button', text: '{{'Logout System'|trans}}', handler: this.logoutsystem}]});
+            }
+            this.mainbbar = mainbbar;
+            alert("x01");
+
+        },
+        CreateMap: function() {
+            return;
+            var map = new OpenLayers.Map({allOverlays: false});
+            var bounds = new OpenLayers.Bounds(-80.02471, 43.58157, -78.97763, 44.04841).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"));
+            this.map = map;
+            //    alert("21");
+            // local save stations feature
+            selectlayers["Stations"] = new OpenLayers.Layer.Vector("stationsvector", {displayInLayerSwitcher: false,
+                projection: new OpenLayers.Projection("EPSG:4326"),
+                isBaseLayer: false});
+            // local watershed feature
+            selectlayers["Watersheds"] = new OpenLayers.Layer.Vector("watershedsvector", {displayInLayerSwitcher: false,
+                projection: new OpenLayers.Projection("EPSG:4326"),
+                isBaseLayer: false});
+            // local subwatershed feature
+            selectlayers["Subwatersheds"] = new OpenLayers.Layer.Vector("subwatershedsvector", {displayInLayerSwitcher: false,
+                projection: new OpenLayers.Projection("EPSG:4326"),
+                isBaseLayer: false});
+            //      alert("22");
+            var defStyle = {strokeColor: "red", strokeOpacity: "0.7", strokeWidth: 3, fillColor: "blue", cursor: "pointer"};
+            var sty = OpenLayers.Util.applyDefaults(defStyle, OpenLayers.Feature.Vector.style["default"]);
+            var sm = new OpenLayers.StyleMap({
+                'default': sty,
+                'select': {pointRadius: 20, strokeOpacity: "0.5", strokeColor: "red", fillColor: "blue"}
+            });
+            //    alert("23");
+            map.maxExtent = new OpenLayers.Bounds(-80.02471, 43.58157, -78.97763, 44.04841).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"));
+            var vector = new OpenLayers.Layer.Vector("vector", {styleMap: sm, displayInLayerSwitcher: false, isBaseLayer: false});
+            markers = new OpenLayers.Layer.Markers("Markers", {styleMap: sm, displayInLayerSwitcher: false, isBaseLayer: false});
+            markers.id = "Markers";
+            selected_layer = new OpenLayers.Layer.Vector("Selection", {styleMap: sm, visibility: true, isBaseLayer: false, displayInLayerSwitcher: false});
+            this.stations = new OpenLayers.Layer.WMS("Stations", "http://www.juturna.ca:8080/geoserver/wms", {
+                layers: 'juturna3.0:stations',
+                projection: new OpenLayers.Projection("EPSG:4326"),
+                transparent: true,
+                tiled: true
+            },
+            {
+                buffer: 0,
+                isBaseLayer: false,
+                showLegend: false,
+                displayOutsideMaxExtent: true,
+                yx: {"EPSG:4326": true}
+            });
+            //     alert("24");
+            this.watersheds = new OpenLayers.Layer.WMS("Watersheds", "http://www.juturna.ca:8080/geoserver/wms", {
+                layers: 'juturna3.0:watersheds',
+                name: 'Watersheds',
+                projection: new OpenLayers.Projection("EPSG:4326"),
+                transparent: true,
+                tiled: true
+            },
+            {
+                buffer: 0,
+                isBaseLayer: false,
+                showLegend: false,
+                displayOutsideMaxExtent: true,
+                yx: {"EPSG:4326": true}
+
+            });
+            this.subwatersheds = new OpenLayers.Layer.WMS("Subwatersheds", "http://www.juturna.ca:8080/geoserver/wms", {
+                layers: 'juturna3.0:subwatersheds',
+                projection: new OpenLayers.Projection("EPSG:4326"),
+                transparent: true,
+                tiled: true
+            },
+            {
+                buffer: 0,
+                isBaseLayer: false,
+                showLegend: false,
+                displayOutsideMaxExtent: true,
+                yx: {"EPSG:4326": true}
+
+            });
+            //     alert("25");
+            map.addLayers([
+                new OpenLayers.Layer.Google('{{"Google Terrain"|trans}}',
+                        {type: google.maps.MapTypeId.TERRAIN, visibility: false, numZoomLevels: 20},
+                {sigleTile: false, isBaseLayer: true, buffer: 0}
+                ),
+                new OpenLayers.Layer.Google('{{"Google Satellite"|trans}}',
+                        {type: google.maps.MapTypeId.SATELLITE, visibility: false, numZoomLevels: 20},
+                {sigleTile: false, isBaseLayer: true, buffer: 0}
+                ),
+                new OpenLayers.Layer.Google('{{"Google Hybrid"|trans}}',
+                        {type: google.maps.MapTypeId.HYBRID, visibility: false, numZoomLevels: 20},
+                {sigleTile: false, isBaseLayer: true, buffer: 0}
+                ),
+                new OpenLayers.Layer.Google('{{"Google Streets"|trans}}',
+                        {visibility: false, numZoomLevels: 20},
+                {sigleTile: false, isBaseLayer: true, buffer: 0}
+                ),
+                this.watersheds,
+                this.subwatersheds,
+                this.stations,
+                selected_layer,
+                //            vector,
+                markers
+
+            ]);
+            //       alert("26");
+            //       alert(this.map.layers.length);
+            this.map = map;
+            this.bounds = bounds;
+        },
+        CreateCOBASMap2: function() {
+            var map = new OpenLayers.Map({allOverlays: false});
+            //        var bounds = new OpenLayers.Bounds(-80.02471, 43.58157, -78.97763, 44.04841).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"));
+
+            var bounds = new OpenLayers.Bounds(
+                    533276.485162893, 1042235.21052269,
+                    553567.485131743, 1028501.13021492
+                    ).transform(new OpenLayers.Projection("EPSG:6692"), new OpenLayers.Projection("EPSG:900913"));
+            //           var bounds = new OpenLayers.Bounds(
+            //                   -9320125.485131743, 1050642.13021492,
+            //                   -9291537.485162893, 1038871.21052269
+            //                   ).transform(new OpenLayers.Projection("EPSG:6692"), new OpenLayers.Projection("EPSG:900913"));
+            this.map = map;
+            map.projection = new OpenLayers.Projection("EPSG:900913");
+            map.displayProjection = new OpenLayers.Projection("EPSG:6692");
+            //    alert("21");
+            // local save stations feature
+            selectlayers["Stations"] = new OpenLayers.Layer.Vector("stationsvector", {displayInLayerSwitcher: false,
+                projection: new OpenLayers.Projection("EPSG:6692"),
+                isBaseLayer: false});
+            // local watershed feature
+            selectlayers["Watersheds"] = new OpenLayers.Layer.Vector("watershedsvector", {displayInLayerSwitcher: false,
+                projection: new OpenLayers.Projection("EPSG:6692"),
+                isBaseLayer: false});
+            // local subwatershed feature
+            selectlayers["Subwatersheds"] = new OpenLayers.Layer.Vector("subwatershedsvector", {displayInLayerSwitcher: false,
+                projection: new OpenLayers.Projection("EPSG:6692"),
+                isBaseLayer: false});
+            //      alert("22");
+            var defStyle = {strokeColor: "red", strokeOpacity: "0.7", strokeWidth: 3, fillColor: "blue", cursor: "pointer"};
+            var sty = OpenLayers.Util.applyDefaults(defStyle, OpenLayers.Feature.Vector.style["default"]);
+            var sm = new OpenLayers.StyleMap({
+                'default': sty,
+                'select': {pointRadius: 20, strokeOpacity: "0.5", strokeColor: "red", fillColor: "blue"}
+            });
+            //    alert("23");
+            map.maxExtent = bounds;// new OpenLayers.Bounds(-80.02471, 43.58157, -78.97763, 44.04841).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"));
+            var vector = new OpenLayers.Layer.Vector("vector", {styleMap: sm, displayInLayerSwitcher: false, isBaseLayer: false});
+            markers = new OpenLayers.Layer.Markers("Markers", {styleMap: sm, displayInLayerSwitcher: false, isBaseLayer: false});
+            markers.id = "Markers";
+            selected_layer = new OpenLayers.Layer.Vector("Selection", {styleMap: sm, visibility: true, isBaseLayer: false, displayInLayerSwitcher: false});
+            //          this.stations = new OpenLayers.Layer.WMS("Stations", "http://www.juturna.ca:8080/geoserver/wms", {
+            //              layers: 'juturna3.0:stations',
+            this.stations = new OpenLayers.Layer.WMS("Stations", "http://cobas.juturna.ca:8080/geoserver/wms", {
+                layers: 'cobasvirtual:stations',
+                projection: new OpenLayers.Projection("EPSG:6692"),
+                transparent: true,
+                tiled: true
+            },
+            {
+                buffer: 0,
+                isBaseLayer: false,
+                showLegend: false,
+                displayOutsideMaxExtent: true,
+                yx: {"EPSG:6692": true}
+            });
+            //     alert("24");
+            this.watersheds = new OpenLayers.Layer.WMS("Watersheds", "http://www.juturna.ca:8080/geoserver/wms", {
+                layers: 'juturna3.0:watersheds',
+                name: 'Watersheds',
+                projection: new OpenLayers.Projection("EPSG:6692"),
+                transparent: true,
+                tiled: true
+            },
+            {
+                buffer: 0,
+                isBaseLayer: false,
+                showLegend: false,
+                displayOutsideMaxExtent: true,
+                yx: {"EPSG:6692": true}
+
+            });
+            this.subwatersheds = new OpenLayers.Layer.WMS("Subwatersheds", "http://www.juturna.ca:8080/geoserver/wms", {
+                layers: 'juturna3.0:subwatersheds',
+                name: 'Subwatersheds',
+                projection: new OpenLayers.Projection("EPSG:6692"),
+                transparent: true,
+                tiled: true
+            },
+            {
+                buffer: 0,
+                isBaseLayer: false,
+                showLegend: false,
+                displayOutsideMaxExtent: true,
+                yx: {"EPSG:6692": true}
+
+            });
+            // setup single tiled layer
+            var cleared_land_2008 = new OpenLayers.Layer.WMS(
+                    "cleared_land_2008", "http://cobas.juturna.ca:8080/geoserver/wms",
+                    {
+                        layers: 'cobasvirtual:cleared_land_2008',
+                        name: 'cleared_land_2008',
+                        projection: new OpenLayers.Projection("EPSG:6692"),
+                        transparent: true,
+                        tiled: true
+                    },
+            {
+                buffer: 0,
+                isBaseLayer: false,
+                showLegend: false,
+                displayOutsideMaxExtent: true,
+                yx: {'EPSG:6692': false}
+            }
+            );
+            var los_cusingos_2008 = new OpenLayers.Layer.WMS(
+                    "los_cusingos_2008", "http://cobas.juturna.ca:8080/geoserver/wms",
+                    {
+                        layers: 'cobasvirtual:los_cusingos_2008',
+                        projection: new OpenLayers.Projection("EPSG:6692"),
+                        transparent: true,
+                        tiled: true
+                    },
+            {
+                buffer: 0,
+                isBaseLayer: false,
+                showLegend: false,
+                displayOutsideMaxExtent: true,
+                yx: {'EPSG:6692': false}
+            }
+            );
+            var coffee_2008 = new OpenLayers.Layer.WMS(
+                    "coffee_2008", "http://cobas.juturna.ca:8080/geoserver/wms",
+                    {
+                        layers: 'cobasvirtual:coffee_2008',
+                        projection: new OpenLayers.Projection("EPSG:6692"),
+                        transparent: true,
+                        tiled: true
+                    },
+            {
+                buffer: 0,
+                isBaseLayer: false,
+                showLegend: false,
+                displayOutsideMaxExtent: true,
+                yx: {'EPSG:6692': false}
+            }
+            );
+            var pasture_2008 = new OpenLayers.Layer.WMS(
+                    "pasture_2008", "http://cobas.juturna.ca:8080/geoserver/wms",
+                    {
+                        layers: 'cobasvirtual:pasture_2008',
+                        projection: new OpenLayers.Projection("EPSG:6692"),
+                        transparent: true,
+                        tiled: true
+                    },
+            {
+                buffer: 0,
+                isBaseLayer: false,
+                showLegend: false,
+                displayOutsideMaxExtent: true,
+                yx: {'EPSG:6692': false}
+            }
+            );
+            var restored_patches_final = new OpenLayers.Layer.WMS(
+                    "restored_patches_final", "http://cobas.juturna.ca:8080/geoserver/wms",
+                    {
+                        layers: 'cobasvirtual:restored_patches_final',
+                        projection: new OpenLayers.Projection("EPSG:6692"),
+                        transparent: true,
+                        tiled: true
+                    },
+            {
+                buffer: 0,
+                isBaseLayer: false,
+                showLegend: false,
+                displayOutsideMaxExtent: true,
+                yx: {'EPSG:6692': false}
+            }
+            );
+            var small_forest_patches = new OpenLayers.Layer.WMS(
+                    "small_forest_patches", "http://cobas.juturna.ca:8080/geoserver/wms",
+                    {
+                        layers: 'cobasvirtual:small_forest_patches',
+                        projection: new OpenLayers.Projection("EPSG:6692"),
+                        transparent: true,
+                        tiled: true
+                    },
+            {
+                buffer: 0,
+                isBaseLayer: false,
+                showLegend: false,
+                displayOutsideMaxExtent: true,
+                yx: {'EPSG:6692': false}
+            }
+            );
+            var forestpatches_2008 = new OpenLayers.Layer.WMS(
+                    "forestpatches_2008", "http://cobas.juturna.ca:8080/geoserver/wms",
+                    {
+                        layers: 'cobasvirtual:forestpatches_2008',
+                        projection: new OpenLayers.Projection("EPSG:6692"),
+                        transparent: true,
+                        tiled: true
+                    },
+            {
+                buffer: 0,
+                isBaseLayer: false,
+                showLegend: false,
+                displayOutsideMaxExtent: true,
+                yx: {'EPSG:6692': false}
+            }
+            );
+            var landuse_2008_merge = new OpenLayers.Layer.WMS(
+                    "landuse_2008_merge", "http://cobas.juturna.ca:8080/geoserver/wms",
+                    {
+                        layers: 'cobasvirtual:landuse_2008_merge',
+                        name: 'landuse_2008_merge',
+                        projection: new OpenLayers.Projection("EPSG:4326"),
+                        transparent: true,
+                        tiled: true
+                    },
+            {
+                buffer: 0,
+                isBaseLayer: false,
+                showLegend: false,
+                displayOutsideMaxExtent: true,
+                yx: {'EPSG:4326': false}
+            }
+            );
+            var cct_forest_98 = new OpenLayers.Layer.WMS(
+                    "cct_forest_98", "http://cobas.juturna.ca:8080/geoserver/wms",
+                    {
+                        layers: 'cobasvirtual:cct_forest_98',
+                        projection: new OpenLayers.Projection("EPSG:6692"),
+                        transparent: true,
+                        tiled: true
+                    },
+            {
+                buffer: 0,
+                isBaseLayer: false,
+                showLegend: false,
+                displayOutsideMaxExtent: true,
+                yx: {'EPSG:6692': false}
+            }
+            );
+            this.landuse_2008_merge = landuse_2008_merge;
+            //     alert("25");
+            map.addLayers([
+                new OpenLayers.Layer.Google('{{"Google Terrain"|trans}}',
+                        {type: google.maps.MapTypeId.TERRAIN, visibility: false, numZoomLevels: 20},
+                {sigleTile: false, isBaseLayer: true, buffer: 0}
+                ),
+                new OpenLayers.Layer.Google('{{"Google Satellite"|trans}}',
+                        {type: google.maps.MapTypeId.SATELLITE, visibility: false, numZoomLevels: 20},
+                {sigleTile: false, isBaseLayer: true, buffer: 0}
+                ),
+                new OpenLayers.Layer.Google('{{"Google Hybrid"|trans}}',
+                        {type: google.maps.MapTypeId.HYBRID, visibility: false, numZoomLevels: 20},
+                {sigleTile: false, isBaseLayer: true, buffer: 0}
+                ),
+                new OpenLayers.Layer.Google('{{"Google Streets"|trans}}',
+                        {visibility: false, numZoomLevels: 20},
+                {sigleTile: false, isBaseLayer: true, buffer: 0}
+                ),
+                this.watersheds,
+                this.subwatersheds,
+                this.stations,
+                //            vector,
+                markers
+
+            ]);
+            map.addLayers([cct_forest_98, los_cusingos_2008, cleared_land_2008, coffee_2008, pasture_2008, restored_patches_final, small_forest_patches, forestpatches_2008, landuse_2008_merge,
+                selected_layer]);
+            //       alert("26");
+            //       alert(this.map.layers.length);
+            this.map = map;
+            this.bounds = bounds;
+            map.addControl(new OpenLayers.Control.Scale());
+            map.addControl(new OpenLayers.Control.MousePosition({displayProjection: new OpenLayers.Projection('EPSG:6692'), emptyString: '?,?'}));
+            map.zoomToExtent(bounds);
+        },
+        CreateCOBASMap: function() {
+
+            var untiled;
+            var tiled;
+            var pureCoverage = false;
+            // pink tile avoidance
+            OpenLayers.IMAGE_RELOAD_ATTEMPTS = 5;
+            // make OL compute scale according to WMS spec
+            OpenLayers.DOTS_PER_INCH = 25.4 / 0.28;
+
+            var bounds = new OpenLayers.Bounds(
+                    544939.485131743, 1028501.13021492,
+                    538276.485162893, 1038235.21052269
+                    ).transform(new OpenLayers.Projection("EPSG:5367"), new OpenLayers.Projection("EPSG:900913"));
+
+            var options = {
+                controls: [],
+                maxExtent: bounds,
+                maxResolution: 38.02375120222632,
+                projection: "EPSG:5367",
+                units: 'm'
+            };
+            var map = new OpenLayers.Map({allOverlays: false});
+            map.maxExtent = bounds;// new OpenLayers.Bounds(-80.02471, 43.58157, -78.97763, 44.04841).transform(new OpenLayers.Projection("EPSG:32617"), new OpenLayers.Projection("EPSG:900913"));
+
+            // setup tiled layer
+            tiled = new OpenLayers.Layer.WMS(
+                    "cobasvirtual:cleared_land_2008 - Tiled", "http://cobas.juturna.ca:8080/geoserver/wms",
+                    {
+                        LAYERS: 'cobasvirtual:cleared_land_2008',
+                        STYLES: '',
+                        format: format,
+                        tiled: true,
+                        tilesOrigin: map.maxExtent.left + ',' + map.maxExtent.bottom
+                    },
+            {
+                buffer: 0,
+                displayOutsideMaxExtent: true,
+                isBaseLayer: false,
+                yx: {'EPSG:5367': false}
+            }
+            );
+
+            // setup single tiled layer
+            untiled = new OpenLayers.Layer.WMS(
+                    "cobasvirtual:cleared_land_2008 - Untiled", "http://cobas.juturna.ca:8080/geoserver/wms",
+                    {
+                        LAYERS: 'cobasvirtual:cleared_land_2008',
+                        STYLES: '',
+                        format: format
+                    },
+            {
+                singleTile: true,
+                ratio: 1,
+                isBaseLayer: false,
+                yx: {'EPSG:5367': false}
+            }
+            );
+
+            //    alert("21");
+            // local save stations feature
+            selectlayers["Stations"] = new OpenLayers.Layer.Vector("stationsvector", {displayInLayerSwitcher: false,
+                projection: new OpenLayers.Projection("EPSG:5367"),
+                isBaseLayer: false});
+            // local watershed feature
+            selectlayers["Watersheds"] = new OpenLayers.Layer.Vector("watershedsvector", {displayInLayerSwitcher: false,
+                projection: new OpenLayers.Projection("EPSG:5367"),
+                isBaseLayer: false});
+            // local subwatershed feature
+            selectlayers["Subwatersheds"] = new OpenLayers.Layer.Vector("subwatershedsvector", {displayInLayerSwitcher: false,
+                projection: new OpenLayers.Projection("EPSG:5367"),
+                isBaseLayer: false});
+            //      alert("22");
+            var defStyle = {strokeColor: "red", strokeOpacity: "0.7", strokeWidth: 3, fillColor: "blue", cursor: "pointer"};
+            var sty = OpenLayers.Util.applyDefaults(defStyle, OpenLayers.Feature.Vector.style["default"]);
+            var sm = new OpenLayers.StyleMap({
+                'default': sty,
+                'select': {pointRadius: 20, strokeOpacity: "0.5", strokeColor: "red", fillColor: "blue"}
+            });
+            //    alert("23");
+            var vector = new OpenLayers.Layer.Vector("vector", {styleMap: sm, displayInLayerSwitcher: false, isBaseLayer: false});
+            markers = new OpenLayers.Layer.Markers("Markers", {styleMap: sm, displayInLayerSwitcher: false, isBaseLayer: false});
+            markers.id = "Markers";
+            selected_layer = new OpenLayers.Layer.Vector("Selection", {styleMap: sm, visibility: true, isBaseLayer: false, displayInLayerSwitcher: false});
+
+
+
+            map.addLayers([
+                new OpenLayers.Layer.Google('{{"Google Terrain"|trans}}',
+                        {type: google.maps.MapTypeId.TERRAIN, visibility: false, numZoomLevels: 20},
+                {sigleTile: false, isBaseLayer: true, buffer: 0}
+                ),
+                new OpenLayers.Layer.Google('{{"Google Satellite"|trans}}',
+                        {type: google.maps.MapTypeId.SATELLITE, visibility: false, numZoomLevels: 20},
+                {sigleTile: false, isBaseLayer: true, buffer: 0}
+                ),
+                new OpenLayers.Layer.Google('{{"Google Hybrid"|trans}}',
+                        {type: google.maps.MapTypeId.HYBRID, visibility: false, numZoomLevels: 20},
+                {sigleTile: false, isBaseLayer: true, buffer: 0}
+                ),
+                new OpenLayers.Layer.Google('{{"Google Streets"|trans}}',
+                        {visibility: false, numZoomLevels: 20},
+                {sigleTile: false, isBaseLayer: true, buffer: 0}
+                )
+
+            ]);
+
+            map.addLayers([untiled, tiled]);
+
+            // build up all controls
+            map.addControl(new OpenLayers.Control.PanZoomBar({
+                position: new OpenLayers.Pixel(2, 15)
+            }));
+            map.addControl(new OpenLayers.Control.Navigation());
+            map.addControl(new OpenLayers.Control.Scale());
+            map.addControl(new OpenLayers.Control.MousePosition());
+            map.zoomToExtent(bounds);
+
+
+
+            this.map = map;
+            this.bounds = bounds;
+            return;
+
+            var map = new OpenLayers.Map({allOverlays: false});
+            //    var bounds = new OpenLayers.Bounds(532803.816,1041914.079,549960.827 ,1027916.921);//.transform(new OpenLayers.Projection("EPSG:32617"), new OpenLayers.Projection("EPSG:900913"));
+            var bounds = new OpenLayers.Bounds(
+                    538276.485162893, 1028501.13021492,
+                    544939.485131743, 1038235.21052269
+                    );
+            this.map = map;
+            this.map.units = 'm';
+
+            //    alert("21");
+            // local save stations feature
+            selectlayers["Stations"] = new OpenLayers.Layer.Vector("stationsvector", {displayInLayerSwitcher: false,
+                projection: new OpenLayers.Projection("EPSG:5367"),
+                isBaseLayer: false});
+            // local watershed feature
+            selectlayers["Watersheds"] = new OpenLayers.Layer.Vector("watershedsvector", {displayInLayerSwitcher: false,
+                projection: new OpenLayers.Projection("EPSG:5367"),
+                isBaseLayer: false});
+            // local subwatershed feature
+            selectlayers["Subwatersheds"] = new OpenLayers.Layer.Vector("subwatershedsvector", {displayInLayerSwitcher: false,
+                projection: new OpenLayers.Projection("EPSG:5367"),
+                isBaseLayer: false});
+            //      alert("22");
+            var defStyle = {strokeColor: "red", strokeOpacity: "0.7", strokeWidth: 3, fillColor: "blue", cursor: "pointer"};
+            var sty = OpenLayers.Util.applyDefaults(defStyle, OpenLayers.Feature.Vector.style["default"]);
+            var sm = new OpenLayers.StyleMap({
+                'default': sty,
+                'select': {pointRadius: 20, strokeOpacity: "0.5", strokeColor: "red", fillColor: "blue"}
+            });
+            //    alert("23");
+            map.maxExtent = bounds;// new OpenLayers.Bounds(-80.02471, 43.58157, -78.97763, 44.04841).transform(new OpenLayers.Projection("EPSG:32617"), new OpenLayers.Projection("EPSG:900913"));
+            var vector = new OpenLayers.Layer.Vector("vector", {styleMap: sm, displayInLayerSwitcher: false, isBaseLayer: false});
+            markers = new OpenLayers.Layer.Markers("Markers", {styleMap: sm, displayInLayerSwitcher: false, isBaseLayer: false});
+            markers.id = "Markers";
+            selected_layer = new OpenLayers.Layer.Vector("Selection", {styleMap: sm, visibility: true, isBaseLayer: false, displayInLayerSwitcher: false});
+            this.stations = new OpenLayers.Layer.WMS("Stations", "http://cobas.juturna.ca:8080/geoserver/cobasvirtual/wms", {
+                layers: 'cobasvirtual:stations',
+                projection: new OpenLayers.Projection("EPSG:5367"),
+                transparent: true,
+                tiled: true
+            },
+            {
+                buffer: 0,
+                isBaseLayer: false,
+                showLegend: false,
+                displayOutsideMaxExtent: true,
+                yx: {"EPSG:5367": true}
+            });
+            //     alert("24");
+            this.watersheds = new OpenLayers.Layer.WMS("Watersheds", "http://cobas.juturna.ca:8080/geoserver/cobasvirtual/wms", {
+                layers: 'cobasvirtual:watersheds',
+                name: 'Watersheds',
+                projection: new OpenLayers.Projection("EPSG:5367"),
+                transparent: true,
+                tiled: true
+            },
+            {
+                buffer: 0,
+                isBaseLayer: false,
+                showLegend: false,
+                displayOutsideMaxExtent: true,
+                yx: {"EPSG:5367": true}
+
+            });
+            this.subwatersheds = new OpenLayers.Layer.WMS("Cleared Land 2008 ", "http://cobas.juturna.ca:8080/geoserver/cobasvirtual/wms", {
+                layers: 'cobasvirtual:cleared_land_2008',
+                projection: new OpenLayers.Projection("EPSG:5367"),
+                transparent: true,
+                tiled: true
+            },
+            {
+                buffer: 0,
+                isBaseLayer: false,
+                showLegend: false,
+                displayOutsideMaxExtent: true,
+                yx: {"EPSG:5367": true}
+
+            });
+            //     alert("25");
+            map.addLayers([
+                new OpenLayers.Layer.Google('{{"Google Terrain"|trans}}',
+                        {type: google.maps.MapTypeId.TERRAIN, visibility: false, numZoomLevels: 20},
+                {sigleTile: false, isBaseLayer: true, buffer: 0}
+                ),
+                new OpenLayers.Layer.Google('{{"Google Satellite"|trans}}',
+                        {type: google.maps.MapTypeId.SATELLITE, visibility: false, numZoomLevels: 20},
+                {sigleTile: false, isBaseLayer: true, buffer: 0}
+                ),
+                new OpenLayers.Layer.Google('{{"Google Hybrid"|trans}}',
+                        {type: google.maps.MapTypeId.HYBRID, visibility: false, numZoomLevels: 20},
+                {sigleTile: false, isBaseLayer: true, buffer: 0}
+                ),
+                new OpenLayers.Layer.Google('{{"Google Streets"|trans}}',
+                        {visibility: false, numZoomLevels: 20},
+                {sigleTile: false, isBaseLayer: true, buffer: 0}
+                ),
+                this.watersheds,
+                this.subwatersheds,
+                this.stations,
+                selected_layer,
+                //            vector,
+                markers
+
+            ]);
+            //       alert("26");
+            //       alert(this.map.layers.length);
+            this.map = map;
+            this.bounds = bounds;
+        },
+        MapAddressSearch: function() {
+
+            var searchbox = Ext.getCmp("address_searchbox_text_id");
+            if (searchbox !== undefined)
+            {
+
+                if (searchbox.value === undefined || searchbox.value.trim() === "")
+                {
+                    Ext.Msg.alert("Message", "You need to input address or postal code inside search box!");
+                    return;
+                }
+
+                var geocoder = new google.maps.Geocoder();
+                geocoder.geocode({'address': searchbox.value}, function(results, status) {
+
+
+                    if (status === google.maps.GeocoderStatus.OK)
+                    {
+                        var pt = results[0].geometry.location.toString();
+                        pt = pt.replace(")", "");
+                        pt = pt.replace("(", "");
+                        pt = pt.split(",");
+                        var lonlat = new OpenLayers.LonLat(pt[1], pt[0]);
+                        var lonlat2 = lonlat.clone();
+                        lonlat.transform(new OpenLayers.Projection("EPSG:6692"), new OpenLayers.Projection("EPSG:900913"));
+                        mappanel.map.setCenter(lonlat);
+                        if (Ext.getCmp('add_new_station_button_id') && (Ext.getCmp('add_new_station_button_id').pressed))
+                        {
+
+                            this.addNewStation('', lonlat2.lat, lonlat2.lon, "Create New Station");
+                        }
+                        else
+                        {
+
+                            if (popup)
+                                popup.close();
+                            var size = new OpenLayers.Size(21, 25);
+                            var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
+                            var icon = new OpenLayers.Icon('/images/marker_green.png', size, offset);
+                            markers.clearMarkers();
+                            var mark = new OpenLayers.Marker(lonlat, icon);
+                            markers.addMarker(mark);
+                        }
+
+                    }
+                    else
+                        Ext.Msg.alert("Message", "Geocode was not successful for the following reason:" + status);
+                });
+            }
+            else
+                return;
+        },
+        CreateEditorBar: function() {
+
+            var mapeditor = new OpenLayers.Editor(this.map,
+                    {
+                        autoActivate: true,
+                        saveState: true,
+                        activeControls:
+                                ['Navigation', 'Separator', 'DragFeature', 'SelectFeature',
+                                    'Separator', 'DrawHole', 'ModifyFeature', 'Separator'],
+                        featureTypes:
+                                ['regular', 'polygon', 'path', 'point']
+                    });
+            this.mapeditor = mapeditor;
+            this.mapeditor.startEditMode();
+
+        },
+        CreateToolBar: function() {
+
+            var ctrl, toolbarItems = [], action, actions = {};
+            //       alert("11");
+            action = Ext.create('GeoExt.Action', {
+                control: new OpenLayers.Control.ZoomToMaxExtent(),
+                map: this.map,
+                text: "Reset Extent",
+                tooltip: "Reset to Default Extent"
+            });
+            //       alert("12");
+            actions["reset_extent"] = action;
+            toolbarItems.push(Ext.create('Ext.button.Button', action));
+            toolbarItems.push("-");
+            // Navigation control and DrawFeature controls
+            // in the same toggle group
+            action = Ext.create('GeoExt.Action', {
+                text: "nav",
+                control: new OpenLayers.Control.Navigation(),
+                map: this.map,
+                // button options
+                toggleGroup: "draw",
+                allowDepress: false,
+                pressed: true,
+                tooltip: "navigate",
+                // check item options
+                group: "draw",
+                checked: true
+            });
+            //       alert("13");
+            actions["nav"] = action;
+            toolbarItems.push(Ext.create('Ext.button.Button', action));
+            // SelectFeature control, a "toggle" control
+            if (this.user_id !== undefined && this.user_id !== '')
+            {
+
+                action = Ext.create('GeoExt.Action', {
+                    text: "Add New Station",
+                    id: 'add_new_station_button_id',
+                    map: this.map,
+                    // button options
+                    enableToggle: true,
+                    tooltip: "Add New Station"
+                });
+                actions["newstation"] = action;
+
+                //   alert(this.layers_combobox.app.selectCtrl);
+                // var selectCtrl=this.layers_combobox.app.selectCtrl;
+
+                toolbarItems.push(Ext.create('Ext.button.Button', {text: "Add New Station",
+                    id: 'add_new_station_button_id', map: this.map, enableToggle: true,
+                    tooltip: "Add New Station", handler: function() {
+                        if (Ext.getCmp('add_new_station_button_id').pressed)
+                            this.map.selectCtrl.deactivate();
+                        else
+                            this.map.selectCtrl.activate();
+                    }
+                }));
+                toolbarItems.push("-");
+            }
+            //     alert("14");
+
+            // Navigation history - two "button" controls
+            ctrl = new OpenLayers.Control.NavigationHistory();
+            this.map.addControl(ctrl);
+            action = Ext.create('GeoExt.Action', {
+                text: "previous",
+                control: ctrl.previous,
+                disabled: true,
+                tooltip: "previous in history"
+            });
+            actions["previous"] = action;
+            toolbarItems.push(Ext.create('Ext.button.Button', action));
+            action = Ext.create('GeoExt.Action', {
+                text: "next",
+                control: ctrl.next,
+                disabled: true,
+                tooltip: "next in history"
+            });
+            //       alert("15");
+            actions["next"] = action;
+            toolbarItems.push(Ext.create('Ext.button.Button', action));
+            //    toolbarItems.push(Ext.create('Ext.button.Button', action));
+
+            toolbarItems.push("-");
+            toolbarItems.push(Ext.create('Ext.form.TextField', {id: 'address_searchbox_text_id', emptyText: 'Address / Postal Code'}));
+            action = Ext.create('GeoExt.Action', {
+                text: "Search",
+                id: "map_address_search_id",
+                handler: this.MapAddressSearch,
+                tooltip: "Address or Postal Code Search"
+
+            });
+            //        alert("16");
+            actions["search"] = action;
+            toolbarItems.push(Ext.create('Ext.button.Button', action));
+            toolbarItems.push("->");
+            var overlayers = Ext.create('Ext.data.Store', {
+                fields: ['id', 'name'],
+                data: [{id: 'Stations', name: 'Stations'},
+                    {id: 'Subwatersheds', name: 'Subwatersheds'},
+                    {id: 'Watersheds', name: 'Watersheds'}
+                    , {id: 'landuse_2008_merge', name: 'landuse_2008_merge'}
+                ]});
+
+            var layers_combobox = Ext.create('Ext.form.field.ComboBox', {
+                id: 'activelayer_combobox_id',
+                fieldLabel: 'Active Layer',
+                store: overlayers,
+                queryModel: 'local',
+                displayField: 'name',
+                autoSelect: true,
+                multiSelect: false,
+                labelAlign: 'right',
+                editable: false,
+                stateId: 'activelayer_combobox_state_id',
+                stateful: true,
+                forceSelection: true,
+                valueField: 'id',
+                listeners: {
+                    'select': this.current_activelayer
+                }
+
+            });
+            //        alert("17");
+            layers_combobox.app = this;
+            this.layers_combobox = layers_combobox;
+            toolbarItems.push(layers_combobox);
+            this.toolbarItems = toolbarItems;
+
+        },
+        /* set current active layer */
+        current_activelayer: function(combobox, rec, inde)
+        {
+
+
+            this.selectCtrl = combobox.app.selectCtrl;
+            var index = mappanel.layers.findBy(function(rec) {
+                // return selected layer index
+                //     alert("name=" + rec.getLayer().name);
+                return rec.getLayer().name === combobox.value;
+            });
+            if (index !== -1)
+            {
+                var activelayer = mappanel.map.layers[index];
+                // change current control layer to selected layer
+                this.selectCtrl.layers = [activelayer];
+                // set current layer visible
+                activelayer.setVisibility(true);
+
+                //         var landuse_2008_mergelayer = mappanel.map.getLayersByName("landuse_2008_merge");
+                //         if (activelayer.name === 'landuse_2008_merge' && landuse_2008_mergelayer && landuse_2008_mergelayer.length === 1)
+                //            landuse_2008_mergelayer[0].setVisibility(false);
+
+                var subwlayer = mappanel.map.getLayersByName("Subwatersheds");
+                var wlayer = mappanel.map.getLayersByName("Watersheds");
+                if (activelayer.name === 'Subwatersheds' && wlayer && wlayer.length === 1)
+                    wlayer[0].setVisibility(false);
+                if (activelayer.name === 'Watersheds' && subwlayer && subwlayer.length === 1)
+                    subwlayer[0].setVisibility(false);
+                // change the selection layer to selected layer
+                this.selectCtrl.protocol = OpenLayers.Protocol.WFS.fromWMSLayer(activelayer,
+                        {featureNS: "http://cobas.juturna.ca:8080/cobasmap"});
+                selected_layer.removeAllFeatures();
+                //	alert("11");
+                //      alert(this.selectCtrl);
+
+                var feature_gridinfo = Ext.getCmp("showgridinfo_id");
+                //	alert("12");
+
+                if (feature_gridinfo !== undefined && layergridpanel[combobox.value] !== undefined)
+                {
+                    // if current layer not loaded, load it
+                    if (layergridpanel[combobox.value].store.getCount() === 0)
+                        layergridpanel[combobox.value].store.load();
+                    // remove all other items
+                    for (var x in feature_gridinfo.items.items)
+                    {
+                        feature_gridinfo.items.remove(x);
+                    }
+
+                    feature_gridinfo.items.items[0] = layergridpanel[combobox.value];
+                    feature_gridinfo.setTitle(activelayer.name);
+                    feature_gridinfo.doLayout(); // refresh the panel
+                }
+            }
+        },
+        CreateDataStore: function() {
+            this.station_treestore = Ext.create('Ext.data.TreeStore', {
+                proxy: {
+                    type: 'ajax',
+                    url: '/' + locale + '/stations/treelist',
+                    method: 'GET',
+                    baseParams: {tree: true},
+                    reader: {
+                        type: 'json',
+                        root: 'data',
+                    }
+                },
+                sorters: [{
+                        property: 'leaf',
+                        direction: 'ASC'
+                    }, {
+                        property: 'text',
+                        direction: 'ASC'
+                    }],
+                root: {
+                    text: 'Ext JS',
+                    id: 'source',
+                    expanded: true
+                }
+            });
+            this.benthic_datastore = Ext.create('Ext.data.Store', {
+                proxy: {
+                    type: 'ajax',
+                    url: '/' + locale + '/benthics/itemdata',
+                    method: 'GET',
+                    reader: {
+                        type: 'json',
+                        root: 'data'
+                    }
+                },
+                autoLoad: true,
+                fields: ['id',
+                    'aca',
+                    'amp',
+                    'ani',
+                    'cer',
+                    'chi',
+                    'col',
+                    'cuc',
+                    'datastatus_id',
+                    'dataupload_id',
+                    'dec',
+                    'dip',
+                    'eph',
+                    'gas',
+                    'groupname',
+                    'hem',
+                    'hir',
+                    'iden_assisted_observation',
+                    'iden_identification',
+                    'iden_sample_condition',
+                    'iso',
+                    'lep',
+                    'meg',
+                    'memberspicking',
+                    'method_description',
+                    'methods',
+                    'nem',
+                    'oli'
+
+                ]
+
+            });
+            this.watersheds_store = Ext.create('Ext.data.Store', {
+                proxy: {
+                    type: 'ajax',
+                    url: '/' + locale + '/watersheds/list',
+                    method: 'GET',
+                    reader: {
+                        type: 'json',
+                        root: 'data'
+                    }
+                },
+                sorters: [{
+                        property: 'name',
+                        direction: 'ASC'
+                    }, {
+                        property: 'created_at',
+                        direction: 'ASC'
+                    }, {
+                        property: 'description',
+                        direction: 'ASC'
+                    }]
+            });
+            /*
+             *  create west panel layer tree
+             */
+            this.store = Ext.create('Ext.data.TreeStore', {
+                model: 'GeoExt.data.LayerTreeModel',
+                root: {
+                    expanded: true,
+                    children: [
+                        {
+                            plugins: ['gx_baselayercontainer'],
+                            expanded: true,
+                            text: "Base Maps"
+                        }, {
+                            plugins: ['gx_overlaylayercontainer'],
+                            expanded: true
+
+                        }
+
+                    ]
+                }
+            });
+            this.legend_store = Ext.create('Ext.data.TreeStore', {
+                model: 'GeoExt.data.LayerTreeModel',
+                root: {
+                    plugins: [{
+                            ptype: "gx_overlaylayercontainer",
+                            loader: {
+                                createNode: function(attr) {
+// add a WMS legend to each node created
+                                    attr.component = {
+                                        xtype: "gx_wmslegend",
+                                        layerRecord: mappanel.layers.getByLayer(attr.layer),
+                                        showTitle: false,
+                                        // custom class for css positioning
+                                        // see tree-legend.html
+                                        cls: "legend"
+                                    };
+                                    return GeoExt.tree.LayerLoader.prototype.createNode.call(this, attr);
+                                }
+                            }
+                        }]}
+            });
+
+        },
+        registerRadioEvent: function(node) {
+            if (!node.hasListener("radiochange")) {
+                node.on("radiochange", function(node)
+                {
+                    alert(node.text);
+                });
+            }
+        },
+        CreateMapPanel: function() {
+            mappanel = Ext.create('GeoExt.panel.Map', {
+                //  title: 'The GeoExt.panel.Map-class',
+                map: this.map,
+                id: 'juturna_mappanel_id',
+                center: '-79.3046875,43.48193359375',
+                zoom: 7,
+                stateful: true,
+                stateId: 'mappanel',
+                //            extent: '12.87,52.35,13.96,52.66',
+                dockedItems: [{
+                        xtype: 'toolbar',
+                        dock: 'top',
+                        items: this.toolbarItems
+                    }]
+            });
+            var centerTabPanel = Ext.create('Ext.tab.Panel', {
+                region: 'center', // a center region is ALWAYS required for border layout
+                id: 'center_region',
+                deferredRender: false,
+                activeTab: 0, // first tab initially active
+                listeners: {
+                    resize: function(panel, width, height, opt) {
+                    }
+                },
+                items: [{
+                        title: "{{'Google Map'|trans}}",
+                        closable: false,
+                        layout: 'fit',
+                        items: mappanel,
+                        autoScroll: false
+                    }]
+            });
+            mappanel.map.events.register("click", mappanel.map, function(e) {
+
+
+                if (Ext.getCmp('add_new_station_button_id') !== undefined)
+                {
+                    if (Ext.getCmp('add_new_station_button_id').pressed)
+                    {
+                        var pt = mappanel.map.getLonLatFromPixel(e.xy);
+                        pt.transform(new OpenLayers.Projection("EPSG:900913"), new OpenLayers.Projection("EPSG:6692"));
+                        Extapp.addNewStation('', pt.lat, pt.lon, "Create New Station");
+                    }
+                }
+            });
+            OpenLayers.Request.GET({
+                url: "http://cobas.juturna.ca:8080/geoserver/cobasvirtual/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=cobasvirtual:stations&maxFeatures=250&outputFormat=application/json",
+                success: function(e) {
+
+                    var gformat = new OpenLayers.Format.GeoJSON();
+                    var features = gformat.read(e.responseText);
+                    selectlayers["Stations"].addFeatures(features);
+                    for (var i = 0; i < selectlayers["Stations"].features.length; i++)
+                    {
+                        if (selectlayers["Stations"].features[i].geometry !== undefined && selectlayers["Stations"].features[i].geometry !== null)
+                            selectlayers["Stations"].features[i].geometry.transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913")); //transform(this.layer.externalProjection, this.layer.internalProjection);
+                    }
+
+                }
+            });
+            OpenLayers.Request.GET({
+                url: "http://www.juturna.ca:8080/geoserver/juturna3.0/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=juturna3.0:watersheds&maxFeatures=250&outputFormat=application/json",
+                success: function(e) {
+                    var gformat = new OpenLayers.Format.GeoJSON();
+                    var features = gformat.read(e.responseText);
+                    selectlayers["Watersheds"].addFeatures(features);
+                    for (var i = 0; i < selectlayers["Watersheds"].features.length; i++)
+                    {
+                        if (selectlayers["Watersheds"].features[i].geometry !== undefined && selectlayers["Watersheds"].features[i].geometry !== null)
+                            selectlayers["Watersheds"].features[i].geometry.transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"));
+                    }
+                }
+            });
+            OpenLayers.Request.GET({
+                url: "http://www.juturna.ca:8080/geoserver/juturna3.0/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=juturna3.0:subwatersheds&maxFeatures=250&outputFormat=application/json",
+                success: function(e) {
+                    var gformat = new OpenLayers.Format.GeoJSON();
+                    var features = gformat.read(e.responseText);
+                    selected_layer.removeAllFeatures();
+                    selectlayers["Subwatersheds"].removeAllFeatures();
+                    selectlayers["Subwatersheds"].addFeatures(features);
+                    for (var i = 0; i < selectlayers["Subwatersheds"].features.length; i++)
+                    {
+                        if (selectlayers["Subwatersheds"].features[i].geometry !== undefined && selectlayers["Subwatersheds"].features[i].geometry !== null)
+                            selectlayers["Subwatersheds"].features[i].geometry.transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"));
+                    }
+                }
+            });
+            // create stations grid panel shown on east panel
+            layergridpanel["Stations"] = Ext.create('GeoExt.view.Stationsgrid', {
+                store: Ext.create("GeoExt.store.Stations"), layer: selectlayers["Stations"], selectLayer: selected_layer, map: this.map});
+            // create watersheds grid panel shown on east panel
+            layergridpanel["Watersheds"] = Ext.create("GeoExt.view.Watershedsgrid", {
+                store: Ext.create("GeoExt.store.Watersheds"), layer: selectlayers["Watersheds"], selectLayer: selected_layer, map: this.map});
+            // create subwatersheds grid panel shown on east panel
+            layergridpanel["Subwatersheds"] = Ext.create('GeoExt.view.Subwatershedsgrid', {
+                store: Ext.create("GeoExt.store.Subwatersheds"), layer: selectlayers["Subwatersheds"], selectLayer: selected_layer, map: this.map});
+            // create the watershed Tree shown on west panel under layer management panel
+            var watershed_tree = Ext.create('GeoExt.view.Watershedtree', {
+                store: Ext.create("GeoExt.store.Watershedtree"), walayer: selectlayers["Watersheds"], sulayer: selectlayers["Subwatersheds"], stlayer: selectlayers["Stations"], selectLayer: selected_layer, map: this.map});
+            // create the station Tree shown on west panel under watershed tree
+            var station_treelist = Ext.create('GeoExt.view.Stationtree', {
+                store: Ext.create("GeoExt.store.Stationtree"), app: this, layer: selectlayers["Stations"], selectLayer: selected_layer, map: this.map});
+            gridPanel = Ext.create('Ext.grid.GridPanel', {
+                title: "Feature Grid",
+                store: Ext.create("GeoExt.store.Watersheds"),
+                columns: [
+                    {header: "name", dataIndex: "name"},
+                    {header: "description", dataIndex: "description"},
+                    {header: "created_at", dataIndex: "created_at"},
+                    {header: "updated_at", dataIndex: "updated_at"}
+                ]
+            });
+            var layer;
+            this.legend_tree = new GeoExt.tree.Panel({
+                title: '{{"Layer's Legend"|trans}}',
+                autoScroll: true,
+                viewConfig: {
+                    expanded: true,
+                    plugins: [{
+                            ptype: 'treeviewdragdrop',
+                            appendOnly: false
+                        }]
+                },
+                store: this.legend_store,
+                rootVisible: false,
+                lines: false
+            });
+            // create the tree with the configuration from above
+            this.tree = Ext.create('GeoExt.tree.Panel', {
+                border: true,
+                region: "west",
+                width: 200,
+                viewConfig: {
+                    plugins: [{
+                            ptype: 'treeviewdragdrop',
+                            appendOnly: false
+                        }]
+                },
+                autoScroll: true,
+                store: this.store,
+                rootVisible: false,
+                lines: false,
+                listeners: {
+                    append: this.registerRadioEvent,
+                    insert: this.registerRadioEvent,
+                    "radiochange": function(node) {
+                        alert(node.layer.name + " is now the the active layer.");
+                    }
+                }
+            });
+//	
+
+
+
+            alert("x2=" + this.mainbbar);
+
+
+            Ext.create('Ext.container.Viewport', {
+                layout: 'fit',
+                items: {
+                    layout: "border",
+                    deferredRender: false,
+                    items: [
+                        
+                         
+                          {    
+                            type: 'box',
+                            id: 'header',
+                            region: 'north',
+                            border: false,
+                            style: 'padding:5px 5px 2px 5px',
+                            height: 114, // give north and south regions a height
+                            layout: {type: 'column'},
+                            defaults: {border: false, height: 114},
+                            items: this.headerhtml,
+                            bbar: this.mainbbar
+                          
+                        },
+                        centerTabPanel,
+                        {
+                            region: 'west',
+                            stateId: 'navigation-panel',
+                            id: 'west-panel', // see Ext.getCmp() below
+                            title: "{{'Map and Catalogues Info'|trans}}",
+                            split: true,
+                            width: 200,
+                            minWidth: 175,
+                            maxWidth: 400,
+                            collapsible: true,
+                            animCollapse: true,
+                            margins: '0 0 0 5',
+                            layout: 'accordion',
+                            items: [{
+                                    title: "{{'Map Layers'|trans}}",
+                                    layout: 'fit',
+                                    items: this.tree,
+                                    iconCls: 'nav' // see the HEAD section for style used
+                                }, {
+                                    title: "{{'Catalogue'|trans}}",
+                                    layout: 'fit',
+                                    items: watershed_tree,
+                                    iconCls: 'nav' // see the HEAD section for style used
+                                }, {
+                                    title: "{{'Stations List'|trans}}",
+                                    layout: 'fit',
+                                    items: station_treelist,
+                                    iconCls: '.gx-tree-radio'
+                                }, {
+                                    title: "{{'System Administration'|trans}}",
+                                    bodyStyle: 'padding:5px',
+                                    layout: 'fit',
+                                    items: Ext.create('Ext.form.Panel', {autoLoad: '/' + locale + '/admin/sysmanagement', autoScroll: true}),
+                                    iconCls: 'settings'
+                                }, {
+                                    title: "{{'System Information'|trans}}",
+                                    bodyStyle: "padding:10px",
+                                    html: '<p><a href="http://bug.juturna.ca" target="_blank">Bug Report</a></p><p><a href="http://git.juturna.ca" target="_blank">Source Code</a></p>',
+                                    iconCls: 'info'
+                                }]
+
+                        },
+                        {
+                            xtype: 'tabpanel',
+                            region: 'east',
+                            id: 'detail_info_tabpanel',
+                            title: "{{'Detail Info Panel'|trans}}",
+                            animCollapse: true,
+                            collapsible: true,
+                            collapsed: false,
+                            split: true,
+                            width: 225, // give east and west regions a width
+                            minSize: 175,
+                            maxSize: 400,
+                            margins: '0 5 0 0',
+                            activeTab: 0,
+                            tabPosition: 'top',
+                            items: [this.legend_tree, {id: 'showgridinfo_id', layout: 'fit'}, {id: 'showdetailinfo_easttab_id', layout: 'fit', title: "Details"}]
+
+                        }
+
+
+                    ]
+                }
+            });
+            mappanel.map.zoomToExtent(this.bounds);
+            var activelayer = undefined;
+
+            // get current combobox selected layers
+            if (this.layers_combobox && this.layers_combobox.getValue())
+            {
+                var local_layers_combobox = this.layers_combobox;
+                var index = mappanel.layers.findBy(function(rec) {
+                    return rec.getLayer().name === local_layers_combobox.getValue();
+                });
+                if (index !== -1)
+                    activelayer = mappanel.map.layers[index];
+            }
+
+            if (this.layers_combobox && (!this.layers_combobox.getValue() || activelayer === undefined))
+            {
+                this.layers_combobox.setValue("Stations");
+                activelayer = this.stations;
+            }
+            this.selectCtrl = new OpenLayers.Control.GetFeature({
+                internalProjection: mappanel.map.getProjectionObject(),
+                externalProjection: new OpenLayers.Projection("EPSG:6692"),
+                protocol: OpenLayers.Protocol.WFS.fromWMSLayer(activelayer,
+                        {featureNS: "http://cobas.juturna.ca:8080/cobasmap"}),
+                hover: false,
+                format: format,
+                multipleKey: "shiftKey",
+                toggleKey: "ctrlKey"
+            });
+            var feature_gridinfo = Ext.getCmp("showgridinfo_id");
+            if (feature_gridinfo !== undefined)
+                feature_gridinfo.setTitle(activelayer.name);
+            for (var x in feature_gridinfo.items.items)
+            {
+                feature_gridinfo.items.remove(x);
+            }
+
+            this.map.selectCtrl = this.selectCtrl;
+            if (layergridpanel[activelayer.name] !== undefined)
+            {
+                if (layergridpanel[activelayer.name].store.getCount() === 0)
+                    layergridpanel[activelayer.name].store.load();
+                feature_gridinfo.add(layergridpanel[activelayer.name]);
+            }
+            this.selectCtrl.events.register("featureselected", this, function(e) {
+//alert(e.feature.geometry);
+                //         e.feature.geometry.transform(this.externalProjection, this.internalProjection);
+                selected_layer.addFeatures([e.feature]);
+                var featurename = "";
+                var info_id = 1;
+                var ogc_fid = null;
+                var content_id = '';
+                if (e.feature.attributes.watershed_name !== undefined)
+                {
+                    info_id = 2;
+                    featurename = e.feature.attributes.watershed_name;
+                    content_id = e.feature.attributes.id;
+                }
+                if (e.feature.attributes.subwatershed_name !== undefined)
+                {
+                    info_id = 3;
+                    content_id = e.feature.attributes.id;
+                    featurename = e.feature.attributes.subwatershed_name;
+                }
+                if (e.feature.attributes.station_name !== undefined)
+                {
+                    info_id = 4;
+                    content_id = e.feature.attributes.id;
+                    featurename = e.feature.attributes.station_name;
+                }
+                var url = '/' + locale + '/' + this.layers_combobox.getValue().toLowerCase() + '/mapshowinfo?name=' + featurename;
+                var detail_url = '/' + locale + '/admin/details?id=' + info_id + "&content_id=" + content_id;
+
+                if (e.feature.attributes.ogc_fid && this.layers_combobox.getValue().toLowerCase() === 'landuse_2008_merge')
+                {
+                    detail_url = '/' + locale + '/admin/landuse?id=' + e.feature.attributes.ogc_fid;
+                }
+                /* in right side panel for detail info */
+
+                var showdetails = Ext.getCmp("showdetailinfo_easttab_id");
+                var detailPanel;
+                if (showdetails && showdetails.ownerCt)
+                    detailPanel = showdetails.ownerCt;
+                if (detailPanel !== null && detailPanel !== undefined)
+                {
+
+
+
+                    if (detailPanel.collapsed === true)
+                        detailPanel.expand();
+                    detailPanel.setActiveTab(showdetails);
+                    var tab = detailPanel.getActiveTab();
+                    tab.removeAll();
+                    var panel = Ext.create('Ext.form.Panel', {
+                        border: false,
+                        id: 'showdetailinfo_panel_id',
+                        autoScroll: true,
+                        style: 'padding:5px',
+                        autoLoad: {url: detail_url, msg: 'waiting', scripts: true}
+                    });
+                    tab.add(panel);
+                    tab.setTitle(featurename);
+                }
+                /* end of feature selected detail info panel */
+
+// show station info window as popup window
+                var map = this.map;
+                if (featurename !== "" && info_id === 4)
+                {
+                    url = '/' + locale + '/stations/showbirdsimagelist?id=' + content_id;
+
+                    var conn = new Ext.data.Connection();
+                    conn.request({
+                        url: url,
+                        method: 'GET',
+                        //	params:	{"metaID": metaID, columnName: field},
+                        success: function(responseObject) {
+                            Extapp.createPopup(map, e.feature, responseObject.responseText);
+                        },
+                        failure: function() {
+                            Ext.Msg.alert('Status', 'Unable	to show	' + this.layers_combobox.getValue() + ' info.');
+                        }
+                    });
+                }
+
+            });
+            this.selectCtrl.events.register("hoverfeature", this, function(e) {
+                //  e.feature.geometry.transform(this.externalProjection, this.internalProjection);
+                selected_layer.removeAllFeatures();
+                selected_layer.addFeatures([e.feature]);
+                selected_layer.setVisibility(true);
+                var clname = this.layers_combobox.getValue();
+                if (clname)
+                {
+                    if (layergridpanel[clname] !== undefined)
+                    {
+                        var rec = undefined;
+                        if (e.feature.attributes.watershed_name !== undefined)
+                        {
+                            rec = layergridpanel[clname].getStore().find('watershed_name', e.feature.attributes.watershed_name);
+                        }
+                        if (e.feature.attributes.subwatershed_name !== undefined)
+                        {
+                            rec = layergridpanel[clname].getStore().find('subwatershed_name', e.feature.attributes.subwatershed_name);
+                        }
+                        if (e.feature.attributes.station_name !== undefined)
+                        {
+                            rec = layergridpanel[clname].getStore().find('station_name', e.feature.attributes.station_name);
+                        }
+                        if (rec)
+                        {
+                            layergridpanel[clname].getSelectionModel().select(rec, false, false);
+                        }
+
+                    }
+                }
+
+            });
+            this.selectCtrl.events.register("featureunselected", this, function(e) {
+                if (e && e.feature)
+                    selected_layer.removeFeatures([e.feature]);
+            });
+            this.selectCtrl.events.register("outfeature", this, function(e) {
+
+
+
+                if (e && e.feature)
+                    selected_layer.removeFeatures([e.feature]);
+            });
+            mappanel.map.addControl(this.selectCtrl);
+            this.selectCtrl.activate();
+            this.map.events.register("click", this.map, function(e) {
+
+                if (markers.markers.length === 1)
+                {
+                    //      alert(e.xy);
+                    var marker = markers.markers[0];
+                    var opx = Extapp.map.getLayerPxFromViewPortPx(e.xy);
+                    marker.map = Extapp.map;
+                    marker.moveTo(opx);
+                }
+            });
+            var subwlayer = mappanel.map.getLayersByName("Subwatersheds");
+            var wlayer = mappanel.map.getLayersByName("Watersheds");
+            if (subwlayer && subwlayer.length === 1 && subwlayer[0].getVisibility() === true && wlayer && wlayer.length === 1)
+                wlayer[0].setVisibility(false);
+        },
+        CreateModel: function() {
+            // Benthic data	model for ExtJS	4.0.2 version
+            Benthic = Ext.define('Benthic', {
+                extend: 'Ext.data.Model',
+                fields: [{
+                        name: 'id',
+                        type: 'int'
+                    }, {
+                        name: 'user_id',
+                        type: 'int'
+                    }, {
+                        name: 'station_name',
+                        type: 'string'
+                    }],
+                proxy: {
+                    type: 'ajax',
+                    id: 'benthics'
+                }
+            });
+            // Station data	model for ExtJS	4.0.2 version
+            Station = Ext.define('Station', {
+                extend: 'Ext.data.Model',
+                fields: [{
+                        name: 'id',
+                        type: 'int'
+                    }, {
+                        name: 'user_id',
+                        type: 'int'
+                    }, {
+                        name: 'station_name',
+                        type: 'string'
+                    }],
+                associations: [{
+                        type: 'hasMany',
+                        model: 'Benthic',
+                        name: 'benthics'
+                    }],
+                proxy: {
+                    type: 'ajax',
+                    id: 'stations'
+                }
+            });
+        },
+        system_help: function() {
+
+// get layout center_region object, all tabs in center region will be included.
+            var centerPanel = Ext.getCmp('center_region');
+            var bExist = false;
+            centerPanel.items.each(function(el, ce, index) {
+// if system help tab panel is already there, make it as active tab
+                if ((el.title === "System Help") && (bExist === false)) {
+                    bExist = true;
+                    centerPanel.setActiveTab(ce);
+                    var iframe = centerPanel.getActiveTab(ce);
+                    iframe.src = '/' + locale + '/admin/systemhelp';
+                    iframe.items.items[0].reload();
+                }
+            });
+            // if there is no system help tab panel, create one and show it
+            if (bExist === false) {
+                var panel = Ext.create('GeoExt.panel.SimpleIFrame', {
+                    border: false,
+                    src: '/' + locale + '/admin/systemhelp'
+                });
+                centerPanel.add({
+                    id: 'system_help_tabpanel_id',
+                    title: 'System Help',
+                    layout: 'fit',
+                    closable: true,
+                    items: panel
+                });
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+                centerPanel.setActiveTab(0);
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+            }
+        },
+        useraccountmanagement: function() {
+
+
+            var store1 = Ext.create('GeoExt.store.UserAccountManagement', {storeId: 'useraccount-management-formstore'});
+            var userAccountManagementPanel = Ext.create('GeoExt.view.UserAccountManagement');
+            var userAccountManagement_win = new Ext.Window({
+                title: "User Account Management Form",
+                height: 530,
+                width: 775,
+                modal: true,
+                id: 'userAccountManagement_win_id',
+                layout: 'fit',
+                closable: true,
+                resizable: false,
+                tools: [{
+                        id: 'refresh', name: 'refresh',
+                        iconCls: 'refresh',
+                        handler: function() {
+                            userAccountManagementPanel.child('gridpanel').store.load();
+                        }
+                    }],
+                items: [userAccountManagementPanel]
+            });
+            userAccountManagementPanel.child('gridpanel').store.on("load", function(store, records) {
+                userAccountManagementPanel.getForm().loadRecord(records[0]);
+            });
+            userAccountManagementPanel.child('gridpanel').store.load();
+            userAccountManagement_win.show();
+        },
+        resetMapRange: function() {
+
+            var myMap = Ext.getCmp("googlemap");
+            if (typeof myMap === 'object') {
+                if (myMap.getMap() !== null) {
+                    var level = myMap.getMap().getBoundsZoomLevel(wholeWatershedBound);
+                    // center point of whole watershed bound as map center
+                    myMap.getMap().setCenter(wholeWatershedBound.getCenter(), level);
+                }
+            }
+
+        },
+        showMapLegend: function() {
+// if there is no map legend, create one and show it.
+            if (Ext.ux.NotificationMgr.positions.length === 0) {
+                mapLegendWin = new Ext.ux.Notification({
+                    title: 'WQ Monitoring	Sites',
+                    html: '<table><tbody><tr><td><img src="/images/icons/marker_grey.png" width="15px" height="24px"></td><td>No Benthics Data</td></tr><tr><td width="20px"><img src="/images/icons/marker_blue.png" width="15px" height="24px"></td><td>Unimpaired</td></tr><tr><td><img src="/images/icons/marker.png" width="15px" height="24px"></td><td>Potentially Impaired</td></tr><tr><td><img	src="/images/icons/marker_green.png" width="15px" height="24px"></td><td>Selected Station</td></tr></tbody></table>',
+                    hideDelay: 9000,
+                    width: 200,
+                    closeAction: 'hide',
+                    autoDestroy: false
+                }).show(document);
+            }
+// if map legend is there
+            else {
+                if (mapLegendWin.isHidden())
+                    //  if the legend is hidden, show it.
+                    mapLegendWin.show();
+                else
+                    // if the legend is shown, hide it,
+                    mapLegendWin.hide();
+            }
+
+        },
+        onSelectWatershed: function(watershed_id) {
+
+            var varBounds = new GLatLngBounds;
+            var myMap = Ext.getCmp("googlemap");
+            // first remove all highlighted watershed boundary
+            for (var i = 0; i < subwatershedboundaries.length; i++) {
+                var p;
+                myMap.getMap().removeOverlay(subwatershedboundaries[i].ws_polyline);
+            }
+            // highlight selected watershed boundary
+            for (var i = 0; i < subwatershedboundaries.length; i++) {
+                // if the watershed id eq selected watershed id
+                if (subwatershedboundaries[i].watershed_id === parseInt(watershed_id)) {
+
+                    myMap.getMap().addOverlay(subwatershedboundaries[i].ws_polyline);
+                }
+            }
+
+        },
+        addnewsubwatershed: function() {
+            alert("add new subwatershed");
+        },
+        onSelectSubwatershed: function(subwatershed_id) {
+
+
+
+
+            var selectLayer = this.selectLayer;
+            var f = selectlayers["Subwatersheds"].getFeaturesByAttribute("id", subwatershed_id);
+            if (f && f[0])
+            {
+
+                selected_layer.removeAllFeatures();
+                selected_layer.addFeatures([f[0]]);
+            }
+
+        }, onShowOrHideWatersheds: function() {
+// variable subwatershedPolygons is global array variable.
+            if ((subwatershedPolygons !== undefined) && (subwatershedPolygons !== null)) {
+                for (var i = 0; i < subwatershedPolygons.length; i++) {
+                    if (subwatershedPolygons[i].isHidden())
+                        subwatershedPolygons[i].show();
+                    else
+                        subwatershedPolygons[i].hide();
+                }
+            }
+        },
+        forgetpassword: function() {
+
+            var centerPanel = Ext.getCmp('center_region');
+            var bExist = false;
+            /*       centerPanel.items.each(function(el, ce, index) {
+             if ((el.title === "Password Resetting") && (bExist === false)) {
+             bExist = true;
+             centerPanel.setActiveTab(ce);
+             var iframe = centerPanel.getActiveTab(ce);
+             iframe.src = '/' + locale + '/resetting/request';
+             iframe.items.items[0].reload();
+             }
+             });
+             if (bExist === false) {
+             var panel = Ext.create('GeoExt.panel.SimpleIFrame', {
+             border: false,
+             src: '/' + locale + '/resetting/request'
+             });
+             centerPanel.add({
+             id: 'system_password_resetiing_tabpanel_id',
+             title: 'Password Resetting',
+             layout: 'fit',
+             closable: true,
+             items: panel
+             });
+             centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+             }
+             */
+            var forgetpasswordPanel = Ext.create('GeoExt.view.Resetpassword');
+
+            var forgetpassword_win = new Ext.Window({
+                title: "Reset User Account Login Password",
+                width: 315,
+                id: 'resetpasswordwin_id',
+                modal: true,
+                bodyStyle: 'padding:5px;',
+                height: 130,
+                layout: 'fit',
+                closable: true,
+                resizable: false,
+                items: [forgetpasswordPanel]
+            });
+
+            // show forget password form
+            forgetpassword_win.show();
+
+        },
+        ZoomToStation: function(id)
+        {
+            var f = selectlayers["Stations"].getFeaturesByAttribute("id", id);
+            if (f && f[0])
+            {
+                mappanel.map.setCenter(new OpenLayers.LonLat(f[0].geometry.x, f[0].geometry.y));
+            }
+        },
+        changepassword: function() {
+
+            var changepasswordPanel = Ext.create('GeoExt.view.Changepassword');
+            var changepassword_win = new Ext.Window({
+                title: "Change User Account Password",
+                width: 355,
+                id: 'changepasswordwin_id',
+                modal: true,
+                bodyStyle: 'padding:5px;',
+                height: 180,
+                layout: 'fit',
+                closable: true,
+                resizable: false,
+                items: [changepasswordPanel]
+            });
+            // show change password form.
+            changepassword_win.show();
+        }
+
+        ,
+        // logged in user to click logout button to logout system.
+        logoutsystem: function() {
+
+            Ext.Ajax.request({
+                url: '/' + locale + '/logout',
+                method: 'POST',
+                success: function(result, request) {
+                    if (result.status === 200) {
+                        // if user successfully logged out, system will reload main page automatically
+                        window.location.href = "/";
+                        alert("You have	successfully logged	out	of Juturna.\nPlease	wait a moment while	the	system reloads.");
+                    } else {
+                        alert("Logout failed, please try again");
+                    }
+                },
+                failure: function(result, request) {
+                    alert("Logout failed, please try again");
+                }
+            });
+        },
+        userlogin: function() {
+
+            /*
+             var centerPanel = Ext.getCmp('center_region');
+             var bExist = false;
+             centerPanel.items.each(function(el, ce, index) {
+             if ((el.title === "User Login") && (bExist === false)) {
+             bExist = true;
+             centerPanel.setActiveTab(ce);
+             var iframe = centerPanel.getActiveTab(ce);
+             iframe.src = '/' + locale + '/login';
+             iframe.items.items[0].reload();
+             }
+             });
+             
+             
+             if (bExist === false) {
+             //               var panel = Ext.create('GeoExt.panel.SimpleIFrame', {
+             //                   border: false,
+             //                   src: '/' + locale + '/login'
+             //               });
+             centerPanel.add({
+             id: 'system_user_login_tabpanel_id',
+             title: 'User Login',
+             layout: 'fit',
+             closable: true,
+             items: {xtype: 'panel', border: false,
+             autoScroll: true,
+             loader: {
+             autoLoad: true,
+             url: '/' + locale + '/login'
+             }}
+             });
+             centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+             }
+             */
+
+            /*
+             alert("123");
+             var login = Ext.create('Ext.window.Window', {
+             id: 'login',
+             height: 200,
+             width: 350,
+             layout: 'anchor',
+             modal: true,
+             title: 'Welcome, Please Login',
+             items: [
+             this.username = Ext.create('Ext.form.field.Text', {
+             fieldLabel: 'Username'
+             }),
+             this.password = Ext.create('Ext.form.field.Text', {
+             fieldLabel: 'Password'
+             }),
+             this.submit = Ext.create('Ext.button.Button', {
+             text: 'Login'
+             })
+             ]
+             });
+             
+             alert(login);
+             alert(login.items.items[2]);
+             
+             login.items.items[2].on('click', function (btn, e, eOpts) {
+             alert("hhhh");
+             Ext.Ajax.request({
+             scope: this,
+             params: {
+             username: login.username.getValue(),
+             password: login.password.getValue()
+             },
+             url: '/' + locale + '/login_check',
+             success: function(response, opts) {
+             var obj = Ext.decode(response.responseText);
+             if (obj.logged_in === true) {
+             //Show App
+             } else {
+             //Display error message
+             }
+             }
+             });
+             });
+             
+             login.show();
+             */
+            /*
+             alert("ggggg");
+             Ext.Ajax.request({
+             scope: this,
+             url: '/' + locale + '/login_check',
+             success: function(response, opts) {
+             var obj = Ext.decode(response.responseText);
+             if (obj.username === null) {
+             //Show Login window
+             login.show();
+             } else {
+             //Logic to show app if logged in
+             }
+             }
+             });
+             
+             */
+            var userLoginPanel = Ext.create('GeoExt.view.Userlogin');
+            var userlogin_win = new Ext.Window({
+                title: "User Account Login Form",
+                width: 285,
+                modal: true,
+                id: 'userloginform_id',
+                bodyStyle: 'padding:5px;',
+                height: 190,
+                layout: 'fit',
+                closable: true,
+                resizable: false,
+                items: [userLoginPanel]
+            });
+            userlogin_win.show();
+        },
+        registration: function() {
+
+            /*
+             var centerPanel = Ext.getCmp('center_region');
+             var bExist = false;
+             centerPanel.items.each(function(el, ce, index) {
+             if ((el.title === "Create New Account") && (bExist === false)) {
+             bExist = true;
+             centerPanel.setActiveTab(ce);
+             var iframe = centerPanel.getActiveTab(ce);
+             iframe.src = '/' + locale + '/register';
+             iframe.items.items[0].reload();
+             }
+             });
+             if (bExist === false) {
+             var panel = Ext.create('GeoExt.panel.SimpleIFrame', {
+             border: false,
+             src: '/' + locale + '/register'
+             });
+             centerPanel.add({
+             id: 'system_user_registration_tabpanel_id',
+             title: 'Create New Account',
+             layout: 'fit',
+             closable: true,
+             items: panel
+             });
+             centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+             centerPanel.setActiveTab(0);
+             centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+             }
+             */
+
+
+            var registrationPanel = Ext.create('GeoExt.view.Registration');
+            var tip = Ext.getCmp('formErrorState');
+
+            // create template
+            tip.tipTpl = Ext.create('Ext.XTemplate', '<ul><tpl for="."><li><span class="field-name">{name}</span>: <span class="error">{error}</span></li></tpl></ul>', {compiled: true});
+
+            var registration_win = new Ext.Window({
+                title: "Create New Account Request",
+                width: 360,
+                modal: true,
+                bodyStyle: 'padding:5px;',
+                height: 440,
+                layout: 'fit',
+                closable: true,
+                resizable: false,
+                items: [registrationPanel]
+            });
+
+            registration_win.show();
+
+
+        },
+        /* show system admin help in center region tab panel */
+        system_admin_help: function() {
+
+            var centerPanel = Ext.getCmp('center_region');
+            var bExist = false;
+            centerPanel.items.each(function(el, ce, index) {
+                if ((el.title === "System Administrator Help") && (bExist === false)) {
+                    bExist = true;
+                    centerPanel.setActiveTab(ce);
+                    var iframe = centerPanel.getActiveTab(ce);
+                    iframe.src = '/' + locale + '/admin/adminhelp';
+                    iframe.items.items[0].reload();
+                }
+            });
+            if (bExist === false) {
+                var panel = Ext.create('GeoExt.panel.SimpleIFrame', {
+                    border: false,
+                    src: '/' + locale + '/admin/adminhelp'
+                });
+                centerPanel.add({
+                    id: 'system_admin_help_tabpanel_id',
+                    title: 'System Administrator Help',
+                    layout: 'fit',
+                    closable: true,
+                    items: panel
+                });
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+                centerPanel.setActiveTab(0);
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+            }
+
+        },
+        /* function for display watershed info in detail info tab panel */
+        showWatershedDetails: function(id, text, stationMarkers) {
+            var detailPanel = Ext.getCmp("detail_info_tabpanel");
+            detailPanel.setActiveTab(0);
+            var vParam = id;
+            var i = 0;
+            var aParams = vParam.split('/');
+            if (aParams.length === 2)
+                onSelectWatershed(aParams[aParams.length - 1]);
+            if (aParams.length === 3) {
+                onSelectWatershed(aParams[aParams.length - 2]);
+                onSelectSubwatershed(aParams[aParams.length - 1]);
+            }
+            if (aParams.length === 4) {
+                onSelectWatershed(aParams[aParams.length - 3]);
+                onSelectSubwatershed(aParams[aParams.length - 2]);
+                onShowStationInfoOnGoogleMap('', text, stationMarkers);
+            }
+
+            var panel = Ext.create('Ext.form.Panel', {
+                border: false,
+                id: 'detail_info_tabpanel_id',
+                autoScroll: true,
+                style: 'padding:5px',
+                autoLoad: '/' + locale + '/admin/details?id=' + aParams.length + "&content_id=" + aParams[aParams.length - 1]
+            });
+            if (detailPanel !== null && detailPanel !== undefined && detailPanel.collapsed === true)
+                detailPanel.expand();
+            if (detailPanel !== null && detailPanel !== undefined)
+                detailPanel.setActiveTab(0);
+            var tab = detailPanel.getActiveTab();
+            tab.setTitle(text);
+            tab.removeAll();
+            tab.add(panel);
+        },
+        onShowStationInfoOnGoogleMap: function(id, site_idname, stationMarkers)
+        {
+            var overlay;
+            if (typeof site_idname == 'string')
+            {
+
+                for (var i = 0; i < gmarkers.length; i++)
+                {
+                    if (typeof gmarkers[i] == 'object')
+                    {
+                        if (gmarkers[i].getIcon().image != '/images/icon/marker.png' && gmarkers[i].getIcon().image != '/images/icon/marker_grey.png' && gmarkers[i].getIcon().image != '/images/icon/marker_blue.png' && gmarkers[i].getIcon().image != '/images/icon/marker_green.png')
+                        {
+                            stationMarkers.each(function(rec) {
+
+                                if (rec.data.id == gmarkers[i].id)
+                                {
+                                    if (rec.data.overall_assessment == null)
+                                    {
+                                        gmarkers[i].setImage("/images/icons/marker_grey.png");
+                                    }
+                                    else
+                                    {
+                                        if (rec.data.overall_assessment.toLowerCase() == 'impaired')
+                                        {
+                                            gmarkers[i].setImage("/images/icons/marker_yellow.png");
+                                        }
+                                        if (rec.data.overall_assessment.toLowerCase() == 'potentially impaired')
+                                        {
+                                            gmarkers[i].setImage("/images/icons/marker.png");
+                                        }
+                                        if (rec.data.overall_assessment.toLowerCase() == 'unimpaired')
+                                        {
+                                            gmarkers[i].setImage("/images/icons/marker_blue.png");
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                        if (site_idname == gmarkers[i].getTitle())
+                        {
+                            if ((gmarkers[i].getLatLng().lat() == 0) || (gmarkers[i].getLatLng().lng() == 0))
+                            {
+                                alert("This	station	location is	not	correct!");
+                                return;
+                            }
+
+                            overlay = gmarkers[i];
+                            overlay.openInfoWindowHtml("Loading	details...");
+                            point = overlay.getLatLng();
+                            overlay.setImage("http://maps.google.com/mapfiles/marker_greenS.png");
+                            url = '/stations/gmapshowsiteinfo?id=' + overlay.getTitle() + '&newdata=true&datafromgooglemap=true&upload_x=' + point.lng() + "&upload_y=" + point.lat();
+                            var conn = new Ext.data.Connection();
+                            conn.request({
+                                url: url,
+                                method: 'GET',
+                                //						params:	{"metaID": metaID, columnName: field},
+                                success: function(responseObject) {
+                                    overlay.openInfoWindowHtml(responseObject.responseText);
+                                },
+                                failure: function() {
+                                    Ext.Msg.alert('Status', 'Unable	to show	history	at this	time. Please try again later.');
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+
+        },
+        /* function for add new station info */
+        addNewStation: function(id, lat, lng, frmTitle) {
+
+            var newStationPanel = Ext.create('Ext.panel.Panel', {id: "create_new_station_from_map_id", map: this.map, width: 367,
+                bodyStyle: 'padding:5px;',
+                loader: {
+                    url: '/' + locale + "/stations/new?lat=" + lat + "&lng=" + lng, //<-- page from the same domain
+                    method: 'GET',
+                    scripts: true,
+                    autoLoad: true
+                },
+                height: 353});
+
+
+            //      var newStationPanel = Ext.create("GeoExt.view.Stationform", {id: "create_new_station_from_map_id", map: this.map});
+            var newstationwin = new Ext.Window({
+                id: 'win_create_new_station_from_map_id',
+                title: frmTitle,
+                width: 389,
+                modal: true,
+                bodyStyle: 'padding:5px;',
+                height: 395,
+                closable: true,
+                resizable: false,
+                items: [newStationPanel]
+            });
+            newStationPanel.panelWindow = newstationwin;
+
+            //        Ext.getCmp('create_new_station_from_map_id').loader({
+            //             url: '/' + locale + "/stations/new",
+            //             method: 'GET',
+            //             scripts: true
+
+            ///      });
+
+            /*      Ext.Ajax.request({
+             url: '/' + locale + "/stations/new",
+             method: "GET",
+             success: function(response) {
+             Ext.getCmp('create_new_station_from_map_id').update(response.responseText);
+             }
+             });
+             
+             */
+
+            //     newStationPanel.autoLoad = {
+            //         url: '/' + locale + "/stations/news"
+            //     };
+            //          newStationPanel.load({
+            //           newStationPanel.getForm().load({
+            //               url: '/' + locale + "/stations/newstation",
+            //              url: '/' + locale + "/stations/news",
+            //              params: {
+            //                  lng: lng,
+            //                  lat: lat,
+            //                  id: id
+            //             },
+            //             root: 'data',
+            //              method: "GET",
+            //              waitMsg: 'Geting Data ...',
+            //              success: function(form, action) {
+            //                  alert(action);
+            //                 alert(action.result);
+            //      newStationPanel.getForm().setValues(Ext.JSON.decode(action.result.data));
+            //            },
+            //            failure: function(form, action) {
+            //                alert("Loading Station Data error, please try again!");
+            //            }
+            //        });
+            var lonlat = new OpenLayers.LonLat(lng, lat);
+            lonlat.transform(new OpenLayers.Projection("EPSG:6692"), new OpenLayers.Projection("EPSG:900913"))
+
+            var size = new OpenLayers.Size(21, 25);
+            var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
+            var icon = new OpenLayers.Icon('/images/marker_green.png', size, offset);
+            markers.clearMarkers();
+            var marker = new OpenLayers.Marker(lonlat, icon);
+            marker.events.register("click", marker, function() {
+                alert(marker.lonlat);
+            });
+            marker.popup = newstationwin;
+            markers.addMarker(marker);
+            newstationwin.show();
+        },
+        /* function for download station data */
+        downloadstationdata: function(station_name)
+        {
+            /* this function no more be used */
+
+        },
+        showdatabasebackuphistory: function() {
+
+        },
+        showsystembackuphistory: function() {
+
+        },
+        /* function for display station info on map */
+        onShowStationInfoOnMap: function(id, locale, station_name) {
+            var overlay;
+            var f = selectlayers["Stations"].getFeaturesByAttribute("station_name", station_name);
+            if (f && f[0])
+            {
+
+                selected_layer.removeAllFeatures();
+                selected_layer.addFeatures([f[0]]);
+                var url = '/' + locale + '/stations/mapshowinfo?name=' + station_name;
+                var map = this.map;
+                var conn = new Ext.data.Connection();
+                conn.request({
+                    url: url,
+                    method: 'GET',
+                    success: function(responseObject) {
+                        Extapp.createPopup(map, f[0], responseObject.responseText);
+                    },
+                    failure: function() {
+                        Ext.Msg.alert('Status', 'Unable	to show	station info.');
+                    }
+                });
+            }
+
+
+        },
+        /* function for searching all group info */
+        groupinfosearch: function() {
+
+            var bExist = false;
+            var centerTabPanel = Ext.getCmp("center_region");
+            centerTabPanel.items.each(function(el, ce, index) {
+                if ((el.title === "Group/School Info") && (bExist === false)) {
+                    bExist = true;
+                    centerTabPanel.setActiveTab(ce);
+                    centerTabPanel.getActiveTab(ce).getUpdater().update({
+                        url: '/' + locale + '/admin/groupschool'
+                    });
+                }
+            });
+            if (bExist === false) {
+                var item = centerTabPanel.add({
+                    title: "Group/School Info",
+                    conaction: '123456',
+                    layout: 'fit',
+                    closable: true,
+                    autoScroll: true,
+                    autoLoad: {
+                        url: '/' + locale + '/admin/groupschool',
+                        script: true
+                    }
+                });
+                centerTabPanel.setActiveTab(parseInt(centerTabPanel.items.length) - 1);
+            }
+
+        },
+        /* function for geo-coding */
+        location_search: function() {
+
+            var myMap = Ext.getCmp("googlemap");
+            if (typeof myMap === 'object') {
+                if (myMap.getMap() !== null) {
+                    var address_string = Ext.getCmp("address_lookup_text_id");
+                    if (typeof address_string === 'object') {
+                        var address = address_string.getValue().replace(/^\s+|\s+$/, '');
+                        if (address !== '') {
+                            if (!myMap.geocoder) {
+                                myMap.geocoder = new GClientGeocoder();
+                            }
+                            myMap.geocoder.getLocations(address, function(response) {
+                                if (!response || response.Status.code !== 200) {
+                                    alert("The address " + address + " not found!");
+                                } else {
+                                    var place = response.Placemark[0];
+                                    var point = new GLatLng(place.Point.coordinates[1], place.Point.coordinates[0]);
+                                    if (position_marker !== null)
+                                        myMap.getMap().removeOverlay(position_marker);
+                                    position_marker = new GMarker(point, {
+                                        draggable: true
+                                    });
+                                    myMap.getMap().setCenter(point);
+                                    //	if (myMap.getMap().getZoom() < 13)
+                                    //		myMap.getMap().setZoom(13);
+                                    myMap.getMap().addOverlay(position_marker);
+                                    position_marker.setImage("http://maps.google.com/mapfiles/marker_greenL.png");
+                                    position_marker.openInfoWindowHtml('Address:<br>' + place.address + '<br>Latitude:' + point.lat() + '<br>Longitude:' + point.lng() + '<br><a href="#" onclick="javascript:onZoomToHere(\'' + point.lat() + '\',\'' + point.lng() + '\')"	>Zoom To Here</a>');
+                                    GEvent.clearListeners(position_marker, "dragstart");
+                                    GEvent.clearListeners(position_marker, "dragend");
+                                    GEvent.addListener(position_marker, "dragstart", function() {
+                                        myMap.getMap().closeInfoWindow();
+                                    });
+                                    GEvent.addListener(position_marker, "dragend", function() {
+                                        point = position_marker.getLatLng();
+                                        position_marker.openInfoWindowHtml("<br>Latitude:" + point.lat() + "<br>Longitude:" + point.lng() + '<br><a href="#"	onclick="javascript:onZoomToHere(\'' + point.lat() + '\',\'' + point.lng() + '\')" >Zoom	To Here</a>');
+                                    });
+                                }
+                            });
+                        } else
+                            alert("address can not be empty!");
+                    }
+
+                }
+            }
+
+        },
+        /* function for listing all stations of specific group */
+        showschoolsite: function(station_name, groupname) {
+            var bExist = false;
+            if (groupname === null || groupname === undefined)
+                return;
+            var centerPanel = Ext.getCmp('center_region');
+            var bExist = false;
+            centerPanel.items.each(function(el, ce, index) {
+                if ((el.title === "Group	Name:" + groupname) && (bExist === false)) {
+                    bExist = true;
+                    centerPanel.setActiveTab(ce);
+                    var formPanel = centerPanel.getActiveTab(ce);
+                    formPanel.getUpdater().update({
+                        url: '/' + locale + '/admin/groupdetails?groupname=' + groupname
+                    });
+                }
+            });
+            if (bExist === false) {
+
+                centerPanel.add({
+                    id: 'groupsite_id_' + groupname,
+                    title: "Group Name:" + groupname,
+                    layout: 'fit',
+                    autoScroll: true,
+                    closable: true,
+                    autoLoad: {
+                        url: '/' + locale + '/admin/groupdetails?groupname=' + groupname,
+                        script: true
+                    }
+                });
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+                centerPanel.setActiveTab(0);
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+            }
+        },
+        /* function for station data download */
+        station_datadownload: function(station_name) {
+            var bExist = false;
+            if (station_name === null || station_name === undefined)
+                return;
+            var centerPanel = Ext.getCmp('center_region');
+            var bExist = false;
+            centerPanel.items.each(function(el, ce, index) {
+                if ((el.title === "Station Data Download") && (bExist === false)) {
+                    bExist = true;
+                    centerPanel.setActiveTab(ce);
+                    var iframe = centerPanel.getActiveTab(ce);
+                    iframe.items.items[0].src = '/' + locale + '/downloads/station?id=' + station_name;
+                    iframe.items.items[0].reload();
+                }
+            });
+            if (bExist === false) {
+                var panel = Ext.create('GeoExt.panel.SimpleIFrame', {border: false, src: '/downloads/station?id=' + station_name});
+                centerPanel.add({
+                    id: 'station_data_download_tabpanel_id',
+                    title: 'Station Data Download',
+                    layout: 'fit',
+                    closable: true,
+                    items: panel
+                });
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+                centerPanel.setActiveTab(0);
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+            }
+
+        },
+        /* function data selection by date for creating report */
+        sitereport_dateselection: function(station_name) {
+
+            var sitedescription_store = Ext.create('Ext.data.Store', {
+                proxy: {
+                    type: 'ajax',
+                    url: '/' + locale + '/site_descriptions/datelist?id=' + station_name,
+                    method: 'GET',
+                    baseParams: {
+                        tree: true
+                    },
+                    reader: {
+                        type: 'json',
+                        root: 'data'
+                    }
+                },
+                fields: ['id', 'sampling_date2'],
+                root: 'data',
+                id: 'id',
+                autoLoad: {
+                    scope: this,
+                    callback: function() {
+                        var comboBox = Ext.getCmp("sitedescription_date_select_id");
+                        var store = comboBox.store;
+                        // set the value of the comboBox here
+                        if (store.getCount() > 0)
+                            comboBox.setValue(store.getAt(0).get('id'));
+                    }
+                }
+            });
+            var benthic_store = Ext.create('Ext.data.Store', {
+                proxy: {
+                    type: 'ajax',
+                    url: '/' + locale + '/benthics/datelist?id=' + station_name,
+                    method: 'GET',
+                    baseParams: {
+                        tree: true
+                    },
+                    reader: {
+                        type: 'json',
+                        root: 'data'
+                    }
+                },
+                fields: ['id', 'sampling_date2'],
+                root: 'data',
+                id: 'id',
+                autoLoad: {
+                    scope: this,
+                    callback: function() {
+                        var comboBox = Ext.getCmp("benthic_date_select_id");
+                        var store = comboBox.store;
+                        // set the value of the comboBox here
+                        if (store.getCount() > 0)
+                            comboBox.setValue(store.getAt(0).get('id'));
+                    }
+                }
+
+            });
+            // benthic_store.setDefaultSort('sampling_date2','desc');
+            var waterchemistry_store = Ext.create('Ext.data.Store', {
+                proxy: {
+                    type: 'ajax',
+                    url: '/' + locale + '/water_chemistries/datelist?id=' + station_name,
+                    method: 'GET',
+                    baseParams: {
+                        tree: true
+                    },
+                    reader: {
+                        type: 'json',
+                        root: 'data'
+                    }
+                },
+                fields: ['id', 'sampling_date2'],
+                root: 'data',
+                id: 'id',
+                autoLoad: {
+                    scope: this,
+                    callback: function() {
+                        var comboBox = Ext.getCmp("waterchemistry_date_select_id");
+                        var store = comboBox.store;
+                        // set the value of the comboBox here
+                        if (store.getCount() > 0)
+                            comboBox.setValue(store.getAt(0).get('id'));
+                    }
+                }
+
+            });
+            var benthic_comb = new Ext.form.ComboBox({
+                labelWidth: 210,
+                boxMaxWidth: 160,
+                border: true,
+                triggerAction: 'all',
+                valueField: 'id',
+                id: 'benthic_date_select_id',
+                name: 'benthic_date',
+                fieldLabel: 'Benthic Sampling Date',
+                forceSelection: true,
+                store: benthic_store,
+                mode: 'remote',
+                value: 'test',
+                displayField: 'sampling_date2'
+
+            });
+            var dateSelectPanel = Ext.create('Ext.form.FormPanel', {
+                width: 601,
+                frame: false,
+                labelWidth: 195,
+                border: false,
+                height: 380,
+                id: 'dateselectpanel_id',
+                items: [{
+                        xtype: 'fieldset',
+                        title: 'Select Sampling Date	for	Creating Report:',
+                        width: 390,
+                        height: 137,
+                        defaults: {
+                            labelWidth: 210,
+                            boxMaxWidth: 160,
+                            xtype: 'combo'
+                        },
+                        items: [{
+                                border: true,
+                                queryMode: 'local',
+                                triggerAction: 'all',
+                                name: 'description_date',
+                                id: 'sitedescription_date_select_id',
+                                valueField: 'id',
+                                hiddenField: 'id',
+                                editable: false,
+                                fieldLabel: 'Site Description Sampling Date',
+                                forceSelection: true,
+                                store: sitedescription_store,
+                                mode: 'local',
+                                displayField: 'sampling_date2'
+                            }, benthic_comb, {
+                                border: true,
+                                triggerAction: 'all',
+                                id: 'waterchemistry_date_select_id',
+                                valueField: 'id',
+                                name: 'waterchemistry_date',
+                                fieldLabel: 'Water Chemistry Sampling Date',
+                                forceSelection: true,
+                                store: waterchemistry_store,
+                                mode: 'local',
+                                displayField: 'sampling_date2'
+                            }]
+
+                    }],
+                buttons: [{
+                        text: 'OK',
+                        handler: function() {
+                            if (report_dateselectwin !== null) {
+                                var newwindow = window.open('/reports/station?id=' + station_name + '&description=' + Ext.getCmp("sitedescription_date_select_id").getValue() + '&benthic=' + Ext.getCmp('benthic_date_select_id').getValue() + '&waterchemistry=' + Ext.getCmp("waterchemistry_date_select_id").getValue(), '_blank', 'toolbar=yes');
+                                newwindow.focus();
+                                //newStationPanel.getForm().reset();
+                            }
+
+                        }
+                    }, {
+                        text: 'Cancel',
+                        handler: function() {
+                            if (report_dateselectwin !== null) {
+                                report_dateselectwin.close();
+                            }
+                        }
+                    }]
+            });
+            var report_dateselectwin = new Ext.Window({
+                title: "Please Select Sampling Date",
+                width: 405,
+                modal: true,
+                bodyStyle: 'padding:5px;',
+                height: 190,
+                layout: 'fit',
+                closable: true,
+                resizable: false,
+                items: [dateSelectPanel]
+            });
+            report_dateselectwin.show();
+            benthic_store.load();
+            sitedescription_store.load();
+            waterchemistry_store.load();
+        },
+        /* function for input site description data */
+        onSetSiteDescriptionData: function(descr_id, station_name, near_inter, municipality, minwidth, lat, lng, watershedname, varAction, authen) {
+            var frmTitle = "";
+            if ((descr_id === undefined) || (descr_id === '') || descr_id === null) {
+                frmTitle = 'Input New Site Description Data';
+            } else {
+                frmTitle = 'Update Site Description Data';
+            }
+
+            var sitedescriptionstore;
+            var sitedescriptionstore = Ext.data.StoreManager.lookup('site-description-details-gridpanel-formstore');
+            if (sitedescriptionstore === undefined)
+            {
+                if ((descr_id === undefined) || (descr_id === '') || descr_id === null) {
+                    sitedescriptionstore = Ext.create('GeoExt.store.SiteDescriptionDetail',
+                            {storeId: 'site-description-details-gridpanel-formstore',
+                                proxy: {
+                                    type: 'ajax',
+                                    url: '/' + locale + '/site_description_details/itemdata',
+                                    method: 'get',
+                                    params: {id: descr_id},
+                                    reader: {
+                                        type: 'json',
+                                        root: 'data'
+                                    }
+                                }
+                            });
+                }
+                else
+                {
+                    sitedescriptionstore = Ext.create('GeoExt.store.SiteDescriptionDetail',
+                            {storeId: 'site-description-details-gridpanel-formstore',
+                                proxy: {
+                                    type: 'ajax',
+                                    url: '/' + locale + '/site_description_details/itemdata',
+                                    method: 'get',
+                                    reader: {
+                                        type: 'json',
+                                        root: 'data'
+                                    }
+                                }
+                            });
+                }
+            }
+
+            var newdataCardPanel = Ext.create('GeoExt.view.SiteDescriptionform');
+            var wform = Ext.getCmp("new_site_description_form_id");
+            wform.getForm().findField("id").setValue(descr_id);
+            wform.getForm().findField("station_name").setValue(station_name);
+            wform.getForm().findField("watershed_name").setValue(watershedname);
+            var newsiteinfoinputwin = new Ext.Window({
+                title: frmTitle,
+                width: 760,
+                modal: true,
+                bodyStyle: 'padding:3px;',
+                height: 545,
+                layout: 'fit',
+                closable: true,
+                resizable: false,
+                items: [newdataCardPanel]
+            });
+            newdataCardPanel.panelWindow = newsiteinfoinputwin;
+            if ((descr_id === undefined) || (descr_id === '') || descr_id === null) {
+                newsiteinfoinputwin.show();
+            } else {
+
+                newdataCardPanel.load({
+                    url: '/' + locale + "/site_descriptions/itemdata",
+                    params: {
+                        id: descr_id
+                    },
+                    method: 'POST',
+                    waitMsg: 'Geting Data ...',
+                    success: function() {
+                        newsiteinfoinputwin.show();
+                        var id = Ext.getCmp("new_site_description_form_id").getForm().findField('id').getValue();
+                        if (id !== undefined && parseInt(id) > 0)
+                            var store = Ext.getCmp("site_description_details_form_id").child('gridpanel').store;
+                        store.load({params: {id: id}});
+                        Ext.getCmp("site_description_details_form_id").child('gridpanel').getStore().on("load", function(store, records) {
+
+                            Ext.getCmp("site_description_details_form_id").child('gridpanel').getView().refresh();
+                            if (records && records[0]) {
+                                Ext.getCmp("site_description_details_form_id").getForm().loadRecord(records[0]);
+                            }
+
+                        });
+                    }
+                });
+            }
+
+        },
+        /* function for input benthic data */
+        onSetBenthicData: function(benthic_id, station_name, varAction) {
+
+            var frmTitle = "";
+            if ((benthic_id === undefined) || (benthic_id === '') || benthic_id === null) {
+                frmTitle = 'Input	New	Benthic	Sampling Data';
+            } else {
+                frmTitle = 'Update Benthic Sampling Data';
+            }
+
+            benthicsMainPanel = Ext.create("GeoExt.view.Benthicform");
+            benthicsMainPanel.getForm().findField("id").setValue(benthic_id);
+            benthicsMainPanel.getForm().findField("station_name").setValue(station_name);
+            benthicsWin = new Ext.Window({
+                title: frmTitle,
+                closable: true,
+                resizable: false,
+                width: 870,
+                modal: true,
+                height: 550,
+                layout: 'fit',
+                bodyStyle: 'padding:5px;',
+                items: benthicsMainPanel
+            });
+            benthicsMainPanel.panelWindow = benthicsWin;
+            if ((benthic_id === undefined) || (benthic_id === '') || benthic_id === null) {
+                benthicsWin.show();
+            } else {
+
+                benthicsMainPanel.getForm().load({
+                    url: '/' + locale + "/benthics/itemdata",
+                    params: {
+                        id: benthic_id
+                    },
+                    success: benthicsWin.show()
+                });
+            }
+
+        },
+        /* function for input water chemistry data */
+        onSetWaterchemistryData: function(waterchemistry_id, station_name, varAction) {
+
+            var frmTitle = "";
+            if ((waterchemistry_id === undefined) || (waterchemistry_id === '') || waterchemistry_id === null) {
+                frmTitle = 'Input New Water Chemistry Sampling Data';
+            } else {
+                frmTitle = 'Update Water Chemistry Sampling Data';
+            }
+
+            waterchemistryPanel = Ext.create("GeoExt.view.WaterChemistryform");
+            waterchemistryPanel.getForm().findField("id").setValue(waterchemistry_id);
+            waterchemistryPanel.getForm().findField("station_name").setValue(station_name);
+            waterchemistryWin = new Ext.Window({
+                title: frmTitle,
+                closable: true,
+                modal: true,
+                resizable: false,
+                width: 485,
+                height: 520,
+                layout: 'fit',
+                bodyStyle: 'padding:5px;',
+                items: waterchemistryPanel
+            });
+            if ((waterchemistry_id === undefined) || (waterchemistry_id === '') || waterchemistry_id === null) {
+                waterchemistryWin.show();
+            } else {
+                waterchemistryPanel.load({
+                    url: '/' + locale + "/water_chemistries/itemdata",
+                    params: {
+                        id: waterchemistry_id
+                    },
+                    success: waterchemistryWin.show()
+                });
+            }
+        },
+        /* function for deleting station */
+        onDeleteStation: function(id, subwh_id) {
+            var conn = new Ext.data.Connection();
+            conn.request({
+                url: '/' + locale + "/stations/destroy",
+                method: 'POST',
+                params: {
+                    id: id
+                },
+                success: function(responseObject) {
+                    var results = Ext.JSON.decode(responseObject.responseText);
+                    if (results.success === true) {
+
+                        alert(results.message);
+                        var stationPanel = Ext.getCmp("station-list-panel");
+                        stationPanel.getRootNode().reload();
+                        var treePanel = Ext.getCmp("tree-panel");
+                        treePanel.getRootNode().cascade(function(rec) {
+                            siteidname = rec.attributes.id.split("/");
+                            if (siteidname.length === 4 && parseInt(siteidname[3]) === id) {
+                                rec.remove();
+                            }
+                        });
+                        var myMap = Ext.getCmp("googlemap");
+                        for (var i = 0; i < gmarkers.length; i++) {
+
+                            if (id === gmarkers[i].id) {
+                                myMap.getMap().removeOverlay(gmarkers[i]);
+                            }
+                        }
+                        ;
+                    } else {
+                        alert(results.message);
+                    }
+
+                },
+                failure: function() {
+                    Ext.Msg.alert('Status', 'Unable	to delete the data at this time. Please	try	again later.');
+                }
+            });
+        },
+        /* function for deleting site description data */
+        onDeleteSiteDescription: function(station_name, id) {
+            var conn = new Ext.data.Connection();
+            conn.request({
+                url: '/' + locale + "/site_descriptions/destroy",
+                method: 'POST',
+                params: {
+                    id: id
+                },
+                success: function(responseObject) {
+                    var results = Ext.JSON.decode(responseObject.responseText);
+                    if (results.success === true) {
+                        alert(results.message);
+                        var showdetails = Ext.getCmp("showdetailinfo_easttab_id");
+                        var detailPanel;
+                        if (showdetails && showdetails.ownerCt)
+                            detailPanel = showdetails.ownerCt;
+                        detailPanel.setActiveTab(showdetails);
+                        var url = Ext.getCmp("showdetailinfo_panel_id").autoLoad;
+                        var tab = detailPanel.getActiveTab();
+                        tab.removeAll();
+                        var panel = Ext.create('Ext.form.Panel', {
+                            border: false,
+                            id: 'showdetailinfo_panel_id',
+                            autoScroll: true,
+                            style: 'padding:5px',
+                            autoLoad: url
+                        });
+                        tab.add(panel);
+                    } else {
+                        alert(results.message);
+                    }
+
+                },
+                failure: function() {
+                    var results = Ext.JSON.decode(responseObject.responseText);
+                    if (results.success === false) {
+                        alert(results.message);
+                    } else {
+                        alert("gggg " + results.message);
+                    }
+
+                }
+            });
+        },
+        /* function for deleting benthic data */
+        onDeleteBenthic: function(station_name, id) {
+            var conn = new Ext.data.Connection();
+            conn.request({
+                url: '/' + locale + "/benthics/destroy",
+                method: 'POST',
+                params: {
+                    id: id
+                },
+                success: function(responseObject) {
+                    var results = Ext.JSON.decode(responseObject.responseText);
+                    if (results.success === true) {
+                        alert(results.message);
+                        var showdetails = Ext.getCmp("showdetailinfo_easttab_id");
+                        var detailPanel;
+                        if (showdetails && showdetails.ownerCt)
+                            detailPanel = showdetails.ownerCt;
+                        detailPanel.setActiveTab(showdetails);
+                        var url = Ext.getCmp("showdetailinfo_panel_id").autoLoad;
+                        var tab = detailPanel.getActiveTab();
+                        tab.removeAll();
+                        var panel = Ext.create('Ext.form.Panel', {
+                            border: false,
+                            id: 'showdetailinfo_panel_id',
+                            autoScroll: true,
+                            style: 'padding:5px',
+                            autoLoad: url
+                        });
+                        tab.add(panel);
+                    } else {
+                        alert(results.message);
+                    }
+
+                },
+                failure: function() {
+                    Ext.Msg.alert('Status', 'Unable	to delete the data at this time. Please	try	again later.');
+                }
+            });
+        },
+        /* function for deleting wtaerchemistry data */
+        onDeleteWaterChemistry: function(station_name, id) {
+            var conn = new Ext.data.Connection();
+            conn.request({
+                url: '/' + locale + "/water_chemistries/destroy",
+                method: 'POST',
+                params: {
+                    id: id
+                },
+                success: function(responseObject) {
+                    var results = Ext.JSON.decode(responseObject.responseText);
+                    if (results.success === true) {
+                        alert(results.message);
+                        var showdetails = Ext.getCmp("showdetailinfo_easttab_id");
+                        var detailPanel;
+                        if (showdetails && showdetails.ownerCt)
+                            detailPanel = showdetails.ownerCt;
+                        detailPanel.setActiveTab(showdetails);
+                        var url = Ext.getCmp("showdetailinfo_panel_id").autoLoad;
+                        var tab = detailPanel.getActiveTab();
+                        tab.removeAll();
+                        var panel = Ext.create('Ext.form.Panel', {
+                            border: false,
+                            id: 'showdetailinfo_panel_id',
+                            autoScroll: true,
+                            style: 'padding:5px',
+                            autoLoad: url
+                        });
+                        tab.add(panel);
+                    } else {
+                        alert(results.message);
+                    }
+
+                },
+                failure: function() {
+                    Ext.Msg.alert('Status', 'Unable	to delete the data at this time. Please	try again later.');
+                }
+            });
+        },
+        /* function for system to manage all site description's pictures */
+        Sitedescription_Pictures: function(sitedesc_id) {
+            var centerPanel = Ext.getCmp('center_region');
+            var bExist = false;
+            centerPanel.items.each(function(el, ce, index) {
+                if ((el.title === "Site Description Pictures") && (bExist == false)) {
+                    bExist = true;
+                    centerPanel.setActiveTab(ce);
+                    var iframe = centerPanel.getActiveTab(ce);
+                    iframe.src = '/' + locale + '/sitepictures/index?sitedesc_id=' + sitedesc_id;
+                    iframe.items.items[0].setSrc('/' + locale + '/sitepictures/index?sitedesc_id=' + sitedesc_id);
+                    iframe.items.items[0].reload();
+                }
+            });
+            if (bExist === false) {
+                var panel = Ext.create('GeoExt.panel.SimpleIFrame', {
+                    border: false,
+                    src: '/' + locale + '/sitepictures/index?id=' + sitedesc_id
+                });
+                centerPanel.add({
+                    id: 'admin_sitedescription_picturers_id',
+                    title: 'Site Description Pictures',
+                    layout: 'fit',
+                    closable: true,
+                    items: panel
+                });
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+                centerPanel.setActiveTab(0);
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+            }
+
+        },
+        /* function for system to manage all group names */
+        GroupnameManagment: function() {
+            var bExist = false;
+            var centerPanel = Ext.getCmp("center_region");
+            centerPanel.items.each(function(el, ce, index) {
+                if ((el.title === "Group Name Management") && (bExist === false)) {
+                    bExist = true;
+                    centerPanel.setActiveTab(ce);
+                    var iframe = centerPanel.getActiveTab(ce);
+                    iframe.items.items[0].setSrc('/' + locale + '/groupnames');
+                    iframe.items.items[0].reload();
+                }
+            });
+            if (bExist === false) {
+                var panel = Ext.create('GeoExt.panel.SimpleIFrame', {
+                    border: false,
+                    src: '/' + locale + '/groupnames'
+                });
+                centerPanel.add({
+                    id: 'admin_groupnamemanagement_id',
+                    title: 'Group Name Management',
+                    layout: 'fit',
+                    closable: true,
+                    items: panel
+                });
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+                centerPanel.setActiveTab(0);
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+            }
+        },
+        /* function for system to manage all subwatershed, not include polygons of subwatershed*/
+        SubwatershedManagement: function() {
+            var bExist = false;
+            var centerPanel = Ext.getCmp("center_region");
+            centerPanel.items.each(function(el, ce, index) {
+                if ((el.title === "Subwatershed Management") && (bExist === false)) {
+                    bExist = true;
+                    centerPanel.setActiveTab(ce);
+                    var iframe = centerPanel.getActiveTab(ce);
+                    iframe.items.items[0].setSrc('/' + locale + '/subwatersheds/');
+                    iframe.items.items[0].reload();
+                }
+            });
+            if (bExist === false) {
+
+                var panel = Ext.create('GeoExt.panel.SimpleIFrame', {
+                    border: false,
+                    src: '/' + locale + '/subwatersheds/'
+                });
+                centerPanel.add({
+                    id: 'admin_subwatershed_management_id',
+                    title: 'Subwatershed Management',
+                    layout: 'fit',
+                    closable: true,
+                    items: panel
+                });
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+                centerPanel.setActiveTab(0);
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+            }
+
+        },
+        /* function for system to manage all watershed, not include polygons of watershed*/
+        WatershedManagement: function() {
+
+            var bExist = false;
+            var centerPanel = Ext.getCmp("center_region");
+            centerPanel.items.each(function(el, ce, index) {
+                if ((el.title === "Watershed Management") && (bExist === false)) {
+                    bExist = true;
+                    centerPanel.setActiveTab(ce);
+                    var iframe = centerPanel.getActiveTab(ce);
+                    iframe.items.items[0].setSrc('/' + locale + '/watersheds/');
+                    iframe.items.items[0].reload();
+                }
+            });
+            if (bExist === false) {
+
+                var panel = Ext.create('GeoExt.panel.SimpleIFrame', {
+                    border: false,
+                    src: '/' + locale + '/watersheds/'
+                });
+                centerPanel.add({
+                    id: 'admin_watershed_management_id',
+                    title: 'Watershed Management',
+                    layout: 'fit',
+                    closable: true,
+                    items: panel
+                });
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+                centerPanel.setActiveTab(0);
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+            }
+
+        },
+        /* function for recalculate benthic data over all assessment */
+        ReCalculateOverallAssessment: function() {
+            var conn = new Ext.data.Connection();
+            conn.request({
+                url: '/' + locale + "/benthics/re_calculate_benthic",
+                method: 'POST',
+                success: function(responseObject) {
+                    var results = Ext.JSON.decode(responseObject.responseText);
+                    if (results.success === true) {
+                        alert(results.message);
+                    } else {
+                        alert(results.message);
+                    }
+
+                },
+                failure: function() {
+                    Ext.Msg.alert('Status', 'Unable	to re-calculate	overall	accessment at this time. Please	try	again later.');
+                }
+            });
+        },
+        /* function for system to manage system and database backup */
+        SystemBackup: function() {
+
+            var bExist = false;
+            var centerPanel = Ext.getCmp("center_region");
+            centerPanel.items.each(function(el, ce, index) {
+                if ((el.title === "System Backup") && (bExist === false)) {
+                    bExist = true;
+                    centerPanel.setActiveTab(ce);
+                    var iframe = centerPanel.getActiveTab(ce);
+                    iframe.items.items[0].setSrc('/' + locale + '/admin/systembackup');
+                    iframe.items.items[0].reload();
+                }
+            });
+            if (bExist === false) {
+
+                var panel = Ext.create('GeoExt.panel.SimpleIFrame', {
+                    border: false,
+                    src: '/' + locale + '/admin/systembackup'
+                });
+                centerPanel.add({
+                    id: 'admin_system_backu2p_id',
+                    title: 'System	Backup',
+                    layout: 'fit',
+                    closable: true,
+                    items: panel
+                });
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+                centerPanel.setActiveTab(0);
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+            }
+        },
+        /* function for system to manage subwatersheds polygons */
+        SystemWaterhsedsPolygons: function() {
+
+            var bExist = false;
+            var centerPanel = Ext.getCmp("center_region");
+            centerPanel.items.each(function(el, ce, index) {
+                if ((el.title === "Upload Watersheds Polygons") && (bExist === false)) {
+                    bExist = true;
+                    centerPanel.setActiveTab(ce);
+                    var iframe = centerPanel.getActiveTab(ce);
+                    iframe.items.items[0].setSrc('/' + locale + '/admin/watershedspolygons');
+                    iframe.items.items[0].reload();
+                }
+            });
+            if (bExist === false) {
+
+                var panel = Ext.create('GeoExt.panel.SimpleIFrame', {
+                    border: false,
+                    src: '/' + locale + '/admin/watershedspolygons'
+                });
+                centerPanel.add({
+                    id: 'admin_watersheds_polygons_id',
+                    title: 'Upload Watersheds Polygons',
+                    layout: 'fit',
+                    closable: true,
+                    items: panel
+                });
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+                centerPanel.setActiveTab(0);
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+            }
+
+        },
+        /* function for system to manage subwatersheds polygons */
+        SystemSubwaterhsedsPolygons: function() {
+
+            var bExist = false;
+            var centerPanel = Ext.getCmp("center_region");
+            centerPanel.items.each(function(el, ce, index) {
+                if ((el.title === "Upload Subwatersheds Polygons") && (bExist === false)) {
+                    bExist = true;
+                    centerPanel.setActiveTab(ce);
+                    var iframe = centerPanel.getActiveTab(ce);
+                    iframe.items.items[0].setSrc('/' + locale + '/admin/subwatershedspolygons');
+                    iframe.items.items[0].reload();
+                }
+            });
+            if (bExist === false) {
+
+                var panel = Ext.create('GeoExt.panel.SimpleIFrame', {
+                    border: false,
+                    src: '/' + locale + '/admin/subwatershedspolygons'
+                });
+                centerPanel.add({
+                    id: 'admin_subwatersheds_polygons_id',
+                    title: 'Upload Subwatersheds Polygons',
+                    layout: 'fit',
+                    closable: true,
+                    items: panel
+                });
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+                centerPanel.setActiveTab(0);
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+            }
+
+        },
+        /* function for creating popup window to show some message */
+        createPopup: function(map, feature, htmlcontent)
+        {
+            if (feature === undefined || feature === null)
+                return;
+            var title = "";
+            if (feature.attributes.watershed_name)
+                title = feature.attributes.watershed_name;
+            if (feature.attributes.subwatershed_name)
+                title = feature.attributes.subwatershed_name;
+            if (feature.attributes.watershed_name)
+                title = feature.attributes.station_name;
+            if (popup)
+                popup.close();
+            popup = Ext.create('GeoExt.window.Popup', {
+                title: title,
+                location: feature,
+                width: 330,
+                map: map,
+                height: 295,
+                html: htmlcontent,
+                collapsible: false,
+                autoScroll: true,
+                maximizable: false,
+                anchorPosition: 'auto',
+                listeners: {
+                    close: function() {
+                        popup = null;
+                    }
+                }
+            });
+            popup.on({
+                close: function() {
+                    if (OpenLayers.Util.indexOf(selected_layer.selectedFeatures, this.feature) > -1)
+                    {
+                        this.selectCtrl.unselect(this.feature);
+                    }
+
+                }
+            });
+            popup.show();
+        },
+        /* hide and show features for flashing feature */
+        FlashFeatures: function()
+        {
+            if (e === undefined)
+                return;
+            if (e.getVisibility() === true)
+                e.setVisibility(false);
+            else
+                e.setVisibility(true);
+        },
+        /* show user profile in  center region tab */
+        UserProfile: function() {
+
+            {% if app.user %}
+            var bExist = false;
+            var centerPanel = Ext.getCmp("center_region");
+            centerPanel.items.each(function(el, ce, index) {
+                if ((el.title === "User Profile") && (bExist === false)) {
+                    bExist = true;
+                    centerPanel.setActiveTab(ce);
+                    var iframe = centerPanel.getActiveTab(ce);
+                    iframe.items.items[0].setSrc('/{{app.request.locale }}/admin/userprofile?id=' + {{app.user.id}});
+                    iframe.items.items[0].reload();
+                }
+            });
+            if (bExist === false) {
+
+                var panel = Ext.create('GeoExt.panel.SimpleIFrame', {
+                    border: false,
+                    src: '/{{app.request.locale }}/admin/userprofile?id=' + {{app.user.id}}
+                });
+                centerPanel.add({
+                    id: 'admin_system_userprofile_id',
+                    title: 'User Profile',
+                    layout: 'fit',
+                    closable: true,
+                    items: panel
+                });
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+                centerPanel.setActiveTab(0);
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+            }
+            {% endif %}
+
+        },
+        /* show system parameters in center region tab */
+        SystemParams: function() {
+
+            var bExist = false;
+            var centerPanel = Ext.getCmp("center_region");
+            centerPanel.items.each(function(el, ce, index) {
+                if ((el.title === "System Parameters") && (bExist === false)) {
+                    bExist = true;
+                    centerPanel.setActiveTab(ce);
+                    var iframe = centerPanel.getActiveTab(ce);
+                    iframe.items.items[0].setSrc('/{{app.request.locale }}/systemparams');
+                    iframe.items.items[0].reload();
+                }
+            });
+            if (bExist === false) {
+
+                var panel = Ext.create('GeoExt.panel.SimpleIFrame', {
+                    border: false,
+                    src: "/{{app.request.locale }}/systemparams"
+                });
+                centerPanel.add({
+                    id: 'admin_system_params_id',
+                    title: 'System Parameters',
+                    layout: 'fit',
+                    closable: true,
+                    items: panel
+                });
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+                centerPanel.setActiveTab(0);
+                centerPanel.setActiveTab(parseInt(centerPanel.items.length) - 1);
+            }
+
+        }
+
+        /*
+         onSubwatershedsStoreLoad: function(store, records) {
+         // do custom stuff on summits load if you want, for example here we
+         // zoom to summits extent
+         var dataExtent = store.layer.getDataExtent();
+         if (dataExtent) {
+         store.layer.map.zoomToExtent(dataExtent);
+         }
+         },
+         onWatershedsStoreLoad: function(store, records) {
+         // do custom stuff on summits load if you want, for example here we
+         // zoom to summits extent
+         var dataExtent = store.layer.getDataExtent();
+         if (dataExtent) {
+         store.layer.map.zoomToExtent(dataExtent);
+         }
+         },
+         onStationsStoreLoad: function(store, records) {
+         // do custom stuff on summits load if you want, for example here we
+         // zoom to summits extent
+         var dataExtent = store.layer.getDataExtent();
+         if (dataExtent) {
+         store.layer.map.zoomToExtent(dataExtent);
+         }
+         },
+         models: ['GeoExt.model.Watershed', 'GeoExt.model.Subwatershed', 'GeoExt.model.Station'],
+         stores: ['GeoExt.store.Watersheds', 'GeoExt.store.Subwatersheds', 'GeoExt.store.Stations'],
+         });*/
+    });
+
+</script>
+

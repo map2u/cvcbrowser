@@ -1,0 +1,3 @@
+CM;; Common
+NC;; Not common
+ER;; Extremely rare

@@ -1,0 +1,418 @@
+
+{% extends "::base.html.twig" %}
+
+{% block stylesheets %}
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="keywords" content="Juturna, web-GIS, community-based environmental modelling, CBEM, volunteer monitoring, toronto watershed">
+    <meta name="description" content="Online help system and system information for the Juturna web-distibuted geographic information system.  The system is designed to support upload, analysis and reporting of community and volunteer collected water quality data in streams.">
+    <meta name="csrf-param" content="authenticity_token">
+    <meta name="csrf-token" content="7eIFKjnS2+jqMpdMQiObeE58jRn8Z8NcZ5ZPnY4ZgiA=">
+    <title>Juturna 2.6 Web-GIS: Help File and System Documentation</title>
+    
+    <link href="{{ asset('bundles/yorkujuturna/stylesheets/')}}application.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="{{ asset('bundles/yorkujuturna/stylesheets/')}}example.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="{{ asset('bundles/yorkujuturna/stylesheets/')}}scaffold.css" media="screen" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        img
+        {
+            border: 0;
+        }
+        .user_notice /*text at top of helpfile*/
+        {
+            font: "Times New Roman";
+            color:green; 
+        }
+        .s_toc /*section headers in table of contents*/
+        {
+            margin:0cm 0cm 0cm 0cm;
+        }
+        .ss_toc /*subsections in table of contents*/
+        {
+            margin:0cm 0cm 0cm 1cm;
+        }
+        /**/
+    </style>
+    {{parent()}}
+ {% endblock %} 
+  {% block body %}
+  {% block header %}
+      {{parent()}}
+    {% endblock %}
+    {% block maincontent %}
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span10 offset1">
+
+    <div id="user_Notice" >
+        <h2 class="user_notice">Note to users: We are continually trying to improve this system, and its help files/system documentation. Please report any problems, bugs or suggestions to Professor
+        <a class="user_notice" href="mailto:bunchmj@yorku.ca?subject=Juturna%20bug%20report,%20comment%20or%20suggestion">Martin Bunch</a>, Faculty of Environmental Studies, York University.</h2>
+    </div>
+<!--***************************Table of Contents ******************************************** -->
+    <div id="toc">
+        <h1>Table of Contents</h1>
+        <p class="s_toc"><a href="#ash_1.0">1.0 Overview of System Management</a></p>
+        <p class="ss_toc"><a href="#ash_1.1">1.1 Purpose</a></p>
+        <p class="ss_toc"><a href="#ash_1.2">1.2 Registered Users</a></p>
+        <p class="s_toc"><a href="#ash_2.0">2.0 The System Management Interface</a></p>
+        <p class="ss_toc"><a href="#ash_2.1">2.1 The Scrollable Browser Table </a> </p>
+        <p class="s_toc"><a href="#ash_3.0">3.0 User Functions</a></p>
+        <p class="ss_toc"><a href="#ash_3.1">3.1 Managing Existing Users</a></p>
+        <p class="ss_toc"><a href="#ash_3.2">3.2 Adding New Users</a></p>
+        <p class="ss_toc"><a href="#ash_3.3">3.3 Approve Pending User Account Requests</a></p>
+        <p class="s_toc"><a href="#ash_4.0">4.0 Group Name management</a></p>
+        <p class="s_toc"><a href="#ash_5.0">5.0 Using Management Tools</a></p>
+        <p class="ss_toc"><a href="#ash_5.1">5.1 Watershed Management</a></p>
+        <p class="ss_toc"><a href="#ash_5.2">5.2 Creating a New Watershed</a></p>
+        <p class="ss_toc"><a href="#ash_5.3">5.3 Subwatershed Management</a></p>
+        <p class="ss_toc"><a href="#ash_5.4">5.4 Creating a New Subwatershed</a></p>
+        <p class="s_toc"><a href="#ash_6.0">6.0 System Backup</a></p>
+        <p class="s_toc"><a href="#ash_7.0">7.0 System Parameters</a></p>
+        <p class="ss_toc"><a href="#ash_7.1">7.1 Navigating Metadata</a></p>
+        <p class="ss_toc"><a href="#ash_7.2">7.2. Adding New Metadata Parameters</a></p>
+        <p class="s_toc"><a href="#ash_8.0">8.0 Updating System  Watersheds Polygons</a></p>
+        <p class="s_toc"><a href="#ash_9.0">9.0 Juturna 2.6 Core Functions</a></p>
+        <p class="s_toc"><a href="#ash_10.0">10. Recalculate Overall  Assessments</a></p>
+        <p class="s_toc"><a href="#ash_11.0">11.0 Versioning</a></p>
+        <p class="s_toc"><a href="#ash_12.0">12.0 Setting up a New Juturna Server</a></p>
+    </div>
+<!--***************************Section 1 ******************************************** -->
+    <div id="ash_1.0">
+        <h1>1.0 Overview of System Management</h1>
+        <div id="ash_1.1">
+            <h2>1.1 Purpose</h2>
+            <p>There are two types of accounts in the Juturna
+            Web-GIS system: Volunteer accounts and Administrator accounts. Volunteer accounts are intended for users of the system who participate in
+            community-based environmental monitoring (CBEM) programs that generate water
+            chemistry and benthic macroinvertebrate data to
+            indicate stream health. Administrator accounts are intended for managers of
+            CBEM programs that need to administer the data generated (quality control),
+            assign new accounts, remove monitoring stations, etc.. System Management also functions as a device for
+            editing fundamental characteristics of the watersheds and subwatersheds, 
+            as well as managing metadata. </p>
+        </div>
+        <div id="ash_1.2">
+            <h2>1.2 Registered Users</h2>
+            <p>Many functions of the Juturna 2.6 system can be
+            accessed by the general public without needing a user account to log in to the
+            system. Only data upload, data editing, and data deleting functions and
+            account management require a user account. The Role of System Manager
+            should be reserved for the administrator of the site, and any parties assisting
+            the administrator in managing the system. All other parties involved can
+            operate as volunteers by selecting "Create New Account" in the upper
+            right hand corner of the header, and waiting for approval by the system
+            administrator. Please see 
+            <a href="#ash_3.3">Approve Pending User Account Requests.</a></p>
+        </div>
+    </div>
+<!--***************************Section 2 ******************************************** -->
+    <div id="ash_2.0">
+        <h1>2.0 The System Management Interface</h1>
+        <div id="ash_2.1">
+            <h2>2.1 The Watersheds Info Panel</h2>
+            <p><img alt="" id="ash_fig_1" src="/images/systemhelp2.6/admin1.png" width="207" height="507"></p>
+            <p>Figure 1</p>
+            <p>Immediately below the Header Bar on the left of the Juturna 2.6
+            browser window is a panel labelled Watersheds Info with tabs labelled "Watersheds List", 
+            "Stations List", "Settings", and "System Information". Users with administrator
+            privileges will see a "System Administration" option. Selecting
+            "System Administration" will reveal a panel as displayed in <a href="#ash_fig_1">figure 1</a>. The
+            "System Administration" panel allows the user to select all administrative
+            options. Below the administration options, the panel will display any stations
+            that have been registered by the logged in administrator. Each monitoring
+            station in the list will be presented with its Station IDs, some functions for
+            managing data associated with the station and a brief description (if
+            provided). Left clicking the station ID name is interactive with the Map
+            Viewer. </p>
+            <p>Use of the functions "Report", "Download", "Edit", "Delete" are the same as
+            described in the "System Help" Section
+            <a href="/admin/systemhelp#sh_4.5">4.5 Using Details Panel</a>.
+            One exception is that as an administrative user you are able to delete data. Note
+            that only the user who entered the data, or an administrator user, may do so.</p>
+        </div>
+    </div>
+<!--***************************Section 3 ******************************************** -->
+    <div id="ash_3.0">
+        <h1>3.0 User Functions</h1>
+        <div id="ash_3.1">
+            <h2>3.1 Add New User</h2>
+            <p>Add a new user when a pending user account doesn't exist and you wish to add 
+            a volunteer or additional administrator who has not applied for a user account 
+            independently.</p>
+
+            <p>Left Clicking on "User Account Management", in the "System Administration" panel, will
+            display the "User Account Management Window". On the left side of this window the existing accounts are listed. 
+            On the right side of this window is the "User Account Details". Left Clicking on "Add New" button in the "User Account Management" window, will
+            add a new user field to the list and allow you to add user details in the "User Account Details" area (See <a href="#ash_fig_2">figure 2</a>). 
+            Add the proper information in the spaces provided including login name, first name, last name,
+            email, and address. Select from the drop down menu either the
+            role of an "Administrator" or Volunteer". Required fields are "login name" and "email". If these spaces are left blank
+            or are not within the set parameters you will receive an error messag e with
+            instructions on correcting the problem. After left clicking "Create User" the
+            Login name and Password will be displayed to the left of the form. This data
+            will be saved and the information sent to the email address specified. The
+            email will include the new user's username and password. </p>
+
+            <p><img alt="" id="ash_fig_2" src="/images/systemhelp2.6/admin3.png" width="271" height="408"></p>
+            <p>Figure 2</p>
+        </div>
+        <div id="ash_3.2">
+            <h2>3.2 Managing Existing Users</h2>
+
+            <p>Left Clicking on "User Account Management", in the "System Administration" panel, will
+            display the "User Account Management Window" as shown in <a href="#ash_fig_3">figure 3</a>. On the left side of this 
+            window the existing accounts are listed. By selecting an existing user, their information will 
+            be displayed right-side including the login name, role (administrator/volunteer) when the user account was 
+            created, the last time that each user logged in, and any data
+            submitted. If you have administrator user role, you have the option to edit any of the selected 
+            accounts details.</p>
+
+            <p>Left clicking on a login name will display the information originally
+            entered to register the user <a href="#ash_fig_2">(as in figure 2)</a>. You can alter any information in
+            the form and save it by left clicking "Update". You may also delete the user or reset their
+            password by left clicking either "Delete" or typing a new password in the "new password" field on the right hand side.</p>
+            <p>
+            <img alt="" id="ash_fig_3" src="/images/systemhelp2.6/admin2.png" width="482" height="289"></p>
+            <p>Figure 3</p>
+        </div>
+        <div id="ash_3.3">
+            <h2>3.3 Approving Pending User Account Requests</h2>
+            <p>Left Clicking on "User Account Management", in the "System Administration" panel, will
+            display the "User Account Management Window" as shown in <a href="#ash_fig_3">figure 3</a>.
+            As shown in <a href="#ash_3.2">3.2 Managing Existing Users</a>, by selecting an existing user, their account details
+            are shown on the right-side. One of the account details is "status". The drop-down allows for 
+            an account status to be changed by users with administrative privilages. 
+            Accounts are created from potential new users who have visited the 
+            Juturna interface and want actively participate in either administrating or 
+            volunteering to enter data. To change  the status of an account select the user, 
+            change the status drop-down, and left-click the update button.</p>
+        </div>
+    </div>
+<!--***************************Section 4 ******************************************** -->
+    <div id="ash_4.0">
+        <h1>4.0 Group Name Management</h1>
+        <p>The "Group Name Management" link is for creating new "groups", and making 
+        changes to existing "groups" from a master list. </p>
+
+        <p>Left clicking on "Group Name Management" in the "System Administration" window, 
+        will display a list of existing "Groups", "Group Leaders" and options to "show", 
+        "edit" or "destroy" each. Left clicking "Show" will display the group name, 
+        leader name, and description in a read only format. Left clicking "edit" will 
+        allow you to edit this information in an open form. Left clicking "Destroy" will 
+        delete the selected group along with all data. The administrator will be asked 
+        once if this is a desirable outcome.</p>
+        <p><b>Warning: </b>After left clicking "Okay" 
+        the data will be deleted and not retrievable. </p>
+        <p>Creating a new Group Name: Below the list of Group Names is a "New Group 
+        Name" link. Left clicking on this link will display a form for creating a new 
+        group name in the Map Viewer. Fill in the information for group name, leader 
+        name, and a description of the group. Click the "Create" button. The information 
+        you have provided will be displayed in a read only format. </p>
+    </div>
+<!--***************************Section 5 ******************************************** -->
+    <div id="ash_5.0">
+        <h1>5.0 Using System Management Tools</h1>
+        <div id="ash_5.1">
+            <h2>5.1 Watershed Management</h2>
+            <p>Left clicking on "Watershed Management", in the "System Admin" window,
+            will display a list of all watersheds in the Map Viewer window. To the right of
+            each Watershed are three options: "Show", "Edit", and "Destroy". Left clicking "Edit" allows the administrator to change the name, description, and colour
+            code of the watershed by manually editing the information and left clicking the 
+            "Update" button at bottom left (similar to figure 4 below). Left clicking "Show" will
+            display the same information in a read only format. Left clicking "Destroy"
+            will delete the selected watershed along with all data. The administrator will
+            be asked once if this is a desirable outcome.</p>
+            <p><b>Warning: </b>After left clicking "Okay" the data will be deleted and not retrievable. </p>
+
+            <p><b>The color code: </b>Is a way of 
+            distinguishing one watershed from another in the Map Viewer. When editing or 
+            creating a new watershed left clicking on the drop down menu to the right of 
+            "Color Code". This will
+            display a wide pallet of colours. Each colour has a corresponding four character
+            code beginning with a # sign. This will be displayed in the text box to the
+            left of the dropdown menu. Colours can also be selected by entering the code in
+            the text box first. The selected colour will be assigned to the new, or edited watershed in the Map Viewer. </p>
+        </div>
+        <div id="ash_5.2">
+            <h2>5.2 Creating a New Watershed</h2>
+            <p>Create a new Watershed when you have data from a specific location that does 
+            not fall within an existing watershed.</p>
+
+            <p>Below the list of Watersheds is a "New Watershed" link. Left clicking this 
+            link will display the form in <a href="#ash_fig_5">figure 5</a>. Enter the name, description and
+            corresponding colour code. Left click the "Create" button to finish. The new
+            Watershed will now be displayed in the Watershed list under "Watershed
+            Management".</p>
+            <p><b>Note: </b>The new Watershed will not be defined spatially until 
+            information is added regarding Subwatersheds that fall within the region of the 
+            new Watershed. </p>
+            <h2><img alt="" id="ash_fig_4" src="/images/systemhelp2.6/admin4.png" width="390" height="185"></h2>
+            <p>Figure 4</p>
+        </div>
+        <div id="ash_5.3">
+            <h2>5.3 Subwatershed Management</h2>
+            <p>Left Clicking on Subwatershed Management", in the "System Administration" window, will display a list of all subwatersheds
+            in the Map Viewer window. The main Watershed is listed first (far left side), followed by the Subwatershed name, and three options
+            to the right of each Subwatershed: "Show ', "Edit". "Destroy". The "Show", "Edit", and "Destroy" have the same function as described
+            above (<a href="#ash_5.1">See 4.1 Watershed Management</a>). However, as shown in Figure 5, the administrator has the option to work 
+            with or upload a "Shape File (.shp)", an "Index File (.shx), and a Database File (.dbf). The administrator can choose to upload files 
+            by left clicking the "Choose file" button to the right of either File description. The chosen file will then be displayed in the text 
+            box to the left of the "Browse" button. Typing in a file name in the text box is not an option. All files must
+            be selected from a list presented in the browser window.</p>
+
+            <p><b>Shape Files: </b></p>
+            <p><b>The following information is sourced from the Wikipedia file: <a href="http://en.wikipedia.org/wiki/Shapefile">http://en.wikipedia.org/wiki/Shapefile</a></b></p>
+            <p><b>Please follow that link for further information on shape files.</b></p>
+            <p>A shapefile is a digital vector storage format for storing geometric location and associated attribute information. This format 
+            lacks the capacity to store topological information. It is possible to read and write shapefiles using a variety of free and non-free programs.</p>
+            <p>Shapefiles are simple because they store primitive geometrical data types of points, lines, and polygons. These primitives are of 
+            limited use without any attributes to specify what they represent. Therefore, a table of records will store properties/attributes for 
+            each primitive shape in the shapefile. Shapes (points/lines/polygons) together with data attributes can create infinitely many representations 
+            about geographical data. Representation provides the ability for powerful and accurate computations.</p>
+            <p>A shapefile is actually a set of several files. Three individual files are <i>mandatory</i> to store the core data that comprises a shapefile:
+            ".shp", ".shx", ".<a href="http://en.wikipedia.org/wiki/Dbf" title="Dbf">dbf</a>", and other extensions on a common prefix name (e.g., "lakes.*").
+            The actual <i>shapefile </i> relates specifically to files with the ".shp" extension, but alone is incomplete for distribution, as the other supporting files are required.</p>
+
+            <p><img alt="" id="ash_fig_5" src="/images/systemhelp2.6/admin5.png" width="421" height="282"></p>
+            <p>Figure 5</p>
+        </div>
+        <div id="ash_5.4">
+            <h2>5.4 Creating a New Subwatershed</h2>
+
+            <p>Below the list of Subwatersheds is a "New Subwatershed" button. Left clicking this button will
+            display the blank form in figure 6. All Administrator functions are as
+            described in <a href="#ash_4.1">4.1</a>, <a href="#ash_4.2">4.2</a>, and <a href="#ash_4.3">4.3</a>. Notice that you must select 
+            a Watershed in the drop down menu of "Watershed Name", then manually type
+            in a name of the newly created Subwatershed. If the Subwatershed that you wish to create does not fall within
+            the boundaries of the given Watersheds in the drop down menu, return to
+            "Watershed Management" (<a href="#ash_4.1">4.1</a>), and "Creating a New Watershed" (<a href="#ash_4.2">4.2</a>). Once added,
+            by filling out the form in <a href="#ash_fig_5">Figure 5</a> and left clicking the "Create" button, the Subwatershed will appear 
+            in the "Subwatershed Management" list, in alphabetical order of Watershed.</p>
+            <p>Note: When creating a New Subwatershed that falls
+            under the category of an existing Watershed, you are not obligated to choose
+            the Color Code. This will automatically set the Color Code to the existing code
+            of the host Watershed, although the color displayed in the dropdown menu will
+            remain in default (black). However, if creating a Subwatershed
+            under a new or existing Watershed where no colour code has been assigned, the
+            color code chosen for the subwatershed will apply not
+            only to that Subwatershed but to the Watershed as a
+            whole.</p>
+        </div>
+    </div>
+<!--***************************Section 6 ******************************************** -->
+    <div id="ash_6.0">
+        <h1>6.0 System Backup</h1>
+
+        <p>Left clicking on "System Backup" in the "System Management" window will
+        display two tables labelled "System Backup Settings" (See <a href="#ash_fig_6">figure 6</a>). The
+        administrator has the option to backup the entire Database, and/or all System
+        Files to one larger file on the server. For both Database Backup and System Files Backup the administrator may
+        change the folder name, and describe the filename, although both have default
+        settings of "database" for the Database Backup, "system" for the System Files
+        Backup. The file name automatically defaults to the present date. Figure 6 was
+        copied from System Backup Settings on Oct 27<sup>th</sup> 2010. </p>
+
+        <p>Below the File name is a checked box labelled "Backup on Schedule". The
+        administrator has the option to check or uncheck this box and select from the
+        dropdown menu below either "Daily", "Weekly", or "Monthly" automatic backup.
+        After making any changes to the "System Backup Settings" page the administrator
+        may left click the "Save Settings" button at bottom right, or choose to left
+        click the "Run Backup Immediately" button at bottom left. This will run the
+        backup immediately and continue to back up the Database or System Files as
+        Specified by you. </p>
+
+        <h1><img alt="" id="ash_fig_6" src="/images/systemhelp2.6/admin6.png" width="732" height="318"></h1>
+        <p><b>Figure 6: </b>Backup options</p>
+    </div>
+<!--***************************Section 7 ******************************************** -->
+    <div id="ash_7.0">
+        <h1>7.0 System Parameters</h1>
+        <div id="ash_7.1">
+            <h2>7.1 Navigating System Parameters</h2>
+            <p>Left clicking "System Parameters" in the "System Management" window will 
+            display a list of "New Juturna System Parameters" (See <a href="#ash_fig_7">Figure 7</a>). Metadata is 
+            data providing information about one or more pieces of data. In Figure 7 the 
+            fillable forms allow you to edit the images by browsing for new file images, 
+            edit the URL associated with each image, and enter an "Image tip" (an 
+            explanation of the image that will be displayed when the mouse hovers over the 
+            image). Clicking the "Create" button will store any changes made to System 
+            Parameters. </p>
+            <p><img alt="" id="ash_fig_7" src="/images/systemhelp2.6/admin7.png" width="459" height="537"></p>
+            <p>Figure 7</p>
+        </div>
+        <div id="ash_7.2">
+            <h2>7.2 Adding new Metadata Parameters</h2>
+            <p>At the moment, it is only possible to change or add two types of Metadata: 
+            parameters for the logos along the header board, and the Webmaster contact 
+            information. </p>
+        </div>
+    </div>
+<!--***************************Section 8 ******************************************** -->
+    <div id="ash_8.0">
+        <h1>8.0 Uploading System Watersheds Polygons</h1>
+        <p>What is a Polygon?: In a computer graphics system a polygon is a 
+        two-dimensional shape that is modelled and stored within its database. </p>
+        <p>Left clicking on "System Watersheds Polygons Upload" will display the form 
+        shown in <a href="#ash_fig_8">figure 8</a> below. The administrator has the option to work with or upload 
+        a "Shape File (.shp)", an "Index File (.shx), and
+        a Database File (.dbf). The administrator can choose to upload files by left
+        clicking the "Browse" button to the right of either File description. The
+        chosen file will then be displayed in the text box to the left of the "Browse"
+        button. Typing in a file name in the text box is not an option. All files must
+        be chosen from an existing list. Enter the Watershed and Subwatershed field 
+        names and a short description of the Polygon. When all information is complete 
+        left click the "Create" button.</p>
+        <p><img alt="" id="ash_fig_8" src="/images/systemhelp2.6/admin8.png" width="592" height="394"></p>
+        <p>Figure 8</p>
+    </div>
+<!--***************************Section 9 ******************************************** -->
+    <div id="ash_9.0">
+        <h1>9.0 Juturna Core Functions</h1>
+        <p>For a Description of Juturna Core Functions associated
+         with editing station information under "My Station List" in the "System Management" 
+         window please refer to "System Help" under
+        <a href="/admin/systemhelp?#sh_5.0">5.0 "Juturna 2.6 Core Functions"</a></p>
+    </div>
+<!--***************************Section 10 ******************************************** -->
+    <div id="ash_10.0">
+        <h1>10.0 Recalculating Overall Assessments</h1>
+        <p>Left-clicking the "Recalculate Overall Assessments" Link will 
+        recalculate the analysis of stream health based on benthic macroinvertebrate 
+        data associated with monitoring stations in the Juturna system. Because new data can be created for an existing station by multiple users (See 
+        5.1-5.5 in "System Help" under
+        <a href="http://67.213.74.205:8081/admin/systemhelp?#sh_5.0">Juturna 2.6 
+        Core Functions</a>), it is important that a system administrator periodically re-calculate 
+        the overall assessments. This will ensure that all 
+        assessments are up to date. For 
+        example, new benthic data will alter the station report, changing the benthic macroinvertebrate 
+        dataset which may be change the stream health from "unimpaired" to "impaired". </p>
+    </div>
+<!--***************************Section 11 ******************************************** -->
+    <div id="ash_11.0">
+        <h1>11.0 Versioning</h1>
+        <p>A version tracking system has been established to track changes in the 
+        Juturna web-GIS that arise from maintenance (e.g., bug fixes) and system 
+        development. Please mail <a href="mailto:bunchmj@yorku.ca?subject=Juturna">Prof. 
+        Martin Bunch</a> for more information.</p>
+    </div>
+<!--***************************Section 12 ******************************************** -->
+    <div id="ash_12.0">
+        <h1>12.0 Setting up a New Juturna Server</h1>
+        <p>Anyone wishing to establish a new Juturna server is encouraged to contact
+        <a href="mailto:bunchmj@yorku.ca?subject=Juturna">Prof. Martin Bunch</a>. One of 
+        the simplest ways to establish a new Juturna system to serve your project is to 
+        establish a server or virtual server, prepare it for the Juturna system, and 
+        apply an image of the system which you can then modify to suit your needs. Also, 
+        Juturna is a Free and Open Source Software (FOSS) project licensed under the
+        <a href="http://www.gnu.org/licenses/gpl.html">GNU General Public License</a>. 
+        The source code for the Juturna project is available at
+        <a href="http://git.juturna.ca/">http://git.juturna.ca</a>. (To download 
+        the entire directory of source code subdirectories and files, use the command 
+        "git clone gitosis@git.juturna.ca:/srv/gitosis/repositories/juturna " and the 
+        password "gitosis").</p>
+    </div>
+</div></div></div>
+{% endblock  %}
+     {% block footer %}
+     {% endblock %}
+{% endblock body %}

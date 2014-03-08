@@ -1,0 +1,88 @@
+/* 
+    Document   : map
+    Created on : 27-Aug-2013, 2:03:54 PM
+    Author     : josephzhao
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+.olLayerGoogleCopyright .olLayerGoogleV3,
+.olLayerGoogleCopyright {
+    right: 3px;
+    bottom: 2px;
+    left: auto;  
+}
+
+.olLayerGooglePoweredBy .olLayerGoogleV3 .gmnoprint,
+.olLayerGooglePoweredBy {
+    left: 2px;
+    bottom: 2px;   
+}
+
+.olLayerGooglePoweredBy.olLayerGoogleV3.gmnoprint { 
+visibility:hidden !important; 
+} 
+
+.olLayerGoogleCopyright { 
+    right: 3px; 
+    bottom: 2px; 
+    left: auto;   
+} 
+.olLayerGoogleV3.olLayerGoogleCopyright { 
+    bottom: 0px; 
+    right: 0px !important; 
+} 
+.olLayerGooglePoweredBy { 
+    left: 2px; 
+    bottom: 2px;   
+} 
+
+.olLayerGoogleV3.olLayerGooglePoweredBy {   
+    visibility:hidden !important; 
+    bottom: 15px !important;   
+} 
+.olLayerGooglePoweredBy.olLayerGoogleV3.gmnoprint { 
+visibility:hidden !important; 
+} 
+
+.olImageLoadError {
+    display: none !important;
+}
+
+#map2uweb_map,
+#map2uweb_maptoc {
+    height:460px;
+ 
+}
+
+#map2uweb_maptoc {
+    margin-left: 5px;
+}
+
+#map2uweb_maptoc .tabbable .tab-content {
+    margin-top: -15px;
+    overflow:auto;
+    height:410px;
+}
+#webgismap_layerSwitcher {
+
+   
+}
+#webgismap_layerSwitcher, #layersDiv {
+    text-align: left;
+    font-size: 16px;
+    font-weight: 250;
+    font-family:  Arial,sans-serif;
+}
+#layersDiv div span {
+
+    padding-left: 4px;
+    font-weight: 400;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+
+}

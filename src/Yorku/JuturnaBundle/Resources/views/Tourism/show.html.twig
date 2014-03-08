@@ -1,0 +1,26 @@
+{% extends "::base.html.twig" %}
+{% block body %}
+    {% block header %}
+      {{parent()}}
+    {% endblock %}
+    {% block show_tourism %}
+
+        {% if entities is defined and entities|length > 0 %}
+
+        <div >
+
+            {% set images=entities.getImages()|unserialize %}
+            {% for image in images %}
+
+                <img style="border: 1px #0000FF solid" src="{{ asset('uploads/images/tourisms/pictures/')}}{{entities.getId()}}/{{image}}" />
+
+            {% endfor %}
+
+
+        </div>                            
+
+
+        {% endif %}
+
+     {% endblock %}
+{% endblock %}

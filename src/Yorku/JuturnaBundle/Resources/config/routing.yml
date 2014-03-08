@@ -1,0 +1,6 @@
+
+juturna:
+    resource: "@YorkuJuturnaBundle/Controller/"
+    type: annotation
+    prefix: /
+

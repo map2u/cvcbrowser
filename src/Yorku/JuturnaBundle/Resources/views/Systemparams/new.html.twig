@@ -1,0 +1,122 @@
+{#% extends '::base.html.twig' %#}
+
+{% block body -%}
+<h1>System Parameter Creation</h1>
+
+<form action="{{ path('systemparams_create') }}" method="post" {{ form_enctype(form) }}>
+        {#{ form_widget(form) }#}
+
+        <table class="records_list">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                </tr>
+            </thead>            
+
+
+            <tbody>
+
+                <tr>
+                    <td>{{ form_label(form.logo1Name) }}</td>
+                    <td>{{ form_widget(form.logo1Name,{required:true}) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.logo1Url) }}</td>
+                    <td>{{ form_widget(form.logo1Url) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.logo1Filename) }}</td>
+                    <td>{{ form_widget(form.logo1Filename, {'attr': {'disabled': 'disabled'}}) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.file1) }}</td>
+                    <td>{{ form_widget(form.file1) }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <hr/>
+                    </td>
+                </tr>
+                <tr>
+
+                    <td>{{ form_label(form.logo2Name) }}</td>
+                    <td>{{ form_widget(form.logo2Name) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.logo2Url) }}</td>
+                    <td>{{ form_widget(form.logo2Url) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.logo2Filename) }}</td>
+                    <td>{{ form_widget(form.logo2Filename,{'attr': {'disabled': 'disabled'}}) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.file2) }}</td>
+                    <td>{{ form_widget(form.file2) }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <hr/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.logo3Name) }}</td>
+                    <td>{{ form_widget(form.logo3Name) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.logo3Url) }}</td>
+                    <td>{{ form_widget(form.logo3Url) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.logo3Filename) }}</td>
+                    <td>{{ form_widget(form.logo3Filename, {'attr': {'disabled': 'disabled'}}) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.file3) }}</td>
+                    <td>{{ form_widget(form.file3) }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <hr/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.masteremail) }}</td>
+                    <td>{{ form_widget(form.masteremail) }}</td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.geoserverHost) }}</td>
+                    <td>{{ form_widget(form.geoserverHost) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.geoserverPort) }}</td>
+                    <td>{{ form_widget(form.geoserverPort) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.geoserverWorkspace) }}</td>
+                    <td>{{ form_widget(form.geoserverWorkspace) }}</td>
+                </tr>
+ {{ form_rest(form) }}
+            </tbody>
+        </table>
+
+
+
+
+        <p>
+            <button type="submit">Create</button>
+        </p>
+    </form>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('systemparams') }}">
+                Back to the list
+            </a>
+        </li>
+    </ul>
+{% endblock %}

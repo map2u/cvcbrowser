@@ -1,0 +1,22 @@
+Yorku\JuturnaBundle\Entity\Rareness:
+    type: entity
+    table: bird_rareness
+    gedmo:
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        rarenessName:
+            type: string
+            length: 255
+            nullable: false
+            column: rareness_name
+        code:
+            type: string
+            length: 10
+            column: code
+    lifecycleCallbacks: {  }

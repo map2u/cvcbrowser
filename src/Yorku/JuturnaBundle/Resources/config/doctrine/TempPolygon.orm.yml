@@ -1,0 +1,29 @@
+Yorku\JuturnaBundle\Entity\TempPolygon:
+    type: entity
+    table: temp_polygon
+    fields:
+        gid:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        watershedName:
+            type: string
+            length: 50
+            fixed: false
+            nullable: true
+            column: watershed_name
+        subwatershedName:
+            type: string
+            length: 50
+            fixed: false
+            nullable: true
+            column: subwatershed_name
+        theGeom:
+            type: geometry
+            nullable: true
+            requireSQLConversion: true
+            column: the_geom
+    lifecycleCallbacks: {  }

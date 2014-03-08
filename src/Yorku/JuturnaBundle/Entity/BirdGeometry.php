@@ -1,0 +1,660 @@
+<?php
+
+namespace Yorku\JuturnaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * BirdGeometry
+ */
+class BirdGeometry
+{
+    /**
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @var string
+     */
+    private $scientificName;
+
+    /**
+     * @var string
+     */
+    private $commonName;
+
+    /**
+     * @var string
+     */
+    private $iucn;
+
+    /**
+     * @var string
+     */
+    private $season;
+
+    /**
+     * @var string
+     */
+    private $distribution;
+
+    /**
+     * @var string
+     */
+    private $rareness;
+
+    /**
+     * @var string
+     */
+    private $code;
+
+    /**
+     * @var string
+     */
+    private $websiteUrl;
+
+    /**
+     * @var string
+     */
+    private $imageTip;
+
+    /**
+     * @var boolean
+     */
+    private $enabled;
+
+    /**
+     * @var float
+     */
+    private $lng;
+
+    /**
+     * @var float
+     */
+    private $lat;
+
+    /**
+     * @var geometry
+     */
+    private $theGeom;
+
+    /**
+     * @var \DateTime
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     */
+    private $updatedAt;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $observations;
+
+    /**
+     * @var \Application\Sonata\UserBundle\Entity\User
+     */
+    private $user;
+
+    /**
+     * @var \Yorku\JuturnaBundle\Entity\Station
+     */
+    private $station;
+
+    /**
+     * @var \Yorku\JuturnaBundle\Entity\Family
+     */
+    private $family;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->observations = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set scientificName
+     *
+     * @param string $scientificName
+     * @return BirdGeometry
+     */
+    public function setScientificName($scientificName)
+    {
+        $this->scientificName = $scientificName;
+    
+        return $this;
+    }
+
+    /**
+     * Get scientificName
+     *
+     * @return string 
+     */
+    public function getScientificName()
+    {
+        return $this->scientificName;
+    }
+
+    /**
+     * Set commonName
+     *
+     * @param string $commonName
+     * @return BirdGeometry
+     */
+    public function setCommonName($commonName)
+    {
+        $this->commonName = $commonName;
+    
+        return $this;
+    }
+
+    /**
+     * Get commonName
+     *
+     * @return string 
+     */
+    public function getCommonName()
+    {
+        return $this->commonName;
+    }
+
+    /**
+     * Set iucn
+     *
+     * @param string $iucn
+     * @return BirdGeometry
+     */
+    public function setIucn($iucn)
+    {
+        $this->iucn = $iucn;
+    
+        return $this;
+    }
+
+    /**
+     * Get iucn
+     *
+     * @return string 
+     */
+    public function getIucn()
+    {
+        return $this->iucn;
+    }
+
+    /**
+     * Set season
+     *
+     * @param string $season
+     * @return BirdGeometry
+     */
+    public function setSeason($season)
+    {
+        $this->season = $season;
+    
+        return $this;
+    }
+
+    /**
+     * Get season
+     *
+     * @return string 
+     */
+    public function getSeason()
+    {
+        return $this->season;
+    }
+
+    /**
+     * Set distribution
+     *
+     * @param string $distribution
+     * @return BirdGeometry
+     */
+    public function setDistribution($distribution)
+    {
+        $this->distribution = $distribution;
+    
+        return $this;
+    }
+
+    /**
+     * Get distribution
+     *
+     * @return string 
+     */
+    public function getDistribution()
+    {
+        return $this->distribution;
+    }
+
+    /**
+     * Set rareness
+     *
+     * @param string $rareness
+     * @return BirdGeometry
+     */
+    public function setRareness($rareness)
+    {
+        $this->rareness = $rareness;
+    
+        return $this;
+    }
+
+    /**
+     * Get rareness
+     *
+     * @return string 
+     */
+    public function getRareness()
+    {
+        return $this->rareness;
+    }
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     * @return BirdGeometry
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+    
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string 
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * Set websiteUrl
+     *
+     * @param string $websiteUrl
+     * @return BirdGeometry
+     */
+    public function setWebsiteUrl($websiteUrl)
+    {
+        $this->websiteUrl = $websiteUrl;
+    
+        return $this;
+    }
+
+    /**
+     * Get websiteUrl
+     *
+     * @return string 
+     */
+    public function getWebsiteUrl()
+    {
+        return $this->websiteUrl;
+    }
+
+    /**
+     * Set imageTip
+     *
+     * @param string $imageTip
+     * @return BirdGeometry
+     */
+    public function setImageTip($imageTip)
+    {
+        $this->imageTip = $imageTip;
+    
+        return $this;
+    }
+
+    /**
+     * Get imageTip
+     *
+     * @return string 
+     */
+    public function getImageTip()
+    {
+        return $this->imageTip;
+    }
+
+    /**
+     * Set enabled
+     *
+     * @param boolean $enabled
+     * @return BirdGeometry
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+    
+        return $this;
+    }
+
+    /**
+     * Get enabled
+     *
+     * @return boolean 
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * Set lng
+     *
+     * @param float $lng
+     * @return BirdGeometry
+     */
+    public function setLng($lng)
+    {
+        $this->lng = $lng;
+    
+        return $this;
+    }
+
+    /**
+     * Get lng
+     *
+     * @return float 
+     */
+    public function getLng()
+    {
+        return $this->lng;
+    }
+
+    /**
+     * Set lat
+     *
+     * @param float $lat
+     * @return BirdGeometry
+     */
+    public function setLat($lat)
+    {
+        $this->lat = $lat;
+    
+        return $this;
+    }
+
+    /**
+     * Get lat
+     *
+     * @return float 
+     */
+    public function getLat()
+    {
+        return $this->lat;
+    }
+
+    /**
+     * Set theGeom
+     *
+     * @param geometry $theGeom
+     * @return BirdGeometry
+     */
+    public function setTheGeom($theGeom)
+    {
+        $this->theGeom = $theGeom;
+    
+        return $this;
+    }
+
+    /**
+     * Get theGeom
+     *
+     * @return geometry 
+     */
+    public function getTheGeom()
+    {
+        return $this->theGeom;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return BirdGeometry
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return BirdGeometry
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Add observations
+     *
+     * @param \Yorku\JuturnaBundle\Entity\BirdObservation $observations
+     * @return BirdGeometry
+     */
+    public function addObservation(\Yorku\JuturnaBundle\Entity\BirdObservation $observations)
+    {
+        $this->observations[] = $observations;
+    
+        return $this;
+    }
+
+    /**
+     * Remove observations
+     *
+     * @param \Yorku\JuturnaBundle\Entity\BirdObservation $observations
+     */
+    public function removeObservation(\Yorku\JuturnaBundle\Entity\BirdObservation $observations)
+    {
+        $this->observations->removeElement($observations);
+    }
+
+    /**
+     * Get observations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getObservations()
+    {
+        return $this->observations;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Application\Sonata\UserBundle\Entity\User $user
+     * @return BirdGeometry
+     */
+    public function setUser(\Application\Sonata\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Application\Sonata\UserBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set station
+     *
+     * @param \Yorku\JuturnaBundle\Entity\Station $station
+     * @return BirdGeometry
+     */
+    public function setStation(\Yorku\JuturnaBundle\Entity\Station $station = null)
+    {
+        $this->station = $station;
+    
+        return $this;
+    }
+
+    /**
+     * Get station
+     *
+     * @return \Yorku\JuturnaBundle\Entity\Station
+     */
+    public function getStation()
+    {
+        return $this->station;
+    }
+
+    /**
+     * Set family
+     *
+     * @param \Yorku\JuturnaBundle\Entity\Family $family
+     * @return BirdGeometry
+     */
+    public function setFamily(\Yorku\JuturnaBundle\Entity\Family $family = null)
+    {
+        $this->family = $family;
+    
+        return $this;
+    }
+
+    /**
+     * Get family
+     *
+     * @return \Yorku\JuturnaBundle\Entity\Family 
+     */
+    public function getFamily()
+    {
+        return $this->family;
+    }
+    /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var string
+     */
+    private $geometryType;
+
+    /**
+     * @var float
+     */
+    private $radius;
+
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return BirdGeometry
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set geometryType
+     *
+     * @param string $geometryType
+     * @return BirdGeometry
+     */
+    public function setGeometryType($geometryType)
+    {
+        $this->geometryType = $geometryType;
+    
+        return $this;
+    }
+
+    /**
+     * Get geometryType
+     *
+     * @return string 
+     */
+    public function getGeometryType()
+    {
+        return $this->geometryType;
+    }
+
+    /**
+     * Set radius
+     *
+     * @param float $radius
+     * @return BirdGeometry
+     */
+    public function setRadius($radius)
+    {
+        $this->radius = $radius;
+    
+        return $this;
+    }
+
+    /**
+     * Get radius
+     *
+     * @return float 
+     */
+    public function getRadius()
+    {
+        return $this->radius;
+    }
+}

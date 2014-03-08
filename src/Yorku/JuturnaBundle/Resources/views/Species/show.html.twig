@@ -1,0 +1,17 @@
+{# empty Twig template #}
+{% extends "::base.html.twig" %}
+{% block body %}
+    {% block header %}
+      {{parent()}}
+    {% endblock %}
+    {% block species %}
+            {% block introduce %}
+
+                {{ render(controller("YorkuJuturnaBundle:Species:introduce",{id:id})) }}
+
+            {% endblock %} 
+            {% block observation %}
+               {{ render(controller("YorkuJuturnaBundle:Species:observation",{id:id})) }}
+            {% endblock %} 
+    {% endblock %} 
+{% endblock %}

@@ -1,0 +1,4 @@
+C ;; Confirmed Breeder
+P ;; Probable Breeder
+O ;; Observed
+A ;; Absent
