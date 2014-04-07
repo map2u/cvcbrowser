@@ -1,5 +1,9 @@
+#map2ucorebundle.latest_news: ~
+ 
 sonata_block:
     default_contexts: [cms]
+    context_manager: sonata.page.block.context_manager
+    
     blocks:
         sonata.admin.block.admin_list:
             contexts:   [admin]
@@ -9,7 +13,10 @@ sonata_block:
 
         sonata.block.service.text:
         sonata.block.service.rss:
-
+        sonata.news.block.recent_posts: ~
+        sonata.news.block.recent_comments: ~
+        map2ucorebundle.block.latest_news: ~
+        
         # Some specific block from the SonataMediaBundle
         #sonata.media.block.media:
         #sonata.media.block.gallery:

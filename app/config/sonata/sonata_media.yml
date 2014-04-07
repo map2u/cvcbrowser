@@ -21,12 +21,16 @@ sonata_media:
 
         news:
             providers:
+                - sonata.media.provider.dailymotion
+                - sonata.media.provider.youtube
                 - sonata.media.provider.image
 
             formats:
+                small: { width: 150 , quality: 95}
+                big:   { width: 500 , quality: 90}
                 abtract: { width: 100, quality: 100}
                 wide:    { width: 820 , quality: 100}
-
+         
     cdn:
         # define the public base url for the uploaded media
         server:

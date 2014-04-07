@@ -1,9 +1,0 @@
-{% extends "::base.html.twig" %}
-{% block body %}
-    {% block header %}
-      {#{parent()}#}
-    {% endblock %}
-    {% block map2u_webmap %}
-        {{ render(controller("Map2uWebBundle:Default:map")) }}
-    {% endblock %} 
-{% endblock %}

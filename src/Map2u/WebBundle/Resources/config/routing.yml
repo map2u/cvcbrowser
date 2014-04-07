@@ -1,9 +1,0 @@
-map2u_web_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: Map2uWebBundle:Default:index }
-map2u_web_controller:
-    resource: "@Map2uWebBundle/Controller/"
-    type: annotation
-    prefix: /
-
-    

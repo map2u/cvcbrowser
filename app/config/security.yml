@@ -47,6 +47,19 @@ security:
                 path: fos_user_security_logout
 #                target: index          
             anonymous:    true
+            oauth:
+                resource_owners:
+                    facebook:           "/secured/login/check-facebook"
+                    google:             "/secured/login/check-google"
+                    yahoo:              "/secured/login/check-yahoo"
+                    twitter:            "/secured/login/check-twitter"
+                    qq:                 "/secured/login/check-qq"
+                oauth_user_provider:
+                    service: app_user.oauth_user_provider 
+                provider:   fos_userbundle
+                check_path: fos_user_security_check
+                use_forward:    false
+                login_path: fos_user_security_login #/connect 
 
     acl:
         connection: default

@@ -15,11 +15,12 @@ sonata_user:
 ##        user:               Application\Sonata\UserBundle\Entity\User
 #        group:              Application\Sonata\UserBundle\Entity\Group    
 
-    impersonating:
-        route:                sonata_admin_dashboard
+    impersonating: 
+    #sonata_user_impersonating 
+#        route:                sonata_admin_dashboard
         #    impersonating:
-#        route:                page_slug
-#        parameters:           { path: / }
+        route:                page_slug
+        parameters:           { path: / }
 
     google_authenticator:
         server:               %sonata_user.google_authenticator.server%

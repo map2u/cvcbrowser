@@ -47,6 +47,26 @@ class DefaultController extends Controller {
 
     return $this->render('YorkuJuturnaBundle:Default:index.html.twig', array('_locale' => $_locale));
   }
+  /**
+   * .
+   *
+   * @Route("/about", name="juturnadefault_about")
+   * @Method("GET")
+   * @Template()
+   */
+  public function aboutAction(Request $request) {
+
+    $_locale = $request->attributes->get('_locale', $request->getLocale());
+    /*     $em = $this->getDoctrine()->getManager();
+      $systemparams = $em->getRepository('YorkuJuturnaBundle:Systemparams')->findAll();
+      if ($systemparams->length > 0)
+      $systemparam = $systemparams[0];
+      else {
+      $systemparam = null;
+      } */
+
+    return $this->render('YorkuJuturnaBundle:Default:about.html.twig', array('_locale' => $_locale));
+  }
 
   /**
    * .

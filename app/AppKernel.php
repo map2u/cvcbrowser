@@ -17,6 +17,8 @@ class AppKernel extends Kernel {
       new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
       new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
       new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+      new JMS\SerializerBundle\JMSSerializerBundle(),
+      
       new Sonata\jQueryBundle\SonatajQueryBundle(),
       new FOS\UserBundle\FOSUserBundle(),
       new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
@@ -27,20 +29,41 @@ class AppKernel extends Kernel {
       new Sonata\CoreBundle\SonataCoreBundle(),
       new Sonata\AdminBundle\SonataAdminBundle(),
       new Sonata\MediaBundle\SonataMediaBundle(),
+      new Sonata\ClassificationBundle\SonataClassificationBundle(),
+      new Sonata\PageBundle\SonataPageBundle(),
+      new Sonata\CacheBundle\SonataCacheBundle(),
+      new Sonata\SeoBundle\SonataSeoBundle(),
+      new Sonata\NotificationBundle\SonataNotificationBundle(),
+      new Sonata\NewsBundle\SonataNewsBundle(),
+      new Sonata\FormatterBundle\SonataFormatterBundle(),
       // CKEditor by SonataFormatterBundle
       new Sonata\MarkItUpBundle\SonataMarkItUpBundle(),
       new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
       new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
-      new Sonata\FormatterBundle\SonataFormatterBundle(),
       //
       new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
       new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),
+      new Application\Sonata\NewsBundle\ApplicationSonataNewsBundle(),
+      new Application\Sonata\ClassificationBundle\ApplicationSonataClassificationBundle(),
+      new Application\Sonata\PageBundle\ApplicationSonataPageBundle(),
+      new Application\Sonata\NotificationBundle\ApplicationSonataNotificationBundle(),
       new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
       new Lunetics\LocaleBundle\LuneticsLocaleBundle(),
       new Parsley\ServerBundle\ParsleyServerBundle(),
       new Yorku\JuturnaBundle\YorkuJuturnaBundle(),
       new Map2u\CoreBundle\Map2uCoreBundle(),
       new Map2u\WebBundle\Map2uWebBundle(),
+      new Map2u\LeafletBundle\Map2uLeafletBundle(),
+      new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
+      new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
+      
+       new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
+       new Ibrows\Bundle\NewsletterBundle\IbrowsNewsletterBundle(),  
+      new Ibrows\Map2uBundle\IbrowsMap2uBundle(),
+      new Wowo\NewsletterBundle\WowoNewsletterBundle(),
+      new Wowo\QueueBundle\WowoQueueBundle(),
+
+      
     );
 
     if (in_array($this->getEnvironment(), array('dev', 'test'))) {

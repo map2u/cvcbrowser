@@ -1,15 +1,22 @@
 imports:
-
     - { resource: parameters.yml }
-    - { resource: sonata_parameters.yml }
     - { resource: security.yml }
+    - { resource: sonata_parameters.yml }
     - { resource: doctrine_extensions.yml }
     - { resource: sonata/sonata_block.yml }
     - { resource: sonata/sonata_admin.yml }
     - { resource: sonata/sonata_media.yml }
+    - { resource: sonata/sonata_page.yml }
+    - { resource: sonata/sonata_cache.yml }
+    - { resource: sonata/sonata_notification.yml }
+    - { resource: sonata/sonata_seo.yml }
     - { resource: sonata/sonata_user.yml }
     - { resource: sonata/sonata_formatter.yml }
     - { resource: fos_user.yml }
+    - { resource: ibrows_newsletter.yml }
+    - { resource: wowo_newsletter.yml }
+    - { resource: stfalcon_tinymce.yml }
+    - { resource: sonata/sonata_news.yml }
     
 framework:
     #esi:             ~
@@ -27,10 +34,9 @@ framework:
     default_locale:  "%locale%"
     trusted_hosts:   ~
     trusted_proxies: ~
-    session:        ~
+    session:
         # handler_id set to null will use default session handler from php.ini
-    #    handler_id:  ~
-        
+        handler_id:  ~
     fragments:       ~
     http_method_override: true
 
@@ -39,55 +45,143 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
 
-    form:
-        resources:
-            # ...
-            - 'SonataFormatterBundle:Form:formatter.html.twig'    
-
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ ]
-    #java: /usr/bin/java
+#    read_from:          "%kernel.root_dir%/../web"
+#    write_to:           "%assetic.read_from%"    
+    bundles:           
+        - Map2uCoreBundle
+        - Map2uWebBundle
+        - Map2uLeafletBundle
+        - IbrowsNewsletterBundle
+    java:               /usr/bin/java
+    node:               /usr/bin/node
+    ruby:               /usr/bin/ruby
+    sass:               /usr/bin/sass
     filters:
-        cssrewrite: ~
+        cssrewrite: 
+            yui_js:
+                jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
+ 
+            yui_css:
+                jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
+ 
         #closure:
         #    jar: "%kernel.root_dir%/Resources/java/compiler.jar"
-        #yui_css:
-        #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
+        yui_css:
+            jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
+
+        yui_js:
+                jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
+
+#assetic:
+#    debug:                "%kernel.debug%"
+#    use_controller:
+#        enabled:              "%kernel.debug%"
+#        profiler:             false
+#    read_from:            "%kernel.root_dir%/../web"
+#    write_to:             "%assetic.read_from%"
+#    java:                 /usr/bin/java
+#    node:                 /usr/bin/node
+#    ruby:                 /usr/bin/ruby
+#    sass:                 /usr/bin/sass
+#    # An key-value pair of any number of named elements
+#    variables:
+#        some_name:                 []
+#    bundles:
+#
+#        # Defaults (all currently registered bundles):
+#        - FrameworkBundle
+#        - SecurityBundle
+#        - TwigBundle
+#        - MonologBundle
+#        - SwiftmailerBundle
+#        - DoctrineBundle
+#        - AsseticBundle
+#        - ...
+#    assets:
+#        # An array of named assets (e.g. some_asset, some_other_asset)
+#        some_asset:
+#            inputs:               []
+#            filters:              []
+#            options:
+#                # A key-value array of options and values
+#                some_option_name: []
+#    filters:
+#
+#        # An array of named filters (e.g. some_filter, some_other_filter)
+#        some_filter:                 []
+#    twig:
+#        functions:
+#            # An array of named functions (e.g. some_function, some_other_function)
+#            some_function:                 []
+
 
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver:   "%database_driver%"
-        host:     "%database_host%"
-        port:     "%database_port%"
-        dbname:   "%database_name%"
-        user:     "%database_user%"
-        password: "%database_password%"
-        charset:  UTF8
+#        driver:   "%database_driver%"
+#        host:     "%database_host%"
+#        port:     "%database_port%"
+#        dbname:   "%database_name%"
+#        user:     "%database_user%"
+#        password: "%database_password%"
+#        charset:  UTF8
         # if using pdo_sqlite as your database driver, add the path in parameters.yml
         # e.g. database_path: "%kernel.root_dir%/data/data.db3"
         # path:     "%database_path%"
         types:
+            nostreamblob: Ibrows\Bundle\NewsletterBundle\DBAL\Types\NoStreamBlobType
             json: Sonata\Doctrine\Types\JsonType
             Geometry:   CrEOF\Spatial\DBAL\Types\GeometryType
             geometry:   CrEOF\Spatial\DBAL\Types\GeometryType
             point:      CrEOF\Spatial\DBAL\Types\Geometry\PointType
             polygon:    CrEOF\Spatial\DBAL\Types\Geometry\PolygonType
             linestring: CrEOF\Spatial\DBAL\Types\Geometry\LineStringType
-        mapping_types:
-            Geometry: Geometry 
-            geometry: geometry 
+#        mapping_types:
+#            Geometry: Geometry 
+#            geometry: geometry 
+            
+        connections:
+            default:
+                driver:   %database_driver%
+                host:     %database_host%
+                port:     %database_port%
+                dbname:   %database_name%
+                user:     %database_user%
+                password: %database_password%
+                charset:  UTF8
+                mapping_types:
+                    Geometry: Geometry 
+                    geometry: geometry 
+            
+            mandantA:
+                driver:   %database_driver_mandanta%
+                host:     %database_host_mandanta%
+                port:     %database_port_mandanta%
+                dbname:   %database_name_mandanta%
+                user:     %database_user_mandanta%
+                password: %database_password_mandanta%
+                charset:  UTF8
+            mandantB:
+                driver:   %database_driver_mandantb%
+                host:     %database_host_mandantb%
+                port:     %database_port_mandantb%
+                dbname:   %database_name_mandantb%
+                user:     %database_user_mandantb%
+                password: %database_password_mandantb%
+           
 
     orm:
-        auto_generate_proxy_classes: %kernel.debug%
+        auto_generate_proxy_classes: "%kernel.debug%"
         entity_managers:
-              default:
-                  auto_mapping: true
+                default:
+                #  auto_mapping: true
                   mappings:
                     FOSUserBundle: ~
+                    YorkuJuturnaBundle: ~
                     translatable:
                         type: annotation
                         alias: Gedmo
@@ -104,6 +198,11 @@ doctrine:
                         alias: Gedmo
                         prefix: Gedmo\Tree\Entity
                         dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Entity"
+                    ibrows_newsletter:
+                            type: annotation
+                            prefix: Ibrows\Map2uBundle\Entity\Newsletter
+                            dir: "%kernel.root_dir%/../src/Ibrows/Map2uBundle/Entity/Newsletter"
+                            is_bundle: false
                   dql:
                       numeric_functions:
                           st_contains:        CrEOF\Spatial\ORM\Query\AST\Functions\PostgreSql\STContains
@@ -111,7 +210,22 @@ doctrine:
                           st_area:            CrEOF\Spatial\ORM\Query\AST\Functions\PostgreSql\STArea
                           st_length:          CrEOF\Spatial\ORM\Query\AST\Functions\PostgreSql\STLength
                           st_geomfromtext:    CrEOF\Spatial\ORM\Query\AST\Functions\PostgreSql\STGeomFromText
-
+                mandantA:
+                    connection: mandantA
+                    mappings:
+                        ibrows_newsletter:
+                            type: annotation
+                            prefix: Ibrows\Map2uBundle\Entity\Newsletter
+                            dir: "%kernel.root_dir%/../src/Ibrows/Map2uBundle/Entity/Newsletter"
+                            is_bundle: false
+                mandantB:
+                    connection: mandantB
+                    mappings:
+                        ibrows_newsletter:
+                            type: annotation
+                            prefix: Ibrows\Map2uBundle\Entity\Newsletter
+                            dir: "%kernel.root_dir%/../src/Ibrows/Map2uBundle/Entity/Newsletter"
+                            is_bundle: false
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"
@@ -119,7 +233,7 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
-
+    
 lunetics_locale:
     strict_mode: true
     allowed_locales: %locales%
@@ -133,9 +247,82 @@ lunetics_locale:
       set_on_change: true
     switcher:
       show_current_locale: false
+      
+ewz_recaptcha:
+    public_key:   6LeI-O8SAAAAAEW24-Mpxzc0CZp2e17tN1GE64T0
+    private_key:  6LeI-O8SAAAAAMdkUQnx2KprEiYE4idlG1KrXJGt
+    secure:       false
+    locale_key:   kernel.default_locale
+    enabled: true
+    
+hwi_oauth:
+    # name of the firewall in which this bundle is active, this setting MUST be set
+    firewall_name: main 
+    #secured_area
 
+    # an optional setting to configure a query string parameter which can be used to redirect
+    # the user after authentication, e.g. /connect/facebook?_destination=/my/destination will
+    # redirect the user to /my/destination after facebook authenticates them.  If this is not
+    # set then the user will be redirected to the original resource that they requested, or
+    # the base address if no resource was requested.  This is similar to the behaviour of
+    # [target_path_parameter for form login](http://symfony.com/doc/2.0/cookbook/security/form_login.html).
+    # target_path_parameter: _destination
+
+    # an optional setting to use the HTTP REFERER header to be used in case no
+    # previous URL was stored in the session (i.e. no resource was requested).
+    # This is similar to the behaviour of
+    # [using the referring URL for form login](http://symfony.com/doc/2.0/cookbook/security/form_login.html#using-the-referring-url).
+    # use_referer: true
+
+    # here you will add one (or more) configurations for resource owners
+    # and other settings you want to adjust in this bundle, just checkout the list below!    
+    resource_owners:
+        facebook:
+            type:           facebook
+            client_id:       %facebook_client_id%
+            client_secret:     %facebook_client_secret%
+            scope:    "email"
+            infos_url:  "https://graph.facebook.com/me?fields=username,name,email,picture.type(square)"
+            paths:
+               email: email
+               profilepicture: picture.data.url
+        google:
+               type:                google
+               client_id:           758766813320-k163umg5m7r97nvonk5p7d7hj023b2mk.apps.googleusercontent.com
+               client_secret:       kgT6dy13nk5xKY-nbe596YXY
+               scope:               "email"
+  #             scope:               "https://www.googleapis.com/auth/userinfo.profile"
+  #             user_response_class: \Map2u\CoreBundle\Responses\GoogleResponse
+               paths:
+                   email:           email
+                   profilepicture:  picture
+               options:
+                   access_type:     offline   
+        yahoo:
+            type:                yahoo
+            client_id:           dj0yJmk9bmNBbExrSDFKVU5vJmQ9WVdrOVlXRlNZelF6Tm1zbWNHbzlNakEwTVRFNU9EVTJNZy0tJnM9Y29uc3VtZXJzZWNyZXQmeD1iMw--
+            client_secret:       4f5999590f5f076437523b1a176bcc02290ef1ae     
+#            scope:               "email,contact"
+#            paths:
+#                email:           email
+#                profilepicture:  picture
+# 
+        twitter:
+               type:                twitter
+               client_id:           EaTXDFW6QkWKXZdLir6DsA
+               client_secret:       bz0Fzc36r8GWoUhKhtGXLjrPABSisgDY0wUtwXE  
+        qq:
+            type:                qq
+            client_id:           101038207
+            client_secret:       5da6b150a92fd6646b98383b4c03c0b8           
+services:
+    hwi_oauth.user.provider.entity:
+        class: HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUserProvider
+    app_user.oauth_user_provider:
+        class: Map2u\CoreBundle\Provider\Provider
+        arguments: [@session, @doctrine, %admins%]   
+        
 parsley_server:
     validations:
         fos_user_registration: { group: [Registration], translation_domain: validators}
         fos_user_profile: { group: [Profile], translation_domain: validators}
-      

@@ -1,6 +1,6 @@
 sonata_admin:
     title:      Credit Valley Conservation Browser
-    title_logo: bundles/map2uweb/img/logo-cvc.png
+    title_logo: bundles/map2uweb/images/logo-cvc.png
     
     security:
         handler: sonata.admin.security.handler.acl

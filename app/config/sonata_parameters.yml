@@ -11,6 +11,7 @@ parameters:
     sonata_news.salt:               ThisTokenIsNotSoSecretChangeIt
     sonata_news.comment.emails:     [mail@example.org]
     sonata_news.comment.email_from: no-reply@example.org
+    sonata.block.container.types: [cm]
 
     # Sonata Media options
     sonata_media.cdn.host:          /uploads/media
@@ -18,3 +19,7 @@ parameters:
     # Sonata User Options
     sonata_user.google_authenticator.server:  demo.sonata-project.org
 
+    facebook_client_id:     290780017745380
+    facebook_client_secret: 4676d77d06a2590e2316fcfea57d57eb
+    admins:
+        - "map2u.facebook.id"

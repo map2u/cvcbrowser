@@ -1,3 +1,7 @@
+map2u_leaflet:
+    resource: "@Map2uLeafletBundle/Resources/config/routing.yml"
+    prefix:   /
+
 map2u_web:
     resource: "@Map2uWebBundle/Resources/config/routing.yml"
     prefix:   /
@@ -5,48 +9,44 @@ map2u_web:
 map2u_core:
     resource: "@Map2uCoreBundle/Resources/config/routing.yml"
     prefix:   /
-    
-yorku_juturna:
-    resource: "@YorkuJuturnaBundle/Resources/config/routing.yml"
-    prefix:   /
 
-_welcome:
+welcome_home:
   path: /{_locale}
   defaults: { _controller: Map2uCoreBundle:Welcome:index, _locale: en}
   requirements:
-      _locale: en|es
+      _locale: en|zh
 
       
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
     prefix: /{_locale}
     requirements:
-      _locale: en|es
+      _locale: en|zh
 
 fos_user_profile:
     resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
     prefix: /{_locale}/profile
     requirements:
-      _locale: en|es
+      _locale: en|zh
 
 
 fos_user_register:
     resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
     prefix: /{_locale}/register
     requirements:
-      _locale: en|es
+      _locale: en|zh
 
 fos_user_resetting:
     resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
     prefix: /{_locale}/resetting
     requirements:
-      _locale: en|es
+      _locale: en|zh
 
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /{_locale}/profile
     requirements:
-      _locale: en|es
+      _locale: en|zh
  
 admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
@@ -60,4 +60,68 @@ _sonata_admin:
 soanata_user:
      resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
      prefix: /admin
-      
+
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /secured/connect
+    
+facebook_login:
+    pattern: /secured/login/check-facebook
+
+google_login:
+    pattern: /secured/login/check-google
+
+yahoo_login:
+    pattern: /secured/login/check-yahoo
+
+twitter_login:
+     pattern: /secured/login/check-twitter
+     
+qq_login:
+     pattern: /secured/login/check-qq
+     
+#custom_login:
+#    pattern: /login/check-custom
+#
+#github_login:
+#    pattern: /login/check-github   
+
+# IbrowsNewsletter
+ibrows_newsletter:
+    resource: "@IbrowsNewsletterBundle/Controller/"
+    type:     annotation
+    prefix:   /newsletter
+#    requirements:
+#      _locale: en|zh    
+blog:
+    resource: '@SonataNewsBundle/Resources/config/routing/news.xml'
+    prefix: /blog   
+
+sonata_page_exceptions:
+    resource: '@SonataPageBundle/Resources/config/routing/exceptions.xml'
+    prefix: /
+
+sonata_page_cache:
+    resource: '@SonataPageBundle/Resources/config/routing/cache.xml'
+    prefix: /    
+    
+sonata_user_impersonating:
+    pattern:  /dashboard
+    defaults: { _controller: SonataPageBundle:Page:catchAll }  
+
+page_slug:
+    pattern:  /dashboard
+    defaults: { _controller: SonataPageBundle:Page:catchAll }  
+    
+sonata_media_gallery:
+    resource: '@SonataMediaBundle/Resources/config/routing/gallery.xml'
+    prefix: /media/gallery
+
+sonata_media_media:
+    resource: '@SonataMediaBundle/Resources/config/routing/media.xml'
+    prefix: /media
+
+sonata_media_pixlr:
+    resource: '@SonataMediaBundle/Resources/config/routing/pixlr.xml'
+    prefix: /admin/media
+    
