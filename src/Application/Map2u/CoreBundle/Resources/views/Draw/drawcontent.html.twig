@@ -1,0 +1,105 @@
+{# empty Twig template #}
+<div>
+
+    {% if usergeometries %}
+        <style>
+            #usergeometriesCarousel {
+                position: relative;
+                margin-top: 20px;
+                {#            height:200px;#}
+            }
+        </style>
+        Name:{{usergeometries.getName()}}<br>
+        Description:{{usergeometries.getDescription()}}<br>
+        <div >
+            {% set images=usergeometries.getImages()|unserialize %}
+            {% if images|length > 0 %}
+                {# {% for image in images %}
+         
+                     <a href="#" target="_blank"><img style="border: 1px #0000FF solid" src="{{ asset('uploads/images/')}}{{image}}" width="220px" style="width:220px;"/></a><br>
+         
+                 {% endfor %}#}
+
+                <div id="usergeometriesCarousel" class="carousel slide"  data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        {% set i=0 %}
+                        {% for image in images %}
+                            <li data-target="#usergeometriesCarousel" data-slide-to="{{i}}" {% if i==0 %} class="active" {% endif %}>
+                            </li>
+                            {% set i=i+1 %}
+                        {% endfor %}
+                    </ol>
+                    <div class="carousel-inner">
+                        {% set i=0 %}
+                        {% for image in images %}
+                            <div id="usergeometries-image-{{i}}" data-id="{{i}}" data-slide-no="{{i}}" class="item carousel-item  {% if i==0%} active {% endif %}">
+                                <img src="{{image}}"  width="100%">
+                                {#<div class="carousel-caption">
+                                    <h4>First label</h4>
+                                    <p>A working Bootstrap carousel example.</p>
+                                </div>#}
+                            </div>
+                            {% set i=i+1 %}
+                        {% endfor %}
+                    </div>
+
+                    <a class="left carousel-control" href="#usergeometriesCarousel" data-slide="prev"><span class="icon-prev"></span></a>
+                    <a class="right carousel-control" href="#usergeometriesCarousel" data-slide="next"><span class="icon-next"></span></a>
+
+                </div>
+            {% endif %}
+        </div>
+        <div>
+            {% set videos=usergeometries.getVideo()|unserialize %}
+            {% if videos|length > 0 %}
+                {% for video in videos %}
+                    {% if video !=null and video !='' %}
+                        <video src="{{video}}" controls>
+                            Your browser does not support the <code>video</code> element.
+                        </video>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div>
+            {% set audios=usergeometries.getAudio()|unserialize %}
+            {% if audios|length > 0 %}
+                {% for audio in audios %}
+                    {% if audio !=null and audio !='' %}
+                        <audio src="{{audio}}" controls>
+                            Your browser does not support the <code>audio</code> element.
+                        </audio>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+        <script type="text/javascript">
+
+            var $ = jQuery.noConflict();
+            $(document).ready(function() {
+                $('#usergeometriesCarousel').carousel({pause: "hover", wrap: true});
+
+                $('#usergeometriesCarousel  a[data-slide="prev"]').click(function() {
+                    $('#usergeometriesCarousel').carousel('prev');
+                    return false;
+                });
+
+                $('#usergeometriesCarousel  a[data-slide="next"]').click(function() {
+                    $('#usergeometriesCarousel').carousel('next');
+                    return false;
+                });
+
+                $('#usergeometriesCarousel .carousel-indicators > li').click(function(e) {
+
+                    e.stopPropagation();
+                    $('#usergeometriesCarousel .carousel-indicators > li.active').removeClass("active");
+                    $(this).addClass("active");
+
+                    $('#usergeometriesCarousel').carousel($(this).data('slide-to'));
+
+                    return false;
+                });
+            });
+        </script>
+    {% endif %}
+</div>

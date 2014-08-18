@@ -1,21 +1,41 @@
-{#% extends "FOSUserBundle::layout.html.twig" %#}
 {% extends "::base.html.twig" %}
 
-  {% block body %}
-  {% block header %}
-      {{parent()}}
-    {% endblock %}
+{% block page_container %}
     {% block maincontent %}
+        {% block fos_user_content %}
+            <div  style="margin:0 auto; padding:10px 10px;height:310px;width:260px">
+                <form id="login-form" class="form-vertical validation"  method="post" action="{{path('fos_user_security_check')}}">
+                    <h4>Registered User</h4>
+                    <div class="message"></div>  
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
-    {% endblock %} 
-{% block fos_user_content %}
-<div class="container-fluid">
+                    <div class="form-group">
+                        <label for="username">Email or User ID</label>
+                        <input  class="form-control validate[required]" id="username" name="_username" placeholder="Email or User ID" tabindex="1" value="{{ last_username }}" required="required">
+                    </div>
+                    <div class="form-group">
+                        <label for="password" style="width:100%">Password<div class="pull-right"><a   href="{{path('fos_user_resetting_request')}}">Forgot password?</a></div></label>
+                        <input type="password" class="form-control validate[required,minSize[6]]" tabindex="2" required="required" id="password" name="_password" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label for="remember_me"><input type="checkbox" id="remember_me" name="_remember_me" value="on">Keep me logged in</label><div class="pull-right"><button type="submit" class="btn btn-primary">Login</button></div>
+                        </div>
+                    </div>
+                </form>
 
-    <div class="row-fluid">
-        <div class="span6 offset3">
-
-            {% if error %}
-            <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
+                <div id="register-form"  style="border-top: 2px solid darkgray;position: relative;background-color: #ada69a">
+                    <div class="pull-left" >
+                        <h4>New User</h4>
+                        <p>Don't have an account?</p>
+                    </div>
+                    <div class="pull-right">
+                        <a class="btn btn-default" style="margin-top: 15px;" href="{{path('fos_user_registration_register')}}">Register</a>
+                    </div>
+                </div>
+            </div>
+            {#{% if error %}
+                <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
             {% endif %}
 
             <form action="{{ path("fos_user_security_check") }}" method="post">
@@ -27,15 +47,11 @@
                 <label for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
                 <input type="password" id="password" name="_password" required="required" />
 
-                <label for="remember_me"><input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-                {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label>
+                <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                <label for="remember_me">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label>
 
                 <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
-            </form>
-        </div>
-    </div>
-</div>
-{% endblock  %}
-     {% block footer %}
-     {% endblock %}
-{% endblock body %}
+            </form>#}
+        {% endblock fos_user_content %}
+    {% endblock %}
+{% endblock %}

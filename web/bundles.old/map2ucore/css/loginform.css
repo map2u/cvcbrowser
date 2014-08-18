@@ -1,0 +1,24 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 11-Mar-2014, 10:24:21 AM
+    Author     : josephzhao
+*/
+.navbar .nav > li.login .login-dropdown { position: absolute; white-space: normal; margin-top: 10px; background-color: #f2f1ef; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; border: 1px solid #b1a699; width: 290px; left: -235px; z-index: 9999; display: none; }
+.navbar-form { margin-right: 10px; }
+
+#login-form { padding: 10px; margin: 0; }
+#login-form h4 { margin-bottom: 10px;text-align:left }
+#login-form label a { color: #90897d }
+#login-form label { text-align:left }
+#register-form { padding: 10px 10px 0 }
+#register-form { background-color: #ada69a }
+#register-form h4,
+#register-form p { color: #fff ;text-align:left}
+
+#login-form .message { border: 1px solid #ef8ca8; background: #ffeef0; color: #db003d; padding: 10px; display: none; margin: 10px 10px 0; }
+#login-form .message { margin: 0 0 10px }
+

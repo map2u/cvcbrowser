@@ -8,10 +8,10 @@ fos_user:
 
     group:
         group_class: Application\Sonata\UserBundle\Entity\Group
-        
     registration:
         form:  
-            type: map2u_user_registration   
+            type: map2u_user_registration     
+
 # Enable Doctrine to map the provided entities
 doctrine:
     orm:

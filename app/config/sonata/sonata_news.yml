@@ -23,6 +23,7 @@ sonata_news:
             comment:    Application\Sonata\NewsBundle\Entity\Comment
             media:      Application\Sonata\MediaBundle\Entity\Media
             user:       Application\Sonata\UserBundle\Entity\User
+            
         admin:
             post:
                 class:       Sonata\NewsBundle\Admin\PostAdmin

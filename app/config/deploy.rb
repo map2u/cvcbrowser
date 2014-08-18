@@ -17,7 +17,7 @@ set :scm,         :git
 set :deploy_via,    :remote_cache
 
 set :shared_files,      ["app/config/parameters.yml"]
-set :shared_children,     [app_path + "/logs", web_path + "/uploads"]
+set :shared_children,     [app_path +"/../Data" ,app_path + "/cache",app_path + "/logs", web_path + "/uploads"]
 set :writable_dirs,     [app_path + "/cache", app_path + "/logs", web_path + "/uploads"]
 set :branch, "master"
 set :model_manager, "doctrine"
@@ -42,8 +42,8 @@ after "deploy:finalize_update", :setup_ownership
 before "deploy:update_code", :setup_ownership
 
 task :setup_ownership do
-     run "#{sudo} chown -R #{user}:#{group} #{deploy_to} && chmod -R g+s #{deploy_to}"
-     run "#{sudo} chmod -R 777 #{deploy_to} #{current_path}/app/cache #{current_path}/app/logs"
+#     run "#{sudo} chown -R #{user}:#{group} #{deploy_to} && chmod -R g+s #{deploy_to}"
+#     run "#{sudo} chmod -R 777 #{deploy_to} #{current_path}/app/cache #{current_path}/app/logs"
 end
 
 after "deploy:update_code" do

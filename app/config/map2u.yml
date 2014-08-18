@@ -1,0 +1,3 @@
+parameters:
+    map2u.core.draw.geometry.class: Application\Map2u\CoreBundle\Entity\UserDrawGeometries
+   

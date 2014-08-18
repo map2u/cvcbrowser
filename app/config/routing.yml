@@ -10,6 +10,10 @@ map2u_core:
     resource: "@Map2uCoreBundle/Resources/config/routing.yml"
     prefix:   /
 
+yorku_juturna:
+    resource: "@YorkuJuturnaBundle/Resources/config/routing.yml"
+    prefix:   /
+
 welcome_home:
   path: /{_locale}
   defaults: { _controller: Map2uCoreBundle:Welcome:index, _locale: en}
@@ -47,7 +51,10 @@ fos_user_change_password:
     prefix: /{_locale}/profile
     requirements:
       _locale: en|zh
- 
+      
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml" 
+     
 admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
     prefix: /admin
@@ -95,16 +102,26 @@ ibrows_newsletter:
 #      _locale: en|zh    
 blog:
     resource: '@SonataNewsBundle/Resources/config/routing/news.xml'
-    prefix: /blog   
-
-sonata_page_exceptions:
-    resource: '@SonataPageBundle/Resources/config/routing/exceptions.xml'
-    prefix: /
-
-sonata_page_cache:
-    resource: '@SonataPageBundle/Resources/config/routing/cache.xml'
-    prefix: /    
-    
+    prefix: /{_locale}/blog    
+    requirements:
+      _locale: en|zh
+      
+news:
+    resource: '@SonataNewsBundle/Resources/config/routing/news.xml'
+    prefix: /{_locale}/news    
+    requirements:
+      _locale: en|zh
+      
+      
+#      
+#sonata_page_exceptions:
+#    resource: '@SonataPageBundle/Resources/config/routing/exceptions.xml'
+#    prefix: /
+#
+#sonata_page_cache:
+#    resource: '@SonataPageBundle/Resources/config/routing/cache.xml'
+#    prefix: /    
+#    
 sonata_user_impersonating:
     pattern:  /dashboard
     defaults: { _controller: SonataPageBundle:Page:catchAll }  

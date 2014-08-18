@@ -1,5 +1,6 @@
 parameters:
-    locales: [en,es]
+    locales: [en]
+#    assetic.read_from: %kernel.root_dir%/../web/
     # Sonata Admin Options
     sonata_admin.title:             Sonata Project
     sonata_admin.logo_title:        /bundles/sonataadmin/logo_title.png
@@ -12,13 +13,14 @@ parameters:
     sonata_news.comment.emails:     [mail@example.org]
     sonata_news.comment.email_from: no-reply@example.org
     sonata.block.container.types: [cm]
-
+    sonata.news.manager.post.class: Application\Sonata\NewsBundle\Entity\PostManager
+    sonata.news.manager.comment.class: Application\Sonata\NewsBundle\Entity\CommentManager    
     # Sonata Media options
     sonata_media.cdn.host:          /uploads/media
 
     # Sonata User Options
     sonata_user.google_authenticator.server:  demo.sonata-project.org
-
+          
     facebook_client_id:     290780017745380
     facebook_client_secret: 4676d77d06a2590e2316fcfea57d57eb
     admins:

@@ -1,25 +1,19 @@
 {% extends "::base.html.twig" %}
 
-  {% block body %}
-  {% block header %}
-      {{parent()}}
-    {% endblock %}
+{% block page_container %}
     {% block maincontent %}
 
-    {% endblock %} 
+        <div style="margin:20px auto;width:310px;">
 
-<div class="container-fluid">
+            {% block fos_user_content %}
 
-    <div class="row-fluid">
-        <div class="span6 offset3">
-{% block fos_user_content %}
-{% include "FOSUserBundle:Registration:register_content.html.twig" %}
-{% endblock fos_user_content %}
-       </div>
-    </div>
-</div>
+                {% include "FOSUserBundle:Registration:register_content.html.twig" %}
 
-     {% block footer %}
+            {% endblock fos_user_content %}
+        </div>
+    {% endblock %}
+
+    {% block footer %}
         {{parent()}}
-     {% endblock %}
-{% endblock body %}
+    {% endblock %}
+{% endblock %}

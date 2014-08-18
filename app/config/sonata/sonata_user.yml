@@ -37,6 +37,6 @@ sonata_user:
                 # Defaults:
                 - Profile
                 - Default
-    admin:
-        user:
-            class:    Application\Sonata\UserBundle\Admin\Model\UserAdmin
+#    admin:
+#        user:
+#            class:    Application\Sonata\UserBundle\Admin\Model\UserAdmin

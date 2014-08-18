@@ -2,7 +2,7 @@
  
 sonata_block:
     default_contexts: [cms]
-    context_manager: sonata.page.block.context_manager
+#    context_manager: sonata.page.block.context_manager
     
     blocks:
         sonata.admin.block.admin_list:
@@ -16,7 +16,14 @@ sonata_block:
         sonata.news.block.recent_posts: ~
         sonata.news.block.recent_comments: ~
         map2ucorebundle.block.latest_news: ~
-        
+        map2ucorebundle.block.fixed_topmenu: ~
+        map2ucorebundle.block.page_header_content: ~
+        map2ucorebundle.block.uploadshapefile: ~
+        map2ucorebundle.block.uploadtextfile: ~
+        map2ucorebundle.block.uploadkmlfile: ~
+        map2ucorebundle.block.uploadmapinfofile: ~
+        map2ucorebundle.block.uploadfilelist: ~
+            
         # Some specific block from the SonataMediaBundle
         #sonata.media.block.media:
         #sonata.media.block.gallery:

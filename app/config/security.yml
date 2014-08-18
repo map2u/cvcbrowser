@@ -7,6 +7,9 @@ security:
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     providers:
+        map2u_hwi_provider:
+            id: app_user.oauth_user_provider
+
         fos_userbundle:
             id: fos_user.user_provider.username_email
         in_memory:
@@ -16,6 +19,20 @@ security:
                     admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
 
     firewalls:
+#        secured_area:
+#            anonymous: ~
+#            oauth:
+#                resource_owners:
+#                    facebook:           "/secured/login/check-facebook"
+#                    google:             "/secured/login/check-google"
+##                    my_custom_provider: "/login/check-custom"
+##                    my_github:          "/login/check-github"
+#                login_path:        /secured/login
+#                use_forward:       false
+#                failure_path:      /secured/login
+#
+#                oauth_user_provider:
+#                    service: app_user.oauth_user_provider #hwi_oauth.user.provider.entity #//map2u.oauth_aware.user_provider.service        
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
@@ -42,9 +59,11 @@ security:
                 csrf_provider: form.csrf_provider
                 success_handler: map2u_webgis_core.authentication.success_handler
                 failure_handler: map2u_webgis_core.authentication.failure_handler
- # no this item               csrf_protection:  false
+                # no this item               csrf_protection:  false
             logout: 
                 path: fos_user_security_logout
+           #     handlers: ['sonata.page.cms_manager_selector']
+                target: /
 #                target: index          
             anonymous:    true
             oauth:
@@ -59,20 +78,12 @@ security:
                 provider:   fos_userbundle
                 check_path: fos_user_security_check
                 use_forward:    false
-                login_path: fos_user_security_login #/connect 
+                login_path: /connect 
 
+                    
     acl:
         connection: default
- 
+
     access_control:
-        - { path: ^/(en|es)/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/(en|es)/login_check$, role: IS_AUTHENTICATED_ANONYMOUSLY } # for the case of a failed login
-        - { path: ^/(en|es)/user/new$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/(en|es)/user/check-confirmation-email$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/(en|es)/user/confirm/, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/(en|es)/user/confirmed$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/(en|es)/user/request-reset-password$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/(en|es)/user/send-resetting-email$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/(en|es)/user/check-resetting-email$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/(en|es)/user/reset-password/, role: IS_AUTHENTICATED_ANONYMOUSLY }        
-        - { path: ^/admin/, role: ROLE_ADMIN }
+       # - { path: ^/admin, roles: ROLE_SUPER_ADMIN }
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

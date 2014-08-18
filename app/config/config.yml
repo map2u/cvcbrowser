@@ -6,7 +6,7 @@ imports:
     - { resource: sonata/sonata_block.yml }
     - { resource: sonata/sonata_admin.yml }
     - { resource: sonata/sonata_media.yml }
-    - { resource: sonata/sonata_page.yml }
+#    - { resource: sonata/sonata_page.yml }
     - { resource: sonata/sonata_cache.yml }
     - { resource: sonata/sonata_notification.yml }
     - { resource: sonata/sonata_seo.yml }
@@ -17,6 +17,7 @@ imports:
     - { resource: wowo_newsletter.yml }
     - { resource: stfalcon_tinymce.yml }
     - { resource: sonata/sonata_news.yml }
+    - { resource: map2u.yml }
     
 framework:
     #esi:             ~
@@ -181,6 +182,8 @@ doctrine:
                 #  auto_mapping: true
                   mappings:
                     FOSUserBundle: ~
+                    Map2uCoreBundle: ~
+                    ApplicationMap2uCoreBundle: ~
                     YorkuJuturnaBundle: ~
                     translatable:
                         type: annotation
@@ -251,7 +254,7 @@ lunetics_locale:
 ewz_recaptcha:
     public_key:   6LeI-O8SAAAAAEW24-Mpxzc0CZp2e17tN1GE64T0
     private_key:  6LeI-O8SAAAAAMdkUQnx2KprEiYE4idlG1KrXJGt
-    secure:       false
+#    secure:       false
     locale_key:   kernel.default_locale
     enabled: true
     
@@ -314,7 +317,8 @@ hwi_oauth:
         qq:
             type:                qq
             client_id:           101038207
-            client_secret:       5da6b150a92fd6646b98383b4c03c0b8           
+            client_secret:       5da6b150a92fd6646b98383b4c03c0b8   
+            
 services:
     hwi_oauth.user.provider.entity:
         class: HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUserProvider
@@ -322,7 +326,3 @@ services:
         class: Map2u\CoreBundle\Provider\Provider
         arguments: [@session, @doctrine, %admins%]   
         
-parsley_server:
-    validations:
-        fos_user_registration: { group: [Registration], translation_domain: validators}
-        fos_user_profile: { group: [Profile], translation_domain: validators}

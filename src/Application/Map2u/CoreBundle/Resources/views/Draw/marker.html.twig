@@ -1,0 +1,175 @@
+<div class="modal-dialog modal-sm" style="width: 450px;height:300px;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">{% if id==0 or id == null %}New Marker Geometry Info{% else %}Update Marker Geometry Info {% endif %}</h4>
+        </div>
+        <div class="modal-body">
+            <form id="marker_form" action="{{path('draw_save') }}" method="post" enctype="multipart/form-data">
+                <div style="display:table;width:100%">
+                    <div style="height: 100%; display: table-row;">
+
+                        <div style="display: table-cell;width: 250px;">
+
+                            Geometry Name:{% if usergeometry and usergeometry.getId() !=0 %}({{usergeometry.getId()}}){% endif %}
+                        </div>
+                    </div>
+                    <div style="height: 100%; display: table-row;">
+
+                        <div style="display: table-cell;">
+                            <input id="draw_circle_name" value="{{name}}" style="width:120px;"/>
+                        </div>
+                    </div>
+                    <div style="height: 100%; display: table-row;">
+                        <div style="display: table-cell;width: 250px;">
+                            Marker Icon:
+                        </div>
+                    </div>
+                    <div style="height: 100%; display: table-row;">
+                        <div style="display: table-cell;">
+                            <select name='select_marker'>
+                                {% for marker in markers %}
+                                    <option value="{{marker}}" {% if usergeometry and usergeometry.getMarkerIcon()==marker %} selected {% endif %}>{{marker}}</option>  
+                                {% endfor %}
+
+                            </select>
+                        </div>    
+                    </div>
+                    <div style="height: 100%; display: table-row;">
+                        <div style="display: table-cell;width:  250px;">
+                            Upload new marker Icon:
+                        </div>
+                    </div>
+                    <div style="height: 100%; display: table-row;">   
+                        <div style="display: table-cell;">
+                            <input type="file" name="upload_marker_icon">
+                        </div>    
+                    </div>               
+                    <div style="height: 100%; display: table-row;">
+                        <div style="display: table-cell;">
+
+                            Description:
+                        </div>
+                    </div>
+                    <div style="height: 100%; display: table-row;">
+                        <div style="display: table-cell;">
+                            <textarea id="description"  name="description" row="4" >{% if usergeometry %}{{usergeometry.getDescription()}}{% endif %}</textarea>
+                        </div>
+                    </div>
+                    <div style="height: 100%; display: table-row;">
+                        <div style="display: table-cell;">
+
+                            Image files:
+                        </div>
+                    </div>
+                    <div style="height: 100%; display: table-row;">
+                        <div style="display: table-cell;">
+                            <input type="file" id="images"  name="images[]" multiple="true" accept='image/*'/>
+                        </div>
+                    </div>
+                    <div style="height: 100%; display: table-row;">
+                        <div style="display: table-cell;">
+
+                            Video file:
+                        </div>
+                    </div>
+                    <div style="height: 100%; display: table-row;">
+                        <div style="display: table-cell;">
+                            <input type="file" id="video"  name="video"  accept='video/*'/>
+                        </div>
+                    </div>
+                    <div style="height: 100%; display: table-row;">
+                        <div style="display: table-cell;">
+
+                            Audio file:
+                        </div>
+                    </div>
+                    <div style="height: 100%; display: table-row;">
+                        <div style="display: table-cell;">
+                            <input type="file" id="audio"  name="audio" accept='audio/*' />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" onClick="save_userdraw({{index}});">Save</button>
+        </div>
+    </div>
+</div>
+<script  type="text/javascript">
+
+
+    function save_userdraw(index,id) {
+        var layers = window.map.drawnItems.getLayers();
+        //  alert(layers.length);
+        if (index > -1 && index < layers.length)
+        {
+            var itemgeojson = layers[index].toGeoJSON();
+            //    alert(itemgeojson);
+            var name = $('#ajax-dialog #draw_circle_name').val();
+            if (name === '' || name === undefined)
+            {
+                alert("Trade area name can't be empty!");
+                return;
+            }
+
+            var oData = new FormData(document.forms.namedItem("marker_form"));
+            oData.append('id', layers[index].id);
+            oData.append('name', name);
+            oData.append('feature', JSON.stringify(itemgeojson));
+            oData.append('type', layers[index].type);
+            oData.append('radius', 0);
+
+            $.ajax({
+                url: Routing.generate('draw_save'),
+                method: 'POST',
+                data: oData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    var results = JSON.parse(response);
+                    if (results.success === false)
+                        alert(results.message);
+                    else {
+                        alert("Symbol has been successfully saved!");
+                        layers[index].id = results.id;
+                        layers[index].name = name;
+                        if (layers[index].bindLabel)
+                            layers[index].bindLabel(name);
+                        $("#ajax-dialog").modal('hide');
+                        if (parseInt($('#shapefile_select_list').val()) === -1) {
+                            var bexist = false;
+                            var options = $("#geometries_select option");
+                            $.map(options, function(option) {
+                                if (parseInt(option.value) === parseInt(results.id))
+                                    bexist = true;
+                            });
+                            if (bexist === false && document.getElementById('geometries_select') !== null && document.getElementById('geometries_select') !== undefined) {
+                                var selectBoxOption = document.createElement("option");//create new option 
+                                selectBoxOption.value = layers[index].id;//set option value 
+                                selectBoxOption.text = layers[index].name;//set option display text 
+                                document.getElementById('geometries_select').add(selectBoxOption, null);
+                            }
+                            else
+                            {
+                                $("#geometries_selected option[value='" + results.id + "']").each(function() {
+                                    $(this).text(name);
+                                });
+                                $("#geometries_select option[value='" + results.id + "']").each(function() {
+                                    $(this).text(name);
+                                });
+
+                            }
+                        }
+
+                    }
+
+                    //  alert(JSON.stringify(html));
+                }
+            });
+        }
+    }
+</script>
+

@@ -41,12 +41,15 @@ sonata_page:
 
     default_template: default
     templates:
+ #       default: { path: '::base_layout.html.twig', name: 'default' }
         default: { path: 'SonataPageBundle::layout.html.twig', name: 'default' }
+ #       default: { path: '::layout.html.twig', name: 'default' }
         2columns: { path: 'SonataPageBundle::2columns_layout.html.twig', name: '2 columns layout' }        
         newsletter: { path: 'IbrowsNewsletterBundle::layout.html.twig', name: 'newsletter'  }        
-        admin_dashboard: { path: 'IbrowsNewsletterBundle::layout.html.twig', name: 'admin_dashboard'  }        
-        news: { path: 'IbrowsNewsletterBundle::layout.html.twig', name: 'news'  }        
-        blog: { path: 'IbrowsNewsletterBundle::layout.html.twig', name: 'blog'  }        
+#        admin_dashboard: { path: 'IbrowsNewsletterBundle::layout.html.twig', name: 'admin_dashboard'  }        
+        news: { path: '::news.layout.html.twig', name: 'news'  }        
+        blog: { path: '::blog.layout.html.twig', name: 'blog'  }        
+        home: { path: '::home.layout.html.twig', name: 'home'  }        
 
     page_defaults:
         homepage: {decorate: false, enabled: true}

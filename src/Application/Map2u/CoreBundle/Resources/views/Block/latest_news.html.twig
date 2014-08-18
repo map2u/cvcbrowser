@@ -1,0 +1,44 @@
+{% extends sonata_block.templates.block_base %}
+
+{% block block %}
+    <div class="sonata-news-block-latest-news">
+        {% if settings.title %}
+            <h4 class="sonata-news-block-latest-news">{{ settings.title }}</h4>
+        {% endif %}
+
+        {% sonata_template_box 'This is the latest news block.' %}
+
+        <ul class="sonata-blog-post-container">
+           
+            {% for latestnews in pager %}
+                {% if context.getSetting('mode') == 'admin' %}
+                    <li>
+                       {# {% if latestnews.status == constant('Map2u\\CoreBundle\\Model\\LatestNewsInterface::STATUS_INVALID') %}
+                            <span class="label label-important">{{ 'label_latest_news_invalid'|trans({}, 'Map2uCoreBundle') }}</span>
+                        {% elseif latestnews.status == constant('Map2u\\CoreBundle\\Model\\LatestNewsInterface::STATUS_VALID') %}
+                            <span class="label label-success">{{ 'label_latest_news_valid'|trans({}, 'Map2uCoreBundle') }}</span>
+                        {% elseif latestnews.status == constant('Map2u\\CoreBundle\\Model\\LatestNewsInterface::STATUS_MODERATE') %}
+                            <span class="label label-warning">{{ 'label_latest_news_moderate'|trans({}, 'Map2uCoreBundle') }}</span>
+                        {% else %}
+                            <span class="label">{{ 'label_unknown_status'|trans({}, 'Map2uCoreBundle') }}</span>
+                        {% endif %}
+
+                        <a href="{{ url('admin_sonata_news_comment_edit', { 'id': comment.id }) }}">{{ comment.name }} - {{ comment.message|truncate(30) }}</a>
+                   #}
+                    </li>
+                {% else %}
+                    <li>
+{#                        <a href="{{ url('sonata_news_view', { 'permalink': sonata_news_permalink(comment.post) }) }}" target="_blank">{{ comment.name }} - {{ comment.message|truncate(30) }}</a>#}
+<a href="#" >{{latestnews.subject}}</a> <br> - Created At:{{latestnews.createdAt |date('Y-m-d')}}
+                    </li>
+                {% endif %}
+            {% else %}
+                <li>{{ 'no_comment_found'|trans({}, 'Map2uCoreBundle') }}</li>
+            {% endfor %}
+        </ul>
+
+        {% if context.getSetting('mode') == 'admin' %}
+            <a href="{{ url('admin_sonata_news_comment_list') }}" class="btn btn-primary btn-small"><i class="icon-list icon-white"></i> {{ 'view_all_comments'|trans({}, 'SonataNewsBundle') }}</a>
+        {% endif %}
+    </div>
+{% endblock %}

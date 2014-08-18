@@ -1,0 +1,104 @@
+{# empty Twig template #}
+<div id="leaflet_content" class="overlay-sidebar">
+
+    <div id="sidebar-left">
+        <div id="flash">
+        </div>
+
+        <div id="browse_status"></div>
+
+        <div id="sidebar_loader" style="display: none;">
+            <img alt="Loading..." class="loader" src="{{ asset('/bundles/map2uleaflet/images/searching.gif') }}">
+        </div>
+
+        <div id="sidebar_content">
+
+          {#  <div style="padding: 20px 10px">
+                <div id="accordion">
+                    <h4><a>Upload Shape File</a><i class="indicator glyphicon glyphicon-chevron-right pull-right"></i></h4>
+                    <div >
+                        {{ sonata_block_render({ 'type': 'map2ucorebundle.block.uploadshapefile' }, {
+                'title': 'Recent Posts', 'mode': 'public'
+            }) }}
+                    </div>
+                    <h4><a>Shape File List</a> <i class="indicator glyphicon glyphicon-chevron-right pull-right"></i></h4>
+                    <div >
+                        {{ sonata_block_render({ 'type': 'map2ucorebundle.block.shapefilelist' }, {
+                'title': 'Recent Posts', 'mode': 'public'
+            }) }}      </div>
+
+                </div>
+
+            </div>
+#}
+
+
+
+            <div class="narratives">
+                <p id="narratives-0">CVC, along with our partners, manage over 52 km of trails, which includes parts of the Bruce, and Trans-Canada trail networks.[1]</p>
+                <p id="narratives-1">Several short walks a day may have positive effects equal to that of a longer walk[2] </p>
+                <p id="narratives-2">In addition to the health benefits, regular physical activity provides older people with psychological benefits. Silverstein and Parker (2002) found that older Swedes who increased activity participation in a 9-year period showed an increase in life satisfaction.[3]</p>
+                <p id="narratives-3">Trails in the Credit Valley Watershed cover a wide variety of geographical features, including the Oak Ridges Moraine and the Niagara Escarpment, providing picturesque settings for a leisurely stroll or a challenging, rugged hike[1]</p>
+                <p id="narratives-4">Research has also demonstrated that participation in physical activity has protective effects against insomnia.[3]</p>
+                <p id="narratives-5">Wilderness experience has been associated with spiritual health and growth, self-actualization, and psychological health.[4]</p>
+                <p id="narratives-6">Take the Healthy Hikes Challenge from May 1rst to October 1rst, 2014![1]</p>
+                <div class="citations">
+                    <p> [1] Credit Valley Conservation (CVC). (2014). "Trails and Hiking". www.creditvalleyca.ca/enjoy-the-outdoors/activities/trails/</p>
+                    <p> [2] Lu, Z., Rodiek, S. D., Shepley, M. M., & Duffy, M. (2011). Influences of Physical Environment on Corridor Walking Among Assisted Living Residents: Findings From Focus Group Discussions. Journal of Applied Gerontology, 30(4), 463–484. doi:http://dx.doi.org.ezproxy.library.yorku.ca/10.1177/0733464810370325</p>
+                    <p> [3] Sugiyama, T., & Thompson, C. W. (2005). Environmental Support for Outdoor Activities and Older People’s Quality of Life. Journal of Housing for the Elderly, 19(3-4), 167–185. doi:http://dx.doi.org.ezproxy.library.yorku.ca/10.1300/J081v19n03_09</p>
+                    <p> [4] Largo-Wight, E. (2011). Cultivating healthy places and communities: evidenced-based nature contact recommendations. International Journal of Environmental Health Research, 21(1), 41–61. doi:10.1080/09603123.2010.499452</p>
+
+                </div>
+                <div id="narratives-view" class="narratives-view">View All</div>
+            </div>
+
+            {# {{ sonata_block_render({ 'type': 'map2ucorebundle.block.latest_news' }, {
+                 'title': 'Latest News', 'number': 5, 'mode': 'public'
+             }) }}#}
+            {#            {{render(controller(path('map2ucore_latestnews')))}}#}
+            {#{ sonata_block_render({ 'type': 'sonata.news.block.recent_posts' }, {
+                'title': 'Recent Posts', 'number': 5, 'mode': 'public'
+            }) }#}
+            {#{ sonata_block_render({ 'type': 'sonata.news.block.recent_comments' }, {
+                'title': 'Recent Comments', 'number': 5, 'mode': 'public'
+            }) }#}
+        </div>
+        <div class="sidebar_feature_content">
+            
+        </div>
+
+        <div class="welcome">
+            <h2><a onclick=" $('.welcome').hide();"><span class="icon close"></span></a>Welcome to Credit Valley Conservation Browser!</h2>
+            <p>Welcome to Credit Valley Conservation Browser is a map of the world, created by people like you and free to use under an open license.</p>
+            <a class="button learn-more" href="/about">Learn More</a>
+            <a class="button sign-up" href="/user/new">Start</a>
+        </div>
+
+    </div>
+    <div id="sidebar-right">
+    </div>        
+    <div id="sidebar" >
+        <form accept-charset="UTF-8" action="/search" class="search_form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="WzUq33tXmIGkkIg0LB/2KBd91Dfveckr8QvNtZoo9Zo=" /></div>
+            <input name="commit" type="submit" value="Go" />
+            <div class='query_wrapper'>
+                <input autofocus="autofocus" id="query" name="query" placeholder="Search" type="text" />
+                <a class="describe_location" href="#" title="Describe the current location using the search engine">Where am I?</a>
+            </div>
+        </form>
+    </div>
+
+    <div id="map-ui">
+    </div>
+
+
+    <noscript>
+    <div id="noscript">
+        <p>You are either using a browser that does not support JavaScript, or you have disabled JavaScript.</p>
+        <p>OpenStreetMap uses JavaScript for its slippy map.</p>
+    </div>
+    </noscript>
+    <div id="leafmap"  style="padding-top: 0; top:0px;border:0px #090 solid" >
+
+    </div> 
+</div>
+

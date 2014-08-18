@@ -5,71 +5,66 @@ services:
 #    yorku_juturna.example:
 #        class: %yorku_juturna.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
-    yorku_juturna.admin.family:
-        class: Yorku\JuturnaBundle\Admin\FamilyAdmin
-        arguments: [~, Yorku\JuturnaBundle\Entity\Family, SonataAdminBundle:CRUD]
-        tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: Family}
-
-    yorku_juturna.admin.bird:
-        class: Yorku\JuturnaBundle\Admin\BirdAdmin
-        arguments: [~, Yorku\JuturnaBundle\Entity\Bird, SonataAdminBundle:CRUD]
-        tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: Bird}
-
-    yorku_juturna.admin.station:
-        class: Yorku\JuturnaBundle\Admin\StationAdmin
-        arguments: [~, Yorku\JuturnaBundle\Entity\Station, SonataAdminBundle:CRUD]
-        tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: Station}
-
-    yorku_juturna.admin.logo:
-        class: Yorku\JuturnaBundle\Admin\LogoAdmin
-        arguments: [~, Yorku\JuturnaBundle\Entity\Logo, YorkuJuturnaBundle:LogoAdmin]
-        tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: Logo}
-
-    yorku_juturna.admin.distribution:
-        class: Yorku\JuturnaBundle\Admin\DistributionAdmin
-        arguments: [~, Yorku\JuturnaBundle\Entity\Distribution, SonataAdminBundle:CRUD]
-        tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: Distribution}
-
-    yorku_juturna.admin.breeding_status:
-        class: Yorku\JuturnaBundle\Admin\BreedingStatusAdmin
-        arguments: [~, Yorku\JuturnaBundle\Entity\BreedingStatus, SonataAdminBundle:CRUD]
-        tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: BreedingStatus}
-
-    yorku_juturna.admin.observation_description:
-        class: Yorku\JuturnaBundle\Admin\ObservationDescriptionAdmin
-        arguments: [~, Yorku\JuturnaBundle\Entity\ObservationDescription, SonataAdminBundle:CRUD]
-        tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: ObservationDescription}
-
-    yorku_juturna.admin.season:
-        class: Yorku\JuturnaBundle\Admin\SeasonAdmin
-        arguments: [~, Yorku\JuturnaBundle\Entity\Season, SonataAdminBundle:CRUD]
-        tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: Season}
-
-    yorku_juturna.admin.rareness:
-        class: Yorku\JuturnaBundle\Admin\RarenessAdmin
-        arguments: [~, Yorku\JuturnaBundle\Entity\Rareness, SonataAdminBundle:CRUD]
-        tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: Rareness}
-
-    yorku_juturna.admin.iucn:
-        class: Yorku\JuturnaBundle\Admin\IUCNAdmin
-        arguments: [~, Yorku\JuturnaBundle\Entity\IUCN, SonataAdminBundle:CRUD]
-        tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: IUCN}
-
-    yorku_juturna.admin.species:
-        class: Yorku\JuturnaBundle\Admin\SpeciesAdmin
-        arguments: [~, Yorku\JuturnaBundle\Entity\Species, YorkuJuturnaBundle:SpeciesAdmin]
-        tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: Species}
+#    yorku_juturna.admin.family:
+#        class: Yorku\JuturnaBundle\Admin\FamilyAdmin
+#        arguments: [~, Yorku\JuturnaBundle\Entity\Family, SonataAdminBundle:CRUD]
+#        tags:
+#            - {name: sonata.admin, manager_type: orm, group: admin, label: Family}
+#
+#    yorku_juturna.admin.bird:
+#        class: Yorku\JuturnaBundle\Admin\BirdAdmin
+#        arguments: [~, Yorku\JuturnaBundle\Entity\Bird, SonataAdminBundle:CRUD]
+#        tags:
+#            - {name: sonata.admin, manager_type: orm, group: admin, label: Bird}
+#
+#    yorku_juturna.admin.station:
+#        class: Yorku\JuturnaBundle\Admin\StationAdmin
+#        arguments: [~, Yorku\JuturnaBundle\Entity\Station, SonataAdminBundle:CRUD]
+#        tags:
+#            - {name: sonata.admin, manager_type: orm, group: admin, label: Station}
+#
+#  
+#    yorku_juturna.admin.distribution:
+#        class: Yorku\JuturnaBundle\Admin\DistributionAdmin
+#        arguments: [~, Yorku\JuturnaBundle\Entity\Distribution, SonataAdminBundle:CRUD]
+#        tags:
+#            - {name: sonata.admin, manager_type: orm, group: admin, label: Distribution}
+#
+#    yorku_juturna.admin.breeding_status:
+#        class: Yorku\JuturnaBundle\Admin\BreedingStatusAdmin
+#        arguments: [~, Yorku\JuturnaBundle\Entity\BreedingStatus, SonataAdminBundle:CRUD]
+#        tags:
+#            - {name: sonata.admin, manager_type: orm, group: admin, label: BreedingStatus}
+#
+#    yorku_juturna.admin.observation_description:
+#        class: Yorku\JuturnaBundle\Admin\ObservationDescriptionAdmin
+#        arguments: [~, Yorku\JuturnaBundle\Entity\ObservationDescription, SonataAdminBundle:CRUD]
+#        tags:
+#            - {name: sonata.admin, manager_type: orm, group: admin, label: ObservationDescription}
+#
+#    yorku_juturna.admin.season:
+#        class: Yorku\JuturnaBundle\Admin\SeasonAdmin
+#        arguments: [~, Yorku\JuturnaBundle\Entity\Season, SonataAdminBundle:CRUD]
+#        tags:
+#            - {name: sonata.admin, manager_type: orm, group: admin, label: Season}
+#
+#    yorku_juturna.admin.rareness:
+#        class: Yorku\JuturnaBundle\Admin\RarenessAdmin
+#        arguments: [~, Yorku\JuturnaBundle\Entity\Rareness, SonataAdminBundle:CRUD]
+#        tags:
+#            - {name: sonata.admin, manager_type: orm, group: admin, label: Rareness}
+#
+#    yorku_juturna.admin.iucn:
+#        class: Yorku\JuturnaBundle\Admin\IUCNAdmin
+#        arguments: [~, Yorku\JuturnaBundle\Entity\IUCN, SonataAdminBundle:CRUD]
+#        tags:
+#            - {name: sonata.admin, manager_type: orm, group: admin, label: IUCN}
+#
+#    yorku_juturna.admin.species:
+#        class: Yorku\JuturnaBundle\Admin\SpeciesAdmin
+#        arguments: [~, Yorku\JuturnaBundle\Entity\Species, YorkuJuturnaBundle:SpeciesAdmin]
+#        tags:
+#            - {name: sonata.admin, manager_type: orm, group: admin, label: Species}
 
     yorku_juturna.admin.member_ship:
         class: Yorku\JuturnaBundle\Admin\MemberShipAdmin
@@ -77,26 +72,26 @@ services:
         tags:
             - {name: sonata.admin, manager_type: orm, group: admin, label: MemberShip}
 
-    yorku_juturna.admin.tourism:
-        class: Yorku\JuturnaBundle\Admin\TourismAdmin
-        arguments: [~, Yorku\JuturnaBundle\Entity\Tourism, SonataAdminBundle:CRUD]
-        tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: Tourism}
+#    yorku_juturna.admin.tourism:
+#        class: Yorku\JuturnaBundle\Admin\TourismAdmin
+#        arguments: [~, Yorku\JuturnaBundle\Entity\Tourism, SonataAdminBundle:CRUD]
+#        tags:
+#            - {name: sonata.admin, manager_type: orm, group: admin, label: Tourism}
 
-    yorku_juturna.admin.map_layer:
-        class: Yorku\JuturnaBundle\Admin\MapLayerAdmin
-        arguments: [~, Yorku\JuturnaBundle\Entity\MapLayer, YorkuJuturnaBundle:MapLayerAdmin]
-        tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: MapLayer}
+#    yorku_juturna.admin.map_layer:
+#        class: Yorku\JuturnaBundle\Admin\MapLayerAdmin
+#        arguments: [~, Yorku\JuturnaBundle\Entity\MapLayer, YorkuJuturnaBundle:MapLayerAdmin]
+#        tags:
+#            - {name: sonata.admin, manager_type: orm, group: admin, label: MapLayer}
 
-    yorku_juturna.admin.tourism_geoms:
-        class: Yorku\JuturnaBundle\Admin\TourismGeomsAdmin
-        arguments: [~, Yorku\JuturnaBundle\Entity\TourismGeoms, YorkuJuturnaBundle:TourismGeomsAdmin]
-        tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: TourismGeoms}
-
-    yorku_juturna.admin.tourism_comments:
-        class: Yorku\JuturnaBundle\Admin\TourismCommentsAdmin
-        arguments: [~, Yorku\JuturnaBundle\Entity\TourismComments, YorkuJuturnaBundle:TourismCommentsAdmin]
-        tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: TourismComments}
+#    yorku_juturna.admin.tourism_geoms:
+#        class: Yorku\JuturnaBundle\Admin\TourismGeomsAdmin
+#        arguments: [~, Yorku\JuturnaBundle\Entity\TourismGeoms, YorkuJuturnaBundle:TourismGeomsAdmin]
+#        tags:
+#            - {name: sonata.admin, manager_type: orm, group: admin, label: TourismGeoms}
+#
+#    yorku_juturna.admin.tourism_comments:
+#        class: Yorku\JuturnaBundle\Admin\TourismCommentsAdmin
+#        arguments: [~, Yorku\JuturnaBundle\Entity\TourismComments, YorkuJuturnaBundle:TourismCommentsAdmin]
+#        tags:
+#            - {name: sonata.admin, manager_type: orm, group: admin, label: TourismComments}

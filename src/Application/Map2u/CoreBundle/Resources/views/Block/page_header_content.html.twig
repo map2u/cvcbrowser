@@ -1,0 +1,16 @@
+{% extends sonata_block.templates.block_base %}
+
+{% block block %}
+     <div class="page_header_content">
+    {% if (logos is defined) and (logos | length >0 ) %}
+
+            <div class="row" style="padding-left: 20px;">
+                {% for logo in logos %}
+                    {% if (logo.imageFilename | length > 0) %}
+                        <a href='http://{{logo.websiteUrl}}' target='_blank'><img src='{{asset('uploads/images/header_logos/')}}{{logo.imageFilename|e}}'></a>
+                        {% endif %}
+                    {% endfor %}
+            </div>
+    {% endif %}
+     </div>
+{% endblock %}
