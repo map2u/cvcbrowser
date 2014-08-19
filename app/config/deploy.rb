@@ -17,7 +17,7 @@ set :scm,         :git
 set :deploy_via,    :remote_cache
 
 set :shared_files,      ["app/config/parameters.yml"]
-set :shared_children,     [app_path +"/../Data" ,app_path + "/cache",app_path + "/logs", web_path + "/uploads"]
+set :shared_children,     [app_path + "/../Data" ,app_path + "/cache",app_path + "/logs", web_path + "/uploads"]
 set :writable_dirs,     [app_path + "/cache", app_path + "/logs", web_path + "/uploads"]
 set :branch, "master"
 set :model_manager, "doctrine"
@@ -69,8 +69,8 @@ namespace :my_namespace do
         #default capistrano action on rollback
 
         #my custom actions
-        run "cd "+shared_path+"/../current"
-        run "php composer.phar dump-autoload"
+    #    run "cd "+shared_path+"/../current"
+    #    run "php composer.phar dump-autoload"
 
         set :release_path, shared_path+"/../current"
         symfony.composer.dump_autoload
