@@ -1,0 +1,68 @@
+{% extends '::homepage.layout.html.twig' %}
+{% block page_stylesheets %}
+    {{ parent() }}
+    <style>
+        #homepageFlashCarousel ol.carousel-indicators {
+            top:20px;
+            right:20px;
+            float: right;
+
+        }
+        #homepageFlashCarousel div.carousel-caption {
+            padding-bottom: 0px;
+            opacity: 0.9;
+
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    {% block page_header %}
+        {{ parent() }}
+    {% endblock %}
+    {% block page_container %}
+        <div class="container-fluid maincontent">
+            <div class="row-fluid">
+                <div class="col-lg-12 col-sm-12" style="height:620px; border: 1px solid red;margin:0px;padding:0px;">
+                    <div class="row-fluid homepage_flash" style="vertical-align:middle;height:315px; border: 0px solid green;">
+                        {{ render(controller("YorkuJuturnaBundle:Homepage:flashs")) }}
+                    </div>
+                    <div class="row-fluid" style="height:300px; border: 0px solid yellow;margin:10px 0px;padding:0px;">
+                        <div class="col-lg-4 col-sm-4" style="border-radius: 8px;margin:0px;padding:0px 2px;overflow: hidden;">
+                            {{ render(controller("YorkuJuturnaBundle:Homepage:images", { 'type': 'Well-Being' })) }}
+                        </div>
+                        <div class="col-lg-4 col-sm-4" style="border-radius: 8px;margin:0px;padding:0px 2px;overflow: hidden;">
+                            {{ render(controller("YorkuJuturnaBundle:Homepage:images", { 'type': 'Ecosystems' })) }}
+                        </div>
+                        <div class="col-lg-4 col-sm-4 homepage_mapsnapshot" style="border-radius: 8px; padding:0px 2px;overflow: hidden;">
+                            <a href="{{path('homepage_map')}}" ><img src="/uploads/images/header_logos/map.png" width="100%" ></a>
+                        </div>
+                    </div>
+
+                </div>
+                {# <div class="col-lg-5 col-sm-5" style="height:620px; border: 1px solid grey;margin:0px;padding:0px;">
+                     <div class="row-fluid  homepage_description" style="margin:5px;border-radius: 8px;height:275px; border: 2px solid lightblue;">
+                         {% if description is defined %}
+                             <div>
+                                 {{description.getDescription()|raw}}
+                             </div>
+                         {% endif %}
+                     </div>
+                     <div class="row-fluid homepage_mapsnapshot" style="margin:5px; overflow: hidden; border-radius: 8px;height:237px; border: 2px solid lightblue;">
+                         <a href="{{path('homepage_map')}}" ><img src="/uploads/images/header_logos/map.png" width="100%" ></a>
+                     </div>
+                     <div class="row-fluid  homepage_logo" style="height:100px; border: 1px solid grey;">
+ 
+                     </div>
+ 
+                 </div>#}
+            </div>
+        </div>
+        {% block footer %}
+            {{ parent() }}
+        {% endblock %}
+        {# {% block map2u_map %}
+             {{ parent() }}
+         {% endblock %}#}
+    {% endblock %}
+{% endblock %}

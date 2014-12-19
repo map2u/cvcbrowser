@@ -1,0 +1,105 @@
+Yorku\JuturnaBundle\Entity\GraphChart:
+    type: entity
+    table: graphchart
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: SEQUENCE
+#        category:
+#            type: text
+#            nullable: true
+#            column: category
+        citation:
+            type: string
+            length: 230
+            fixed: false
+            nullable: true
+            column: citation
+        citationLink:
+            type: string
+            length: 230
+            fixed: false
+            nullable: true
+            column: citation_link
+        graphchartName:
+            type: string
+            length: 130
+            fixed: false
+            nullable: true
+            column: graphchart_name
+        graphchartTitle:
+            type: string
+            length: 130
+            fixed: false
+            nullable: true
+            column: graphchart_title
+        graphchartImages:
+            type: text
+            nullable: true
+            column: graphchart_images
+#        tags:
+#            type: text
+#            nullable: true
+#            column: tags
+        description:
+            type: string
+            length: 255
+            fixed: false
+            nullable: true
+            column: description
+        createdAt:
+            type: datetime
+            nullable: true
+            column: created_at
+            gedmo:
+              timestampable:
+                on: create
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+            gedmo:
+              timestampable:
+                on: update     
+    manyToOne:
+        user:
+            targetEntity: Application\Sonata\UserBundle\Entity\User
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                user_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    manyToMany:                 
+       tags:
+         targetEntity: Application\Sonata\ClassificationBundle\Entity\Tag
+         inversedBy: graphcharts
+         orderBy:
+             name: ASC
+         joinTable:
+           name: graphcharts_tags
+           joinColumns:
+             graphchart_id:
+               referencedColumnName: id
+           inverseJoinColumns:
+             tag_id:
+               referencedColumnName: id                    
+       categories:
+         targetEntity: Application\Sonata\ClassificationBundle\Entity\Category
+         inversedBy: graphcharts
+         orderBy:
+             name: ASC
+         joinTable:
+           name: graphcharts_categories
+           joinColumns:
+             graphchart_id:
+               referencedColumnName: id
+           inverseJoinColumns:
+             category_id:
+               referencedColumnName: id                    
+    lifecycleCallbacks: {  }

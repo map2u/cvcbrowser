@@ -1,0 +1,64 @@
+Yorku\JuturnaBundle\Entity\CategoryContentDetails:
+    type: entity
+    table: category_contentdetails
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: SEQUENCE
+        detail:
+            type: text
+            nullable: true
+            column: detail
+        position: 
+            type: integer
+            unsigned: false
+            nullable: true  
+            column: position            
+        citation:
+            type: string
+            length: 230
+            fixed: false
+            nullable: true
+            column: citation            
+        citationLink:
+            type: string
+            length: 230
+            fixed: false
+            nullable: true
+            column: citation_link
+        description:
+            type: text
+            nullable: true
+            column: description
+        tags:
+            type: array
+            nullable: true
+            column: tags
+        createdAt:
+            type: datetime
+            nullable: true
+            column: created_at
+            gedmo:
+              timestampable:
+                on: create
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+            gedmo:
+              timestampable:
+                on: update     
+    manyToOne:
+        categorycontent:
+            targetEntity: Yorku\JuturnaBundle\Entity\CategoryContents 
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+              content_id:
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

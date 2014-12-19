@@ -1,0 +1,80 @@
+Yorku\JuturnaBundle\Entity\HomepageImage:
+    type: entity
+    table: homepage_image
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        title:
+            type: string
+            length: 250
+            fixed: false
+            nullable: false
+            column: title
+        image:
+            type: string
+            length: 250
+            fixed: false
+            nullable: false
+            column: image            
+        introduce:
+            type: string
+            length: 500
+            fixed: false
+            nullable: false
+            column: introduce
+        url:
+            type: string
+            length: 250
+            fixed: false
+            nullable: false
+            column: url
+        published:
+            type: boolean
+            nullable: true
+            column: published
+        active:
+            type: boolean
+            nullable: true
+            column: active
+        createdAt:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: created_at
+            gedmo:
+              timestampable:
+                on: create
+        updatedAt:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: updated_at
+            gedmo:
+                timestampable:
+                    on: update
+        description:
+            type: text
+            nullable: true
+    manyToOne:
+        category:
+            targetEntity: Yorku\JuturnaBundle\Entity\Category
+            cascade: {  }
+            mappedBy: null
+            joinColumns:
+                category_id:
+                    referencedColumnName: id
+            orphanRemoval: true                        
+        subcategory:
+            targetEntity: Yorku\JuturnaBundle\Entity\Category
+            cascade: {  }
+            mappedBy: null
+            joinColumns:
+                subcategory_id:
+                    referencedColumnName: id
+            orphanRemoval: true                        
+    lifecycleCallbacks: {  }

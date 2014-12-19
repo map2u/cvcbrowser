@@ -1,16 +1,25 @@
 {% extends sonata_block.templates.block_base %}
 
 {% block block %}
-     <div class="page_header_content">
-    {% if (logos is defined) and (logos | length >0 ) %}
+    <div class="page_header_content">
+        {% if (logos is defined) and (logos | length >0 ) %}
 
-            <div class="row" style="padding-left: 20px;">
+            <div class="row" style="padding-left: 20px; text-align: center;">
+                {% set i=0 %}
                 {% for logo in logos %}
                     {% if (logo.imageFilename | length > 0) %}
-                        <a href='http://{{logo.websiteUrl}}' target='_blank'><img src='{{asset('uploads/images/header_logos/')}}{{logo.imageFilename|e}}'></a>
-                        {% endif %}
-                    {% endfor %}
+                        <div style="display: inline-block;">
+                            <a href='http://{{logo.websiteUrl}}' target='_blank'>
+                                <img src='{{asset('uploads/images/header_logos/')}}{{logo.imageFilename|e}}' style="width:200px;">
+                            </a>
+                        </div>
+                    {% endif %}
+                    {% if i==0 %}
+                        <div style="display: inline-block;color:green;margin:3px 20px; padding:1px 10px; border: 2px solid limegreen;border-radius: 5px;"><h3><b>WELL-BEING & the Watershed</b></h3></div>
+                                {% endif %}
+                                {% set i=i+1 %}
+                            {% endfor %}
             </div>
-    {% endif %}
-     </div>
+        {% endif %}
+    </div>
 {% endblock %}

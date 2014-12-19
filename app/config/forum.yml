@@ -1,0 +1,16 @@
+doctrine:
+    orm:
+        default_entity_manager: default
+        auto_generate_proxy_classes: "%kernel.debug%"
+        resolve_target_entities:
+            Symfony\Component\Security\Core\User\UserInterface: Application\Sonata\UserBundle\Entity\User
+        entity_managers:
+            default:
+                mappings:
+                    Map2uForumBundle:
+                        mapping:              true
+                        type:                 yml
+                        dir:                  "Resources/config/doctrine"
+                        alias:                ~
+                        prefix:               Map2u\ForumBundle\Entity
+                        is_bundle:            true

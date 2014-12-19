@@ -23,6 +23,9 @@ sonata_block:
         map2ucorebundle.block.uploadkmlfile: ~
         map2ucorebundle.block.uploadmapinfofile: ~
         map2ucorebundle.block.uploadfilelist: ~
+        map2ucorebundle.block.thematicmap_settings: ~
+        map2ucorebundle.block.heatmap: ~
+        map2ucorebundle.block.mapoverlayselection: ~
             
         # Some specific block from the SonataMediaBundle
         #sonata.media.block.media:

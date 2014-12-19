@@ -1,0 +1,46 @@
+Yorku\JuturnaBundle\Entity\Category:
+    type: entity
+    table: categories
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: SEQUENCE
+        name:
+            type: string
+            length: 230
+            fixed: false
+            nullable: false
+            column: name
+        slug:
+            type: string
+            length: 230
+            fixed: false
+            nullable: false
+            column: slug
+        description:
+            type: text
+            nullable: true
+            column: description
+        tags:
+            type: array
+            nullable: true
+            column: tags
+        createdAt:
+            type: datetime
+            nullable: true
+            column: created_at
+            gedmo:
+              timestampable:
+                on: create
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+            gedmo:
+              timestampable:
+                on: update     
+    lifecycleCallbacks: {  }

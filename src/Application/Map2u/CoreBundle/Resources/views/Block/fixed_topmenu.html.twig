@@ -1,68 +1,59 @@
 {% extends sonata_block.templates.block_base %}
 
 {% block block %}
-    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
-        {#        <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
-                </a>
-        #}        <div class="container">
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                    <i class="fa fa-bars"></i>
-                </button>
-                <a class="navbar-brand" href="{{path('welcome_home')}}">
-                    <img class="header-logo" src="/bundles/map2uweb/images/logo-cvc.png" alt="Credit Valley Conservation Browser" title="Credit Valley Conservation Browser" />
-                </a>
-            </div>
+    <nav class="navbar navbar-custom" role="navigation">
+        <div>
             <div class="collapse navbar-collapse navbar-main-collapse">
-
-
-                <div id="cms-block-8" class="cms-block cms-block-element">
+                <div id="cms-block-8" class="cms-block cms-block-element environment_services">
                     <ul class="nav navbar-nav">
-
-                        <li >
-                            <a href="#" >LIFESTYLE</a>
+                        <li {% if app.session.get('current_menu')=='home' %} class="active" {% endif %}><a href="{{path('welcome_home')}}" >Home
+                            </a>
                         </li>
-                        <li >
-                            <a href="#" >SECURITY</a>
-                        </li>         
-                        <li >
-                            <a href="#" >Basic Materials
+                        <li {% if app.session.get('current_menu')=='well_being' %} class="active" {% endif %}><a href="{{path('homepage_well_being')}}" >Well-Being
                             </a>
-                        </li>         
-                        <li >
-                            <a href="#" >Social Relations
+                        </li>
+                        <li {% if app.session.get('current_menu')=='ecosystems' %} class="active" {% endif %}><a href="{{path('homepage_ecosystems')}}" >Ecosystem Services
                             </a>
-                        </li>         
-                        <li >
-                            <a href="#" >Freedom of choice
+                        </li>
+                        <li {% if app.session.get('current_menu')=='map' %} class="active" {% endif %}><a href="{{path('homepage_map')}}" >Map
                             </a>
-                        </li>         
-                        <li >
-                            <a href="{{path('healthConnect_index')}}"  target="_blank">Health Connectivity</a>
-                        </li>         
-                        <li >
-                            <a href="{{path('juturnadefault_about')}}" target="_blank">About</a>
-                        </li>         
+                        </li>
+                        <li {% if app.session.get('current_menu')=='stories' %} class="active" {% endif %}><a href="{{path('homepage_stories')}}" >Your Stories
+                            </a>
+                        </li>
+                        {# <li {% if app.session.get('current_menu')=='forum' %} class="active" {% endif %}><a href="{{path('ccdn_forum_user_category_index')}}" >Forum
+                             </a>
+                         </li>#}
                     </ul>
+                    <ul class="nav navbar-nav pull-right">
+                        {#  <li {% if app.session.get('current_menu')=='about_us' %} class="active" {% endif %}><a href="{{path('homepage_about_us')}}" >About Us
+                              </a>
+                          </li>
+                          <li {% if app.session.get('current_menu')=='contact_us' %} class="active" {% endif %}><a href="{{path('homepage_contact_us')}}" >Contact Us
+                              </a>
+                          </li>#}
+                        {% if app.user %}
+                            {#<li ><a href="{{ path('sonata_admin_dashboard') }}">{{app.user.username}}</a></li>#}
 
-                    {#
-                        <form class="navbar-form pull-left">
-                            <a class="btn btn-try-it" href="http://demo.sonata-project.org" target="_blank">Try our demo</a>
-                        </form>#}
-                    {% if app.user %}
-                        <ul class="nav  navbar-nav pull-right">
-                            <li><a href="{{ path('sonata_admin_dashboard') }}">{{app.user.username}}</a></li>
-                            <li>
-{#                                <div class="navbar-text">      {{app.user.username}}#}
-                                     <a href="{{ path('fos_user_security_logout') }}">Logout</a>
-{#                                </div>#}
-                            </li>
+
+                            <li id="logged-in" class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">  <i class="fa fa-user fa-lg"></i> {{app.user.username}} </a>
+
+
+                                <ul class="dropdown-menu pull-right" style="padding:10px;margin:0px;min-width: 150px;width: 200px;border:1px solid lightblue;border-radius: 0 0 4px 4px;">
+                                    <li style="display: block;"><a href="{{ path('dashboard_index') }}" style="padding:5px;border: none;">Dashboard</a></li>
+                                    <li style="display: block;"><a href="{{ path('sonata_user_change_password') }}" style="padding:5px;border: none;">Change Password</a></li>
+                                    <li style="display: block;"><a href="{{ path('fos_user_security_logout') }}" style="padding:5px;border: none;"><i class="fa fa-sign-out fa-lg" style="display: inline-block;"></i>Logout</a></li>
+                                    <li style="display: block;"><a href="{{ path('sonata_user_profile_show') }}" style="padding:5px;border: none;">Profile</a></li>
+                                </ul>
+
+                            </li>                 
+
+
                             <li class="locale">
                                 {{ locale_switcher() }}
                             </li>
-                        </ul>
-                    {% else %}
-                        <ul class="nav navbar-nav pull-right">
+                        {% else %}
                             <li class="login">
                                 <a class="login-popdown-trigger" href="{{path('fos_user_security_login')}}">Login</a>
                                 <div class="login-dropdown">
@@ -70,13 +61,10 @@
                                 </div> 
                             </li>
                             <li class="locale">{{ locale_switcher() }}</li>
-                        </ul>
-
-                    {% endif %}
+                            {% endif %}
+                    </ul>
                 </div>
             </div>
         </div>
     </nav>
-
-
 {% endblock %}

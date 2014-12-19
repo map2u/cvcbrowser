@@ -14,6 +14,14 @@ yorku_juturna:
     resource: "@YorkuJuturnaBundle/Resources/config/routing.yml"
     prefix:   /
 
+map2u_forum:
+    resource: "@Map2uForumBundle/Resources/config/routing.yml"
+    prefix:   /
+
+map2u_dashboard:
+    resource: "@Map2uDashboardBundle/Resources/config/routing.yml"
+    prefix:   /
+    
 welcome_home:
   path: /{_locale}
   defaults: { _controller: Map2uCoreBundle:Welcome:index, _locale: en}
@@ -48,6 +56,36 @@ fos_user_resetting:
 
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /{_locale}/profile
+    requirements:
+      _locale: en|zh
+
+sonata_user_security:
+    resource: "@SonataUserBundle/Resources/config/routing/sonata_security_1.xml"
+    prefix: /{_locale}
+    requirements:
+      _locale: en|zh
+    
+sonata_user_resetting:
+    resource: "@SonataUserBundle/Resources/config/routing/sonata_resetting_1.xml"
+    prefix: /{_locale}/resetting
+    requirements:
+      _locale: en|zh
+
+sonata_user_profile:
+    resource: "@SonataUserBundle/Resources/config/routing/sonata_profile_1.xml"
+    prefix: /{_locale}/profile
+    requirements:
+      _locale: en|zh
+
+sonata_user_register:
+    resource: "@SonataUserBundle/Resources/config/routing/sonata_registration_1.xml"
+    prefix: /{_locale}/register
+    requirements:
+      _locale: en|zh
+
+sonata_user_change_password:
+    resource: "@SonataUserBundle/Resources/config/routing/sonata_change_password_1.xml"
     prefix: /{_locale}/profile
     requirements:
       _locale: en|zh
@@ -123,13 +161,21 @@ news:
 #    prefix: /    
 #    
 sonata_user_impersonating:
-    pattern:  /dashboard
-    defaults: { _controller: SonataPageBundle:Page:catchAll }  
-
+#    pattern:  /dashboard
+#    defaults: { _controller: SonataPageBundle:Page:catchAll }  
+    path: /{_locale}
+    defaults: { _controller: Map2uCoreBundle:Welcome:index, _locale: en}
+    requirements:
+        _locale: en|zh
+      
 page_slug:
-    pattern:  /dashboard
-    defaults: { _controller: SonataPageBundle:Page:catchAll }  
-    
+#    pattern:  /dashboard
+#    defaults: { _controller: SonataPageBundle:Page:catchAll }  
+    path: /{_locale}
+    defaults: { _controller: Map2uCoreBundle:Welcome:index, _locale: en}
+    requirements:
+        _locale: en|zh
+        
 sonata_media_gallery:
     resource: '@SonataMediaBundle/Resources/config/routing/gallery.xml'
     prefix: /media/gallery

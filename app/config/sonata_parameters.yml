@@ -1,5 +1,5 @@
 parameters:
-    locales: [en]
+    locales: [en,zh]
 #    assetic.read_from: %kernel.root_dir%/../web/
     # Sonata Admin Options
     sonata_admin.title:             Sonata Project

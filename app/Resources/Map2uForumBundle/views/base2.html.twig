@@ -1,0 +1,101 @@
+{% extends '::base.html.twig' %}
+{% block page_stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block page_container %}
+    {% block fixed_top_menu %}
+        {{ parent() }}
+    {% endblock %}
+    {% block maincontent %}
+        {%- spaceless -%}
+
+        <div id="page-wrap">
+            <div id="page-main">
+
+                {%- block navbar -%}
+                {%- block tool_bar -%}
+                {%- endblock tool_bar -%}
+                {%- endblock navbar -%}
+                <div class="container clearfix">
+                    <br>
+                    <div class="row">
+                        <aside class="col-md-2 page-sidebar-left">
+                            {%- block sidebar -%}
+                            {%- endblock sidebar -%}
+                        </aside>
+
+                       {# <div class="col-md-10 page-body-right">
+                            <div id="top clearfix">
+                            </div>
+                            {%- block body -%}
+                            {%- endblock body -%}
+                        </div>#}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <footer class="footer site-footer">
+
+            {#<div class="navbar navbar-default clearfix">
+                    <p class="navbar-text pull-right content-right">
+                            Copyright <a target="_blank" class="navbar-link" href="http://www.codeconsortium.com/">Code Consortium</a> 2011 - {{ 'now'|date("Y") }}.
+                    </p>
+            </div>
+
+            <nav class="navbar navbar-inverse clearfix" style="bottom:0px;margin-bottom:0px;">
+                    <div class="collapse navbar-collapse navbar-ex1-collapse">
+                        <ul class="nav navbar-nav">
+                                    <li>
+                                            <a href="http://www.codeconsortium.com">
+                                                    Code Consortium
+                                            </a>
+                                    </li>
+
+                                    <li>
+                                            <a rel="friend" target="_blank" href="http://github.com/codeconsortium">Contribute</a>
+                                    </li>
+                        </ul>
+                    </div>
+            </nav>
+#}
+        </footer>
+
+        <script src="//code.jquery.com/jquery.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+        {%- block javascripts -%}
+        {%- endblock -%}
+
+        <script type='text/javascript'>
+            <!--
+                $(document).ready(function () {
+                // make visible js compat toolbars site wide
+                $("[data-js-non-compat]").each(function (i, el) {
+                    $(el).addClass('collapse').addClass('hidden');
+                });
+
+                $("[data-js-compat]").each(function (i, el) {
+                    $(el).removeClass('collapse').removeClass('hidden');
+                });
+
+                $('[data-tip]').each(function () {
+                    $(this).tooltip({
+                        html: true,
+                        placement: $(this).data('tip')
+                    });
+                });
+
+                $('[data-toggle="dropdown"]').dropdown();
+            });
+            //-->
+        </script>
+
+        {%- endspaceless -%}
+    {% endblock %}
+{% endblock %}
+
+{% block page_javascripts %}
+    {{ parent() }}
+{% endblock %}    

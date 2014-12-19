@@ -11,7 +11,7 @@
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "~2.4",
-        "doctrine/orm": ">=2.2.3,<2.4-dev",
+        "doctrine/orm": "2.4.*",
         "doctrine/doctrine-bundle": "1.2.*",
         "doctrine/doctrine-fixtures-bundle": "2.1.*@dev",
         "doctrine/data-fixtures": "1.0.*@dev",
@@ -34,12 +34,15 @@
         "map2u/core-bundle": "dev-master",
         "map2u/leaflet-bundle": "dev-master",
         "map2u/web-bundle": "dev-master",
+        "map2u/forum-bundle": "dev-master",
+        "map2u/dashboard-bundle": "dev-master",
         "map2u/mapfish-print-bundle": "dev-master",
         "hwi/oauth-bundle": "0.4.*@dev",
         "excelwebzone/recaptcha-bundle": "dev-master",
         "jms/serializer-bundle": "*",
         "knplabs/knp-menu": "*",
         "knplabs/knp-menu-bundle": "*",
+        "knplabs/knp-paginator-bundle": "2.4.*",
         "sonata-project/core-bundle": "~2.2@dev",
         "sonata-project/admin-bundle": "~2.2@dev",
         "sonata-project/media-bundle": "~2.2@dev",
@@ -48,6 +51,7 @@
         "sonata-project/intl-bundle": "~2.2@dev",
         "sonata-project/datagrid-bundle": "~2.2@dev",
         "sonata-project/user-bundle": "~2.2@dev",
+        "sonata-project/page-bundle": "~2.2@dev",
         "sonata-project/doctrine-orm-admin-bundle": "~2.2@dev",
         "sonata-project/news-bundle": "dev-master",
         "sonata-project/classification-bundle": "~2.2@dev",
@@ -55,8 +59,8 @@
         "sonata-project/notification-bundle": "dev-master",
         "sonata-project/seo-bundle": "dev-master",
         "sonata-project/jquery-bundle": "dev-master",
+        "sonata-project/markitup-bundle": "dev-master",
         "ibrows/newsletter-bundle": "*",
-        "wowo/wowo-newsletter-bundle": "dev-master",
         "incenteev/composer-parameter-handler": "~2.0"
     },
     "repositories": [
@@ -67,6 +71,14 @@
         {
             "type": "vcs",
             "url": "git@map2u.familyds.com:/volume1/homes/git/repositories/Map2uLeafletBundle.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@map2u.familyds.com:/volume1/homes/git/repositories/Map2uForumBundle.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@map2u.familyds.com:/volume1/homes/git/repositories/Map2uDashboardBundle.git"
         },
         {
             "type": "vcs",

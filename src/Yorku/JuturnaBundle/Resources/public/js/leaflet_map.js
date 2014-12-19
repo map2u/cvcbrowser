@@ -21,16 +21,13 @@ var path;
 
 
 
-window.onload = function() {
+window.onload = function () {
     var map;
     var leafletmap_tooltip;
     var layersControl;
     var leftSidebar;
 
-    $(".navbar.navbar-fixed-top").resize(function() {
-        // alert("qqq=" + $(".navbar.navbar-fixed-top").height());
-        $("body.sonata-bc").css('top', $(".navbar.navbar-fixed-top").height());
-    });
+
 
     $('#leafmap').height($(window).height() - 126);
 
@@ -40,17 +37,24 @@ window.onload = function() {
     spinner_target = document.getElementById('leafmap');
     spinner = new Spinner();
 
-    $(window).resize(function() { /* do something */
+    $(window).resize(function () { /* do something */
 
-        $('#leafmap').height($(window).height() - 126);
-        $('#map-ui').height($(window).height() - 126);
-        $('.leaflet-sidebar #sidebar-left').height($(window).height() - 186);
+//  $('#leafmap').height($(window).height() - 126);
+//        $('#map-ui').height($(window).height() - 126);
+//        $('.leaflet-sidebar #sidebar-left').height($(window).height() - 186);
+//        
+        $('#leafmap').height($(window).height() - $(".page-header .page_header_content").height()- $(".page-header nav.navbar.navbar-custom").height()-10);
+        $('#map-ui').height($(window).height() - $(".page-header .page_header_content").height()- $(".page-header nav.navbar.navbar-custom").height()-10);
+       $("div#leaflet_content.overlay-sidebar").css("margin-top",($(".page-header nav.navbar.navbar-custom").height()-46)+"px");
+            
+        
+        $('.leaflet-sidebar #sidebar-left').height($(window).height() - $(".page-header .page_header_content").height()- $(".page-header nav.navbar.navbar-custom").height() -70);
     });
     map = new L.MAP2U.Map('leafmap', {
         'zoomControl': false
     }).setView([43.73737, -79.95987], 10);
 
-    this.map=map;
+    this.map = map;
 //canvas = d3.select(map.getPanes().overlayPane).append("canvas")
 //    .attr("width", $('#leafmap').width())
 //    .attr("height", $('#leafmap').height());
@@ -85,6 +89,18 @@ window.onload = function() {
 //
 //    map.addLayer(tiles);
 
+
+ 
+    
+     var subw = new L.TileLayer.WMS(
+            "http://www.snitcr.go.cr/cgi-bin/mapserv?map=ortofoto.map",
+            {
+                layers: 'Mosaico5000',
+                format: 'image/png',
+                transparent: true,
+                srs: 'EPSG:4326',
+                attribution: ""
+            });
 //
 //var BingRoad = new L.TileLayer.Bing(bingkey, "Road",
 //                    {
@@ -111,7 +127,7 @@ window.onload = function() {
 //            };
 
 //    var bing = new L.BingLayer('');
-//    map.addLayer(bing);
+    map.addLayer(subw);
 //    
     var mapnik_minimap = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
@@ -134,13 +150,13 @@ window.onload = function() {
     //   map.addLayer(subwatersheds);
 
     map.baseLayers = [
-        {'layer': mapnik, 'name': 'Open Street Map'},
-        {'layer': Thunderforest_Transport, 'name': 'Thunderforest_Transport'},
+        {'layer': mapnik, 'layerName': 'Open Street Map'},
+        {'layer': Thunderforest_Transport, 'layerName': 'Thunderforest_Transport'},
         //       {'layer': bing, 'name': 'Bing'},
-        {'layer': googleLayer_roadmap, 'name': 'Google Road Map'},
-        {'layer': new L.Google('SATELLITE'), 'name': 'Google Satellite'},
-        {'layer': new L.Google('HYBRID'), 'name': 'Google Hybrid'},
-        {'layer': new L.Google('TERRAIN'), 'name': 'Google Terrain'}
+        {'layer': googleLayer_roadmap, 'layerName': 'Google Road Map'},
+        {'layer': new L.Google('SATELLITE'), 'layerName': 'Google Satellite'},
+        {'layer': new L.Google('HYBRID'), 'layerName': 'Google Hybrid'},
+        {'layer': new L.Google('TERRAIN'), 'layerName': 'Google Terrain'}
 
     ];
     map.noteLayer = new L.FeatureGroup();
@@ -184,13 +200,13 @@ window.onload = function() {
             position: 'topleft'
 
         },
-        onAdd: function(map) {
+        onAdd: function (map) {
             // create the control container with a particular class name
             var container = L.DomUtil.create('div', 'leftsidebar-control');
             L.DomEvent
                     .addListener(container, 'click', L.DomEvent.stopPropagation)
                     .addListener(container, 'click', L.DomEvent.preventDefault)
-                    .addListener(container, 'click', function() {
+                    .addListener(container, 'click', function () {
                         ShowLeftSideBar(leftSidebar);
                     });
             var controlUI = L.DomUtil.create('div', 'leftsidebar-close-control hidden', container);
@@ -201,17 +217,17 @@ window.onload = function() {
 
     map.addControl(new leftsidebarControl());
 //var history = new L.HistoryControl().addTo(map);
-    var history = new L.HistoryControl({position: 'topleft',useExternalControls: true});
-     map.addControl(history);
+    var history = new L.HistoryControl({position: 'topleft', useExternalControls: true});
+    map.addControl(history);
     // history.onAdd(map);
-     
-   
+
+
     var MapToolbarControl = L.Control.extend({
         options: {
             position: 'topright'
 
         },
-        onAdd: function(map) {
+        onAdd: function (map) {
             // create the control container with a particular class name
             var container = L.DomUtil.create('div', 'maptoolbar-control');
 //            L.DomEvent
@@ -224,28 +240,28 @@ window.onload = function() {
             L.DomEvent
                     .addListener(controlUI, 'click', L.DomEvent.stopPropagation)
                     .addListener(controlUI, 'click', L.DomEvent.preventDefault)
-                    .addListener(controlUI, 'click', function() {
+                    .addListener(controlUI, 'click', function () {
                         MapExtentReset(map);
                     });
             controlUI.title = I18n.t('Reset Map Extent');
             var Prev_Extent = L.DomUtil.create('div', 'maptoolbar-control-prev', container);
-            
-           
+
+
             L.DomEvent
                     .addListener(Prev_Extent, 'click', L.DomEvent.stopPropagation)
                     .addListener(Prev_Extent, 'click', L.DomEvent.preventDefault)
-                    .addListener(Prev_Extent, 'click', function() {
-                       // PrevMapExtent(map);
-                              history.goBack();
+                    .addListener(Prev_Extent, 'click', function () {
+                        // PrevMapExtent(map);
+                        history.goBack();
                     });
             Prev_Extent.title = I18n.t('Prev Map Extent');
             var Next_Extent = L.DomUtil.create('div', 'maptoolbar-control-next', container);
             L.DomEvent
                     .addListener(Next_Extent, 'click', L.DomEvent.stopPropagation)
                     .addListener(Next_Extent, 'click', L.DomEvent.preventDefault)
-                    .addListener(Next_Extent, 'click', function() {
-                     //   NextMapExtent(map);
-                              history.goForward();
+                    .addListener(Next_Extent, 'click', function () {
+                        //   NextMapExtent(map);
+                        history.goForward();
                     });
             Next_Extent.title = I18n.t('Next Map Extent');
             return container;
@@ -292,8 +308,8 @@ window.onload = function() {
     });
     map.addControl(rightSidebar);
 
-
-
+    this.rightSidebar = rightSidebar;
+    this.leftSidebar = leftSidebar;
     layersControl = L.MAP2U.layers({
         position: position,
         map: map,
@@ -324,10 +340,12 @@ window.onload = function() {
         'short': true
     }).addTo(map);
 
-    L.MAP2U.legend({
+    var graphchart = L.MAP2U.graphchart({
         position: position,
         sidebar: rightSidebar
-    }).addTo(map);
+    });
+    graphchart.addTo(map);
+    this.graphchart = graphchart;
     L.MAP2U.share({
         position: position,
         sidebar: rightSidebar,
@@ -341,12 +359,13 @@ window.onload = function() {
     }).addTo(map);
 
 
-    setTimeout(function() {
+    setTimeout(function () {
         leftSidebar.toggle();
+        
     }, 500);
 
 // if close left sidebar, then show sidebar controller icon
-    $(".sonata-bc div.leaflet-sidebar.left a.close").click(function() {
+    $(".sonata-bc div.leaflet-sidebar.left a.close").click(function () {
         if ($(".leaflet-sidebar.left").css('left') === 0 || $(".leaflet-sidebar.left").css('left') === '0px') {
             $(".sonata-bc .leftsidebar-close-control").removeClass("hidden");
             $(".sonata-bc .leftsidebar-close-control").show();
@@ -360,7 +379,7 @@ window.onload = function() {
     $.ajax({
         url: Routing.generate('leaflet_userlayers'),
         method: 'GET',
-        success: function(response) {
+        success: function (response) {
             var result;
             if (typeof response !== 'object')
                 result = JSON.parse(response);
@@ -373,7 +392,7 @@ window.onload = function() {
                 //    alert(JSON.stringify(result.layers));
                 // alert(result.layers.length);
 
-                var keys = Object.keys(result.layers).map(function(k) {
+                var keys = Object.keys(result.layers).map(function (k) {
 
                     return k;
                 });
@@ -386,9 +405,9 @@ window.onload = function() {
                     // layer_id => UploadfileLayer.id
                     // index_id => display sequence id on screen
 
-                    map.dataLayers[map.dataLayers.length] = {'map': map, 'layerType': layer.layerType, 'clusterLayer': layer.clusterLayer,'defaultShowOnMap': layer.defaultShowOnMap, 'layer': null, 'minZoom': layer.minZoom, 'maxZoom': layer.maxZoom, 'index_id': k, 'layer_id': layer.id, title: layer.layerTitle, 'name': layer.layerName, 'hostName': layer.hostName, type: 'shapefile_topojson'};
+                    map.dataLayers[map.dataLayers.length] = {'map': map, 'layerType': layer.layerType, 'clusterLayer': layer.clusterLayer, 'defaultShowOnMap': layer.defaultShowOnMap, 'layer': null, 'minZoom': layer.minZoom, 'maxZoom': layer.maxZoom, 'index_id': k, 'layerId': layer.id, layerTitle: layer.layerTitle, 'datasource': layer.datasource, 'sld': layer.sld, 'filename': layer.filename, 'layerName': layer.layerName, 'hostName': layer.hostName};
                 }
-                map.dataLayers[map.dataLayers.length] = {'map': map, 'layerType': 'userdraw', 'layer': null, 'index_id': -1, 'layer_id': -1, title: "My draw geometries", 'name': 'My draw geometries', type: 'geojson'};
+                map.dataLayers[map.dataLayers.length] = {'map': map, 'layerType': 'userdraw', 'layer': null, 'index_id': -1, 'layerId': -1, layerTitle: "My draw geometries", 'layerName': 'My draw geometries', type: 'geojson'};
                 layersControl.refreshOverlays();
 
 
@@ -399,7 +418,7 @@ window.onload = function() {
 
 
     $(window).resize();
-    $(".navbar.navbar-fixed-top").resize();
+   // $(".navbar.navbar-fixed-top").resize();
 
 
     initMapDraw(map);
@@ -424,8 +443,8 @@ window.onload = function() {
 //
 //			map.addLayer(markers);
 
- //   layersControl.createHeatMapLayer();
-    $(".search_form").on("submit", function(e) {
+    //   layersControl.createHeatMapLayer();
+    $(".search_form").on("submit", function (e) {
         e.preventDefault();
 //    $("header").addClass("closed");
         var query = $(this).find("input[name=query]").val();
@@ -437,7 +456,7 @@ window.onload = function() {
 
 
             var geocoder = new google.maps.Geocoder();
-            geocoder.geocode({'address': query}, function(results, status) {
+            geocoder.geocode({'address': query}, function (results, status) {
 
 
                 if (status === google.maps.GeocoderStatus.OK)
@@ -457,7 +476,7 @@ window.onload = function() {
                     feature.index = map.drawnItems.getLayers().length;
                     feature.type = 'marker';
                     feature.source = 'searchbox_query';
-                    feature.on('click', function(e) {
+                    feature.on('click', function (e) {
 
                         if (map.drawControl._toolbars.edit._activeMode === null) {
 
@@ -477,7 +496,7 @@ window.onload = function() {
                                     radius: radius,
                                     index: e.target.index
                                 },
-                                success: function(response) {
+                                success: function (response) {
                                     if ($('body.sonata-bc #ajax-dialog').length === 0) {
                                         $('<div class="modal fade" id="ajax-dialog" role="dialog"></div>').appendTo('body');
                                     } else {
@@ -510,7 +529,7 @@ window.onload = function() {
 //      OSM.router.route("/" + OSM.formatHash(map));
         }
     });
-    $(".sonata-bc .describe_location").on("click", function(e) {
+    $(".sonata-bc .describe_location").on("click", function (e) {
 
         e.preventDefault();
 //            alert(" map center=" + map.getCenter().lat + "  " + map.getCenter().lng);
@@ -530,7 +549,7 @@ window.onload = function() {
 //                  maxlon: map.getBounds().getEast(),
 //                  maxlat: map.getBounds().getNorth()
 //                },
-            success: function(html) {
+            success: function (html) {
                 alert(html[0].display_name)
                 //  alert(JSON.stringify(html));
             }
@@ -540,6 +559,10 @@ window.onload = function() {
 
 
     });
+
+
+
+
     $('.leaflet-control .control-button').tooltip({placement: 'left', container: 'body'});
 //    L.MarkerClusterGroup.prototype.bringToFront = function() {
 //        var pane = this._map._panes.overlayPane;
@@ -569,13 +592,13 @@ function ShowLeftSideBar(leftSidebar) {
     if ($(".leaflet-sidebar.left").css('left') === 0 || $(".leaflet-sidebar.left").css('left') === '0px') {
 
         $(".sonata-bc .leftsidebar-close-control").show();
-        setTimeout(function() {
+        setTimeout(function () {
             leftSidebar.hide();
         }, 500);
     } else {
 
         $(".sonata-bc .leftsidebar-close-control").hide();
-        setTimeout(function() {
+        setTimeout(function () {
             leftSidebar.show();
         }, 500);
     }
@@ -589,7 +612,7 @@ function NextMapExtent(map) {
     // history.goForward();
 }
 function PrevMapExtent(map) {
-    map.setView([33.5363, -117.044],6);
+    map.setView([33.5363, -117.044], 6);
     // history.goBack();
 }
 

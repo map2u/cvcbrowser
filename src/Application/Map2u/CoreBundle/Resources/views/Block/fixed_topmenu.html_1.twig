@@ -1,0 +1,146 @@
+{% extends sonata_block.templates.block_base %}
+
+{% block block %}
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        {#        <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+                </a>
+        #}        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="{{path('welcome_home')}}">
+                    <img class="header-logo" src="/bundles/map2uweb/images/logo-cvc.png" alt="Credit Valley Conservation Browser" title="Credit Valley Conservation Browser" />
+                </a>
+            </div>
+            <div class="collapse navbar-collapse navbar-main-collapse">
+                <div id="cms-block-8" class="cms-block cms-block-element environment_services">
+                    <ul class="nav navbar-nav">
+
+                        <li class="category health_well_being selected"  category="health_well_being">
+                            <a href="#" >HEALTH and WELL-BEING</a>
+                        </li>
+                        <li class="category single_line_menu security"  category="security">
+                            <a href="#" >SECURITY</a>
+                        </li>         
+                        <li class="category basic_materials"  category="basic_materials">
+                            <a href="#" >Basic Materials for a GOOD LIFE
+                            </a>
+                        </li>         
+                        <li class="category good_social_relations"  category="good_social_relations">
+                            <a href="#" >GOOD Social Relations
+                            </a>
+                        </li>         
+                        <li class="category freedom_choice"  category="freedom_choice">
+                            <a href="#" >Freedom of choice and Action
+                            </a>
+                        </li>         
+
+                        <li class="single_line_menu juturna_about">
+                            <a href="{{path('juturnadefault_about')}}" target="_blank">About</a>
+                        </li>         
+                    </ul>
+
+                    {#
+                        <form class="navbar-form pull-left">
+                            <a class="btn btn-try-it" href="http://demo.sonata-project.org" target="_blank">Try our demo</a>
+                        </form>#}
+                    {% if app.user %}
+                        <ul class="nav  navbar-nav pull-right">
+                            <li class="single_line_menu"><a href="{{ path('sonata_admin_dashboard') }}">{{app.user.username}}</a></li>
+                            <li class="single_line_menu">
+                                {#                                <div class="navbar-text">      {{app.user.username}}#}
+                                <a href="{{ path('fos_user_security_logout') }}">Logout</a>
+                                {#                                </div>#}
+                            </li>
+                            <li class="locale">
+                                {{ locale_switcher() }}
+                            </li>
+                            <li >
+                                <button class="menu_switch environment_services">Switch to Environmental Services</button>
+                            </li> 
+                        </ul>
+                    {% else %}
+                        <ul class="nav navbar-nav pull-right">
+                            <li class="single_line_menu login">
+                                <a class="login-popdown-trigger" href="{{path('fos_user_security_login')}}">Login</a>
+                                <div class="login-dropdown">
+                                    {{ render(controller('Map2uCoreBundle:Security:loginform', {'ajax':true})) }}
+                                </div> 
+                            </li>
+                            <li class="locale">{{ locale_switcher() }}</li>
+                            <li >
+                                <button class="menu_switch environment_services">Switch to Environmental Services</button>
+                            </li> 
+                        </ul>
+
+                    {% endif %}
+                </div>
+
+
+                <div id="cms-block-8" class="cms-block cms-block-element well_being_indicators" style="display:none;">
+                    <ul class="nav navbar-nav">
+
+                        <li class="category provsional_services" category="provsional_services">
+                            <a href="#" >PROVISIONAL SERVICES</a>
+                        </li>
+                        <li class="category regulating_services" category="regulating_services">
+                            <a href="#" >REGULATING SERVICES</a>
+                        </li>         
+                        <li class="category cultural_services" category="cultural_services">
+                            <a href="#" >CULTURAL SERVICES
+                            </a>
+                        </li>         
+
+                        <li class="category freedom_choice" category="freedom_choice">
+                            <a href="#" >Freedom of choice and Action
+                            </a>
+                        </li>         
+
+                        <li class="single_line_menu juturna_about">
+                            <a href="{{path('juturnadefault_about')}}" target="_blank">About</a>
+                        </li>         
+                    </ul>
+
+                    {#
+                        <form class="navbar-form pull-left">
+                            <a class="btn btn-try-it" href="http://demo.sonata-project.org" target="_blank">Try our demo</a>
+                        </form>#}
+                    {% if app.user %}
+                        <ul class="nav  navbar-nav pull-right">
+                            <li class="single_line_menu"><a href="{{ path('sonata_admin_dashboard') }}">{{app.user.username}}</a></li>
+                            <li class="single_line_menu">
+                                {#                                <div class="navbar-text">      {{app.user.username}}#}
+                                <a href="{{ path('fos_user_security_logout') }}">Logout</a>
+                                {#                                </div>#}
+                            </li>
+                            <li class="locale">
+                                {{ locale_switcher() }}
+                            </li>
+                            <li >
+                                <button class="menu_switch well_being_indicators">Switch to Well-being Indicators</button>
+                            </li> 
+                        </ul>
+                    {% else %}
+                        <ul class="nav navbar-nav pull-right">
+                            <li class="single_line_menu login">
+                                <a class="login-popdown-trigger" href="{{path('fos_user_security_login')}}">Login</a>
+                                <div class="login-dropdown">
+                                    {{ render(controller('Map2uCoreBundle:Security:loginform', {'ajax':true})) }}
+                                </div> 
+                            </li>
+                            <li class="locale">{{ locale_switcher() }}</li>
+                            <li >
+                                <button class="menu_switch well_being_indicators">Switch to Well-being Indicators</button>
+                            </li> 
+                        </ul>
+
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+
+
+{% endblock %}

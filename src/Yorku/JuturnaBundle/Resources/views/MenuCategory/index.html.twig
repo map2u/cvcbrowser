@@ -1,0 +1,65 @@
+<style>
+
+</style>
+<div class="menucategory">
+    {% if category != null %}
+        <h4>{{category.getName() ? category.getName() : 'No Category Name'}}</h4>
+    {% endif %}    
+    {% if categorycontents != null %}
+        {% for categorycontent in categorycontents %}
+            <h4>
+                <a data-id="{{categorycontent.id}}" href="#">
+                    {{categorycontent.title}}
+                </a>
+            </h4>
+
+            {% if categorycontent.contentdetails %}
+                <div class="menucategory_details" data-id="{{categorycontent.id}}" style="display:block;">
+                    <ul>
+                        {% for contentdetail in categorycontent.contentdetails %}
+                            {% if contentdetail.detail | length > 0 %}
+                                <li>
+                                    {{contentdetail.detail}}
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+    {% elseif category.getDescription() != null%}
+        <div>
+            {{category.getDescription()|raw}}
+        </div>
+    {% endif %}
+</div>
+<script>
+    $('div.sidebar_content div.section.overlay-layers ul.overlay_ul > li.overlay_li').map(function () {
+        //      alert($(this).data("index"));
+        //      alert(window.map.dataLayers[$(this).data("index")].layerId);
+        //      alert(window.map.dataLayers[$(this).data("index")].layerName);
+
+        $(this).find("input[type=checkbox]").prop('checked', false)
+                .trigger('change');
+    });
+
+    {% for categorycontent in categorycontents %}
+        //    alert("{{categorycontent.displayLayers|length}}");
+        {% for layer in categorycontent.displayLayers %}
+
+            //alert("{{layer.id}}" + "{{layer.layerName}}");
+            $('div.sidebar_content div.section.overlay-layers ul.overlay_ul > li.overlay_li').map(function () {
+                // alert($(this).data("index"));
+                if (window.map && parseInt(window.map.dataLayers[$(this).data("index")].layerId) === parseInt("{{layer.id}}") && "{{layer.layerName}}" === window.map.dataLayers[$(this).data("index")].layerName)
+                        //  alert(window.map.dataLayers[$(this).data("index")].layerId);
+                                //  alert(window.map.dataLayers[$(this).data("index")].layerName);
+                                {
+                                    $(this).find("input[type=checkbox]").prop('checked', true)
+                                            .trigger('change');
+                                }
+                    });
+        {% endfor %}
+    {% endfor %}
+
+</script>

@@ -14,10 +14,11 @@ imports:
     - { resource: sonata/sonata_formatter.yml }
     - { resource: fos_user.yml }
     - { resource: ibrows_newsletter.yml }
-    - { resource: wowo_newsletter.yml }
+#    - { resource: wowo_newsletter.yml }
     - { resource: stfalcon_tinymce.yml }
     - { resource: sonata/sonata_news.yml }
     - { resource: map2u.yml }
+    - { resource: forum.yml }
     
 framework:
     #esi:             ~
@@ -326,3 +327,11 @@ services:
         class: Map2u\CoreBundle\Provider\Provider
         arguments: [@session, @doctrine, %admins%]   
         
+ivory_ck_editor:
+    configs:
+        news:
+            toolbar: full
+        forums:
+            toolbar: standard    
+        basic:
+            toolbar: basic        

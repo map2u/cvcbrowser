@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="{{- app.request.locale -}}">
+    <head>
+        <meta http-equiv="content-type" content="text/html;charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>{%- block title -%}{%- endblock -%}</title>
+
+        <link rel="stylesheet" href="/bundles/map2ucore/css/bootstrap.min.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="/bundles/map2uweb/css/font-awesome.min.css" type="text/css" media="all" />
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+        <link href="/bundles/map2uweb/css/sonata.css" type="text/css" rel="stylesheet" media="screen"/>
+        <link href="/bundles/map2uweb/css/odometer-theme-default.css" type="text/css" rel="stylesheet" media="screen"/>
+        <style>
+            body.sonata-bc {
+                margin: 0 auto;
+                padding-top: 50px;
+                width: 980px;
+            }
+            .navbar.navbar-custom.navbar-fixed-top, .navbar.navbar-custom.navbar-fixed-top .container{
+                width:100%;
+                height:50px;
+            }
+            .navbar.navbar-custom.navbar-fixed-top .container form.navbar-form {
+                margin-right:20px;
+            }
+            .navbar.navbar-custom.navbar-fixed-top .container .navbar-nav,.navbar.navbar-custom.navbar-fixed-top .container a.navbar-leftsidebar i{
+                margin-top: 12px;
+            }
+            .navbar .nav > li.login .login-dropdown { position: absolute; white-space: normal; margin-top: 10px; background-color: #f2f1ef; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; border: 1px solid #b1a699; width: 270px; left: -215px; z-index: 9999; display: none; }
+            #register-form { background-color: #ada69a ;}
+            #login-form { padding: 0px; margin: 0}
+        </style>
+        {%- block stylesheets -%}
+        {%- endblock -%}
+    </head>
+    <body>
+
+        {%- spaceless -%}
+
+        <div id="page-wrap">
+            <div id="page-main">
+
+                {%- block navbar -%}
+                {#                <header class="navbar navbar-default navbar-fixed-top clearfix" role="navigation">#}
+                {#  <a target="_blank" class="navbar-brand" href="/app.php/en/forum">SuperDemograhpics Forum</a>
+
+                  <p class="navbar-text pull-right">
+                      <i class="glyphicon glyphicon-user"></i>
+                      &nbsp;
+                      {%- if app.user -%}
+                      {{- app.user.email -}}
+                      {%- endif -%}
+                  </p>#}
+                {{ sonata_block_render({ 'type': 'map2ucorebundle.block.fixed_topmenu' }, { 'mode': 'public'}) }}
+
+                {#                </header>#}
+                {#<aside class="col-md-9 page-sidebar-right">
+                    {%- block tool_bar -%}
+                    {%- endblock tool_bar -%}
+                </aside>#}
+                {#  {%- block tool_bar -%}
+                  {%- endblock tool_bar -%}#}
+                {%- endblock navbar -%}
+
+                <div class="container clearfix">
+                    <br>
+                    <div class="row">
+                        <aside class="col-md-3 page-sidebar-left">
+                            {% block maincontent_leftsidebar %}
+                                <div class="main_leftsidebar"  style="float:left;width:230px;height:100%; border-right:1px solid grey;">
+                                    {{ render(controller("Map2uManifoldMapsBundle:Default:leftsidebar")) }}
+                                    {%- block sidebar -%}
+                                    {%- endblock sidebar -%}
+                                </div>
+
+                            {% endblock %} 
+                        </aside>
+                        <div class="col-md-9 page-body-right">
+                            <div id="top clearfix">
+                            </div>
+                            {%- block body -%}
+                            {%- endblock body -%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <footer class="footer site-footer">
+
+            {#<div class="navbar navbar-default clearfix">
+                    <p class="navbar-text pull-right content-right">
+                            Copyright <a target="_blank" class="navbar-link" href="http://www.codeconsortium.com/">Code Consortium</a> 2011 - {{ 'now'|date("Y") }}.
+                    </p>
+            </div>
+
+            <nav class="navbar navbar-inverse clearfix" style="bottom:0px;margin-bottom:0px;">
+                    <div class="collapse navbar-collapse navbar-ex1-collapse">
+                        <ul class="nav navbar-nav">
+                                    <li>
+                                            <a href="http://www.codeconsortium.com">
+                                                    Code Consortium
+                                            </a>
+                                    </li>
+
+                                    <li>
+                                            <a rel="friend" target="_blank" href="http://github.com/codeconsortium">Contribute</a>
+                                    </li>
+                        </ul>
+                    </div>
+            </nav>
+#}
+        </footer>
+
+        <script src="//code.jquery.com/jquery.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+        {%- block javascripts -%}
+        {%- endblock -%}
+
+        <script type='text/javascript'>
+            <!--
+                $(document).ready(function () {
+                // make visible js compat toolbars site wide
+                $("[data-js-non-compat]").each(function (i, el) {
+                    $(el).addClass('collapse').addClass('hidden');
+                });
+
+                $("[data-js-compat]").each(function (i, el) {
+                    $(el).removeClass('collapse').removeClass('hidden');
+                });
+
+                $('[data-tip]').each(function () {
+                    $(this).tooltip({
+                        html: true,
+                        placement: $(this).data('tip')
+                    });
+                });
+
+                $('[data-toggle="dropdown"]').dropdown();
+            });
+            //-->
+        </script>
+
+        {%- endspaceless -%}
+    </body>
+</html>

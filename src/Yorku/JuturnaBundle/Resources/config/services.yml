@@ -95,3 +95,45 @@ services:
 #        arguments: [~, Yorku\JuturnaBundle\Entity\TourismComments, YorkuJuturnaBundle:TourismCommentsAdmin]
 #        tags:
 #            - {name: sonata.admin, manager_type: orm, group: admin, label: TourismComments}
+
+    yorku_juturna.admin.graph_chart:
+        class: Yorku\JuturnaBundle\Admin\GraphChartAdmin
+        arguments: [~, Yorku\JuturnaBundle\Entity\GraphChart, YorkuJuturnaBundle:GraphChartAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: GraphChart}
+
+    yorku_juturna.admin.category_contents:
+        class: Yorku\JuturnaBundle\Admin\CategoryContentsAdmin
+        arguments: [~, Yorku\JuturnaBundle\Entity\CategoryContents, YorkuJuturnaBundle:CategoryContentsAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: CategoryContents}
+
+    yorku_juturna.admin.category:
+        class: Yorku\JuturnaBundle\Admin\CategoryAdmin
+        arguments: [~, Yorku\JuturnaBundle\Entity\Category, YorkuJuturnaBundle:CategoryAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Category}
+
+    yorku_juturna.admin.category_content_details:
+        class: Yorku\JuturnaBundle\Admin\CategoryContentDetailsAdmin
+        arguments: [~, Yorku\JuturnaBundle\Entity\CategoryContentDetails, YorkuJuturnaBundle:CategoryContentDetailsAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: CategoryContentDetails}
+    yorku_juturna.admin.homepage_flash:
+        class: Yorku\JuturnaBundle\Admin\HomepageFlashAdmin
+        arguments: [~, Yorku\JuturnaBundle\Entity\HomepageFlash, YorkuJuturnaBundle:HomepageFlashAdmin,@service_container]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: homepage, label: HomepageFlash}
+    
+    yorku_juturna.admin.homepage_image:
+        class: Yorku\JuturnaBundle\Admin\HomepageImageAdmin
+        arguments: [~, Yorku\JuturnaBundle\Entity\HomepageImage, YorkuJuturnaBundle:HomepageImageAdmin,@service_container]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: homepage, label: HomepageImage}
+    
+    yorku_juturna.admin.homepage_description:
+        class: Yorku\JuturnaBundle\Admin\HomepageDescriptionAdmin
+        arguments: [~, Yorku\JuturnaBundle\Entity\HomepageDescription, YorkuJuturnaBundle:HomepageDescriptionAdmin,@service_container]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: homepage, label: HomepageDescription}
+    

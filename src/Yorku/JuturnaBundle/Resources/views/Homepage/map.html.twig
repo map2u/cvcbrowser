@@ -1,0 +1,21 @@
+{% extends '::homepage.layout.html.twig' %}
+{% block page_stylesheets %}
+    {{ parent() }}
+    <style>
+        body.sonata-bc {
+            margin: 0 auto;
+            padding-top: 0px;
+            width:100%;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    {% block page_header %}
+        {{ parent() }}
+    {% endblock %}
+    {% block page_container %}
+        {% block map2u_map %}
+            {{render(controller("Map2uLeafletBundle:Default:map"))}}
+        {% endblock %}
+    {% endblock %}
+{% endblock %}

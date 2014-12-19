@@ -1,0 +1,325 @@
+ 
+<!DOCTYPE html>
+<html {#{ seo_html_attributes() }#}>
+    <head>
+        <meta charset="UTF-8" />
+        <meta property="qc:admins" content="1640436575256375" />
+        <title>{% block title %}Credit Valley Conservation Browser!{% endblock %}</title>
+        {% block page_stylesheets %}
+            {#        <link rel="stylesheet" href="/bundles/sonataadmin/x-editable/css/bootstrap-editable.css" type="text/css" media="all" />
+                    <link rel="stylesheet" href="/bundles/sonataadmin/bootstrap/css/bootstrap.min.css" type="text/css" media="all"  />
+                    <link rel="stylesheet" href="/bundles/sonataadmin/bootstrap/css/bootstrap-responsive.min.css" type="text/css" media="all" />
+        
+                    <link rel="stylesheet" href="/bundles/sonataadmin/select2/select2.css" type="text/css" media="all" />
+                    <!-- base application asset -->
+                    <link rel="stylesheet" href="/bundles/sonataadmin/css/layout.css" type="text/css" media="all" />
+                    <link rel="stylesheet" href="/bundles/sonataadmin/css/colors.css" type="text/css" media="all" />
+                    <link rel="stylesheet" href="/bundles/map2ucore/css/loginform.css" type="text/css" media="all" />
+                    <link rel="stylesheet" href="/bundles/map2uleaflet/css/leaflet.css" type="text/css" media="all" />
+                    <link rel="stylesheet" href="/bundles/map2uleaflet/css/leaflet.map2u.css" type="text/css" media="all" />
+        #}
+
+            {#           <link rel="stylesheet" href="/bundles/sonatajquery/themes/flick/jquery-ui-1.8.16.custom.css" type="text/css" media="all" />
+                       <link rel="stylesheet" href="/bundles/sonataadmin/vendor/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css" type="text/css" media="all" />
+                       <link rel="stylesheet" href="/bundles/sonataadmin/vendor/bootstrap/dist/css/bootstrap.min.css" type="text/css" media="all"  />
+                       <link rel="stylesheet" href="/bundles/sonataadmin/vendor/bootstrap/dist/css/bootstrap-theme.min.css" type="text/css" media="all" />
+           
+                       <link rel="stylesheet" href="/bundles/sonataadmin/vendor/select2/select2.css" type="text/css" media="all" />
+                       <!-- base application asset -->
+                       <link rel="stylesheet" href="/bundles/sonataadmin/css/layout.css" type="text/css" media="all" />
+                       <link rel="stylesheet" href="/bundles/sonataadmin/css/colors.css" type="text/css" media="all" />
+           
+                       <!-- ckeditor -->
+                       <link rel="stylesheet" href="/bundles/sonatamarkitup/markitup/markitup/skins/sonata/style.css" type="text/css" media="all" />
+                       <link rel="stylesheet" href="/bundles/sonatamarkitup/markitup/markitup/sets/markdown/style.css" type="text/css" media="all" />
+                       <link rel="stylesheet" href="/bundles/sonatamarkitup/markitup/markitup/sets/html/style.css" type="text/css" media="all" />
+                       <link rel="stylesheet" href="/bundles/sonatamarkitup/markitup/markitup/sets/textile/style.css" type="text/css" media="all" />
+            #}   {#        <link rel="stylesheet" href="/bundles/map2ucore/css/loginform.css" type="text/css" media="all" />
+            <link rel="stylesheet" href="/bundles/map2ucore/css/bootstrapicon.css" type="text/css" media="all" />
+            <link rel="stylesheet" type="text/css"  href="/bundles/sonataadmin/vendor/bootstrap/dist/css/bootstrap.min.css"  />
+            <link rel="stylesheet" type="text/css"  href="/bundles/sonataadmin/vendor/AdminLTE/css/font-awesome.min.css"  />
+            <link rel="stylesheet" type="text/css"  href="/bundles/sonataadmin/vendor/AdminLTE/css/ionicons.min.css"  />
+            <link rel="stylesheet" type="text/css"  href="/bundles/sonataadmin/vendor/AdminLTE/css/AdminLTE.css"  />
+            <link rel="stylesheet" type="text/css"  href="/bundles/sonataadmin/vendor/jqueryui/themes/flick/jquery-ui.min.css"  />
+            <link rel="stylesheet" type="text/css"  href="/bundles/sonataadmin/vendor/select2/select2.css"  />
+            <link rel="stylesheet" type="text/css"  href="/bundles/sonataadmin/vendor/select2/select2-bootstrap.css"  />
+            <link rel="stylesheet" type="text/css"  href="/bundles/sonataadmin/vendor/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css"  />
+            <link rel="stylesheet" type="text/css"  href="/bundles/sonataadmin/css/styles.css"  />
+            <link rel="stylesheet" type="text/css"  href="/bundles/sonataadmin/css/layout.css"  />
+#}
+
+            <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+            {#            <link href="/bundles/map2uweb/css/bootstrap.min.css" type="text/css" rel="stylesheet" media="screen"/>#}
+            <link href="/bundles/yorkujuturna/css/sonata.css" type="text/css" rel="stylesheet" media="screen"/>
+            <link href="/bundles/map2uweb/css/odometer-theme-default.css" type="text/css" rel="stylesheet" media="screen"/>
+            <style>
+                .container-fluid.span9 {
+                    margin: 0 auto;
+                }
+                body.sonata-bc {
+                    margin: 0 auto;
+                    padding-top: 0px;
+                    width:980px;
+                }
+                .navbar-nav .locale  > a {
+                    padding-bottom: 10px;
+                    padding-top: 15px;
+                }
+                ul.dropdown-menu.health_well_being {
+                    width:365px;
+                    margin-top:0px;
+                }
+                .sonata-bc .row , .sonata-bc .page_header {
+                    margin: 0 auto;
+                    padding: 0px;
+                    height: 120px;
+                    width:980px;
+                }
+                .sonata-bc .page_header_content {
+
+                    border: 1px solid #008000;
+                    height: 70px;
+                    margin: 3px 10px 3px 10px;
+
+                }
+                .page-header nav.navbar.navbar-custom{
+                    width:980px;
+                }
+                .sonata-bc .leaflet_content {
+                    bottom: 0;
+                    margin:0;
+                    overflow: hidden;
+                    //     position: absolute;
+                    visibility:hidden;
+                    width: 100%;
+                    left:0;
+                    //  min-width:1024px;
+
+                }
+                .sonata-bc #leaflet_content #sidebar {
+                    height:45px;
+                }
+
+                .sonata-bc #sidebar .search_form {
+                    padding:8px 10px;
+                    background-color: #EEE;
+                    height: 45px;
+                    //      border: 1px solid green;
+                }
+
+                .sonata-bc #sidebar .search_form input[type="text"] {
+                    border-right: medium none;
+                    height: 30px;
+                    transition: all 300ms linear 0s;
+                    width: 100%;
+                }
+                .navbar .nav > li.login .login-dropdown { position: absolute; white-space: normal; margin-top: 10px; background-color: #f2f1ef; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; border: 1px solid #b1a699; width: 270px; left: -215px; z-index: 9999; display: none; }
+                {#                #register-form { padding: 10px 10px 0 }#}
+                #register-form { background-color: #ada69a ;}
+                #login-form { padding: 0px; margin: 0}
+
+                #recaptcha_widget_div {
+                    margin: 0px; 
+                }
+                .progressbar {
+                    color: #fff;
+                    text-align: right;
+                    height: 25px;
+                    width: 0;
+                    z-index: 9999;
+                    position: absolute;
+                    background-color: #0ba1b5; 
+                    border-radius: 1px; 
+                }
+                ul.navbar-nav li.category.selected a{
+                    color:#008000;
+                    border:1px dotted #008000;
+                    margin:-1px;
+                }
+                ul.navbar-nav li.single_line_menu.selected a{
+                    color:#008000;
+                    border:1px dotted #008000;
+                    margin-top:8px;
+                }
+
+                ul.navbar-nav li.active a{
+                    color:#0ba1b5;
+                    font-weight:900;
+                }
+
+                ul.navbar-nav li.health_well_being {
+                    width: 110px;
+                    text-align:center;
+                }
+                ul.navbar-nav li.single_line_menu a,ul.navbar-nav li.security a ,ul.navbar-nav li.juturna_about a{
+                    margin-top:8px;
+                    text-align:center;
+                }
+                ul.navbar-nav li.basic_materials {
+                    width: 150px;
+                    text-align:center;
+                }
+
+                a.navbar-brand {
+                    margin-top:8px;
+                }
+                ul.navbar-nav li.good_social_relations {
+                    width: 135px;
+                    text-align:center;
+                }
+
+                ul.navbar-nav li.provsional_services {
+                    width: 135px;
+                    text-align:center;
+                }
+
+                ul.navbar-nav li.regulating_services {
+                    width: 135px;
+                    text-align:center;
+                }
+                ul.navbar-nav li.cultural_services {
+                    width: 135px;
+                    text-align:center;
+                }
+
+                ul.navbar-nav li.freedom_choice {
+                    width: 170px;
+                    text-align:center;
+                }
+
+                ul.navbar-nav li button.menu_switch  {
+                    margin-top:12px;
+                    width: 190px;
+                    height:46px;
+                    padding:0;
+                    text-align:center;
+                }
+                .menucategory {
+                    margin-top:30px;
+                }
+            </style>
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body class="sonata-bc">
+        {% block body %}
+            {% block page_header %}
+                <div class="row page-header">
+
+                    {% block page_header_content %}
+                        {{ sonata_block_render({ 'type': 'map2ucorebundle.block.page_header_content' }, { 'mode': 'public'}) }}
+                    {% endblock %} 
+                    {% block fixed_top_menu %}
+                        {{ sonata_block_render({ 'type': 'map2ucorebundle.block.fixed_topmenu' }, { 'mode': 'public'}) }}
+                    {% endblock %}
+                </div>
+            {% endblock %}
+            {% block maincontent %}
+                <div class="container-fluid maincontent">
+                    <div class="row-fluid">
+                        <div class="col-lg-7 col-sm-7">
+                            <div class="row-fluid homepage_flash">
+
+                            </div>
+                            <div class="row-fluid">
+                                <div class="col-lg-6 col-sm-6">
+
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-5 col-sm-5">
+                            <div class="row-fluid  homepage_description">
+
+                            </div>
+                            <div class="row-fluid homepage_mapsnapshot">
+
+                            </div>
+                            <div class="row-fluid  homepage_logo">
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            {% endblock %}
+            {% block footer %}
+                <div class="container-fluid footer">
+                    
+                        {{ render(controller("YorkuJuturnaBundle:Homepage:footer")) }}
+                   
+                </div>
+            {%endblock %}
+        {% endblock %}
+        {% block page_javascripts %}
+            {#            <script type="text/javascript">
+            
+                            window.SONATA_CONFIG = {
+                                CONFIRM_EXIT: {% if admin_pool is defined and admin_pool.getOption('confirm_exit') %}true{% else %}false{% endif %},
+                                USE_SELECT2: {% if admin_pool is defined and admin_pool.getOption('use_select2') %}true{% else %}false{% endif %}
+                            };
+                            window.SONATA_TRANSLATIONS = {
+                                CONFIRM_EXIT: '{{ 'confirm_exit'|trans({}, 'SonataAdminBundle')|escape('js') }}'
+                            };
+            
+                        </script> 
+                        <script>window.jQuery || document.write('<script src="{{ asset('/bundles/map2ucore/js/jquery-1.8.3.min.js')}}"><\/script>');</script>
+                        <script src="/bundles/sonatajquery/jquery-ui-1.8.23.js" type="text/javascript"></script>
+                        <script src="/bundles/sonatajquery/jquery-ui-i18n.js" type="text/javascript"></script>
+            
+                        <script src="{{ asset('bundles/map2ucore/js/jquery.validationEngine-en.js') }}"></script>
+                        <script src="{{ asset('bundles/map2ucore/js/jquery.validationEngine.js') }}"></script>
+            
+                        {{ render(controller("Map2uCoreBundle:Welcome:loginformjs")) }}
+            
+                        <script src="/bundles/sonataadmin/jquery/jquery.form.js" type="text/javascript"></script>
+                        <script src="/bundles/sonataadmin/jquery/jquery.confirmExit.js" type="text/javascript"></script>    
+                        <script src="/bundles/sonataadmin/vendor/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+                        <script src="/bundles/sonataadmin/vendor/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+                        <script src="/bundles/sonataadmin/vendor/select2/select2.min.js" type="text/javascript"></script>
+                        <script src="/bundles/sonatacore/js/base.js" type="text/javascript"></script>
+            #}        
+            {#   <script type="text/javascript">
+                   window.SONATA_CONFIG = {
+                       CONFIRM_EXIT: true,
+                       USE_SELECT2: true};
+                   window.SONATA_TRANSLATIONS = {
+                       CONFIRM_EXIT: 'You\x20have\x20unsaved\x20changes.'
+                   };
+               </script>
+   
+               <script src="/bundles/sonataadmin/vendor/jquery/dist/jquery.min.js" type="text/javascript"></script>
+               <script src="/bundles/sonataadmin/vendor/jqueryui/ui/minified/jquery-ui.min.js" type="text/javascript"></script>
+               <script src="/bundles/sonataadmin/vendor/jqueryui/ui/minified/i18n/jquery-ui-i18n.min.js" type="text/javascript"></script>
+               <script src="/bundles/sonataadmin/jquery/jquery.form.js" type="text/javascript"></script>
+               <script src="/bundles/sonataadmin/jquery/jquery.confirmExit.js" type="text/javascript"></script>
+               <script src="/bundles/sonataadmin/vendor/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+               <script src="/bundles/sonataadmin/vendor/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.min.js" type="text/javascript"></script>
+               <script src="/bundles/sonataadmin/vendor/select2/select2.min.js" type="text/javascript"></script>
+               <script src="/bundles/sonataadmin/App.js" type="text/javascript"></script>
+               <script src="/bundles/sonataadmin/Admin.js" type="text/javascript"></script>#}
+
+            <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+            <script src="/bundles/map2uweb/js/jquery.scrollTo-1.4.3.1-min.js"></script>
+            <script src="/bundles/map2uweb/js/jquery.parallax.min.js"></script>
+            <script src="/bundles/map2uweb/js/startup-kit.js"></script>
+            <script src="/bundles/map2uweb/js/jquery.backgroundvideo.min.js"></script>
+            <script src="/bundles/map2uweb/js/odometer.min.js"></script>
+            <script src="/bundles/map2uweb/js/script.js"></script>
+            <script src="/bundles/map2uweb/js/bootstrap.min.js"></script>
+            <script src="/bundles/sonataadmin/vendor/jqueryui/ui/minified/jquery-ui.min.js" type="text/javascript"></script>
+            <script src="/bundles/sonataadmin/vendor/jqueryui/ui/minified/i18n/jquery-ui-i18n.min.js" type="text/javascript"></script>
+            <script src="/bundles/sonataadmin/jquery/jquery.form.js" type="text/javascript"></script>
+            <script src="/bundles/sonataadmin/jquery/jquery.confirmExit.js" type="text/javascript"></script>
+            <script src="{{ asset('bundles/map2ucore/js/jquery.validationEngine-en.js') }}"></script>
+            <script src="{{ asset('bundles/map2ucore/js/jquery.validationEngine.js') }}"></script>
+            <script src="{{ asset('bundles/yorkujuturna/js/menuaction.js') }}"></script>
+            {{ render(controller("Map2uCoreBundle:Welcome:loginformjs")) }}
+
+        {% endblock %}
+    </body>
+</html>
