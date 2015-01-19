@@ -6,7 +6,7 @@
             <div class="collapse navbar-collapse navbar-main-collapse">
                 <div id="cms-block-8" class="cms-block cms-block-element environment_services">
                     <ul class="nav navbar-nav">
-                        <li {% if app.session.get('current_menu')=='home' %} class="active" {% endif %}><a href="{{path('welcome_home')}}" >Home
+                        <li {% if app.session.get('current_menu')=='home' %} class="active" {% endif %}><a href="{{path('welcome_home',{locale:_locale})}}" >Home
                             </a>
                         </li>
                         <li {% if app.session.get('current_menu')=='well_being' %} class="active" {% endif %}><a href="{{path('homepage_well_being')}}" >Well-Being

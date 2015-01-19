@@ -31,10 +31,11 @@ class HomepageController extends Controller {
      */
     public function indexAction(Request $request) {
         $session = $request->getSession();
+        $locale=$request->getLocale();
         $session->set('current_menu', "home");
           $em = $this->getDoctrine()->getManager();
         $description = $em->getRepository('YorkuJuturnaBundle:HomepageDescription')->findOneBy(array('active'=>true),array("updatedAt"=>'desc'));
-        return array('current_menu' => "home",'description'=>$description);
+        return array('_locale'=>$locale, 'current_menu' => "home",'description'=>$description);
     }
 
     /**
@@ -46,7 +47,7 @@ class HomepageController extends Controller {
      */
     public function imagesAction(Request $request) {
         $type = $request->get("type");
-
+      $locale=$request->getLocale();
         if (!isset($type) || $type == null) {
             $type = "Well-Being";
         }
@@ -63,7 +64,7 @@ class HomepageController extends Controller {
 //
 //            $update_geom = true;
 //        }
-        return array('image' => $image, 'type' => strtolower(str_replace("-", "_", $type)));
+        return array('_locale'=>$locale,'image' => $image, 'type' => strtolower(str_replace("-", "_", $type)));
     }
 
     /**
@@ -75,6 +76,7 @@ class HomepageController extends Controller {
      */
     public function flashsAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
+              $locale=$request->getLocale();
 //        if (!isset($id)) {
 //            return new Response(\json_encode(array('success' => false, 'message' => 'Parameter Id not found!')));
 //        }
@@ -85,7 +87,7 @@ class HomepageController extends Controller {
 //
 //            $update_geom = true;
 //        }
-        return array('flashs' => $flashs);
+        return array('_locale'=>$locale,'flashs' => $flashs);
     }
 
     /**
@@ -98,6 +100,7 @@ class HomepageController extends Controller {
     public function well_beingAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
+              $locale=$request->getLocale();
         $session->set('current_menu', "well_being");
         $category = $em->getRepository('YorkuJuturnaBundle:Category')->findOneByName("Well-Being");
 
@@ -117,7 +120,7 @@ class HomepageController extends Controller {
 //
 //            $update_geom = true;
 //        }
-        return array('image' => $image, 'flashs' => $flashs);
+        return array('_locale'=>$locale,'image' => $image, 'flashs' => $flashs);
     }
 
     /**
@@ -130,6 +133,7 @@ class HomepageController extends Controller {
     public function ecosystemsAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
+              $locale=$request->getLocale();
         $session->set('current_menu', "ecosystems");
         $category = $em->getRepository('YorkuJuturnaBundle:Category')->findOneByName("Ecosystems");
 
@@ -143,7 +147,7 @@ class HomepageController extends Controller {
 
         $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
 
-        return array('image' => $image,'flashs' => $flashs);
+        return array('_locale'=>$locale,'image' => $image,'flashs' => $flashs);
     }
 
     /**
@@ -155,6 +159,7 @@ class HomepageController extends Controller {
      */
     public function mapAction(Request $request) {
         $session = $request->getSession();
+              $locale=$request->getLocale();
         $session->set('current_menu', "map");
         $em = $this->getDoctrine()->getManager();
 //        if (!isset($id)) {
@@ -167,7 +172,7 @@ class HomepageController extends Controller {
 //
 //            $update_geom = true;
 //        }
-        return array('flashs' => $flashs);
+        return array('_locale'=>$locale,'flashs' => $flashs);
     }
 
     /**
@@ -180,7 +185,10 @@ class HomepageController extends Controller {
     public function storiesAction(Request $request) {
         $session = $request->getSession();
         $session->set('current_menu', "stories");
+              $locale=$request->getLocale();
         $em = $this->getDoctrine()->getManager();
+        $category = $em->getRepository('YorkuJuturnaBundle:Category')->findOneByName("Ecosystems");
+
 //        if (!isset($id)) {
 //            return new Response(\json_encode(array('success' => false, 'message' => 'Parameter Id not found!')));
 //        }
@@ -191,7 +199,7 @@ class HomepageController extends Controller {
 //
 //            $update_geom = true;
 //        }
-        return array('flashs' => $flashs);
+        return array('_locale'=>$locale,'flashs' => $flashs);
     }
 
     /**
@@ -204,6 +212,7 @@ class HomepageController extends Controller {
     public function contact_usAction(Request $request) {
         $session = $request->getSession();
         $session->set('current_menu', "contact_us");
+              $locale=$request->getLocale();
         $em = $this->getDoctrine()->getManager();
 //        if (!isset($id)) {
 //            return new Response(\json_encode(array('success' => false, 'message' => 'Parameter Id not found!')));
@@ -215,7 +224,7 @@ class HomepageController extends Controller {
 //
 //            $update_geom = true;
 //        }
-        return array('flashs' => $flashs);
+        return array('_locale'=>$locale,'flashs' => $flashs);
     }
 
     /**
@@ -227,6 +236,7 @@ class HomepageController extends Controller {
      */
     public function about_usAction(Request $request) {
         $session = $request->getSession();
+              $locale=$request->getLocale();
         $session->set('current_menu', "about_us");
         $em = $this->getDoctrine()->getManager();
 //        if (!isset($id)) {
@@ -239,7 +249,7 @@ class HomepageController extends Controller {
 //
 //            $update_geom = true;
 //        }
-        return array('flashs' => $flashs);
+        return array('_locale'=>$locale,'flashs' => $flashs);
     }
 /**
      * .
@@ -249,7 +259,7 @@ class HomepageController extends Controller {
      * @Template()
      */
     public function footerAction(Request $request) {
-      
-        return array();
+            $locale=$request->getLocale();
+        return array('_locale'=>$locale);
     }
 }

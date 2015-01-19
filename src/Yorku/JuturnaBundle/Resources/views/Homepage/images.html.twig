@@ -1,6 +1,6 @@
 {% if image is defined %}
     <div style="border-radius: 8px;">
-        <a href="{{path('homepage_'~type)}}" ><img src="/uploads/images/homepageimages/{{image.getImage()}}" height="180px" style="height:180px;border-radius: 8px;"></a>
+        <a href="{{path('homepage_'~type,{locale:app.request.locale})}}" ><img src="/uploads/images/homepageimages/{{image.getImage()}}" height="180px" style="height:180px;border-radius: 8px;"></a>
     </div>
     <div style="margin:3px auto; color:green; text-align: center;">
         <a href="#"><h4>{{image.getTitle()}}</h4></a>

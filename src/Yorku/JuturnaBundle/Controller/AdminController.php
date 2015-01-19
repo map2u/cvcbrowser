@@ -18,7 +18,7 @@ Type::overrideType('time', 'Doctrine\DBAL\Types\VarDateTimeType');
 /**
  * Stations controller.
  *
- * @Route("/admin")
+ * @Route("/sysadmin")
  */
 class AdminController extends Controller {
 

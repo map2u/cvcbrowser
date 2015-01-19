@@ -2,5 +2,5 @@
 juturna:
     resource: "@YorkuJuturnaBundle/Controller/"
     type: annotation
-    prefix: /{locale}
+    prefix: /{_locale}
 

@@ -24,7 +24,7 @@ map2u_dashboard:
     
 welcome_home:
   path: /{_locale}
-  defaults: { _controller: Map2uCoreBundle:Welcome:index, _locale: en}
+  defaults: { _controller: YorkuJuturnaBundle:Homepage:index, _locale: en}
   requirements:
       _locale: en|zh
 

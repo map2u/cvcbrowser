@@ -41,27 +41,25 @@
 
 
                                 <ul class="dropdown-menu pull-right" style="padding:10px;margin:0px;min-width: 150px;width: 200px;border:1px solid lightblue;border-radius: 0 0 4px 4px;">
-                                    <li style="display: block;"><a href="{{ path('dashboard_index') }}" style="padding:5px;border: none;">Dashboard</a></li>
-                                    <li style="display: block;"><a href="{{ path('sonata_user_change_password') }}" style="padding:5px;border: none;">Change Password</a></li>
-                                    <li style="display: block;"><a href="{{ path('fos_user_security_logout') }}" style="padding:5px;border: none;"><i class="fa fa-sign-out fa-lg" style="display: inline-block;"></i>Logout</a></li>
-                                    <li style="display: block;"><a href="{{ path('sonata_user_profile_show') }}" style="padding:5px;border: none;">Profile</a></li>
+                                    <li style="display: block;"><a href="{{ path('dashboard_index',{locale:app.request.getLocale()}) }}" style="padding:5px;border: none;">Dashboard</a></li>
+                                    <li style="display: block;"><a href="{{ path('sonata_user_change_password',{locale:app.request.getLocale()}) }}" style="padding:5px;border: none;">Change Password</a></li>
+                                    <li style="display: block;"><a href="{{ path('fos_user_security_logout',{locale:_app.request.getLocale()}) }}" style="padding:5px;border: none;"><i class="fa fa-sign-out fa-lg" style="display: inline-block;"></i>Logout</a></li>
+                                    <li style="display: block;"><a href="{{ path('sonata_user_profile_show',{locale:app.request.getLocale()}) }}" style="padding:5px;border: none;">Profile</a></li>
                                 </ul>
 
                             </li>                 
 
 
-                            <li class="locale">
-                                {{ locale_switcher() }}
-                            </li>
+
                         {% else %}
                             <li class="login">
-                                <a class="login-popdown-trigger" href="{{path('fos_user_security_login')}}">Login</a>
+                                <a class="login-popdown-trigger" href="{{path('fos_user_security_login',{locale:app.request.getLocale()})}}">Login</a>
                                 <div class="login-dropdown">
-                                    {{ render(controller('Map2uCoreBundle:Security:loginform', {'ajax':true})) }}
+                                    {{ render(controller('Map2uCoreBundle:Security:loginform', {'ajax':true,locale:app.request.getLocale()})) }}
                                 </div> 
                             </li>
-                            <li class="locale">{{ locale_switcher() }}</li>
-                            {% endif %}
+                            {#                            <li class="locale">{{ locale_switcher() }}</li>#}
+                        {% endif %}
                     </ul>
                 </div>
             </div>

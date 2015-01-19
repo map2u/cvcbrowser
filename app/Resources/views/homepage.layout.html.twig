@@ -202,7 +202,9 @@
 {% block page_javascripts %}
     <script src="/bundles/map2uleaflet/js/I18n.en.js"></script>
     <script src="/bundles/map2uleaflet/js/i18n.js"></script>
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&v=3.6"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="/bundles/map2uleaflet/js/simplify.js"></script>    
     <script type="text/javascript">
         if (I18n)
         {
@@ -331,102 +333,107 @@
        <script src="/bundles/sonataadmin/select2/select2.min.js" type="text/javascript"></script>
        <script src="/bundles/sonataadmin/base.js" type="text/javascript"></script>#}
     {#    <script src="/bundles/map2uleaflet/js/leaflet.js?2"></script>#}
-    <script src="/bundles/map2uleaflet/js/leaflet-src.js"></script>
-    <script src="/bundles/map2uleaflet/js/Control.MiniMap.js"></script>
-    <script src="/bundles/map2uleaflet/js/L.Control.MousePosition.js"></script>
-    <script src="/bundles/map2uleaflet/js/L.Control.Sidebar.js"></script>
-    <script src="/bundles/map2ucore/js/zip.js"></script>
-    <script src="http://d3js.org/d3.v3.min.js"></script>
-    <script src="http://d3js.org/topojson.v1.min.js"></script>
-    <script src="/bundles/map2uleaflet/js/simplify.js"></script>    
+    {% set url_array = app.request.getPathInfo |split('/') %}
 
-    {#    <script src="http://d3js.org/d3.v3.js"></script>
-        <script src="http://d3js.org/queue.v1.min.js"></script>
-        <script src="http://d3js.org/topojson.v1.js"></script>    
-        <script src="{{ asset('bundles/map2uleaflet/js/TileLayer.d3_geoJSON.js') }}"></script>    
-        #}
+    {% if url_array|length >=3 and url_array[2]=='map' %}
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&v=3.6"></script>
+        <script src="/bundles/map2uleaflet/js/leaflet-src.js"></script>
+        <script src="/bundles/map2uleaflet/js/Control.MiniMap.js"></script>
+        <script src="/bundles/map2uleaflet/js/L.Control.MousePosition.js"></script>
+        <script src="/bundles/map2uleaflet/js/L.Control.Sidebar.js"></script>
+        <script src="/bundles/map2ucore/js/zip.js"></script>
 
 
-    <script src="{{ asset('bundles/map2uleaflet/js/leaflet.d3.js') }}"></script>
 
-    {# {% javascripts '@Map2uLeafletBundle/Resources/public/js/leaflet.js' 
- '@Map2uLeafletBundle/Resources/public/js/osm.js' 
- '@Map2uLeafletBundle/Resources/public/js/Control.MiniMap.js' 
- '@Map2uLeafletBundle/Resources/public/js/L.Control.MousePosition.js' 
- '@Map2uLeafletBundle/Resources/public/js/L.Control.Sidebar.js' 
- '@Map2uLeafletBundle/Resources/public/js/querystring.js' 
- '@Map2uLeafletBundle/Resources/public/js/application.js' 
- '@Map2uLeafletBundle/Resources/public/js/leaflet.map2u.js' 
- '@Map2uLeafletBundle/Resources/public/js/leaflet-google.js' 
- '@Map2uLeafletBundle/Resources/public/js/leaflet.legend.js' 
- '@Map2uLeafletBundle/Resources/public/js/leaflet.layers.js' 
- '@Map2uLeafletBundle/Resources/public/js/leaflet.note.js' 
- '@Map2uLeafletBundle/Resources/public/js/leaflet.share.js' 
- '@Map2uLeafletBundle/Resources/public/js/leaflet.zoom.js' 
- '@Map2uLeafletBundle/Resources/public/js/leaflet.draw.js' 
- '@Map2uLeafletBundle/Resources/public/js/leaflet.locationfilter.js' 
- '@Map2uLeafletBundle/Resources/public/js/bootstrap.tooltip.js' 
- '@Map2uLeafletBundle/Resources/public/js/bootstrap.dropdown.js' 
- '@Map2uLeafletBundle/Resources/public/js/leaflet.locate.js' 
- '@Map2uLeafletBundle/Resources/public/js/i18n.js' 
- '@Map2uLeafletBundle/Resources/public/js/leaflet_map.js'
- 
- 
-     filter='yui_js' %}
-         <script type="text/javascript" src="{{ asset_url }}"></script>
-     {% endjavascripts %}#}
 
-    <script src="/bundles/map2ucore/js/uploadshapefile.js"></script>
-    <script src="/bundles/map2ucore/js/binaryajax.js"></script>
-    <script src="/bundles/map2ucore/js/binarywrapper.js"></script>
-    <script src="/bundles/map2ucore/js/dbf.js"></script>
-    <script src="/bundles/map2uleaflet/js/querystring.js"></script>
-    <script src="/bundles/map2uleaflet/js/application.js"></script>
-    <script src="/bundles/map2uleaflet/js/leaflet.map2u.js"></script>
-    <script src="/bundles/map2uleaflet/js/leaflet.uploadfile.js"></script>
-    <script src="/bundles/map2uleaflet/js/leaflet.uploadfile_list.js"></script>
-    <script src="/bundles/map2uleaflet/js/leaflet-google.js"></script>
-    <script src="/bundles/map2uleaflet/js/leaflet.key.js"></script>
-    <script src="/bundles/map2uleaflet/js/leaflet.graphchart.js"></script>
-    <script src="/bundles/map2uleaflet/js/leaflet.layers.js"></script>
-    <script src="/bundles/map2uleaflet/js/leaflet.label.js"></script>
-    <script src="/bundles/map2uleaflet/js/leaflet.note.js"></script>
-    <script src="/bundles/map2uleaflet/js/leaflet.share.js"></script>
-    <script src="/bundles/map2uleaflet/js/leaflet.zoom.js"></script>
-    <script src="/bundles/map2uleaflet/js/leaflet.draw.js"></script>
-    <script src="/bundles/map2uleaflet/js/leaflet.locationfilter.js"></script>
-    <script src="/bundles/map2uleaflet/js/bootstrap.tooltip.js"></script>
-    {#    <script src="/bundles/map2uleaflet/js/bootstrap.dropdown.js"></script>#}
-    {#    <script src="/bundles/map2uleaflet/js/leaflet.shapefile_upload.js"></script>#}
+        {#    <script src="http://d3js.org/d3.v3.js"></script>
+            <script src="http://d3js.org/queue.v1.min.js"></script>
+            <script src="http://d3js.org/topojson.v1.js"></script>    
+            <script src="{{ asset('bundles/map2uleaflet/js/TileLayer.d3_geoJSON.js') }}"></script>    
+            #}
 
-    <script src="/bundles/map2uleaflet/js/leaflet.locate.js"></script>
-    <script src="/bundles/map2uleaflet/js/osm.js"></script>
-    <script src="/bundles/map2uleaflet/js/router.js"></script>
-    <script src="/bundles/map2uleaflet/js/index/search.js"></script>
-    <script src="/bundles/map2uleaflet/js/index/export.js"></script>
-    <script src="/bundles/map2uleaflet/js/index/history.js"></script>
-    <script src="/bundles/map2uleaflet/js/index/browse.js"></script>
-    <script src="/bundles/map2uleaflet/js/Bing.js"></script>
-    <script src="/bundles/yorkujuturna/js/leaflet_map.js" type="text/javascript"></script>
-    <script src="/bundles/map2uleaflet/js/mapdraw.js" type="text/javascript"></script>
-    <script src="/bundles/map2uleaflet/js/leaflet.markercluster-src.js" type="text/javascript"></script>
-    <script src="/bundles/map2uleaflet/js/leaflet.maptoolbar.js" type="text/javascript"></script>
-    <script src="/bundles/map2uleaflet/js/leaflet-history-src.js" type="text/javascript"></script>
-    <script type="text/javascript" src="/bundles/map2uleaflet/js/heatmap.js"></script>
-    <script type="text/javascript" src="/bundles/map2uleaflet/js/leaflet-heatmap.js"></script>
-    <script type="text/javascript" src="/bundles/map2uleaflet/js/QuadTree.js"></script>
-    <script src="/bundles/map2uleaflet/js/spin.min.js"></script>
-    <script src="/bundles/map2uleaflet/js/leaflet.spin.js" type="text/javascript"></script>
 
-    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>            
+        <script src="{{ asset('bundles/map2uleaflet/js/leaflet.d3.js') }}"></script>
 
-    <script type="text/javascript">
+        {# {% javascripts '@Map2uLeafletBundle/Resources/public/js/leaflet.js' 
+     '@Map2uLeafletBundle/Resources/public/js/osm.js' 
+     '@Map2uLeafletBundle/Resources/public/js/Control.MiniMap.js' 
+     '@Map2uLeafletBundle/Resources/public/js/L.Control.MousePosition.js' 
+     '@Map2uLeafletBundle/Resources/public/js/L.Control.Sidebar.js' 
+     '@Map2uLeafletBundle/Resources/public/js/querystring.js' 
+     '@Map2uLeafletBundle/Resources/public/js/application.js' 
+     '@Map2uLeafletBundle/Resources/public/js/leaflet.map2u.js' 
+     '@Map2uLeafletBundle/Resources/public/js/leaflet-google.js' 
+     '@Map2uLeafletBundle/Resources/public/js/leaflet.legend.js' 
+     '@Map2uLeafletBundle/Resources/public/js/leaflet.layers.js' 
+     '@Map2uLeafletBundle/Resources/public/js/leaflet.note.js' 
+     '@Map2uLeafletBundle/Resources/public/js/leaflet.share.js' 
+     '@Map2uLeafletBundle/Resources/public/js/leaflet.zoom.js' 
+     '@Map2uLeafletBundle/Resources/public/js/leaflet.draw.js' 
+     '@Map2uLeafletBundle/Resources/public/js/leaflet.locationfilter.js' 
+     '@Map2uLeafletBundle/Resources/public/js/bootstrap.tooltip.js' 
+     '@Map2uLeafletBundle/Resources/public/js/bootstrap.dropdown.js' 
+     '@Map2uLeafletBundle/Resources/public/js/leaflet.locate.js' 
+     '@Map2uLeafletBundle/Resources/public/js/i18n.js' 
+     '@Map2uLeafletBundle/Resources/public/js/leaflet_map.js'
+     
+     
+         filter='yui_js' %}
+             <script type="text/javascript" src="{{ asset_url }}"></script>
+         {% endjavascripts %}#}
+
+        <script src="/bundles/map2ucore/js/uploadshapefile.js"></script>
+        <script src="/bundles/map2ucore/js/binaryajax.js"></script>
+        <script src="/bundles/map2ucore/js/binarywrapper.js"></script>
+        <script src="/bundles/map2ucore/js/dbf.js"></script>
+        <script src="/bundles/map2uleaflet/js/querystring.js"></script>
+        <script src="/bundles/map2uleaflet/js/application.js"></script>
+        <script src="/bundles/map2uleaflet/js/leaflet.map2u.js"></script>
+        <script src="/bundles/map2uleaflet/js/leaflet.uploadfile.js"></script>
+        <script src="/bundles/map2uleaflet/js/leaflet.uploadfile_list.js"></script>
+        <script src="/bundles/map2uleaflet/js/leaflet-google.js"></script>
+        <script src="/bundles/map2uleaflet/js/leaflet.key.js"></script>
+        <script src="/bundles/map2uleaflet/js/leaflet.graphchart.js"></script>
+        <script src="/bundles/map2uleaflet/js/leaflet.layers.js"></script>
+        <script src="/bundles/map2uleaflet/js/leaflet.label.js"></script>
+        <script src="/bundles/map2uleaflet/js/leaflet.note.js"></script>
+        <script src="/bundles/map2uleaflet/js/leaflet.share.js"></script>
+        <script src="/bundles/map2uleaflet/js/leaflet.zoom.js"></script>
+        <script src="/bundles/map2uleaflet/js/leaflet.draw.js"></script>
+        <script src="/bundles/map2uleaflet/js/leaflet.locationfilter.js"></script>
+        <script src="/bundles/map2uleaflet/js/bootstrap.tooltip.js"></script>
+        {#    <script src="/bundles/map2uleaflet/js/bootstrap.dropdown.js"></script>#}
+        {#    <script src="/bundles/map2uleaflet/js/leaflet.shapefile_upload.js"></script>#}
+
+        <script src="/bundles/map2uleaflet/js/leaflet.locate.js"></script>
+        <script src="/bundles/map2uleaflet/js/osm.js"></script>
+        <script src="/bundles/map2uleaflet/js/router.js"></script>
+        <script src="/bundles/map2uleaflet/js/index/search.js"></script>
+        <script src="/bundles/map2uleaflet/js/index/export.js"></script>
+        <script src="/bundles/map2uleaflet/js/index/history.js"></script>
+        <script src="/bundles/map2uleaflet/js/index/browse.js"></script>
+        <script src="/bundles/map2uleaflet/js/Bing.js"></script>
+        <script src="/bundles/yorkujuturna/js/leaflet_map.js" type="text/javascript"></script>
+        <script src="/bundles/map2uleaflet/js/mapdraw.js" type="text/javascript"></script>
+        <script src="/bundles/map2uleaflet/js/leaflet.markercluster-src.js" type="text/javascript"></script>
+        <script src="/bundles/map2uleaflet/js/leaflet.maptoolbar.js" type="text/javascript"></script>
+        <script src="/bundles/map2uleaflet/js/leaflet-history-src.js" type="text/javascript"></script>
+        <script type="text/javascript" src="/bundles/map2uleaflet/js/heatmap.js"></script>
+        <script type="text/javascript" src="/bundles/map2uleaflet/js/leaflet-heatmap.js"></script>
+        <script type="text/javascript" src="/bundles/map2uleaflet/js/QuadTree.js"></script>
+        <script src="/bundles/map2ucore/js/spin.min.js"></script>
+        <script src="/bundles/map2uleaflet/js/leaflet.spin.js" type="text/javascript"></script>
+
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>            
+
+        <script type="text/javascript">
              $(window).on('resize load', function () {
                  //  $('body').css({"padding-top": $(".navbar-fixed-top .container").height() + "px"});
                  $('#leaflet_content').css({"margin-top": "25px"});
              });
-    </script>
+        </script>
+    {% endif %}
 {% endblock %}
 {% block page_container %}
     <div class="modal fade" id="main_modalpanel" tabindex="-1" role="dialog" aria-labelledby="modalpanelLabel" aria-hidden="true">

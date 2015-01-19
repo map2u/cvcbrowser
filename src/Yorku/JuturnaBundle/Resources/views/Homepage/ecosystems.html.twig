@@ -24,13 +24,13 @@
                     <div class="row-fluid  homepage_description" style="height:260px;padding:0 5px; ">
                         {% if image is defined %}
                             <div style="margin:5px auto; overflow: hidden; border-radius: 8px;border: 2px solid lightblue;">
-                                <a href="{{path('homepage_ecosystems')}}"><img src="/uploads/images/homepageimages/{{image.getImage()}}" width="100%"></a>
+                                <a href="{{path('homepage_ecosystems',{locale:app.request.locale})}}"><img src="/uploads/images/homepageimages/{{image.getImage()}}" width="100%"></a>
                             </div>
 
                         {% endif %}
                     </div>
                     <div class="row-fluid homepage_mapsnapshot" style="margin:5px; overflow: hidden; border-radius: 8px;height:237px; border: 2px solid lightblue;">
-                        <a href="{{path('homepage_map')}}" ><img src="/uploads/images/header_logos/map.png" width="100%" ></a>
+                        <a href="{{path('homepage_map',{locale:app.request.locale})}}" ><img src="/uploads/images/header_logos/map.png" width="100%" ></a>
                     </div>
                     <div class="row-fluid  homepage_logo" style="height:100px; border: 1px solid grey;">
 
