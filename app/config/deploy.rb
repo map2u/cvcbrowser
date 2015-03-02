@@ -27,8 +27,9 @@ default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
 
 set :use_composer, true
-set :update_vendors, false
+set :update_vendors, true
 #set :copy_vendors, true
+set :composer_options,  "--ansi --no-interaction install --no-dev"
 
 set :use_sudo,      false
 set :keep_releases,  5
