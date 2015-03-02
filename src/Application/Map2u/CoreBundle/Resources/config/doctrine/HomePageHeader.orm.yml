@@ -1,0 +1,58 @@
+Application\Map2u\CoreBundle\Entity\HomePageHeader:
+    type: entity
+    table: homepageheader
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        headerLogo:
+            type: array
+            nullable: true
+            column: header_logos       
+        menubarLogo:    
+            type: string
+            length: 230
+            fixed: false
+            nullable: true
+            column: menubar_logo 
+        headerTitle:
+            type: string
+            length: 30
+            fixed: false
+            nullable: true
+            column: header_title       
+        headerTitleColor:
+            type: string
+            length: 30
+            fixed: false
+            nullable: true
+            column: header_title_color       
+        headerBackgroundImage:    
+            type: string
+            length: 500
+            fixed: false
+            nullable: true
+            column: header_background_image 
+        systemBackgroundImage:    
+            type: string
+            length: 500
+            fixed: false
+            nullable: true
+            column: system_background_image 
+        headerBackgroundImageOpacity:    
+            type: float
+            nullable: true
+            options:
+                default: 0.9
+            column: header_background_image_opacity 
+        systemBackgroundImageOpacity:    
+            type: float
+            nullable: true
+            options:
+                default: 0.9
+            column: system_background_image_opacity 
+    

@@ -31,11 +31,11 @@ class HomepageController extends Controller {
      */
     public function indexAction(Request $request) {
         $session = $request->getSession();
-        $locale=$request->getLocale();
+        $locale = $request->getLocale();
         $session->set('current_menu', "home");
-          $em = $this->getDoctrine()->getManager();
-        $description = $em->getRepository('YorkuJuturnaBundle:HomepageDescription')->findOneBy(array('active'=>true),array("updatedAt"=>'desc'));
-        return array('_locale'=>$locale, 'current_menu' => "home",'description'=>$description);
+        $em = $this->getDoctrine()->getManager();
+        $description = $em->getRepository('YorkuJuturnaBundle:HomepageDescription')->findOneBy(array('active' => true), array("updatedAt" => 'desc'));
+        return array('_locale' => $locale, 'current_menu' => "home", 'description' => $description);
     }
 
     /**
@@ -47,7 +47,7 @@ class HomepageController extends Controller {
      */
     public function imagesAction(Request $request) {
         $type = $request->get("type");
-      $locale=$request->getLocale();
+        $locale = $request->getLocale();
         if (!isset($type) || $type == null) {
             $type = "Well-Being";
         }
@@ -64,7 +64,7 @@ class HomepageController extends Controller {
 //
 //            $update_geom = true;
 //        }
-        return array('_locale'=>$locale,'image' => $image, 'type' => strtolower(str_replace("-", "_", $type)));
+        return array('_locale' => $locale, 'image' => $image, 'type' => strtolower(str_replace("-", "_", $type)));
     }
 
     /**
@@ -76,7 +76,7 @@ class HomepageController extends Controller {
      */
     public function flashsAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-              $locale=$request->getLocale();
+        $locale = $request->getLocale();
 //        if (!isset($id)) {
 //            return new Response(\json_encode(array('success' => false, 'message' => 'Parameter Id not found!')));
 //        }
@@ -87,7 +87,7 @@ class HomepageController extends Controller {
 //
 //            $update_geom = true;
 //        }
-        return array('_locale'=>$locale,'flashs' => $flashs);
+        return array('_locale' => $locale, 'flashs' => $flashs);
     }
 
     /**
@@ -100,10 +100,13 @@ class HomepageController extends Controller {
     public function well_beingAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-              $locale=$request->getLocale();
+        $id=$request->get("id");
+        $locale = $request->getLocale();
         $session->set('current_menu', "well_being");
         $category = $em->getRepository('YorkuJuturnaBundle:Category')->findOneByName("Well-Being");
-
+         if (isset($id)&&intval($id)>0) {
+             $wellbeing = $em->getRepository('YorkuJuturnaBundle:HumanWellBeingDomain')->find($id);
+         }
 //        if (!isset($id)) {
 //            return new Response(\json_encode(array('success' => false, 'message' => 'Parameter Id not found!')));
 //        }
@@ -120,7 +123,7 @@ class HomepageController extends Controller {
 //
 //            $update_geom = true;
 //        }
-        return array('_locale'=>$locale,'image' => $image, 'flashs' => $flashs);
+        return array('_locale' => $locale, 'wellbeing' =>$wellbeing, 'image' => $image, 'flashs' => $flashs);
     }
 
     /**
@@ -133,7 +136,7 @@ class HomepageController extends Controller {
     public function ecosystemsAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-              $locale=$request->getLocale();
+        $locale = $request->getLocale();
         $session->set('current_menu', "ecosystems");
         $category = $em->getRepository('YorkuJuturnaBundle:Category')->findOneByName("Ecosystems");
 
@@ -147,7 +150,7 @@ class HomepageController extends Controller {
 
         $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
 
-        return array('_locale'=>$locale,'image' => $image,'flashs' => $flashs);
+        return array('_locale' => $locale, 'image' => $image, 'flashs' => $flashs);
     }
 
     /**
@@ -159,20 +162,12 @@ class HomepageController extends Controller {
      */
     public function mapAction(Request $request) {
         $session = $request->getSession();
-              $locale=$request->getLocale();
+        $locale = $request->getLocale();
+        $id = $request->get('id');
         $session->set('current_menu', "map");
         $em = $this->getDoctrine()->getManager();
-//        if (!isset($id)) {
-//            return new Response(\json_encode(array('success' => false, 'message' => 'Parameter Id not found!')));
-//        }
-//        if  ((isset($id) && ( $id === 0 || $id === '0' || $id === 'undefined'))) {
-//            $usergeometries = new UserDrawGeometries();
-//        } else {
         $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
-//
-//            $update_geom = true;
-//        }
-        return array('_locale'=>$locale,'flashs' => $flashs);
+        return array('_locale' => $locale, 'flashs' => $flashs, 'id' => $id);
     }
 
     /**
@@ -185,7 +180,7 @@ class HomepageController extends Controller {
     public function storiesAction(Request $request) {
         $session = $request->getSession();
         $session->set('current_menu', "stories");
-              $locale=$request->getLocale();
+        $locale = $request->getLocale();
         $em = $this->getDoctrine()->getManager();
         $category = $em->getRepository('YorkuJuturnaBundle:Category')->findOneByName("Ecosystems");
 
@@ -199,7 +194,7 @@ class HomepageController extends Controller {
 //
 //            $update_geom = true;
 //        }
-        return array('_locale'=>$locale,'flashs' => $flashs);
+        return array('_locale' => $locale, 'flashs' => $flashs);
     }
 
     /**
@@ -212,7 +207,7 @@ class HomepageController extends Controller {
     public function contact_usAction(Request $request) {
         $session = $request->getSession();
         $session->set('current_menu', "contact_us");
-              $locale=$request->getLocale();
+        $locale = $request->getLocale();
         $em = $this->getDoctrine()->getManager();
 //        if (!isset($id)) {
 //            return new Response(\json_encode(array('success' => false, 'message' => 'Parameter Id not found!')));
@@ -224,7 +219,7 @@ class HomepageController extends Controller {
 //
 //            $update_geom = true;
 //        }
-        return array('_locale'=>$locale,'flashs' => $flashs);
+        return array('_locale' => $locale, 'flashs' => $flashs);
     }
 
     /**
@@ -236,7 +231,7 @@ class HomepageController extends Controller {
      */
     public function about_usAction(Request $request) {
         $session = $request->getSession();
-              $locale=$request->getLocale();
+        $locale = $request->getLocale();
         $session->set('current_menu', "about_us");
         $em = $this->getDoctrine()->getManager();
 //        if (!isset($id)) {
@@ -249,9 +244,22 @@ class HomepageController extends Controller {
 //
 //            $update_geom = true;
 //        }
-        return array('_locale'=>$locale,'flashs' => $flashs);
+        return array('_locale' => $locale, 'flashs' => $flashs);
     }
-/**
+
+     /**
+     * .
+     *
+     * @Route("/uploadstory", name="homepage_uploadstory")
+     * @Method("GET|POST")
+     * @Template()
+     */
+    public function uploadstoryAction(Request $request) {
+        $locale = $request->getLocale();
+        return array('_locale' => $locale);
+    }
+    
+    /**
      * .
      *
      * @Route("/footer", name="homepage_footer")
@@ -259,7 +267,8 @@ class HomepageController extends Controller {
      * @Template()
      */
     public function footerAction(Request $request) {
-            $locale=$request->getLocale();
-        return array('_locale'=>$locale);
+        $locale = $request->getLocale();
+        return array('_locale' => $locale);
     }
+
 }

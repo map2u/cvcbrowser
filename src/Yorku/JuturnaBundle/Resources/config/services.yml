@@ -136,4 +136,53 @@ services:
         arguments: [~, Yorku\JuturnaBundle\Entity\HomepageDescription, YorkuJuturnaBundle:HomepageDescriptionAdmin,@service_container]
         tags:
             - {name: sonata.admin, manager_type: orm, group: homepage, label: HomepageDescription}
-    
+
+    yorku_juturna.admin.story:
+        class: Yorku\JuturnaBundle\Admin\StoryAdmin
+        arguments: [~, Yorku\JuturnaBundle\Entity\Story, YorkuJuturnaBundle:StoryAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Story}
+
+    yorku_juturna.admin.indicator:
+        class: Yorku\JuturnaBundle\Admin\IndicatorAdmin
+        arguments: [~, Yorku\JuturnaBundle\Entity\Indicator, YorkuJuturnaBundle:IndicatorAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Indicator}
+
+    yorku_juturna.admin.indicator_benefit:
+        class: Yorku\JuturnaBundle\Admin\IndicatorBenefitAdmin
+        arguments: [~, Yorku\JuturnaBundle\Entity\IndicatorBenefit, YorkuJuturnaBundle:IndicatorBenefitAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: IndicatorBenefit}
+
+    yorku_juturna.admin.indicator_benefit_image:
+        class: Yorku\JuturnaBundle\Admin\IndicatorBenefitImageAdmin
+        arguments: [~, Yorku\JuturnaBundle\Entity\IndicatorBenefitImage, YorkuJuturnaBundle:IndicatorBenefitImageAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: IndicatorBenefitImage}
+
+    yorku_juturna.admin.indicator_reference:
+        class: Yorku\JuturnaBundle\Admin\IndicatorReferenceAdmin
+        arguments: [~, Yorku\JuturnaBundle\Entity\IndicatorReference, YorkuJuturnaBundle:IndicatorReferenceAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: IndicatorReference}
+
+    yorku_juturna.admin.eco_system_service:
+        class: Yorku\JuturnaBundle\Admin\EcoSystemServiceAdmin
+        arguments: [~, Yorku\JuturnaBundle\Entity\EcoSystemService, YorkuJuturnaBundle:EcoSystemServiceAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: EcoSystemService}
+
+    yorku_juturna.admin.human_well_being_domain:
+        class: Yorku\JuturnaBundle\Admin\HumanWellBeingDomainAdmin
+        arguments: [~, Yorku\JuturnaBundle\Entity\HumanWellBeingDomain, YorkuJuturnaBundle:HumanWellBeingDomainAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: HumanWellBeingDomain}
+    yorku_juturna.block.indicator_column:
+                class: Yorku\JuturnaBundle\Block\IndicatorColumnBlockService
+                arguments:
+                    - "yorku_juturna.block.indicator_column"
+                    - "@templating"
+                    - "@doctrine.orm.entity_manager"
+                tags:
+                    -  { name: sonata.block, alias: yorku_juturna.block.indicator_column}

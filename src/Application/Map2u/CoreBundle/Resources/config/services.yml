@@ -1,0 +1,20 @@
+services:
+    application_map2u_core.admin.user_draw_layer:
+        class: Application\Map2u\CoreBundle\Admin\UserDrawLayerAdmin
+        arguments: [~, Application\Map2u\CoreBundle\Entity\UserDrawLayer, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: UserDrawLayer}
+    applicationmap2ucorebundle.block.fixed_topmenu:
+                class: Application\Map2u\CoreBundle\Block\FixedTopmenuBlockService
+                arguments:
+                    - "applicationmap2ucorebundle.block.fixed_topmenu"
+                    - "@templating"
+                    - "@doctrine.orm.entity_manager"
+                tags:
+                    -  { name: sonata.block, alias: applicationmap2ucorebundle.block.fixed_topmenu}
+
+    application_map2u_core.admin.user_draw_geometries:
+        class: Application\Map2u\CoreBundle\Admin\UserDrawGeometriesAdmin
+        arguments: [~, Application\Map2u\CoreBundle\Entity\UserDrawGeometries, ApplicationMap2uCoreBundle:UserDrawGeometriesAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: UserDrawGeometries}

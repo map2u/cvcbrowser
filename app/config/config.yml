@@ -19,6 +19,7 @@ imports:
     - { resource: sonata/sonata_news.yml }
     - { resource: map2u.yml }
     - { resource: forum.yml }
+    - { resource: @ApplicationMap2uCoreBundle/Resources/config/services.yml }
     
 framework:
     #esi:             ~

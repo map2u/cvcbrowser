@@ -1,0 +1,102 @@
+Yorku\JuturnaBundle\Entity\IndicatorBenefit:
+    type: entity
+    table: indicator_benefit
+
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        title:
+            type: string
+            length: 255
+            nullable: true
+            column: title
+        benefitName:
+            type: string
+            length: 255
+            nullable: false
+            column: benefit_name
+        abstract:
+            type: string
+            length: 2500
+            nullable: true
+            column: abstract
+        briefReport:
+            type: text
+            nullable: true
+            column: brief_report
+
+        createdAt:
+            type: datetime
+            nullable: true
+            column: created_at
+            gedmo:
+              timestampable:
+                on: create
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+            gedmo:
+              timestampable:
+                on: update
+    manyToOne:
+        indicator:
+            targetEntity: Indicator
+            cascade: {  }
+            mappedBy: null
+            inversedBy: indicatorbenefits
+            joinColumns:
+                indicator_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    manyToMany:                 
+       ecosystemservices:
+         targetEntity: EcoSystemService
+         inversedBy: indicatorbenefits
+         joinTable:
+           name: ecosystemservice_indicatorbenefits
+           joinColumns:
+             ecosystemservice_id:
+               referencedColumnName: id
+           inverseJoinColumns:
+             indicatorbenefit_id:
+               referencedColumnName: id                 
+       humanwellbeingedomains:
+         targetEntity: HumanWellBeingDomain
+         inversedBy: indicatorbenefits
+         joinTable:
+           name: humanwellbeingdomain_indicatorbenefits
+           joinColumns:
+             humanwellbeingedomain_id:
+               referencedColumnName: id
+           inverseJoinColumns:
+             indicatorbenefit_id:
+               referencedColumnName: id   
+       indicatorreferences:
+          targetEntity: IndicatorReference
+          inversedBy: indicatorbenefits
+          joinTable:
+           name: indicatorreference_indicatorbenefits
+           joinColumns:
+             indicatorreference_id:
+               referencedColumnName: id
+           inverseJoinColumns:
+             indicatorbenefit_id:
+               referencedColumnName: id   
+       indicatorbenefitimages:
+          targetEntity: IndicatorBenefitImage
+          inversedBy: indicatorbenefits
+          joinTable:
+           name: indicatorbenefitimage_indicatorbenefits
+           joinColumns:
+             indicatorbenefitimage_id:
+               referencedColumnName: id
+           inverseJoinColumns:
+             indicatorbenefit_id:
+               referencedColumnName: id                  
+    lifecycleCallbacks: {  }

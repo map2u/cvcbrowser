@@ -1,0 +1,318 @@
+<?php
+
+namespace Yorku\JuturnaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * IndicatorBenefit
+ */
+class IndicatorBenefit
+{
+    /**
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @var string
+     */
+    private $benefitName;
+
+    /**
+     * @var string
+     */
+    private $abstract;
+
+    /**
+     * @var string
+     */
+    private $briefReport;
+
+    /**
+     * @var \DateTime
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     */
+    private $updatedAt;
+
+    /**
+     * @var \Yorku\JuturnaBundle\Entity\Indicator
+     */
+    private $indicator;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $ecosystemservices;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $humanwellbeingedomains;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $indicatorreferences;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->ecosystemservices = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->humanwellbeingedomains = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->indicatorreferences = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set benefitName
+     *
+     * @param string $benefitName
+     * @return IndicatorBenefit
+     */
+    public function setBenefitName($benefitName)
+    {
+        $this->benefitName = $benefitName;
+
+        return $this;
+    }
+
+    /**
+     * Get benefitName
+     *
+     * @return string 
+     */
+    public function getBenefitName()
+    {
+        return $this->benefitName;
+    }
+
+    /**
+     * Set abstract
+     *
+     * @param string $abstract
+     * @return IndicatorBenefit
+     */
+    public function setAbstract($abstract)
+    {
+        $this->abstract = $abstract;
+
+        return $this;
+    }
+
+    /**
+     * Get abstract
+     *
+     * @return string 
+     */
+    public function getAbstract()
+    {
+        return $this->abstract;
+    }
+
+    /**
+     * Set briefReport
+     *
+     * @param string $briefReport
+     * @return IndicatorBenefit
+     */
+    public function setBriefReport($briefReport)
+    {
+        $this->briefReport = $briefReport;
+
+        return $this;
+    }
+
+    /**
+     * Get briefReport
+     *
+     * @return string 
+     */
+    public function getBriefReport()
+    {
+        return $this->briefReport;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return IndicatorBenefit
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return IndicatorBenefit
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set indicator
+     *
+     * @param \Yorku\JuturnaBundle\Entity\Indicator $indicator
+     * @return IndicatorBenefit
+     */
+    public function setIndicator(\Yorku\JuturnaBundle\Entity\Indicator $indicator = null)
+    {
+        $this->indicator = $indicator;
+
+        return $this;
+    }
+
+    /**
+     * Get indicator
+     *
+     * @return \Yorku\JuturnaBundle\Entity\Indicator 
+     */
+    public function getIndicator()
+    {
+        return $this->indicator;
+    }
+
+    /**
+     * Add ecosystemservices
+     *
+     * @param \Yorku\JuturnaBundle\Entity\EcoSystemService $ecosystemservices
+     * @return IndicatorBenefit
+     */
+    public function addEcosystemservice(\Yorku\JuturnaBundle\Entity\EcoSystemService $ecosystemservices)
+    {
+        $this->ecosystemservices[] = $ecosystemservices;
+
+        return $this;
+    }
+
+    /**
+     * Remove ecosystemservices
+     *
+     * @param \Yorku\JuturnaBundle\Entity\EcoSystemService $ecosystemservices
+     */
+    public function removeEcosystemservice(\Yorku\JuturnaBundle\Entity\EcoSystemService $ecosystemservices)
+    {
+        $this->ecosystemservices->removeElement($ecosystemservices);
+    }
+
+    /**
+     * Get ecosystemservices
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEcosystemservices()
+    {
+        return $this->ecosystemservices;
+    }
+
+    /**
+     * Add humanwellbeingedomains
+     *
+     * @param \Yorku\JuturnaBundle\Entity\HumanWellBeingDomain $humanwellbeingedomains
+     * @return IndicatorBenefit
+     */
+    public function addHumanwellbeingedomain(\Yorku\JuturnaBundle\Entity\HumanWellBeingDomain $humanwellbeingedomains)
+    {
+        $this->humanwellbeingedomains[] = $humanwellbeingedomains;
+
+        return $this;
+    }
+
+    /**
+     * Remove humanwellbeingedomains
+     *
+     * @param \Yorku\JuturnaBundle\Entity\HumanWellBeingDomain $humanwellbeingedomains
+     */
+    public function removeHumanwellbeingedomain(\Yorku\JuturnaBundle\Entity\HumanWellBeingDomain $humanwellbeingedomains)
+    {
+        $this->humanwellbeingedomains->removeElement($humanwellbeingedomains);
+    }
+
+    /**
+     * Get humanwellbeingedomains
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getHumanwellbeingedomains()
+    {
+        return $this->humanwellbeingedomains;
+    }
+
+    /**
+     * Add indicatorreferences
+     *
+     * @param \Yorku\JuturnaBundle\Entity\IndicatorReference $indicatorreferences
+     * @return IndicatorBenefit
+     */
+    public function addIndicatorreference(\Yorku\JuturnaBundle\Entity\IndicatorReference $indicatorreferences)
+    {
+        $this->indicatorreferences[] = $indicatorreferences;
+
+        return $this;
+    }
+
+    /**
+     * Remove indicatorreferences
+     *
+     * @param \Yorku\JuturnaBundle\Entity\IndicatorReference $indicatorreferences
+     */
+    public function removeIndicatorreference(\Yorku\JuturnaBundle\Entity\IndicatorReference $indicatorreferences)
+    {
+        $this->indicatorreferences->removeElement($indicatorreferences);
+    }
+
+    /**
+     * Get indicatorreferences
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getIndicatorreferences()
+    {
+        return $this->indicatorreferences;
+    }
+}

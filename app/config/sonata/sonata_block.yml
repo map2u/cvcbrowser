@@ -17,6 +17,7 @@ sonata_block:
         sonata.news.block.recent_comments: ~
         map2ucorebundle.block.latest_news: ~
         map2ucorebundle.block.fixed_topmenu: ~
+        applicationmap2ucorebundle.block.fixed_topmenu: ~
         map2ucorebundle.block.page_header_content: ~
         map2ucorebundle.block.uploadshapefile: ~
         map2ucorebundle.block.uploadtextfile: ~
@@ -26,7 +27,7 @@ sonata_block:
         map2ucorebundle.block.thematicmap_settings: ~
         map2ucorebundle.block.heatmap: ~
         map2ucorebundle.block.mapoverlayselection: ~
-            
+        yorku_juturna.block.indicator_column: ~    
         # Some specific block from the SonataMediaBundle
         #sonata.media.block.media:
         #sonata.media.block.gallery:

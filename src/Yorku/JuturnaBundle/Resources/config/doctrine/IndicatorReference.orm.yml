@@ -1,0 +1,28 @@
+Yorku\JuturnaBundle\Entity\IndicatorReference:
+    type: entity
+    table: indicator_reference
+
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        name:
+            type: string
+            length: 512
+            nullable: false
+            column: name
+        website:
+            type: string
+            length: 512
+            nullable: true
+            column: website
+    manyToMany:                 
+       indicatorbenefits:
+         targetEntity: IndicatorBenefit
+         mappedBy: indicatorreferences
+   
+    lifecycleCallbacks: {  }

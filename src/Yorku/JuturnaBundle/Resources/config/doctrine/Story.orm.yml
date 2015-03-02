@@ -1,0 +1,68 @@
+Yorku\JuturnaBundle\Entity\Story:
+    type: entity
+    table: stories
+
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        storyName:
+            type: string
+            length: 255
+            nullable: false
+            column: story_name
+        summary:
+            type: string
+            length: 255
+            nullable: true
+            column: summary
+
+        imageFile:
+            type: string
+            length: 250
+            nullable: true
+            column: image_file
+        storyFile:
+            type: string
+            length: 255
+            nullable: true
+            column: story_file
+        email:
+            type: string
+            length: 255
+            nullable: true
+            column: email
+        theGeom:
+            type: geometry
+            nullable: true
+            requireSQLConversion: true
+            column: the_geom
+        createdAt:
+            type: datetime
+            nullable: true
+            column: created_at
+            gedmo:
+              timestampable:
+                on: create
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+            gedmo:
+              timestampable:
+                on: update
+    manyToOne:
+        user:
+            targetEntity: Application\Sonata\UserBundle\Entity\User
+            cascade: {  }
+            mappedBy: null
+            joinColumns:
+                user_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+ 
+    lifecycleCallbacks: {  }

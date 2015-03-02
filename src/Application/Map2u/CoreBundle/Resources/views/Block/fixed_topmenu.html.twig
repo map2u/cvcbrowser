@@ -9,11 +9,53 @@
                         <li {% if app.session.get('current_menu')=='home' %} class="active" {% endif %}><a href="{{path('welcome_home')}}" >Home
                             </a>
                         </li>
-                        <li {% if app.session.get('current_menu')=='well_being' %} class="active" {% endif %}><a href="{{path('homepage_well_being')}}" >Well-Being
-                            </a>
+                        <li class="dropdown"><a href="#" class="dropdown-toggle  {% if app.session.get('current_menu')=='well_being' %} active {% endif %}" data-toggle="dropdown">Well-Being
+                                <b class="caret"></b></a>
+                            <ul class="dropdown-menu" style="border:1px solid lightblue;border-radius: 0 0 4px 4px;">
+                                {% if wellbeingdomains is defined %}
+                                    {% for wellbeingdomain in wellbeingdomains %}
+                                        <li>
+                                            <a href="{{path("homepage_well_being",{_locale:app.request.locale,id:wellbeingdomain.id})}}">{{wellbeingdomain.name}}</a>
+                                        </li>
+                                    {% endfor %}
+                                {% endif %}  
+                                {#   <li>
+                                    <a href="#"> Supportig</a>
+                                </li>
+                                <li>
+                                    <a href="#">Provisioning</a>
+                                </li>
+                                <li>
+                                    <a href="#">Regulating</a>
+                                </li>
+                                <li>
+                                    <a href="#">Cultural</a>
+                                </li>#}
+                            </ul>
                         </li>
-                        <li {% if app.session.get('current_menu')=='ecosystems' %} class="active" {% endif %}><a href="{{path('homepage_ecosystems')}}" >Ecosystem Services
-                            </a>
+                        <li class="dropdown"><a href="#" class="dropdown-toggle {% if app.session.get('current_menu')=='ecosystems' %} active {% endif %}" data-toggle="dropdown">Ecosystem Services
+                                <b class="caret"></b></a>
+                            <ul class="dropdown-menu" style="color: black;border:1px solid lightblue;border-radius: 0 0 4px 4px;">
+                                {% if ecosystems is defined %}
+                                    {% for ecosystem in ecosystems %}
+                                        <li>
+                                            <a href="{{path("homepage_ecosystems",{_locale:app.request.locale,id:ecosystem.id})}}">{{ecosystem.name}}</a>
+                                        </li>
+                                    {% endfor %}
+                                    {#  <li>
+                                          <a href="#">Basic Materials for Good Life</a>
+                                      </li>
+                                      <li>
+                                          <a href="#">Health</a>
+                                      </li>
+                                      <li>
+                                         <a href="#"> Good Social Relations</a>
+                                      </li>
+                                      <li>
+                                         <a href="#"> Freedom of Choice and Action</a>
+                                      </li>#}
+                                {% endif %}  
+                            </ul>
                         </li>
                         <li {% if app.session.get('current_menu')=='map' %} class="active" {% endif %}><a href="{{path('homepage_map')}}" >Map
                             </a>
@@ -41,10 +83,13 @@
 
 
                                 <ul class="dropdown-menu pull-right" style="padding:10px;margin:0px;min-width: 150px;width: 200px;border:1px solid lightblue;border-radius: 0 0 4px 4px;">
-                                    <li style="display: block;"><a href="{{ path('dashboard_index',{locale:app.request.getLocale()}) }}" style="padding:5px;border: none;">Dashboard</a></li>
-                                    <li style="display: block;"><a href="{{ path('sonata_user_change_password',{locale:app.request.getLocale()}) }}" style="padding:5px;border: none;">Change Password</a></li>
+                                    {% if app.security and app.security.token and is_granted('ROLE_SONATA_ADMIN') %}
+                                        <li style="display: block;"><a href="{{ path('sonata_admin_dashboard',{locale:app.request.getLocale()}) }}" style="padding:5px;border: none;">Admin Dashboard</a></li>
+                                        {% endif %}
+                                        {#                                    <li style="display: block;"><a href="{{ path('sonata_user_change_password',{locale:app.request.getLocale()}) }}" style="padding:5px;border: none;">Change Password</a></li>#}
+                                    <li style="display: block;"><a href="{{ path('sonata_user_profile_show',{locale:app.request.getLocale()}) }}" style="padding:5px;border: none;">User Profile</a></li>
+                                    <li class="divider" style="display: block;"></li>
                                     <li style="display: block;"><a href="{{ path('fos_user_security_logout',{locale:_app.request.getLocale()}) }}" style="padding:5px;border: none;"><i class="fa fa-sign-out fa-lg" style="display: inline-block;"></i>Logout</a></li>
-                                    <li style="display: block;"><a href="{{ path('sonata_user_profile_show',{locale:app.request.getLocale()}) }}" style="padding:5px;border: none;">Profile</a></li>
                                 </ul>
 
                             </li>                 

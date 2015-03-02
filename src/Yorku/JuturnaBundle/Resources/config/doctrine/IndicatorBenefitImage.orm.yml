@@ -1,0 +1,69 @@
+Yorku\JuturnaBundle\Entity\IndicatorBenefitImage:
+    type: entity
+    table: indicator_benefit_image
+
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        imageName:
+            type: string
+            length: 255
+            nullable: false
+            column: image_name
+        imageTitle:
+            type: string
+            length: 255
+            nullable: true
+            column: image_title
+        imageCaption:
+            type: string
+            length: 255
+            nullable: true
+            column: image_caption
+        fileName:
+            type: string
+            length: 255
+            nullable: false
+            column: file_name
+        description:
+            type: string
+            length: 255
+            fixed: false
+            nullable: true
+            column: description
+        createdAt:
+            type: datetime
+            nullable: true
+            column: created_at
+            gedmo:
+              timestampable:
+                on: create
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+            gedmo:
+              timestampable:
+                on: update
+    manyToOne:
+        indicator:
+            targetEntity: Indicator
+            cascade: {  }
+            mappedBy: null
+            inversedBy: indicatorbenefitimages
+            joinColumns:
+                indicator_id:
+                    referencedColumnName: id
+            orphanRemoval: false                
+    manyToMany:                 
+       indicatorbenefits:
+         targetEntity: IndicatorBenefit
+         mappedBy: indicatorbenefitimages
+
+               
+    lifecycleCallbacks: {  }

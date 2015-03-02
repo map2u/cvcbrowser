@@ -1,0 +1,27 @@
+Yorku\JuturnaBundle\Entity\Indicator:
+    type: entity
+    table: indicator
+
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        name:
+            type: string
+            length: 255
+            nullable: false
+            column: name
+    oneToMany:        
+        indicatorbenefits:
+               targetEntity: IndicatorBenefit
+               cascade: {  }
+               mappedBy: indicator  
+        indicatorbenefitimages:
+               targetEntity: IndicatorBenefitImage
+               cascade: {  }
+               mappedBy: indicator  
+    lifecycleCallbacks: {  }

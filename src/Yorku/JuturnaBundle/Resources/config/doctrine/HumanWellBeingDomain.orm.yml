@@ -1,0 +1,23 @@
+Yorku\JuturnaBundle\Entity\HumanWellBeingDomain:
+    type: entity
+    table: human_well_being_domain
+
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        name:
+            type: string
+            length: 255
+            nullable: false
+            column: name
+    manyToMany:
+        indicatorbenefits:
+          targetEntity: IndicatorBenefit
+          mappedBy: humanwellbeingedomains  
+
+    lifecycleCallbacks: {  }
