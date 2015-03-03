@@ -12,9 +12,14 @@ Yorku\JuturnaBundle\Entity\IndicatorReference:
                 strategy: IDENTITY
         name:
             type: string
-            length: 512
+            length: 250
             nullable: false
             column: name
+        reference:
+            type: string
+            length: 512
+            nullable: false
+            column: reference
         website:
             type: string
             length: 512

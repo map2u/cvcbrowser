@@ -4,8 +4,8 @@ namespace Yorku\JuturnaBundle\Controller;
 
 use Sonata\AdminBundle\Controller\CRUDController;
 
-class IndicatorBenefitImageAdminController extends CRUDController
-{
+class IndicatorBenefitImageAdminController extends CRUDController {
+
     public function createAction() {
         // the key used to lookup the template
         $templateKey = 'edit';
@@ -35,9 +35,10 @@ class IndicatorBenefitImageAdminController extends CRUDController
                 }
 
                 try {
-                    $object = $this->saveUploadedFiles($form, $object);
                     $object = $this->admin->create($object);
-
+                    $object = $this->saveUploadedFiles($form, $object);
+                    $this->admin->update($object);
+                    
                     if ($this->isXmlHttpRequest()) {
                         return $this->renderJson(array(
                                     'result' => 'ok',
@@ -129,8 +130,7 @@ class IndicatorBenefitImageAdminController extends CRUDController
                 }
                 //  $flash =$this->getFlash('no_shape_file_uploaded');
                 //  if(empty($flash))
-             //   $this->addFlash('sonata_flash_success', 'flash_edit_success');
-
+                //   $this->addFlash('sonata_flash_success', 'flash_edit_success');
                 // redirect to edit mode
                 return $this->redirectTo($object);
             }
@@ -180,9 +180,8 @@ class IndicatorBenefitImageAdminController extends CRUDController
     private function saveUploadedFiles($form, $object) {
         $imageFile = $form['image_file']->getData();
 
-    //    var_dump($object->getId());
-        $this->addFlash('sonata_flash_success', $object->getId());
-        $dir = './uploads/images/indicatorbenefitimages/' . $object->getId() ;
+       
+        $dir = './uploads/images/indicatorbenefitimages/' . $object->getId();
         if (file_exists($dir) == false) {
             shell_exec("mkdir -p " . $dir);
         }
@@ -203,8 +202,8 @@ class IndicatorBenefitImageAdminController extends CRUDController
             }
             $object->setFileName(serialize($images_array));
         }
-       
- 
+
+
         return $object;
     }
 

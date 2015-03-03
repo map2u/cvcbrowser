@@ -43,7 +43,7 @@ after "deploy:finalize_update", :setup_ownership
 before "deploy:update_code", :setup_ownership
 
 task :setup_ownership do
-      run "rm -rf #{latest_release}/app/cache/*"
+      
 #     run "#{sudo} chown -R #{user}:#{group} #{deploy_to} && chmod -R g+s #{deploy_to}"
 #     run "#{sudo} chmod -R 777 #{deploy_to} #{current_path}/app/cache #{current_path}/app/logs"
 end
@@ -75,7 +75,7 @@ namespace :my_namespace do
     #    run "php composer.phar dump-autoload"
 
         set :release_path, shared_path+"/../current"
-        
+        run "rm -rf #{latest_release}/app/cache/*"
         symfony.composer.dump_autoload
   end
  end

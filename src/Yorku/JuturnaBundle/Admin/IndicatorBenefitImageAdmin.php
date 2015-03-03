@@ -17,6 +17,7 @@ class IndicatorBenefitImageAdmin extends Admin {
         $datagridMapper
                 ->add('id')
                 ->add('imageName')
+                ->add('imageTitle')
                 ->add('fileName')
 
         ;
@@ -29,6 +30,7 @@ class IndicatorBenefitImageAdmin extends Admin {
         $listMapper
                 ->add('id')
                 ->add('imageName')
+                ->add('imageTitle')
                 ->add('indicator')
                 ->add('fileName')
                 ->add('updatedAt')
@@ -50,6 +52,8 @@ class IndicatorBenefitImageAdmin extends Admin {
                 ->with('Indicator Benefit Images', array('class' => 'col-md-6'))
                 ->add('id', 'hidden')
                 ->add('imageName')
+                ->add('imageTitle')
+                ->add('imageCaption')
                 ->add('indicator', 'entity', array('required' => true,
                     'expanded' => false,
                     'class' => 'Yorku\JuturnaBundle\Entity\Indicator',
@@ -69,6 +73,9 @@ class IndicatorBenefitImageAdmin extends Admin {
         $showMapper
                 ->add('id')
                 ->add('imageName')
+                ->add('imageTitle')
+                ->add('imageCaption')
+                ->add('indicator')
                 ->add('fileName')
                 ->add('createdAt')
                 ->add('updatedAt')

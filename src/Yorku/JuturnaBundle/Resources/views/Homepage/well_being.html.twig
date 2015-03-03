@@ -6,31 +6,19 @@
     {% block page_container %}
         <div class="container-fluid maincontent">
             <div class="row-fluid">
-                <div class="col-lg-9 col-sm-9">
+                <div class="col-lg-8 col-sm-8" style="border: 1px solid gainsboro;min-height: 500px;margin:15px 0px 10px -5px;padding:10px; border-radius: 10px;">
                     <div style="padding: 10px 15px;color: #0078A8; text-justify:  auto;">
                         <h4>Human Well Being Domain  -   {% if wellbeing is defined %}{{wellbeing.name}}{% endif %}</h4>
                     </div>
                     {% if wellbeing is defined %}
-                        
                         {% if wellbeing.indicatorbenefits | length %}
                             {% for indicatorbenefit in wellbeing.indicatorbenefits %}
-
-                                <div class="col-lg-7 col-sm-7" style="height:620px; border: 1px solid gainsboro;margin:0px 10px 10px -20px;padding:10px; border-radius: 10px;">
-
-
-                                    <div>
-
-                                        {{indicatorbenefit.benefitName}}
-                                    </div>
-                                    <div>
-                                        {{indicatorbenefit.abstract}}
-                                    </div>
+                                <div style="margin:5px 10px;">
+                                    <b>{{indicatorbenefit.benefitName|title}}</b>
                                 </div>
-                                <div class="col-lg-5 col-sm-5" style="height:620px; border: 1px solid gainsboro;margin-left:0px;margin-bottom: 10px;padding:10px;border-radius: 10px;">
-                                    <div class="row-fluid  homepage_description" style="height:260px;padding: 0 5px; ">
-
-
-                                        <div id="indicator_benefit_{{indicatorbenefit.id}}" class="carousel slide">
+                                <div>
+                                    <div class="homepage_description" style="float:left;margin:10px;width:260px;padding:5px;border: 1px solid gainsboro;border-radius: 10px;">
+                                        <div id="indicator_benefit_{{indicatorbenefit.id}}" class="carousel slide" style="border-radius: 10px;overflow: hidden;">
                                             <ol class="carousel-indicators">
                                                 {% set i=0 %}
                                                 {% for image in images %}
@@ -39,14 +27,14 @@
                                                     {% set i=i+1 %}
                                                 {% endfor %}
                                             </ol>
-                                            <div class="carousel-inner">
+                                            <div class="carousel-inner" style="border-radius: 10px;overflow: hidden;">
                                                 {% set i=0 %}
                                                 {% for indicatorbenefitimage in indicatorbenefit.indicatorbenefitimages %}
                                                     {% set images=indicatorbenefitimage.getFileName()|unserialize %}
                                                     {% if images|length > 0 %}
                                                         {% for image in images %}
-                                                            <div class="item {% if i==0%} active {% endif %}">
-                                                                <img src="{{ asset('uploads/images/indicatorbenefitimages/'~indicatorbenefitimage.id~"/")}}{{image|raw}}" width="100%">
+                                                            <div style="border-radius: 10px;overflow: hidden;" class="item {% if i==0%} active {% endif %}" >
+                                                                <img style="border-radius: 10px;" src="{{ asset('uploads/images/indicatorbenefitimages/'~indicatorbenefitimage.id~"/")}}{{image|raw}}" width="100%">
                                                                 <div class="carousel-caption">
                                                                     <h5>{{indicatorbenefitimage.getTitle()}}</h5>
                                                                     <p>{{indicatorbenefitimage.getCaption()}}</p>
@@ -70,26 +58,31 @@
                                             {% endif %}
                                         {% endfor %}#}
                                     </div>
-
-                                </div>          
-
+                                    {{indicatorbenefit.abstract}}
+                                </div>
                             {% endfor %}
                         {% endif %}
                     {% endif %}
                 </div>
-                <div class="col-lg-3 col-sm-3">
+            </div>
+            <div class="col-lg-4 col-sm-4">
+                <div style="margin: 15px -20px 15px 0;padding:10px; border: 1px solid gainsboro; border-radius: 8px;">
                     {% block indicator_column_block %}
                         {{ sonata_block_render({ 'type': 'yorku_juturna.block.indicator_column' }, { 'mode': 'public'}) }}
                     {% endblock %}
                 </div>
-
-
+                <div class="row-fluid homepage_mapsnapshot" style="margin: 15px -20px 15px 0;padding:2px; border: 1px solid gainsboro; border-radius: 8px;">
+                    <a href="{{path('homepage_map',{locale:_locale,view:well-being})}}" ><img style="border-radius: 5px;" src="/uploads/images/header_logos/map.png" width="100%" ></a>
+                </div>
             </div>
 
 
         </div>
 
+
     </div>
+
+</div>
 
 {% endblock %}
 {% block footer %}

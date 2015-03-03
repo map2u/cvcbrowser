@@ -1987,15 +1987,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/DoctrineBehaviors.git",
-                "reference": "dbcb540f14a09650ecf38b33356d8b07bd93887c"
+                "reference": "25f2911c4b2c7fde56ebc27c6fa72555b77cc30f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/DoctrineBehaviors/zipball/dbcb540f14a09650ecf38b33356d8b07bd93887c",
-                "reference": "dbcb540f14a09650ecf38b33356d8b07bd93887c",
+                "url": "https://api.github.com/repos/KnpLabs/DoctrineBehaviors/zipball/25f2911c4b2c7fde56ebc27c6fa72555b77cc30f",
+                "reference": "25f2911c4b2c7fde56ebc27c6fa72555b77cc30f",
                 "shasum": ""
             },
             "require": {
+                "behat/transliterator": "~1.0",
                 "doctrine/common": ">=2.2",
                 "php": ">=5.4"
             },
@@ -2041,7 +2042,7 @@
                 "translatable",
                 "tree"
             ],
-            "time": "2015-02-27 08:12:19"
+            "time": "2015-03-02 08:06:05"
         },
         {
             "name": "knplabs/gaufrette",
@@ -2728,7 +2729,7 @@
             "source": {
                 "type": "git",
                 "url": "git@map2u.familyds.com:/volume1/homes/git/repositories/Map2uLeafletBundle.git",
-                "reference": "a737fa97131ec1b68530985b437c2d020bcaff01"
+                "reference": "70276b1f412163b162dabb1c7b8083ad5f2f74d7"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -2754,7 +2755,7 @@
             "keywords": [
                 "Map2u Leaflet Bundle,Symfony 2"
             ],
-            "time": "2015-02-28 05:49:17"
+            "time": "2015-03-03 02:49:17"
         },
         {
             "name": "map2u/mapfish-print-bundle",
@@ -3312,12 +3313,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "07887dd6d515d21c88012670f2849d4ce00bb51b"
+                "reference": "f36c57224a142b382c26194aa982239cdba8aefd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/07887dd6d515d21c88012670f2849d4ce00bb51b",
-                "reference": "07887dd6d515d21c88012670f2849d4ce00bb51b",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/f36c57224a142b382c26194aa982239cdba8aefd",
+                "reference": "f36c57224a142b382c26194aa982239cdba8aefd",
                 "shasum": ""
             },
             "require": {
@@ -3385,7 +3386,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2015-02-28 08:00:18"
+            "time": "2015-03-01 17:22:43"
         },
         {
             "name": "sonata-project/block-bundle",
@@ -4378,12 +4379,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataNewsBundle.git",
-                "reference": "e6dd562450c93d9528043d68a98527990ead0249"
+                "reference": "278c5f7b1d2648137fe0ec4268bc1c0900972f84"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataNewsBundle/zipball/e6dd562450c93d9528043d68a98527990ead0249",
-                "reference": "e6dd562450c93d9528043d68a98527990ead0249",
+                "url": "https://api.github.com/repos/sonata-project/SonataNewsBundle/zipball/278c5f7b1d2648137fe0ec4268bc1c0900972f84",
+                "reference": "278c5f7b1d2648137fe0ec4268bc1c0900972f84",
                 "shasum": ""
             },
             "require": {
@@ -4443,7 +4444,7 @@
                 "post",
                 "sonata"
             ],
-            "time": "2015-02-21 12:47:30"
+            "time": "2015-03-02 10:29:24"
         },
         {
             "name": "sonata-project/notification-bundle",

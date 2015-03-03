@@ -134,12 +134,16 @@ class HomepageController extends Controller {
      * @Template()
      */
     public function ecosystemsAction(Request $request) {
+
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
+        $id=$request->get("id");
         $locale = $request->getLocale();
         $session->set('current_menu', "ecosystems");
         $category = $em->getRepository('YorkuJuturnaBundle:Category')->findOneByName("Ecosystems");
-
+         if (isset($id)&&intval($id)>0) {
+             $ecosystems = $em->getRepository('YorkuJuturnaBundle:EcoSystemService')->find($id);
+         }
 //        if (!isset($id)) {
 //            return new Response(\json_encode(array('success' => false, 'message' => 'Parameter Id not found!')));
 //        }
@@ -147,10 +151,35 @@ class HomepageController extends Controller {
 //            $usergeometries = new UserDrawGeometries();
 //        } else {
         $image = $em->getRepository('YorkuJuturnaBundle:HomepageImage')->findOneBy(array('category' => $category));
+//
+//            $update_geom = true;
+//        }
+
 
         $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
-
-        return array('_locale' => $locale, 'image' => $image, 'flashs' => $flashs);
+//
+//            $update_geom = true;
+//        }
+        return array('_locale' => $locale, 'ecosystems' =>$ecosystems, 'image' => $image, 'flashs' => $flashs);
+        
+        
+//        $em = $this->getDoctrine()->getManager();
+//        $session = $request->getSession();
+//        $locale = $request->getLocale();
+//        $session->set('current_menu', "ecosystems");
+//        $category = $em->getRepository('YorkuJuturnaBundle:Category')->findOneByName("Ecosystems");
+//
+////        if (!isset($id)) {
+////            return new Response(\json_encode(array('success' => false, 'message' => 'Parameter Id not found!')));
+////        }
+////        if  ((isset($id) && ( $id === 0 || $id === '0' || $id === 'undefined'))) {
+////            $usergeometries = new UserDrawGeometries();
+////        } else {
+//        $image = $em->getRepository('YorkuJuturnaBundle:HomepageImage')->findOneBy(array('category' => $category));
+//
+//        $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
+//
+//        return array('_locale' => $locale, 'image' => $image, 'flashs' => $flashs);
     }
 
     /**

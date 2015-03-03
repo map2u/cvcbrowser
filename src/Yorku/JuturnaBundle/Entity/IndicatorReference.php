@@ -22,6 +22,11 @@ class IndicatorReference {
     /**
      * @var string
      */
+    private $reference;
+
+    /**
+     * @var string
+     */
     private $website;
 
     /**
@@ -75,6 +80,27 @@ class IndicatorReference {
      */
     public function getName() {
         return $this->name;
+    }
+
+    /**
+     * Set reference
+     *
+     * @param string $reference
+     * @return IndicatorReference
+     */
+    public function setReference($reference) {
+        $this->reference = $reference;
+
+        return $this;
+    }
+
+    /**
+     * Get reference
+     *
+     * @return string 
+     */
+    public function getReference() {
+        return $this->reference;
     }
 
     /**

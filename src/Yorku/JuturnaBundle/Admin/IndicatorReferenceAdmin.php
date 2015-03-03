@@ -28,6 +28,7 @@ class IndicatorReferenceAdmin extends Admin {
         $listMapper
                 ->add('id')
                 ->add('name')
+                ->add('reference')
                 ->add('website')
                 ->add('_action', 'actions', array(
                     'actions' => array(
@@ -46,7 +47,8 @@ class IndicatorReferenceAdmin extends Admin {
         $formMapper
                 ->with('Indicator References', array('class' => 'col-md-6'))
                 ->add('id', 'hidden')
-                ->add('name', 'textarea')
+                ->add('name')
+                ->add('reference', 'textarea')
                 ->add('website')
                 ->end()
         ;
@@ -59,6 +61,7 @@ class IndicatorReferenceAdmin extends Admin {
         $showMapper
                 ->add('id')
                 ->add('name')
+                ->add('reference')
                 ->add('website')
         ;
     }

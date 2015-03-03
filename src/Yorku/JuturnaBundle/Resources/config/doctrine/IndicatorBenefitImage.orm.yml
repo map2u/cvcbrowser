@@ -28,7 +28,7 @@ Yorku\JuturnaBundle\Entity\IndicatorBenefitImage:
         fileName:
             type: string
             length: 255
-            nullable: false
+            nullable: true
             column: file_name
         description:
             type: string

@@ -1,4 +1,4 @@
-<div style="margin: 15px -20px 15px 0;padding:10px; border: 1px solid gainsboro; border-radius: 8px;">
+<div>
     <h4 >Indicators:</h4>
     <hr style="margin-top: 3px;margin-bottom: 3px;"/>
     <div>
@@ -6,14 +6,14 @@
             <ul style="list-style: square;padding-left:15px;">
                 {% for indicator in indicators %}
                     <li style="margin-left: 0;">
-                        <a href="#">{{indicator.name|capitalize}}</a>
+                        <a href="#">{{indicator.name|title}}</a>
                         {% set indicatorbenefits = indicator.indicatorbenefits %}
                         {% if indicatorbenefits and indicatorbenefits | length >0 %}
                             <ul style="list-style: circle; padding-left:5px;">
                                 {% for indicatorbenefit in indicatorbenefits %}
                                     <li style="margin-left: 0;">
                                         <a href="#">
-                                            {{indicatorbenefit.title|capitalize}}
+                                            {{indicatorbenefit.title|title}}
                                         </a>
                                 </li>
                                 {% endfor %}
