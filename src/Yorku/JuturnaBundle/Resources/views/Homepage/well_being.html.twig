@@ -13,7 +13,7 @@
                     {% if wellbeing is defined %}
                         {% if wellbeing.indicatorbenefits | length %}
                             {% for indicatorbenefit in wellbeing.indicatorbenefits %}
-                                <div style="margin:5px 10px;">
+                                <div style="top:5px;margin:5px 10px;">
                                     <b>{{indicatorbenefit.benefitName|title}}</b>
                                 </div>
                                 <div>
@@ -60,6 +60,7 @@
                                     </div>
                                     {{indicatorbenefit.abstract}}
                                 </div>
+                                <br/>
                             {% endfor %}
                         {% endif %}
                     {% endif %}
