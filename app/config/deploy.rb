@@ -50,8 +50,8 @@ end
 
 after "deploy:update_code" do
   capifony_pretty_print "--> Ensuring cache directory permissions"
-  run "setfacl -R -m u:www-data:rwX -m u:`whoami`:rwX #{latest_release}/#{cache_path}"
-  run "setfacl -dR -m u:www-data:rwX -m u:`whoami`:rwX #{latest_release}/#{cache_path}"
+#  run "setfacl -R -m u:www-data:rwX -m u:`whoami`:rwX #{latest_release}/#{cache_path}"
+#  run "setfacl -dR -m u:www-data:rwX -m u:`whoami`:rwX #{latest_release}/#{cache_path}"
   capifony_puts_ok
 end
 
