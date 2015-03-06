@@ -41,6 +41,7 @@ class AppKernel extends Kernel {
             new Sonata\MarkItUpBundle\SonataMarkItUpBundle(),
             new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
+            new Paradigma\Bundle\ImageBundle\ParadigmaImageBundle(),
             //
             new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
             new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),
@@ -64,6 +65,7 @@ class AppKernel extends Kernel {
             new Ibrows\Bundle\NewsletterBundle\IbrowsNewsletterBundle(),
             new Ibrows\Map2uBundle\IbrowsMap2uBundle(),
             new Application\Map2u\CoreBundle\ApplicationMap2uCoreBundle(),
+            new Application\Map2u\LeafletBundle\ApplicationMap2uLeafletBundle(),
             new Application\Map2u\DashboardBundle\ApplicationMap2uDashboardBundle(),
         );
 

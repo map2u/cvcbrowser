@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "51ab2f297147f37af5a20e39a55bfd42",
+    "hash": "6197a9b8daa94eb4b7b1b915149b9a3f",
     "packages": [
         {
             "name": "a2lix/i18n-doctrine-bundle",
@@ -572,12 +572,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/data-fixtures.git",
-                "reference": "80401e8a3b6364287b80922fa303fc86d75714db"
+                "reference": "57ead4595aad95b1b46195d63d7d21d33dffcd38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/80401e8a3b6364287b80922fa303fc86d75714db",
-                "reference": "80401e8a3b6364287b80922fa303fc86d75714db",
+                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/57ead4595aad95b1b46195d63d7d21d33dffcd38",
+                "reference": "57ead4595aad95b1b46195d63d7d21d33dffcd38",
                 "shasum": ""
             },
             "require": {
@@ -618,7 +618,7 @@
             "keywords": [
                 "database"
             ],
-            "time": "2015-01-19 01:52:30"
+            "time": "2015-03-05 15:20:51"
         },
         {
             "name": "doctrine/dbal",
@@ -1361,12 +1361,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
-                "reference": "54d080e6862d41a6b0294710e721550de6380d17"
+                "reference": "941f3ba41754205827bcd80db6b0141ce9c7c8cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/54d080e6862d41a6b0294710e721550de6380d17",
-                "reference": "54d080e6862d41a6b0294710e721550de6380d17",
+                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/941f3ba41754205827bcd80db6b0141ce9c7c8cb",
+                "reference": "941f3ba41754205827bcd80db6b0141ce9c7c8cb",
                 "shasum": ""
             },
             "require": {
@@ -1431,7 +1431,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2015-02-25 20:53:08"
+            "time": "2015-03-03 19:39:11"
         },
         {
             "name": "hwi/oauth-bundle",
@@ -1550,16 +1550,16 @@
         },
         {
             "name": "ibrows/newsletter-bundle",
-            "version": "2.0.7",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ibrows/IbrowsNewsletterBundle.git",
-                "reference": "b822a96c829acea8910fc7fa4e101c8ca9452cc0"
+                "reference": "9827a0d64337a36762f82599c8fd2caebf18cb42"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ibrows/IbrowsNewsletterBundle/zipball/b822a96c829acea8910fc7fa4e101c8ca9452cc0",
-                "reference": "b822a96c829acea8910fc7fa4e101c8ca9452cc0",
+                "url": "https://api.github.com/repos/ibrows/IbrowsNewsletterBundle/zipball/9827a0d64337a36762f82599c8fd2caebf18cb42",
+                "reference": "9827a0d64337a36762f82599c8fd2caebf18cb42",
                 "shasum": ""
             },
             "require": {
@@ -1593,7 +1593,7 @@
                 "newsletter",
                 "symfony"
             ],
-            "time": "2015-01-29 14:39:16"
+            "time": "2015-03-05 13:46:50"
         },
         {
             "name": "imagine/imagine",
@@ -1987,12 +1987,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/DoctrineBehaviors.git",
-                "reference": "25f2911c4b2c7fde56ebc27c6fa72555b77cc30f"
+                "reference": "33188092824d0f1ede13a96e8916d44d109a4e89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/DoctrineBehaviors/zipball/25f2911c4b2c7fde56ebc27c6fa72555b77cc30f",
-                "reference": "25f2911c4b2c7fde56ebc27c6fa72555b77cc30f",
+                "url": "https://api.github.com/repos/KnpLabs/DoctrineBehaviors/zipball/33188092824d0f1ede13a96e8916d44d109a4e89",
+                "reference": "33188092824d0f1ede13a96e8916d44d109a4e89",
                 "shasum": ""
             },
             "require": {
@@ -2042,7 +2042,7 @@
                 "translatable",
                 "tree"
             ],
-            "time": "2015-03-02 08:06:05"
+            "time": "2015-03-05 11:32:10"
         },
         {
             "name": "knplabs/gaufrette",
@@ -2624,7 +2624,7 @@
             "source": {
                 "type": "git",
                 "url": "git@map2u.familyds.com:/volume1/homes/git/repositories/Map2uCoreBundle.git",
-                "reference": "dfcf40d4ea19287e7b668488d58b4e97c4505ed5"
+                "reference": "7ac52cd74cf0e0acf8acb4be3a1211828838eb24"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -2650,7 +2650,7 @@
             "keywords": [
                 "Map2u CoreBundle,Symfony 2"
             ],
-            "time": "2015-02-28 05:57:07"
+            "time": "2015-03-03 20:55:13"
         },
         {
             "name": "map2u/dashboard-bundle",
@@ -2729,7 +2729,7 @@
             "source": {
                 "type": "git",
                 "url": "git@map2u.familyds.com:/volume1/homes/git/repositories/Map2uLeafletBundle.git",
-                "reference": "70276b1f412163b162dabb1c7b8083ad5f2f74d7"
+                "reference": "5c4edf13209c023605f38f54fa1799434e3b7f03"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -2755,7 +2755,7 @@
             "keywords": [
                 "Map2u Leaflet Bundle,Symfony 2"
             ],
-            "time": "2015-03-03 02:49:17"
+            "time": "2015-03-05 17:22:16"
         },
         {
             "name": "map2u/mapfish-print-bundle",
@@ -2880,16 +2880,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.12.0",
+            "version": "1.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "1fbe8c2641f2b163addf49cc5e18f144bec6b19f"
+                "reference": "c41c218e239b50446fd883acb1ecfd4b770caeae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/1fbe8c2641f2b163addf49cc5e18f144bec6b19f",
-                "reference": "1fbe8c2641f2b163addf49cc5e18f144bec6b19f",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/c41c218e239b50446fd883acb1ecfd4b770caeae",
+                "reference": "c41c218e239b50446fd883acb1ecfd4b770caeae",
                 "shasum": ""
             },
             "require": {
@@ -2906,6 +2906,7 @@
                 "phpunit/phpunit": "~4.0",
                 "raven/raven": "~0.5",
                 "ruflin/elastica": "0.90.*",
+                "swiftmailer/swiftmailer": "~5.3",
                 "videlalvaro/php-amqplib": "~2.4"
             },
             "suggest": {
@@ -2922,7 +2923,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.12.x-dev"
+                    "dev-master": "1.13.x-dev"
                 }
             },
             "autoload": {
@@ -2948,7 +2949,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2014-12-29 21:29:35"
+            "time": "2015-03-05 01:12:12"
         },
         {
             "name": "nelmio/api-doc-bundle",
@@ -3024,6 +3025,53 @@
                 "rest"
             ],
             "time": "2014-07-30 09:11:08"
+        },
+        {
+            "name": "paradigmate/image-bundle",
+            "version": "dev-master",
+            "target-dir": "Paradigma/Bundle/ImageBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paradigmate/ImageBundle.git",
+                "reference": "bd53aadfac1860b2894f1c3fe9177fa266be08de"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paradigmate/ImageBundle/zipball/bd53aadfac1860b2894f1c3fe9177fa266be08de",
+                "reference": "bd53aadfac1860b2894f1c3fe9177fa266be08de",
+                "shasum": ""
+            },
+            "require": {
+                "ext-gd": "*",
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": ">=2.0.0"
+            },
+            "suggest": {
+                "ext-exif": "to speed up some functions instead of using GD library"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Paradigma\\Bundle\\ImageBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ariel Ferrandini Price",
+                    "email": "aferrandini@paradigmatecnologico.com"
+                }
+            ],
+            "description": "Symfony2 bundle for image resizing.",
+            "homepage": "https://github.com/paradigmate/ImageBundle",
+            "keywords": [
+                "image",
+                "resize"
+            ],
+            "time": "2013-08-23 05:30:43"
         },
         {
             "name": "phpcollection/phpcollection",
@@ -3313,12 +3361,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "f36c57224a142b382c26194aa982239cdba8aefd"
+                "reference": "848054db7ff575eefea60d9dd27d29ec1d70a2ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/f36c57224a142b382c26194aa982239cdba8aefd",
-                "reference": "f36c57224a142b382c26194aa982239cdba8aefd",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/848054db7ff575eefea60d9dd27d29ec1d70a2ab",
+                "reference": "848054db7ff575eefea60d9dd27d29ec1d70a2ab",
                 "shasum": ""
             },
             "require": {
@@ -3386,7 +3434,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2015-03-01 17:22:43"
+            "time": "2015-03-05 16:26:06"
         },
         {
             "name": "sonata-project/block-bundle",
@@ -3651,12 +3699,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCoreBundle.git",
-                "reference": "122ed60dae0da6e0573be799d2efd05e2b577f1c"
+                "reference": "86a621eee0a7b7ed1674e2bee469b3de9803a53f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/122ed60dae0da6e0573be799d2efd05e2b577f1c",
-                "reference": "122ed60dae0da6e0573be799d2efd05e2b577f1c",
+                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/86a621eee0a7b7ed1674e2bee469b3de9803a53f",
+                "reference": "86a621eee0a7b7ed1674e2bee469b3de9803a53f",
                 "shasum": ""
             },
             "require": {
@@ -3708,7 +3756,7 @@
             "keywords": [
                 "sonata"
             ],
-            "time": "2015-02-27 11:01:15"
+            "time": "2015-03-05 08:59:18"
         },
         {
             "name": "sonata-project/datagrid-bundle",
@@ -4292,12 +4340,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataMediaBundle.git",
-                "reference": "4bc02a87accee7856d6fde9ba67a0e8ae467aac4"
+                "reference": "69154c2204aea8ba804bfadf757cafdd4dde67ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataMediaBundle/zipball/4bc02a87accee7856d6fde9ba67a0e8ae467aac4",
-                "reference": "4bc02a87accee7856d6fde9ba67a0e8ae467aac4",
+                "url": "https://api.github.com/repos/sonata-project/SonataMediaBundle/zipball/69154c2204aea8ba804bfadf757cafdd4dde67ac",
+                "reference": "69154c2204aea8ba804bfadf757cafdd4dde67ac",
                 "shasum": ""
             },
             "require": {
@@ -4371,7 +4419,7 @@
                 "vimeo",
                 "youtube"
             ],
-            "time": "2015-02-24 21:00:31"
+            "time": "2015-03-05 11:05:24"
         },
         {
             "name": "sonata-project/news-bundle",
@@ -4379,12 +4427,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataNewsBundle.git",
-                "reference": "278c5f7b1d2648137fe0ec4268bc1c0900972f84"
+                "reference": "6d67e35af885e8ce7a10650435268f140f582d71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataNewsBundle/zipball/278c5f7b1d2648137fe0ec4268bc1c0900972f84",
-                "reference": "278c5f7b1d2648137fe0ec4268bc1c0900972f84",
+                "url": "https://api.github.com/repos/sonata-project/SonataNewsBundle/zipball/6d67e35af885e8ce7a10650435268f140f582d71",
+                "reference": "6d67e35af885e8ce7a10650435268f140f582d71",
                 "shasum": ""
             },
             "require": {
@@ -4444,7 +4492,7 @@
                 "post",
                 "sonata"
             ],
-            "time": "2015-03-02 10:29:24"
+            "time": "2015-03-04 12:46:40"
         },
         {
             "name": "sonata-project/notification-bundle",
@@ -5641,6 +5689,7 @@
         "map2u/forum-bundle": 20,
         "map2u/dashboard-bundle": 20,
         "map2u/mapfish-print-bundle": 20,
+        "paradigmate/image-bundle": 20,
         "hwi/oauth-bundle": 20,
         "excelwebzone/recaptcha-bundle": 20,
         "a2lix/i18n-doctrine-bundle": 20,

@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/bundles/map2uleaflet/css/L.Control.Sidebar.css" type="text/css" media="all" />
     <link rel="stylesheet" href="/bundles/map2uleaflet/css/MarkerCluster.Default.css" type="text/css" media="all" />
     <link rel="stylesheet" href="/bundles/map2uleaflet/css/MarkerCluster.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="/bundles/map2uleaflet/css/leaflet.photomarker.css" type="text/css" media="all" />
     <style>
 
         .sonata-bc .container {
@@ -414,20 +415,23 @@
         <script src="/bundles/map2uleaflet/js/index/browse.js"></script>
         <script src="/bundles/map2uleaflet/js/Bing.js"></script>
         <script src="/bundles/yorkujuturna/js/leaflet_map.js" type="text/javascript"></script>
-        <script src="/bundles/map2uleaflet/js/mapdraw.js" type="text/javascript"></script>
+        <script src="/bundles/yorkujuturna/js/mapdraw.js" type="text/javascript"></script>
         <script src="/bundles/map2uleaflet/js/leaflet.markercluster-src.js" type="text/javascript"></script>
         <script src="/bundles/map2uleaflet/js/leaflet.maptoolbar.js" type="text/javascript"></script>
         <script src="/bundles/map2uleaflet/js/leaflet-history-src.js" type="text/javascript"></script>
         <script type="text/javascript" src="/bundles/map2uleaflet/js/heatmap.js"></script>
         <script type="text/javascript" src="/bundles/map2uleaflet/js/leaflet-heatmap.js"></script>
         <script type="text/javascript" src="/bundles/map2uleaflet/js/QuadTree.js"></script>
+        <script type="text/javascript" src="/bundles/map2uleaflet/js/leaflet.photomarker.js"></script>
         <script src="/bundles/map2ucore/js/spin.min.js"></script>
         <script src="/bundles/map2uleaflet/js/leaflet.spin.js" type="text/javascript"></script>
-
+        <script type="text/javascript" src="/bundles/map2ucore/js/jquery.spin.js"></script>
+  
         <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
         <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>            
 
         <script type="text/javascript">
+             window.locale = "{{app.request.locale}}";
              $(window).on('resize load', function () {
                  //  $('body').css({"padding-top": $(".navbar-fixed-top .container").height() + "px"});
                  $('#leaflet_content').css({"margin-top": "25px"});
@@ -455,6 +459,6 @@
     </div><!-- /.modal -->
 
     {% block map2u_map %}
-        {{render(controller("Map2uLeafletBundle:Default:map"))}}
+        {{render(controller("ApplicationMap2uLeafletBundle:Default:map"))}}
     {% endblock %}
 {% endblock %}

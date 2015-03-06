@@ -193,10 +193,12 @@ class HomepageController extends Controller {
         $session = $request->getSession();
         $locale = $request->getLocale();
         $id = $request->get('id');
+        $view = $request->get('view');
         $session->set('current_menu', "map");
         $em = $this->getDoctrine()->getManager();
         $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
-        return array('_locale' => $locale, 'flashs' => $flashs, 'id' => $id);
+      
+        return array('_locale' => $locale, 'flashs' => $flashs,'view' => $view, 'id' => $id);
     }
 
     /**

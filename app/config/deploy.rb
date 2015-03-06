@@ -3,7 +3,7 @@ require 'capistrano/ext/multistage'
 set :stages, %w(production testing development)
 
 set :application, "CVCBrowser"
-set :user, "www-data"
+set :user, "jzhao"
 
 default_run_options[:pty] = true
 
@@ -75,7 +75,7 @@ namespace :my_namespace do
     #    run "php composer.phar dump-autoload"
 
         set :release_path, shared_path+"/../current"
-        run "rm -rf #{latest_release}/app/cache/*"
+     #   run "rm -rf #{latest_release}/app/cache/*"
         symfony.composer.dump_autoload
   end
  end

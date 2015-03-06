@@ -37,6 +37,7 @@
         "map2u/forum-bundle": "dev-master",
         "map2u/dashboard-bundle": "dev-master",
         "map2u/mapfish-print-bundle": "dev-master",
+         "paradigmate/image-bundle": "dev-master",
         "hwi/oauth-bundle": "0.4.*@dev",
         "excelwebzone/recaptcha-bundle": "dev-master",
         "a2lix/i18n-doctrine-bundle": "dev-master",

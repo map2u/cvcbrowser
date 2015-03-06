@@ -8,7 +8,7 @@
             <div class="row-fluid">
                 <div class="col-lg-7 col-sm-7" style="height:620px; border: 1px solid red;margin:0px;padding:0px;">
                     <div style="height:90px;padding: 10px 15px;color: #0078A8; text-justify:  auto;">
-                        <h4>Share your story about well-being, health and the ecosystems in the watershed!</h4>
+                        <h4>Share yourjjjjj story about well-being, health and the ecosystems in the watershed!</h4>
 
                     </div>
                     {# <div class="row-fluid homepage_flash" style="vertical-align:middle;height:315px; border: 1px solid green;">
@@ -28,12 +28,13 @@
                     <div class="row-fluid  homepage_description" style="height:260px;padding: 0 5px; ">
                         {% if image is defined %}
                             <div style="margin:5px auto; overflow: hidden; border-radius: 8px;border: 2px solid lightblue; ">
-                                <a href="{{path('homepage_well_being',{locale:_locale})}}" ><img src="/uploads/images/homepageimages/{{image.getImage()}}" width="100%"></a>
+                                <a href="{{path('homepage_well_being',{'locale':_locale})}}" ><img src="/uploads/images/homepageimages/{{image.getImage()}}" width="100%"></a>
                             </div>
                         {% endif %}
                     </div>
+                    
                     <div class="row-fluid homepage_mapsnapshot" style="margin:5px; overflow: hidden; border-radius: 8px;height:237px; border: 2px solid lightblue;">
-                        <a href="{{path('homepage_map',{locale:_locale,view:stories})}}" ><img src="/uploads/images/header_logos/map.png" width="100%" ></a>
+                        <a href="{{path('homepage_map',{'locale':_locale,'view':'stories'})}}" ><img src="/uploads/images/header_logos/map.png" width="100%" ></a>
                     </div>
                     <div class="row-fluid  homepage_logo" style="margin:5px; overflow: hidden; border-radius: 8px;height:100px; border: 1px solid grey;">
 

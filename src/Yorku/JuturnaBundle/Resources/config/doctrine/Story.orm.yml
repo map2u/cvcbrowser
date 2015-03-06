@@ -20,7 +20,15 @@ Yorku\JuturnaBundle\Entity\Story:
             length: 255
             nullable: true
             column: summary
-
+        type:
+            type: string
+            length: 255
+            nullable: true
+            column: type
+        radius:
+            type: float
+            nullable: true
+            column: radius
         imageFile:
             type: string
             length: 250

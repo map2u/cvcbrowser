@@ -3,6 +3,8 @@
 namespace Yorku\JuturnaBundle\Controller;
 
 use Sonata\AdminBundle\Controller\CRUDController;
+use Paradigma\Bundle\ImageBundle\Libs\ImageSize;
+use Paradigma\Bundle\ImageBundle\Libs\ImageResizer;
 
 class StoryAdminController extends CRUDController {
 
@@ -181,7 +183,7 @@ class StoryAdminController extends CRUDController {
         $imageFile = $form['image_file']->getData();
 
         $user = $this->getUser();
-        $dir = './uploads/stories/' . $user->getId() . '/images';
+        $dir = './uploads/stories/' . $object->getId() . '/images';
         if (file_exists($dir) == false) {
             shell_exec("mkdir -p " . $dir);
         }
@@ -191,26 +193,30 @@ class StoryAdminController extends CRUDController {
                 foreach ($imageFile as $file) {
 
                     if ($file != null) {
-                        array_push($images_array, $file->getClientOriginalName());
-                        $file->move($dir, $file->getClientOriginalName());
+                        array_push($images_array, str_replace(" ", "_", $file->getClientOriginalName()));
+                        $file->move($dir, str_replace(" ", "_", $file->getClientOriginalName()));
+                        $resize = $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $file->getClientOriginalName()), $dir . '/icon_' . str_replace(" ", "_", $imageFile->getClientOriginalName()), new ImageSize(50, 40), ImageResizer::RESIZE_TYPE_CROP);
+                        $resize = $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $file->getClientOriginalName()), $dir . '/medium_' . str_replace(" ", "_", $imageFile->getClientOriginalName()), new ImageSize(500, 400), ImageResizer::RESIZE_TYPE_AUTO);
                     }
                 }
             } else {
 
-                array_push($images_array, $imageFile->getClientOriginalName());
-                $imageFile->move($dir, $imageFile->getClientOriginalName());
+                array_push($images_array, str_replace(" ", "_", $imageFile->getClientOriginalName()));
+                $imageFile->move($dir, str_replace(" ", "_", $imageFile->getClientOriginalName()));
+                $resize = $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $imageFile->getClientOriginalName()), $dir . '/icon_' . str_replace(" ", "_", $imageFile->getClientOriginalName()), new ImageSize(50, 40), ImageResizer::RESIZE_TYPE_CROP);
+                $resize = $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $imageFile->getClientOriginalName()), $dir . '/medium_' . str_replace(" ", "_", $imageFile->getClientOriginalName()), new ImageSize(500, 400), ImageResizer::RESIZE_TYPE_AUTO);
             }
-            $object->setImageFile(json_encode($images_array));
+            $object->setImageFile(serialize($images_array));
         }
         $storyFile = $form['story_file']->getData();
 
-        $dir = './uploads/stories/' . $user->getId() . '/pdf';
+        $dir = './uploads/stories/' . $object->getId() . '/pdf';
         if (file_exists($dir) == false) {
             shell_exec("mkdir -p " . $dir);
         }
         if ($storyFile != null) {
-            $storyFile->move($dir, $storyFile->getClientOriginalName());
-            $object->setStoryFile($storyFile->getClientOriginalName());
+            $storyFile->move($dir, str_replace(" ", "_", $storyFile->getClientOriginalName()));
+            $object->setStoryFile(str_replace(" ", "_", $storyFile->getClientOriginalName()));
         }
         return $object;
     }

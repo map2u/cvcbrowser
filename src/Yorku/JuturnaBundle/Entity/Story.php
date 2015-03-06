@@ -27,6 +27,16 @@ class Story {
     /**
      * @var string
      */
+    private $type;
+
+    /**
+     * @var float
+     */
+    private $radius;
+
+    /**
+     * @var string
+     */
     private $imageFile;
 
     /**
@@ -97,6 +107,48 @@ class Story {
      */
     public function getStoryName() {
         return $this->storyName;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     * @return Story
+     */
+    public function setType($type) {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string 
+     */
+    public function getType() {
+        return $this->type;
+    }
+
+    /**
+     * Set radius
+     *
+     * @param string $radius
+     * @return Story
+     */
+    public function setRadius($radius) {
+        $this->radius = $radius;
+
+        return $this;
+    }
+
+    /**
+     * Get radius
+     *
+     * @return float 
+     */
+    public function getRadius() {
+        return $this->radius;
     }
 
     /**

@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Map2u\CoreBundle\Entity\UploadShapefileLayer;
+use Paradigma\Bundle\ImageBundle\Libs\ImageSize;
+use Paradigma\Bundle\ImageBundle\Libs\ImageResizer;
+use Yorku\JuturnaBundle\Entity\Story;
 use Application\Map2u\CoreBundle\Entity\UserDrawGeometries;
 use Map2u\CoreBundle\Controller\DrawController as BaseController;
 
@@ -56,7 +59,7 @@ class DrawController extends BaseController {
         if (!isset($id)) {
             return new Response(\json_encode(array('success' => false, 'message' => 'Parameter Id not found!')));
         }
-        if  ((isset($id) && ( $id === 0 || $id === '0' || $id === 'undefined'))) {
+        if ((isset($id) && ( $id === 0 || $id === '0' || $id === 'undefined'))) {
             $usergeometries = new UserDrawGeometries();
         } else {
             $usergeometries = $em->getRepository('ApplicationMap2uCoreBundle:UserDrawGeometries')->find($id);
@@ -142,7 +145,7 @@ class DrawController extends BaseController {
                 }
             }
             $stmt = $conn->query($sql);
-          
+
             $this->moveuploadedImages($request, $em, $usergeometries);
             $this->moveuploadedVideo($request, $em, $usergeometries);
             $this->moveuploadedAudio($request, $em, $usergeometries);
@@ -158,5 +161,162 @@ class DrawController extends BaseController {
         return new Response(\json_encode(array('success' => false)));
     }
 
+    /**
+     * get feature extend.
+     * params: ogc_fid and userboundary_id
+     * @Route("/createstory", name="draw_createstory", options={"expose"=true})
+     * @Method("GET|POST")
+     * @Template()
+     */
+    public function createstoryAction(Request $request) {
+
+        if ($request->getMethod() == "POST") {
+            try {
+                $id = $request->get("id");
+                $storyName = $request->get("name");
+                $summary = $request->get("summary");
+                $email = $request->get("email");
+                $lat = $request->get("lat");
+                $lng = $request->get("lng");
+                $type = $request->get("type");
+                $radius = $request->get("radius");
+                $the_geom = $request->get("the_geom");
+
+                $em = $this->getDoctrine()->getManager();
+
+                $story = null;
+                if (isset($id) && intval($id) > 0) {
+                    $story = $em->getRepository("YorkuJuturnaBundle:Story")->find($id);
+                }
+                if ($story == null) {
+                    $story = new Story();
+                }
+                $story->setStoryName($storyName);
+                $story->setUser($this->getUser());
+                $story->setSummary($summary);
+                $story->setRadius($radius);
+                $story->setType($type);
+                $story->setEmail($email);
+                $this->saveUploadedFiles($request, $story);
+                $em->persist($story);
+                $em->flush();
+
+                $this->saveStoryGeom($story, $lat, $lng, $type, $the_geom);
+
+                return new JsonResponse(array(
+                    'success' => true,
+                    'message' => "Save the story success!",
+                    'id' => $story->getId()
+                ));
+            } catch (Exception $e) {
+                return new JsonResponse(array(
+                    'success' => true,
+                    'message' => "Failed save the story, please try again!\n" . $e
+                ));
+            }
+        }
+
+        return array();
+    }
+
+    private function saveUploadedFiles($request, $story) {
+        $imageFile = $request->files->get('image_files');
+
+        $user = $this->getUser();
+        $dir = './uploads/stories/' . $story->getId() . '/images';
+        if (file_exists($dir) == false) {
+            shell_exec("mkdir -p " . $dir);
+        }
+        $images_array = array();
+        if ($imageFile != null) {
+            if (is_array($imageFile)) {
+                foreach ($imageFile as $file) {
+
+                    if ($file != null) {
+                        array_push($images_array, str_replace(" ", "_", $file->getClientOriginalName()));
+                        $file->move($dir, str_replace(" ", "_", $file->getClientOriginalName()));
+                        $resize = $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $file->getClientOriginalName()), $dir . '/icon_' . str_replace(" ", "_", $file->getClientOriginalName()), new ImageSize(50, 40), ImageResizer::RESIZE_TYPE_CROP);
+                        $resize = $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $file->getClientOriginalName()), $dir . '/medium_' . str_replace(" ", "_", $file->getClientOriginalName()), new ImageSize(500, 400), ImageResizer::RESIZE_TYPE_AUTO);
+                    }
+                }
+            } else {
+
+                array_push($images_array, str_replace(" ", "_", $imageFile->getClientOriginalName()));
+                $imageFile->move($dir, str_replace(" ", "_", $imageFile->getClientOriginalName()));
+                $resize = $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $imageFile->getClientOriginalName()), $dir . '/icon_' . str_replace(" ", "_", $imageFile->getClientOriginalName()), new ImageSize(50, 40), ImageResizer::RESIZE_TYPE_CROP);
+                $resize = $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $imageFile->getClientOriginalName()), $dir . '/medium_' . str_replace(" ", "_", $imageFile->getClientOriginalName()), new ImageSize(500, 400), ImageResizer::RESIZE_TYPE_AUTO);
+            }
+            $story->setImageFile(serialize($images_array));
+        }
+        $storyFile = $request->files->get('story_file');
+
+        $dir = './uploads/stories/' . $story->getId() . '/pdf';
+        if (file_exists($dir) == false) {
+            shell_exec("mkdir -p " . $dir);
+        }
+        if ($storyFile != null) {
+            $storyFile->move($dir, str_replace(" ", "_", $storyFile->getClientOriginalName()));
+            $story->setStoryFile(str_replace(" ", "_", $storyFile->getClientOriginalName()));
+        }
+        return $story;
+    }
+
+    private function saveStoryGeom($story, $lat, $lng, $type, $the_geom) {
+        $story_id = $story->getId();
+
+        $conn = $this->get('database_connection');
+
+        if ($the_geom == null) {
+            return;
+        }
+        $feature = null;
+
+        if (gettype($the_geom) == 'string') {
+
+            $feature = json_decode(str_replace("'", '"', $the_geom));
+        }
+
+        if ($feature->geometry == null) {
+            return;
+        }
+
+
+        //$feature_geojson = $the_geom->geometry;
+        if ($type === 'circle' || $type === 'marker') {
+            $lng = $feature->geometry->coordinates[0];
+            $lat = $feature->geometry->coordinates[1];
+
+            $sql = "UPDATE stories set the_geom = ST_GeomFromText('POINT($lng $lat)', 4326) where id=$story_id";
+        }
+        if ($type === 'rectangle' || $type === 'polygon') {
+            $points = '';
+            // var_dump(count($feature['geometry']['coordinates'][0]));
+
+            foreach ($feature->geometry->coordinates[0] as $point) {
+
+                if ($points === '') {
+                    $points = "$point[0]  $point[1]";
+                } else {
+                    $points = $points . ",$point[0]  $point[1]";
+                }
+            }
+            $sql = "UPDATE stories set the_geom = ST_GeomFromText('POLYGON(($points))', 4326) where id=$story_id";
+        }
+        if ($type === 'polyline') {
+            $points = '';
+
+            foreach ($feature->geometry->coordinates as $point) {
+
+                if ($points === '') {
+                    $points = "$point[0]  $point[1]";
+                } else {
+                    $points = $points . ",$point[0]  $point[1]";
+                }
+            }
+
+            $sql = "UPDATE stories set the_geom = ST_GeomFromText('LINESTRING($points)', 4326) where id=$story_id";
+        }
+        $stmt = $conn->query($sql);
+    }
 
 }
