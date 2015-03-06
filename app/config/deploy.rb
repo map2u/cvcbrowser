@@ -76,6 +76,6 @@ namespace :my_namespace do
 
         set :release_path, shared_path+"/../current"
      #   run "rm -rf #{latest_release}/app/cache/*"
-        symfony.composer.dump_autoload
+     #   symfony.composer.dump_autoload
   end
  end
