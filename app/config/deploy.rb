@@ -10,7 +10,7 @@ default_run_options[:pty] = true
 set :webserver_user,    "www-data"
 set :permission_method, :acl
 set :group, "jzhao"
-set :use_set_permissions, true
+set :use_set_permissions, false
 
 set :repository,  "git@map2u.familyds.com:/volume1/homes/git/repositories/#{application}.git"
 set :scm,         :git
