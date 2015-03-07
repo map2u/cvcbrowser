@@ -28,22 +28,25 @@ class DefaultController extends BaseController {
     public function mapAction(Request $request) {
 
         $view = $request->get("view");
-        return array('view' => $view); //$this->render('Map2uLeafletBundle:Default:map.html.twig',{'view'=>$view});
+        $id = $request->get("id");
+        return array('view' => $view, 'id' => $id); //$this->render('Map2uLeafletBundle:Default:map.html.twig',{'view'=>$view});
     }
+
     /**
      * .
      *
      * @Route("/storylayers", name="appleaflet_storylayer", options={"expose"=true})
      * @Method("GET")
- 
+
      */
     public function storylayersAction(Request $request) {
-        $conn=$this->get('database_connection');
-        $sql="select id, story_name, image_file,story_file, st_x(ST_Centroid(the_geom)) as lng,st_y(ST_Centroid(the_geom)) as lat  from stories";
-        $results=$conn->fetchAll($sql);
-        for($i=0;$i<count($results);$i++) {
-            $results[$i]['image_file']= unserialize($results[$i]['image_file']);
+        $conn = $this->get('database_connection');
+        $sql = "select id, story_name, image_file,story_file, st_x(ST_Centroid(the_geom)) as lng,st_y(ST_Centroid(the_geom)) as lat  from stories";
+        $results = $conn->fetchAll($sql);
+        for ($i = 0; $i < count($results); $i++) {
+            $results[$i]['image_file'] = unserialize($results[$i]['image_file']);
         }
-        return new JsonResponse(array('success'=>true,"stories"=>$results)); //$this->render('Map2uLeafletBundle:Default:map.html.twig',{'view'=>$view});
+        return new JsonResponse(array('success' => true, "stories" => $results)); //$this->render('Map2uLeafletBundle:Default:map.html.twig',{'view'=>$view});
     }
+
 }

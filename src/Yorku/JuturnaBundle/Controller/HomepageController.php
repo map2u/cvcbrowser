@@ -35,7 +35,10 @@ class HomepageController extends Controller {
         $session->set('current_menu', "home");
         $em = $this->getDoctrine()->getManager();
         $description = $em->getRepository('YorkuJuturnaBundle:HomepageDescription')->findOneBy(array('active' => true), array("updatedAt" => 'desc'));
-        return array('_locale' => $locale, 'current_menu' => "home", 'description' => $description);
+        $ecosystems = $em->getRepository('YorkuJuturnaBundle:EcoSystemService')->findAll();
+        $wellbeings = $em->getRepository('YorkuJuturnaBundle:HumanWellBeingDomain')->findAll();
+
+        return array('_locale' => $locale, 'current_menu' => "home", 'ecosystems' => $ecosystems, 'wellbeings' => $wellbeings, 'description' => $description);
     }
 
     /**
@@ -100,13 +103,13 @@ class HomepageController extends Controller {
     public function well_beingAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $id=$request->get("id");
+        $id = $request->get("id");
         $locale = $request->getLocale();
         $session->set('current_menu', "well_being");
         $category = $em->getRepository('YorkuJuturnaBundle:Category')->findOneByName("Well-Being");
-         if (isset($id)&&intval($id)>0) {
-             $wellbeing = $em->getRepository('YorkuJuturnaBundle:HumanWellBeingDomain')->find($id);
-         }
+        if (isset($id) && intval($id) > 0) {
+            $wellbeing = $em->getRepository('YorkuJuturnaBundle:HumanWellBeingDomain')->find($id);
+        }
 //        if (!isset($id)) {
 //            return new Response(\json_encode(array('success' => false, 'message' => 'Parameter Id not found!')));
 //        }
@@ -123,7 +126,7 @@ class HomepageController extends Controller {
 //
 //            $update_geom = true;
 //        }
-        return array('_locale' => $locale, 'wellbeing' =>$wellbeing, 'image' => $image, 'flashs' => $flashs);
+        return array('_locale' => $locale, 'wellbeing' => $wellbeing, 'image' => $image, 'flashs' => $flashs);
     }
 
     /**
@@ -137,13 +140,13 @@ class HomepageController extends Controller {
 
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $id=$request->get("id");
+        $id = $request->get("id");
         $locale = $request->getLocale();
         $session->set('current_menu', "ecosystems");
         $category = $em->getRepository('YorkuJuturnaBundle:Category')->findOneByName("Ecosystems");
-         if (isset($id)&&intval($id)>0) {
-             $ecosystems = $em->getRepository('YorkuJuturnaBundle:EcoSystemService')->find($id);
-         }
+        if (isset($id) && intval($id) > 0) {
+            $ecosystems = $em->getRepository('YorkuJuturnaBundle:EcoSystemService')->find($id);
+        }
 //        if (!isset($id)) {
 //            return new Response(\json_encode(array('success' => false, 'message' => 'Parameter Id not found!')));
 //        }
@@ -160,9 +163,9 @@ class HomepageController extends Controller {
 //
 //            $update_geom = true;
 //        }
-        return array('_locale' => $locale, 'ecosystems' =>$ecosystems, 'image' => $image, 'flashs' => $flashs);
-        
-        
+        return array('_locale' => $locale, 'ecosystems' => $ecosystems, 'image' => $image, 'flashs' => $flashs);
+
+
 //        $em = $this->getDoctrine()->getManager();
 //        $session = $request->getSession();
 //        $locale = $request->getLocale();
@@ -197,8 +200,8 @@ class HomepageController extends Controller {
         $session->set('current_menu', "map");
         $em = $this->getDoctrine()->getManager();
         $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
-      
-        return array('_locale' => $locale, 'flashs' => $flashs,'view' => $view, 'id' => $id);
+
+        return array('_locale' => $locale, 'flashs' => $flashs, 'view' => $view, 'id' => $id);
     }
 
     /**
@@ -278,7 +281,7 @@ class HomepageController extends Controller {
         return array('_locale' => $locale, 'flashs' => $flashs);
     }
 
-     /**
+    /**
      * .
      *
      * @Route("/uploadstory", name="homepage_uploadstory")
@@ -289,7 +292,7 @@ class HomepageController extends Controller {
         $locale = $request->getLocale();
         return array('_locale' => $locale);
     }
-    
+
     /**
      * .
      *
@@ -300,6 +303,32 @@ class HomepageController extends Controller {
     public function footerAction(Request $request) {
         $locale = $request->getLocale();
         return array('_locale' => $locale);
+    }
+
+    /**
+     * .
+     *
+     * @Route("/leftsidebar_view", name="homepage_leftsidebar_view", options={"expose"=true})
+     * @Method("GET")
+     * @Template()
+     */
+    public function leftsidebar_viewAction(Request $request) {
+        $locale = $request->getLocale();
+        $view = $request->get("view");
+        $id = $request->get("id");
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = null;
+        $story = null;
+        if (isset($view) && isset($id) && intval($id) > 0) {
+            if ($view === 'benefit') {
+                $entities = $em->getRepository('YorkuJuturnaBundle:IndicatorBenefit')->find(intval($id));
+            }
+            if ($view === 'story') {
+                $story = $em->getRepository('YorkuJuturnaBundle:Story')->find(intval($id));
+            }
+        }
+        return array('_locale' => $locale, 'entities' => $entities, 'story' => $story);
     }
 
 }

@@ -2,7 +2,7 @@
 <div id="leaflet_content" class="overlay-sidebar">
 
     <div id="sidebar-left" data-viewtype="{% if view is defined  %}{{view}}{% endif %}">
-        
+
         <div id="flash">
         </div>
 
@@ -14,10 +14,10 @@
 
         <div id="sidebar_content">
 
-  
+
         </div>
         <div class="sidebar_feature_content">
-            
+
         </div>
 
         <div class="welcome">
@@ -55,3 +55,15 @@
     </div> 
 </div>
 
+<script >
+    function initLeftsidebarPanel() {
+        $.ajax({
+            url: Routing.generate('homepage_leftsidebar_view',{_locale:"{{app.request.locale}}",id: "{{id}}",view: "{{view}}"}),
+            method: 'GET',
+            success: function (response) {
+               $("div#leaflet_content.overlay-sidebar #sidebar_content").html(response);
+            }
+        });
+    }
+    
+</script>

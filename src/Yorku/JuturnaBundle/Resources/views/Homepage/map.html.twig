@@ -15,7 +15,7 @@
     {% endblock %}
     {% block page_container %}
         {% block map2u_map %}
-            {{render(controller("ApplicationMap2uLeafletBundle:Default:map",{'view':view}))}}
+            {{render(controller("ApplicationMap2uLeafletBundle:Default:map",{'view':view,'id':id}))}}
         {% endblock %}
     {% endblock %}
 {% endblock %}

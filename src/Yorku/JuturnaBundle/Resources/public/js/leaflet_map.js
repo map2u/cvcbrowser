@@ -430,23 +430,23 @@ window.onload = function () {
                 $.each(result.stories, function (k, photo) {
 
                     var images;
-                    var icon_image='';
-                    var medium_image='';
+                    var icon_image = '';
+                    var medium_image = '';
                     if (typeof photo.image_file === 'string')
                         images = JSON.parse(photo.image_file);
                     else
                         images = photo.image_file;
-                    
-                   
-                    
+
+
+
                     if (images.length === 0) {
-                      //  images[0] = '/bundles/map2uleaflet/images/photo_unavailable_t.png';
-                        icon_image='/bundles/map2uleaflet/images/photo_unavailable_t.png';
-                        medium_image='/bundles/map2uleaflet/images/photo_unavailable.png';
+                        //  images[0] = '/bundles/map2uleaflet/images/photo_unavailable_t.png';
+                        icon_image = '/bundles/map2uleaflet/images/photo_unavailable_t.png';
+                        medium_image = '/bundles/map2uleaflet/images/photo_unavailable.png';
                     }
                     else {
-                        icon_image='/uploads/stories/' + photo.id + "/images/icon_" + images[0];
-                         medium_image='/uploads/stories/' + photo.id + "/images/medium_" + images[0];
+                        icon_image = '/uploads/stories/' + photo.id + "/images/icon_" + images[0];
+                        medium_image = '/uploads/stories/' + photo.id + "/images/medium_" + images[0];
                     }
 
                     var photo_marker = new L.PhotoMarker([photo.lat, photo.lng], {
@@ -474,22 +474,22 @@ window.onload = function () {
 //                            }
                         }
                     });//.addTo(map);
-                    var html='<a href="#" ><h4>' + photo.story_name + '</h4></a>';
-                    if(medium_image==='') {
-                        if(images.length>1) {
-                            
+                    var html = '<a href="#" onclick="showStoryOnLeftsisebar('+ photo.id +'); return false;"><h4>' + photo.story_name + '</h4></a>';
+                    if (medium_image === '') {
+                        if (images.length > 1) {
+
                         }
                         else {
-                            html=html+ '<img src="' + medium_image + '" style="width:300px;"/>';
-                            
+                            html = html + '<img src="' + medium_image + '" style="width:300px;"/>';
+
                         }
                     }
                     else
                     {
-                       html=html+ '<img src="' + medium_image + '" style="width:300px;"/>';
+                        html = html + '<img src="' + medium_image + '" style="width:300px;"/>';
                     }
-                    
-                    photo_marker.bindPopup('<a href="#" ><h4>' + photo.story_name + '</h4></a><img src="' + medium_image + '" style="width:300px;"/>');
+
+                    photo_marker.bindPopup('<a href="#" onclick="showStoryOnLeftsisebar('+ photo.id +'); return false;"><h4>' + photo.story_name + '</h4></a><img src="' + medium_image + '" style="width:300px;"/>');
                     $("<img>").attr("src", medium_image).load(function () {
                         photo_layer.addLayer(photo_marker);
                     });
@@ -656,8 +656,9 @@ window.onload = function () {
     });
 
 
-
-
+    if (typeof initLeftsidebarPanel === 'function') {
+        initLeftsidebarPanel();
+    }
     $('.leaflet-control .control-button').tooltip({placement: 'left', container: 'body'});
 //    L.MarkerClusterGroup.prototype.bringToFront = function() {
 //        var pane = this._map._panes.overlayPane;
@@ -710,4 +711,13 @@ function PrevMapExtent(map) {
     map.setView([33.5363, -117.044], 6);
     // history.goBack();
 }
-
+function showStoryOnLeftsisebar(id) {
+   
+    $.ajax({
+        url: Routing.generate('homepage_leftsidebar_view', {_locale: window.locale, id: id, view: "story"}),
+        method: 'GET',
+        success: function (response) {
+            $("div#leaflet_content.overlay-sidebar #sidebar_content").html(response);
+        }
+    });
+}
