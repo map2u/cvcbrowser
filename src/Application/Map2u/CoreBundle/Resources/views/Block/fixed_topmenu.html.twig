@@ -11,51 +11,81 @@
                         </li>
                         <li class="dropdown"><a href="#" class="dropdown-toggle  {% if app.session.get('current_menu')=='well_being' %} active {% endif %}" data-toggle="dropdown">Well-Being
                                 <b class="caret"></b></a>
-                            <ul class="dropdown-menu" style="border:1px solid lightblue;border-radius: 0 0 4px 4px;">
-                                {% if wellbeingdomains is defined %}
-                                    {% for wellbeingdomain in wellbeingdomains %}
-                                        <li>
-                                            <a href="{{path("homepage_well_being",{_locale:app.request.locale,id:wellbeingdomain.id})}}">{{wellbeingdomain.name}}</a>
-                                        </li>
-                                    {% endfor %}
-                                {% endif %}  
-                                {#   <li>
-                                    <a href="#"> Supportig</a>
-                                </li>
-                                <li>
-                                    <a href="#">Provisioning</a>
-                                </li>
-                                <li>
-                                    <a href="#">Regulating</a>
-                                </li>
-                                <li>
-                                    <a href="#">Cultural</a>
-                                </li>#}
-                            </ul>
+                            <div class="dropdown-menu" style="left:0px;margin-top: 2px;padding:10px;  color: black;border:1px solid lightblue;border-radius: 0 0 4px 4px;width:605px;">
+                                <ul class="" style="list-style: none;padding-left: 0px;border:0px solid lightblue;border-radius: 0 0 4px 4px;">
+                                    {% if wellbeingdomains is defined %}
+                                        <table style="width:100%;" class="table table-hover table-striped">
+                                            <tbody>
+                                                {% for wellbeingdomain in wellbeingdomains %}
+                                                    <tr>
+                                                        <td style="padding:3px;">
+                                                            <a style="border:none;width:100%;text-transform: capitalize;" href="#{#{{path("homepage_well_being",{_locale:app.request.locale,id:wellbeingdomain.id})}}#}">
+                                                                <b>{{wellbeingdomain.name}}
+                                                                </b>
+                                                            </a>
+                                                        </td>
+                                                        {% set benefits = wellbeingdomain.indicatorbenefits %}
+                                                        {% if benefits | length > 0 %}
+
+                                                            {% for benefit in benefits %}
+                                                            </tr>
+                                                        <td style="padding:3px;"> 
+                                                            <a style="margin-left: 20px;border:none;width:100%;text-transform: capitalize;" href="{{path('homepage_map',{'locale':app.request.locale,'view':'benefit','id':benefit.id})}}" >- {{benefit.benefitName}}
+                                                            </a>
+                                                        </td>
+                                                        <tr>
+                                                        {% endfor %}
+                                                    {% endif %}    
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    {% endif %}  
+                                    {#   <li>
+                                        <a href="#"> Supportig</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Provisioning</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Regulating</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Cultural</a>
+                                    </li>#}
+                                </ul>
+                            </div>
                         </li>
-                        <li class="dropdown"><a href="#" class="dropdown-toggle {% if app.session.get('current_menu')=='ecosystems' %} active {% endif %}" data-toggle="dropdown">Ecosystem Services
+                        <li id="ecosystems" class="dropdown"><a href="#" class="dropdown-toggle {% if app.session.get('current_menu')=='ecosystems' %} active {% endif %}" data-toggle="dropdown">Ecosystem Services
                                 <b class="caret"></b></a>
-                            <ul class="dropdown-menu" style="color: black;border:1px solid lightblue;border-radius: 0 0 4px 4px;">
+                                {#                            <div class="dropdown-menu" style="left:0px; margin-left:-190px; color: black;margin-top: 2px;padding:10px;border:1px solid lightblue;border-radius: 0 0 4px 4px;width:955px;height:200px;">#}
+                                {#                                <ul class="" style=" list-style: none;padding-left: 0px;">#}
+
+                            <ul class="dropdown-menu multi-level" style="color: black;border:1px solid lightblue;border-radius: 0 0 4px 4px;">
                                 {% if ecosystems is defined %}
                                     {% for ecosystem in ecosystems %}
-                                        <li>
-                                            <a href="{{path("homepage_ecosystems",{_locale:app.request.locale,id:ecosystem.id})}}">{{ecosystem.name}}</a>
+                                        <li  style="" class="dropdown-submenu">
+                                            <a class="dropdown-toggle" href="{{path("homepage_ecosystems",{_locale:app.request.locale,id:ecosystem.id})}}"><b>{{ecosystem.name}}</b></a>
+                                                    {% set benefits = ecosystem.indicatorbenefits %}
+                                                    {% if benefits | length > 0 %}
+                                                <ul class="dropdown-menu">
+                                                    {% for benefit in benefits %}
+                                                        <li>
+                                                            <a href="#"><div style="width:200px;"><b>{{benefit.benefitName|truncate(22, true, ' ...')}}</b></div></a>
+                                                        </li>
+                                                    {% endfor %}
+                                                    {# <li><a href="#">iifijjgjg</a></li>
+                                                     <li><a href="#">iifijjgjg</a></li>
+                                                     <li><a href="#">iifijjgjg</a></li>
+                                                     <li><a href="#">iifijjgjg</a></li>#}
+                                                </ul>
+                                            {% endif %}    
                                         </li>
                                     {% endfor %}
-                                    {#  <li>
-                                          <a href="#">Basic Materials for Good Life</a>
-                                      </li>
-                                      <li>
-                                          <a href="#">Health</a>
-                                      </li>
-                                      <li>
-                                         <a href="#"> Good Social Relations</a>
-                                      </li>
-                                      <li>
-                                         <a href="#"> Freedom of Choice and Action</a>
-                                      </li>#}
+
                                 {% endif %}  
                             </ul>
+                            {#                            </div>#}
                         </li>
                         <li {% if app.session.get('current_menu')=='map' %} class="active" {% endif %}><a href="{{path('homepage_map')}}" >Map
                             </a>
@@ -110,4 +140,5 @@
             </div>
         </div>
     </nav>
+
 {% endblock %}
