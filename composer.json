@@ -62,7 +62,7 @@
         "sonata-project/cache-bundle": "dev-master",
         "sonata-project/notification-bundle": "dev-master",
         "sonata-project/seo-bundle": "dev-master",
-        "sonata-project/jquery-bundle": "dev-master",
+       
         "sonata-project/markitup-bundle": "dev-master",
         "ibrows/newsletter-bundle": "*",
         "incenteev/composer-parameter-handler": "~2.0"
