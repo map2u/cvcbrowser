@@ -193,4 +193,49 @@ class Category {
         return $this->name;
     }
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $categorycontents;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->categorycontents = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add categorycontents
+     *
+     * @param \Yorku\JuturnaBundle\Entity\CategoryContents $categorycontents
+     * @return Category
+     */
+    public function addCategorycontent(\Yorku\JuturnaBundle\Entity\CategoryContents $categorycontents)
+    {
+        $this->categorycontents[] = $categorycontents;
+
+        return $this;
+    }
+
+    /**
+     * Remove categorycontents
+     *
+     * @param \Yorku\JuturnaBundle\Entity\CategoryContents $categorycontents
+     */
+    public function removeCategorycontent(\Yorku\JuturnaBundle\Entity\CategoryContents $categorycontents)
+    {
+        $this->categorycontents->removeElement($categorycontents);
+    }
+
+    /**
+     * Get categorycontents
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCategorycontents()
+    {
+        return $this->categorycontents;
+    }
 }

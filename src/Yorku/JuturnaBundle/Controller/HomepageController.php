@@ -93,6 +93,42 @@ class HomepageController extends Controller {
         return array('_locale' => $locale, 'flashs' => $flashs);
     }
 
+    
+     /**
+     * .
+     *
+     * @Route("/story", name="homepage_story")
+     * @Method("GET")
+     * @Template()
+     */
+    public function storyAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $session = $request->getSession();
+        $id = $request->get("id");
+        $locale = $request->getLocale();
+        $session->set('current_menu', "story");
+        $category = $em->getRepository('YorkuJuturnaBundle:Category')->findOneByName("Story");
+        if (isset($id) && intval($id) > 0) {
+            $wellbeing = $em->getRepository('YorkuJuturnaBundle:HumanWellBeingDomain')->find($id);
+        }
+//        if (!isset($id)) {
+//            return new Response(\json_encode(array('success' => false, 'message' => 'Parameter Id not found!')));
+//        }
+//        if  ((isset($id) && ( $id === 0 || $id === '0' || $id === 'undefined'))) {
+//            $usergeometries = new UserDrawGeometries();
+//        } else {
+        $image = $em->getRepository('YorkuJuturnaBundle:HomepageImage')->findOneBy(array('category' => $category));
+//
+//            $update_geom = true;
+//        }
+
+
+        $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
+//
+//            $update_geom = true;
+//        }
+        return array('_locale' => $locale, 'wellbeing' => $wellbeing, 'image' => $image, 'flashs' => $flashs);
+    }
     /**
      * .
      *

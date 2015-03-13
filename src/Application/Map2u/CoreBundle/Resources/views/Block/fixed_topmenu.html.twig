@@ -1,14 +1,14 @@
 {% extends sonata_block.templates.block_base %}
 
 {% block block %}
-    <nav class="navbar navbar-custom" role="navigation">
+    <nav class="navbar navbar-custom juturna-main_menu" role="navigation">
         <div>
             <div class="collapse navbar-collapse navbar-main-collapse">
                 <div id="cms-block-8" class="cms-block cms-block-element environment_services">
                     <ul class="nav navbar-nav">
-                        <li {% if app.session.get('current_menu')=='home' %} class="active" {% endif %}><a href="{{path('welcome_home')}}" >Home
+                        {#<li {% if app.session.get('current_menu')=='home' %} class="active" {% endif %}><a href="{{path('welcome_home')}}" >Home
                             </a>
-                        </li>
+                        </li>#}
                         <li class="dropdown"><a href="#" class="dropdown-toggle  {% if app.session.get('current_menu')=='well_being' %} active {% endif %}" data-toggle="dropdown">Well-Being
                                 <b class="caret"></b></a>
 
@@ -59,7 +59,7 @@
                      {#   <li {% if app.session.get('current_menu')=='map' %} class="active" {% endif %}><a href="{{path('homepage_map')}}" >Map
                             </a>
                         </li>#}
-                        <li {% if app.session.get('current_menu')=='stories' %} class="active" {% endif %}><a href="{{path('homepage_map',{'locale':_locale,'view':'stories'})}}{#{path('homepage_stories')}#}" >Your Stories
+                        <li {% if app.session.get('current_menu')=='stories' %} class="active" {% endif %}><a href="{{path('homepage_map',{'locale':app.request.locale,'view':'stories'})}}{#{path('homepage_stories')}#}" >Your Stories
                             </a>
                         </li>
                         {# <li {% if app.session.get('current_menu')=='forum' %} class="active" {% endif %}><a href="{{path('ccdn_forum_user_category_index')}}" >Forum

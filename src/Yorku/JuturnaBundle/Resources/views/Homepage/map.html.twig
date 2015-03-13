@@ -1,6 +1,7 @@
-{% extends '::homepage.layout.html.twig' %}
+{% extends '::baseLayout.html.twig' %}
 {% block page_stylesheets %}
     {{ parent() }}
+    {% include "::mapstylesheets.html.twig" %}
     <style>
         body.sonata-bc {
             margin: 0 auto;
@@ -18,4 +19,8 @@
             {{render(controller("ApplicationMap2uLeafletBundle:Default:map",{'view':view,'id':id}))}}
         {% endblock %}
     {% endblock %}
+{% endblock %}
+{% block page_javascripts %}
+    {{ parent() }}
+    {% include "::mapjavascripts.html.twig" %}
 {% endblock %}

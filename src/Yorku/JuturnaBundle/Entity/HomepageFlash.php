@@ -319,4 +319,60 @@ class HomepageFlash {
         return $this->subcategory;
     }
 
+    /**
+     * @var integer
+     */
+    private $titleMargin;
+
+    /**
+     * @var boolean
+     */
+    private $alignLeft;
+
+
+    /**
+     * Set titleMargin
+     *
+     * @param integer $titleMargin
+     * @return HomepageFlash
+     */
+    public function setTitleMargin($titleMargin)
+    {
+        $this->titleMargin = $titleMargin;
+
+        return $this;
+    }
+
+    /**
+     * Get titleMargin
+     *
+     * @return integer 
+     */
+    public function getTitleMargin()
+    {
+        return $this->titleMargin;
+    }
+
+    /**
+     * Set alignLeft
+     *
+     * @param boolean $alignLeft
+     * @return HomepageFlash
+     */
+    public function setAlignLeft($alignLeft)
+    {
+        $this->alignLeft = $alignLeft;
+
+        return $this;
+    }
+
+    /**
+     * Get alignLeft
+     *
+     * @return boolean 
+     */
+    public function getAlignLeft()
+    {
+        return $this->alignLeft;
+    }
 }

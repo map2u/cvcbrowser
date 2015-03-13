@@ -1,0 +1,309 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 12-Mar-2015, 11:37:55 AM
+    Author     : josephzhao
+*/
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 12-Mar-2015, 11:58:13 AM
+    Author     : josephzhao
+*/
+/* line 11, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_header.scss */
+.juturna-page-header {
+  width: 1200px;
+  height: 130px;
+  margin: 0 auto;
+}
+
+/* line 17, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_header.scss */
+.homepage_title {
+  padding: 0px;
+  margin: 0px;
+  color: white;
+}
+
+/* line 21, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_header.scss */
+.homepage_title a h2 {
+  color: white;
+}
+
+/* line 24, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_header.scss */
+.homepage_title a:hover {
+  text-decoration: none;
+}
+
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 12-Mar-2015, 1:14:08 PM
+    Author     : josephzhao
+*/
+/* line 11, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+.juturna-main_menu {
+  position: relative;
+  width: 1200px;
+  height: 50px;
+  margin: 0 auto;
+}
+
+/* line 18, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+.nav.navbar-nav, .collapse.navbar-collapse.navbar-main-collapse {
+  margin-left: 0px;
+  padding-left: 0px;
+}
+
+/* line 23, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+.navbar-nav li a, ul.dropdown-menu li a {
+  color: white;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+/* line 29, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+.nav.navbar-nav li.dropdown.open ul.dropdown-menu li a {
+  color: white;
+}
+
+/* line 32, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+.nav.navbar-nav li.dropdown.open ul.dropdown-menu li a:hover {
+  color: #141412;
+}
+
+/* line 35, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+.nav.navbar-nav li.dropdown.open a {
+  color: #141412;
+}
+
+/* line 38, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+.nav.navbar-nav li.dropdown ul {
+  background-color: #141412;
+  color: white;
+  z-index: 9999;
+}
+
+/* line 43, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+.nav.navbar-nav li a:hover {
+  color: #141412;
+}
+
+/* line 48, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+.dropdown-menu {
+  background-color: #141412;
+  color: white;
+}
+
+/* line 52, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+.dropdown-submenu {
+  background-color: #141412;
+  color: white;
+  position: relative;
+}
+
+/* line 58, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+.dropdown-submenu > .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: 0px;
+  background-color: #141412;
+  color: white;
+  margin-top: -6px;
+  margin-left: -1px;
+  /*    -webkit-border-radius: 0 6px 6px 6px;
+      -moz-border-radius: 0 6px 6px;
+      border-radius: 0 6px 6px 6px;*/
+}
+
+/* line 71, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+.dropdown-submenu:hover > .dropdown-menu {
+  display: block;
+  background-color: #141412;
+  color: white;
+}
+
+/* line 77, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+.dropdown-submenu > a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #ccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+
+/* line 91, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+.dropdown-submenu:hover > a:after {
+  border-left-color: #fff;
+}
+
+/* line 95, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+.dropdown-submenu.pull-left {
+  float: none;
+}
+
+/* line 99, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+.dropdown-submenu.pull-left > .dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  /*    -webkit-border-radius: 6px 0 6px 6px;
+      -moz-border-radius: 6px 0 6px 6px;
+      border-radius: 6px 0 6px 6px;*/
+}
+
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 12-Mar-2015, 1:14:08 PM
+    Author     : josephzhao
+*/
+/* line 11, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_menu_login.scss */
+.navbar .nav > li.login .login-dropdown {
+  position: absolute;
+  white-space: normal;
+  margin-top: 10px;
+  background-color: #f2f1ef;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  border: 1px solid #b1a699;
+  width: 270px;
+  left: -215px;
+  z-index: 9999;
+  display: none;
+}
+
+/* line 12, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_menu_login.scss */
+#register-form {
+  background-color: #ada69a;
+}
+
+/* line 13, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_menu_login.scss */
+#login-form {
+  padding: 0px;
+  margin: 0;
+}
+
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 12-Mar-2015, 1:09:33 PM
+    Author     : josephzhao
+*/
+/*.homepage_flash_wrap {
+   height: 350px;
+}*/
+/*.homepage_flash {
+    padding: 0px;
+    height: 385px;
+    margin: 10px 0px 20px 0;
+}*/
+/* line 21, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
+#homepageFlashCarousel {
+  height: 355px;
+  margin-bottom: 30px;
+}
+
+/* line 25, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
+#homepageFlashCarousel .carousel-inner {
+  height: 355px;
+}
+
+/* line 29, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
+#homepageFlashCarousel ol.carousel-indicators {
+  margin: -45px auto;
+}
+
+/* line 38, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
+ol.carousel-indicators li {
+  color: #141412;
+  font-size: 10px;
+  background-color: #141412;
+}
+
+/* line 45, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
+ol.carousel-indicators li.active {
+  color: green;
+  font-size: 10px;
+  background-color: green;
+}
+
+/* line 50, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
+.homepage_images {
+  width: 1200px;
+  margin: 10px auto;
+  height: 300px;
+  border: 0px solid yellow;
+  padding: 0px;
+}
+
+/* line 57, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
+.homepage_images img {
+  height: 230px;
+  margin: 3px;
+  border-radius: 5px;
+}
+
+/* line 62, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
+.homepage_image_brief_desc {
+  margin-bottom: 50px;
+}
+
+/* line 65, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
+#homepageFlashCarousel div.carousel-caption {
+  top: 0px;
+  width: 330px;
+  background-image: url(/images/background.png);
+  background-repeat: repeat;
+  height: 355px;
+}
+
+/* line 77, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
+.homepage_image_brief_desc {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  margin-left: 3px;
+  height: 70px;
+  color: white;
+  font-weight: 400;
+  text-align: center;
+  font-size: 14px;
+  background-image: url(/images/background.png);
+  background-repeat: repeat;
+}
+
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 12-Mar-2015, 11:58:23 AM
+    Author     : josephzhao
+*/
+/* line 11, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_footer.scss */
+.juturna-page-footer {
+  width: 1200px;
+  margin: 2px auto;
+}

@@ -43,4 +43,10 @@ Yorku\JuturnaBundle\Entity\Category:
             gedmo:
               timestampable:
                 on: update     
+    oneToMany:            
+        categorycontents:
+            targetEntity: CategoryContents
+            cascade: {  }
+            mappedBy: category
+              
     lifecycleCallbacks: {  }

@@ -1,0 +1,1480 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 12-Mar-2015, 9:17:01 PM
+    Author     : josephzhao
+*/
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 10-Mar-2014, 2:48:15 PM
+    Author     : josephzhao
+*/
+/* line 21, assetic_compassSzWRhn.scss */
+div#leaflet_content.overlay-sidebar {
+  margin-top: 1px;
+}
+
+/* line 25, assetic_compassSzWRhn.scss */
+.small_icon {
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+/* line 26, assetic_compassSzWRhn.scss */
+.red {
+  color: red;
+}
+
+/* line 27, assetic_compassSzWRhn.scss */
+.icon {
+  display: inline-block;
+  vertical-align: top;
+  width: 20px;
+  height: 20px;
+  background: transparent url(/images/sprite.png) no-repeat 0 0;
+  text-indent: -9999px;
+  overflow: hidden;
+}
+
+/* line 31, assetic_compassSzWRhn.scss */
+.icon.search {
+  background-position: 0 0;
+}
+
+/* line 32, assetic_compassSzWRhn.scss */
+.icon.donate {
+  background-position: -20px 0;
+}
+
+/* line 33, assetic_compassSzWRhn.scss */
+.icon.zoomin {
+  background-position: -40px 0;
+}
+
+/* line 34, assetic_compassSzWRhn.scss */
+.icon.zoomout {
+  background-position: -60px 0;
+}
+
+/* line 35, assetic_compassSzWRhn.scss */
+.icon.geolocate {
+  background-position: -80px 0;
+}
+
+/* line 36, assetic_compassSzWRhn.scss */
+.active .icon.geolocate {
+  background-position: -80px -20px;
+}
+
+/* line 37, assetic_compassSzWRhn.scss */
+.icon.layers {
+  background-position: -100px 0;
+}
+
+/* line 38, assetic_compassSzWRhn.scss */
+.icon.key {
+  background-position: -120px 0;
+}
+
+/* line 39, assetic_compassSzWRhn.scss */
+.icon.business {
+  background-position: -120px 0;
+}
+
+/* line 40, assetic_compassSzWRhn.scss */
+.icon.graphchart {
+  background-position: -60px -40px;
+}
+
+/* line 41, assetic_compassSzWRhn.scss */
+.icon.share {
+  background-position: -140px 0;
+}
+
+/* line 42, assetic_compassSzWRhn.scss */
+.icon.clipboard {
+  background-position: -160px 0;
+}
+
+/* line 43, assetic_compassSzWRhn.scss */
+.icon.link {
+  background-position: -180px 0;
+}
+
+/* line 44, assetic_compassSzWRhn.scss */
+.icon.close {
+  background-position: -200px 0;
+}
+
+/* line 45, assetic_compassSzWRhn.scss */
+.icon.close:hover {
+  background-position: -200px -20px;
+}
+
+/* line 46, assetic_compassSzWRhn.scss */
+.icon.uploadfile {
+  background-position: 0px -20px;
+}
+
+/* line 47, assetic_compassSzWRhn.scss */
+.control-button.disabled .icon.uploadfile {
+  background-position: 0px -40px;
+}
+
+/* line 48, assetic_compassSzWRhn.scss */
+.icon.uploadfile-list {
+  background-position: -20px -20px;
+}
+
+/* line 49, assetic_compassSzWRhn.scss */
+.control-button.disabled .icon.uploadfile-list {
+  background-position: -20px -40px;
+}
+
+/* line 50, assetic_compassSzWRhn.scss */
+.control-button.disabled .icon.graphchart {
+  background-position: -40px -40px;
+}
+
+/* line 52, assetic_compassSzWRhn.scss */
+.icon.check {
+  background-position: -220px 0;
+}
+
+/* line 53, assetic_compassSzWRhn.scss */
+.icon.note {
+  background-position: -240px 0;
+}
+
+/* line 54, assetic_compassSzWRhn.scss */
+.icon.gear {
+  background-position: -260px 0;
+}
+
+/* line 55, assetic_compassSzWRhn.scss */
+.leaflet-container .leaflet-control-attribution {
+  display: block;
+}
+
+/* line 58, assetic_compassSzWRhn.scss */
+#noscript {
+  z-index: 20000000;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+}
+
+/* line 59, assetic_compassSzWRhn.scss */
+.tooltip.left {
+  margin-left: -10px;
+  text-align: right;
+}
+
+/* line 60, assetic_compassSzWRhn.scss */
+.tooltip.left .tooltip-arrow {
+  top: 50%;
+  right: -5px;
+  margin-top: -5px;
+  border-left-color: black;
+  border-width: 5px 0 5px 5px;
+}
+
+/*.tooltip{position:absolute; display:none;color:white;text-align:left;font-size:14px;max-width:290px}
+.tooltip.in{opacity:0.8;z-index:1030;height:auto;display:block}
+.tooltip.top{margin-top:-10px;text-align:center}
+.tooltip.right{margin-left:10px}
+.tooltip.bottom{margin-top:10px;text-align:center}
+.tooltip.left{margin-left:-10px;text-align:right}
+.tooltip-inner{display:inline-block;padding:10px;font-weight:normal;color:#000;background-color:white}
+.tooltip-arrow{position:absolute;width:0;height:0;border-color:transparent;border-style:solid;}
+.tooltip.top .tooltip-arrow{bottom:-5px;left:50%;margin-left:-5px;border-top-color:white;border-width:5px 5px 0}
+.tooltip.right .tooltip-arrow{top:50%;left:-5px;margin-top:-5px;border-right-color:white;border-width:5px 5px 5px 0}
+.tooltip.left .tooltip-arrow{top:50%;right:-5px;margin-top:-5px;border-left-color:white;border-width:5px 0 5px 5px}
+.tooltip.bottom .tooltip-arrow{top:-5px;left:50%;margin-left:-5px;border-bottom-color:white;border-width:0 5px 5px}*/
+/* line 74, assetic_compassSzWRhn.scss */
+.leaflet-control .control-button {
+  display: block;
+  height: 40px;
+  width: 40px;
+  background-color: #333;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 4px 0 0 4px;
+  margin-bottom: 10px;
+  outline: none;
+}
+
+/* line 77, assetic_compassSzWRhn.scss */
+.leaflet-control .control-button:hover {
+  background-color: black;
+}
+
+/* line 78, assetic_compassSzWRhn.scss */
+.leaflet-control .control-button.active {
+  background-color: #9ed485;
+}
+
+/* line 79, assetic_compassSzWRhn.scss */
+.leaflet-control .control-button.disabled {
+  background-color: #333;
+  background-color: rgba(0, 0, 0, 0.5);
+  cursor: default;
+}
+
+/* line 80, assetic_compassSzWRhn.scss */
+.leaflet-control .control-button .icon {
+  margin: 10px;
+}
+
+/* line 81, assetic_compassSzWRhn.scss */
+.leaflet-draw.leaflet-control {
+  margin-top: 10px;
+}
+
+/* line 84, assetic_compassSzWRhn.scss */
+.maptoolbar-control {
+  width: 82px;
+  height: 32px;
+  border-radius: 3px;
+  /*    margin-top:40px;
+      margin-right: 60px;*/
+  top: 2px;
+  padding-left: 2px;
+  right: 42px;
+  border: 1px solid green;
+}
+
+/* line 96, assetic_compassSzWRhn.scss */
+.maptoolbar-control .maptoolbar-control-reset, .maptoolbar-control .maptoolbar-control-prev, .maptoolbar-control .maptoolbar-control-next {
+  margin-bottom: 0px;
+  border-radius: 3px;
+  width: 24px;
+  background-color: white;
+  margin-left: 1px;
+  margin-top: 3px;
+  height: 24px;
+  display: inline-block;
+  border: 1px solid green;
+}
+
+/* line 108, assetic_compassSzWRhn.scss */
+.maptoolbar-control .maptoolbar-control-reset {
+  background-position: 3px 3px;
+  background-image: url(/images/home.png);
+  background-repeat: no-repeat;
+}
+
+/* line 113, assetic_compassSzWRhn.scss */
+.maptoolbar-control .maptoolbar-control-prev {
+  background-position: 1px 2px;
+  background-image: url(/images/glyphicons_210_left_arrow.png);
+  background-repeat: no-repeat;
+}
+
+/* line 118, assetic_compassSzWRhn.scss */
+.maptoolbar-control .maptoolbar-control-next {
+  background-position: 1px 2px;
+  background-image: url(/images/glyphicons_211_right_arrow.png);
+  background-repeat: no-repeat;
+}
+
+/* line 123, assetic_compassSzWRhn.scss */
+.leaflet-sidebar.left, .zoom.leaflet-control {
+  margin-top: 0px !important;
+}
+
+/* line 127, assetic_compassSzWRhn.scss */
+.leaflet-control .zoomin, .control-layers .control-button {
+  margin-bottom: 0px;
+  border-radius: 4px 0 0 0;
+}
+
+/* line 128, assetic_compassSzWRhn.scss */
+.leaflet-control .zoomout, .control-key .control-button {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+/* line 129, assetic_compassSzWRhn.scss */
+.control-locate .control-button, .control-share .control-button {
+  border-radius: 0 0 0 4px;
+}
+
+/* line 130, assetic_compassSzWRhn.scss */
+.leaflet-control .control-business .control-button {
+  margin-bottom: 0;
+  border-radius: 0 0 0 4px;
+}
+
+/* line 132, assetic_compassSzWRhn.scss */
+.control-uploadfile .control-button {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+/* line 133, assetic_compassSzWRhn.scss */
+.control-uploadfile-list .control-button {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+/*.sonata-bc #leaflet_content{overflow:hidden;position:absolute;top:125px;bottom:0;width:100%}*/
+/* line 137, assetic_compassSzWRhn.scss */
+.sonata-bc #sidebar {
+  position: relative;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: rgba(255, 255, 255, 0.92);
+}
+
+/* line 138, assetic_compassSzWRhn.scss */
+.sonata-bc #sidebar {
+  float: left;
+  width: 350px;
+  font-size: 12px;
+}
+
+/* line 139, assetic_compassSzWRhn.scss */
+.sonata-bc #sidebar h2 {
+  padding: 20px 20px 10px;
+}
+
+/* line 140, assetic_compassSzWRhn.scss */
+.sonata-bc #sidebar .search_form {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
+/* line 141, assetic_compassSzWRhn.scss */
+.sonata-bc #sidebar h3, .sonata-bc #sidebar h4 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+/* line 142, assetic_compassSzWRhn.scss */
+.sonata-bc #sidebar .icon.close {
+  float: right;
+  cursor: pointer;
+}
+
+/* line 145, assetic_compassSzWRhn.scss */
+ul#uploadfilelist-ul > li {
+  margin-left: -25px;
+  list-style: decimal;
+  list-style-type: decimal;
+  list-style-image: none;
+  list-style-position: outside;
+}
+
+/* line 152, assetic_compassSzWRhn.scss */
+ul#uploadfilelist-ul > li img:hover {
+  cursor: pointer;
+}
+
+/* line 157, assetic_compassSzWRhn.scss */
+svg {
+  position: relative;
+}
+
+/* line 161, assetic_compassSzWRhn.scss */
+div.uploadfile_link {
+  width: 100%;
+  text-align: right;
+}
+
+/* line 165, assetic_compassSzWRhn.scss */
+div.uploadfile_link a.uploadfile {
+  margin: 0 2px 0 8px;
+}
+
+/* line 169, assetic_compassSzWRhn.scss */
+.place,
+.place-label {
+  fill: #444;
+}
+
+/*.svg-leaflet-d3 text {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    pointer-events: none;
+}*/
+/* line 180, assetic_compassSzWRhn.scss */
+.sonata-bc .welcome {
+  display: none;
+}
+
+/* line 181, assetic_compassSzWRhn.scss */
+.sonata-bc .overlay-sidebar #sidebar {
+  position: absolute;
+  z-index: 500;
+  height: auto;
+  border-bottom-right-radius: 5px;
+  overflow: hidden;
+}
+
+/* line 182, assetic_compassSzWRhn.scss */
+.sonata-bc .overlay-sidebar #sidebar .welcome {
+  display: block;
+}
+
+/* line 183, assetic_compassSzWRhn.scss */
+.sonata-bc .overlay-sidebar #sidebar #sidebar_content {
+  display: none;
+}
+
+/* line 184, assetic_compassSzWRhn.scss */
+.sonata-bc .welcome p {
+  padding: 10px 20px 20px;
+  font-size: 110%;
+  font-weight: 300;
+}
+
+/* line 185, assetic_compassSzWRhn.scss */
+.sonata-bc .welcome .button {
+  width: 50%;
+  float: left;
+  margin: 0;
+  border-radius: 0;
+  font-weight: normal;
+  padding: .6em;
+}
+
+/* line 186, assetic_compassSzWRhn.scss */
+.sonata-bc .welcome .button.learn-more {
+  border-right: 1px solid #fff;
+}
+
+/* line 187, assetic_compassSzWRhn.scss */
+.sonata-bc #leafmap {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* line 188, assetic_compassSzWRhn.scss */
+.sonata-bc #map-ui {
+  z-index: 1000;
+  display: none;
+  position: absolute;
+  right: 40px;
+  margin-right: 0px;
+  float: right;
+  width: 250px;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.85);
+  overflow: auto;
+  border: 0px solid #0a44ff;
+}
+
+/* line 189, assetic_compassSzWRhn.scss */
+.sonata-bc #map-ui .section {
+  border-top: 1px solid #DDD;
+  padding: 10px 20px;
+}
+
+/* line 190, assetic_compassSzWRhn.scss */
+.sonata-bc #map-ui a.close-button {
+  float: right;
+  padding: 5px;
+  font-size: 20px;
+  line-height: 10px;
+  color: #222;
+  border: 1px solid #ddd;
+}
+
+/* line 191, assetic_compassSzWRhn.scss */
+.sonata-bc #map-ui .tooltip {
+  opacity: 1;
+  border: 1px solid #ccc;
+}
+
+/* line 192, assetic_compassSzWRhn.scss */
+.sonata-bc #map-ui .tooltip .tooltip-arrow {
+  border-top-color: #ccc;
+}
+
+/* line 193, assetic_compassSzWRhn.scss */
+.sonata-bc #map-ui input[type="radio"] {
+  margin-top: 0px;
+  margin-right: 5px;
+}
+
+/* line 194, assetic_compassSzWRhn.scss */
+.sonata-bc #map-ui input[type="checkbox"] {
+  margin-top: 0px;
+}
+
+/* line 195, assetic_compassSzWRhn.scss */
+.layers-ui li:last-child, .share-ui li:last-child {
+  margin-bottom: 0;
+}
+
+/* line 196, assetic_compassSzWRhn.scss */
+.sonata-bc #map-ui .layers-ui ul {
+  list-style-type: none;
+}
+
+/* line 197, assetic_compassSzWRhn.scss */
+.layers-ui .base-layers .leaflet-container {
+  width: 100%;
+  height: 50px;
+  cursor: pointer;
+}
+
+/* line 198, assetic_compassSzWRhn.scss */
+.layers-ui .base-layers li {
+  overflow: hidden;
+  border-radius: 3px;
+  border: 2px solid #fff;
+  margin-bottom: 8px;
+  position: relative;
+  transition: border-color 0.08s ease-in;
+}
+
+/* line 199, assetic_compassSzWRhn.scss */
+.layers-ui .base-layers li label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 2px 6px;
+  border-bottom-right-radius: 3px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 18px;
+  text-stroke: 2px #fff;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 2;
+}
+
+/* line 200, assetic_compassSzWRhn.scss */
+.layers-ui .base-layers li label input[type="radio"] {
+  display: none;
+}
+
+/* line 201, assetic_compassSzWRhn.scss */
+.layers-ui .base-layers li.active {
+  border-color: #60a94f;
+}
+
+/* line 202, assetic_compassSzWRhn.scss */
+.layers-ui .base-layers li:hover {
+  border-color: #cccccc;
+}
+
+/* line 203, assetic_compassSzWRhn.scss */
+.layers-ui .base-layers li:hover.active {
+  border-color: #4d863f;
+}
+
+/* line 204, assetic_compassSzWRhn.scss */
+.layers-ui .overlay-layers p {
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+/* line 205, assetic_compassSzWRhn.scss */
+.layers-ui .overlay-layers li.disabled {
+  color: #999;
+}
+
+/* line 206, assetic_compassSzWRhn.scss */
+.share-ui .share-tabs {
+  margin-bottom: 10px;
+}
+
+/* line 207, assetic_compassSzWRhn.scss */
+.share-ui .share-tabs a {
+  color: #fff;
+  text-decoration: none;
+  background-color: #b8c5f0;
+  padding: 5px 10px;
+}
+
+/* line 208, assetic_compassSzWRhn.scss */
+.share-ui .share-tabs a:first-child {
+  border-right: 1px solid #fff;
+  border-radius: 4px 0 0 4px;
+}
+
+/* line 209, assetic_compassSzWRhn.scss */
+.share-ui .share-tabs a:last-child {
+  border-left: 1px solid #fff;
+  border-radius: 0 4px 4px 0;
+}
+
+/* line 210, assetic_compassSzWRhn.scss */
+.share-ui .share-tabs a.active {
+  background-color: #7092ff;
+}
+
+/* line 211, assetic_compassSzWRhn.scss */
+.share-ui .share-tab {
+  display: none;
+}
+
+/* line 212, assetic_compassSzWRhn.scss */
+.share-ui .share-link input[type=text], .share-ui .share-link textarea {
+  width: 100%;
+  font-family: monospace;
+  font-size: small;
+  line-height: 1.3;
+}
+
+/* line 213, assetic_compassSzWRhn.scss */
+.share-ui .share-image label {
+  margin-right: 10px;
+}
+
+/* line 214, assetic_compassSzWRhn.scss */
+.share-ui #embed_html {
+  resize: vertical;
+}
+
+/* line 215, assetic_compassSzWRhn.scss */
+.share-ui #mapnik_scale {
+  width: 100px;
+}
+
+/* line 216, assetic_compassSzWRhn.scss */
+.leaflet-top {
+  top: 0px !important;
+}
+
+/* line 217, assetic_compassSzWRhn.scss */
+.leaflet-top .leaflet-control {
+  margin-right: 0px !important;
+  margin-top: 0px !important;
+}
+
+/* line 218, assetic_compassSzWRhn.scss */
+.leaflet-popup-scrolled {
+  padding-right: 20px;
+  border-bottom: 0px !important;
+  border-top: 0px !important;
+}
+
+/* line 219, assetic_compassSzWRhn.scss */
+.leaflet-popup-content-wrapper {
+  border-radius: 4px !important;
+  -webkit-border-radius: 4px !important;
+}
+
+/* line 220, assetic_compassSzWRhn.scss */
+#attribution {
+  display: none;
+}
+
+/* line 221, assetic_compassSzWRhn.scss */
+.attribution_license, .attribution_project {
+  text-align: left;
+}
+
+/* line 222, assetic_compassSzWRhn.scss */
+.attribution_notice {
+  text-align: center;
+}
+
+/* line 223, assetic_compassSzWRhn.scss */
+.donate-attr {
+  color: #60a94f !important;
+}
+
+/* line 224, assetic_compassSzWRhn.scss */
+.sidebar_heading {
+  position: relative;
+  padding: 10px 20px;
+}
+
+/* line 225, assetic_compassSzWRhn.scss */
+.sidebar_heading > .close {
+  float: right;
+  margin-top: 2px;
+  cursor: pointer;
+}
+
+/* line 226, assetic_compassSzWRhn.scss */
+#browse_status p {
+  padding: 20px;
+}
+
+/* line 227, assetic_compassSzWRhn.scss */
+#browse_status input {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* line 228, assetic_compassSzWRhn.scss */
+#sidebar #sidebar_loader, #sidebar .loader, #sidebar .load_more {
+  text-align: center;
+  margin: 20px auto;
+  width: 40px;
+  display: block;
+}
+
+/* line 229, assetic_compassSzWRhn.scss */
+header .search_form {
+  display: none;
+}
+
+/* line 229, assetic_compassSzWRhn.scss */
+.search_form {
+  position: relative;
+  padding: 10px;
+  background-color: #eeeeee;
+}
+
+/* line 231, assetic_compassSzWRhn.scss */
+.search_form .query_wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px 0 0 2px;
+}
+
+/* line 232, assetic_compassSzWRhn.scss */
+.search_form input[type=text] {
+  width: 100%;
+  height: 20px;
+  border-right: none;
+  transition: 300ms linear;
+  -webkit-transition: 300ms linear;
+  -moz-transition: 300ms linear;
+}
+
+/* line 233, assetic_compassSzWRhn.scss */
+.search_form input:focus {
+  outline: none;
+  box-shadow: 0px 0px 7px #9ED485;
+}
+
+/* line 234, assetic_compassSzWRhn.scss */
+.search_form input[type=submit] {
+  float: right;
+  width: auto;
+  min-width: 0;
+  border-radius: 0 2px 2px 0;
+}
+
+/* line 235, assetic_compassSzWRhn.scss */
+.search_form .describe_location {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  font-size: 10px;
+  color: #7092ff;
+}
+
+/* line 236, assetic_compassSzWRhn.scss */
+#mapkey .mapkey-table-key img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* line 237, assetic_compassSzWRhn.scss */
+#mapkey td {
+  padding: 0 5px 5px 5px;
+}
+
+/* line 237, assetic_compassSzWRhn.scss */
+.search_results_entry ul li {
+  border-bottom: 1px solid #eeeeee;
+}
+
+/* line 238, assetic_compassSzWRhn.scss */
+.search_results_entry ul li:first-child {
+  border-top: 1px solid #eeeeee;
+}
+
+/* line 239, assetic_compassSzWRhn.scss */
+.search_results_entry .search_details {
+  display: block;
+  float: right;
+  text-align: right;
+  margin-top: 0.2em;
+  margin-left: 0.5em;
+}
+
+/* line 240, assetic_compassSzWRhn.scss */
+.search_results_error {
+  color: #f00;
+}
+
+/* line 241, assetic_compassSzWRhn.scss */
+#sidebar_content .browse_details {
+  position: relative;
+  border-bottom: 1px solid #eeeeee;
+}
+
+/* line 242, assetic_compassSzWRhn.scss */
+.browse_status {
+  display: none;
+}
+
+/* line 243, assetic_compassSzWRhn.scss */
+#sidebar .changesets li {
+  padding: 15px 20px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+/* line 244, assetic_compassSzWRhn.scss */
+#sidebar .changesets li.selected {
+  background: #FFFFE6;
+}
+
+/* line 245, assetic_compassSzWRhn.scss */
+#sidebar .changesets h4 {
+  margin: 0;
+}
+
+/* line 246, assetic_compassSzWRhn.scss */
+#sidebar .changesets h4 a {
+  color: #000;
+}
+
+/* line 247, assetic_compassSzWRhn.scss */
+#sidebar_content .browse-section {
+  padding: 10px 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* line 248, assetic_compassSzWRhn.scss */
+#sidebar_content .browse-section h4:first-child {
+  margin-top: 0;
+  word-wrap: break-word;
+}
+
+/* line 249, assetic_compassSzWRhn.scss */
+#sidebar_content .browse-section:last-of-type {
+  border-bottom: none;
+}
+
+/* line 250, assetic_compassSzWRhn.scss */
+#sidebar_content .paginate {
+  float: right;
+  padding: 1px 6px;
+  border: 1px solid #eee;
+  border-radius: 3px;
+}
+
+/* line 251, assetic_compassSzWRhn.scss */
+#sidebar_content .paginate ul {
+  padding-left: 20px;
+}
+
+/* line 252, assetic_compassSzWRhn.scss */
+#sidebar_content .browse-field {
+  margin-bottom: 10px;
+}
+
+/* line 253, assetic_compassSzWRhn.scss */
+#sidebar_content .browse-field h4 {
+  padding: 5px 0 5px 10px;
+  font-size: 12px;
+  border: 1px solid #CCC;
+  border-radius: 4px 4px 0 0;
+  background-color: #F6F6F6;
+}
+
+/* line 254, assetic_compassSzWRhn.scss */
+#sidebar_content .browse-field p {
+  padding: 7px 10px;
+  font-size: 12px;
+  background-color: #FFF;
+  border: 1px solid #CCC;
+  border-top: 0;
+  border-radius: 0 0 4px 4px;
+}
+
+/* line 255, assetic_compassSzWRhn.scss */
+#sidebar_content .browse-tag-list {
+  background-color: #F6F6F6;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  font-size: 12px;
+  table-layout: fixed;
+  border-collapse: separate;
+}
+
+/* line 256, assetic_compassSzWRhn.scss */
+#sidebar_content .browse-tag-list th, #sidebar_content .browse-tag-list td {
+  border-bottom: 1px solid #ddd;
+}
+
+/* line 257, assetic_compassSzWRhn.scss */
+#sidebar_content .browse-tag-list tr:last-child th, #sidebar_content .browse-tag-list tr:last-child td {
+  border-bottom: 0;
+}
+
+/* line 258, assetic_compassSzWRhn.scss */
+#sidebar_content .browse-tag-list .browse-tag-k, #sidebar_content .browse-tag-list .browse-tag-v {
+  width: 50%;
+  padding: 6px 10px;
+  word-wrap: break-word;
+}
+
+/* line 259, assetic_compassSzWRhn.scss */
+#sidebar_content .browse-tag-list .browse-tag-k {
+  font-weight: 500;
+  background-color: #F6F6F6;
+}
+
+/* line 260, assetic_compassSzWRhn.scss */
+#sidebar_content .browse-tag-list .browse-tag-v {
+  border-left: 1px solid #ddd;
+  background-color: #fff;
+}
+
+/* line 261, assetic_compassSzWRhn.scss */
+#sidebar_content .warning {
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 90%;
+}
+
+/* line 262, assetic_compassSzWRhn.scss */
+#sidebar_content .note-comments li {
+  margin: 10px 0;
+}
+
+/* line 263, assetic_compassSzWRhn.scss */
+#sidebar_content .note-comments li p {
+  margin-left: 10px;
+}
+
+/* line 264, assetic_compassSzWRhn.scss */
+#sidebar_content .note-description {
+  overflow: hidden;
+  margin: 0 0 10px 10px;
+}
+
+/* line 265, assetic_compassSzWRhn.scss */
+.export_form {
+  padding: 20px;
+}
+
+/* line 266, assetic_compassSzWRhn.scss */
+.export_form .export_area_inputs, .export_form .export_button {
+  text-align: center;
+}
+
+/* line 267, assetic_compassSzWRhn.scss */
+.export_form .export_area_inputs {
+  margin-bottom: 10px;
+}
+
+/* line 268, assetic_compassSzWRhn.scss */
+.export_form .export_area_inputs input[type="text"] {
+  width: 80px;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+/* line 269, assetic_compassSzWRhn.scss */
+.export_form .export_boxy {
+  background: #eee;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+/* line 270, assetic_compassSzWRhn.scss */
+.export_form .export_boxy #maxlat {
+  margin-top: -1px;
+}
+
+/* line 271, assetic_compassSzWRhn.scss */
+.export_form .export_boxy #minlon {
+  float: left;
+  margin-left: -1px;
+}
+
+/* line 272, assetic_compassSzWRhn.scss */
+.export_form .export_boxy #maxlon {
+  float: right;
+  margin-right: -1px;
+}
+
+/* line 273, assetic_compassSzWRhn.scss */
+.export_form .export_boxy #minlat {
+  margin-bottom: 0;
+}
+
+/* line 274, assetic_compassSzWRhn.scss */
+.export_form .export_bound {
+  margin: 5px;
+}
+
+/* line 275, assetic_compassSzWRhn.scss */
+.export_form .export_button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* line 276, assetic_compassSzWRhn.scss */
+.export_form dl {
+  padding-left: 10px;
+}
+
+/* line 277, assetic_compassSzWRhn.scss */
+.export_form dl dd {
+  margin-left: 0;
+  margin-bottom: 10px;
+}
+
+/* line 278, assetic_compassSzWRhn.scss */
+.site-edit #content {
+  position: absolute;
+  top: 55px;
+  bottom: 0;
+  width: 100%;
+}
+
+/* line 279, assetic_compassSzWRhn.scss */
+.site-edit #leafmap {
+  height: 100%;
+  overflow: hidden;
+}
+
+/* line 280, assetic_compassSzWRhn.scss */
+.content-heading {
+  background: #eeeeee;
+}
+
+/* line 281, assetic_compassSzWRhn.scss */
+.content-heading h1 {
+  font-size: 22px;
+}
+
+/* line 282, assetic_compassSzWRhn.scss */
+.content-body h1, .content-body h2, .content-body h3, .content-body p, .content-body ul, .content-body ol {
+  margin-bottom: 20px;
+}
+
+/* line 283, assetic_compassSzWRhn.scss */
+.content-body h1, .content-body h2, .content-body h3 {
+  margin-top: 10px;
+}
+
+/* line 284, assetic_compassSzWRhn.scss */
+.content-inner {
+  position: relative;
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* line 285, assetic_compassSzWRhn.scss */
+input[type="button"], input[type="submit"], input[type="reset"], a.button {
+  cursor: pointer;
+  border: 0;
+  display: inline-block;
+  line-height: 20px;
+  padding: 5px 10px;
+  min-height: 30px;
+  min-width: 120px;
+  margin: 0 0 10px 0;
+  color: white;
+  background: #7092ff;
+  text-align: center;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+}
+
+/* line 288, assetic_compassSzWRhn.scss */
+input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, a.button:hover {
+  background: #0a44ff;
+  text-decoration: none;
+}
+
+/* line 289, assetic_compassSzWRhn.scss */
+input[type="button"].deemphasize, input[type="submit"].deemphasize, input[type="reset"].deemphasize, a.button.deemphasize {
+  background: #b8c5f0;
+}
+
+/* line 290, assetic_compassSzWRhn.scss */
+input[type="button"].deemphasize:hover, input[type="submit"].deemphasize:hover, input[type="reset"].deemphasize:hover,
+a.button.deemphasize:hover {
+  background: #6480de;
+}
+
+/* line 292, assetic_compassSzWRhn.scss */
+input[type="button"]:disabled, input[type="submit"]:disabled, input[type="reset"]:disabled, a.button:disabled {
+  background: #eeeeee;
+}
+
+/* line 293, assetic_compassSzWRhn.scss */
+input[type="button"]:disabled:hover, input[type="submit"]:disabled:hover, input[type="reset"]:disabled:hover, a.button:disabled:hover {
+  background: #eeeeee;
+}
+
+/* line 294, assetic_compassSzWRhn.scss */
+input[type="button"]:last-child, input[type="submit"]:last-child, input[type="reset"]:last-child, a.button:last-child {
+  margin-bottom: 0;
+}
+
+/* line 295, assetic_compassSzWRhn.scss */
+.buttons {
+  min-width: 200px;
+}
+
+/* line 296, assetic_compassSzWRhn.scss */
+.buttons input[type="submit"], .buttons input[type="button"], .buttons input[type="reset"],
+.buttons .button {
+  box-sizing: border-box;
+  float: left;
+  border-radius: 0;
+  margin: 0;
+  min-width: 75px;
+  max-width: 180px;
+  border-right: 1px solid white;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* line 298, assetic_compassSzWRhn.scss */
+.buttons input:first-child, .buttons .button:first-child {
+  border-radius: 2px 0 0 2px;
+}
+
+/* line 298, assetic_compassSzWRhn.scss */
+.buttons input:last-child, .buttons .button:last-child {
+  border-radius: 0 2px 2px 0;
+  border-right-width: 0;
+}
+
+/* line 299, assetic_compassSzWRhn.scss */
+.buttons input:only-child, .buttons .button:only-child, .buttons *[value="Hide"] + input:last-child, .buttons *[value="Hide"] + .button:last-child {
+  border-radius: 2px;
+  border-right-width: 0;
+}
+
+/* line 300, assetic_compassSzWRhn.scss */
+.buttons *[value="Hide"] + input:nth-child(3), .buttons *[value="Hide"] + .button:nth-child(3) {
+  border-radius: 0 2px 2px 0;
+  border-right-width: 0;
+}
+
+/* line 301, assetic_compassSzWRhn.scss */
+.buttons *[value="Hide"] + input:nth-child(2):not(:last-child), .buttons *[value="Hide"] + .button:nth-child(2):not(:last-child) {
+  border-radius: 2px 0 0 2px;
+  border-right-width: 1px;
+}
+
+/* line 303, assetic_compassSzWRhn.scss */
+.navbar_search_form {
+  position: relative;
+  padding: 2px;
+  width: 250px;
+  /*  background-color: #EEE;*/
+}
+
+/* line 309, assetic_compassSzWRhn.scss */
+.navbar_search_form .query_wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px 0 0 2px;
+}
+
+/* line 310, assetic_compassSzWRhn.scss */
+.navbar_search_form input[type=text] {
+  width: 100%;
+  height: 24px;
+  border-right: none;
+  transition: 300ms linear;
+  -webkit-transition: 300ms linear;
+  -moz-transition: 300ms linear;
+}
+
+/* line 311, assetic_compassSzWRhn.scss */
+.navbar_search_form input:focus {
+  outline: none;
+  box-shadow: 0px 0px 7px #9ED485;
+}
+
+/* line 312, assetic_compassSzWRhn.scss */
+.navbar_search_form input[type=submit] {
+  float: right;
+  cursor: pointer;
+  border: 0;
+  line-height: 20px;
+  padding: 2px 5px;
+  font-size: 12px;
+  min-height: 20px;
+  min-width: 0;
+  width: auto;
+  margin: 0 0 0px 0;
+  color: white;
+  background: #7092ff;
+  text-align: center;
+  border-radius: 0 2px 2px 0;
+  -moz-border-radius: 0 2px 2px 0;
+}
+
+/* line 314, assetic_compassSzWRhn.scss */
+.navbar_search_form .describe_location {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  font-size: 10px;
+  color: #7092ff;
+}
+
+/* line 317, assetic_compassSzWRhn.scss */
+.overlayers_btn {
+  display: inline-block;
+  color: #60a94f;
+  float: right;
+  width: 18px;
+  height: 18px;
+  padding: 0px;
+  border: 1px #CCC dotted;
+  border-radius: 3px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  background-image: none;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+/* line 336, assetic_compassSzWRhn.scss */
+.overlayers_btn i {
+  margin-bottom: 10px;
+}
+
+/* line 340, assetic_compassSzWRhn.scss */
+.overlayers_btn.disabled,
+.overlayers_btn[disabled],
+fieldset[disabled] .overlayers_btn {
+  pointer-events: none;
+  cursor: crosshair;
+  background-color: #ccc;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  opacity: .65;
+}
+
+/*div.sidebar_content div.section.overlay-layers div#move_overlayer_down
+,div.sidebar_content div.section.overlay-layers div#overlayers_selectall
+{
+    margin:0 2px;
+}*/
+/* line 357, assetic_compassSzWRhn.scss */
+div.sidebar_content div.section.overlay-layers div#overlayers_minus
+, div.sidebar_content div.section.overlay-layers div#overlayers_unselectall {
+  margin: 0 4px 0 0;
+}
+
+/* line 363, assetic_compassSzWRhn.scss */
+div.sidebar_content div.section.overlay-layers div#save_overlayers_index
+, div.sidebar_content div.section.overlay-layers div#overlayers_zoom_to_layer {
+  margin: 0 4px;
+}
+
+/* line 369, assetic_compassSzWRhn.scss */
+div.sidebar_content div.section.overlay-layers div#move_overlayer_up {
+  margin: 0 5px 0 0;
+}
+
+/* line 373, assetic_compassSzWRhn.scss */
+div.sidebar_content div.section.overlay-layers {
+  margin-bottom: 10px;
+}
+
+/* line 376, assetic_compassSzWRhn.scss */
+div.sidebar_content div.section.overlay-layers ul.overlay_ul > li.overlay_li {
+  width: 190px;
+  display: inline-block;
+}
+
+/* line 381, assetic_compassSzWRhn.scss */
+div.sidebar_content div.section.overlay-layers ul.overlay_ul > li.overlay_li.selected,
+div.sidebar_content div.section.overlay-layers ul.overlay_ul > li.overlay_li > ul.layer_legend > li.overlay_group_li.selected {
+  background-color: #08C;
+}
+
+/* line 386, assetic_compassSzWRhn.scss */
+div.sidebar_content div.section.overlay-layers ul.overlay_ul > li.overlay_li.selected > label,
+div.sidebar_content div.section.overlay-layers ul.overlay_ul > li.overlay_li > ul.layer_legend > li.overlay_group_li.selected > label {
+  color: white;
+}
+
+/* line 394, assetic_compassSzWRhn.scss */
+.group_layername_label {
+  width: 128px;
+  cursor: pointer;
+}
+
+/* line 399, assetic_compassSzWRhn.scss */
+.layername_label {
+  width: 158px;
+  cursor: pointer;
+}
+
+/* line 404, assetic_compassSzWRhn.scss */
+div.section.overlay-layers ul.overlay_ul > li.overlay_li div.layer_legend ul > li {
+  width: 160px;
+  border-top: 1px grey dotted;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* line 411, assetic_compassSzWRhn.scss */
+div.section.overlay-layers ul.overlay_ul > li.overlay_li div.layer_legend ul > li:hover {
+  white-space: nowrap;
+  overflow: visible;
+  margin-left: -50px;
+  background-color: rgba(153, 255, 255, 0.25);
+}
+
+/* line 419, assetic_compassSzWRhn.scss */
+ul.overlay_ul > li.overlay_li > div.layer_legend > ul > li > img {
+  margin-right: 4px;
+}
+
+/* line 423, assetic_compassSzWRhn.scss */
+ul.overlay_ul > li.overlay_li > div.layer_legend .marker-cluster {
+  background-clip: padding-box;
+  border-radius: 20px;
+}
+
+/* line 427, assetic_compassSzWRhn.scss */
+ul.overlay_ul > li.overlay_li > div.layer_legend .marker-cluster div {
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+  margin-top: 5px;
+  text-align: center;
+  border-radius: 15px;
+  font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+/* line 437, assetic_compassSzWRhn.scss */
+ul.overlay_ul > li.overlay_li > div.layer_legend .marker-cluster span {
+  line-height: 30px;
+}
+
+/* line 441, assetic_compassSzWRhn.scss */
+.layer_legend_icon {
+  display: inline-block;
+  margin: 0 3px 0 1px;
+  color: lightblue;
+  cursor: pointer;
+}
+
+/* line 447, assetic_compassSzWRhn.scss */
+.layer_btn {
+  display: inline-block;
+  /*padding: 0px 0px;*/
+  padding-bottom: 4px;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 3px;
+}
+
+/*.layer_btn:focus,
+.layer_btn:active:focus,
+.layer_btn.active:focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.layer_btn:hover,
+.layer_btn:focus {
+  color: #333;
+  text-decoration: none;
+}
+.layer_btn:active,
+.layer_btn.active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+          box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}*/
+/*.sonata-bc .leaflet_content {
+    bottom: 0;
+    margin:0;
+    overflow: hidden;
+    //     position: absolute;
+    visibility:hidden;
+    width: 100%;
+    left:0;
+    //  min-width:1024px;
+
+}*/
+/* line 498, assetic_compassSzWRhn.scss */
+.sonata-bc #leaflet_content #sidebar {
+  height: 45px;
+}
+
+/* line 502, assetic_compassSzWRhn.scss */
+.sonata-bc #sidebar .search_form {
+  padding: 8px 10px;
+  background-color: #EEE;
+  height: 45px;
+}
+
+/* line 509, assetic_compassSzWRhn.scss */
+.sonata-bc #sidebar .search_form input[type="text"] {
+  border-right: medium none;
+  height: 30px;
+  transition: all 300ms linear 0s;
+  width: 100%;
+}
+
+/* line 516, assetic_compassSzWRhn.scss */
+.leaflet-sidebar.left {
+  margin-top: 45px !important;
+}
+
+/* line 519, assetic_compassSzWRhn.scss */
+.zoom.leaflet-control {
+  margin-top: -30px !important;
+}
+
+/* line 522, assetic_compassSzWRhn.scss */
+.leaflet-sidebar #sidebar-left {
+  overflow: auto;
+}
+
+/* line 526, assetic_compassSzWRhn.scss */
+.sonata-bc .leftsidebar-close-control {
+  position: absolute;
+  top: 350px;
+  left: 0px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  margin-left: -10px;
+  background-image: url(/bundles/map2ucore/images/icon/right-icon.png);
+}
+
+/* line 537, assetic_compassSzWRhn.scss */
+.sonata-bc .leaflet-draw.leaflet-control {
+  top: 50px;
+}

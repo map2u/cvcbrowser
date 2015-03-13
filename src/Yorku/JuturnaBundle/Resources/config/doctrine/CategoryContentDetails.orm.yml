@@ -57,7 +57,7 @@ Yorku\JuturnaBundle\Entity\CategoryContentDetails:
             targetEntity: Yorku\JuturnaBundle\Entity\CategoryContents 
             cascade: {  }
             mappedBy: null
-            inversedBy: null
+            inversedBy: contentdetails
             joinColumns:
               content_id:
                 referencedColumnName: id

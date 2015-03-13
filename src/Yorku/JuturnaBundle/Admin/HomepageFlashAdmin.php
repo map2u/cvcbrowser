@@ -80,6 +80,8 @@ class HomepageFlashAdmin extends Admin {
                 ->add('url')
                 ->add('published')
                 ->add('active')
+                ->add('alignLeft')
+                ->add('titleMargin')
                 ->end()
                 ->with('Homepage Flash Description', array('class' => 'col-md-6'))
                 ->add('description', 'ckeditor', array('label' => 'Description Content','required'=>false,

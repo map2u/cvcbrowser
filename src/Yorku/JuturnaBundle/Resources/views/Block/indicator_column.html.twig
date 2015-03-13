@@ -5,14 +5,14 @@
         {% if  indicators is defined and indicators | length > 0 %}
             <ul style="list-style: square;padding-left:15px;">
                 {% for indicator in indicators %}
-                    <li style="margin-left: 0;">
-                        <a href="#">{{indicator.name|title}}</a>
+                    <li style="margin-left: 0;margin-top:6px;">
+                        <a href="#"><b>{{indicator.name|title}}</b></a>
                         {% set indicatorbenefits = indicator.indicatorbenefits %}
                         {% if indicatorbenefits and indicatorbenefits | length >0 %}
-                            <ul style="list-style: circle; padding-left:5px;">
+                            <ul style="list-style: circle; padding-left:15px;">
                                 {% for indicatorbenefit in indicatorbenefits %}
                                     <li style="margin-left: 0;">
-                                        <a href="#">
+                                        <a href="{{path('homepage_map',{'locale':app.request.locale,'view':'benefit','id':indicatorbenefit.id})}}">
                                             {{indicatorbenefit.title|title}}
                                         </a>
                                 </li>

@@ -18,6 +18,7 @@ class AppKernel extends Kernel {
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
+            new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
           
             new FOS\UserBundle\FOSUserBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
@@ -38,7 +39,7 @@ class AppKernel extends Kernel {
             new Sonata\NewsBundle\SonataNewsBundle(),
             new Sonata\FormatterBundle\SonataFormatterBundle(),
             // CKEditor by SonataFormatterBundle
-            new Sonata\MarkItUpBundle\SonataMarkItUpBundle(),
+        //    new Sonata\MarkItUpBundle\SonataMarkItUpBundle(),
             new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new Paradigma\Bundle\ImageBundle\ParadigmaImageBundle(),

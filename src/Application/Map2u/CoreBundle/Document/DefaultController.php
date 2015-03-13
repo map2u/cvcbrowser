@@ -342,7 +342,7 @@ var_dump($output);
 
           $rowCount = count($stmt);
           $column_name_array = array();
-          for ($i = 0; $i < $rowCount; $i++) {
+          for ($i = $rowCount-1; $i >=0;  $i--) {
             if ($stmt[$i]['column_name'] === 'the_geom' || $stmt[$i]['column_name'] === 'geom' || $stmt[$i]['column_name'] === 'the_geom4326') {
               unset($stmt[$i]);
             }
@@ -477,7 +477,7 @@ var_dump($output);
 
     $rowCount = count($stmt);
     $column_name_array = array();
-    for ($i = 0; $i < $rowCount; $i++) {
+    for ($i = $rowCount-1; $i >=0;  $i--) {
       if ($stmt[$i]['column_name'] === 'the_geom' || $stmt[$i]['column_name'] === 'geom' || $stmt[$i]['column_name'] === 'the_geom4326') {
         unset($stmt[$i]);
       }

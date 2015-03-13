@@ -3,10 +3,11 @@
 namespace Yorku\JuturnaBundle\Controller;
 
 use Sonata\AdminBundle\Controller\CRUDController;
+use  Symfony\Component\HttpFoundation\Request;
 
 class IndicatorBenefitImageAdminController extends CRUDController {
 
-    public function createAction() {
+    public function createAction(Request $request = NULL) {
         // the key used to lookup the template
         $templateKey = 'edit';
 
@@ -89,7 +90,7 @@ class IndicatorBenefitImageAdminController extends CRUDController {
         ));
     }
 
-    public function editAction($id = NULL) {
+    public function editAction($id = NULL,Request $request = NULL) {
 
         $templateKey = 'edit';
 

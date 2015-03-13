@@ -30,7 +30,7 @@ class CategoryAdminController extends BaseController {
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listAction() {
+    public function listAction(Request $request = NULL) {
         if (!$this->getRequest()->get('filter') && !$this->getRequest()->get('filters')) {
             return new RedirectResponse($this->admin->generateUrl('tree'));
         }

@@ -16,28 +16,26 @@
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>
-<!--        <many-to-one field="context" target-entity="Application\Sonata\ClassificationBundle\Entity\Context">
+        <!--        <many-to-one field="context" target-entity="Application\Sonata\ClassificationBundle\Entity\Context">
             <join-column name="context_id" referenced-column-name="id" nullable="true" />
         </many-to-one>-->
-        <many-to-many field="graphcharts" target-entity="Yorku\JuturnaBundle\Entity\GraphChart">
+        <many-to-many field="graphcharts" target-entity="Yorku\JuturnaBundle\Entity\GraphChart"  mapped-by="tags">
             <cascade>
                 <cascade-all/>
             </cascade>
-            <mapped-by>
-                
-            </mapped-by>
-          <order-by>
+  
+            <order-by>
                 <order-by-field name="graphchartTitle" direction="ASC" />
             </order-by>
         </many-to-many>
         
-<!--      manyToMany:
-        stations:
-          targetEntity: Station
-          mappedBy: species  
-          orderBy:
-             stationName: ASC-->
-<!--<many-to-many field="groups" target-entity="Group">
+        <!--      manyToMany:
+   stations:
+     targetEntity: Station
+     mappedBy: species  
+     orderBy:
+        stationName: ASC-->
+        <!--<many-to-many field="groups" target-entity="Group">
             <cascade>
                 <cascade-all/>
             </cascade>

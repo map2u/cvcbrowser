@@ -1,0 +1,141 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 15-Sep-2014, 10:23:23 AM
+    Author     : josephzhao
+*/
+/*
+.wrapper {
+    position:relative;
+    margin:60px auto;
+    overflow:hidden;
+        padding:5px;
+        height:50px;
+}
+
+.list {
+    position:absolute;
+    left:0px;
+    top:0px;
+        min-width:3000px;
+        margin-left:12px;
+    margin-top:0px;
+}
+
+.list li{
+        display:table-cell;
+    position:relative;
+    text-align:center;
+    cursor:grab;
+    cursor:-webkit-grab;
+    color:#efefef;
+    vertical-align:middle;
+}
+
+.scroller {
+  text-align:center;
+  cursor:pointer;
+  display:none;
+  padding:7px;
+  padding-top:11px;
+  white-space:no-wrap;
+  vertical-align:middle;
+  background-color:#fff;
+}
+
+.scroller-right{
+  float:right;
+}
+
+.scroller-left {
+  float:left;
+}*/
+
+/*
+.ui-tabs-paging-next { 
+    float: right !important;
+}
+.ui-tabs-paging-prev,
+.ui-tabs-paging-next {
+    background: transparent !important;
+    border: 0 !important;
+    margin-bottom: 1px !important;
+}
+.ui-tabs-paging-prev a,
+.ui-tabs-paging-next a {
+    display: block; 
+    position: relative; 
+    top: 1px; 
+    border: 0;
+    z-index: 2; 
+    padding: 0;
+     color: #444;  
+    text-decoration: none;
+    background: transparent !important; 
+    cursor: pointer;
+}
+.ui-tabs-paging-next a:hover,
+.ui-tabs-paging-next a:focus,
+.ui-tabs-paging-next a:active,
+.ui-tabs-paging-prev a:hover,
+.ui-tabs-paging-prev a:focus,
+.ui-tabs-paging-prev a:active { 
+    background: transparent; 
+}
+.ui-tabs-paging-disabled {
+    visibility: hidden;
+}*/
+
+div#mapoverlayselection .title {
+    margin-top: 40px;
+}
+div#mapoverlayselection .tag {
+     float:left;
+     margin-left: -35px;
+}
+div#mapoverlayselection .tag li {
+    display: inline-block;
+    margin-left: 5px;
+    cursor: pointer;
+    background-color: #08C;
+    color: white;
+    padding: 1px 5px;
+    border-radius: 3px;
+  
+}
+div#mapoverlayselection .tag li a {
+    color: white;
+}
+div#table_mapoverlayselectionlist_wrapper {
+    margin-top: 0px;
+}
+div#table_mapoverlayselectionlist_filter input[type="search"] {
+    -webkit-appearance: searchfield;
+    box-sizing: border-box;
+    text-shadow: none;
+    border-radius: 8px;
+    width: 80px;
+    height:20px;
+    background-color: white;
+    border: 1px inset;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+    -webkit-rtl-ordering: logical;
+    -webkit-user-select: text;
+    cursor: auto;
+    font: -webkit-small-control;
+    color: initial;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 5px;
+    text-shadow: none;
+    display: inline-block;
+  
+}

@@ -15,6 +15,21 @@ Yorku\JuturnaBundle\Entity\HomepageFlash:
             fixed: false
             nullable: false
             column: title
+        titleMargin:
+            type: integer
+            unsigned: false
+            nullable: true
+            column: title_margin
+            options:
+                default:
+                    0
+        alignLeft:
+            type: boolean
+            nullable: true
+            column: align_left
+            options:
+                default:
+                    true                
         introduce:
             type: string
             length: 500

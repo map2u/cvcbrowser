@@ -1,6 +1,6 @@
 {# empty Twig template #}
-<div >
-  
+<div class="homepage_flash_wrap">
+
     {% if flashs|length > 0 %}
         {# {% for image in images %}
  
@@ -9,20 +9,13 @@
          {% endfor %}#}
 
         <div id="homepageFlashCarousel" class="carousel slide"  data-ride="carousel">
-            <ol class="carousel-indicators">
-                {% set i=0 %}
-                {% for flash in flashs %}
-                    <li data-target="#homepageFlashCarousel" data-slide-to="{{i}}" {% if i==0 %} class="active" {% endif %}>
-                    </li>
-                    {% set i=i+1 %}
-                {% endfor %}
-            </ol>
+
             <div class="carousel-inner">
                 {% set i=0 %}
                 {% for flash in flashs %}
-                    <div id="homepageFlash-image-{{i}}" data-id="{{i}}" data-slide-no="{{i}}" class="item carousel-item  {% if i==0%} active {% endif %}" style="padding:0 5px;">
-                        <a href="{{flash.getUrl()}}" target="_blank"><img src="/uploads/images/homepageflashs/{{flash.getImage()}}"  style="height:315px;margin:5px auto;border-radius: 8px;"></a>
-                        <div class="carousel-caption">
+                    <div id="homepageFlash-image-{{i}}" data-id="{{i}}" data-slide-no="{{i}}" class="item carousel-item  {% if i==0%} active {% endif %}" style="">
+                        <a href="{{flash.getUrl()}}" target="_blank"><img src="/uploads/images/homepageflashs/{{flash.getImage()}}"  style="height:355px;margin:0px auto;border-radius: 3px;"></a>
+                        <div class="carousel-caption" style="margin-left:{{flash.titleMargin}}px;">
                             <h4>{{flash.getTitle()}}</h4>
                             <p>{{flash.getIntroduce()}}</p>
                         </div>
@@ -33,7 +26,14 @@
 
             <a class="left carousel-control" href="#homepageFlashCarousel" data-slide="prev"><span class="icon-prev"></span></a>
             <a class="right carousel-control" href="#homepageFlashCarousel" data-slide="next"><span class="icon-next"></span></a>
-
+            <ol class="carousel-indicators">
+                {% set i=0 %}
+                {% for flash in flashs %}
+                    <li data-target="#homepageFlashCarousel" data-slide-to="{{i}}" {% if i==0 %} class="active" {% endif %}>
+                    </li>
+                    {% set i=i+1 %}
+                {% endfor %}
+            </ol>
         </div>
     {% endif %}
 </div>
