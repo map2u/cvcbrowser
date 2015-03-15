@@ -16,23 +16,23 @@ and open the template in the editor.
     Created on : 10-Mar-2014, 2:48:15 PM
     Author     : josephzhao
 */
-/* line 21, assetic_compassSzWRhn.scss */
+/* line 21, assetic_compassb1CfoK.scss */
 div#leaflet_content.overlay-sidebar {
   margin-top: 1px;
 }
 
-/* line 25, assetic_compassSzWRhn.scss */
+/* line 25, assetic_compassb1CfoK.scss */
 .small_icon {
   vertical-align: middle;
   margin-right: 5px;
 }
 
-/* line 26, assetic_compassSzWRhn.scss */
+/* line 26, assetic_compassb1CfoK.scss */
 .red {
   color: red;
 }
 
-/* line 27, assetic_compassSzWRhn.scss */
+/* line 27, assetic_compassb1CfoK.scss */
 .icon {
   display: inline-block;
   vertical-align: top;
@@ -43,127 +43,127 @@ div#leaflet_content.overlay-sidebar {
   overflow: hidden;
 }
 
-/* line 31, assetic_compassSzWRhn.scss */
+/* line 31, assetic_compassb1CfoK.scss */
 .icon.search {
   background-position: 0 0;
 }
 
-/* line 32, assetic_compassSzWRhn.scss */
+/* line 32, assetic_compassb1CfoK.scss */
 .icon.donate {
   background-position: -20px 0;
 }
 
-/* line 33, assetic_compassSzWRhn.scss */
+/* line 33, assetic_compassb1CfoK.scss */
 .icon.zoomin {
   background-position: -40px 0;
 }
 
-/* line 34, assetic_compassSzWRhn.scss */
+/* line 34, assetic_compassb1CfoK.scss */
 .icon.zoomout {
   background-position: -60px 0;
 }
 
-/* line 35, assetic_compassSzWRhn.scss */
+/* line 35, assetic_compassb1CfoK.scss */
 .icon.geolocate {
   background-position: -80px 0;
 }
 
-/* line 36, assetic_compassSzWRhn.scss */
+/* line 36, assetic_compassb1CfoK.scss */
 .active .icon.geolocate {
   background-position: -80px -20px;
 }
 
-/* line 37, assetic_compassSzWRhn.scss */
+/* line 37, assetic_compassb1CfoK.scss */
 .icon.layers {
   background-position: -100px 0;
 }
 
-/* line 38, assetic_compassSzWRhn.scss */
+/* line 38, assetic_compassb1CfoK.scss */
 .icon.key {
   background-position: -120px 0;
 }
 
-/* line 39, assetic_compassSzWRhn.scss */
+/* line 39, assetic_compassb1CfoK.scss */
 .icon.business {
   background-position: -120px 0;
 }
 
-/* line 40, assetic_compassSzWRhn.scss */
+/* line 40, assetic_compassb1CfoK.scss */
 .icon.graphchart {
   background-position: -60px -40px;
 }
 
-/* line 41, assetic_compassSzWRhn.scss */
+/* line 41, assetic_compassb1CfoK.scss */
 .icon.share {
   background-position: -140px 0;
 }
 
-/* line 42, assetic_compassSzWRhn.scss */
+/* line 42, assetic_compassb1CfoK.scss */
 .icon.clipboard {
   background-position: -160px 0;
 }
 
-/* line 43, assetic_compassSzWRhn.scss */
+/* line 43, assetic_compassb1CfoK.scss */
 .icon.link {
   background-position: -180px 0;
 }
 
-/* line 44, assetic_compassSzWRhn.scss */
+/* line 44, assetic_compassb1CfoK.scss */
 .icon.close {
   background-position: -200px 0;
 }
 
-/* line 45, assetic_compassSzWRhn.scss */
+/* line 45, assetic_compassb1CfoK.scss */
 .icon.close:hover {
   background-position: -200px -20px;
 }
 
-/* line 46, assetic_compassSzWRhn.scss */
+/* line 46, assetic_compassb1CfoK.scss */
 .icon.uploadfile {
   background-position: 0px -20px;
 }
 
-/* line 47, assetic_compassSzWRhn.scss */
+/* line 47, assetic_compassb1CfoK.scss */
 .control-button.disabled .icon.uploadfile {
   background-position: 0px -40px;
 }
 
-/* line 48, assetic_compassSzWRhn.scss */
+/* line 48, assetic_compassb1CfoK.scss */
 .icon.uploadfile-list {
   background-position: -20px -20px;
 }
 
-/* line 49, assetic_compassSzWRhn.scss */
+/* line 49, assetic_compassb1CfoK.scss */
 .control-button.disabled .icon.uploadfile-list {
   background-position: -20px -40px;
 }
 
-/* line 50, assetic_compassSzWRhn.scss */
+/* line 50, assetic_compassb1CfoK.scss */
 .control-button.disabled .icon.graphchart {
   background-position: -40px -40px;
 }
 
-/* line 52, assetic_compassSzWRhn.scss */
+/* line 52, assetic_compassb1CfoK.scss */
 .icon.check {
   background-position: -220px 0;
 }
 
-/* line 53, assetic_compassSzWRhn.scss */
+/* line 53, assetic_compassb1CfoK.scss */
 .icon.note {
   background-position: -240px 0;
 }
 
-/* line 54, assetic_compassSzWRhn.scss */
+/* line 54, assetic_compassb1CfoK.scss */
 .icon.gear {
   background-position: -260px 0;
 }
 
-/* line 55, assetic_compassSzWRhn.scss */
+/* line 55, assetic_compassb1CfoK.scss */
 .leaflet-container .leaflet-control-attribution {
   display: block;
 }
 
-/* line 58, assetic_compassSzWRhn.scss */
+/* line 58, assetic_compassb1CfoK.scss */
 #noscript {
   z-index: 20000000;
   position: absolute;
@@ -171,13 +171,13 @@ div#leaflet_content.overlay-sidebar {
   left: 15px;
 }
 
-/* line 59, assetic_compassSzWRhn.scss */
+/* line 59, assetic_compassb1CfoK.scss */
 .tooltip.left {
   margin-left: -10px;
   text-align: right;
 }
 
-/* line 60, assetic_compassSzWRhn.scss */
+/* line 60, assetic_compassb1CfoK.scss */
 .tooltip.left .tooltip-arrow {
   top: 50%;
   right: -5px;
@@ -198,7 +198,7 @@ div#leaflet_content.overlay-sidebar {
 .tooltip.right .tooltip-arrow{top:50%;left:-5px;margin-top:-5px;border-right-color:white;border-width:5px 5px 5px 0}
 .tooltip.left .tooltip-arrow{top:50%;right:-5px;margin-top:-5px;border-left-color:white;border-width:5px 0 5px 5px}
 .tooltip.bottom .tooltip-arrow{top:-5px;left:50%;margin-left:-5px;border-bottom-color:white;border-width:0 5px 5px}*/
-/* line 74, assetic_compassSzWRhn.scss */
+/* line 74, assetic_compassb1CfoK.scss */
 .leaflet-control .control-button {
   display: block;
   height: 40px;
@@ -210,34 +210,34 @@ div#leaflet_content.overlay-sidebar {
   outline: none;
 }
 
-/* line 77, assetic_compassSzWRhn.scss */
+/* line 77, assetic_compassb1CfoK.scss */
 .leaflet-control .control-button:hover {
   background-color: black;
 }
 
-/* line 78, assetic_compassSzWRhn.scss */
+/* line 78, assetic_compassb1CfoK.scss */
 .leaflet-control .control-button.active {
   background-color: #9ed485;
 }
 
-/* line 79, assetic_compassSzWRhn.scss */
+/* line 79, assetic_compassb1CfoK.scss */
 .leaflet-control .control-button.disabled {
   background-color: #333;
   background-color: rgba(0, 0, 0, 0.5);
   cursor: default;
 }
 
-/* line 80, assetic_compassSzWRhn.scss */
+/* line 80, assetic_compassb1CfoK.scss */
 .leaflet-control .control-button .icon {
   margin: 10px;
 }
 
-/* line 81, assetic_compassSzWRhn.scss */
+/* line 81, assetic_compassb1CfoK.scss */
 .leaflet-draw.leaflet-control {
   margin-top: 10px;
 }
 
-/* line 84, assetic_compassSzWRhn.scss */
+/* line 84, assetic_compassb1CfoK.scss */
 .maptoolbar-control {
   width: 82px;
   height: 32px;
@@ -250,7 +250,7 @@ div#leaflet_content.overlay-sidebar {
   border: 1px solid green;
 }
 
-/* line 96, assetic_compassSzWRhn.scss */
+/* line 96, assetic_compassb1CfoK.scss */
 .maptoolbar-control .maptoolbar-control-reset, .maptoolbar-control .maptoolbar-control-prev, .maptoolbar-control .maptoolbar-control-next {
   margin-bottom: 0px;
   border-radius: 3px;
@@ -263,69 +263,69 @@ div#leaflet_content.overlay-sidebar {
   border: 1px solid green;
 }
 
-/* line 108, assetic_compassSzWRhn.scss */
+/* line 108, assetic_compassb1CfoK.scss */
 .maptoolbar-control .maptoolbar-control-reset {
   background-position: 3px 3px;
   background-image: url(/images/home.png);
   background-repeat: no-repeat;
 }
 
-/* line 113, assetic_compassSzWRhn.scss */
+/* line 113, assetic_compassb1CfoK.scss */
 .maptoolbar-control .maptoolbar-control-prev {
   background-position: 1px 2px;
   background-image: url(/images/glyphicons_210_left_arrow.png);
   background-repeat: no-repeat;
 }
 
-/* line 118, assetic_compassSzWRhn.scss */
+/* line 118, assetic_compassb1CfoK.scss */
 .maptoolbar-control .maptoolbar-control-next {
   background-position: 1px 2px;
   background-image: url(/images/glyphicons_211_right_arrow.png);
   background-repeat: no-repeat;
 }
 
-/* line 123, assetic_compassSzWRhn.scss */
+/* line 123, assetic_compassb1CfoK.scss */
 .leaflet-sidebar.left, .zoom.leaflet-control {
   margin-top: 0px !important;
 }
 
-/* line 127, assetic_compassSzWRhn.scss */
+/* line 127, assetic_compassb1CfoK.scss */
 .leaflet-control .zoomin, .control-layers .control-button {
   margin-bottom: 0px;
   border-radius: 4px 0 0 0;
 }
 
-/* line 128, assetic_compassSzWRhn.scss */
+/* line 128, assetic_compassb1CfoK.scss */
 .leaflet-control .zoomout, .control-key .control-button {
   margin-bottom: 0;
   border-radius: 0;
 }
 
-/* line 129, assetic_compassSzWRhn.scss */
+/* line 129, assetic_compassb1CfoK.scss */
 .control-locate .control-button, .control-share .control-button {
   border-radius: 0 0 0 4px;
 }
 
-/* line 130, assetic_compassSzWRhn.scss */
+/* line 130, assetic_compassb1CfoK.scss */
 .leaflet-control .control-business .control-button {
   margin-bottom: 0;
   border-radius: 0 0 0 4px;
 }
 
-/* line 132, assetic_compassSzWRhn.scss */
+/* line 132, assetic_compassb1CfoK.scss */
 .control-uploadfile .control-button {
   margin-bottom: 0;
   border-radius: 0;
 }
 
-/* line 133, assetic_compassSzWRhn.scss */
+/* line 133, assetic_compassb1CfoK.scss */
 .control-uploadfile-list .control-button {
   margin-bottom: 0;
   border-radius: 0;
 }
 
 /*.sonata-bc #leaflet_content{overflow:hidden;position:absolute;top:125px;bottom:0;width:100%}*/
-/* line 137, assetic_compassSzWRhn.scss */
+/* line 137, assetic_compassb1CfoK.scss */
 .sonata-bc #sidebar {
   position: relative;
   height: 100%;
@@ -334,38 +334,38 @@ div#leaflet_content.overlay-sidebar {
   background-color: rgba(255, 255, 255, 0.92);
 }
 
-/* line 138, assetic_compassSzWRhn.scss */
+/* line 138, assetic_compassb1CfoK.scss */
 .sonata-bc #sidebar {
   float: left;
   width: 350px;
   font-size: 12px;
 }
 
-/* line 139, assetic_compassSzWRhn.scss */
+/* line 139, assetic_compassb1CfoK.scss */
 .sonata-bc #sidebar h2 {
   padding: 20px 20px 10px;
 }
 
-/* line 140, assetic_compassSzWRhn.scss */
+/* line 140, assetic_compassb1CfoK.scss */
 .sonata-bc #sidebar .search_form {
   margin-bottom: 0px;
   padding-bottom: 0px;
 }
 
-/* line 141, assetic_compassSzWRhn.scss */
+/* line 141, assetic_compassb1CfoK.scss */
 .sonata-bc #sidebar h3, .sonata-bc #sidebar h4 {
   margin-top: 20px;
   margin-bottom: 10px;
   font-size: 13px;
 }
 
-/* line 142, assetic_compassSzWRhn.scss */
+/* line 142, assetic_compassb1CfoK.scss */
 .sonata-bc #sidebar .icon.close {
   float: right;
   cursor: pointer;
 }
 
-/* line 145, assetic_compassSzWRhn.scss */
+/* line 145, assetic_compassb1CfoK.scss */
 ul#uploadfilelist-ul > li {
   margin-left: -25px;
   list-style: decimal;
@@ -374,28 +374,28 @@ ul#uploadfilelist-ul > li {
   list-style-position: outside;
 }
 
-/* line 152, assetic_compassSzWRhn.scss */
+/* line 152, assetic_compassb1CfoK.scss */
 ul#uploadfilelist-ul > li img:hover {
   cursor: pointer;
 }
 
-/* line 157, assetic_compassSzWRhn.scss */
+/* line 157, assetic_compassb1CfoK.scss */
 svg {
   position: relative;
 }
 
-/* line 161, assetic_compassSzWRhn.scss */
+/* line 161, assetic_compassb1CfoK.scss */
 div.uploadfile_link {
   width: 100%;
   text-align: right;
 }
 
-/* line 165, assetic_compassSzWRhn.scss */
+/* line 165, assetic_compassb1CfoK.scss */
 div.uploadfile_link a.uploadfile {
   margin: 0 2px 0 8px;
 }
 
-/* line 169, assetic_compassSzWRhn.scss */
+/* line 169, assetic_compassb1CfoK.scss */
 .place,
 .place-label {
   fill: #444;
@@ -406,12 +406,12 @@ div.uploadfile_link a.uploadfile {
     font-size: 10px;
     pointer-events: none;
 }*/
-/* line 180, assetic_compassSzWRhn.scss */
+/* line 180, assetic_compassb1CfoK.scss */
 .sonata-bc .welcome {
   display: none;
 }
 
-/* line 181, assetic_compassSzWRhn.scss */
+/* line 181, assetic_compassb1CfoK.scss */
 .sonata-bc .overlay-sidebar #sidebar {
   position: absolute;
   z-index: 500;
@@ -420,24 +420,24 @@ div.uploadfile_link a.uploadfile {
   overflow: hidden;
 }
 
-/* line 182, assetic_compassSzWRhn.scss */
+/* line 182, assetic_compassb1CfoK.scss */
 .sonata-bc .overlay-sidebar #sidebar .welcome {
   display: block;
 }
 
-/* line 183, assetic_compassSzWRhn.scss */
+/* line 183, assetic_compassb1CfoK.scss */
 .sonata-bc .overlay-sidebar #sidebar #sidebar_content {
   display: none;
 }
 
-/* line 184, assetic_compassSzWRhn.scss */
+/* line 184, assetic_compassb1CfoK.scss */
 .sonata-bc .welcome p {
   padding: 10px 20px 20px;
   font-size: 110%;
   font-weight: 300;
 }
 
-/* line 185, assetic_compassSzWRhn.scss */
+/* line 185, assetic_compassb1CfoK.scss */
 .sonata-bc .welcome .button {
   width: 50%;
   float: left;
@@ -447,12 +447,12 @@ div.uploadfile_link a.uploadfile {
   padding: .6em;
 }
 
-/* line 186, assetic_compassSzWRhn.scss */
+/* line 186, assetic_compassb1CfoK.scss */
 .sonata-bc .welcome .button.learn-more {
   border-right: 1px solid #fff;
 }
 
-/* line 187, assetic_compassSzWRhn.scss */
+/* line 187, assetic_compassb1CfoK.scss */
 .sonata-bc #leafmap {
   position: relative;
   height: 100%;
@@ -460,7 +460,7 @@ div.uploadfile_link a.uploadfile {
   overflow: hidden;
 }
 
-/* line 188, assetic_compassSzWRhn.scss */
+/* line 188, assetic_compassb1CfoK.scss */
 .sonata-bc #map-ui {
   z-index: 1000;
   display: none;
@@ -475,13 +475,13 @@ div.uploadfile_link a.uploadfile {
   border: 0px solid #0a44ff;
 }
 
-/* line 189, assetic_compassSzWRhn.scss */
+/* line 189, assetic_compassb1CfoK.scss */
 .sonata-bc #map-ui .section {
   border-top: 1px solid #DDD;
   padding: 10px 20px;
 }
 
-/* line 190, assetic_compassSzWRhn.scss */
+/* line 190, assetic_compassb1CfoK.scss */
 .sonata-bc #map-ui a.close-button {
   float: right;
   padding: 5px;
@@ -491,46 +491,46 @@ div.uploadfile_link a.uploadfile {
   border: 1px solid #ddd;
 }
 
-/* line 191, assetic_compassSzWRhn.scss */
+/* line 191, assetic_compassb1CfoK.scss */
 .sonata-bc #map-ui .tooltip {
   opacity: 1;
   border: 1px solid #ccc;
 }
 
-/* line 192, assetic_compassSzWRhn.scss */
+/* line 192, assetic_compassb1CfoK.scss */
 .sonata-bc #map-ui .tooltip .tooltip-arrow {
   border-top-color: #ccc;
 }
 
-/* line 193, assetic_compassSzWRhn.scss */
+/* line 193, assetic_compassb1CfoK.scss */
 .sonata-bc #map-ui input[type="radio"] {
   margin-top: 0px;
   margin-right: 5px;
 }
 
-/* line 194, assetic_compassSzWRhn.scss */
+/* line 194, assetic_compassb1CfoK.scss */
 .sonata-bc #map-ui input[type="checkbox"] {
   margin-top: 0px;
 }
 
-/* line 195, assetic_compassSzWRhn.scss */
+/* line 195, assetic_compassb1CfoK.scss */
 .layers-ui li:last-child, .share-ui li:last-child {
   margin-bottom: 0;
 }
 
-/* line 196, assetic_compassSzWRhn.scss */
+/* line 196, assetic_compassb1CfoK.scss */
 .sonata-bc #map-ui .layers-ui ul {
   list-style-type: none;
 }
 
-/* line 197, assetic_compassSzWRhn.scss */
+/* line 197, assetic_compassb1CfoK.scss */
 .layers-ui .base-layers .leaflet-container {
   width: 100%;
   height: 50px;
   cursor: pointer;
 }
 
-/* line 198, assetic_compassSzWRhn.scss */
+/* line 198, assetic_compassb1CfoK.scss */
 .layers-ui .base-layers li {
   overflow: hidden;
   border-radius: 3px;
@@ -540,7 +540,7 @@ div.uploadfile_link a.uploadfile {
   transition: border-color 0.08s ease-in;
 }
 
-/* line 199, assetic_compassSzWRhn.scss */
+/* line 199, assetic_compassb1CfoK.scss */
 .layers-ui .base-layers li label {
   position: absolute;
   top: 0;
@@ -555,43 +555,43 @@ div.uploadfile_link a.uploadfile {
   z-index: 2;
 }
 
-/* line 200, assetic_compassSzWRhn.scss */
+/* line 200, assetic_compassb1CfoK.scss */
 .layers-ui .base-layers li label input[type="radio"] {
   display: none;
 }
 
-/* line 201, assetic_compassSzWRhn.scss */
+/* line 201, assetic_compassb1CfoK.scss */
 .layers-ui .base-layers li.active {
   border-color: #60a94f;
 }
 
-/* line 202, assetic_compassSzWRhn.scss */
+/* line 202, assetic_compassb1CfoK.scss */
 .layers-ui .base-layers li:hover {
   border-color: #cccccc;
 }
 
-/* line 203, assetic_compassSzWRhn.scss */
+/* line 203, assetic_compassb1CfoK.scss */
 .layers-ui .base-layers li:hover.active {
   border-color: #4d863f;
 }
 
-/* line 204, assetic_compassSzWRhn.scss */
+/* line 204, assetic_compassb1CfoK.scss */
 .layers-ui .overlay-layers p {
   font-size: 13px;
   margin-bottom: 8px;
 }
 
-/* line 205, assetic_compassSzWRhn.scss */
+/* line 205, assetic_compassb1CfoK.scss */
 .layers-ui .overlay-layers li.disabled {
   color: #999;
 }
 
-/* line 206, assetic_compassSzWRhn.scss */
+/* line 206, assetic_compassb1CfoK.scss */
 .share-ui .share-tabs {
   margin-bottom: 10px;
 }
 
-/* line 207, assetic_compassSzWRhn.scss */
+/* line 207, assetic_compassb1CfoK.scss */
 .share-ui .share-tabs a {
   color: #fff;
   text-decoration: none;
@@ -599,29 +599,29 @@ div.uploadfile_link a.uploadfile {
   padding: 5px 10px;
 }
 
-/* line 208, assetic_compassSzWRhn.scss */
+/* line 208, assetic_compassb1CfoK.scss */
 .share-ui .share-tabs a:first-child {
   border-right: 1px solid #fff;
   border-radius: 4px 0 0 4px;
 }
 
-/* line 209, assetic_compassSzWRhn.scss */
+/* line 209, assetic_compassb1CfoK.scss */
 .share-ui .share-tabs a:last-child {
   border-left: 1px solid #fff;
   border-radius: 0 4px 4px 0;
 }
 
-/* line 210, assetic_compassSzWRhn.scss */
+/* line 210, assetic_compassb1CfoK.scss */
 .share-ui .share-tabs a.active {
   background-color: #7092ff;
 }
 
-/* line 211, assetic_compassSzWRhn.scss */
+/* line 211, assetic_compassb1CfoK.scss */
 .share-ui .share-tab {
   display: none;
 }
 
-/* line 212, assetic_compassSzWRhn.scss */
+/* line 212, assetic_compassb1CfoK.scss */
 .share-ui .share-link input[type=text], .share-ui .share-link textarea {
   width: 100%;
   font-family: monospace;
@@ -629,91 +629,91 @@ div.uploadfile_link a.uploadfile {
   line-height: 1.3;
 }
 
-/* line 213, assetic_compassSzWRhn.scss */
+/* line 213, assetic_compassb1CfoK.scss */
 .share-ui .share-image label {
   margin-right: 10px;
 }
 
-/* line 214, assetic_compassSzWRhn.scss */
+/* line 214, assetic_compassb1CfoK.scss */
 .share-ui #embed_html {
   resize: vertical;
 }
 
-/* line 215, assetic_compassSzWRhn.scss */
+/* line 215, assetic_compassb1CfoK.scss */
 .share-ui #mapnik_scale {
   width: 100px;
 }
 
-/* line 216, assetic_compassSzWRhn.scss */
+/* line 216, assetic_compassb1CfoK.scss */
 .leaflet-top {
   top: 0px !important;
 }
 
-/* line 217, assetic_compassSzWRhn.scss */
+/* line 217, assetic_compassb1CfoK.scss */
 .leaflet-top .leaflet-control {
   margin-right: 0px !important;
   margin-top: 0px !important;
 }
 
-/* line 218, assetic_compassSzWRhn.scss */
+/* line 218, assetic_compassb1CfoK.scss */
 .leaflet-popup-scrolled {
   padding-right: 20px;
   border-bottom: 0px !important;
   border-top: 0px !important;
 }
 
-/* line 219, assetic_compassSzWRhn.scss */
+/* line 219, assetic_compassb1CfoK.scss */
 .leaflet-popup-content-wrapper {
   border-radius: 4px !important;
   -webkit-border-radius: 4px !important;
 }
 
-/* line 220, assetic_compassSzWRhn.scss */
+/* line 220, assetic_compassb1CfoK.scss */
 #attribution {
   display: none;
 }
 
-/* line 221, assetic_compassSzWRhn.scss */
+/* line 221, assetic_compassb1CfoK.scss */
 .attribution_license, .attribution_project {
   text-align: left;
 }
 
-/* line 222, assetic_compassSzWRhn.scss */
+/* line 222, assetic_compassb1CfoK.scss */
 .attribution_notice {
   text-align: center;
 }
 
-/* line 223, assetic_compassSzWRhn.scss */
+/* line 223, assetic_compassb1CfoK.scss */
 .donate-attr {
   color: #60a94f !important;
 }
 
-/* line 224, assetic_compassSzWRhn.scss */
+/* line 224, assetic_compassb1CfoK.scss */
 .sidebar_heading {
   position: relative;
   padding: 10px 20px;
 }
 
-/* line 225, assetic_compassSzWRhn.scss */
+/* line 225, assetic_compassb1CfoK.scss */
 .sidebar_heading > .close {
   float: right;
   margin-top: 2px;
   cursor: pointer;
 }
 
-/* line 226, assetic_compassSzWRhn.scss */
+/* line 226, assetic_compassb1CfoK.scss */
 #browse_status p {
   padding: 20px;
 }
 
-/* line 227, assetic_compassSzWRhn.scss */
+/* line 227, assetic_compassb1CfoK.scss */
 #browse_status input {
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
 
-/* line 228, assetic_compassSzWRhn.scss */
+/* line 228, assetic_compassb1CfoK.scss */
 #sidebar #sidebar_loader, #sidebar .loader, #sidebar .load_more {
   text-align: center;
   margin: 20px auto;
@@ -721,26 +721,26 @@ div.uploadfile_link a.uploadfile {
   display: block;
 }
 
-/* line 229, assetic_compassSzWRhn.scss */
+/* line 229, assetic_compassb1CfoK.scss */
 header .search_form {
   display: none;
 }
 
-/* line 229, assetic_compassSzWRhn.scss */
+/* line 229, assetic_compassb1CfoK.scss */
 .search_form {
   position: relative;
   padding: 10px;
   background-color: #eeeeee;
 }
 
-/* line 231, assetic_compassSzWRhn.scss */
+/* line 231, assetic_compassb1CfoK.scss */
 .search_form .query_wrapper {
   position: relative;
   overflow: hidden;
   border-radius: 2px 0 0 2px;
 }
 
-/* line 232, assetic_compassSzWRhn.scss */
+/* line 232, assetic_compassb1CfoK.scss */
 .search_form input[type=text] {
   width: 100%;
   height: 20px;
@@ -750,13 +750,13 @@ header .search_form {
   -moz-transition: 300ms linear;
 }
 
-/* line 233, assetic_compassSzWRhn.scss */
+/* line 233, assetic_compassb1CfoK.scss */
 .search_form input:focus {
   outline: none;
   box-shadow: 0px 0px 7px #9ED485;
 }
 
-/* line 234, assetic_compassSzWRhn.scss */
+/* line 234, assetic_compassb1CfoK.scss */
 .search_form input[type=submit] {
   float: right;
   width: auto;
@@ -764,7 +764,7 @@ header .search_form {
   border-radius: 0 2px 2px 0;
 }
 
-/* line 235, assetic_compassSzWRhn.scss */
+/* line 235, assetic_compassb1CfoK.scss */
 .search_form .describe_location {
   position: absolute;
   top: 6px;
@@ -773,29 +773,29 @@ header .search_form {
   color: #7092ff;
 }
 
-/* line 236, assetic_compassSzWRhn.scss */
+/* line 236, assetic_compassb1CfoK.scss */
 #mapkey .mapkey-table-key img {
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
 
-/* line 237, assetic_compassSzWRhn.scss */
+/* line 237, assetic_compassb1CfoK.scss */
 #mapkey td {
   padding: 0 5px 5px 5px;
 }
 
-/* line 237, assetic_compassSzWRhn.scss */
+/* line 237, assetic_compassb1CfoK.scss */
 .search_results_entry ul li {
   border-bottom: 1px solid #eeeeee;
 }
 
-/* line 238, assetic_compassSzWRhn.scss */
+/* line 238, assetic_compassb1CfoK.scss */
 .search_results_entry ul li:first-child {
   border-top: 1px solid #eeeeee;
 }
 
-/* line 239, assetic_compassSzWRhn.scss */
+/* line 239, assetic_compassb1CfoK.scss */
 .search_results_entry .search_details {
   display: block;
   float: right;
@@ -804,62 +804,62 @@ header .search_form {
   margin-left: 0.5em;
 }
 
-/* line 240, assetic_compassSzWRhn.scss */
+/* line 240, assetic_compassb1CfoK.scss */
 .search_results_error {
   color: #f00;
 }
 
-/* line 241, assetic_compassSzWRhn.scss */
+/* line 241, assetic_compassb1CfoK.scss */
 #sidebar_content .browse_details {
   position: relative;
   border-bottom: 1px solid #eeeeee;
 }
 
-/* line 242, assetic_compassSzWRhn.scss */
+/* line 242, assetic_compassb1CfoK.scss */
 .browse_status {
   display: none;
 }
 
-/* line 243, assetic_compassSzWRhn.scss */
+/* line 243, assetic_compassb1CfoK.scss */
 #sidebar .changesets li {
   padding: 15px 20px;
   border-bottom: 1px solid #ddd;
   cursor: pointer;
 }
 
-/* line 244, assetic_compassSzWRhn.scss */
+/* line 244, assetic_compassb1CfoK.scss */
 #sidebar .changesets li.selected {
   background: #FFFFE6;
 }
 
-/* line 245, assetic_compassSzWRhn.scss */
+/* line 245, assetic_compassb1CfoK.scss */
 #sidebar .changesets h4 {
   margin: 0;
 }
 
-/* line 246, assetic_compassSzWRhn.scss */
+/* line 246, assetic_compassb1CfoK.scss */
 #sidebar .changesets h4 a {
   color: #000;
 }
 
-/* line 247, assetic_compassSzWRhn.scss */
+/* line 247, assetic_compassb1CfoK.scss */
 #sidebar_content .browse-section {
   padding: 10px 20px;
   border-bottom: 1px solid #ddd;
 }
 
-/* line 248, assetic_compassSzWRhn.scss */
+/* line 248, assetic_compassb1CfoK.scss */
 #sidebar_content .browse-section h4:first-child {
   margin-top: 0;
   word-wrap: break-word;
 }
 
-/* line 249, assetic_compassSzWRhn.scss */
+/* line 249, assetic_compassb1CfoK.scss */
 #sidebar_content .browse-section:last-of-type {
   border-bottom: none;
 }
 
-/* line 250, assetic_compassSzWRhn.scss */
+/* line 250, assetic_compassb1CfoK.scss */
 #sidebar_content .paginate {
   float: right;
   padding: 1px 6px;
@@ -867,17 +867,17 @@ header .search_form {
   border-radius: 3px;
 }
 
-/* line 251, assetic_compassSzWRhn.scss */
+/* line 251, assetic_compassb1CfoK.scss */
 #sidebar_content .paginate ul {
   padding-left: 20px;
 }
 
-/* line 252, assetic_compassSzWRhn.scss */
+/* line 252, assetic_compassb1CfoK.scss */
 #sidebar_content .browse-field {
   margin-bottom: 10px;
 }
 
-/* line 253, assetic_compassSzWRhn.scss */
+/* line 253, assetic_compassb1CfoK.scss */
 #sidebar_content .browse-field h4 {
   padding: 5px 0 5px 10px;
   font-size: 12px;
@@ -886,7 +886,7 @@ header .search_form {
   background-color: #F6F6F6;
 }
 
-/* line 254, assetic_compassSzWRhn.scss */
+/* line 254, assetic_compassb1CfoK.scss */
 #sidebar_content .browse-field p {
   padding: 7px 10px;
   font-size: 12px;
@@ -896,7 +896,7 @@ header .search_form {
   border-radius: 0 0 4px 4px;
 }
 
-/* line 255, assetic_compassSzWRhn.scss */
+/* line 255, assetic_compassb1CfoK.scss */
 #sidebar_content .browse-tag-list {
   background-color: #F6F6F6;
   border: 1px solid #ddd;
@@ -906,132 +906,132 @@ header .search_form {
   border-collapse: separate;
 }
 
-/* line 256, assetic_compassSzWRhn.scss */
+/* line 256, assetic_compassb1CfoK.scss */
 #sidebar_content .browse-tag-list th, #sidebar_content .browse-tag-list td {
   border-bottom: 1px solid #ddd;
 }
 
-/* line 257, assetic_compassSzWRhn.scss */
+/* line 257, assetic_compassb1CfoK.scss */
 #sidebar_content .browse-tag-list tr:last-child th, #sidebar_content .browse-tag-list tr:last-child td {
   border-bottom: 0;
 }
 
-/* line 258, assetic_compassSzWRhn.scss */
+/* line 258, assetic_compassb1CfoK.scss */
 #sidebar_content .browse-tag-list .browse-tag-k, #sidebar_content .browse-tag-list .browse-tag-v {
   width: 50%;
   padding: 6px 10px;
   word-wrap: break-word;
 }
 
-/* line 259, assetic_compassSzWRhn.scss */
+/* line 259, assetic_compassb1CfoK.scss */
 #sidebar_content .browse-tag-list .browse-tag-k {
   font-weight: 500;
   background-color: #F6F6F6;
 }
 
-/* line 260, assetic_compassSzWRhn.scss */
+/* line 260, assetic_compassb1CfoK.scss */
 #sidebar_content .browse-tag-list .browse-tag-v {
   border-left: 1px solid #ddd;
   background-color: #fff;
 }
 
-/* line 261, assetic_compassSzWRhn.scss */
+/* line 261, assetic_compassb1CfoK.scss */
 #sidebar_content .warning {
   margin: 10px 0;
   padding: 10px;
   font-size: 90%;
 }
 
-/* line 262, assetic_compassSzWRhn.scss */
+/* line 262, assetic_compassb1CfoK.scss */
 #sidebar_content .note-comments li {
   margin: 10px 0;
 }
 
-/* line 263, assetic_compassSzWRhn.scss */
+/* line 263, assetic_compassb1CfoK.scss */
 #sidebar_content .note-comments li p {
   margin-left: 10px;
 }
 
-/* line 264, assetic_compassSzWRhn.scss */
+/* line 264, assetic_compassb1CfoK.scss */
 #sidebar_content .note-description {
   overflow: hidden;
   margin: 0 0 10px 10px;
 }
 
-/* line 265, assetic_compassSzWRhn.scss */
+/* line 265, assetic_compassb1CfoK.scss */
 .export_form {
   padding: 20px;
 }
 
-/* line 266, assetic_compassSzWRhn.scss */
+/* line 266, assetic_compassb1CfoK.scss */
 .export_form .export_area_inputs, .export_form .export_button {
   text-align: center;
 }
 
-/* line 267, assetic_compassSzWRhn.scss */
+/* line 267, assetic_compassb1CfoK.scss */
 .export_form .export_area_inputs {
   margin-bottom: 10px;
 }
 
-/* line 268, assetic_compassSzWRhn.scss */
+/* line 268, assetic_compassb1CfoK.scss */
 .export_form .export_area_inputs input[type="text"] {
   width: 80px;
   text-align: center;
   margin-bottom: 5px;
 }
 
-/* line 269, assetic_compassSzWRhn.scss */
+/* line 269, assetic_compassb1CfoK.scss */
 .export_form .export_boxy {
   background: #eee;
   border: 1px solid #ccc;
   border-radius: 3px;
 }
 
-/* line 270, assetic_compassSzWRhn.scss */
+/* line 270, assetic_compassb1CfoK.scss */
 .export_form .export_boxy #maxlat {
   margin-top: -1px;
 }
 
-/* line 271, assetic_compassSzWRhn.scss */
+/* line 271, assetic_compassb1CfoK.scss */
 .export_form .export_boxy #minlon {
   float: left;
   margin-left: -1px;
 }
 
-/* line 272, assetic_compassSzWRhn.scss */
+/* line 272, assetic_compassb1CfoK.scss */
 .export_form .export_boxy #maxlon {
   float: right;
   margin-right: -1px;
 }
 
-/* line 273, assetic_compassSzWRhn.scss */
+/* line 273, assetic_compassb1CfoK.scss */
 .export_form .export_boxy #minlat {
   margin-bottom: 0;
 }
 
-/* line 274, assetic_compassSzWRhn.scss */
+/* line 274, assetic_compassb1CfoK.scss */
 .export_form .export_bound {
   margin: 5px;
 }
 
-/* line 275, assetic_compassSzWRhn.scss */
+/* line 275, assetic_compassb1CfoK.scss */
 .export_form .export_button {
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
-/* line 276, assetic_compassSzWRhn.scss */
+/* line 276, assetic_compassb1CfoK.scss */
 .export_form dl {
   padding-left: 10px;
 }
 
-/* line 277, assetic_compassSzWRhn.scss */
+/* line 277, assetic_compassb1CfoK.scss */
 .export_form dl dd {
   margin-left: 0;
   margin-bottom: 10px;
 }
 
-/* line 278, assetic_compassSzWRhn.scss */
+/* line 278, assetic_compassb1CfoK.scss */
 .site-edit #content {
   position: absolute;
   top: 55px;
@@ -1039,33 +1039,33 @@ header .search_form {
   width: 100%;
 }
 
-/* line 279, assetic_compassSzWRhn.scss */
+/* line 279, assetic_compassb1CfoK.scss */
 .site-edit #leafmap {
   height: 100%;
   overflow: hidden;
 }
 
-/* line 280, assetic_compassSzWRhn.scss */
+/* line 280, assetic_compassb1CfoK.scss */
 .content-heading {
   background: #eeeeee;
 }
 
-/* line 281, assetic_compassSzWRhn.scss */
+/* line 281, assetic_compassb1CfoK.scss */
 .content-heading h1 {
   font-size: 22px;
 }
 
-/* line 282, assetic_compassSzWRhn.scss */
+/* line 282, assetic_compassb1CfoK.scss */
 .content-body h1, .content-body h2, .content-body h3, .content-body p, .content-body ul, .content-body ol {
   margin-bottom: 20px;
 }
 
-/* line 283, assetic_compassSzWRhn.scss */
+/* line 283, assetic_compassb1CfoK.scss */
 .content-body h1, .content-body h2, .content-body h3 {
   margin-top: 10px;
 }
 
-/* line 284, assetic_compassSzWRhn.scss */
+/* line 284, assetic_compassb1CfoK.scss */
 .content-inner {
   position: relative;
   max-width: 900px;
@@ -1073,7 +1073,7 @@ header .search_form {
   padding: 20px;
 }
 
-/* line 285, assetic_compassSzWRhn.scss */
+/* line 285, assetic_compassb1CfoK.scss */
 input[type="button"], input[type="submit"], input[type="reset"], a.button {
   cursor: pointer;
   border: 0;
@@ -1090,44 +1090,44 @@ input[type="button"], input[type="submit"], input[type="reset"], a.button {
   -moz-border-radius: 2px;
 }
 
-/* line 288, assetic_compassSzWRhn.scss */
+/* line 288, assetic_compassb1CfoK.scss */
 input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, a.button:hover {
   background: #0a44ff;
   text-decoration: none;
 }
 
-/* line 289, assetic_compassSzWRhn.scss */
+/* line 289, assetic_compassb1CfoK.scss */
 input[type="button"].deemphasize, input[type="submit"].deemphasize, input[type="reset"].deemphasize, a.button.deemphasize {
   background: #b8c5f0;
 }
 
-/* line 290, assetic_compassSzWRhn.scss */
+/* line 290, assetic_compassb1CfoK.scss */
 input[type="button"].deemphasize:hover, input[type="submit"].deemphasize:hover, input[type="reset"].deemphasize:hover,
 a.button.deemphasize:hover {
   background: #6480de;
 }
 
-/* line 292, assetic_compassSzWRhn.scss */
+/* line 292, assetic_compassb1CfoK.scss */
 input[type="button"]:disabled, input[type="submit"]:disabled, input[type="reset"]:disabled, a.button:disabled {
   background: #eeeeee;
 }
 
-/* line 293, assetic_compassSzWRhn.scss */
+/* line 293, assetic_compassb1CfoK.scss */
 input[type="button"]:disabled:hover, input[type="submit"]:disabled:hover, input[type="reset"]:disabled:hover, a.button:disabled:hover {
   background: #eeeeee;
 }
 
-/* line 294, assetic_compassSzWRhn.scss */
+/* line 294, assetic_compassb1CfoK.scss */
 input[type="button"]:last-child, input[type="submit"]:last-child, input[type="reset"]:last-child, a.button:last-child {
   margin-bottom: 0;
 }
 
-/* line 295, assetic_compassSzWRhn.scss */
+/* line 295, assetic_compassb1CfoK.scss */
 .buttons {
   min-width: 200px;
 }
 
-/* line 296, assetic_compassSzWRhn.scss */
+/* line 296, assetic_compassb1CfoK.scss */
 .buttons input[type="submit"], .buttons input[type="button"], .buttons input[type="reset"],
 .buttons .button {
   box-sizing: border-box;
@@ -1142,36 +1142,36 @@ input[type="button"]:last-child, input[type="submit"]:last-child, input[type="re
   overflow: hidden;
 }
 
-/* line 298, assetic_compassSzWRhn.scss */
+/* line 298, assetic_compassb1CfoK.scss */
 .buttons input:first-child, .buttons .button:first-child {
   border-radius: 2px 0 0 2px;
 }
 
-/* line 298, assetic_compassSzWRhn.scss */
+/* line 298, assetic_compassb1CfoK.scss */
 .buttons input:last-child, .buttons .button:last-child {
   border-radius: 0 2px 2px 0;
   border-right-width: 0;
 }
 
-/* line 299, assetic_compassSzWRhn.scss */
+/* line 299, assetic_compassb1CfoK.scss */
 .buttons input:only-child, .buttons .button:only-child, .buttons *[value="Hide"] + input:last-child, .buttons *[value="Hide"] + .button:last-child {
   border-radius: 2px;
   border-right-width: 0;
 }
 
-/* line 300, assetic_compassSzWRhn.scss */
+/* line 300, assetic_compassb1CfoK.scss */
 .buttons *[value="Hide"] + input:nth-child(3), .buttons *[value="Hide"] + .button:nth-child(3) {
   border-radius: 0 2px 2px 0;
   border-right-width: 0;
 }
 
-/* line 301, assetic_compassSzWRhn.scss */
+/* line 301, assetic_compassb1CfoK.scss */
 .buttons *[value="Hide"] + input:nth-child(2):not(:last-child), .buttons *[value="Hide"] + .button:nth-child(2):not(:last-child) {
   border-radius: 2px 0 0 2px;
   border-right-width: 1px;
 }
 
-/* line 303, assetic_compassSzWRhn.scss */
+/* line 303, assetic_compassb1CfoK.scss */
 .navbar_search_form {
   position: relative;
   padding: 2px;
@@ -1179,14 +1179,14 @@ input[type="button"]:last-child, input[type="submit"]:last-child, input[type="re
   /*  background-color: #EEE;*/
 }
 
-/* line 309, assetic_compassSzWRhn.scss */
+/* line 309, assetic_compassb1CfoK.scss */
 .navbar_search_form .query_wrapper {
   position: relative;
   overflow: hidden;
   border-radius: 2px 0 0 2px;
 }
 
-/* line 310, assetic_compassSzWRhn.scss */
+/* line 310, assetic_compassb1CfoK.scss */
 .navbar_search_form input[type=text] {
   width: 100%;
   height: 24px;
@@ -1196,13 +1196,13 @@ input[type="button"]:last-child, input[type="submit"]:last-child, input[type="re
   -moz-transition: 300ms linear;
 }
 
-/* line 311, assetic_compassSzWRhn.scss */
+/* line 311, assetic_compassb1CfoK.scss */
 .navbar_search_form input:focus {
   outline: none;
   box-shadow: 0px 0px 7px #9ED485;
 }
 
-/* line 312, assetic_compassSzWRhn.scss */
+/* line 312, assetic_compassb1CfoK.scss */
 .navbar_search_form input[type=submit] {
   float: right;
   cursor: pointer;
@@ -1221,7 +1221,7 @@ input[type="button"]:last-child, input[type="submit"]:last-child, input[type="re
   -moz-border-radius: 0 2px 2px 0;
 }
 
-/* line 314, assetic_compassSzWRhn.scss */
+/* line 314, assetic_compassb1CfoK.scss */
 .navbar_search_form .describe_location {
   position: absolute;
   top: 6px;
@@ -1230,7 +1230,7 @@ input[type="button"]:last-child, input[type="submit"]:last-child, input[type="re
   color: #7092ff;
 }
 
-/* line 317, assetic_compassSzWRhn.scss */
+/* line 317, assetic_compassb1CfoK.scss */
 .overlayers_btn {
   display: inline-block;
   color: #60a94f;
@@ -1250,12 +1250,12 @@ input[type="button"]:last-child, input[type="submit"]:last-child, input[type="re
   vertical-align: middle;
 }
 
-/* line 336, assetic_compassSzWRhn.scss */
+/* line 336, assetic_compassb1CfoK.scss */
 .overlayers_btn i {
   margin-bottom: 10px;
 }
 
-/* line 340, assetic_compassSzWRhn.scss */
+/* line 340, assetic_compassb1CfoK.scss */
 .overlayers_btn.disabled,
 .overlayers_btn[disabled],
 fieldset[disabled] .overlayers_btn {
@@ -1273,59 +1273,59 @@ fieldset[disabled] .overlayers_btn {
 {
     margin:0 2px;
 }*/
-/* line 357, assetic_compassSzWRhn.scss */
+/* line 357, assetic_compassb1CfoK.scss */
 div.sidebar_content div.section.overlay-layers div#overlayers_minus
 , div.sidebar_content div.section.overlay-layers div#overlayers_unselectall {
   margin: 0 4px 0 0;
 }
 
-/* line 363, assetic_compassSzWRhn.scss */
+/* line 363, assetic_compassb1CfoK.scss */
 div.sidebar_content div.section.overlay-layers div#save_overlayers_index
 , div.sidebar_content div.section.overlay-layers div#overlayers_zoom_to_layer {
   margin: 0 4px;
 }
 
-/* line 369, assetic_compassSzWRhn.scss */
+/* line 369, assetic_compassb1CfoK.scss */
 div.sidebar_content div.section.overlay-layers div#move_overlayer_up {
   margin: 0 5px 0 0;
 }
 
-/* line 373, assetic_compassSzWRhn.scss */
+/* line 373, assetic_compassb1CfoK.scss */
 div.sidebar_content div.section.overlay-layers {
   margin-bottom: 10px;
 }
 
-/* line 376, assetic_compassSzWRhn.scss */
+/* line 376, assetic_compassb1CfoK.scss */
 div.sidebar_content div.section.overlay-layers ul.overlay_ul > li.overlay_li {
   width: 190px;
   display: inline-block;
 }
 
-/* line 381, assetic_compassSzWRhn.scss */
+/* line 381, assetic_compassb1CfoK.scss */
 div.sidebar_content div.section.overlay-layers ul.overlay_ul > li.overlay_li.selected,
 div.sidebar_content div.section.overlay-layers ul.overlay_ul > li.overlay_li > ul.layer_legend > li.overlay_group_li.selected {
   background-color: #08C;
 }
 
-/* line 386, assetic_compassSzWRhn.scss */
+/* line 386, assetic_compassb1CfoK.scss */
 div.sidebar_content div.section.overlay-layers ul.overlay_ul > li.overlay_li.selected > label,
 div.sidebar_content div.section.overlay-layers ul.overlay_ul > li.overlay_li > ul.layer_legend > li.overlay_group_li.selected > label {
   color: white;
 }
 
-/* line 394, assetic_compassSzWRhn.scss */
+/* line 394, assetic_compassb1CfoK.scss */
 .group_layername_label {
   width: 128px;
   cursor: pointer;
 }
 
-/* line 399, assetic_compassSzWRhn.scss */
+/* line 399, assetic_compassb1CfoK.scss */
 .layername_label {
   width: 158px;
   cursor: pointer;
 }
 
-/* line 404, assetic_compassSzWRhn.scss */
+/* line 404, assetic_compassb1CfoK.scss */
 div.section.overlay-layers ul.overlay_ul > li.overlay_li div.layer_legend ul > li {
   width: 160px;
   border-top: 1px grey dotted;
@@ -1333,7 +1333,7 @@ div.section.overlay-layers ul.overlay_ul > li.overlay_li div.layer_legend ul > l
   overflow: hidden;
 }
 
-/* line 411, assetic_compassSzWRhn.scss */
+/* line 411, assetic_compassb1CfoK.scss */
 div.section.overlay-layers ul.overlay_ul > li.overlay_li div.layer_legend ul > li:hover {
   white-space: nowrap;
   overflow: visible;
@@ -1341,18 +1341,18 @@ div.section.overlay-layers ul.overlay_ul > li.overlay_li div.layer_legend ul > l
   background-color: rgba(153, 255, 255, 0.25);
 }
 
-/* line 419, assetic_compassSzWRhn.scss */
+/* line 419, assetic_compassb1CfoK.scss */
 ul.overlay_ul > li.overlay_li > div.layer_legend > ul > li > img {
   margin-right: 4px;
 }
 
-/* line 423, assetic_compassSzWRhn.scss */
+/* line 423, assetic_compassb1CfoK.scss */
 ul.overlay_ul > li.overlay_li > div.layer_legend .marker-cluster {
   background-clip: padding-box;
   border-radius: 20px;
 }
 
-/* line 427, assetic_compassSzWRhn.scss */
+/* line 427, assetic_compassb1CfoK.scss */
 ul.overlay_ul > li.overlay_li > div.layer_legend .marker-cluster div {
   width: 30px;
   height: 30px;
@@ -1363,12 +1363,12 @@ ul.overlay_ul > li.overlay_li > div.layer_legend .marker-cluster div {
   font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 
-/* line 437, assetic_compassSzWRhn.scss */
+/* line 437, assetic_compassb1CfoK.scss */
 ul.overlay_ul > li.overlay_li > div.layer_legend .marker-cluster span {
   line-height: 30px;
 }
 
-/* line 441, assetic_compassSzWRhn.scss */
+/* line 441, assetic_compassb1CfoK.scss */
 .layer_legend_icon {
   display: inline-block;
   margin: 0 3px 0 1px;
@@ -1376,7 +1376,7 @@ ul.overlay_ul > li.overlay_li > div.layer_legend .marker-cluster span {
   cursor: pointer;
 }
 
-/* line 447, assetic_compassSzWRhn.scss */
+/* line 447, assetic_compassb1CfoK.scss */
 .layer_btn {
   display: inline-block;
   /*padding: 0px 0px;*/
@@ -1427,19 +1427,19 @@ ul.overlay_ul > li.overlay_li > div.layer_legend .marker-cluster span {
     //  min-width:1024px;
 
 }*/
-/* line 498, assetic_compassSzWRhn.scss */
+/* line 498, assetic_compassb1CfoK.scss */
 .sonata-bc #leaflet_content #sidebar {
   height: 45px;
 }
 
-/* line 502, assetic_compassSzWRhn.scss */
+/* line 502, assetic_compassb1CfoK.scss */
 .sonata-bc #sidebar .search_form {
   padding: 8px 10px;
   background-color: #EEE;
   height: 45px;
 }
 
-/* line 509, assetic_compassSzWRhn.scss */
+/* line 509, assetic_compassb1CfoK.scss */
 .sonata-bc #sidebar .search_form input[type="text"] {
   border-right: medium none;
   height: 30px;
@@ -1447,22 +1447,22 @@ ul.overlay_ul > li.overlay_li > div.layer_legend .marker-cluster span {
   width: 100%;
 }
 
-/* line 516, assetic_compassSzWRhn.scss */
+/* line 516, assetic_compassb1CfoK.scss */
 .leaflet-sidebar.left {
   margin-top: 45px !important;
 }
 
-/* line 519, assetic_compassSzWRhn.scss */
+/* line 519, assetic_compassb1CfoK.scss */
 .zoom.leaflet-control {
   margin-top: -30px !important;
 }
 
-/* line 522, assetic_compassSzWRhn.scss */
+/* line 522, assetic_compassb1CfoK.scss */
 .leaflet-sidebar #sidebar-left {
   overflow: auto;
 }
 
-/* line 526, assetic_compassSzWRhn.scss */
+/* line 526, assetic_compassb1CfoK.scss */
 .sonata-bc .leftsidebar-close-control {
   position: absolute;
   top: 350px;
@@ -1474,7 +1474,7 @@ ul.overlay_ul > li.overlay_li > div.layer_legend .marker-cluster span {
   background-image: url(/bundles/map2ucore/images/icon/right-icon.png);
 }
 
-/* line 537, assetic_compassSzWRhn.scss */
+/* line 537, assetic_compassb1CfoK.scss */
 .sonata-bc .leaflet-draw.leaflet-control {
   top: 50px;
 }

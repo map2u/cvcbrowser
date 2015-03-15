@@ -33,7 +33,6 @@ class CategoryAdmin extends Admin {
                 ->add('id')
                 ->add('name')
                 ->add('slug')
-              
                 ->add('tags')
                 ->add('createdAt')
                 ->add('updatedAt')
@@ -55,8 +54,11 @@ class CategoryAdmin extends Admin {
                 ->with('Category', array('class' => 'col-md-6'))
                 ->add('id', 'hidden')
                 ->add('name')
+                ->add('title')
+                ->add('flashimage_files', 'file', array('label' => 'Flash Image Files:', 'multiple' => true, 'mapped' => false, 'required' => false))
+                ->add('meadiagram_file', 'file', array('label' => 'Mea Diagram File:', 'mapped' => false, 'required' => false))
                 ->add('slug')
-                //    ->add('tags')
+
                 ->add('tags', 'entity', array(
                     'class' => 'Application\Sonata\ClassificationBundle\Entity\Tag',
                     'property' => 'name',
@@ -67,7 +69,7 @@ class CategoryAdmin extends Admin {
                 ->end()
                 ->with(' ', array('class' => 'col-md-6'))
                 ->add('description', 'ckeditor', array('label' => '',
-                     'required' => false,
+                    'required' => false,
                     'config_name' => 'forums',
                     'config' => array('uiColor' => '#ffffff')
                 ))

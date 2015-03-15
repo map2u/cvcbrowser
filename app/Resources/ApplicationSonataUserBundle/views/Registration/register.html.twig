@@ -1,4 +1,7 @@
-{% extends "::base.html.twig" %}
+{% extends '::baseLayout.html.twig' %}
+{% block page_stylesheets %}
+    {{ parent() }}
+{% endblock %}
 
 {% block page_container %}
     {% block page_header %}

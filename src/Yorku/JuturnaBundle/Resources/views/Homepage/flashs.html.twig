@@ -10,16 +10,18 @@
 
         <div id="homepageFlashCarousel" class="carousel slide"  data-ride="carousel">
 
-            <div class="carousel-inner">
+            <div class="carousel-inner" >
                 {% set i=0 %}
                 {% for flash in flashs %}
-                    <div id="homepageFlash-image-{{i}}" data-id="{{i}}" data-slide-no="{{i}}" class="item carousel-item  {% if i==0%} active {% endif %}" style="">
-                        <a href="{{flash.getUrl()}}" target="_blank"><img src="/uploads/images/homepageflashs/{{flash.getImage()}}"  style="height:355px;margin:0px auto;border-radius: 3px;"></a>
+                    <div id="homepageFlash-image-{{i}}" data-id="{{i}}" data-slide-no="{{i}}" class="item carousel-item  {% if i==0%} active {% endif %}" >
                         <div class="carousel-caption" style="margin-left:{{flash.titleMargin}}px;">
                             <h4>{{flash.getTitle()}}</h4>
                             <p>{{flash.getIntroduce()}}</p>
                         </div>
+                        <a href="{{flash.getUrl()}}" target="_blank"><img src="/uploads/images/homepageflashs/{{flash.getImage()}}"  style="width: 100%;margin: auto;border-radius: 3px;"></a>
+
                     </div>
+
                     {% set i=i+1 %}
                 {% endfor %}
             </div>

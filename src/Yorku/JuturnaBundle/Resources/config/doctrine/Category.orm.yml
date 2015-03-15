@@ -15,6 +15,12 @@ Yorku\JuturnaBundle\Entity\Category:
             fixed: false
             nullable: false
             column: name
+        title:
+            type: string
+            length: 80
+            fixed: false
+            nullable: true
+            column: title            
         slug:
             type: string
             length: 230
@@ -25,6 +31,16 @@ Yorku\JuturnaBundle\Entity\Category:
             type: text
             nullable: true
             column: description
+        flashImages:
+            type: text
+            nullable: true
+            column: flash_images            
+        meaDiagram:
+            type: string
+            length: 230
+            fixed: false
+            nullable: true
+            column: mea_diagram            
         tags:
             type: array
             nullable: true

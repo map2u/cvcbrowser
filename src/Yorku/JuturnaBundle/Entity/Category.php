@@ -238,4 +238,88 @@ class Category {
     {
         return $this->categorycontents;
     }
+    /**
+     * @var string
+     */
+    private $flashImages;
+
+    /**
+     * @var string
+     */
+    private $meaDiagram;
+
+
+    /**
+     * Set flashImages
+     *
+     * @param string $flashImages
+     * @return Category
+     */
+    public function setFlashImages($flashImages)
+    {
+        $this->flashImages = $flashImages;
+
+        return $this;
+    }
+
+    /**
+     * Get flashImages
+     *
+     * @return string 
+     */
+    public function getFlashImages()
+    {
+        return $this->flashImages;
+    }
+
+    /**
+     * Set meaDiagram
+     *
+     * @param string $meaDiagram
+     * @return Category
+     */
+    public function setMeaDiagram($meaDiagram)
+    {
+        $this->meaDiagram = $meaDiagram;
+
+        return $this;
+    }
+
+    /**
+     * Get meaDiagram
+     *
+     * @return string 
+     */
+    public function getMeaDiagram()
+    {
+        return $this->meaDiagram;
+    }
+    /**
+     * @var string
+     */
+    private $title;
+
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Category
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
 }

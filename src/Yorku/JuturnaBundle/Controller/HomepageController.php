@@ -93,8 +93,7 @@ class HomepageController extends Controller {
         return array('_locale' => $locale, 'flashs' => $flashs);
     }
 
-    
-     /**
+    /**
      * .
      *
      * @Route("/story", name="homepage_story")
@@ -108,27 +107,17 @@ class HomepageController extends Controller {
         $locale = $request->getLocale();
         $session->set('current_menu', "story");
         $category = $em->getRepository('YorkuJuturnaBundle:Category')->findOneByName("Story");
+        $stories = null;
         if (isset($id) && intval($id) > 0) {
-            $wellbeing = $em->getRepository('YorkuJuturnaBundle:HumanWellBeingDomain')->find($id);
+            $stories = $em->getRepository('YorkuJuturnaBundle:Story')->find($id);
         }
-//        if (!isset($id)) {
-//            return new Response(\json_encode(array('success' => false, 'message' => 'Parameter Id not found!')));
-//        }
-//        if  ((isset($id) && ( $id === 0 || $id === '0' || $id === 'undefined'))) {
-//            $usergeometries = new UserDrawGeometries();
-//        } else {
         $image = $em->getRepository('YorkuJuturnaBundle:HomepageImage')->findOneBy(array('category' => $category));
-//
-//            $update_geom = true;
-//        }
-
 
         $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
-//
-//            $update_geom = true;
-//        }
-        return array('_locale' => $locale, 'wellbeing' => $wellbeing, 'image' => $image, 'flashs' => $flashs);
+
+        return array('_locale' => $locale, 'stories' => $stories, 'image' => $image, 'flashs' => $flashs, "category" => $category);
     }
+
     /**
      * .
      *
@@ -143,26 +132,16 @@ class HomepageController extends Controller {
         $locale = $request->getLocale();
         $session->set('current_menu', "well_being");
         $category = $em->getRepository('YorkuJuturnaBundle:Category')->findOneByName("Well-Being");
+        $wellbeing = null;
         if (isset($id) && intval($id) > 0) {
             $wellbeing = $em->getRepository('YorkuJuturnaBundle:HumanWellBeingDomain')->find($id);
         }
-//        if (!isset($id)) {
-//            return new Response(\json_encode(array('success' => false, 'message' => 'Parameter Id not found!')));
-//        }
-//        if  ((isset($id) && ( $id === 0 || $id === '0' || $id === 'undefined'))) {
-//            $usergeometries = new UserDrawGeometries();
-//        } else {
-        $image = $em->getRepository('YorkuJuturnaBundle:HomepageImage')->findOneBy(array('category' => $category));
-//
-//            $update_geom = true;
-//        }
 
+        $image = $em->getRepository('YorkuJuturnaBundle:HomepageImage')->findOneBy(array('category' => $category));
 
         $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
-//
-//            $update_geom = true;
-//        }
-        return array('_locale' => $locale, 'wellbeing' => $wellbeing, 'image' => $image, 'flashs' => $flashs);
+
+        return array('_locale' => $locale, 'wellbeing' => $wellbeing, 'image' => $image, 'flashs' => $flashs, "category" => $category);
     }
 
     /**
@@ -180,26 +159,17 @@ class HomepageController extends Controller {
         $locale = $request->getLocale();
         $session->set('current_menu', "ecosystems");
         $category = $em->getRepository('YorkuJuturnaBundle:Category')->findOneByName("Ecosystems");
+        $ecosystems = null;
         if (isset($id) && intval($id) > 0) {
             $ecosystems = $em->getRepository('YorkuJuturnaBundle:EcoSystemService')->find($id);
         }
-//        if (!isset($id)) {
-//            return new Response(\json_encode(array('success' => false, 'message' => 'Parameter Id not found!')));
-//        }
-//        if  ((isset($id) && ( $id === 0 || $id === '0' || $id === 'undefined'))) {
-//            $usergeometries = new UserDrawGeometries();
-//        } else {
+
         $image = $em->getRepository('YorkuJuturnaBundle:HomepageImage')->findOneBy(array('category' => $category));
-//
-//            $update_geom = true;
-//        }
 
 
         $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
-//
-//            $update_geom = true;
-//        }
-        return array('_locale' => $locale, 'ecosystems' => $ecosystems, 'image' => $image, 'flashs' => $flashs);
+
+        return array('_locale' => $locale, 'ecosystems' => $ecosystems, 'image' => $image, 'flashs' => $flashs,"category" => $category);
 
 
 //        $em = $this->getDoctrine()->getManager();

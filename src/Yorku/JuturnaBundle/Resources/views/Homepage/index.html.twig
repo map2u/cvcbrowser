@@ -39,4 +39,20 @@
         {% endblock %}
 
     {% endblock %}
+    {% block page_javascripts %}
+        {{ parent() }}
+
+    {% endblock %}
+    <script>
+        $(function () {
+            $('#homepageFlashCarousel').on('slide', function (e) {
+                $(this).find('.active').css({"margin-top": ($(".carousel-inner").height() - $(this).find('.active').height()) / 2 + "px"});
+            });
+            window.onresize = function () {
+                $("#homepageFlashCarousel .item.carousel-item.active img").css({"margin-top": ($("#homepageFlashCarousel .carousel-inner").height() - $("#homepageFlashCarousel .item.carousel-item.active img").height()) / 2 + "px"});
+                $("#homepageFlashCarousel .item.carousel-item.active div.carousel-caption").css({"margin-top": ($("#homepageFlashCarousel .item.carousel-item.active img").height() - $("#homepageFlashCarousel .carousel-inner").height()) / 2 + "px"});
+
+            };
+        });
+    </script>
 {% endblock %}

@@ -1,12 +1,13 @@
 {% if image is defined %}
     <div style="margin:3px auto; color:green; text-align: center;">
-        <a href="#"><h4>{{image.getTitle()}}</h4></a>
+        <a href="{{path('homepage_'~type,{locale:app.request.locale})}}"><h4>{{image.getTitle()}}</h4></a>
     </div>
     <div style="border-radius: 5px;">
         <a href="{{path('homepage_'~type,{locale:app.request.locale})}}" ><img src="/uploads/images/homepageimages/{{image.getImage()}}" height="180px"></a>
     </div>
-
-    <div class="homepage_image_brief_desc">
-        {{image.getIntroduce()|raw}}
-    </div>
+    <a href="{{path('homepage_'~type,{locale:app.request.locale})}}" >
+        <div class="homepage_image_brief_desc">
+            {{image.getIntroduce()|raw}}
+        </div>
+    </a>
 {% endif %}
