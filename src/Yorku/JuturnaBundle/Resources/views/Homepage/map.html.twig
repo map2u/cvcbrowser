@@ -1,5 +1,6 @@
 {% extends '::baseLayout.html.twig' %}
 {% block page_stylesheets %}
+   
     {{ parent() }}
     {% include "::mapstylesheets.html.twig" %}
     <style>
@@ -9,6 +10,8 @@
             width:100%;
         }
     </style>
+
+
 {% endblock %}
 {% block body %}
     {% block page_header %}
@@ -16,7 +19,7 @@
     {% endblock %}
     {% block page_container %}
         {% block map2u_map %}
-            {{render(controller("ApplicationMap2uLeafletBundle:Default:map",{'view':view,'id':id}))}}
+            {{render(controller("ApplicationMap2uLeafletBundle:Default:map",{'view':view,'id':id,'benefits':benefits}))}}
         {% endblock %}
     {% endblock %}
 {% endblock %}

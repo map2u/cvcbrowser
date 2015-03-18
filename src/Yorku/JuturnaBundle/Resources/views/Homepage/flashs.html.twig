@@ -8,7 +8,7 @@
  
          {% endfor %}#}
 
-        <div id="homepageFlashCarousel" class="carousel slide"  data-ride="carousel">
+        <div id="homepageFlashCarousel" class="carousel slide"  data-interval="false" data-pause="hover">
 
             <div class="carousel-inner" >
                 {% set i=0 %}
@@ -18,7 +18,7 @@
                             <h4>{{flash.getTitle()}}</h4>
                             <p>{{flash.getIntroduce()}}</p>
                         </div>
-                        <a href="{{flash.getUrl()}}" target="_blank"><img src="/uploads/images/homepageflashs/{{flash.getImage()}}"  style="width: 100%;margin: auto;border-radius: 3px;"></a>
+                        <a href="{{flash.getUrl()}}" target="_blank"><img src="/uploads/images/homepageflashs/{{flash.getImage()}}"  style="width: 100%;border-radius: 3px;"></a>
 
                     </div>
 

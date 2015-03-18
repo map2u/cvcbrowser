@@ -18,7 +18,6 @@ class IndicatorBenefitAdmin extends Admin {
                 ->add('id')
                 ->add('benefitName')
                 ->add('title')
-            
                 ->add('createdAt')
                 ->add('updatedAt')
         ;
@@ -58,6 +57,13 @@ class IndicatorBenefitAdmin extends Admin {
                     'class' => 'Yorku\JuturnaBundle\Entity\Indicator',
                     'property' => 'name',
                     'multiple' => false
+                        )
+                )
+                ->add('uploadfilelayers', 'entity', array('required' => false,
+                    'expanded' => false,
+                    'class' => 'Map2u\CoreBundle\Entity\UploadfileLayer',
+                    'property' => 'layerTitle',
+                    'multiple' => true
                         )
                 )
                 ->add('ecosystemservices', 'entity', array('required' => true,

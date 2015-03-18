@@ -34,16 +34,8 @@ window.onload = function () {
 
 
     $(window).resize(function () { /* do something */
-
-//  $('#leafmap').height($(window).height() - 126);
-//        $('#map-ui').height($(window).height() - 126);
-//        $('.leaflet-sidebar #sidebar-left').height($(window).height() - 186);
-//        
         $('#leafmap').height($(window).height() - $(".juturna-page-header").height() - $(".juturna-main_menu").height() - 2);
         $('#map-ui').height($(window).height() - $(".juturna-page-header").height() - $(".juturna-main_menu").height() - 2);
-//        $("div#leaflet_content.overlay-sidebar").css("margin-top", ($(".page-header nav.navbar.navbar-custom").height() - 46) + "px");
-
-
         $('.leaflet-sidebar #sidebar-left').height($(window).height() - $(".juturna-page-header").height() - $(".juturna-main_menu").height() - 60);
     });
     map = new L.MAP2U.Map('leafmap', {
@@ -73,49 +65,19 @@ window.onload = function () {
         attribution: '&copy; <a href="http://www.opencyclemap.org">OpenCycleMap</a>, &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
     });
 
-//    var tiles = new L.TileLayer.Canvas();
-//
-//    map.addLayer(tiles);
 
 
-
-
-    var subw = new L.TileLayer.WMS(
-            "http://www.snitcr.go.cr/cgi-bin/mapserv?map=ortofoto.map",
-            {
-                layers: 'Mosaico5000',
-                format: 'image/png',
-                transparent: true,
-                srs: 'EPSG:4326',
-                attribution: ""
-            });
+//    var subw = new L.TileLayer.WMS(
+//            "http://www.snitcr.go.cr/cgi-bin/mapserv?map=ortofoto.map",
+//            {
+//                layers: 'Mosaico5000',
+//                format: 'image/png',
+//                transparent: true,
+//                srs: 'EPSG:4326',
+//                attribution: ""
+//            });
 //
-//var BingRoad = new L.TileLayer.Bing(bingkey, "Road",
-//                    {
-//                        maxZoom: 21,
-//                        attribution: BingAttribution
-//                    });
-//
-//            var BingAerial = new L.TileLayer.Bing(bingkey, "Aerial",
-//                    {
-//                        maxZoom: 21,
-//                        attribution: BingAttribution
-//                    });
-//
-//            var BingAerialWithLabels = new L.TileLayer.Bing(bingkey, "AerialWithLabels",
-//                    {
-//                        maxZoom: 21,
-//                        attribution: BingAttribution
-//                    });
-//
-//    var baseMaps = {
-//                "BingRoads": BingRoad,
-//                "BingAerial": BingAerial,
-//                "BingAerialWithLabels": BingAerialWithLabels
-//            };
-
-//    var bing = new L.BingLayer('');
-    map.addLayer(subw);
+//    map.addLayer(subw);
 //    
     var mapnik_minimap = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
@@ -124,7 +86,7 @@ window.onload = function () {
     var miniMap = new L.Control.MiniMap(mapnik_minimap, {position: 'bottomright', width: 150, height: 150, zoomLevelOffset: -4, zoomAnimation: false, toggleDisplay: true, autoToggleDisplay: false}).addTo(map);
 
     map.addLayer(mapnik);
-
+    // map.addLayer(Thunderforest_Transport);
     var subwatersheds = new L.TileLayer.WMS(
             "http://cobas.juturna.ca:8080/geoserver/juturna/wms",
             {
@@ -135,7 +97,6 @@ window.onload = function () {
                 attribution: ""
             });
 
-    //   map.addLayer(subwatersheds);
 
     map.baseLayers = [
         {'layer': mapnik, 'layerName': 'Open Street Map'},
@@ -149,9 +110,6 @@ window.onload = function () {
     ];
     map.noteLayer = new L.FeatureGroup();
     map.noteLayer.options = {code: 'N'};
-    //   map.dataLayers = //{'layer':creditriverparks, name:'Credit River Parks'}, {'layer':conservationareas, name:'Conservation'}, {'layer': subwatersheds, 'name': 'Subwatersheds'},
-    //          [{'layer': subwatersheds, 'name': 'Subwatersheds'}];
-
 
 
 
@@ -159,30 +117,7 @@ window.onload = function () {
 
     var index;
     var layers = [];
-//
-//
-//var testlayer = new L.TileLayer.WMS(
-//            "http://www.sig.mep.go.cr:8080/geoserver/mep/wms",
-//            {
-//                layers: 'CINDEA',
-//                format: 'image/png',
-//                transparent: true,
-//                attribution: ""
-//            });
-//       testlayer.addTo(map);
-//
-//var testlayer2 = new L.TileLayer.WMS(
-//            "http://www.sig.mep.go.cr:8080/geoserver/mep/wms",
-//            {
-//                layers: 'Escuelas_Nocturnas',
-//                format: 'image/png',
-//                transparent: true,
-//                attribution: ""
-//            });
-//       testlayer2.addTo(map);
 
-//       
-//    
     var leftsidebarControl = L.Control.extend({
         options: {
             position: 'topleft'
@@ -204,11 +139,8 @@ window.onload = function () {
     });
 
     map.addControl(new leftsidebarControl());
-//var history = new L.HistoryControl().addTo(map);
     var history = new L.HistoryControl({position: 'topleft', useExternalControls: true});
     map.addControl(history);
-    // history.onAdd(map);
-
 
     var MapToolbarControl = L.Control.extend({
         options: {
@@ -218,12 +150,7 @@ window.onload = function () {
         onAdd: function (map) {
             // create the control container with a particular class name
             var container = L.DomUtil.create('div', 'maptoolbar-control');
-//            L.DomEvent
-//                    .addListener(container, 'click', L.DomEvent.stopPropagation)
-//                    .addListener(container, 'click', L.DomEvent.preventDefault)
-//                    .addListener(container, 'click', function() {
-//                        MapExtentReset(map);
-//                    });
+
             var controlUI = L.DomUtil.create('div', 'maptoolbar-control-reset', container);
             L.DomEvent
                     .addListener(controlUI, 'click', L.DomEvent.stopPropagation)
@@ -257,18 +184,6 @@ window.onload = function () {
     });
 
     map.addControl(new MapToolbarControl());
-
-
-//    var popup = L.popup();
-//
-//    function onMapClick(e) {
-//        popup
-//                .setLatLng(e.latlng)
-//                .setContent("You clicked the map at " + e.latlng.toString())
-//                .openOn(map);
-//    }
-//
-//    map.on('click', onMapClick);
 
     var position = $('html').attr('dir') === 'rtl' ? 'topleft' : 'topright';
     L.MAP2U.zoom({position: position}).addTo(map);
@@ -307,14 +222,6 @@ window.onload = function () {
     });
     layersControl.addTo(map);
     this.layersControl = layersControl;
-
-//    var mapToolbarControl = L.MAP2U.maptoolbar({
-//        position: position,
-//        map: map
-//    });
-//    mapToolbarControl.addTo(map);
-//    this.mapToolbarControl = mapToolbarControl;
-
 
     L.MAP2U.uploadfile({position: position,
         sidebar: rightSidebar,
@@ -363,7 +270,7 @@ window.onload = function () {
 
 
     $.ajax({
-        url: Routing.generate('leaflet_userlayers'),
+        url: Routing.generate('leaflet_userlayers', {_locale: window.locale}),
         method: 'GET',
         success: function (response) {
             var result;
@@ -372,11 +279,8 @@ window.onload = function () {
             else
                 result = response;
 
-            //  alert(result.success===true);
             if (result.success === true && result.layers) {
 
-                //    alert(JSON.stringify(result.layers));
-                // alert(result.layers.length);
 
                 var keys = Object.keys(result.layers).map(function (k) {
 
@@ -384,13 +288,25 @@ window.onload = function () {
                 });
 
                 // alert(keys.length + "," + keys[0]);
+                // div style="height: 305px;" class="leaflet-control" id="sidebar-left" data-viewtype="benefit" data-viewlayers="8,7,"
+                var default_layers = $("div#sidebar-left.leaflet-control").data("viewlayers").toString();
+                var default_layers_array = [];
+                if (default_layers !== undefined && default_layers.trim().length > 0) {
+                    default_layers = default_layers.substr(0, default_layers.length - 1);
+                    default_layers_array = default_layers.split(",");
+                }
 
                 for (var k = 0; k < keys.length; k++)
                 {
                     var layer = result.layers[keys[k]];
-                    // layer_id => UploadfileLayer.id
-                    // index_id => display sequence id on screen
 
+                    if(default_layers_array.indexOf(layer.id.toString()) !==-1) {
+                        layer.defaultShowOnMap=true;
+                    }
+                    else
+                    {
+                        layer.defaultShowOnMap=false;
+                    }
                     map.dataLayers[map.dataLayers.length] = {'map': map, 'layerType': layer.layerType, 'clusterLayer': layer.clusterLayer, 'defaultShowOnMap': layer.defaultShowOnMap, 'layer': null, 'minZoom': layer.minZoom, 'maxZoom': layer.maxZoom, 'index_id': k, 'layerId': layer.id, layerTitle: layer.layerTitle, 'datasource': layer.datasource, 'sld': layer.sld, 'filename': layer.filename, 'layerName': layer.layerName, 'hostName': layer.hostName};
                 }
                 map.dataLayers[map.dataLayers.length] = {'map': map, 'layerType': 'userdraw', 'layer': null, 'index_id': -1, 'layerId': -1, layerTitle: "My draw geometries", 'layerName': 'My draw geometries', type: 'geojson'};
@@ -402,7 +318,7 @@ window.onload = function () {
     });
 
     $.ajax({
-        url: Routing.generate('appleaflet_storylayer'),
+        url: Routing.generate('appleaflet_storylayer', {_locale: window.locale}),
         method: 'GET',
         success: function (response) {
             var result;
@@ -412,22 +328,17 @@ window.onload = function () {
                 result = response;
             if (result.success === true && result.stories) {
 
-//                var keys = Object.keys(result.layers).map(function (k) {
-//
-//                    return k;
-//                });
-//
-//                for (var k = 0; k < keys.length; k++)
-//                {
-//                    var layer = result.layers[keys[k]];
-//
-//                    map.dataLayers[map.dataLayers.length] = {'map': map, 'layerType': layer.layerType, 'clusterLayer': layer.clusterLayer, 'defaultShowOnMap': layer.defaultShowOnMap, 'layer': null, 'minZoom': layer.minZoom, 'maxZoom': layer.maxZoom, 'index_id': k, 'layerId': layer.id, layerTitle: layer.layerTitle, 'datasource': layer.datasource, 'sld': layer.sld, 'filename': layer.filename, 'layerName': layer.layerName, 'hostName': layer.hostName};
-//                }
 
-                // var markers = [];
                 var photo_layer = L.layerGroup();
-                photo_layer.addTo(map);
-                map.dataLayers[map.dataLayers.length] = {'map': map, 'layerType': 'stories', 'clusterLayer': false, 'defaultShowOnMap': true, 'layer': photo_layer, 'minZoom': null, 'maxZoom': null, 'index_id': 0, 'layerId': 0, layerTitle: 'Stories', 'datasource': -2, 'sld': null, 'filename': null, 'layerName': 'Stories', 'hostName': null};
+
+                var default_showonmap = false;
+                var default_layers = $("div#sidebar-left.leaflet-control").data("viewtype").toString();
+                if (default_layers === 'stories')
+                {
+                    default_showonmap = true;
+                    photo_layer.addTo(map);
+                }
+                map.dataLayers[map.dataLayers.length] = {'map': map, 'layerType': 'stories', 'clusterLayer': false, 'defaultShowOnMap': default_showonmap, 'layer': photo_layer, 'minZoom': null, 'maxZoom': null, 'index_id': 0, 'layerId': 0, layerTitle: 'Stories', 'datasource': -2, 'sld': null, 'filename': null, 'layerName': 'Stories', 'hostName': null};
                 $.each(result.stories, function (k, photo) {
 
                     var images;
@@ -671,6 +582,9 @@ window.onload = function () {
 //
 //        return this;
 //    };
+
+
+
 
 };
 

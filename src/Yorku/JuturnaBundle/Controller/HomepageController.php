@@ -206,8 +206,13 @@ class HomepageController extends Controller {
         $session->set('current_menu', "map");
         $em = $this->getDoctrine()->getManager();
         $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
-
-        return array('_locale' => $locale, 'flashs' => $flashs, 'view' => $view, 'id' => $id);
+        $benefits=null;
+        if($view ==='benefit'&&isset($id)&&intval($id)>0)
+        {
+            $benefits=$em->getRepository('YorkuJuturnaBundle:IndicatorBenefit')->find($id);
+        }
+        
+        return array('_locale' => $locale,'benefits'=> $benefits,'flashs' => $flashs, 'view' => $view, 'id' => $id);
     }
 
     /**

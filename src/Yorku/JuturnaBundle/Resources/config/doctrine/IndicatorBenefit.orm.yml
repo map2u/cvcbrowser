@@ -98,5 +98,16 @@ Yorku\JuturnaBundle\Entity\IndicatorBenefit:
                referencedColumnName: id
            inverseJoinColumns:
              indicatorbenefit_id:
-               referencedColumnName: id                  
+               referencedColumnName: id          
+       uploadfilelayers:
+          targetEntity: Map2u\CoreBundle\Entity\UploadfileLayer
+#          inversedBy: indicatorbenefits
+          joinTable:
+           name: uploadfilelayers_indicatorbenefits
+           joinColumns:
+             uploadfilelayer_id:
+               referencedColumnName: id
+           inverseJoinColumns:
+             indicatorbenefit_id:
+               referencedColumnName: id                         
     lifecycleCallbacks: {  }

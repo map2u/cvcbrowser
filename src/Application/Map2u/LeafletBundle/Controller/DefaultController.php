@@ -28,8 +28,9 @@ class DefaultController extends BaseController {
     public function mapAction(Request $request) {
 
         $view = $request->get("view");
+        $benefits = $request->get("benefits");
         $id = $request->get("id");
-        return array('view' => $view, 'id' => $id); //$this->render('Map2uLeafletBundle:Default:map.html.twig',{'view'=>$view});
+        return array('benefits'=>$benefits, 'view' => $view, 'id' => $id); //$this->render('Map2uLeafletBundle:Default:map.html.twig',{'view'=>$view});
     }
 
     /**

@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * IndicatorBenefit
  */
-class IndicatorBenefit
-{
+class IndicatorBenefit {
+
     /**
      * @var integer
      */
@@ -18,6 +18,11 @@ class IndicatorBenefit
      * @var string
      */
     private $benefitName;
+
+    /**
+     * @var string
+     */
+    private $title;
 
     /**
      * @var string
@@ -62,8 +67,7 @@ class IndicatorBenefit
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->ecosystemservices = new \Doctrine\Common\Collections\ArrayCollection();
         $this->humanwellbeingedomains = new \Doctrine\Common\Collections\ArrayCollection();
         $this->indicatorreferences = new \Doctrine\Common\Collections\ArrayCollection();
@@ -74,9 +78,19 @@ class IndicatorBenefit
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
+    }
+
+    /**
+     * Set id
+     *
+     * @param integer $id
+     * @return EcoSystemService
+     */
+    public function setId($id) {
+        $this->id = $id;
+        return $this;
     }
 
     /**
@@ -85,8 +99,7 @@ class IndicatorBenefit
      * @param string $benefitName
      * @return IndicatorBenefit
      */
-    public function setBenefitName($benefitName)
-    {
+    public function setBenefitName($benefitName) {
         $this->benefitName = $benefitName;
 
         return $this;
@@ -97,9 +110,29 @@ class IndicatorBenefit
      *
      * @return string 
      */
-    public function getBenefitName()
-    {
+    public function getBenefitName() {
         return $this->benefitName;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return IndicatorBenefit
+     */
+    public function setTitle($title) {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle() {
+        return $this->title;
     }
 
     /**
@@ -108,8 +141,7 @@ class IndicatorBenefit
      * @param string $abstract
      * @return IndicatorBenefit
      */
-    public function setAbstract($abstract)
-    {
+    public function setAbstract($abstract) {
         $this->abstract = $abstract;
 
         return $this;
@@ -120,8 +152,7 @@ class IndicatorBenefit
      *
      * @return string 
      */
-    public function getAbstract()
-    {
+    public function getAbstract() {
         return $this->abstract;
     }
 
@@ -131,8 +162,7 @@ class IndicatorBenefit
      * @param string $briefReport
      * @return IndicatorBenefit
      */
-    public function setBriefReport($briefReport)
-    {
+    public function setBriefReport($briefReport) {
         $this->briefReport = $briefReport;
 
         return $this;
@@ -143,8 +173,7 @@ class IndicatorBenefit
      *
      * @return string 
      */
-    public function getBriefReport()
-    {
+    public function getBriefReport() {
         return $this->briefReport;
     }
 
@@ -154,8 +183,7 @@ class IndicatorBenefit
      * @param \DateTime $createdAt
      * @return IndicatorBenefit
      */
-    public function setCreatedAt($createdAt)
-    {
+    public function setCreatedAt($createdAt) {
         $this->createdAt = $createdAt;
 
         return $this;
@@ -166,8 +194,7 @@ class IndicatorBenefit
      *
      * @return \DateTime 
      */
-    public function getCreatedAt()
-    {
+    public function getCreatedAt() {
         return $this->createdAt;
     }
 
@@ -177,8 +204,7 @@ class IndicatorBenefit
      * @param \DateTime $updatedAt
      * @return IndicatorBenefit
      */
-    public function setUpdatedAt($updatedAt)
-    {
+    public function setUpdatedAt($updatedAt) {
         $this->updatedAt = $updatedAt;
 
         return $this;
@@ -189,8 +215,7 @@ class IndicatorBenefit
      *
      * @return \DateTime 
      */
-    public function getUpdatedAt()
-    {
+    public function getUpdatedAt() {
         return $this->updatedAt;
     }
 
@@ -200,8 +225,7 @@ class IndicatorBenefit
      * @param \Yorku\JuturnaBundle\Entity\Indicator $indicator
      * @return IndicatorBenefit
      */
-    public function setIndicator(\Yorku\JuturnaBundle\Entity\Indicator $indicator = null)
-    {
+    public function setIndicator(\Yorku\JuturnaBundle\Entity\Indicator $indicator = null) {
         $this->indicator = $indicator;
 
         return $this;
@@ -212,8 +236,7 @@ class IndicatorBenefit
      *
      * @return \Yorku\JuturnaBundle\Entity\Indicator 
      */
-    public function getIndicator()
-    {
+    public function getIndicator() {
         return $this->indicator;
     }
 
@@ -223,8 +246,7 @@ class IndicatorBenefit
      * @param \Yorku\JuturnaBundle\Entity\EcoSystemService $ecosystemservices
      * @return IndicatorBenefit
      */
-    public function addEcosystemservice(\Yorku\JuturnaBundle\Entity\EcoSystemService $ecosystemservices)
-    {
+    public function addEcosystemservice(\Yorku\JuturnaBundle\Entity\EcoSystemService $ecosystemservices) {
         $this->ecosystemservices[] = $ecosystemservices;
 
         return $this;
@@ -235,8 +257,7 @@ class IndicatorBenefit
      *
      * @param \Yorku\JuturnaBundle\Entity\EcoSystemService $ecosystemservices
      */
-    public function removeEcosystemservice(\Yorku\JuturnaBundle\Entity\EcoSystemService $ecosystemservices)
-    {
+    public function removeEcosystemservice(\Yorku\JuturnaBundle\Entity\EcoSystemService $ecosystemservices) {
         $this->ecosystemservices->removeElement($ecosystemservices);
     }
 
@@ -245,8 +266,7 @@ class IndicatorBenefit
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getEcosystemservices()
-    {
+    public function getEcosystemservices() {
         return $this->ecosystemservices;
     }
 
@@ -256,8 +276,7 @@ class IndicatorBenefit
      * @param \Yorku\JuturnaBundle\Entity\HumanWellBeingDomain $humanwellbeingedomains
      * @return IndicatorBenefit
      */
-    public function addHumanwellbeingedomain(\Yorku\JuturnaBundle\Entity\HumanWellBeingDomain $humanwellbeingedomains)
-    {
+    public function addHumanwellbeingedomain(\Yorku\JuturnaBundle\Entity\HumanWellBeingDomain $humanwellbeingedomains) {
         $this->humanwellbeingedomains[] = $humanwellbeingedomains;
 
         return $this;
@@ -268,8 +287,7 @@ class IndicatorBenefit
      *
      * @param \Yorku\JuturnaBundle\Entity\HumanWellBeingDomain $humanwellbeingedomains
      */
-    public function removeHumanwellbeingedomain(\Yorku\JuturnaBundle\Entity\HumanWellBeingDomain $humanwellbeingedomains)
-    {
+    public function removeHumanwellbeingedomain(\Yorku\JuturnaBundle\Entity\HumanWellBeingDomain $humanwellbeingedomains) {
         $this->humanwellbeingedomains->removeElement($humanwellbeingedomains);
     }
 
@@ -278,8 +296,7 @@ class IndicatorBenefit
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getHumanwellbeingedomains()
-    {
+    public function getHumanwellbeingedomains() {
         return $this->humanwellbeingedomains;
     }
 
@@ -289,8 +306,7 @@ class IndicatorBenefit
      * @param \Yorku\JuturnaBundle\Entity\IndicatorReference $indicatorreferences
      * @return IndicatorBenefit
      */
-    public function addIndicatorreference(\Yorku\JuturnaBundle\Entity\IndicatorReference $indicatorreferences)
-    {
+    public function addIndicatorreference(\Yorku\JuturnaBundle\Entity\IndicatorReference $indicatorreferences) {
         $this->indicatorreferences[] = $indicatorreferences;
 
         return $this;
@@ -301,8 +317,7 @@ class IndicatorBenefit
      *
      * @param \Yorku\JuturnaBundle\Entity\IndicatorReference $indicatorreferences
      */
-    public function removeIndicatorreference(\Yorku\JuturnaBundle\Entity\IndicatorReference $indicatorreferences)
-    {
+    public function removeIndicatorreference(\Yorku\JuturnaBundle\Entity\IndicatorReference $indicatorreferences) {
         $this->indicatorreferences->removeElement($indicatorreferences);
     }
 
@@ -311,8 +326,47 @@ class IndicatorBenefit
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getIndicatorreferences()
-    {
+    public function getIndicatorreferences() {
         return $this->indicatorreferences;
     }
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $indicatorbenefitimages;
+
+    /**
+     * Add indicatorbenefitimages
+     *
+     * @param \Yorku\JuturnaBundle\Entity\IndicatorBenefitImage $indicatorbenefitimages
+     * @return IndicatorBenefit
+     */
+    public function addIndicatorbenefitimage(\Yorku\JuturnaBundle\Entity\IndicatorBenefitImage $indicatorbenefitimages) {
+        $this->indicatorbenefitimages[] = $indicatorbenefitimages;
+
+        return $this;
+    }
+
+    /**
+     * Remove indicatorbenefitimages
+     *
+     * @param \Yorku\JuturnaBundle\Entity\IndicatorBenefitImage $indicatorbenefitimages
+     */
+    public function removeIndicatorbenefitimage(\Yorku\JuturnaBundle\Entity\IndicatorBenefitImage $indicatorbenefitimages) {
+        $this->indicatorbenefitimages->removeElement($indicatorbenefitimages);
+    }
+
+    /**
+     * Get indicatorbenefitimages
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getIndicatorbenefitimages() {
+        return $this->indicatorbenefitimages;
+    }
+
+    public function __toString() {
+        return $this->benefitName;
+    }
+
 }

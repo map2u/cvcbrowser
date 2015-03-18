@@ -67,12 +67,14 @@
                          </li>#}
                     </ul>
                     <ul class="nav navbar-nav pull-right">
-                        {#  <li {% if app.session.get('current_menu')=='about_us' %} class="active" {% endif %}><a href="{{path('homepage_about_us')}}" >About Us
+                          <li {% if app.session.get('current_menu')=='about_us' %} class="active" {% endif %}><a href="{{path('homepage_about_us')}}" >About Us
                               </a>
                           </li>
+                          {#
                           <li {% if app.session.get('current_menu')=='contact_us' %} class="active" {% endif %}><a href="{{path('homepage_contact_us')}}" >Contact Us
                               </a>
                           </li>#}
+                        
                         {% if app.user %}
                             {#<li ><a href="{{ path('sonata_admin_dashboard') }}">{{app.user.username}}</a></li>#}
 

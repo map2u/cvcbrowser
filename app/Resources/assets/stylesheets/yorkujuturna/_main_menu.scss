@@ -38,6 +38,7 @@ and open the template in the editor.
 .nav.navbar-nav li.dropdown ul {
     background-color: #141412;
     color:white;
+    
     z-index: 9999;
 }
 .nav.navbar-nav li a:hover {
@@ -71,6 +72,7 @@ and open the template in the editor.
 .dropdown-submenu:hover>.dropdown-menu {
     display: block;
     background-color: #141412;
+    margin-top: -6px;
     color: white;
 }
 

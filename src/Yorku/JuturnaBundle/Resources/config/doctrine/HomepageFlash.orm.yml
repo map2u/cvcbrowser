@@ -28,8 +28,7 @@ Yorku\JuturnaBundle\Entity\HomepageFlash:
             nullable: true
             column: align_left
             options:
-                default:
-                    true                
+                default: true                
         introduce:
             type: string
             length: 500

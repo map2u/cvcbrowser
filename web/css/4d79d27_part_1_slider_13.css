@@ -1,0 +1,188 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 17-Mar-2015, 5:02:09 PM
+    Author     : josephzhao
+*/
+/*!
+ * Slider for Bootstrap
+ *
+ * Copyright 2012 Stefan Petre
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ */
+/* line 19, assetic_compass5YCTQ1.scss */
+.slider {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+}
+
+/* line 24, assetic_compass5YCTQ1.scss */
+.slider.slider-horizontal {
+  width: 210px;
+  height: 20px;
+}
+
+/* line 28, assetic_compass5YCTQ1.scss */
+.slider.slider-horizontal .slider-track {
+  height: 10px;
+  width: 100%;
+  margin-top: -5px;
+  top: 50%;
+  left: 0;
+}
+
+/* line 35, assetic_compass5YCTQ1.scss */
+.slider.slider-horizontal .slider-selection {
+  height: 100%;
+  top: 0;
+  bottom: 0;
+}
+
+/* line 40, assetic_compass5YCTQ1.scss */
+.slider.slider-horizontal .slider-handle {
+  margin-left: -10px;
+  margin-top: -5px;
+}
+
+/* line 44, assetic_compass5YCTQ1.scss */
+.slider.slider-horizontal .slider-handle.triangle {
+  border-width: 0 10px 10px 10px;
+  width: 0;
+  height: 0;
+  border-bottom-color: #0480be;
+  margin-top: 0;
+}
+
+/* line 51, assetic_compass5YCTQ1.scss */
+.slider.slider-vertical {
+  height: 210px;
+  width: 20px;
+}
+
+/* line 55, assetic_compass5YCTQ1.scss */
+.slider.slider-vertical .slider-track {
+  width: 10px;
+  height: 100%;
+  margin-left: -5px;
+  left: 50%;
+  top: 0;
+}
+
+/* line 62, assetic_compass5YCTQ1.scss */
+.slider.slider-vertical .slider-selection {
+  width: 100%;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+/* line 68, assetic_compass5YCTQ1.scss */
+.slider.slider-vertical .slider-handle {
+  margin-left: -5px;
+  margin-top: -10px;
+}
+
+/* line 72, assetic_compass5YCTQ1.scss */
+.slider.slider-vertical .slider-handle.triangle {
+  border-width: 10px 0 10px 10px;
+  width: 1px;
+  height: 1px;
+  border-left-color: #0480be;
+  margin-left: 0;
+}
+
+/* line 79, assetic_compass5YCTQ1.scss */
+.slider.slider-disabled .slider-handle {
+  background-image: -webkit-gradient(linear, left 0%, left 100%, from(#dfdfdf), to(#bebebe));
+  background-image: -webkit-linear-gradient(top, #dfdfdf, 0%, #bebebe, 100%);
+  background-image: -moz-linear-gradient(top, #dfdfdf 0%, #bebebe 100%);
+  background-image: linear-gradient(to bottom, #dfdfdf 0%, #bebebe 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffdfdfdf', endColorstr='#ffbebebe', GradientType=0);
+}
+
+/* line 87, assetic_compass5YCTQ1.scss */
+.slider.slider-disabled .slider-track {
+  background-image: -webkit-gradient(linear, left 0%, left 100%, from(#e5e5e5), to(#e9e9e9));
+  background-image: -webkit-linear-gradient(top, #e5e5e5, 0%, #e9e9e9, 100%);
+  background-image: -moz-linear-gradient(top, #e5e5e5 0%, #e9e9e9 100%);
+  background-image: linear-gradient(to bottom, #e5e5e5 0%, #e9e9e9 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffe5e5e5', endColorstr='#ffe9e9e9', GradientType=0);
+  cursor: not-allowed;
+}
+
+/* line 96, assetic_compass5YCTQ1.scss */
+.slider input {
+  display: none;
+}
+
+/* line 99, assetic_compass5YCTQ1.scss */
+.slider .tooltip-inner {
+  white-space: nowrap;
+}
+
+/* line 102, assetic_compass5YCTQ1.scss */
+.slider-track {
+  position: absolute;
+  cursor: pointer;
+  background-image: -webkit-gradient(linear, left 0%, left 100%, from(#f5f5f5), to(#f9f9f9));
+  background-image: -webkit-linear-gradient(top, #f5f5f5, 0%, #f9f9f9, 100%);
+  background-image: -moz-linear-gradient(top, #f5f5f5 0%, #f9f9f9 100%);
+  background-image: linear-gradient(to bottom, #f5f5f5 0%, #f9f9f9 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff5f5f5', endColorstr='#fff9f9f9', GradientType=0);
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+/* line 115, assetic_compass5YCTQ1.scss */
+.slider-selection {
+  position: absolute;
+  background-image: -webkit-gradient(linear, left 0%, left 100%, from(#f9f9f9), to(#f5f5f5));
+  background-image: -webkit-linear-gradient(top, #f9f9f9, 0%, #f5f5f5, 100%);
+  background-image: -moz-linear-gradient(top, #f9f9f9 0%, #f5f5f5 100%);
+  background-image: linear-gradient(to bottom, #f9f9f9 0%, #f5f5f5 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff9f9f9', endColorstr='#fff5f5f5', GradientType=0);
+  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+/* line 130, assetic_compass5YCTQ1.scss */
+.slider-handle {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-image: -webkit-gradient(linear, left 0%, left 100%, from(#149bdf), to(#0480be));
+  background-image: -webkit-linear-gradient(top, #149bdf, 0%, #0480be, 100%);
+  background-image: -moz-linear-gradient(top, #149bdf 0%, #0480be 100%);
+  background-image: linear-gradient(to bottom, #149bdf 0%, #0480be 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff149bdf', endColorstr='#ff0480be', GradientType=0);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  opacity: 0.8;
+  border: 0px solid transparent;
+}
+
+/* line 145, assetic_compass5YCTQ1.scss */
+.slider-handle.round {
+  border-radius: 50%;
+}
+
+/* line 148, assetic_compass5YCTQ1.scss */
+.slider-handle.triangle {
+  background: transparent none;
+}

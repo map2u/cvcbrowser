@@ -369,4 +369,42 @@ class IndicatorBenefit {
         return $this->benefitName;
     }
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $uploadfilelayers;
+
+
+    /**
+     * Add uploadfilelayers
+     *
+     * @param \Map2u\CoreBundle\Entity\UploadfileLayer $uploadfilelayers
+     * @return IndicatorBenefit
+     */
+    public function addUploadfilelayer(\Map2u\CoreBundle\Entity\UploadfileLayer $uploadfilelayers)
+    {
+        $this->uploadfilelayers[] = $uploadfilelayers;
+
+        return $this;
+    }
+
+    /**
+     * Remove uploadfilelayers
+     *
+     * @param \Map2u\CoreBundle\Entity\UploadfileLayer $uploadfilelayers
+     */
+    public function removeUploadfilelayer(\Map2u\CoreBundle\Entity\UploadfileLayer $uploadfilelayers)
+    {
+        $this->uploadfilelayers->removeElement($uploadfilelayers);
+    }
+
+    /**
+     * Get uploadfilelayers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUploadfilelayers()
+    {
+        return $this->uploadfilelayers;
+    }
 }

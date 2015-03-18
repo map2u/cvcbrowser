@@ -1,7 +1,7 @@
 {# empty Twig template #}
 <div id="leaflet_content" class="overlay-sidebar">
 
-    <div id="sidebar-left" data-viewtype="{% if view is defined  %}{{view}}{% endif %}">
+    <div id="sidebar-left" data-viewtype="{% if view is defined  %}{{view}}{% endif %}" data-viewlayers="{% if benefits is defined and benefits != null and benefits.uploadfilelayers|length >0 %}{% for uploadfilelayer in benefits.uploadfilelayers %}{{uploadfilelayer.id}},{% endfor %}{% endif %}">
 
         <div id="flash">
         </div>
@@ -13,8 +13,9 @@
         </div>
 
         <div id="sidebar_content">
-
-
+            <div style="padding:15px;">
+                <p><h4>Choose a well-being benefit from the health or ecosystem services menu to explore your well-being and the watershed .. or share your own story.</h4></p>
+            </div>
         </div>
         <div class="sidebar_feature_content">
 
@@ -51,7 +52,7 @@
         <p>OpenStreetMap uses JavaScript for its slippy map.</p>
     </div>
     </noscript>
-    <div id="leafmap"  style="padding-top: 0; top:0px;border:0px #090 solid" >
+    <div id="leafmap" >
 
     </div> 
 </div>

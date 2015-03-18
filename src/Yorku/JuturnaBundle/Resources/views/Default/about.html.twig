@@ -1,8 +1,15 @@
-{# empty Twig template #}
-{% extends '::base.html.twig' %}
 
-{% block page_container %}
-    {% block maincontent %}
+{% extends '::baseLayout.html.twig' %}
+{% block page_stylesheets %}
+    {{ parent() }}
+    {% include "::mapstylesheets.html.twig" %}
+   
+{% endblock %}
+{% block body %}
+    {% block page_header %}
+        {{ parent() }}
+    {% endblock %}
+    {% block page_container %}
  
 
 <div style="padding:10px 40px 10px 40px;">

@@ -7,7 +7,7 @@ and open the template in the editor.
     Created on : 12-Mar-2015, 7:54:05 PM
     Author     : josephzhao
 */
-/* line 11, assetic_compass37wjRB.scss */
+/* line 11, assetic_compassiRvLOT.scss */
 .my-custom-control {
   width: 120px;
   height: 20px;
@@ -15,7 +15,7 @@ and open the template in the editor.
   border: 1px solid #333;
 }
 
-/* line 18, assetic_compass37wjRB.scss */
+/* line 18, assetic_compassiRvLOT.scss */
 .sidebar_content {
   border-top: 1px solid #ddd;
   border-bottom: 10px solid #ddd;
@@ -25,25 +25,25 @@ and open the template in the editor.
   margin-bottom: 5px;
 }
 
-/* line 26, assetic_compass37wjRB.scss */
+/* line 26, assetic_compassiRvLOT.scss */
 .sidebar_content li {
   list-style: none;
   margin-left: -10px;
 }
 
-/* line 31, assetic_compass37wjRB.scss */
+/* line 31, assetic_compassiRvLOT.scss */
 .leaflet-sidebar.right .sidebar_content input[type="radio"] {
   margin-top: -1px;
   margin-right: 3px;
 }
 
-/* line 32, assetic_compass37wjRB.scss */
+/* line 32, assetic_compassiRvLOT.scss */
 .leaflet-sidebar.right .sidebar_content input[type="checkbox"] {
   margin-top: -1px;
   margin-right: 3px;
 }
 
-/* line 34, assetic_compass37wjRB.scss */
+/* line 34, assetic_compassiRvLOT.scss */
 .leaflet-sidebar {
   position: absolute;
   height: 100%;
@@ -55,7 +55,7 @@ and open the template in the editor.
   z-index: 2000;
 }
 
-/* line 46, assetic_compass37wjRB.scss */
+/* line 46, assetic_compassiRvLOT.scss */
 .leaflet-sidebar.left {
   left: -350px;
   margin-top: 47px;
@@ -64,7 +64,7 @@ and open the template in the editor.
   padding-right: 0;
 }
 
-/* line 54, assetic_compass37wjRB.scss */
+/* line 54, assetic_compassiRvLOT.scss */
 .leaflet-sidebar.right {
   right: -300px;
   transition: right 0.5s, width 0.5s;
@@ -72,28 +72,28 @@ and open the template in the editor.
   padding-left: 0;
 }
 
-/* line 61, assetic_compass37wjRB.scss */
+/* line 61, assetic_compassiRvLOT.scss */
 .leaflet-sidebar.left.visible {
   left: 0;
   z-index: inherit;
 }
 
-/* line 66, assetic_compass37wjRB.scss */
+/* line 66, assetic_compassiRvLOT.scss */
 .leaflet-sidebar.right.visible {
   right: 0;
 }
 
-/* line 70, assetic_compass37wjRB.scss */
+/* line 70, assetic_compassiRvLOT.scss */
 .leaflet-left {
   transition: left 0.5s;
 }
 
-/* line 74, assetic_compass37wjRB.scss */
+/* line 74, assetic_compassiRvLOT.scss */
 .leaflet-right {
   transition: right 0.5s;
 }
 
-/* line 78, assetic_compass37wjRB.scss */
+/* line 78, assetic_compassiRvLOT.scss */
 .leaflet-sidebar > .leaflet-control {
   height: 100%;
   width: 100%;
@@ -110,14 +110,14 @@ and open the template in the editor.
   border-radius: 4px;
 }
 
-/* line 98, assetic_compass37wjRB.scss */
+/* line 98, assetic_compassiRvLOT.scss */
 .leaflet-sidebar > .leaflet-control h3 {
   margin-top: 2px;
   padding: 2px;
   line-height: 25px;
 }
 
-/* line 103, assetic_compass37wjRB.scss */
+/* line 103, assetic_compassiRvLOT.scss */
 .leaflet-touch .leaflet-sidebar > .leaflet-control {
   box-shadow: none;
   border: 2px solid rgba(0, 0, 0, 0.2);
@@ -125,123 +125,123 @@ and open the template in the editor.
 }
 
 @media (max-width: 767px) {
-  /* line 111, assetic_compass37wjRB.scss */
+  /* line 111, assetic_compassiRvLOT.scss */
   .leaflet-sidebar {
     width: 100%;
     padding: 0;
   }
 
-  /* line 116, assetic_compass37wjRB.scss */
+  /* line 116, assetic_compassiRvLOT.scss */
   .leaflet-sidebar.left {
     left: -100%;
   }
 
-  /* line 120, assetic_compass37wjRB.scss */
+  /* line 120, assetic_compassiRvLOT.scss */
   .leaflet-sidebar.right {
     right: -100%;
   }
 
-  /* line 124, assetic_compass37wjRB.scss */
+  /* line 124, assetic_compassiRvLOT.scss */
   .leaflet-sidebar.left.visible {
     left: 0;
     background-color: rgba(255, 255, 255, 0.8);
   }
 
-  /* line 130, assetic_compass37wjRB.scss */
+  /* line 130, assetic_compassiRvLOT.scss */
   .leaflet-sidebar.right.visible {
     right: 0;
   }
 
-  /* line 134, assetic_compass37wjRB.scss */
+  /* line 134, assetic_compassiRvLOT.scss */
   .leaflet-sidebar > .leaflet-control {
     box-shadow: none;
     -webkit-border-radius: 0;
     border-radius: 0;
   }
 
-  /* line 140, assetic_compass37wjRB.scss */
+  /* line 140, assetic_compassiRvLOT.scss */
   .leaflet-sidebar.left.visible ~ .leaflet-left {
     left: 100%;
     z-index: inherit;
   }
 
-  /* line 145, assetic_compass37wjRB.scss */
+  /* line 145, assetic_compassiRvLOT.scss */
   .leaflet-sidebar.right.visible ~ .leaflet-right {
     right: 100%;
   }
 
-  /* line 149, assetic_compass37wjRB.scss */
+  /* line 149, assetic_compassiRvLOT.scss */
   .leaflet-touch .leaflet-sidebar > .leaflet-control {
     border: 0;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
-  /* line 155, assetic_compass37wjRB.scss */
+  /* line 155, assetic_compassiRvLOT.scss */
   .leaflet-sidebar.left {
     width: 280px;
   }
 
-  /* line 158, assetic_compass37wjRB.scss */
+  /* line 158, assetic_compassiRvLOT.scss */
   .leaflet-sidebar.right {
     width: 240px;
   }
 
-  /* line 161, assetic_compass37wjRB.scss */
+  /* line 161, assetic_compassiRvLOT.scss */
   .leaflet-sidebar.left.visible ~ .leaflet-left {
     left: 280px;
     z-index: inherit;
   }
 
-  /* line 165, assetic_compass37wjRB.scss */
+  /* line 165, assetic_compassiRvLOT.scss */
   .leaflet-sidebar.right.visible ~ .leaflet-right {
     right: 240px;
   }
 }
 @media (min-width: 992px) and (max-width: 1199px) {
-  /* line 171, assetic_compass37wjRB.scss */
+  /* line 171, assetic_compassiRvLOT.scss */
   .leaflet-sidebar.left {
     width: 300px;
   }
 
-  /* line 174, assetic_compass37wjRB.scss */
+  /* line 174, assetic_compassiRvLOT.scss */
   .leaflet-sidebar.right {
     width: 260px;
   }
 
-  /* line 178, assetic_compass37wjRB.scss */
+  /* line 178, assetic_compassiRvLOT.scss */
   .leaflet-sidebar.left.visible ~ .leaflet-left {
     left: 300px;
     z-index: inherit;
   }
 
-  /* line 183, assetic_compass37wjRB.scss */
+  /* line 183, assetic_compassiRvLOT.scss */
   .leaflet-sidebar.right.visible ~ .leaflet-right {
     right: 260px;
   }
 }
 @media (min-width: 1200px) {
-  /* line 190, assetic_compass37wjRB.scss */
+  /* line 190, assetic_compassiRvLOT.scss */
   .leaflet-sidebar.left {
     width: 350px;
   }
 
-  /* line 193, assetic_compass37wjRB.scss */
+  /* line 193, assetic_compassiRvLOT.scss */
   .leaflet-sidebar.right {
     width: 280px;
   }
 
-  /* line 196, assetic_compass37wjRB.scss */
+  /* line 196, assetic_compassiRvLOT.scss */
   .leaflet-sidebar.left.visible ~ .leaflet-left {
     left: 350px;
     z-index: inherit;
   }
 
-  /* line 201, assetic_compass37wjRB.scss */
+  /* line 201, assetic_compassiRvLOT.scss */
   .leaflet-sidebar.right.visible ~ .leaflet-right {
     right: 280px;
   }
 }
-/* line 207, assetic_compass37wjRB.scss */
+/* line 207, assetic_compassiRvLOT.scss */
 .leaflet-sidebar .close {
   position: absolute;
   right: 17px;

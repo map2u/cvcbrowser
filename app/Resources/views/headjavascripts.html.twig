@@ -1,4 +1,4 @@
-{% javascripts 
+{#{% javascripts 
 
     '../app/Resources/assets/javascripts/jquery-1.11.0.min.js'
     '../app/Resources/assets/javascripts/bootstrap.min.js'
@@ -6,3 +6,21 @@
 %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
+#}
+<script src="/bundles/map2uweb/js/jquery-1.11.0.min.js"></script>
+<script src="/bundles/map2uweb/js/jquery.scrollTo-1.4.3.1-min.js"></script>
+<script src="/bundles/map2ucore/js/bootstrap.min.js"></script>
+<script src="/bundles/map2uweb/js/jquery.parallax.min.js"></script>
+<script src="/bundles/map2uweb/js/startup-kit.js"></script>
+<script src="/bundles/map2uweb/js/jquery.backgroundvideo.min.js"></script>
+<script src="/bundles/map2uweb/js/odometer.min.js"></script>
+<script src="/bundles/map2uweb/js/script.js"></script>
+
+<script src="/bundles/sonataadmin/vendor/jqueryui/ui/minified/jquery-ui.min.js" type="text/javascript"></script>
+<script src="/bundles/sonataadmin/vendor/jqueryui/ui/minified/i18n/jquery-ui-i18n.min.js" type="text/javascript"></script>
+<script src="/bundles/sonataadmin/jquery/jquery.form.js" type="text/javascript"></script>
+<script src="/bundles/sonataadmin/jquery/jquery.confirmExit.js" type="text/javascript"></script>
+<script src="{{ asset('bundles/map2ucore/js/jquery.validationEngine-en.js') }}"></script>
+<script src="{{ asset('bundles/map2ucore/js/jquery.validationEngine.js') }}"></script>
+<script src="{{ asset('bundles/yorkujuturna/js/menuaction.js') }}"></script>
+{{ render(controller("Map2uCoreBundle:Welcome:loginformjs")) }}
