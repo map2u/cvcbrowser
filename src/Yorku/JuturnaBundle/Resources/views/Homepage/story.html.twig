@@ -3,7 +3,13 @@
 
 {% block page_stylesheets %}
     {{ parent() }}
-      {% include "::mapstylesheets.html.twig" %}
+    {% include "::mapstylesheets.html.twig" %}
+    <style>
+        #pdf_display object {
+            display: block;
+            border: solid 1px #666;
+        }
+    </style>
 {% endblock %}
 {% block body %}
     {% block page_header %}
@@ -109,13 +115,14 @@
     {% endblock %}
     {% block page_javascripts %}
         {{ parent() }}
-
+        {% include "::mapjavascripts.html.twig" %}
+        <script>
+            $(function () {
+                window.onresize = function () {
+                    $("#ecosystem_image img").css({"margin-top": ($("#ecosystem_image").height() - $("#ecosystem_image img").height()) / 2 + "px"});
+                };
+            });
+        </script>
     {% endblock %}
-    <script>
-        $(function () {
-            window.onresize = function () {
-                $("#ecosystem_image img").css({"margin-top": ($("#ecosystem_image").height() - $("#ecosystem_image img").height()) / 2 + "px"});
-            };
-        });
-    </script>
+
 {% endblock %}

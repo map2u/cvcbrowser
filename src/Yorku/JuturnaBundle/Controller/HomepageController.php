@@ -121,6 +121,26 @@ class HomepageController extends Controller {
     /**
      * .
      *
+     * @Route("/storydetail", name="homepage_storydetail")
+     * @Method("GET")
+     * @Template()
+     */
+    public function storydetailAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $session = $request->getSession();
+        $id = $request->get("id");
+        $locale = $request->getLocale();
+        $session->set('current_menu', "story");
+        $story = null;
+        if (isset($id) && intval($id) > 0) {
+            $story = $em->getRepository('YorkuJuturnaBundle:Story')->find($id);
+        }
+        return array('_locale' => $locale, 'story' => $story);
+    }
+
+    /**
+     * .
+     *
      * @Route("/well_being", name="homepage_well_being")
      * @Method("GET")
      * @Template()
@@ -351,11 +371,11 @@ class HomepageController extends Controller {
     public function benefitAction(Request $request) {
         $id = $request->get("id");
         $benefit = null;
-         $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         if (isset($id) && intval($id) > 0) {
-            $benefit= $em->getRepository('YorkuJuturnaBundle:IndicatorBenefit')->find(intval($id));
+            $benefit = $em->getRepository('YorkuJuturnaBundle:IndicatorBenefit')->find(intval($id));
         }
-        return array( 'benefit' =>$benefit );
+        return array('benefit' => $benefit);
     }
 
 }

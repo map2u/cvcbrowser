@@ -1,0 +1,275 @@
+{% extends '::baseLayout.html.twig' %}
+{% block page_stylesheets %}
+    {{ parent() }}
+
+{% endblock %}
+
+{% block body %}
+    {% block page_header %}
+        {{ parent() }}
+    {% endblock %}
+    {% block page_container %}
+    {% endblock %}
+
+    <div class="container-fluid" style="margin:0;padding:0;">
+        <div class="row-fluid story_flash">
+
+
+            {% set images=story.getImageFile()|unserialize %}
+
+
+            {% if images|length > 1 %}
+                <div id="story_flash" class="carousel slide" style=" border:1px solid background;height:350px;overflow: hidden;">
+                    <ol class="carousel-indicators">
+                        {% set i=0 %}
+
+                        {% for image in images %}
+                            <li data-target="#indicator_benefit_flash" data-slide-to="{{i}}" {% if i==0 %} class="active" {% endif %}>
+                            </li>
+                            {% set i=i+1 %}
+                        {% endfor %}
+
+                    </ol>
+                    <div class="carousel-inner">
+                        {% set i=0 %}
+
+                        {% for image in images %}
+                            <div  class="item {% if i==0%} active {% endif %}" >
+                                <div class="carousel-caption">
+                                    <h2>{{story.storyName|title}}</h2>
+
+                                </div>
+                                <img style="width:100%;overflow: hidden;" src="{{ asset('uploads/stories/'~story.id~'/images/')}}{{image|raw}}" width="100%">
+
+                            </div>
+                            {% set i=i+1 %}
+                        {% endfor %}
+                    </div>
+                    <a class="left carousel-control" href="#indicator_benefit_flash" data-slide="prev">‹</a>
+                    <a class="right carousel-control" href="#indicator_benefit_flash" data-slide="next">›</a>
+                </div>
+            {% else %}
+                {% if images|length == 1 %}
+                    <div id="story_image">
+                        <div class="carousel-caption">
+                            <h2>{{story.storyName|title}}</h2>
+
+                            {#                                            <h3>{{indicatorbenefitimage.getImageTitle()}}</h3>#}
+                            {# <p>{{indicatorbenefitimage.getImageCaption()}}</p>#}
+                        </div>
+                        <img style="width:100%;overflow: hidden;" src="{{ asset('uploads/stories/'~story.id~'/images/')}}{{images[0]|raw}}" width="100%">
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="container-fluid" style="margin: 15px auto;max-width: 1200px;">
+        <div class="row-fluid">
+            <div style="margin: 15px auto;text-align:center;">
+                <h2> {{story.storyName|title}}</h2>
+            </div>
+        </div>
+        <div class="row-fluid" style="height:400px;overflow:auto;border: 1px solid gainsboro;">
+            {% if story.storyFile %}
+                <div id="pdf_display">
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+    {% block footer %}
+        {{ parent() }}
+    {% endblock %}
+    {% block page_javascripts %}
+        {{ parent() }}
+
+    {% endblock %}
+    <script>
+        $(function () {
+
+            $('#story_flash').on('slide', function (e) {
+                $(this).find('.active').css({"margin-top": ($(".carousel-inner").height() - $(this).find('.active').height()) / 2 + "px"});
+            });
+
+            $('#story_flash').carousel({
+                interval: 7000
+            });
+            window.onresize = function () {
+
+                if ($(".story_flash #story_image img").length === 1) {
+                    $(".story_flash #story_image img").css({"margin-top": ($(".story_flash #story_image").height() - $(".story_flash #story_image img").height()) / 2 + "px"});
+                }
+                else
+                {
+                    $("#story_flash .item.carousel-item.active img").css({"margin-top": ($("#story_flash .carousel-inner").height() - $("#story_flash .item.carousel-item.active img").height()) / 2 + "px"});
+                    $("#story_flash .item.carousel-item.active div.carousel-caption").css({"margin-top": ($("#story_flash .item.carousel-item.active img").height() - $("#story_flash .carousel-inner").height()) / 2 + "px"});
+                }
+            };
+        {% if story.storyFile %}
+                //
+// Fetch the PDF document from the URL using promises
+//
+            {#   PDFJS.getDocument('{{app.request.getSchemeAndHttpHost()}}/uploads/stories/{{story.id}}/pdf/{{story.storyFile}}').then(function (pdf) {
+                   // Using promise to fetch the page
+                   pdf.getPage(1).then(function (page) {
+                       var scale = 1.5;
+                       var viewport = page.getViewport(scale);
+
+                       //
+                       // Prepare canvas using PDF page dimensions
+                       //
+                       var canvas = document.getElementById('pdf_display');
+                       var context = canvas.getContext('2d');
+                       canvas.height = viewport.height;
+                       canvas.width = viewport.width;
+
+                       //
+                       // Render PDF page into canvas context
+                       //
+                       var renderContext = {
+                           canvasContext: context,
+                           viewport: viewport
+                       };
+                       page.render(renderContext);
+                   });
+               });#}
+
+            {#         var pdf = null;
+                     //     PDFJS.disableWorker = true;
+                     var pages = new Array();
+                     var canvas = document.getElementById('pdf_display');
+                     var context = canvas.getContext('2d');
+                     var scale = 1.5;
+                     var canvasWidth = 0;
+                     var canvasHeight = 0;
+                     var pageStarts = new Array();
+                     pageStarts[0] = 0;
+                     var url = '{{app.request.getSchemeAndHttpHost()}}/uploads/stories/{{story.id}}/pdf/{{story.storyFile}}';
+
+                     PDFJS.getDocument(url).then(function getPdfHelloWorld(_pdf) {
+                         pdf = _pdf;
+                         //Render all the pages on a single canvas
+                         for (var i = 1; i <= pdf.numPages; i++) {
+                             pdf.getPage(i).then(function getPage(page) {
+                                 var viewport = page.getViewport(scale);
+                                 canvas.width = viewport.width;    // changing canvas.width and/or canvas.height auto-clears the canvas
+                                 canvas.height = viewport.height;
+                                 page.render({canvasContext: context, viewport: viewport});
+                                 pages[i - 1] = context.getImageData(0, 0, canvas.width, canvas.height);
+                                 if (canvas.width > canvasWidth) {  // calculate the width of the final display canvas
+                                     canvasWidth = canvas.width;
+                                 }
+                                 canvasHeight += canvas.height;   // calculate the accumulated with of the final display canvas
+                                 pageStarts[i] = pageStarts[i - 1] + canvas.height;    // save the "Y" starting position of this pages[i]
+                             });
+                         }
+                         canvas.width = canvasWidth;
+                         canvas.height = canvasHeight;  // this auto-clears all canvas contents
+                         for (var i = 0; i < pages.length; i++) {
+                             context.putImageData(pages[i], 0, pageStarts[i]);
+                         }
+                     });
+
+#}
+            {#          var pdf = null;
+                      PDFJS.disableWorker = true;
+                      var pages = new Array();
+//Prepare some things
+                      var canvas = document.getElementById('pdf_display');
+                      var context = canvas.getContext('2d');
+                      var scale = 1.5;
+                      var canvasWidth = 0;
+                      var maxCanvasWidth = 600;
+                      var canvasHeight = 0;
+                      var pageStarts = new Array();
+                      pageStarts[0] = 0;
+
+                      PDFJS.getDocument('{{app.request.getSchemeAndHttpHost()}}/uploads/stories/{{story.id}}/pdf/{{story.storyFile}}').then(function getPdfHelloWorld(_pdf) {
+                          pdf = _pdf;
+                          //Render all the pages on a single canvas
+                          for (var i = 1; i <= pdf.numPages; i++) {
+                              pdf.getPage(i).then(function getPage(page) {
+                                  var viewport = page.getViewport(scale);
+                                  // changing canvas.width and/or canvas.height auto-clears the canvas
+                                  canvas.width = viewport.width;
+                                  canvas.height = viewport.height;
+                                  page.render({canvasContext: context, viewport: viewport});
+                                  pages[i - 1] = context.getImageData(0, 0, canvas.width, canvas.height);
+                                  // calculate the width of the final display canvas
+                                  if (canvas.width > maxCanvasWidth) {
+                                      maxCanvasWidth = canvas.width;
+                                  }
+                                  // calculate the accumulated with of the final display canvas
+                                  canvasHeight += canvas.height;
+                                  // save the "Y" starting position of this pages[i]
+                                  pageStarts[i] = pageStarts[i - 1] + canvas.height;
+                                  pdf.Out("pre-rendered page " + i);
+                              });
+                          }
+
+
+                          canvas.width = canvasWidth;
+                          canvas.height = canvasHeight;  // this auto-clears all canvas contents
+                          for (var i = 0; i < pages.length; i++) {
+                              context.putImageData(pages[i], 0, pageStarts[i]);
+                          }
+
+                      });#}
+            {#      var myPDF = new PDFObject({
+                      url: "{{app.request.getSchemeAndHttpHost()}}/uploads/stories/{{story.id}}/pdf/{{story.storyFile}}"}
+
+                  ).embed("pdf_display");
+                 #}
+
+                         function loadPDFJS(pageUrl) {
+                             // PDFJS.workerSrc = 'resources/js/pdfjs/pdf.worker.js';
+                             var currentPage = 1;
+                             var pages = [];
+                             var globalPdf = null;
+                             var container = document.getElementById('pdf_display');
+                             function renderPage(page) {
+                                 //
+                                 // Prepare canvas using PDF page dimensions
+                                 //
+                                 var canvas = document.createElement('canvas');
+                                 // Link: http://stackoverflow.com/a/13039183/1577396
+                                 // Canvas width should be set to the window's width for appropriate
+                                 // scaling factor of the document with respect to the canvas width
+                                 var viewport = page.getViewport(1.5);
+                                 //  var viewport = page.getViewport(window.screen.width / page.getViewport(1.0).width);
+                                 // append the created canvas to the container
+                                 container.appendChild(canvas);
+                                 // Get context of the canvas
+                                 var context = canvas.getContext('2d');
+                                 canvas.height = viewport.height;
+                                 canvas.width = viewport.width;
+                                 //
+                                 // Render PDF page into canvas context
+                                 //
+                                 var renderContext = {
+                                     canvasContext: context,
+                                     viewport: viewport
+                                 };
+                                 page.render(renderContext).then(function () {
+                                     if (currentPage < globalPdf.numPages) {
+                                         pages[currentPage] = canvas;
+                                         currentPage++;
+                                         globalPdf.getPage(currentPage).then(renderPage);
+                                     } else {
+                                         // Callback function here, which will trigger when all pages are loaded
+                                     }
+                                 });
+                             }
+                             PDFJS.getDocument(pageUrl).then(function (pdf) {
+                                 if (!globalPdf) {
+                                     globalPdf = pdf;
+                                 }
+                                 pdf.getPage(currentPage).then(renderPage);
+                             });
+                         }
+                         loadPDFJS("{{app.request.getSchemeAndHttpHost()}}/uploads/stories/{{story.id}}/pdf/{{story.storyFile}}");
+
+        {% endif %}
+            });
+    </script>
+{% endblock %}

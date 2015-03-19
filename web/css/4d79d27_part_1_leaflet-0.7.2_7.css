@@ -8,7 +8,7 @@ and open the template in the editor.
     Author     : josephzhao
 */
 /* required styles */
-/* line 13, assetic_compass8vbrwo.scss */
+/* line 13, assetic_compassezOBRI.scss */
 .leaflet-map-pane,
 .leaflet-tile,
 .leaflet-marker-icon,
@@ -28,13 +28,13 @@ and open the template in the editor.
   top: 0;
 }
 
-/* line 31, assetic_compass8vbrwo.scss */
+/* line 31, assetic_compassezOBRI.scss */
 .leaflet-container {
   overflow: hidden;
   -ms-touch-action: none;
 }
 
-/* line 35, assetic_compass8vbrwo.scss */
+/* line 35, assetic_compassezOBRI.scss */
 .leaflet-tile,
 .leaflet-marker-icon,
 .leaflet-marker-shadow {
@@ -44,84 +44,84 @@ and open the template in the editor.
   -webkit-user-drag: none;
 }
 
-/* line 43, assetic_compass8vbrwo.scss */
+/* line 43, assetic_compassezOBRI.scss */
 .leaflet-marker-icon,
 .leaflet-marker-shadow {
   display: block;
 }
 
 /* map is broken in FF if you have max-width: 100% on tiles */
-/* line 48, assetic_compass8vbrwo.scss */
+/* line 48, assetic_compassezOBRI.scss */
 .leaflet-container img {
   max-width: none !important;
 }
 
 /* stupid Android 2 doesn't understand "max-width: none" properly */
-/* line 52, assetic_compass8vbrwo.scss */
+/* line 52, assetic_compassezOBRI.scss */
 .leaflet-container img.leaflet-image-layer {
   max-width: 15000px !important;
 }
 
-/* line 55, assetic_compass8vbrwo.scss */
+/* line 55, assetic_compassezOBRI.scss */
 .leaflet-tile {
   filter: inherit;
   visibility: hidden;
 }
 
-/* line 59, assetic_compass8vbrwo.scss */
+/* line 59, assetic_compassezOBRI.scss */
 .leaflet-tile-loaded {
   visibility: inherit;
 }
 
-/* line 62, assetic_compass8vbrwo.scss */
+/* line 62, assetic_compassezOBRI.scss */
 .leaflet-zoom-box {
   width: 0;
   height: 0;
 }
 
 /* workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=888319 */
-/* line 67, assetic_compass8vbrwo.scss */
+/* line 67, assetic_compassezOBRI.scss */
 .leaflet-overlay-pane svg {
   -moz-user-select: none;
 }
 
-/* line 71, assetic_compass8vbrwo.scss */
+/* line 71, assetic_compassezOBRI.scss */
 .leaflet-tile-pane {
   z-index: 2;
 }
 
-/* line 72, assetic_compass8vbrwo.scss */
+/* line 72, assetic_compassezOBRI.scss */
 .leaflet-objects-pane {
   z-index: 3;
 }
 
-/* line 73, assetic_compass8vbrwo.scss */
+/* line 73, assetic_compassezOBRI.scss */
 .leaflet-overlay-pane {
   z-index: 4;
 }
 
-/* line 74, assetic_compass8vbrwo.scss */
+/* line 74, assetic_compassezOBRI.scss */
 .leaflet-shadow-pane {
   z-index: 5;
 }
 
-/* line 75, assetic_compass8vbrwo.scss */
+/* line 75, assetic_compassezOBRI.scss */
 .leaflet-marker-pane {
   z-index: 6;
 }
 
-/* line 76, assetic_compass8vbrwo.scss */
+/* line 76, assetic_compassezOBRI.scss */
 .leaflet-popup-pane {
   z-index: 7;
 }
 
-/* line 78, assetic_compass8vbrwo.scss */
+/* line 78, assetic_compassezOBRI.scss */
 .leaflet-vml-shape {
   width: 1px;
   height: 1px;
 }
 
-/* line 82, assetic_compass8vbrwo.scss */
+/* line 82, assetic_compassezOBRI.scss */
 .lvml {
   behavior: url(#default#VML);
   display: inline-block;
@@ -129,14 +129,14 @@ and open the template in the editor.
 }
 
 /* control positioning */
-/* line 91, assetic_compass8vbrwo.scss */
+/* line 91, assetic_compassezOBRI.scss */
 .leaflet-control {
   position: relative;
   z-index: 7;
   pointer-events: auto;
 }
 
-/* line 96, assetic_compass8vbrwo.scss */
+/* line 96, assetic_compassezOBRI.scss */
 .leaflet-top,
 .leaflet-bottom {
   position: absolute;
@@ -144,59 +144,59 @@ and open the template in the editor.
   pointer-events: none;
 }
 
-/* line 102, assetic_compass8vbrwo.scss */
+/* line 102, assetic_compassezOBRI.scss */
 .leaflet-top {
   top: 0;
 }
 
-/* line 105, assetic_compass8vbrwo.scss */
+/* line 105, assetic_compassezOBRI.scss */
 .leaflet-right {
   right: 0;
 }
 
-/* line 108, assetic_compass8vbrwo.scss */
+/* line 108, assetic_compassezOBRI.scss */
 .leaflet-bottom {
   bottom: 0;
 }
 
-/* line 111, assetic_compass8vbrwo.scss */
+/* line 111, assetic_compassezOBRI.scss */
 .leaflet-left {
   left: 0;
 }
 
-/* line 114, assetic_compass8vbrwo.scss */
+/* line 114, assetic_compassezOBRI.scss */
 .leaflet-control {
   float: left;
   clear: both;
 }
 
-/* line 118, assetic_compass8vbrwo.scss */
+/* line 118, assetic_compassezOBRI.scss */
 .leaflet-right .leaflet-control {
   float: right;
 }
 
-/* line 121, assetic_compass8vbrwo.scss */
+/* line 121, assetic_compassezOBRI.scss */
 .leaflet-top .leaflet-control {
   margin-top: 10px;
 }
 
-/* line 124, assetic_compass8vbrwo.scss */
+/* line 124, assetic_compassezOBRI.scss */
 .leaflet-bottom .leaflet-control {
   margin-bottom: 10px;
 }
 
-/* line 127, assetic_compass8vbrwo.scss */
+/* line 127, assetic_compassezOBRI.scss */
 .leaflet-left .leaflet-control {
   margin-left: 10px;
 }
 
-/* line 130, assetic_compass8vbrwo.scss */
+/* line 130, assetic_compassezOBRI.scss */
 .leaflet-right .leaflet-control {
   margin-right: 10px;
 }
 
 /* zoom and fade animations */
-/* line 137, assetic_compass8vbrwo.scss */
+/* line 137, assetic_compassezOBRI.scss */
 .leaflet-fade-anim .leaflet-tile,
 .leaflet-fade-anim .leaflet-popup {
   opacity: 0;
@@ -206,13 +206,13 @@ and open the template in the editor.
   transition: opacity 0.2s linear;
 }
 
-/* line 145, assetic_compass8vbrwo.scss */
+/* line 145, assetic_compassezOBRI.scss */
 .leaflet-fade-anim .leaflet-tile-loaded,
 .leaflet-fade-anim .leaflet-map-pane .leaflet-popup {
   opacity: 1;
 }
 
-/* line 150, assetic_compass8vbrwo.scss */
+/* line 150, assetic_compassezOBRI.scss */
 .leaflet-zoom-anim .leaflet-zoom-animated {
   -webkit-transition: -webkit-transform 0.25s cubic-bezier(0, 0, 0.25, 1);
   -moz-transition: -moz-transform 0.25s cubic-bezier(0, 0, 0.25, 1);
@@ -220,7 +220,7 @@ and open the template in the editor.
   transition: transform 0.25s cubic-bezier(0, 0, 0.25, 1);
 }
 
-/* line 156, assetic_compass8vbrwo.scss */
+/* line 156, assetic_compassezOBRI.scss */
 .leaflet-zoom-anim .leaflet-tile,
 .leaflet-pan-anim .leaflet-tile,
 .leaflet-touching .leaflet-zoom-animated {
@@ -230,30 +230,30 @@ and open the template in the editor.
   transition: none;
 }
 
-/* line 165, assetic_compass8vbrwo.scss */
+/* line 165, assetic_compassezOBRI.scss */
 .leaflet-zoom-anim .leaflet-zoom-hide {
   visibility: hidden;
 }
 
 /* cursors */
-/* line 172, assetic_compass8vbrwo.scss */
+/* line 172, assetic_compassezOBRI.scss */
 .leaflet-clickable {
   cursor: pointer;
 }
 
-/* line 175, assetic_compass8vbrwo.scss */
+/* line 175, assetic_compassezOBRI.scss */
 .leaflet-container {
   cursor: -webkit-grab;
   cursor: -moz-grab;
 }
 
-/* line 179, assetic_compass8vbrwo.scss */
+/* line 179, assetic_compassezOBRI.scss */
 .leaflet-popup-pane,
 .leaflet-control {
   cursor: auto;
 }
 
-/* line 183, assetic_compass8vbrwo.scss */
+/* line 183, assetic_compassezOBRI.scss */
 .leaflet-dragging .leaflet-container,
 .leaflet-dragging .leaflet-clickable {
   cursor: move;
@@ -262,42 +262,42 @@ and open the template in the editor.
 }
 
 /* visual tweaks */
-/* line 193, assetic_compass8vbrwo.scss */
+/* line 193, assetic_compassezOBRI.scss */
 .leaflet-container {
   background: #ddd;
   outline: 0;
 }
 
-/* line 197, assetic_compass8vbrwo.scss */
+/* line 197, assetic_compassezOBRI.scss */
 .leaflet-container a {
   color: #0078A8;
 }
 
-/* line 200, assetic_compass8vbrwo.scss */
+/* line 200, assetic_compassezOBRI.scss */
 .leaflet-container a.leaflet-active {
   outline: 2px solid orange;
 }
 
-/* line 203, assetic_compass8vbrwo.scss */
+/* line 203, assetic_compassezOBRI.scss */
 .leaflet-zoom-box {
   border: 2px dotted #38f;
   background: rgba(255, 255, 255, 0.5);
 }
 
 /* general typography */
-/* line 210, assetic_compass8vbrwo.scss */
+/* line 210, assetic_compassezOBRI.scss */
 .leaflet-container {
   font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 
 /* general toolbar styles */
-/* line 217, assetic_compass8vbrwo.scss */
+/* line 217, assetic_compassezOBRI.scss */
 .leaflet-bar {
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
   border-radius: 4px;
 }
 
-/* line 221, assetic_compass8vbrwo.scss */
+/* line 221, assetic_compassezOBRI.scss */
 .leaflet-bar a,
 .leaflet-bar a:hover {
   background-color: #fff;
@@ -311,7 +311,7 @@ and open the template in the editor.
   color: black;
 }
 
-/* line 233, assetic_compass8vbrwo.scss */
+/* line 233, assetic_compassezOBRI.scss */
 .leaflet-bar a,
 .leaflet-control-layers-toggle {
   background-position: 50% 50%;
@@ -319,32 +319,32 @@ and open the template in the editor.
   display: block;
 }
 
-/* line 239, assetic_compass8vbrwo.scss */
+/* line 239, assetic_compassezOBRI.scss */
 .leaflet-bar a:hover {
   background-color: #f4f4f4;
 }
 
-/* line 242, assetic_compass8vbrwo.scss */
+/* line 242, assetic_compassezOBRI.scss */
 .leaflet-bar a:first-child {
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
 }
 
-/* line 246, assetic_compass8vbrwo.scss */
+/* line 246, assetic_compassezOBRI.scss */
 .leaflet-bar a:last-child {
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
   border-bottom: none;
 }
 
-/* line 251, assetic_compass8vbrwo.scss */
+/* line 251, assetic_compassezOBRI.scss */
 .leaflet-bar a.leaflet-disabled {
   cursor: default;
   background-color: #f4f4f4;
   color: #bbb;
 }
 
-/* line 257, assetic_compass8vbrwo.scss */
+/* line 257, assetic_compassezOBRI.scss */
 .leaflet-touch .leaflet-bar a {
   width: 30px;
   height: 30px;
@@ -352,7 +352,7 @@ and open the template in the editor.
 }
 
 /* zoom control */
-/* line 266, assetic_compass8vbrwo.scss */
+/* line 266, assetic_compassezOBRI.scss */
 .leaflet-control-zoom-full,
 .leaflet-control-zoom-in,
 .leaflet-control-zoom-out {
@@ -360,85 +360,85 @@ and open the template in the editor.
   text-indent: 1px;
 }
 
-/* line 272, assetic_compass8vbrwo.scss */
+/* line 272, assetic_compassezOBRI.scss */
 .leaflet-control-zoom-out {
   font-size: 20px;
 }
 
-/* line 276, assetic_compass8vbrwo.scss */
+/* line 276, assetic_compassezOBRI.scss */
 .leaflet-touch .leaflet-control-zoom-full {
   font-size: 22px;
 }
 
-/* line 279, assetic_compass8vbrwo.scss */
+/* line 279, assetic_compassezOBRI.scss */
 .leaflet-touch .leaflet-control-zoom-in {
   font-size: 22px;
 }
 
-/* line 282, assetic_compass8vbrwo.scss */
+/* line 282, assetic_compassezOBRI.scss */
 .leaflet-touch .leaflet-control-zoom-out {
   font-size: 24px;
 }
 
 /* layers control */
-/* line 289, assetic_compass8vbrwo.scss */
+/* line 289, assetic_compassezOBRI.scss */
 .leaflet-control-layers {
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
   background: #fff;
   border-radius: 5px;
 }
 
-/* line 294, assetic_compass8vbrwo.scss */
+/* line 294, assetic_compassezOBRI.scss */
 .leaflet-control-layers-toggle {
   background-image: url(../images/layers.png);
   width: 36px;
   height: 36px;
 }
 
-/* line 299, assetic_compass8vbrwo.scss */
+/* line 299, assetic_compassezOBRI.scss */
 .leaflet-retina .leaflet-control-layers-toggle {
   background-image: url(../images/layers-2x.png);
   background-size: 26px 26px;
 }
 
-/* line 303, assetic_compass8vbrwo.scss */
+/* line 303, assetic_compassezOBRI.scss */
 .leaflet-touch .leaflet-control-layers-toggle {
   width: 44px;
   height: 44px;
 }
 
-/* line 307, assetic_compass8vbrwo.scss */
+/* line 307, assetic_compassezOBRI.scss */
 .leaflet-control-layers .leaflet-control-layers-list,
 .leaflet-control-layers-expanded .leaflet-control-layers-toggle {
   display: none;
 }
 
-/* line 311, assetic_compass8vbrwo.scss */
+/* line 311, assetic_compassezOBRI.scss */
 .leaflet-control-layers-expanded .leaflet-control-layers-list {
   display: block;
   position: relative;
 }
 
-/* line 315, assetic_compass8vbrwo.scss */
+/* line 315, assetic_compassezOBRI.scss */
 .leaflet-control-layers-expanded {
   padding: 6px 10px 6px 6px;
   color: #333;
   background: #fff;
 }
 
-/* line 320, assetic_compass8vbrwo.scss */
+/* line 320, assetic_compassezOBRI.scss */
 .leaflet-control-layers-selector {
   margin-top: 2px;
   position: relative;
   top: 1px;
 }
 
-/* line 325, assetic_compass8vbrwo.scss */
+/* line 325, assetic_compassezOBRI.scss */
 .leaflet-control-layers label {
   display: block;
 }
 
-/* line 328, assetic_compass8vbrwo.scss */
+/* line 328, assetic_compassezOBRI.scss */
 .leaflet-control-layers-separator {
   height: 0;
   border-top: 1px solid #ddd;
@@ -446,47 +446,47 @@ and open the template in the editor.
 }
 
 /* attribution and scale controls */
-/* line 337, assetic_compass8vbrwo.scss */
+/* line 337, assetic_compassezOBRI.scss */
 .leaflet-container .leaflet-control-attribution {
   background: #fff;
   background: rgba(255, 255, 255, 0.7);
   margin: 0;
 }
 
-/* line 342, assetic_compass8vbrwo.scss */
+/* line 342, assetic_compassezOBRI.scss */
 .leaflet-control-attribution,
 .leaflet-control-scale-line {
   padding: 0 5px;
   color: #333;
 }
 
-/* line 347, assetic_compass8vbrwo.scss */
+/* line 347, assetic_compassezOBRI.scss */
 .leaflet-control-attribution a {
   text-decoration: none;
 }
 
-/* line 350, assetic_compass8vbrwo.scss */
+/* line 350, assetic_compassezOBRI.scss */
 .leaflet-control-attribution a:hover {
   text-decoration: underline;
 }
 
-/* line 353, assetic_compass8vbrwo.scss */
+/* line 353, assetic_compassezOBRI.scss */
 .leaflet-container .leaflet-control-attribution,
 .leaflet-container .leaflet-control-scale {
   font-size: 11px;
 }
 
-/* line 357, assetic_compass8vbrwo.scss */
+/* line 357, assetic_compassezOBRI.scss */
 .leaflet-left .leaflet-control-scale {
   margin-left: 5px;
 }
 
-/* line 360, assetic_compass8vbrwo.scss */
+/* line 360, assetic_compassezOBRI.scss */
 .leaflet-bottom .leaflet-control-scale {
   margin-bottom: 5px;
 }
 
-/* line 363, assetic_compass8vbrwo.scss */
+/* line 363, assetic_compassezOBRI.scss */
 .leaflet-control-scale-line {
   border: 2px solid #777;
   border-top: none;
@@ -501,26 +501,26 @@ and open the template in the editor.
   background: rgba(255, 255, 255, 0.5);
 }
 
-/* line 377, assetic_compass8vbrwo.scss */
+/* line 377, assetic_compassezOBRI.scss */
 .leaflet-control-scale-line:not(:first-child) {
   border-top: 2px solid #777;
   border-bottom: none;
   margin-top: -2px;
 }
 
-/* line 382, assetic_compass8vbrwo.scss */
+/* line 382, assetic_compassezOBRI.scss */
 .leaflet-control-scale-line:not(:first-child):not(:last-child) {
   border-bottom: 2px solid #777;
 }
 
-/* line 386, assetic_compass8vbrwo.scss */
+/* line 386, assetic_compassezOBRI.scss */
 .leaflet-touch .leaflet-control-attribution,
 .leaflet-touch .leaflet-control-layers,
 .leaflet-touch .leaflet-bar {
   box-shadow: none;
 }
 
-/* line 391, assetic_compass8vbrwo.scss */
+/* line 391, assetic_compassezOBRI.scss */
 .leaflet-touch .leaflet-control-layers,
 .leaflet-touch .leaflet-bar {
   border: 2px solid rgba(0, 0, 0, 0.2);
@@ -528,31 +528,31 @@ and open the template in the editor.
 }
 
 /* popup */
-/* line 400, assetic_compass8vbrwo.scss */
+/* line 400, assetic_compassezOBRI.scss */
 .leaflet-popup {
   position: absolute;
   text-align: center;
 }
 
-/* line 404, assetic_compass8vbrwo.scss */
+/* line 404, assetic_compassezOBRI.scss */
 .leaflet-popup-content-wrapper {
   padding: 1px;
   text-align: left;
   border-radius: 12px;
 }
 
-/* line 409, assetic_compass8vbrwo.scss */
+/* line 409, assetic_compassezOBRI.scss */
 .leaflet-popup-content {
   margin: 13px 19px;
   line-height: 1.4;
 }
 
-/* line 413, assetic_compass8vbrwo.scss */
+/* line 413, assetic_compassezOBRI.scss */
 .leaflet-popup-content p {
   margin: 18px 0;
 }
 
-/* line 416, assetic_compass8vbrwo.scss */
+/* line 416, assetic_compassezOBRI.scss */
 .leaflet-popup-tip-container {
   margin: 0 auto;
   width: 40px;
@@ -561,7 +561,7 @@ and open the template in the editor.
   overflow: hidden;
 }
 
-/* line 423, assetic_compass8vbrwo.scss */
+/* line 423, assetic_compassezOBRI.scss */
 .leaflet-popup-tip {
   width: 17px;
   height: 17px;
@@ -574,14 +574,14 @@ and open the template in the editor.
   transform: rotate(45deg);
 }
 
-/* line 436, assetic_compass8vbrwo.scss */
+/* line 436, assetic_compassezOBRI.scss */
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip {
   background: white;
   box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4);
 }
 
-/* line 442, assetic_compass8vbrwo.scss */
+/* line 442, assetic_compassezOBRI.scss */
 .leaflet-container a.leaflet-popup-close-button {
   position: absolute;
   top: 0;
@@ -597,24 +597,24 @@ and open the template in the editor.
   background: transparent;
 }
 
-/* line 456, assetic_compass8vbrwo.scss */
+/* line 456, assetic_compassezOBRI.scss */
 .leaflet-container a.leaflet-popup-close-button:hover {
   color: #999;
 }
 
-/* line 459, assetic_compass8vbrwo.scss */
+/* line 459, assetic_compassezOBRI.scss */
 .leaflet-popup-scrolled {
   overflow: auto;
   border-bottom: 1px solid #ddd;
   border-top: 1px solid #ddd;
 }
 
-/* line 465, assetic_compass8vbrwo.scss */
+/* line 465, assetic_compassezOBRI.scss */
 .leaflet-oldie .leaflet-popup-content-wrapper {
   zoom: 1;
 }
 
-/* line 468, assetic_compass8vbrwo.scss */
+/* line 468, assetic_compassezOBRI.scss */
 .leaflet-oldie .leaflet-popup-tip {
   width: 24px;
   margin: 0 auto;
@@ -622,12 +622,12 @@ and open the template in the editor.
   filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678);
 }
 
-/* line 475, assetic_compass8vbrwo.scss */
+/* line 475, assetic_compassezOBRI.scss */
 .leaflet-oldie .leaflet-popup-tip-container {
   margin-top: -1px;
 }
 
-/* line 479, assetic_compass8vbrwo.scss */
+/* line 479, assetic_compassezOBRI.scss */
 .leaflet-oldie .leaflet-control-zoom,
 .leaflet-oldie .leaflet-control-layers,
 .leaflet-oldie .leaflet-popup-content-wrapper,
@@ -636,7 +636,7 @@ and open the template in the editor.
 }
 
 /* div icon */
-/* line 489, assetic_compass8vbrwo.scss */
+/* line 489, assetic_compassezOBRI.scss */
 .leaflet-div-icon {
   background: #fff;
   border: 1px solid #666;

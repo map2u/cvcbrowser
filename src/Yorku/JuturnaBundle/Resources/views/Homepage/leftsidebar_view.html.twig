@@ -67,23 +67,34 @@
             {% endif %}
         </div>
         <div style="margin-top:15px;">
-            
             <p> -- {{entities.abstract}}</p>
+            {% for reference in entities.indicatorreferences %}
+                {% if reference.website %}
+                    <p>
+                        <a href="{{reference.website}}">{{reference.reference}}
+                        </a>
+                    </p>
+                {% else %}
+                    <p>{{reference.reference}}</p>
+                {% endif %}
+            {% endfor %}
         </div>
         <script>
             $(function () {
                 $('#leftsidebar_indicator_benefit_{{entities.id}}').carousel({
                     interval: 2000
                 });
+
+
+
             });
         </script>
     {% endif %}
     {% if story is defined and story  != null %}
         {% set images=story.getImageFile()|unserialize %}
         <h4>
-            {{story.storyName|title}}
+            <a href="{{path('homepage_storydetail',{id:story.id})}}" target="_blank">{{story.storyName|title}}</a>
         </h4>
-        
         <div>
             {% if images|length > 1 %}
                 <div id="leftsidebar_story_{{story.id}}" class="carousel slide" style=" border:1px solid background;border-radius: 5px;">
@@ -117,22 +128,37 @@
                 {% endif %}
             {% endif %}
         </div>
-        <div style="margin-top:10px;">
-            <b>Summary:</b>
+        <div style="margin-top:15px;">
+            {#<b>Summary:</b>#}
             <p> -- {{story.summary}}</p>
         </div>
         {% if story.storyFile %}
-            <div style="margin-top:10px;">
-                <object data="{{ asset('uploads/stories/'~story.id~'/pdf/')}}{{story.storyFile}}" type="application/pdf" width="300" height="300">
-                    alt : <a href="{{ asset('uploads/stories/'~story.id~'/pdf/')}}{{story.storyFile}}">test.pdf</a>
-                </object>
+            <div style="margin-top:10px;" id="pdf_display">
+                {#                <a class="media" href="{{app.request.getSchemeAndHttpHost()}}/uploads/stories/{{story.id}}/pdf/{{story.storyFile}}">PDF File</a> #}
             </div>
         {% endif %}
         <script>
+            window.onload = function () {
+
+                var myPDF = new PDFObject({
+                    url: "{{app.request.getSchemeAndHttpHost()}}/uploads/stories/{{story.id}}/pdf/{{story.storyFile}}",
+                    pdfOpenParams: {
+                        navpanes: 1,
+                        view: "FitV",
+                        pagemode: "thumbs"
+                    }
+
+                }).embed("pdf_display");
+
+            };
             $(function () {
                 $('#leftsidebar_story_{{story.id}}').carousel({
                     interval: 2000
                 });
+                //    $('div#pdf_display a.media').media({width: "100%", height: "100%"});
+                //    var myPDF = new PDFObject({ url: "{{app.request.getSchemeAndHttpHost()}}/uploads/stories/{{story.id}}/pdf/{{story.storyFile}}"}).embed("pdf_display");
+
+
             });
         </script>
     {% endif %}

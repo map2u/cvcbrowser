@@ -5,7 +5,7 @@
         <title>{% block title %}Credit Valley Conservation Browser!{% endblock %}</title>
         {% block page_stylesheets %}
             {% include "::stylesheets.html.twig" %}
-                 <link href="/bundles/map2ucore/css/jquery.dataTables.css" type="text/css" rel="stylesheet" media="screen"/>
+            <link href="/bundles/map2ucore/css/jquery.dataTables.css" type="text/css" rel="stylesheet" media="screen"/>
 
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -89,26 +89,27 @@
                     </div>
                 {%endblock %}
             {% endblock %}
+            {% block page_javascripts %}
+
+                <script type="text/javascript">
+
+                    window.SONATA_CONFIG = {
+                        CONFIRM_EXIT: {% if admin_pool is defined and admin_pool.getOption('confirm_exit') %}true{% else %}false{% endif %},
+                        USE_SELECT2: {% if admin_pool is defined and admin_pool.getOption('use_select2') %}true{% else %}false{% endif %}
+                    };
+                    window.SONATA_TRANSLATIONS = {
+                        CONFIRM_EXIT: '{{ 'confirm_exit'|trans({}, 'SonataAdminBundle')|escape('js') }}'
+                    };
+
+                </script> 
+
+
+
+                {% include "::headjavascripts.html.twig" %}
+
+
+            {% endblock %}
         {% endblock %}
-        {% block page_javascripts %}
 
-            <script type="text/javascript">
-
-                window.SONATA_CONFIG = {
-                    CONFIRM_EXIT: {% if admin_pool is defined and admin_pool.getOption('confirm_exit') %}true{% else %}false{% endif %},
-                    USE_SELECT2: {% if admin_pool is defined and admin_pool.getOption('use_select2') %}true{% else %}false{% endif %}
-                };
-                window.SONATA_TRANSLATIONS = {
-                    CONFIRM_EXIT: '{{ 'confirm_exit'|trans({}, 'SonataAdminBundle')|escape('js') }}'
-                };
-
-            </script> 
-
-
-
-            {% include "::headjavascripts.html.twig" %}
-
-          
-        {% endblock %}
     </body>
 </html>

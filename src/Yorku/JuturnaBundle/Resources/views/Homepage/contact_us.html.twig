@@ -1,4 +1,9 @@
-{% extends '::homepage.layout.html.twig' %}
+{% extends '::baseLayout.html.twig' %}
+{% block page_stylesheets %}
+    {{ parent() }}
+    {% include "::mapstylesheets.html.twig" %}
+
+{% endblock %}
 {% block body %}
     {% block page_header %}
         {{ parent() }}

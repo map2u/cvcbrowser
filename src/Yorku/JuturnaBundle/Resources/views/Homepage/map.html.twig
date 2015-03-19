@@ -1,6 +1,6 @@
 {% extends '::baseLayout.html.twig' %}
 {% block page_stylesheets %}
-   
+
     {{ parent() }}
     {% include "::mapstylesheets.html.twig" %}
     <style>
@@ -22,8 +22,8 @@
             {{render(controller("ApplicationMap2uLeafletBundle:Default:map",{'view':view,'id':id,'benefits':benefits}))}}
         {% endblock %}
     {% endblock %}
-{% endblock %}
-{% block page_javascripts %}
-    {{ parent() }}
-    {% include "::mapjavascripts.html.twig" %}
+    {% block page_javascripts %}
+        {{ parent() }}
+        {% include "::mapjavascripts.html.twig" %}
+    {% endblock %}
 {% endblock %}
