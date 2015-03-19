@@ -290,6 +290,7 @@ window.onload = function () {
                 // alert(keys.length + "," + keys[0]);
                 // div style="height: 305px;" class="leaflet-control" id="sidebar-left" data-viewtype="benefit" data-viewlayers="8,7,"
                 var default_layers = $("div#sidebar-left.leaflet-control").data("viewlayers").toString();
+                var default_datatype = $("div#sidebar-left.leaflet-control").data("viewtype");
                 var default_layers_array = [];
                 if (default_layers !== undefined && default_layers.trim().length > 0) {
                     default_layers = default_layers.substr(0, default_layers.length - 1);
@@ -300,12 +301,14 @@ window.onload = function () {
                 {
                     var layer = result.layers[keys[k]];
 
-                    if(default_layers_array.indexOf(layer.id.toString()) !==-1) {
-                        layer.defaultShowOnMap=true;
-                    }
-                    else
-                    {
-                        layer.defaultShowOnMap=false;
+                    if ((default_datatype === 'benefit') && default_layers_array.length > 0) {
+                        if (default_layers_array.indexOf(layer.id.toString()) !== -1) {
+                            layer.defaultShowOnMap = true;
+                        }
+                        else
+                        {
+                            layer.defaultShowOnMap = false;
+                        }
                     }
                     map.dataLayers[map.dataLayers.length] = {'map': map, 'layerType': layer.layerType, 'clusterLayer': layer.clusterLayer, 'defaultShowOnMap': layer.defaultShowOnMap, 'layer': null, 'minZoom': layer.minZoom, 'maxZoom': layer.maxZoom, 'index_id': k, 'layerId': layer.id, layerTitle: layer.layerTitle, 'datasource': layer.datasource, 'sld': layer.sld, 'filename': layer.filename, 'layerName': layer.layerName, 'hostName': layer.hostName};
                 }

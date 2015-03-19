@@ -14,7 +14,7 @@
         {% endfor %}               
         <h4>{{entities.indicator.name|upper}}</h4>
         <h4>
-            {{entities.title|title}}
+            <a href="{{path('homepage_benefit',{id:entities.id})}}">{{entities.title|title}}</a>
         </h4>
         <div>
             <p> -- {{entities.benefitName}}</p>

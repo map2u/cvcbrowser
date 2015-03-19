@@ -169,16 +169,16 @@
         },
         {
             "name": "cocur/slugify",
-            "version": "v1.0",
+            "version": "v1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cocur/slugify.git",
-                "reference": "2c929c56997e663747be9bb635e58db918a0134f"
+                "reference": "2b67d4e2b75dbaed2ebefa9eb5683e8940513847"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cocur/slugify/zipball/2c929c56997e663747be9bb635e58db918a0134f",
-                "reference": "2c929c56997e663747be9bb635e58db918a0134f",
+                "url": "https://api.github.com/repos/cocur/slugify/zipball/2b67d4e2b75dbaed2ebefa9eb5683e8940513847",
+                "reference": "2b67d4e2b75dbaed2ebefa9eb5683e8940513847",
                 "shasum": ""
             },
             "require": {
@@ -187,7 +187,9 @@
             "require-dev": {
                 "codeclimate/php-test-reporter": "dev-master",
                 "laravel/framework": "~4.1",
+                "latte/latte": "~2.2",
                 "mockery/mockery": "~0.9",
+                "nette/di": "~2.2",
                 "phpunit/phpunit": "~3.7",
                 "sami/sami": "~1.3",
                 "satooshi/php-coveralls": "0.6.*",
@@ -225,7 +227,7 @@
                 "slug",
                 "slugify"
             ],
-            "time": "2014-11-26 22:45:14"
+            "time": "2015-03-18 08:21:30"
         },
         {
             "name": "creof/doctrine2-spatial",
@@ -2948,7 +2950,7 @@
             "source": {
                 "type": "git",
                 "url": "git@map2u.familyds.com:/volume1/homes/git/repositories/Map2uCoreBundle.git",
-                "reference": "34d2d50e4f88fd28ba33dd664e840ee140ccbab5"
+                "reference": "10f4337a9f96b158afd69a177f64081bfaa0c656"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -2974,7 +2976,7 @@
             "keywords": [
                 "Map2u CoreBundle,Symfony 2"
             ],
-            "time": "2015-03-11 15:59:05"
+            "time": "2015-03-18 01:33:07"
         },
         {
             "name": "map2u/dashboard-bundle",
@@ -3731,16 +3733,16 @@
         },
         {
             "name": "sonata-project/admin-bundle",
-            "version": "2.3.1",
+            "version": "2.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "1f08176f996a325e3bf5ccebeaf7c76be7f3d472"
+                "reference": "3fbeb0037a4dd9792840e804147e1b2f3df2d778"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/1f08176f996a325e3bf5ccebeaf7c76be7f3d472",
-                "reference": "1f08176f996a325e3bf5ccebeaf7c76be7f3d472",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/3fbeb0037a4dd9792840e804147e1b2f3df2d778",
+                "reference": "3fbeb0037a4dd9792840e804147e1b2f3df2d778",
                 "shasum": ""
             },
             "require": {
@@ -3748,12 +3750,13 @@
                 "knplabs/knp-menu": ">=1.1.0,<3.0.0",
                 "knplabs/knp-menu-bundle": ">=1.1.0,<3.0.0",
                 "sensio/generator-bundle": "~2.3",
-                "sonata-project/block-bundle": "~2.2,>=2.2.7",
+                "sonata-project/block-bundle": "~2.2,>=2.2.7,<2.3",
                 "sonata-project/core-bundle": "~2.2",
                 "sonata-project/exporter": "~1.0",
                 "symfony/class-loader": "~2.3",
                 "symfony/config": "~2.3",
                 "symfony/console": "~2.3",
+                "symfony/expression-language": "~2.4",
                 "symfony/form": "~2.3",
                 "symfony/http-foundation": "~2.3",
                 "symfony/routing": "~2.3",
@@ -3806,26 +3809,26 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2015-01-05 10:15:28"
+            "time": "2015-03-18 00:18:50"
         },
         {
             "name": "sonata-project/block-bundle",
-            "version": "2.3.0",
+            "version": "2.2.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataBlockBundle.git",
-                "reference": "3b0a01e074e7327d07aa03f9e1c2fc7f4a7ce905"
+                "reference": "ec47e5152ea9a2ea98cb284aa873d37edf903cd7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataBlockBundle/zipball/3b0a01e074e7327d07aa03f9e1c2fc7f4a7ce905",
-                "reference": "3b0a01e074e7327d07aa03f9e1c2fc7f4a7ce905",
+                "url": "https://api.github.com/repos/sonata-project/SonataBlockBundle/zipball/ec47e5152ea9a2ea98cb284aa873d37edf903cd7",
+                "reference": "ec47e5152ea9a2ea98cb284aa873d37edf903cd7",
                 "shasum": ""
             },
             "require": {
                 "doctrine/common": "~2.3",
                 "sonata-project/cache": "~1.0",
-                "sonata-project/core-bundle": "~2.3,>=2.3.1",
+                "sonata-project/core-bundle": "~2.2",
                 "symfony/form": "~2.2",
                 "symfony/http-kernel": "~2.2"
             },
@@ -3835,12 +3838,13 @@
             },
             "suggest": {
                 "knplabs/knp-menu-bundle": "~2.0",
+                "sonata-project/admin-bundle": "~2.2",
                 "sonata-project/cache-bundle": "~2.1"
             },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3.x-dev"
+                    "dev-master": "2.2.x-dev"
                 }
             },
             "autoload": {
@@ -3869,7 +3873,7 @@
                 "block",
                 "sonata"
             ],
-            "time": "2015-03-16 08:44:28"
+            "time": "2014-09-11 10:42:35"
         },
         {
             "name": "sonata-project/cache",
@@ -5342,6 +5346,56 @@
                 "minification"
             ],
             "time": "2015-01-27 12:45:16"
+        },
+        {
+            "name": "symfony/expression-language",
+            "version": "v2.6.5",
+            "target-dir": "Symfony/Component/ExpressionLanguage",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/expression-language.git",
+                "reference": "e5a515aa0738c1af3013127b747072124ff3da0b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/expression-language/zipball/e5a515aa0738c1af3013127b747072124ff3da0b",
+                "reference": "e5a515aa0738c1af3013127b747072124ff3da0b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "~2.7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.6-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\ExpressionLanguage\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Symfony ExpressionLanguage Component",
+            "homepage": "http://symfony.com",
+            "time": "2015-03-17 06:52:13"
         },
         {
             "name": "symfony/monolog-bridge",

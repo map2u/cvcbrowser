@@ -169,7 +169,7 @@ class HomepageController extends Controller {
 
         $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
 
-        return array('_locale' => $locale, 'ecosystems' => $ecosystems, 'image' => $image, 'flashs' => $flashs,"category" => $category);
+        return array('_locale' => $locale, 'ecosystems' => $ecosystems, 'image' => $image, 'flashs' => $flashs, "category" => $category);
 
 
 //        $em = $this->getDoctrine()->getManager();
@@ -206,13 +206,12 @@ class HomepageController extends Controller {
         $session->set('current_menu', "map");
         $em = $this->getDoctrine()->getManager();
         $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
-        $benefits=null;
-        if($view ==='benefit'&&isset($id)&&intval($id)>0)
-        {
-            $benefits=$em->getRepository('YorkuJuturnaBundle:IndicatorBenefit')->find($id);
+        $benefits = null;
+        if ($view === 'benefit' && isset($id) && intval($id) > 0) {
+            $benefits = $em->getRepository('YorkuJuturnaBundle:IndicatorBenefit')->find($id);
         }
-        
-        return array('_locale' => $locale,'benefits'=> $benefits,'flashs' => $flashs, 'view' => $view, 'id' => $id);
+
+        return array('_locale' => $locale, 'benefits' => $benefits, 'flashs' => $flashs, 'view' => $view, 'id' => $id);
     }
 
     /**
@@ -340,6 +339,23 @@ class HomepageController extends Controller {
             }
         }
         return array('_locale' => $locale, 'entities' => $entities, 'story' => $story);
+    }
+
+    /**
+     * .
+     *
+     * @Route("/benefit", name="homepage_benefit")
+     * @Method("GET")
+     * @Template()
+     */
+    public function benefitAction(Request $request) {
+        $id = $request->get("id");
+        $benefit = null;
+         $em = $this->getDoctrine()->getManager();
+        if (isset($id) && intval($id) > 0) {
+            $benefit= $em->getRepository('YorkuJuturnaBundle:IndicatorBenefit')->find(intval($id));
+        }
+        return array( 'benefit' =>$benefit );
     }
 
 }
