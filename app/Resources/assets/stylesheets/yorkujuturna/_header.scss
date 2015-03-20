@@ -25,3 +25,24 @@ and open the template in the editor.
     text-decoration: none;
 }
 
+div#homepage_titlebar_background {
+   position: absolute;
+   left:0px;width:100%;
+   padding: 0px; 
+   margin:0px; 
+   background-color: #228B22;
+   top:80px;
+   height:50px;
+   z-index: -1;
+}
+div#homepage_menubar_background {
+   position: absolute;
+   left:0px;
+   width:100%;
+   padding: 0px; 
+   margin:0px; 
+   background-color: #3c4142;
+   top:130px;
+   height:50px;
+   z-index: -1;   
+}
