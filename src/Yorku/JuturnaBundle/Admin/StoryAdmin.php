@@ -67,7 +67,8 @@ class StoryAdmin extends Admin {
                 ->add('email')
                 ->end()
                 ->with('Story Content', array('class' => 'col-md-6'))
-                ->add('storyText', 'ckeditor', array('label' => 'Description Content',
+                ->add('storyText', 'ckeditor', array('label' => 'Story Content',
+                    'required' => false,
                     'config_name' => 'forums',
                     'config' => array('uiColor' => '#ffffff')
                 ))

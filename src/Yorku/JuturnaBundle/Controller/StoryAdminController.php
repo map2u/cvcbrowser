@@ -216,8 +216,10 @@ class StoryAdminController extends CRUDController {
             shell_exec("mkdir -p " . $dir);
         }
         if ($storyFile != null) {
+            $object->setStoryFileType($storyFile->getMimeType());
             $storyFile->move($dir, str_replace(" ", "_", $storyFile->getClientOriginalName()));
             $object->setStoryFile(str_replace(" ", "_", $storyFile->getClientOriginalName()));
+            
         }
         return $object;
     }
