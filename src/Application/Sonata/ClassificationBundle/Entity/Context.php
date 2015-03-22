@@ -2,14 +2,14 @@
 
 namespace Application\Sonata\ClassificationBundle\Entity;
 
-use Sonata\ClassificationBundle\Entity\BaseContext;
+//use Sonata\ClassificationBundle\Entity\BaseContext;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Context
  */
-class Context extends BaseContext
+class Context //extends BaseContext
 {
     /**
      * @var string
