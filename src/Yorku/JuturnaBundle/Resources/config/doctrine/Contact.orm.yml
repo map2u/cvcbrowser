@@ -1,0 +1,50 @@
+Yorku\JuturnaBundle\Entity\Contact:
+    type: entity
+    table: contacts
+    
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        name:
+            type: string
+            length: 255
+            nullable: false
+            column: name
+        email:
+            type: string
+            length: 255
+            nullable: false
+            column: email
+        ipaddress:
+            type: string
+            length: 55
+            nullable: true
+            column: ipaddress
+        message:
+            type: text
+           
+            nullable: true
+            column: message
+
+        createdAt:
+            type: datetime
+            nullable: true
+            column: created_at
+            gedmo:
+              timestampable:
+                on: create
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+            gedmo:
+              timestampable:
+                on: update
+ 
+        
+    lifecycleCallbacks: {  }

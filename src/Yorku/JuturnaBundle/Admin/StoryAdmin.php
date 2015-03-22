@@ -62,7 +62,7 @@ class StoryAdmin extends Admin {
                 ->add('summary', 'textarea')
                 //      ->add('imageFile', 'text', array('read_only' => true))
                 ->add('image_file', 'file', array('required' => false, 'mapped' => false, 'label' => 'Image File'))
-                ->add('story_file', 'file', array('required' => false, 'mapped' => false, 'label' => 'Story File'))
+                ->add('story_file', 'file', array('required' => false, 'mapped' => false, 'label' => 'Story File(current support pdf and html file)'))
                 //               ->add('storyFile')
                 ->add('email')
                 ->end()

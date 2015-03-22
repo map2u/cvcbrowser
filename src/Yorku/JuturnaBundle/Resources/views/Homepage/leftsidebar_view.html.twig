@@ -2,8 +2,10 @@
 <div id="benefit_leafletsidebar_view" style="padding:10px; margin-top:10px;">
 
     {% if entities is defined and entities != null %}
+
         {% set count = 0%}
         {% for indicatorbenefitimage in entities.indicatorbenefitimages %}
+
             {% set images=indicatorbenefitimage.getFileName()|unserialize %}
             {% if count ==0 %}
                 {% set images_array = {id:indicatorbenefitimage.getId(),images:images} %}
@@ -58,8 +60,20 @@
                 </div>
             {% else %}
                 {% if count == 1 %}
-                    <div style="border-radius: 5px;">
-                        <img style="border-radius: 5px;width:300px;height:200px;overflow: hidden;" src="{{ asset('uploads/images/indicatorbenefitimages/'~images_array.id~"/")}}{{images_array.images[0]|raw}}" width="100%">
+                    <div id="leftsidebar_indicator_benefit_flash" style="border-radius: 5px;">
+                        {% for indicatorbenefitimage in entities.indicatorbenefitimages %}
+                            {% set images=indicatorbenefitimage.getFileName()|unserialize %}
+                            {% if images|length > 0 %}
+                                {% for image in images %}
+                                    <div class="carousel-caption">
+                                        <h5>{{indicatorbenefitimage.getImageTitle()}}</h5>
+                                        <p>{{indicatorbenefitimage.getImageCaption()}}</p>
+                                    </div>
+                                    <img style="border-radius: 5px;width:300px;height:200px;overflow: hidden;" src="{{ asset('uploads/images/indicatorbenefitimages/'~indicatorbenefitimage.id~"/")}}{{image|raw}}" width="100%">
+
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
                     </div>
                 {% endif %}
             {% endif %}
@@ -144,6 +158,12 @@
                 {#                <a class="media" href="{{app.request.getSchemeAndHttpHost()}}/uploads/stories/{{story.id}}/pdf/{{story.storyFile}}">PDF File</a> #}
             </div>
         {% endif %}
+        {% if story.storyFileType == 'text/html' %}
+            <div style="margin-top:10px;" id="pdf_display">
+                {{story.storyFile|raw}}
+                {#                <a class="media" href="{{app.request.getSchemeAndHttpHost()}}/uploads/stories/{{story.id}}/pdf/{{story.storyFile}}">PDF File</a> #}
+            </div>
+        {% endif %}
         <script>
             //      window.onload = function () {
 
@@ -184,5 +204,21 @@
 
     });
         </script>
+    {% else %}
+
+        {% if view=='story' or view=='stories' %}
+            <h4>Share your story</h4>
+            <div id="story_guideline" style="padding:10px;">
+                <p>Our main goal is to engage with citizens living in the Credit Valley Watershed about the ecosystem services that they enjoy every day. For that purpose, we would like you to share your story about how the ecosystems in your area improve your life.</p>
+                <p>To share your story, you need to:</p>
+                <p>1) Think of an ecosystem that you enjoy;</p>
+                <p>2) What service does that ecosystem provide to you (recreation, aesthetic/visually appealing, cultural, does it provide any materials to you like wood, fruits, etc?)</p>
+                <p>3) Write a brief story (100-200 words) about how this ecosystem service improves your well-being.</p>
+                <p>4) You can include things such as how other people could enjoy this service or what life would be without it.</p>
+                <p>You can look at an example <a href="/uploads/stories/Guidelines_to_writting_your_story.pdf" target="_blank">here</a>.</p>
+                <p>Or you can see the extended guideline <a href="/uploads/stories/Guidelines_to_writting_your_story.pdf" target="_blank">here</a>.</p>
+            </div>
+        {% endif %}
+
     {% endif %}
 </div>

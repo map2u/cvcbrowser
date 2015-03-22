@@ -66,15 +66,21 @@
     <div class="container-fluid" style="margin: 15px auto;max-width: 1200px;">
         <div class="row-fluid">
             <div style="margin: 15px auto;text-align:center;">
-                <h2> {{story.storyName|title}}</h2>
+{#                <h2> {{story.storyName|title}}</h2>#}
             </div>
         </div>
-        <div class="row-fluid" style="height:400px;overflow:auto;border: 1px solid gainsboro;">
-            {% if story.storyFile %}
+        <div class="row-fluid" style="height:700px;overflow:auto;border: 1px solid gainsboro;">
+            {% if story.storyFile and story.storyFileType == 'application/pdf' %}
                 <div id="pdf_display">
                 </div>
             {% endif %}
+            {% if story.storyFile and story.storyFileType == 'text/html' %}
+                <div id="html_display" style="padding:10px;width:100%;height:100%;">
+                    <iframe  style="border: none; width:100%; height:100%;" src="{{app.request.getSchemeAndHttpHost()}}/uploads/stories/{{story.id}}/pdf/{{story.storyFile}}">
 
+                    </iframe>
+                </div>
+            {% endif %}
         </div>
     </div>
     {% block footer %}
@@ -105,171 +111,58 @@
                     $("#story_flash .item.carousel-item.active div.carousel-caption").css({"margin-top": ($("#story_flash .item.carousel-item.active img").height() - $("#story_flash .carousel-inner").height()) / 2 + "px"});
                 }
             };
-        {% if story.storyFile %}
-                //
-// Fetch the PDF document from the URL using promises
-//
-            {#   PDFJS.getDocument('{{app.request.getSchemeAndHttpHost()}}/uploads/stories/{{story.id}}/pdf/{{story.storyFile}}').then(function (pdf) {
-                   // Using promise to fetch the page
-                   pdf.getPage(1).then(function (page) {
-                       var scale = 1.5;
-                       var viewport = page.getViewport(scale);
-
-                       //
-                       // Prepare canvas using PDF page dimensions
-                       //
-                       var canvas = document.getElementById('pdf_display');
-                       var context = canvas.getContext('2d');
-                       canvas.height = viewport.height;
-                       canvas.width = viewport.width;
-
-                       //
-                       // Render PDF page into canvas context
-                       //
-                       var renderContext = {
-                           canvasContext: context,
-                           viewport: viewport
-                       };
-                       page.render(renderContext);
-                   });
-               });#}
-
-            {#         var pdf = null;
-                     //     PDFJS.disableWorker = true;
-                     var pages = new Array();
-                     var canvas = document.getElementById('pdf_display');
-                     var context = canvas.getContext('2d');
-                     var scale = 1.5;
-                     var canvasWidth = 0;
-                     var canvasHeight = 0;
-                     var pageStarts = new Array();
-                     pageStarts[0] = 0;
-                     var url = '{{app.request.getSchemeAndHttpHost()}}/uploads/stories/{{story.id}}/pdf/{{story.storyFile}}';
-
-                     PDFJS.getDocument(url).then(function getPdfHelloWorld(_pdf) {
-                         pdf = _pdf;
-                         //Render all the pages on a single canvas
-                         for (var i = 1; i <= pdf.numPages; i++) {
-                             pdf.getPage(i).then(function getPage(page) {
-                                 var viewport = page.getViewport(scale);
-                                 canvas.width = viewport.width;    // changing canvas.width and/or canvas.height auto-clears the canvas
-                                 canvas.height = viewport.height;
-                                 page.render({canvasContext: context, viewport: viewport});
-                                 pages[i - 1] = context.getImageData(0, 0, canvas.width, canvas.height);
-                                 if (canvas.width > canvasWidth) {  // calculate the width of the final display canvas
-                                     canvasWidth = canvas.width;
-                                 }
-                                 canvasHeight += canvas.height;   // calculate the accumulated with of the final display canvas
-                                 pageStarts[i] = pageStarts[i - 1] + canvas.height;    // save the "Y" starting position of this pages[i]
-                             });
-                         }
-                         canvas.width = canvasWidth;
-                         canvas.height = canvasHeight;  // this auto-clears all canvas contents
-                         for (var i = 0; i < pages.length; i++) {
-                             context.putImageData(pages[i], 0, pageStarts[i]);
-                         }
-                     });
-
-#}
-            {#          var pdf = null;
-                      PDFJS.disableWorker = true;
-                      var pages = new Array();
-//Prepare some things
-                      var canvas = document.getElementById('pdf_display');
-                      var context = canvas.getContext('2d');
-                      var scale = 1.5;
-                      var canvasWidth = 0;
-                      var maxCanvasWidth = 600;
-                      var canvasHeight = 0;
-                      var pageStarts = new Array();
-                      pageStarts[0] = 0;
-
-                      PDFJS.getDocument('{{app.request.getSchemeAndHttpHost()}}/uploads/stories/{{story.id}}/pdf/{{story.storyFile}}').then(function getPdfHelloWorld(_pdf) {
-                          pdf = _pdf;
-                          //Render all the pages on a single canvas
-                          for (var i = 1; i <= pdf.numPages; i++) {
-                              pdf.getPage(i).then(function getPage(page) {
-                                  var viewport = page.getViewport(scale);
-                                  // changing canvas.width and/or canvas.height auto-clears the canvas
-                                  canvas.width = viewport.width;
-                                  canvas.height = viewport.height;
-                                  page.render({canvasContext: context, viewport: viewport});
-                                  pages[i - 1] = context.getImageData(0, 0, canvas.width, canvas.height);
-                                  // calculate the width of the final display canvas
-                                  if (canvas.width > maxCanvasWidth) {
-                                      maxCanvasWidth = canvas.width;
-                                  }
-                                  // calculate the accumulated with of the final display canvas
-                                  canvasHeight += canvas.height;
-                                  // save the "Y" starting position of this pages[i]
-                                  pageStarts[i] = pageStarts[i - 1] + canvas.height;
-                                  pdf.Out("pre-rendered page " + i);
-                              });
-                          }
+        {% if story.storyFile and story.storyFileType == 'application/pdf' %}
 
 
-                          canvas.width = canvasWidth;
-                          canvas.height = canvasHeight;  // this auto-clears all canvas contents
-                          for (var i = 0; i < pages.length; i++) {
-                              context.putImageData(pages[i], 0, pageStarts[i]);
-                          }
-
-                      });#}
-            {#      var myPDF = new PDFObject({
-                      url: "{{app.request.getSchemeAndHttpHost()}}/uploads/stories/{{story.id}}/pdf/{{story.storyFile}}"}
-
-                  ).embed("pdf_display");
-                 #}
-
-                         function loadPDFJS(pageUrl) {
-                             // PDFJS.workerSrc = 'resources/js/pdfjs/pdf.worker.js';
-                             var currentPage = 1;
-                             var pages = [];
-                             var globalPdf = null;
-                             var container = document.getElementById('pdf_display');
-                             function renderPage(page) {
-                                 //
-                                 // Prepare canvas using PDF page dimensions
-                                 //
-                                 var canvas = document.createElement('canvas');
-                                 // Link: http://stackoverflow.com/a/13039183/1577396
-                                 // Canvas width should be set to the window's width for appropriate
-                                 // scaling factor of the document with respect to the canvas width
-                                 var viewport = page.getViewport(1.5);
-                                 //  var viewport = page.getViewport(window.screen.width / page.getViewport(1.0).width);
-                                 // append the created canvas to the container
-                                 container.appendChild(canvas);
-                                 // Get context of the canvas
-                                 var context = canvas.getContext('2d');
-                                 canvas.height = viewport.height;
-                                 canvas.width = viewport.width;
-                                 //
-                                 // Render PDF page into canvas context
-                                 //
-                                 var renderContext = {
-                                     canvasContext: context,
-                                     viewport: viewport
-                                 };
-                                 page.render(renderContext).then(function () {
-                                     if (currentPage < globalPdf.numPages) {
-                                         pages[currentPage] = canvas;
-                                         currentPage++;
-                                         globalPdf.getPage(currentPage).then(renderPage);
-                                     } else {
-                                         // Callback function here, which will trigger when all pages are loaded
-                                     }
-                                 });
-                             }
-                             PDFJS.getDocument(pageUrl).then(function (pdf) {
-                                 if (!globalPdf) {
-                                     globalPdf = pdf;
-                                 }
-                                 pdf.getPage(currentPage).then(renderPage);
-                             });
-                         }
-                         loadPDFJS("{{app.request.getSchemeAndHttpHost()}}/uploads/stories/{{story.id}}/pdf/{{story.storyFile}}");
+                    function loadPDFJS(pageUrl) {
+                        // PDFJS.workerSrc = 'resources/js/pdfjs/pdf.worker.js';
+                        var currentPage = 1;
+                        var pages = [];
+                        var globalPdf = null;
+                        var container = document.getElementById('pdf_display');
+                        function renderPage(page) {
+                            //
+                            // Prepare canvas using PDF page dimensions
+                            //
+                            var canvas = document.createElement('canvas');
+                            // Link: http://stackoverflow.com/a/13039183/1577396
+                            // Canvas width should be set to the window's width for appropriate
+                            // scaling factor of the document with respect to the canvas width
+                            var viewport = page.getViewport(1.5);
+                            //  var viewport = page.getViewport(window.screen.width / page.getViewport(1.0).width);
+                            // append the created canvas to the container
+                            container.appendChild(canvas);
+                            // Get context of the canvas
+                            var context = canvas.getContext('2d');
+                            canvas.height = viewport.height;
+                            canvas.width = viewport.width;
+                            //
+                            // Render PDF page into canvas context
+                            //
+                            var renderContext = {
+                                canvasContext: context,
+                                viewport: viewport
+                            };
+                            page.render(renderContext).then(function () {
+                                if (currentPage < globalPdf.numPages) {
+                                    pages[currentPage] = canvas;
+                                    currentPage++;
+                                    globalPdf.getPage(currentPage).then(renderPage);
+                                } else {
+                                    // Callback function here, which will trigger when all pages are loaded
+                                }
+                            });
+                        }
+                        PDFJS.getDocument(pageUrl).then(function (pdf) {
+                            if (!globalPdf) {
+                                globalPdf = pdf;
+                            }
+                            pdf.getPage(currentPage).then(renderPage);
+                        });
+                    }
+                    loadPDFJS("{{app.request.getSchemeAndHttpHost()}}/uploads/stories/{{story.id}}/pdf/{{story.storyFile}}");
 
         {% endif %}
-            });
+                });
     </script>
 {% endblock %}

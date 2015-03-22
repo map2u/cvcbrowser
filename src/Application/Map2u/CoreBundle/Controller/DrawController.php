@@ -197,6 +197,8 @@ class DrawController extends BaseController {
                 $story->setRadius($radius);
                 $story->setType($type);
                 $story->setEmail($email);
+                $em->persist($story);
+                $em->flush();
                 $this->saveUploadedFiles($request, $story);
                 $em->persist($story);
                 $em->flush();
@@ -255,6 +257,7 @@ class DrawController extends BaseController {
             shell_exec("mkdir -p " . $dir);
         }
         if ($storyFile != null) {
+            $story->setStoryFileType($storyFile->getMimeType());
             $storyFile->move($dir, str_replace(" ", "_", $storyFile->getClientOriginalName()));
             $story->setStoryFile(str_replace(" ", "_", $storyFile->getClientOriginalName()));
         }

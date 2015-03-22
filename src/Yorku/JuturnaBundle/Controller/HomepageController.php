@@ -14,6 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
+use Yorku\JuturnaBundle\Form\ContactType;
 
 /**
  * Stations controller.
@@ -265,25 +266,33 @@ class HomepageController extends Controller {
      * .
      *
      * @Route("/contact_us", name="homepage_contact_us")
-     * @Method("GET")
+     * @Method("GET|POST")
      * @Template()
      */
     public function contact_usAction(Request $request) {
         $session = $request->getSession();
-        $session->set('current_menu', "contact_us");
+        //   $session->set('current_menu', "contact_us");
         $locale = $request->getLocale();
         $em = $this->getDoctrine()->getManager();
-//        if (!isset($id)) {
-//            return new Response(\json_encode(array('success' => false, 'message' => 'Parameter Id not found!')));
-//        }
-//        if  ((isset($id) && ( $id === 0 || $id === '0' || $id === 'undefined'))) {
-//            $usergeometries = new UserDrawGeometries();
-//        } else {
-        $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
-//
-//            $update_geom = true;
-//        }
-        return array('_locale' => $locale, 'flashs' => $flashs);
+        $contact = new \Yorku\JuturnaBundle\Entity\Contact();
+        $form = $this->createForm(new ContactType(), $contact);
+
+
+        $flash_message = null;
+        if ($request->getMethod() == "POST") {
+
+            $form->bind($request);
+            if ($form->isValid()) {
+                $ipaddress = $request->getClientIp();
+                $contact->setIpaddress($ipaddress);
+                $em->persist($contact);
+                $flash_message = "Contact info successfully submitted!";
+                $em->flush();
+            } else {
+                $flash_message = "Contact info submit failed!";
+            }
+        }
+        return array('_locale' => $locale, 'form' => $form->createView(), "flash_message" => $flash_message);
     }
 
     /**
@@ -354,11 +363,11 @@ class HomepageController extends Controller {
             if ($view === 'benefit') {
                 $entities = $em->getRepository('YorkuJuturnaBundle:IndicatorBenefit')->find(intval($id));
             }
-            if ($view === 'story') {
+            if ($view === 'stories' || $view === 'story') {
                 $story = $em->getRepository('YorkuJuturnaBundle:Story')->find(intval($id));
             }
         }
-        return array('_locale' => $locale, 'entities' => $entities, 'story' => $story);
+        return array('_locale' => $locale, 'view' => $view, 'entities' => $entities, 'story' => $story);
     }
 
     /**

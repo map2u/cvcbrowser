@@ -3015,7 +3015,7 @@
             "source": {
                 "type": "git",
                 "url": "git@map2u.familyds.com:/volume1/homes/git/repositories/Map2uCoreBundle.git",
-                "reference": "dae349e8b6e13ec9ba8cd58d89be98457ffd1e23"
+                "reference": "9f340f3fd220ed5ceb67957916d80c1f71242841"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -3041,7 +3041,7 @@
             "keywords": [
                 "Map2u CoreBundle,Symfony 2"
             ],
-            "time": "2015-03-22 04:31:31"
+            "time": "2015-03-22 05:28:07"
         },
         {
             "name": "map2u/dashboard-bundle",

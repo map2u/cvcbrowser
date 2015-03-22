@@ -39,7 +39,7 @@
                 </div>               
                 <div style="width: 100%; display: table-row;">
                     <div style="display: table-cell;">
-                        Story File:
+                        Story File:(current support pdf and html file)
                     </div>
                 </div>
 
@@ -96,7 +96,7 @@
             var oData = new FormData(document.forms.namedItem("story_form"));
 
             $.ajax({
-                url: Routing.generate('draw_createstory'),
+                url: Routing.generate('draw_createstory',{_locale:window.locale}),
                 method: 'POST',
                 data: oData,
                 processData: false,

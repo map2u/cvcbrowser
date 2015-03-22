@@ -69,15 +69,23 @@
                 </div>
             {% else %}
                 {% if count == 1 %}
-                    <div >
-                        <div class="carousel-caption">
-                            <h2>{{benefit.title|title}}</h2>
 
-                            {#                                            <h3>{{indicatorbenefitimage.getImageTitle()}}</h3>#}
-                            {# <p>{{indicatorbenefitimage.getImageCaption()}}</p>#}
-                        </div>
-                        <img style="width:100%;overflow: hidden;" src="{{ asset('uploads/images/indicatorbenefitimages/'~images_array.id~"/")}}{{images_array.images[0]|raw}}" width="100%">
+                    <div id="indicator_benefit_flash" style="border-radius: 5px;">
+                        {% for indicatorbenefitimage in benefit.indicatorbenefitimages %}
+                            {% set images=indicatorbenefitimage.getFileName()|unserialize %}
+                            {% if images|length > 0 %}
+                                {% for image in images %}
+                                    <div class="carousel-caption">
+                                        <h2>{{benefit.title|title}}</h2>
+
+                                    </div>
+                                    <img style="width:100%;overflow: hidden;" src="{{ asset('uploads/images/indicatorbenefitimages/'~indicatorbenefitimage.id~"/")}}{{image|raw}}" width="100%">
+
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
                     </div>
+
                 {% endif %}
             {% endif %}
         </div>
@@ -115,8 +123,15 @@
             window.onresize = function () {
                 $("#indicator_benefit_flash .item.carousel-item.active img").css({"margin-top": ($("#indicator_benefit_flash .carousel-inner").height() - $("#indicator_benefit_flash .item.carousel-item.active img").height()) / 2 + "px"});
                 $("#indicator_benefit_flash .item.carousel-item.active div.carousel-caption").css({"margin-top": ($("#indicator_benefit_flash .item.carousel-item.active img").height() - $("#indicator_benefit_flash .carousel-inner").height()) / 2 + "px"});
-
+                if ($("#indicator_benefit_flash .carousel-inner").length === 0) {
+                    $("#indicator_benefit_flash  img").css({"margin-top": ($("#indicator_benefit_flash").height() - $("#indicator_benefit_flash img").height()) / 2 + "px"});
+                    $("#indicator_benefit_flash  div.carousel-caption").css({"margin-top":  ($("#indicator_benefit_flash").height() / 2 +50) + "px"});
+                }
             };
+            if ($("#indicator_benefit_flash .carousel-inner").length === 0) {
+                $("#indicator_benefit_flash  img").css({"margin-top": ($("#indicator_benefit_flash").height() - $("#indicator_benefit_flash img").height()) / 2 + "px"});
+                $("#indicator_benefit_flash  div.carousel-caption").css({"margin-top": ($("#indicator_benefit_flash").height() / 2 +50)+ "px"});
+            }
         });
     </script>
 {% endblock %}

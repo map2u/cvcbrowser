@@ -1,0 +1,110 @@
+<html>
+<head>
+<title> Health, Well-being and Your Watershed: Contact Us </title>
+</head>
+<body>
+<span style='position:absolute;z-index:71;
+left:193px;top:128px;width:540px;height:388px'>
+
+<table cellpadding=0 cellspacing=0>
+ <tr>
+  <td width=540 height=50 style='vertical-align:top'>
+  <div v:shape="_x0000_s1521" style='padding:2.85pt 2.85pt 2.85pt 2.85pt'
+  class=shape>
+  <H1>Contact Us</H1>
+  </div>
+  <![if !vml]></td>
+ </tr>
+ <tr>
+  <td width=540 height=80 style='vertical-align:top'>
+  <div v:shape="_x0000_s1521" style='padding:2.85pt 2.85pt 2.85pt 2.85pt'
+  class=shape>
+  <H3>The "Health, Well-being and Your Watershed" browser is part of a collaborative project 
+  	between researchers at York University and the Credit Valley Conservation Authority.  
+  	We welcome your questions, comments, user feedback and bug reports.  The principle 
+  	researchers on this project are:</H3>
+  </div>
+  </td>
+ </tr>
+ <tr>
+  <td width=540 height=500 style='vertical-align:top'>
+  <div v:shape="_x0000_s1521" style='padding:2.85pt 2.85pt 2.85pt 2.85pt'
+  class=shape>
+  <p><strong>Dr. Martin Bunch, Professor </strong><br>
+  Faculty of Environmental Studies<br>
+  York University<br>
+  Phone: 416.736.2100 ext: 22630</p>
+  <p><strong>Dr. Karen Morrison, Adjunct Professor</strong><br>
+  Faculty of Environmental Studies<br>
+  York University<br>
+  Phone: 416.736.2100 ext: 22610</p>
+  <p><strong>Mike Puddister, Director</strong><br>
+  Restoration & Stewardship<br>
+  Credit Valley Conservation<br>
+  Phone: 905.670.1615 ext 437</p>
+  <p><strong>Tatiana Koveshnikova, Ecological Goods and Services Project Coordinator</strong><br>
+  Restoration and Stewardship<br>
+  Credit Valley Conservation<br>
+  Phone: 905.670.1615 ext 443</p>
+  <p><strong>Shulin (Joseph) Zhao, Research Assistant and System Developer</strong><br>
+  Spatial, Environment and Action Research (SpEAR) Lab<br>
+  Faculty of Environmental Studies<br>
+  York University<br>
+  Phone: 416.736.2100 ext: 20100</p>
+  </div>
+  </td>
+ </tr>
+
+ <tr>
+  <td width=540 height=15 style='vertical-align:top'>
+  <div v:shape="_x0000_s1521" style='padding:2.85pt 2.85pt 2.85pt 2.85pt'
+  class=shape>
+  <H3>Contact us using this form:</H3>
+  </div>
+  </td>
+ </tr>		
+		
+ <tr>
+  <td width=540 height=388 style='vertical-align:top'>
+  <div v:shape="_x0000_s1521" style='padding:2.85pt 2.85pt 2.85pt 2.85pt'
+  class=shape>
+		<?php
+		$action=$_REQUEST['action'];
+		if ($action=="")    /* display the contact form */
+		    {
+		    ?>
+		    <form  action="" method="POST" enctype="multipart/form-data">
+		    <input type="hidden" name="action" value="submit">
+		    Your name:<br>
+		    <input name="name" type="text" value="" size="30"/><br>
+		    Your email:<br>
+		    <input name="email" type="text" value="" size="30"/><br>
+		    Your message:<br>
+		    <textarea name="message" rows="7" cols="30"></textarea><br>
+		    <input type="submit" value="Send email"/>
+		    </form>
+		    <?php
+		    } 
+		else                /* send the submitted data */
+		    {
+		    $name=$_REQUEST['name'];
+		    $email=$_REQUEST['email'];
+		    $message=$_REQUEST['message'];
+		    if (($name=="")||($email=="")||($message==""))
+		        {
+		        echo "All fields are required, please fill the form again.";
+		        }
+		    else{        
+		        $from="From:"name<$email>\r\nReturn-path: $email";
+		        $subject="Message sent using your contact form";
+		        mail("bunchmj@yorku.ca", $subject, $message, $from);
+		        echo "Email sent!";
+		        }
+		    }  
+		?>
+  </div>
+  </td>
+ </tr>
+</span>
+
+</body></html>
