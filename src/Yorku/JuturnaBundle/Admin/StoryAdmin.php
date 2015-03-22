@@ -56,15 +56,21 @@ class StoryAdmin extends Admin {
      */
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
-                ->with('Category', array('class' => 'col-md-6'))
+                ->with('Story', array('class' => 'col-md-6'))
                 ->add('id', 'hidden')
                 ->add('storyName')
                 ->add('summary', 'textarea')
-          //      ->add('imageFile', 'text', array('read_only' => true))
+                //      ->add('imageFile', 'text', array('read_only' => true))
                 ->add('image_file', 'file', array('required' => false, 'mapped' => false, 'label' => 'Image File'))
                 ->add('story_file', 'file', array('required' => false, 'mapped' => false, 'label' => 'Story File'))
- //               ->add('storyFile')
+                //               ->add('storyFile')
                 ->add('email')
+                ->end()
+                ->with('Story Content', array('class' => 'col-md-6'))
+                ->add('storyText', 'ckeditor', array('label' => 'Description Content',
+                    'config_name' => 'forums',
+                    'config' => array('uiColor' => '#ffffff')
+                ))
                 ->end()
 
         ;

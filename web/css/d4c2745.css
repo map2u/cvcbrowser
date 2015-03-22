@@ -8792,6 +8792,17 @@ and open the template in the editor.
       height: 350px;*/
 }
 
+/* line 28, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_benefit.scss */
+#benefit_leafletsidebar_view h4 {
+  text-align: enter;
+}
+
+/* line 32, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_benefit.scss */
+#leftsidebar_indicator_benefit_flash a.carousel-control {
+  padding-top: 90px;
+  font-size: 30px;
+}
+
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates

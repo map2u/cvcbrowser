@@ -39,6 +39,15 @@ Yorku\JuturnaBundle\Entity\Story:
             length: 255
             nullable: true
             column: story_file
+        storyFileType:
+            type: string
+            length: 255
+            nullable: true
+            column: story_filetype     
+        storyText:
+            type: text
+            nullable: true
+            column: story_text                 
         email:
             type: string
             length: 255

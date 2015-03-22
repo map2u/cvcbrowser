@@ -27,7 +27,7 @@
                 {% set count = count + images|length %}
             {% endfor %}     
             {% if count > 1 %}
-                <div id="indicator_benefit_flash" class="carousel slide" style=" border:1px solid background;height:350px;overflow: hidden;">
+                <div id="indicator_benefit_flash" class="carousel slide"  data-interval="false" data-pause="hover"  style=" border:1px solid background;height:350px;overflow: hidden;">
                     <ol class="carousel-indicators">
                         {% set i=0 %}
                         {% for indicatorbenefitimage in benefit.indicatorbenefitimages %}
