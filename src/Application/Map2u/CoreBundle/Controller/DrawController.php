@@ -41,6 +41,8 @@ class DrawController extends BaseController {
         $id = $request->get('id');
         $drawname = $request->get('name');
         $feature = $request->get('feature');
+        $public = $request->get('public');
+        $featurelayer_id = $request->get('featurelayer');
 
         if (gettype($feature) == 'string') {
             $feature = json_decode($feature);
@@ -68,7 +70,12 @@ class DrawController extends BaseController {
         }
         if ($usergeometries) {
             $usergeometries->setUserId($user->getId());
+            $usergeometries->setUser($user);
             //    $usergeometries->setUserId(1);
+
+            $featurelayer = $em->getRepository('Map2uCoreBundle:UserDrawLayer')->findOneBy(array("id" => $featurelayer_id));
+            $usergeometries->setUserdrawlayer($featurelayer);
+            
             $usergeometries->setName($drawname);
             if (isset($description)) {
                 $usergeometries->setDescription($description);
@@ -85,6 +92,7 @@ class DrawController extends BaseController {
                     $usergeometries->setMarkerIcon($selected_marker);
                 }
             }
+
             $usergeometries->setGeomType($drawtype);
             $usergeometries->setRadius($drawradius);
             $usergeometries->setBuffer($drawbuffer);

@@ -32,6 +32,28 @@
                     </div>
                     <div style="height: 100%; display: table-row;">
                         <div style="display: table-cell;">
+                            <input type="radio" id="public" value="true" name="public"  style="margin-right: 6px;" {% if usergeometry is defined and usergeometry and usergeometry.getPublic() == true %} checked="checked" {% endif %}>Public</input>
+                            <input type="radio" id="private" value="false" name="public" style="margin-left: 15px;margin-right: 6px;"  {% if usergeometry is not defined or (usergeometry is defined and usergeometry == null or (usergeometry and (usergeometry.getPublic() == false or usergeometry.getPublic() == null))) %} checked="checked" {% endif %}>Private</input>
+                        </div>
+                    </div>
+                    {% if userdrawlayers is defined %}
+                        <div style="height: 100%; display: table-row;">
+                            <div style="display: table-cell;">
+                                Map Layer:
+                            </div>
+                        </div>
+                        <div style="height: 100%; display: table-row;">
+                            <div style="display: table-cell;">
+                                <select id="featurelayer"  name="featurelayer"  style="width:230px">
+                                    {% for userdrawlayer in userdrawlayers %}
+                                        <option value="{{userdrawlayer.getId()}}" {% if usergeometry is defined and usergeometry and usergeometry.getUserdrawlayer() and usergeometry.getUserdrawlayer().getId() == userdrawlayer.getId() %} selected {% endif %}>{{userdrawlayer.getName()}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div style="height: 100%; display: table-row;">
+                        <div style="display: table-cell;">
 
                             Image files:
                         </div>
@@ -135,12 +157,12 @@
             oData.append('radius', 0);
 
             $.ajax({
-                url: Routing.generate('draw_save'),
+                url: Routing.generate('draw_save', {_locale: window.locale}),
                 method: 'POST',
                 data: oData,
                 processData: false,
                 contentType: false,
-                success: function(response) {
+                success: function (response) {
                     var results = JSON.parse(response);
                     if (results.success === false)
                         alert(results.message);
@@ -154,7 +176,7 @@
                         if (parseInt($('#shapefile_select_list').val()) === -1) {
                             var bexist = false;
                             var options = $("#geometries_select option");
-                            $.map(options, function(option) {
+                            $.map(options, function (option) {
                                 if (parseInt(option.value) === parseInt(results.id))
                                     bexist = true;
                             });
@@ -166,10 +188,10 @@
                             }
                             else
                             {
-                                $("#geometries_selected option[value='" + results.id + "']").each(function() {
+                                $("#geometries_selected option[value='" + results.id + "']").each(function () {
                                     $(this).text(name);
                                 });
-                                $("#geometries_select option[value='" + results.id + "']").each(function() {
+                                $("#geometries_select option[value='" + results.id + "']").each(function () {
                                     $(this).text(name);
                                 });
 

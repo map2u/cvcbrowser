@@ -432,6 +432,13 @@ window.onload = function () {
 
 
     initMapDraw(map);
+    if ($("div#sidebar-left.leaflet-control").data("viewtype") === 'story' || $("div#sidebar-left.leaflet-control").data("viewtype") === 'stories') {
+        $(".leaflet-draw.leaflet-control").show();
+    }
+    else
+    {
+        $(".leaflet-draw.leaflet-control").hide();
+    }
 //
 //
 //var markers = new L.MarkerClusterGroup();

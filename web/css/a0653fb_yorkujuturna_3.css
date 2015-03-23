@@ -271,7 +271,7 @@ and open the template in the editor.
 /* line 45, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_benefit.scss */
 #leftsidebar_indicator_benefit_flash div.carousel-caption {
   top: 0px;
-  margin-top: 200px;
+  margin-top: 40px;
   position: absolute;
   font-weight: 400;
   height: 200px;
@@ -280,7 +280,7 @@ and open the template in the editor.
   font-size: 16px;
 }
 
-/* line 56, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_benefit.scss */
+/* line 57, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_benefit.scss */
 #leftsidebar_indicator_benefit_flash div.carousel-caption h5 {
   font-size: 18px;
 }

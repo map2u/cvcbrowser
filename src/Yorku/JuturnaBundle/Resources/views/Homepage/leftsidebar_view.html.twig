@@ -61,19 +61,21 @@
             {% else %}
                 {% if count == 1 %}
                     <div id="leftsidebar_indicator_benefit_flash" style="border-radius: 5px;">
-                        {% for indicatorbenefitimage in entities.indicatorbenefitimages %}
-                            {% set images=indicatorbenefitimage.getFileName()|unserialize %}
-                            {% if images|length > 0 %}
-                                {% for image in images %}
-                                    <div class="carousel-caption">
-                                        <h5>{{indicatorbenefitimage.getImageTitle()}}</h5>
-                                        <p>{{indicatorbenefitimage.getImageCaption()}}</p>
-                                    </div>
-                                    <img style="border-radius: 5px;width:300px;height:200px;overflow: hidden;" src="{{ asset('uploads/images/indicatorbenefitimages/'~indicatorbenefitimage.id~"/")}}{{image|raw}}" width="100%">
+                        <div class="carousel-inner" style="border-radius: 5px;">
+                            {% for indicatorbenefitimage in entities.indicatorbenefitimages %}
+                                {% set images=indicatorbenefitimage.getFileName()|unserialize %}
+                                {% if images|length > 0 %}
+                                    {% for image in images %}
 
-                                {% endfor %}
-                            {% endif %}
-                        {% endfor %}
+                                        <img style="border-radius: 5px;width:300px;height:200px;overflow: hidden;" src="{{ asset('uploads/images/indicatorbenefitimages/'~indicatorbenefitimage.id~"/")}}{{image|raw}}" width="100%">
+                                        <div class="carousel-caption">
+                                            <h5>{{indicatorbenefitimage.getImageTitle()}}</h5>
+                                            <p>{{indicatorbenefitimage.getImageCaption()}}</p>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
                     </div>
                 {% endif %}
             {% endif %}
