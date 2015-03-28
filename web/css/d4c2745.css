@@ -8607,6 +8607,19 @@ div#homepage_menubar_background {
   z-index: -1;
 }
 
+/* line 50, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_header.scss */
+div.leafmap_title_tooltip {
+  color: #222;
+  background: #fff;
+  padding: .5em;
+  text-shadow: #f5f5f5 0 1px 0;
+  border-radius: 2px;
+  box-shadow: 0px 0px 2px 0px #a6a6a6;
+  opacity: 0.9;
+  z-index: 1002;
+  position: absolute;
+}
+
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -8812,7 +8825,7 @@ and open the template in the editor.
 /* line 45, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_benefit.scss */
 #leftsidebar_indicator_benefit_flash div.carousel-caption {
   top: 0px;
-  margin-top: 200px;
+  margin-top: 40px;
   position: absolute;
   font-weight: 400;
   height: 200px;
@@ -8821,7 +8834,7 @@ and open the template in the editor.
   font-size: 16px;
 }
 
-/* line 56, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_benefit.scss */
+/* line 57, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_benefit.scss */
 #leftsidebar_indicator_benefit_flash div.carousel-caption h5 {
   font-size: 18px;
 }

@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace Map2u\CoreBundle\Controller;
+namespace Application\Map2u\CoreBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Map2u\CoreBundle\Controller\ThematicMapController as BaseController;

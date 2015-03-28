@@ -75,7 +75,9 @@ class CategoryAdminController extends BaseController {
 
         if (!$currentContext) {
             $mainCategory = current($rootCategories);
-            $currentContext = $mainCategory->getContext();
+            if ($mainCategory) {
+                $currentContext = $mainCategory->getContext();
+            }
         } else {
             foreach ($rootCategories as $category) {
                 if ($currentContext->getId() != $category->getContext()->getId()) {

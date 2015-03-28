@@ -26,23 +26,35 @@ and open the template in the editor.
 }
 
 div#homepage_titlebar_background {
-   position: absolute;
-   left:0px;width:100%;
-   padding: 0px; 
-   margin:0px; 
-   background-color: #228B22;
-   top:80px;
-   height:50px;
-   z-index: -1;
+    position: absolute;
+    left:0px;width:100%;
+    padding: 0px; 
+    margin:0px; 
+    background-color: #228B22;
+    top:80px;
+    height:50px;
+    z-index: -1;
 }
 div#homepage_menubar_background {
-   position: absolute;
-   left:0px;
-   width:100%;
-   padding: 0px; 
-   margin:0px; 
-   background-color: #3c4142;
-   top:130px;
-   height:50px;
-   z-index: -1;   
+    position: absolute;
+    left:0px;
+    width:100%;
+    padding: 0px; 
+    margin:0px; 
+    background-color: #3c4142;
+    top:130px;
+    height:50px;
+    z-index: -1;   
+}
+
+div.leafmap_title_tooltip {
+    color: #222; 
+    background: #fff; 
+    padding: .5em; 
+    text-shadow: #f5f5f5 0 1px 0;
+    border-radius: 2px; 
+    box-shadow: 0px 0px 2px 0px #a6a6a6; 
+    opacity: 0.9; 
+    z-index: 1002;
+    position: absolute;
 }

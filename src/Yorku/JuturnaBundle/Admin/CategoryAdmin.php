@@ -55,7 +55,7 @@ class CategoryAdmin extends Admin {
                 ->add('id', 'hidden')
                 ->add('name')
                 ->add('title')
-                ->add('flashimage_files', 'file', array('label' => 'Flash Image Files:', 'multiple' => true, 'mapped' => false, 'required' => false))
+                ->add('flashimage_files', 'file', array('label' => 'Flash Image Files:',  'mapped' => false, 'required' => false,'attr'=>array('multiple' => true)))
                 ->add('meadiagram_file', 'file', array('label' => 'Mea Diagram File:', 'mapped' => false, 'required' => false))
                 ->add('slug')
 
