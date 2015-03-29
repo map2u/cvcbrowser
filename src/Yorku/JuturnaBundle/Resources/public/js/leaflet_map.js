@@ -312,115 +312,9 @@ window.onload = function () {
                     }
                     map.dataLayers[map.dataLayers.length] = {'map': map, 'layerType': layer.layerType, 'clusterLayer': layer.clusterLayer, 'defaultShowOnMap': layer.defaultShowOnMap, 'layer': null, 'minZoom': layer.minZoom, 'maxZoom': layer.maxZoom, 'index_id': k, 'layerId': layer.id, layerTitle: layer.layerTitle, 'datasource': layer.datasource, 'sld': layer.sld, 'filename': layer.filename, 'layerName': layer.layerName, 'hostName': layer.hostName};
                 }
-                map.dataLayers[map.dataLayers.length] = {'map': map, 'layerType': 'userdraw', 'layer': null, 'index_id': -1, 'layerId': -1, layerTitle: "My draw geometries", 'layerName': 'My draw geometries', type: 'geojson'};
-                layersControl.refreshOverlays();
-
-
-            }
-        }
-    });
-
-    $.ajax({
-        url: Routing.generate('appleaflet_storylayer', {_locale: window.locale}),
-        method: 'GET',
-        success: function (response) {
-            var result;
-            if (typeof response !== 'object')
-                result = JSON.parse(response);
-            else
-                result = response;
-            if (result.success === true && result.stories) {
-
-
-                var photo_layer = L.layerGroup();
-
-                var default_showonmap = false;
-                var default_layers = $("div#sidebar-left.leaflet-control").data("viewtype").toString();
-                if (default_layers === 'stories')
-                {
-                    default_showonmap = true;
-                    photo_layer.addTo(map);
-                }
-                map.dataLayers[map.dataLayers.length] = {'map': map, 'layerType': 'stories', 'clusterLayer': false, 'defaultShowOnMap': default_showonmap, 'layer': photo_layer, 'minZoom': null, 'maxZoom': null, 'index_id': 0, 'layerId': 0, layerTitle: 'Stories', 'datasource': -2, 'sld': null, 'filename': null, 'layerName': 'Stories', 'hostName': null};
-                $.each(result.stories, function (k, photo) {
-
-                    var images;
-                    var icon_image = '';
-                    var medium_image = '';
-                    if (typeof photo.image_file === 'string')
-                        images = JSON.parse(photo.image_file);
-                    else
-                        images = photo.image_file;
-
-
-
-                    if (images.length === 0) {
-                        //  images[0] = '/bundles/map2uleaflet/images/photo_unavailable_t.png';
-                        icon_image = '/bundles/map2uleaflet/images/photo_unavailable_t.png';
-                        medium_image = '/bundles/map2uleaflet/images/photo_unavailable.png';
-                    }
-                    else {
-                        icon_image = '/uploads/stories/' + photo.id + "/images/icon_" + images[0];
-                        medium_image = '/uploads/stories/' + photo.id + "/images/medium_" + images[0];
-                    }
-
-                    var photo_marker = new L.PhotoMarker([photo.lat, photo.lng], {
-                        src: icon_image,
-                        size: [50, 40],
-                        resize: function (e) {
-//                            var zoom = e.zoom;
-//                             var  photo_marker = e.target;
-//                            var zoom = this.map.getZoom();
-//                            alert(zoom);
-//                            var  photo_marker=this;
-//                            alert(photo_marker);
-//
-////                             alert(
-//                            if (zoom <= 13) {
-//                                photo_marker.scale(0.25);
-//                            }
-//                            else if (zoom <= 15) {
-//                                // Half of the size option
-//                                photo_marker.scale(0.5);
-//                            }
-//                            else {
-//                                // Scale 1 is 100% as defined in the size option
-//                                photo_marker.scale(1);
-//                            }
-                        }
-                    });//.addTo(map);
-                    var html = '<a href="#" onclick="showStoryOnLeftsisebar(' + photo.id + '); return false;"><h4>' + photo.story_name + '</h4></a>';
-                    if (medium_image === '') {
-                        if (images.length > 1) {
-
-                        }
-                        else {
-                            html = html + '<img src="' + medium_image + '" style="width:300px;"/>';
-
-                        }
-                    }
-                    else
-                    {
-                        html = html + '<img src="' + medium_image + '" style="width:300px;"/>';
-                    }
-
-                    photo_marker.bindPopup('<a href="#" onclick="showStoryOnLeftsisebar(' + photo.id + '); return false;"><h4>' + photo.story_name + '</h4></a><img src="' + medium_image + '" style="width:300px;"/>');
-                    $("<img>").attr("src", medium_image).load(function () {
-                        photo_layer.addLayer(photo_marker);
-                    });
-//                    var marker = L.photoMarker(photo.latLng, {
-//                        src: photo.src,
-//                        size: photo.size
-//                    }).bindPopup('<img src="' + photo.medium + '" /><p>' + photo.title + '</p>', {
-//                        minWidth: photo.medium_size[0],
-//                        minHeight: photo.medium_size[1]
-//                    });
-//                    // Preload the images
-//                    $("<img>").attr("src", photo.src).load(function () {
-//                        photo_layer.addLayer(marker);
-//                    });
-                });
-                layersControl.refreshOverlays();
+                //    map.dataLayers[map.dataLayers.length] = {'map': map, 'layerType': 'userdraw', 'layer': null, 'index_id': -1, 'layerId': -1, layerTitle: "My draw geometries", 'layerName': 'My draw geometries', type: 'geojson'};
+                //    layersControl.refreshOverlays();
+                loadStoriesLayer(map, layersControl);
 
             }
         }
@@ -645,4 +539,114 @@ function showStoryOnLeftsisebar(id) {
             $("div#leaflet_content.overlay-sidebar #sidebar_content").html(response);
         }
     });
+}
+
+function loadStoriesLayer(map, layersControl) {
+
+    $.ajax({
+        url: Routing.generate('appleaflet_storylayer', {_locale: window.locale}),
+        method: 'GET',
+        success: function (response) {
+            var result;
+            if (typeof response !== 'object')
+                result = JSON.parse(response);
+            else
+                result = response;
+            if (result.success === true && result.stories) {
+
+
+                var photo_layer = L.layerGroup();
+
+                var default_showonmap = false;
+                var default_layers = $("div#sidebar-left.leaflet-control").data("viewtype").toString();
+                if (default_layers === 'stories')
+                {
+                    default_showonmap = true;
+                    photo_layer.addTo(map);
+                }
+                map.dataLayers[map.dataLayers.length] = {'map': map, 'layerType': 'stories', 'clusterLayer': false, 'defaultShowOnMap': default_showonmap, 'layer': photo_layer, 'minZoom': null, 'maxZoom': null, 'index_id': 0, 'layerId': 0, layerTitle: 'Stories', 'datasource': -2, 'sld': null, 'filename': null, 'layerName': 'Stories', 'hostName': null};
+                $.each(result.stories, function (k, photo) {
+
+                    var images;
+                    var icon_image = '';
+                    var medium_image = '';
+                    if (typeof photo.image_file === 'string')
+                        images = JSON.parse(photo.image_file);
+                    else
+                        images = photo.image_file;
+
+
+
+                    if (images.length === 0) {
+                        //  images[0] = '/bundles/map2uleaflet/images/photo_unavailable_t.png';
+                        icon_image = '/bundles/map2uleaflet/images/photo_unavailable_t.png';
+                        medium_image = '/bundles/map2uleaflet/images/photo_unavailable.png';
+                    }
+                    else {
+                        icon_image = '/uploads/stories/' + photo.id + "/images/icon_" + images[0];
+                        medium_image = '/uploads/stories/' + photo.id + "/images/medium_" + images[0];
+                    }
+
+                    var photo_marker = new L.PhotoMarker([photo.lat, photo.lng], {
+                        src: icon_image,
+                        size: [50, 40],
+                        resize: function (e) {
+//                            var zoom = e.zoom;
+//                             var  photo_marker = e.target;
+//                            var zoom = this.map.getZoom();
+//                            alert(zoom);
+//                            var  photo_marker=this;
+//                            alert(photo_marker);
+//
+////                             alert(
+//                            if (zoom <= 13) {
+//                                photo_marker.scale(0.25);
+//                            }
+//                            else if (zoom <= 15) {
+//                                // Half of the size option
+//                                photo_marker.scale(0.5);
+//                            }
+//                            else {
+//                                // Scale 1 is 100% as defined in the size option
+//                                photo_marker.scale(1);
+//                            }
+                        }
+                    });//.addTo(map);
+                    var html = '<a href="#" onclick="showStoryOnLeftsisebar(' + photo.id + '); return false;"><h4>' + photo.story_name + '</h4></a>';
+                    if (medium_image === '') {
+                        if (images.length > 1) {
+
+                        }
+                        else {
+                            html = html + '<img src="' + medium_image + '" style="width:300px;"/>';
+
+                        }
+                    }
+                    else
+                    {
+                        html = html + '<img src="' + medium_image + '" style="width:300px;"/>';
+                    }
+
+                    photo_marker.bindPopup('<a href="#" onclick="showStoryOnLeftsisebar(' + photo.id + '); return false;"><h4>' + photo.story_name + '</h4></a><img src="' + medium_image + '" style="width:300px;"/>');
+                    $("<img>").attr("src", medium_image).load(function () {
+                        photo_layer.addLayer(photo_marker);
+                    });
+//                    var marker = L.photoMarker(photo.latLng, {
+//                        src: photo.src,
+//                        size: photo.size
+//                    }).bindPopup('<img src="' + photo.medium + '" /><p>' + photo.title + '</p>', {
+//                        minWidth: photo.medium_size[0],
+//                        minHeight: photo.medium_size[1]
+//                    });
+//                    // Preload the images
+//                    $("<img>").attr("src", photo.src).load(function () {
+//                        photo_layer.addLayer(marker);
+//                    });
+                });
+                layersControl.refreshOverlays();
+
+            }
+        }
+    });
+
 }
