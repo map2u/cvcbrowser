@@ -1,0 +1,18 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2-Apr-2015, 3:52:24 PM
+    Author     : josephzhao
+*/
+
+.leaflet-photomarker-container .leaflet-photomarker-img {
+    border: solid white 1px;
+    background-color: white;
+    -webkit-transition:width 0.25s ease, height 0.25s ease;
+    -moz-transition:width 0.25s ease, height 0.25s ease;
+    -o-transition:width 0.25s ease, height 0.25s ease;
+    transition:width 0.25s ease, height 0.25s ease;
+}

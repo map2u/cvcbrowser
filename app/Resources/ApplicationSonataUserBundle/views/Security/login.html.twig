@@ -44,5 +44,7 @@
             </div>
         {% endblock fos_user_content %}
     {% endblock %}
-   
+    {% block footer %}
+        {{parent()}}
+    {% endblock %}
 {% endblock %}

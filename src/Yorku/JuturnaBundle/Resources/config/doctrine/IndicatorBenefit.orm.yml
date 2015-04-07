@@ -88,6 +88,28 @@ Yorku\JuturnaBundle\Entity\IndicatorBenefit:
            inverseJoinColumns:
              indicatorbenefit_id:
                referencedColumnName: id   
+       additionalreferences:
+          targetEntity: IndicatorReference
+          inversedBy: additional_indicatorbenefits
+          joinTable:
+           name: additionalreference_indicatorbenefits
+           joinColumns:
+             additionalreference_id:
+               referencedColumnName: id
+           inverseJoinColumns:
+             indicatorbenefit_id:
+               referencedColumnName: id                  
+       otherlinks:
+          targetEntity: IndicatorReference
+          inversedBy: otherlinks_indicatorbenefits
+          joinTable:
+           name: otherlinks_indicatorbenefits
+           joinColumns:
+             additionalreference_id:
+               referencedColumnName: id
+           inverseJoinColumns:
+             indicatorbenefit_id:
+               referencedColumnName: id                  
        indicatorbenefitimages:
           targetEntity: IndicatorBenefitImage
           inversedBy: indicatorbenefits
@@ -101,7 +123,6 @@ Yorku\JuturnaBundle\Entity\IndicatorBenefit:
                referencedColumnName: id          
        uploadfilelayers:
           targetEntity: Map2u\CoreBundle\Entity\UploadfileLayer
-#          inversedBy: indicatorbenefits
           joinTable:
            name: uploadfilelayers_indicatorbenefits
            joinColumns:
@@ -110,4 +131,24 @@ Yorku\JuturnaBundle\Entity\IndicatorBenefit:
            inverseJoinColumns:
              indicatorbenefit_id:
                referencedColumnName: id                         
+       clusterlayers:
+          targetEntity: Map2u\CoreBundle\Entity\LeafletClusterLayer
+          joinTable:
+           name: clusterlayers_indicatorbenefits
+           joinColumns:
+             clusterlayer_id:
+               referencedColumnName: id
+           inverseJoinColumns:
+             indicatorbenefit_id:
+               referencedColumnName: id       
+       geoserverlayers:
+          targetEntity: Map2u\CoreBundle\Entity\GeoServerLayer
+          joinTable:
+           name: geoserverlayers_indicatorbenefits
+           joinColumns:
+             geoserverlayer_id:
+               referencedColumnName: id
+           inverseJoinColumns:
+             indicatorbenefit_id:
+               referencedColumnName: id                      
     lifecycleCallbacks: {  }

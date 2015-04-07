@@ -103,6 +103,29 @@
                     <p>{{reference.reference}}</p>
                 {% endif %}
             {% endfor %}
+
+            {% for reference in benefit.additionalreferences %}
+                {% if reference.website %}
+                    <p>
+                        <a href="{{reference.website}}">{{reference.reference}}
+                        </a>
+                    </p>
+                {% else %}
+                    <p>{{reference.reference}}</p>
+                {% endif %}
+            {% endfor %}
+
+            {% for reference in benefit.otherlinks %}
+                {% if reference.website %}
+                    <p>
+                        <a href="{{reference.website}}">{{reference.reference}}
+                        </a>
+                    </p>
+                {% else %}
+                    <p>{{reference.reference}}</p>
+                {% endif %}
+            {% endfor %}
+
         </div>
     </div>
     {% block footer %}
@@ -125,12 +148,12 @@
                 $("#indicator_benefit_flash .item.carousel-item.active div.carousel-caption").css({"margin-top": ($("#indicator_benefit_flash .item.carousel-item.active img").height() - $("#indicator_benefit_flash .carousel-inner").height()) / 2 + "px"});
                 if ($("#indicator_benefit_flash .carousel-inner").length === 0) {
                     $("#indicator_benefit_flash  img").css({"margin-top": ($("#indicator_benefit_flash").height() - $("#indicator_benefit_flash img").height()) / 2 + "px"});
-                    $("#indicator_benefit_flash  div.carousel-caption").css({"margin-top":  ($("#indicator_benefit_flash").height() / 2 +50) + "px"});
+                    $("#indicator_benefit_flash  div.carousel-caption").css({"margin-top": ($("#indicator_benefit_flash").height() / 2 + 50) + "px"});
                 }
             };
             if ($("#indicator_benefit_flash .carousel-inner").length === 0) {
                 $("#indicator_benefit_flash  img").css({"margin-top": ($("#indicator_benefit_flash").height() - $("#indicator_benefit_flash img").height()) / 2 + "px"});
-                $("#indicator_benefit_flash  div.carousel-caption").css({"margin-top": ($("#indicator_benefit_flash").height() / 2 +50)+ "px"});
+                $("#indicator_benefit_flash  div.carousel-caption").css({"margin-top": ($("#indicator_benefit_flash").height() / 2 + 50) + "px"});
             }
         });
     </script>

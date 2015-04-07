@@ -29,5 +29,11 @@ Yorku\JuturnaBundle\Entity\IndicatorReference:
        indicatorbenefits:
          targetEntity: IndicatorBenefit
          mappedBy: indicatorreferences
+       additional_indicatorbenefits:
+         targetEntity: IndicatorBenefit
+         mappedBy: additionalreferences
+       otherlinks_indicatorbenefits:
+         targetEntity: IndicatorBenefit
+         mappedBy: otherlinks
    
     lifecycleCallbacks: {  }

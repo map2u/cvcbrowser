@@ -82,17 +82,10 @@
         </div>
         <div style="margin-top:15px;">
             <p> -- {{entities.abstract}}</p>
-            {% for reference in entities.indicatorreferences %}
-                {% if reference.website %}
-                    <p>
-                        <a href="{{reference.website}}">{{reference.reference}}
-                        </a>
-                    </p>
-                {% else %}
-                    <p>{{reference.reference}}</p>
-                {% endif %}
-            {% endfor %}
+            
+            <p><a href="{{path('homepage_benefit',{id:entities.id})}}" target="_blank">Learn more...</a></p>
         </div>
+
         <script>
             $(function () {
                 $('#leftsidebar_indicator_benefit_flash').carousel({
@@ -153,6 +146,8 @@
         <div style="margin-top:15px;">
             {#<b>Summary:</b>#}
             <p> -- {{story.summary}}</p>
+            <p><a href="{{path('homepage_storydetail',{id:story.id})}}" target="_blank">Learn more...</a></p>
+
         </div>
         {% if story.storyText %}
             <div style="margin-top:10px;" id="pdf_display">

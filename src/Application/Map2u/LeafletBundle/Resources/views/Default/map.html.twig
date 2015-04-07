@@ -1,7 +1,7 @@
 {# empty Twig template #}
 <div id="leaflet_content" class="overlay-sidebar">
 
-    <div id="sidebar-left" data-viewtype="{% if view is defined  %}{{view}}{% endif %}" data-viewlayers="{% if benefits is defined and benefits != null and benefits.uploadfilelayers|length >0 %}{% for uploadfilelayer in benefits.uploadfilelayers %}{{uploadfilelayer.id}},{% endfor %}{% endif %}">
+    <div id="sidebar-left" data-viewtype="{% if view is defined  %}{{view}}{% endif %}" data-viewlayers="{% if benefits is defined and benefits != null and benefits.uploadfilelayers|length >0 %}{% for uploadfilelayer in benefits.uploadfilelayers %}{{uploadfilelayer.id}},{% endfor %}{% endif %}"  data-viewgeoserverlayers="{% if benefits is defined and benefits != null and benefits.geoserverlayers|length >0 %}{% for geoserverlayer in benefits.geoserverlayers %}{{geoserverlayer.id}},{% endfor %}{% endif %}" data-viewclusterlayers="{% if benefits is defined and benefits != null and benefits.clusterlayers|length >0 %}{% for clusterlayer in benefits.clusterlayers %}{{clusterlayer.id}},{% endfor %}{% endif %}">
 
         <div id="flash">
         </div>

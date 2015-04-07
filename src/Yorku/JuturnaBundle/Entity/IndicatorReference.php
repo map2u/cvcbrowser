@@ -158,4 +158,80 @@ class IndicatorReference {
         return $this->name;
     }
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $additional_indicatorbenefits;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $otherlinks_indicatorbenefits;
+
+
+    /**
+     * Add additional_indicatorbenefits
+     *
+     * @param \Yorku\JuturnaBundle\Entity\IndicatorBenefit $additionalIndicatorbenefits
+     * @return IndicatorReference
+     */
+    public function addAdditionalIndicatorbenefit(\Yorku\JuturnaBundle\Entity\IndicatorBenefit $additionalIndicatorbenefits)
+    {
+        $this->additional_indicatorbenefits[] = $additionalIndicatorbenefits;
+
+        return $this;
+    }
+
+    /**
+     * Remove additional_indicatorbenefits
+     *
+     * @param \Yorku\JuturnaBundle\Entity\IndicatorBenefit $additionalIndicatorbenefits
+     */
+    public function removeAdditionalIndicatorbenefit(\Yorku\JuturnaBundle\Entity\IndicatorBenefit $additionalIndicatorbenefits)
+    {
+        $this->additional_indicatorbenefits->removeElement($additionalIndicatorbenefits);
+    }
+
+    /**
+     * Get additional_indicatorbenefits
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAdditionalIndicatorbenefits()
+    {
+        return $this->additional_indicatorbenefits;
+    }
+
+    /**
+     * Add otherlinks_indicatorbenefits
+     *
+     * @param \Yorku\JuturnaBundle\Entity\IndicatorBenefit $otherlinksIndicatorbenefits
+     * @return IndicatorReference
+     */
+    public function addOtherlinksIndicatorbenefit(\Yorku\JuturnaBundle\Entity\IndicatorBenefit $otherlinksIndicatorbenefits)
+    {
+        $this->otherlinks_indicatorbenefits[] = $otherlinksIndicatorbenefits;
+
+        return $this;
+    }
+
+    /**
+     * Remove otherlinks_indicatorbenefits
+     *
+     * @param \Yorku\JuturnaBundle\Entity\IndicatorBenefit $otherlinksIndicatorbenefits
+     */
+    public function removeOtherlinksIndicatorbenefit(\Yorku\JuturnaBundle\Entity\IndicatorBenefit $otherlinksIndicatorbenefits)
+    {
+        $this->otherlinks_indicatorbenefits->removeElement($otherlinksIndicatorbenefits);
+    }
+
+    /**
+     * Get otherlinks_indicatorbenefits
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOtherlinksIndicatorbenefits()
+    {
+        return $this->otherlinks_indicatorbenefits;
+    }
 }

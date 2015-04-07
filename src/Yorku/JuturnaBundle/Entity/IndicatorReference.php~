@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * IndicatorReference
  */
-class IndicatorReference
-{
+class IndicatorReference {
+
     /**
      * @var integer
      */
@@ -20,6 +20,16 @@ class IndicatorReference
     private $name;
 
     /**
+     * @var string
+     */
+    private $reference;
+
+    /**
+     * @var string
+     */
+    private $website;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $indicatorbenefits;
@@ -27,8 +37,7 @@ class IndicatorReference
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->indicatorbenefits = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -37,9 +46,19 @@ class IndicatorReference
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
+    }
+
+    /**
+     * Set id
+     *
+     * @param integer $id
+     * @return EcoSystemService
+     */
+    public function setId($id) {
+        $this->id = $id;
+        return $this;
     }
 
     /**
@@ -48,8 +67,7 @@ class IndicatorReference
      * @param string $name
      * @return IndicatorReference
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -60,9 +78,50 @@ class IndicatorReference
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
+    }
+
+    /**
+     * Set reference
+     *
+     * @param string $reference
+     * @return IndicatorReference
+     */
+    public function setReference($reference) {
+        $this->reference = $reference;
+
+        return $this;
+    }
+
+    /**
+     * Get reference
+     *
+     * @return string 
+     */
+    public function getReference() {
+        return $this->reference;
+    }
+
+    /**
+     * Set website
+     *
+     * @param string $website
+     * @return IndicatorReference
+     */
+    public function setWebsite($website) {
+        $this->website = $website;
+
+        return $this;
+    }
+
+    /**
+     * Get website
+     *
+     * @return string 
+     */
+    public function getWebsite() {
+        return $this->website;
     }
 
     /**
@@ -71,8 +130,7 @@ class IndicatorReference
      * @param \Yorku\JuturnaBundle\Entity\IndicatorBenefit $indicatorbenefits
      * @return IndicatorReference
      */
-    public function addIndicatorbenefit(\Yorku\JuturnaBundle\Entity\IndicatorBenefit $indicatorbenefits)
-    {
+    public function addIndicatorbenefit(\Yorku\JuturnaBundle\Entity\IndicatorBenefit $indicatorbenefits) {
         $this->indicatorbenefits[] = $indicatorbenefits;
 
         return $this;
@@ -83,8 +141,7 @@ class IndicatorReference
      *
      * @param \Yorku\JuturnaBundle\Entity\IndicatorBenefit $indicatorbenefits
      */
-    public function removeIndicatorbenefit(\Yorku\JuturnaBundle\Entity\IndicatorBenefit $indicatorbenefits)
-    {
+    public function removeIndicatorbenefit(\Yorku\JuturnaBundle\Entity\IndicatorBenefit $indicatorbenefits) {
         $this->indicatorbenefits->removeElement($indicatorbenefits);
     }
 
@@ -93,8 +150,12 @@ class IndicatorReference
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getIndicatorbenefits()
-    {
+    public function getIndicatorbenefits() {
         return $this->indicatorbenefits;
     }
+
+    public function __toString() {
+        return $this->name;
+    }
+
 }

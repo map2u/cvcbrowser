@@ -407,4 +407,156 @@ class IndicatorBenefit {
     {
         return $this->uploadfilelayers;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $clusterlayers;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $geoserverlayers;
+
+
+    /**
+     * Add clusterlayers
+     *
+     * @param \Map2u\CoreBundle\Entity\LeafletClusterLayer $clusterlayers
+     * @return IndicatorBenefit
+     */
+    public function addClusterlayer(\Map2u\CoreBundle\Entity\LeafletClusterLayer $clusterlayers)
+    {
+        $this->clusterlayers[] = $clusterlayers;
+
+        return $this;
+    }
+
+    /**
+     * Remove clusterlayers
+     *
+     * @param \Map2u\CoreBundle\Entity\LeafletClusterLayer $clusterlayers
+     */
+    public function removeClusterlayer(\Map2u\CoreBundle\Entity\LeafletClusterLayer $clusterlayers)
+    {
+        $this->clusterlayers->removeElement($clusterlayers);
+    }
+
+    /**
+     * Get clusterlayers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getClusterlayers()
+    {
+        return $this->clusterlayers;
+    }
+
+    /**
+     * Add geoserverlayers
+     *
+     * @param \Map2u\CoreBundle\Entity\GeoServerLayer $geoserverlayers
+     * @return IndicatorBenefit
+     */
+    public function addGeoserverlayer(\Map2u\CoreBundle\Entity\GeoServerLayer $geoserverlayers)
+    {
+        $this->geoserverlayers[] = $geoserverlayers;
+
+        return $this;
+    }
+
+    /**
+     * Remove geoserverlayers
+     *
+     * @param \Map2u\CoreBundle\Entity\GeoServerLayer $geoserverlayers
+     */
+    public function removeGeoserverlayer(\Map2u\CoreBundle\Entity\GeoServerLayer $geoserverlayers)
+    {
+        $this->geoserverlayers->removeElement($geoserverlayers);
+    }
+
+    /**
+     * Get geoserverlayers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getGeoserverlayers()
+    {
+        return $this->geoserverlayers;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $additionalreferences;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $otherlinks;
+
+
+    /**
+     * Add additionalreferences
+     *
+     * @param \Yorku\JuturnaBundle\Entity\IndicatorReference $additionalreferences
+     * @return IndicatorBenefit
+     */
+    public function addAdditionalreference(\Yorku\JuturnaBundle\Entity\IndicatorReference $additionalreferences)
+    {
+        $this->additionalreferences[] = $additionalreferences;
+
+        return $this;
+    }
+
+    /**
+     * Remove additionalreferences
+     *
+     * @param \Yorku\JuturnaBundle\Entity\IndicatorReference $additionalreferences
+     */
+    public function removeAdditionalreference(\Yorku\JuturnaBundle\Entity\IndicatorReference $additionalreferences)
+    {
+        $this->additionalreferences->removeElement($additionalreferences);
+    }
+
+    /**
+     * Get additionalreferences
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAdditionalreferences()
+    {
+        return $this->additionalreferences;
+    }
+
+    /**
+     * Add otherlinks
+     *
+     * @param \Yorku\JuturnaBundle\Entity\IndicatorReference $otherlinks
+     * @return IndicatorBenefit
+     */
+    public function addOtherlink(\Yorku\JuturnaBundle\Entity\IndicatorReference $otherlinks)
+    {
+        $this->otherlinks[] = $otherlinks;
+
+        return $this;
+    }
+
+    /**
+     * Remove otherlinks
+     *
+     * @param \Yorku\JuturnaBundle\Entity\IndicatorReference $otherlinks
+     */
+    public function removeOtherlink(\Yorku\JuturnaBundle\Entity\IndicatorReference $otherlinks)
+    {
+        $this->otherlinks->removeElement($otherlinks);
+    }
+
+    /**
+     * Get otherlinks
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOtherlinks()
+    {
+        return $this->otherlinks;
+    }
 }

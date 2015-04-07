@@ -66,6 +66,20 @@ class IndicatorBenefitAdmin extends Admin {
                     'multiple' => true
                         )
                 )
+                ->add('clusterlayers', 'entity', array('required' => false,
+                    'expanded' => false,
+                    'class' => 'Map2u\CoreBundle\Entity\LeafletClusterLayer',
+                    'property' => 'layerTitle',
+                    'multiple' => true
+                        )
+                )
+                ->add('geoserverlayers', 'entity', array('required' => false,
+                    'expanded' => false,
+                    'class' => 'Map2u\CoreBundle\Entity\GeoServerLayer',
+                    'property' => 'layerTitle',
+                    'multiple' => true
+                        )
+                )
                 ->add('ecosystemservices', 'entity', array('required' => true,
                     'expanded' => false,
                     'class' => 'Yorku\JuturnaBundle\Entity\EcoSystemService',
@@ -81,6 +95,20 @@ class IndicatorBenefitAdmin extends Admin {
                         )
                 )
                 ->add('indicatorreferences', 'entity', array('required' => false,
+                    'expanded' => false,
+                    'class' => 'Yorku\JuturnaBundle\Entity\IndicatorReference',
+                    'property' => 'name',
+                    'multiple' => true
+                        )
+                )
+                ->add('additionalreferences', 'entity', array('required' => false,
+                    'expanded' => false,
+                    'class' => 'Yorku\JuturnaBundle\Entity\IndicatorReference',
+                    'property' => 'name',
+                    'multiple' => true
+                        )
+                )
+                ->add('otherlinks', 'entity', array('required' => false,
                     'expanded' => false,
                     'class' => 'Yorku\JuturnaBundle\Entity\IndicatorReference',
                     'property' => 'name',

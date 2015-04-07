@@ -369,4 +369,118 @@ class IndicatorBenefit {
         return $this->benefitName;
     }
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $uploadfilelayers;
+
+
+    /**
+     * Add uploadfilelayers
+     *
+     * @param \Map2u\CoreBundle\Entity\UploadfileLayer $uploadfilelayers
+     * @return IndicatorBenefit
+     */
+    public function addUploadfilelayer(\Map2u\CoreBundle\Entity\UploadfileLayer $uploadfilelayers)
+    {
+        $this->uploadfilelayers[] = $uploadfilelayers;
+
+        return $this;
+    }
+
+    /**
+     * Remove uploadfilelayers
+     *
+     * @param \Map2u\CoreBundle\Entity\UploadfileLayer $uploadfilelayers
+     */
+    public function removeUploadfilelayer(\Map2u\CoreBundle\Entity\UploadfileLayer $uploadfilelayers)
+    {
+        $this->uploadfilelayers->removeElement($uploadfilelayers);
+    }
+
+    /**
+     * Get uploadfilelayers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUploadfilelayers()
+    {
+        return $this->uploadfilelayers;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $clusterlayers;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $geoserverlayers;
+
+
+    /**
+     * Add clusterlayers
+     *
+     * @param \Map2u\CoreBundle\Entity\LeafletClusterLayer $clusterlayers
+     * @return IndicatorBenefit
+     */
+    public function addClusterlayer(\Map2u\CoreBundle\Entity\LeafletClusterLayer $clusterlayers)
+    {
+        $this->clusterlayers[] = $clusterlayers;
+
+        return $this;
+    }
+
+    /**
+     * Remove clusterlayers
+     *
+     * @param \Map2u\CoreBundle\Entity\LeafletClusterLayer $clusterlayers
+     */
+    public function removeClusterlayer(\Map2u\CoreBundle\Entity\LeafletClusterLayer $clusterlayers)
+    {
+        $this->clusterlayers->removeElement($clusterlayers);
+    }
+
+    /**
+     * Get clusterlayers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getClusterlayers()
+    {
+        return $this->clusterlayers;
+    }
+
+    /**
+     * Add geoserverlayers
+     *
+     * @param \Map2u\CoreBundle\Entity\GeoServerLayer $geoserverlayers
+     * @return IndicatorBenefit
+     */
+    public function addGeoserverlayer(\Map2u\CoreBundle\Entity\GeoServerLayer $geoserverlayers)
+    {
+        $this->geoserverlayers[] = $geoserverlayers;
+
+        return $this;
+    }
+
+    /**
+     * Remove geoserverlayers
+     *
+     * @param \Map2u\CoreBundle\Entity\GeoServerLayer $geoserverlayers
+     */
+    public function removeGeoserverlayer(\Map2u\CoreBundle\Entity\GeoServerLayer $geoserverlayers)
+    {
+        $this->geoserverlayers->removeElement($geoserverlayers);
+    }
+
+    /**
+     * Get geoserverlayers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getGeoserverlayers()
+    {
+        return $this->geoserverlayers;
+    }
 }
