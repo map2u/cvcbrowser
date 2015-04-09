@@ -30,7 +30,7 @@ class UserDrawLayerAdmin extends Admin {
                 ->add('id')
                 ->add('name')
                 ->add('published')
-                ->add('sequence')
+                ->add('seq')
                 ->add('description')
                 ->add('_action', 'actions', array(
                     'actions' => array(
@@ -51,7 +51,7 @@ class UserDrawLayerAdmin extends Admin {
                 ->add('id', 'hidden')
                 ->add('name')
                 ->add('published')
-                ->add('sequence')
+                ->add('seq')
                 ->add('description','ckeditor', array('label' => 'Description',
                     'config_name' => 'forums',
                     'config' => array('uiColor' => '#ffffff')
@@ -68,7 +68,7 @@ class UserDrawLayerAdmin extends Admin {
                 ->add('id')
                 ->add('name')
                 ->add('published')
-                ->add('sequence')
+                ->add('seq')
                 ->add('description')
         ;
     }

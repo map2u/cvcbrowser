@@ -283,8 +283,9 @@ window.onload = function () {
                 result = response;
 
             if (result.success === true && result.layers) {
-
-
+              
+                result.layers = sortByKey(result.layers, 'seq');
+               
                 var keys = Object.keys(result.layers).map(function (k) {
 
                     return k;
@@ -312,36 +313,37 @@ window.onload = function () {
                     geoserver_layers = geoserver_layers.substr(0, geoserver_layers.length - 1);
                     geoserver_layers_array = geoserver_layers.split(",");
                 }
+
                 for (var k = 0; k < keys.length; k++)
                 {
                     var layer = result.layers[keys[k]];
-
+                    alert(layer.layerTitle+ "   " + layer.seq + "  " + keys[k]);
                     if ((default_datatype === 'benefit') && default_layers_array.length > 0) {
                         if (layer.layerType === 'uploadfilelayer') {
                             if (default_layers_array.indexOf(layer.id.toString()) !== -1) {
-                                layer.defaultShowOnMap = true;
+                                layer.defaultShowOnMap = '1';
                             }
                             else
                             {
-                                layer.defaultShowOnMap = false;
+                                layer.defaultShowOnMap = '0';
                             }
                         }
                         if (layer.layerType === 'clustermap') {
                             if (cluster_layers_array.indexOf(layer.id.toString()) !== -1) {
-                                layer.defaultShowOnMap = true;
+                                layer.defaultShowOnMap = '1';
                             }
                             else
                             {
-                                layer.defaultShowOnMap = false;
+                                layer.defaultShowOnMap = '0';
                             }
                         }
                         if (layer.layerType === 'wms' || layer.layerType === 'wfs') {
                             if (geoserver_layers_array.indexOf(layer.id.toString()) !== -1) {
-                                layer.defaultShowOnMap = true;
+                                layer.defaultShowOnMap = '1';
                             }
                             else
                             {
-                                layer.defaultShowOnMap = false;
+                                layer.defaultShowOnMap = '0';
                             }
                         }
                     }
@@ -351,7 +353,7 @@ window.onload = function () {
                 //    layersControl.refreshOverlays();
                 loadStoriesLayer(map, layersControl);
                 setTimeout(function () {
-                   
+
 
                     $(".section.overlay-layers .overlay_ul .overlay_li").map(function () {
                         if ($(this).find("input[type='checkbox']").is(":checked")) {
@@ -674,4 +676,12 @@ function loadStoriesLayer(map, layersControl) {
         }
     });
 
+}
+
+function sortByKey(array, key) {
+    return array.sort(function (a, b) {
+        var x = a[key];
+        var y = b[key];
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
 }

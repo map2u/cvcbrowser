@@ -123,6 +123,7 @@ Yorku\JuturnaBundle\Entity\IndicatorBenefit:
                referencedColumnName: id          
        uploadfilelayers:
           targetEntity: Map2u\CoreBundle\Entity\UploadfileLayer
+          orderBy: { 'seq': 'ASC' }
           joinTable:
            name: uploadfilelayers_indicatorbenefits
            joinColumns:
@@ -133,6 +134,7 @@ Yorku\JuturnaBundle\Entity\IndicatorBenefit:
                referencedColumnName: id                         
        clusterlayers:
           targetEntity: Map2u\CoreBundle\Entity\LeafletClusterLayer
+          orderBy: { 'seq': 'ASC' }
           joinTable:
            name: clusterlayers_indicatorbenefits
            joinColumns:
@@ -143,6 +145,7 @@ Yorku\JuturnaBundle\Entity\IndicatorBenefit:
                referencedColumnName: id       
        geoserverlayers:
           targetEntity: Map2u\CoreBundle\Entity\GeoServerLayer
+          orderBy: { 'seq': 'ASC' }
           joinTable:
            name: geoserverlayers_indicatorbenefits
            joinColumns:

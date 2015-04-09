@@ -143,6 +143,7 @@ doctrine:
             point:      CrEOF\Spatial\DBAL\Types\Geometry\PointType
             polygon:    CrEOF\Spatial\DBAL\Types\Geometry\PolygonType
             linestring: CrEOF\Spatial\DBAL\Types\Geometry\LineStringType
+            enum: Doctrine\DBAL\Types\StringType
 #        mapping_types:
 #            Geometry: Geometry 
 #            geometry: geometry 
@@ -159,6 +160,7 @@ doctrine:
                 mapping_types:
                     Geometry: Geometry 
                     geometry: geometry 
+                    
             
             mandantA:
                 driver:   %database_driver_mandanta%

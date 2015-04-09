@@ -285,7 +285,7 @@ L.MAP2U.layers = function (options) {
             }
 
 
-            if (layer.defaultShowOnMap === true)
+            if (layer.defaultShowOnMap === 'ON')
             {
                 $(input).prop('checked', true)
                         .trigger('change');
@@ -539,7 +539,7 @@ L.MAP2U.layers = function (options) {
                 if (typeof result.layer === 'string')
                     result.layer = JSON.parse(result.layer);
 
-                var layer = {'defaultShowOnMap': true, 'layerType': result.layer.layerType, 'layer': null, 'minZoom': null, 'maxZoom': null, 'index_id': _this._map.dataLayers.length + 1, 'srs': result.layer.srs, 'layerId': result.layer.id, 'layerTitle': result.layer.layerTitle, 'datasource': result.layer.datasource, 'filename': result.layer.fileName, 'layerName': result.layer.layerName, type: result.layer.datatype};
+                var layer = {'defaultShowOnMap': 'ON', 'layerType': result.layer.layerType, 'layer': null, 'minZoom': null, 'maxZoom': null, 'index_id': _this._map.dataLayers.length + 1, 'srs': result.layer.srs, 'layerId': result.layer.id, 'layerTitle': result.layer.layerTitle, 'datasource': result.layer.datasource, 'filename': result.layer.fileName, 'layerName': result.layer.layerName, type: result.layer.datatype};
                 if (result.layer.opt !== undefined && typeof result.layer.opt !== 'object')
                     result.layer.opt = JSON.parse(result.layer.opt);
 
@@ -3141,7 +3141,7 @@ L.MAP2U.layers = function (options) {
                 _this._map.fire('overlaylayerchange', {layer: layer.layer});
         });
 
-        if (layer.defaultShowOnMap === true)
+        if (layer.defaultShowOnMap === 'ON')
         {
             $(input).prop('checked', true)
                     .trigger('change');
@@ -3268,7 +3268,7 @@ L.MAP2U.layers = function (options) {
             }
         });
 
-        if (layer.defaultShowOnMap === true)
+        if (layer.defaultShowOnMap === 'ON')
         {
             $(input).prop('checked', true)
                     .trigger('change');
