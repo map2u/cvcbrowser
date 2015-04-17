@@ -10,6 +10,7 @@ services:
                     - "applicationmap2ucorebundle.block.fixed_topmenu"
                     - "@templating"
                     - "@doctrine.orm.entity_manager"
+                    -  @service_container
                 tags:
                     -  { name: sonata.block, alias: applicationmap2ucorebundle.block.fixed_topmenu}
 

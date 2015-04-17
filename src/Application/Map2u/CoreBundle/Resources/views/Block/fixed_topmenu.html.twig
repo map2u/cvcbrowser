@@ -56,25 +56,55 @@
                                 {% endif %}  
                             </ul>
                         </li>
-                     {#   <li {% if app.session.get('current_menu')=='map' %} class="active" {% endif %}><a href="{{path('homepage_map')}}" >Map
-                            </a>
-                        </li>#}
+
+                        {#   <li {% if app.session.get('current_menu')=='map' %} class="active" {% endif %}><a href="{{path('homepage_map')}}" >Map
+                               </a>
+                           </li>#}
                         <li {% if app.session.get('current_menu')=='stories' %} class="active" {% endif %}><a href="{{path('homepage_map',{'locale':app.request.locale,'view':'stories'})}}{#{path('homepage_stories')}#}" >Your Stories
                             </a>
                         </li>
+                        {% if app.request.attributes.get('_route')=='homepage_map' %}
+                            <li id="viewingscale" class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Viewing Scale
+                                    <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    {% if mapbookmarks|length == 0 %}
+                                        <li  style="" >
+                                            <a  data-zoom="11" href="#">Watershed 1:250 000</a>
+                                        </li>
+                                        <li  style="" >
+                                            <a  data-zoom="14"  href="#">Subwatershed 1:35 000</a>
+                                        </li>
+                                        <li  style="">
+                                            <a  data-zoom="17"  href="#">Locale 1:4000</a>
+                                        </li>
+                                    {% else %}
+                                        {% for mapbookmark in mapbookmarks %}
+                                            <li  style="">
+                                                <a data-center="{{mapbookmark.lat}},{{mapbookmark.lng}}"   data-zoom="{{mapbookmark.zoomLevel}}" href="#">{{mapbookmark.name}}  {{mapbookmark.scaleText}}</a>
+                                            </li>
+                                        {% endfor %}
+                                    {% endif %}
+                                    <li  style="">
+                                        <a  data-zoom="0" href="#">Set Map Center</a>
+
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endif %}
                         {# <li {% if app.session.get('current_menu')=='forum' %} class="active" {% endif %}><a href="{{path('ccdn_forum_user_category_index')}}" >Forum
                              </a>
                          </li>#}
                     </ul>
                     <ul class="nav navbar-nav pull-right">
-                          <li {% if app.session.get('current_menu')=='about_us' %} class="active" {% endif %}><a href="{{path('homepage_about_us')}}" >About
-                              </a>
-                          </li>
-                          {#
-                          <li {% if app.session.get('current_menu')=='contact_us' %} class="active" {% endif %}><a href="{{path('homepage_contact_us')}}" >Contact Us
-                              </a>
-                          </li>#}
-                        
+                        <li><a href="/CVCHelpsystem.html" target="_blank"><i class="fa fa-question"></i>Help</a></li>
+                        <li {% if app.session.get('current_menu')=='about_us' %} class="active" {% endif %}><a href="{{path('homepage_about_us')}}" >About
+                            </a>
+                        </li>
+                        {#
+                        <li {% if app.session.get('current_menu')=='contact_us' %} class="active" {% endif %}><a href="{{path('homepage_contact_us')}}" >Contact Us
+                            </a>
+                        </li>#}
+
                         {% if app.user %}
                             {#<li ><a href="{{ path('sonata_admin_dashboard') }}">{{app.user.username}}</a></li>#}
 
@@ -88,7 +118,7 @@
                                         <li style="display: block;"><a href="{{ path('sonata_admin_dashboard',{locale:app.request.getLocale()}) }}" style="padding:5px;border: none;">Admin Dashboard</a></li>
                                         {% endif %}
                                         {#                                    <li style="display: block;"><a href="{{ path('sonata_user_change_password',{locale:app.request.getLocale()}) }}" style="padding:5px;border: none;">Change Password</a></li>#}
-                                    <li style="display: block;"><a href="{{ path('sonata_user_profile_show',{locale:app.request.getLocale()}) }}" style="padding:5px;border: none;">User Profile</a></li>
+                                    <li style="display: block;"><a href="{{ path('useraccount_profile',{locale:app.request.getLocale()}) }}" style="padding:5px;border: none;">User Profile</a></li>
                                     <li class="divider" style="display: block;"></li>
                                     <li style="display: block;"><a href="{{ path('fos_user_security_logout',{locale:app.request.getLocale()}) }}" style="padding:5px;border: none;"><i class="fa fa-sign-out fa-lg" style="display: inline-block;"></i>Logout</a></li>
                                 </ul>

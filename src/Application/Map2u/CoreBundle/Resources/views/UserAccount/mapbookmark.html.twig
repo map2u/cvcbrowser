@@ -1,0 +1,207 @@
+{# empty Twig template #}
+<h4>Setup Viewing Scale</h4>
+*if map center address is empty, current map center will be saved as viewing scale center.
+<div id="useraccount_mapbookmark" style="margin:20px 10px;">
+    <div style="border: 1px solid gainsboro; border-radius: 3px;margin:3px;padding:10px;">
+        <form class="mapbookmark_form_1" id="useraccount_mapbookmark_form" action="{{path('useraccount_mapbookmark')}}" method="post" {{ form_enctype(form1) }} onsubmit="return false;">
+
+            {% set name= null %}
+            {% set level= null %}
+            {% set lat= null %}
+            {% set lng= null %}
+            {% set address=null %}
+            {% for bookmark in bookmarks %}
+                {% if bookmark.seq == 1 %}
+                    {% set name= bookmark.name %}
+                    {% set level= bookmark.zoomLevel|number_format(0) %}
+                    {% set address=bookmark.address %}
+                    {% set lat= bookmark.lat %}
+                    {% set lng= bookmark.lng %}
+                {% endif %}
+            {% endfor %}
+            <table  style="width:100%;">
+                <tbody>
+                <input type="hidden" name="seq" value="1">
+                <input type="hidden" name="lat" value="{{lat}}">
+                <input type="hidden" name="lng"  value="{{lng}}">
+
+                <tr>
+                    <td>{{ form_label(form1.name) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_widget(form1.name,{value: name ? name:'Watershed'}) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form1.zoomLevel) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_widget(form1.zoomLevel,{value: level ? level:'11'}) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form1.address) }}</td>
+                </tr>
+                <tr>
+                    <td  class="address">{{ form_widget(form1.address,{value: address ? address:''}) }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button" style="margin-top: 3px;"  class="btn btn-sm btn-primary" value="save">Save</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            {{ form_widget(form1._token) }}
+        </form>
+    </div>
+    <div style="border: 1px solid gainsboro; border-radius: 3px;margin:3px;padding:10px;">
+        <form class="mapbookmark_form_2" id="useraccount_mapbookmark_form" action="{{path('useraccount_mapbookmark')}}" method="post" {{ form_enctype(form2) }} onsubmit="return false;">
+            {#    {{form}}#}
+            <table style="width:100%;">
+                {% set name= null %}
+                {% set level= null %}
+                {% set address=null %}
+                {% set lat= null %}
+                {% set lng= null %}
+                {% for bookmark in bookmarks %}
+                    {% if bookmark.seq == 2 %}
+                        {% set name= bookmark.name %}
+                        {% set level= bookmark.zoomLevel|number_format(0) %}
+                        {% set address=bookmark.address %}
+                        {% set lat= bookmark.lat %}
+                        {% set lng= bookmark.lng %}
+                    {% endif %}
+                {% endfor %}
+                <tbody>
+                <input type="hidden" name="seq" value="2">
+                <input type="hidden" name="lat" value="{{lat}}">
+                <input type="hidden" name="lng"  value="{{lng}}">
+
+                <tr>
+                    <td>{{ form_label(form2.name) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_widget(form2.name,{value: name ? name:'Subwatershed'}) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form2.zoomLevel) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_widget(form2.zoomLevel,{value: level ? level:'14'}) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form2.address) }}</td>
+                </tr>
+                <tr>
+                    <td class="address">{{ form_widget(form2.address,{value: address ? address:''}) }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button" style="margin-top: 3px;"  class="btn btn-sm btn-primary" value="save">Save</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            {{ form_widget(form2._token) }}
+        </form>
+    </div>          
+
+    <div style="border: 1px solid gainsboro; border-radius: 3px;margin:3px;padding:10px;">
+        <form class="mapbookmark_form_3" id="useraccount_mapbookmark_form" action="{{path('useraccount_mapbookmark')}}" method="post" {{ form_enctype(form3) }} onsubmit="return false;">
+
+            <table  style="width:100%;">
+                {% set name= null %}
+                {% set level= null %}
+                {% set address=null %}
+                {% set lat= null %}
+                {% set lng= null %}
+                {% for bookmark in bookmarks %}
+                    {% if bookmark.seq == 3 %}
+                        {% set name= bookmark.name %}
+                        {% set level= bookmark.zoomLevel|number_format(0) %}
+                        {% set address=bookmark.address %}
+                        {% set lat= bookmark.lat %}
+                        {% set lng= bookmark.lng %}
+                    {% endif %}
+                {% endfor %}
+                <tbody>
+                <input type="hidden" name="seq" value="3">
+                <input type="hidden" name="lat" value="{{lat}}">
+                <input type="hidden" name="lng"  value="{{lng}}">
+                <tr>
+                    <td>{{ form_label(form3.name) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_widget(form3.name,{value: name ? name:'Local'}) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form3.zoomLevel) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_widget(form3.zoomLevel,{value: level ? level:'17'}) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form3.address) }}</td>
+                </tr>
+                <tr>
+                    <td class="address">{{ form_widget(form3.address,{value: address ? address:''}) }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button" style="margin-top: 3px;" class="btn btn-sm btn-primary" value="save">Save</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            {{ form_widget(form3._token) }}
+        </form>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("div#useraccount_mapbookmark button").unbind("click");
+        $("div#useraccount_mapbookmark button").click(function (e) {
+            var address = $(this).parents("form").find("td.address input").val();
+            var lng = null;
+            var lat = null;
+            if (address !== '' && address !== undefined && address !== null) {
+                var geocoder = new google.maps.Geocoder();
+                geocoder.geocode({'address': address}, function (results, status) {
+                    if (status === google.maps.GeocoderStatus.OK)
+                    {
+                        var pt = results[0].geometry.location;
+                        lng = pt.lng();
+                        lat = pt.lat();
+                    }
+                    else {
+                        alert("The given address is not able geocoding!");
+                    }
+                });
+            }
+            if (lat === null || lng === null) {
+                var pt = window.map.getCenter();
+                lat = pt.lat;
+                lng = pt.lng;
+            }
+            $(this).parents("form").find("input[type='hidden'][name='lat']").val(lat);
+            $(this).parents("form").find("input[type='hidden'][name='lng']").val(lng);
+            var formData = new FormData($(this).parents("form")[0]);
+
+            $.ajax({
+                url: Routing.generate('useraccount_mapbookmark', {'_locale': window.locale}),
+                method: 'POST',
+                data: formData,
+                success: function (response) {
+                    if(typeof response !=='object') {
+                        response=JSON.parse(response);
+                    }
+                    alert(response.message);
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+
+        });
+    });
+</script>

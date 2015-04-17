@@ -20,6 +20,7 @@ use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\BlockBundle\Model\BlockInterface;
 use Sonata\BlockBundle\Block\BaseBlockService;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Map2u\CoreBundle\Block\FixedTopmenuBlockService as baseFixedTopmenuBlockService;
 //use Sonata\CoreBundle\Model\BaseEntityManager;
 //use Sonata\DoctrineORMAdminBundle\Datagrid\Pager;
@@ -33,7 +34,9 @@ use Ibrows\Bundle\NewsletterBundle\Entity\Newsletter;
  */
 class FixedTopmenuBlockService extends baseFixedTopmenuBlockService {
 
-    public function __construct($name, $templating, EntityManager $entityManager) {
+    private $container;
+    public function __construct($name, $templating, EntityManager $entityManager, ContainerInterface $container) {
+          $this->container = $container;
         parent::__construct($name, $templating, $entityManager);
     }
 
@@ -44,8 +47,16 @@ class FixedTopmenuBlockService extends baseFixedTopmenuBlockService {
         $criteria = array(
             'mode' => $blockContext->getSetting('mode')
         );
-        
+        $userManager = $this->container->get('fos_user.user_manager');
+        $user = $userManager->findUserByUsername($this->container->get('security.context')
+                        ->getToken()->getUser());
+        $mapbookmarks = null;
+
+
         $ecosystems = $this->em->getRepository('YorkuJuturnaBundle:EcoSystemService')->findBy(array(), array("id" => "ASC"));
+        if ($user && $user != 'anon.') {
+            $mapbookmarks = $this->em->getRepository('Map2uCoreBundle:MapBookmark')->findBy(array("userId" => $user->getId()), array("id" => "ASC"));
+        }
         $wellbeingdomains = $this->em->getRepository('YorkuJuturnaBundle:HumanWellBeingDomain')->findBy(array(), array("id" => "ASC"));
 
         $parameters = array(
@@ -53,6 +64,7 @@ class FixedTopmenuBlockService extends baseFixedTopmenuBlockService {
             'settings' => $blockContext->getSettings(),
             'ecosystems' => $ecosystems,
             'wellbeingdomains' => $wellbeingdomains,
+            'mapbookmarks' => $mapbookmarks,
             'block' => $blockContext->getBlock()
         );
 

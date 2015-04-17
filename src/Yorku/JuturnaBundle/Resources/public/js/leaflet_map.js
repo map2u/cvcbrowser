@@ -283,9 +283,9 @@ window.onload = function () {
                 result = response;
 
             if (result.success === true && result.layers) {
-              
+
                 result.layers = sortByKey(result.layers, 'seq');
-               
+
                 var keys = Object.keys(result.layers).map(function (k) {
 
                     return k;
@@ -317,7 +317,6 @@ window.onload = function () {
                 for (var k = 0; k < keys.length; k++)
                 {
                     var layer = result.layers[keys[k]];
-                    alert(layer.layerTitle+ "   " + layer.seq + "  " + keys[k]);
                     if ((default_datatype === 'benefit') && default_layers_array.length > 0) {
                         if (layer.layerType === 'uploadfilelayer') {
                             if (default_layers_array.indexOf(layer.id.toString()) !== -1) {
@@ -352,6 +351,7 @@ window.onload = function () {
                 //    map.dataLayers[map.dataLayers.length] = {'map': map, 'layerType': 'userdraw', 'layer': null, 'index_id': -1, 'layerId': -1, layerTitle: "My draw geometries", 'layerName': 'My draw geometries', type: 'geojson'};
                 //    layersControl.refreshOverlays();
                 loadStoriesLayer(map, layersControl);
+
                 setTimeout(function () {
 
 
@@ -513,7 +513,7 @@ window.onload = function () {
     }
     $('.leaflet-control .control-button').tooltip({placement: 'left', container: 'body'});
 
-
+    viewingscale(map);
 
 
 };
@@ -668,10 +668,8 @@ function loadStoriesLayer(map, layersControl) {
                     }
                     ;
                 });
-
-
                 layersControl.refreshOverlays();
-
+                map.fire('zoomend');
             }
         }
     });
@@ -680,8 +678,42 @@ function loadStoriesLayer(map, layersControl) {
 
 function sortByKey(array, key) {
     return array.sort(function (a, b) {
-        var x = a[key];
-        var y = b[key];
+        if (a[key] === undefined || a[key] === null)
+        {
+            a[key] = "0";
+        }
+        if (b[key] === undefined || b[key] === null)
+        {
+            b[key] = "0";
+        }
+        var x = parseInt(a[key]);
+        var y = parseInt(b[key]);
         return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
+}
+
+function viewingscale(map) {
+
+    $("li#viewingscale ul li a").click(function () {
+        var scale = $(this).data("zoom");
+        var center = $(this).data("center");
+        if (center === null || center === undefined) {
+            center = map.getCenter();
+            map.setView(center, scale);
+            return;
+        }
+        if (parseInt(scale) === 0) {
+
+            $.ajax({
+                url: Routing.generate('useraccount_mapbookmark', {'_locale': window.locale}),
+                method: 'GET',
+                success: function (response) {
+                    $("div#leaflet_content.overlay-sidebar #sidebar_content").html(response);
+                }
+            });
+            return;
+        }
+        center = center.split(",");
+        map.setView(center, scale);
     });
 }
