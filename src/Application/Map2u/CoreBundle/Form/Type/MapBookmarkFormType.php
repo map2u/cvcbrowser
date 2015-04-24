@@ -29,7 +29,7 @@ class MapBookmarkFormType extends AbstractType {
                 ->add('lat', "hidden")
                 ->add('lng', "hidden")
                 ->add('seq', "hidden")
-                ->add('zoomLevel', "choice", array('label' => 'Map Scale', 'required' => true, 'mapped' => false, "choices" => array(11 => "1:250,000", 12 => "1:150,000", 13 => "1:70,000", 14 => "1:35,000", 15 => "1:15,000", 16 => "1:8,000", 17 => "1:4,000")))
+                ->add('zoomLevel', "choice", array('label' => 'Map Scale', 'required' => true, 'mapped' => false, "choices" => array(10 => "1:500,000",11 => "1:250,000", 12 => "1:150,000", 13 => "1:70,000", 14 => "1:35,000", 15 => "1:15,000", 16 => "1:8,000", 17 => "1:4,000")))
                 ->add('address', "text", array('label' => 'Map Center Address', 'required' => true, 'mapped' => false))
         ;
     }

@@ -8561,27 +8561,29 @@ and open the template in the editor.
 .juturna-page-header {
   width: 1200px;
   height: 130px;
+  top: 0px;
+  height: 50px;
   margin: 0 auto;
 }
 
-/* line 17, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_header.scss */
+/* line 19, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_header.scss */
 .homepage_title {
-  padding: 0px;
-  margin: 10px 0 0 0;
+  padding: 10px 0 0 0;
+  margin: 0;
   color: white;
 }
 
-/* line 21, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_header.scss */
+/* line 23, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_header.scss */
 .homepage_title a h2 {
   color: white;
 }
 
-/* line 24, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_header.scss */
+/* line 27, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_header.scss */
 .homepage_title a:hover {
   text-decoration: none;
 }
 
-/* line 28, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_header.scss */
+/* line 31, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_header.scss */
 div#homepage_titlebar_background {
   position: absolute;
   left: 0px;
@@ -8589,12 +8591,12 @@ div#homepage_titlebar_background {
   padding: 0px;
   margin: 0px;
   background-color: #228B22;
-  top: 80px;
+  top: 0px;
   height: 50px;
   z-index: -1;
 }
 
-/* line 38, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_header.scss */
+/* line 41, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_header.scss */
 div#homepage_menubar_background {
   position: absolute;
   left: 0px;
@@ -8602,12 +8604,12 @@ div#homepage_menubar_background {
   padding: 0px;
   margin: 0px;
   background-color: #3c4142;
-  top: 130px;
+  top: 50px;
   height: 50px;
   z-index: -1;
 }
 
-/* line 50, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_header.scss */
+/* line 53, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_header.scss */
 div.leafmap_title_tooltip {
   color: #222;
   background: #fff;
@@ -8634,63 +8636,64 @@ and open the template in the editor.
   position: relative;
   width: 1200px;
   height: 50px;
+  top: 0px;
   margin: 0 auto;
 }
 
-/* line 18, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 20, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .nav.navbar-nav, .collapse.navbar-collapse.navbar-main-collapse {
   margin-left: 0px;
   padding-left: 0px;
 }
 
-/* line 23, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 25, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .navbar-nav li a, ul.dropdown-menu li a {
   color: white;
   font-size: 16px;
   font-weight: 400;
 }
 
-/* line 29, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 31, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .nav.navbar-nav li.dropdown.open ul.dropdown-menu li a {
   color: white;
 }
 
-/* line 32, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 34, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .nav.navbar-nav li.dropdown.open ul.dropdown-menu li a:hover {
   color: #3c4142;
 }
 
-/* line 35, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 37, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .nav.navbar-nav li.dropdown.open a {
   color: #3c4142;
 }
 
-/* line 38, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 40, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .nav.navbar-nav li.dropdown ul {
   background-color: #3c4142;
   color: white;
   z-index: 9999;
 }
 
-/* line 44, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 46, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .nav.navbar-nav li a:hover {
   color: #3c4142;
 }
 
-/* line 49, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 51, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .dropdown-menu {
   background-color: #3c4142;
   color: white;
 }
 
-/* line 53, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 55, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .dropdown-submenu {
   background-color: #3c4142;
   color: white;
   position: relative;
 }
 
-/* line 59, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 61, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .dropdown-submenu > .dropdown-menu {
   top: 0;
   left: 100%;
@@ -8704,7 +8707,7 @@ and open the template in the editor.
       border-radius: 0 6px 6px 6px;*/
 }
 
-/* line 72, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 74, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .dropdown-submenu:hover > .dropdown-menu {
   display: block;
   background-color: #3c4142;
@@ -8712,7 +8715,7 @@ and open the template in the editor.
   color: white;
 }
 
-/* line 79, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 81, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .dropdown-submenu > a:after {
   display: block;
   content: " ";
@@ -8727,17 +8730,17 @@ and open the template in the editor.
   margin-right: -10px;
 }
 
-/* line 93, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 95, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .dropdown-submenu:hover > a:after {
   border-left-color: #fff;
 }
 
-/* line 97, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 99, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .dropdown-submenu.pull-left {
   float: none;
 }
 
-/* line 101, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 103, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .dropdown-submenu.pull-left > .dropdown-menu {
   left: -100%;
   margin-left: 10px;
@@ -9057,7 +9060,7 @@ and open the template in the editor.
   margin: 2px auto;
 }
 
-/* line 26, assetic_compassWl8aUw.scss */
+/* line 28, assetic_compassearLLn.scss */
 .sonata-bc .tooltip.left {
   margin-left: -12px;
 }

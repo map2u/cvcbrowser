@@ -41,7 +41,7 @@ class UserAccountController extends BaseController {
      * @Template()
      */
     public function mapbookmarkAction(Request $request) {
-        $scaleText=array(11 => "1:250,000", 12 => "1:150,000", 13 => "1:70,000", 14 => "1:35,000", 15 => "1:15,000", 16 => "1:8,000", 17 => "1:4,000");
+        $scaleText=array(10 => "1:500,000",11 => "1:250,000", 12 => "1:150,000", 13 => "1:70,000", 14 => "1:35,000", 15 => "1:15,000", 16 => "1:8,000", 17 => "1:4,000");
         $em = $this->getDoctrine()->getManager();
         $form1 = $this->get('form.factory')->create(new MapBookmarkFormType("Map2u\CoreBundle\Entity\MapBookmark"));
         $form2 = $this->get('form.factory')->create(new MapBookmarkFormType("Map2u\CoreBundle\Entity\MapBookmark"));

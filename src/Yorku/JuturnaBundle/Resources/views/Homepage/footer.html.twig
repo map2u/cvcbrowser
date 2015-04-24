@@ -1,21 +1,25 @@
 <div class="row-fluid juturna-page-footer" style="border-top:1px solid grey;">
-    <div class="col-lg-4 col-sm-4" >
+    <div class="col-lg-3 col-sm-3" >
         <h4 style="margin-left: 40px;"><b>Explore</b></h4>
 
     </div>
 
-    <div class="col-lg-4 col-sm-4" >
+    <div class="col-lg-3 col-sm-3" >
         <h4 style="margin-left: 40px;"><b>Share</b></h4>
 
     </div>
 
-    <div class="col-lg-4 col-sm-4" >
+    <div class="col-lg-3 col-sm-3" >
         <h4 style="margin-left: 40px;"><b>Tools</b></h4>
+
+    </div>
+    <div class="col-lg-3 col-sm-3" >
+        <h4 style="margin-left: 40px;"><b>Partners</b></h4>
 
     </div>
 </div>
 <div class="row-fluid juturna-page-footer" style="border-top:1px solid grey;">
-    <div class="col-lg-4 col-sm-4" >
+    <div class="col-lg-3 col-sm-3" >
 
         <ul style="margin-left: 0px; list-style: none;">
             <li><a href="{{path('homepage_well_being',{locale:_locale})}}" style="color:gray;">Well-Being</a></li>
@@ -24,22 +28,28 @@
         </ul>
     </div>
 
-    <div class="col-lg-4 col-sm-4" >
+    <div class="col-lg-3 col-sm-3" >
 
         <ul style="margin-left: 0px; list-style: none;">
-            <li><a href="{{path('homepage_well_being',{locale:_locale})}}" style="color:gray;">Your Stories</a></li>
-            <li><a href="{{path('homepage_ecosystems',{locale:_locale})}}" style="color:gray;">Forum</a></li>
+            <li><a href="{{path('homepage_map',{'locale':app.request.locale,'view':'stories'})}}" style="color:gray;">Your Stories</a></li>
+{#            <li><a href="{{path('ccdn_forum_user_category_index',{locale:app.request.locale})}}" style="color:gray;">Forum</a></li>#}
 
         </ul>
     </div>
 
-    <div class="col-lg-4 col-sm-4" >
+    <div class="col-lg-3 col-sm-3" >
 
         <ul style="margin-left: 0px; list-style: none;">
             <li><a href="{{path('homepage_about_us',{locale:_locale})}}" style="color:gray;">About</a></li>
             <li><a href="{{path('homepage_contact_us',{locale:_locale})}}" style="color:gray;">Contact us</a></li>
-            <li><a href="{{path('homepage_map',{locale:_locale})}}" style="color:gray;">User accounts</a></li>
-            <li><a href="{{path('homepage_map',{locale:_locale})}}" style="color:gray;">Administration</a></li>
+            <li><a href="{{path('useraccount_profile',{locale:app.request.getLocale()})}}" style="color:gray;">User accounts</a></li>
+            <li><a href="{{ path('sonata_admin_dashboard',{locale:app.request.getLocale()}) }}" style="color:gray;">Administration</a></li>
+        </ul>
+    </div>
+    <div class="col-lg-3 col-sm-3" >
+        <ul style="margin-left: 0px; list-style: none;">
+            <li>  <a href="http://www.creditvalleyca.ca/"  target="_blank"><img  src="/uploads/images/header_logos/cvc-logo-print.gif" style="width:150px;border:1px solid gainsboro;border-radius: 3px;"></a></li>
+            <li> <a href="http://www.yorku.ca/"   target="_blank"><img  src="/uploads/images/header_logos/fes_yu_hor_cmyk4.png"  style="margin: 10px 0;width:150px;border:1px solid gainsboro; border-radius: 3px;"></a></li>
         </ul>
     </div>
 </div>        

@@ -82,7 +82,7 @@
         </div>
         <div style="margin-top:15px;">
             <p> -- {{entities.abstract}}</p>
-            
+
             <p><a href="{{path('homepage_benefit',{id:entities.id})}}" target="_blank">Learn more...</a></p>
         </div>
 
@@ -104,8 +104,7 @@
                 });
             });
         </script>
-    {% endif %}
-    {% if story is defined and story  != null %}
+    {% elseif  story is defined and story  != null %}
         {% set images=story.getImageFile()|unserialize %}
         <h4>
             <a href="{{path('homepage_storydetail',{id:story.id})}}" target="_blank">{{story.storyName|title}}</a>
@@ -201,21 +200,23 @@
 
     });
         </script>
+    {% elseif view=='story' or view=='stories' %}
+        <h4>Share your story</h4>
+        <div id="story_guideline" style="padding:10px;">
+            <p>Our main goal is to engage with citizens living in the Credit Valley Watershed about the ecosystem services that they enjoy every day. For that purpose, we would like you to share your story about how the ecosystems in your area improve your life.</p>
+            <p>To share your story, you need to:</p>
+            <p>1) Think of an ecosystem that you enjoy;</p>
+            <p>2) What service does that ecosystem provide to you (recreation, aesthetic/visually appealing, cultural, does it provide any materials to you like wood, fruits, etc?)</p>
+            <p>3) Write a brief story (100-200 words) about how this ecosystem service improves your well-being.</p>
+            <p>4) You can include things such as how other people could enjoy this service or what life would be without it.</p>
+            <p>You can look at an example <a href="http://cvc.juturna.ca/en/storydetail?id=10" target="_blank">here</a>.</p>
+            <p>Or you can see the extended guideline <a href="/uploads/stories/Guidelines_to_writting_your_story.pdf" target="_blank">here</a>.</p>
+        </div>
     {% else %}
+        <div style="padding:20px 10px;">
+            <h4>Well-being and Your Watershed</h4>
 
-        {% if view=='story' or view=='stories' %}
-            <h4>Share your story</h4>
-            <div id="story_guideline" style="padding:10px;">
-                <p>Our main goal is to engage with citizens living in the Credit Valley Watershed about the ecosystem services that they enjoy every day. For that purpose, we would like you to share your story about how the ecosystems in your area improve your life.</p>
-                <p>To share your story, you need to:</p>
-                <p>1) Think of an ecosystem that you enjoy;</p>
-                <p>2) What service does that ecosystem provide to you (recreation, aesthetic/visually appealing, cultural, does it provide any materials to you like wood, fruits, etc?)</p>
-                <p>3) Write a brief story (100-200 words) about how this ecosystem service improves your well-being.</p>
-                <p>4) You can include things such as how other people could enjoy this service or what life would be without it.</p>
-                <p>You can look at an example <a href="/uploads/stories/Guidelines_to_writting_your_story.pdf" target="_blank">here</a>.</p>
-                <p>Or you can see the extended guideline <a href="/uploads/stories/Guidelines_to_writting_your_story.pdf" target="_blank">here</a>.</p>
-            </div>
-        {% endif %}
-
+            <p>Choose a well-being benefit from the health or ecosystem services menu to explore your well-being and the watershed .. or share your own story.</p>
+        </div>
     {% endif %}
 </div>

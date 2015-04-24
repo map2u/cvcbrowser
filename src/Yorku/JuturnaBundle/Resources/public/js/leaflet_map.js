@@ -697,7 +697,7 @@ function viewingscale(map) {
     $("li#viewingscale ul li a").click(function () {
         var scale = $(this).data("zoom");
         var center = $(this).data("center");
-        if (center === null || center === undefined) {
+        if ((center === null || center === undefined)&&(parseInt(scale) !== 0)) {
             center = map.getCenter();
             map.setView(center, scale);
             return;
