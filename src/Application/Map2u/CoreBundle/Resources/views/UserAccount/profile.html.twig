@@ -1,4 +1,11 @@
 {% extends '::baseLayout.html.twig' %}
+{% block page_stylesheets %}
+    {{ parent() }}
+    {% include "::mapstylesheets.html.twig" %}
+    <style>
+
+    </style>
+{% endblock %}
 
 {% block body %}
     {% block page_header %}
@@ -7,7 +14,30 @@
     {% block page_container %}
         <div class="container-fluid maincontent">
             <div class="row-fluid">
+                <div style="width:1200px;margin:15px auto 0;height:500px;">
+                    <div class="container-fluid">
+                        <div class="row-fluid">
+                            <div class="col-lg-3 col-sm-3" style="padding: 5px;">
+                                <div style="height:480px;border:1px solid gainsboro;border-radius: 5px;">
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-sm-9" style="padding: 5px;">
+                                <div style="height:480px;border:1px solid gainsboro;border-radius: 5px;">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     {% endblock %}
+    {% block footer %}
+        {{ parent() }}
+    {% endblock %}
+
+    {% block page_javascripts %}
+        {{ parent() }}
+    {% endblock %}
+
 {% endblock %}

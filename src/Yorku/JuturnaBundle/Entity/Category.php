@@ -30,6 +30,16 @@ class Category {
     private $description;
 
     /**
+     * @var string
+     */
+    private $rightColumn;
+
+    /**
+     * @var integer
+     */
+    private $rightColumnWidth;
+
+    /**
      * @var array
      */
     private $tags;
@@ -82,6 +92,48 @@ class Category {
      */
     public function getName() {
         return $this->name;
+    }
+
+    /**
+     * Set rightColumn
+     *
+     * @param string $rightColumn
+     * @return Category
+     */
+    public function setRightColumn($rightColumn) {
+        $this->rightColumn = $rightColumn;
+
+        return $this;
+    }
+
+    /**
+     * Get rightColumn
+     *
+     * @return string 
+     */
+    public function getRightColumn() {
+        return $this->rightColumn;
+    }
+
+    /**
+     * Set rightColumnWidth
+     *
+     * @param integer $rightColumnWidth
+     * @return Category
+     */
+    public function setRightColumnWidth($rightColumnWidth) {
+        $this->rightColumnWidth = $rightColumnWidth;
+
+        return $this;
+    }
+
+    /**
+     * Get rightColumnWidth
+     *
+     * @return integer 
+     */
+    public function getRightColumnWidth() {
+        return $this->rightColumnWidth;
     }
 
     /**
@@ -201,8 +253,7 @@ class Category {
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->categorycontents = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -212,8 +263,7 @@ class Category {
      * @param \Yorku\JuturnaBundle\Entity\CategoryContents $categorycontents
      * @return Category
      */
-    public function addCategorycontent(\Yorku\JuturnaBundle\Entity\CategoryContents $categorycontents)
-    {
+    public function addCategorycontent(\Yorku\JuturnaBundle\Entity\CategoryContents $categorycontents) {
         $this->categorycontents[] = $categorycontents;
 
         return $this;
@@ -224,8 +274,7 @@ class Category {
      *
      * @param \Yorku\JuturnaBundle\Entity\CategoryContents $categorycontents
      */
-    public function removeCategorycontent(\Yorku\JuturnaBundle\Entity\CategoryContents $categorycontents)
-    {
+    public function removeCategorycontent(\Yorku\JuturnaBundle\Entity\CategoryContents $categorycontents) {
         $this->categorycontents->removeElement($categorycontents);
     }
 
@@ -234,10 +283,10 @@ class Category {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getCategorycontents()
-    {
+    public function getCategorycontents() {
         return $this->categorycontents;
     }
+
     /**
      * @var string
      */
@@ -248,15 +297,13 @@ class Category {
      */
     private $meaDiagram;
 
-
     /**
      * Set flashImages
      *
      * @param string $flashImages
      * @return Category
      */
-    public function setFlashImages($flashImages)
-    {
+    public function setFlashImages($flashImages) {
         $this->flashImages = $flashImages;
 
         return $this;
@@ -267,8 +314,7 @@ class Category {
      *
      * @return string 
      */
-    public function getFlashImages()
-    {
+    public function getFlashImages() {
         return $this->flashImages;
     }
 
@@ -278,8 +324,7 @@ class Category {
      * @param string $meaDiagram
      * @return Category
      */
-    public function setMeaDiagram($meaDiagram)
-    {
+    public function setMeaDiagram($meaDiagram) {
         $this->meaDiagram = $meaDiagram;
 
         return $this;
@@ -290,15 +335,14 @@ class Category {
      *
      * @return string 
      */
-    public function getMeaDiagram()
-    {
+    public function getMeaDiagram() {
         return $this->meaDiagram;
     }
+
     /**
      * @var string
      */
     private $title;
-
 
     /**
      * Set title
@@ -306,8 +350,7 @@ class Category {
      * @param string $title
      * @return Category
      */
-    public function setTitle($title)
-    {
+    public function setTitle($title) {
         $this->title = $title;
 
         return $this;
@@ -318,8 +361,8 @@ class Category {
      *
      * @return string 
      */
-    public function getTitle()
-    {
+    public function getTitle() {
         return $this->title;
     }
+
 }

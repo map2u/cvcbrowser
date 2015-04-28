@@ -55,10 +55,9 @@ class CategoryAdmin extends Admin {
                 ->add('id', 'hidden')
                 ->add('name')
                 ->add('title')
-                ->add('flashimage_files', 'file', array('label' => 'Flash Image Files:',  'mapped' => false, 'required' => false,'attr'=>array('multiple' => true)))
+                ->add('flashimage_files', 'file', array('label' => 'Flash Image Files:', 'mapped' => false, 'required' => false, 'attr' => array('multiple' => true)))
                 ->add('meadiagram_file', 'file', array('label' => 'Mea Diagram File:', 'mapped' => false, 'required' => false))
                 ->add('slug')
-
                 ->add('tags', 'entity', array(
                     'class' => 'Application\Sonata\ClassificationBundle\Entity\Tag',
                     'property' => 'name',
@@ -66,9 +65,15 @@ class CategoryAdmin extends Admin {
                     'required' => false,
                     'mapped' => false,
                     'multiple' => true))
+                ->add('rightColumnWidth', 'choice', array("required" => false, "choices" => array(2 => "2/10 page width",3 => "3/10 page width", 4 => "4/10 page width", 5 => "5/10 page width", 6 => "6/10 page width", 7 => "7/10 page width", 8 => "8/10 page width")))
                 ->end()
                 ->with(' ', array('class' => 'col-md-6'))
-                ->add('description', 'ckeditor', array('label' => '',
+                ->add('rightColumn', 'ckeditor', array('label' => 'Right Column Content(page right column)',
+                    'required' => false,
+                    'config_name' => 'forums',
+                    'config' => array('uiColor' => '#ffffff')
+                ))
+                ->add('description', 'ckeditor', array('label' => 'Description(page left column)',
                     'required' => false,
                     'config_name' => 'forums',
                     'config' => array('uiColor' => '#ffffff')

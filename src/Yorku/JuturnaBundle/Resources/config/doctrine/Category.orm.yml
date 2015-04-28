@@ -31,6 +31,17 @@ Yorku\JuturnaBundle\Entity\Category:
             type: text
             nullable: true
             column: description
+        rightColumn:
+            type: text
+            nullable: true
+            column: right_column
+        rightColumnWidth:
+            type: integer
+            unsigned: false
+            nullable: true
+            column: right_column_width
+            options:
+                default: 5
         flashImages:
             type: text
             nullable: true

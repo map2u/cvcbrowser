@@ -27,7 +27,8 @@ sonata_block:
         map2ucorebundle.block.thematicmap_settings: ~
         map2ucorebundle.block.heatmap: ~
         map2ucorebundle.block.mapoverlayselection: ~
-        yorku_juturna.block.indicator_column: ~    
+        yorku_juturna.block.indicator_column: ~  
+        sonata.admin.block.search_result: ~
         # Some specific block from the SonataMediaBundle
         #sonata.media.block.media:
         #sonata.media.block.gallery:
