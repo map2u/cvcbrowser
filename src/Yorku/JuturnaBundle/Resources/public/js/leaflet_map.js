@@ -265,6 +265,17 @@ window.onload = function () {
                 if (status === google.maps.GeocoderStatus.OK)
                 {
 
+                    var old_address = false;
+                    $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form .address input[type='text']").map(function () {
+                        if ($(this).val().toString() !== null && $(this).val().toString() !== '') {
+                            old_address = true;
+                        }
+                    });
+                    if (old_address) {
+                        if (!confirm("Address already exist, do you want to overwrite it?"))
+                            return;
+                    }
+
                     var pt = results[0].geometry.location;
 
                     var lng = pt.lng();
@@ -276,6 +287,8 @@ window.onload = function () {
                     $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form input[type='hidden'][name='lng']").map(function () {
                         $(this).val(lng);
                     });
+
+
                     $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form .address input[type='text']").map(function () {
                         $(this).val(results[0].formatted_address);
                     });
@@ -296,7 +309,7 @@ window.onload = function () {
                     feature.type = 'marker';
                     feature.source = 'searchbox_query';
                     feature.on("dragend", function (e) {
-                          
+
                         geocoder.geocode({'latLng': e.target.getLatLng()}, function (results, status) {
                             if (status === google.maps.GeocoderStatus.OK)
                             {
@@ -304,7 +317,7 @@ window.onload = function () {
 
                                 var lng = pt.lng();
                                 var lat = pt.lat();
-                                map.removeLayer(feature.label); 
+                                map.removeLayer(feature.label);
                                 feature.bindLabel(results[0].formatted_address);
                                 $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form input[type='hidden'][name='lat']").map(function () {
                                     $(this).val(lat);
