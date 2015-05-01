@@ -256,7 +256,81 @@ window.onload = function () {
         leftSidebar.toggle();
 
     }, 500);
+    map.on("click", function (e) {
+        if ($("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form td.get_address input.get_address_from_map").length > 0 && $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form td.get_address input.get_address_from_map").is(":checked"))
+        {
 
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({'latLng': e.latlng}, function (results, status) {
+                if (status === google.maps.GeocoderStatus.OK)
+                {
+
+                    var pt = results[0].geometry.location;
+
+                    var lng = pt.lng();
+                    var lat = pt.lat();
+
+                    $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form input[type='hidden'][name='lat']").map(function () {
+                        $(this).val(lat);
+                    });
+                    $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form input[type='hidden'][name='lng']").map(function () {
+                        $(this).val(lng);
+                    });
+                    $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form .address input[type='text']").map(function () {
+                        $(this).val(results[0].formatted_address);
+                    });
+
+
+                    var layers = map.drawnItems.getLayers();
+                    for (var i = layers.length - 1; i >= 0; i--) {
+                        if (layers[i].source !== undefined && layers[i].source === 'searchbox_query') {
+                            map.drawnItems.removeLayer(layers[i]);
+                        }
+                    }
+
+                    var feature = L.marker([pt.lat(), pt.lng()], {draggable: 'true'});
+                    feature.bindLabel(results[0].formatted_address);
+                    feature.id = 0;
+                    feature.name = results[0].formatted_address;
+                    feature.index = map.drawnItems.getLayers().length;
+                    feature.type = 'marker';
+                    feature.source = 'searchbox_query';
+                    feature.on("dragend", function (e) {
+                          
+                        geocoder.geocode({'latLng': e.target.getLatLng()}, function (results, status) {
+                            if (status === google.maps.GeocoderStatus.OK)
+                            {
+                                var pt = results[0].geometry.location;
+
+                                var lng = pt.lng();
+                                var lat = pt.lat();
+                                map.removeLayer(feature.label); 
+                                feature.bindLabel(results[0].formatted_address);
+                                $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form input[type='hidden'][name='lat']").map(function () {
+                                    $(this).val(lat);
+                                });
+                                $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form input[type='hidden'][name='lng']").map(function () {
+                                    $(this).val(lng);
+                                });
+                                $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form .address input[type='text']").map(function () {
+                                    $(this).val(results[0].formatted_address);
+                                });
+                            }
+                        });
+                    });
+
+                    map.drawnItems.addLayer(feature);
+                }
+                else {
+                    alert("The given address is not able geocoding!");
+                }
+            });
+
+
+
+
+        }
+    });
 // if close left sidebar, then show sidebar controller icon
     $(".sonata-bc div.leaflet-sidebar.left a.close").click(function () {
         if ($(".leaflet-sidebar.left").css('left') === 0 || $(".leaflet-sidebar.left").css('left') === '0px') {
@@ -697,7 +771,7 @@ function viewingscale(map) {
     $("li#viewingscale ul li a").click(function () {
         var scale = $(this).data("zoom");
         var center = $(this).data("center");
-        if ((center === null || center === undefined)&&(parseInt(scale) !== 0)) {
+        if ((center === null || center === undefined) && (parseInt(scale) !== 0)) {
             center = map.getCenter();
             map.setView(center, scale);
             return;

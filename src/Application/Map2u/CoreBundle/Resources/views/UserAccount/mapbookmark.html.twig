@@ -3,7 +3,7 @@
 *if map center address is empty, current map center will be saved as viewing scale center.
 <div id="useraccount_mapbookmark" style="margin:20px 10px;">
     <div style="border: 1px solid gainsboro; border-radius: 3px;margin:3px;padding:10px;">
-        <form class="mapbookmark_form_1" id="useraccount_mapbookmark_form" action="{{path('useraccount_mapbookmark')}}" method="post" {{ form_enctype(form1) }} onsubmit="return false;">
+        <form id="mapbookmark_form_1" class="useraccount_mapbookmark_form" action="{{path('useraccount_mapbookmark')}}" method="post" {{ form_enctype(form1) }} onsubmit="return false;">
 
             {% set name= null %}
             {% set level= null %}
@@ -29,19 +29,22 @@
                     <td>{{ form_label(form1.name) }}</td>
                 </tr>
                 <tr>
-                    <td>{{ form_widget(form1.name,{value: name ? name:'Watershed'}) }}</td>
+                    <td>{{ form_widget(form1.name,{value: name ? name:'Local'}) }}</td>
                 </tr>
                 <tr>
                     <td>{{ form_label(form1.zoomLevel) }}</td>
                 </tr>
                 <tr>
-                    <td>{{ form_widget(form1.zoomLevel,{value: level ? level:'11'}) }}</td>
+                    <td>{{ form_widget(form1.zoomLevel,{value: level ? level:'17'}) }}</td>
                 </tr>
                 <tr>
                     <td>{{ form_label(form1.address) }}</td>
                 </tr>
                 <tr>
                     <td  class="address">{{ form_widget(form1.address,{value: address ? address:''}) }}</td>
+                </tr>
+                <tr>
+                    <td  class="get_address"><input class="get_address_from_map" type="checkbox">Get address by click on map</td>
                 </tr>
                 <tr>
                     <td>
@@ -54,7 +57,7 @@
         </form>
     </div>
     <div style="border: 1px solid gainsboro; border-radius: 3px;margin:3px;padding:10px;">
-        <form class="mapbookmark_form_2" id="useraccount_mapbookmark_form" action="{{path('useraccount_mapbookmark')}}" method="post" {{ form_enctype(form2) }} onsubmit="return false;">
+        <form id="mapbookmark_form_2" class="useraccount_mapbookmark_form" action="{{path('useraccount_mapbookmark')}}" method="post" {{ form_enctype(form2) }} onsubmit="return false;">
             {#    {{form}}#}
             <table style="width:100%;">
                 {% set name= null %}
@@ -106,7 +109,7 @@
     </div>          
 
     <div style="border: 1px solid gainsboro; border-radius: 3px;margin:3px;padding:10px;">
-        <form class="mapbookmark_form_3" id="useraccount_mapbookmark_form" action="{{path('useraccount_mapbookmark')}}" method="post" {{ form_enctype(form3) }} onsubmit="return false;">
+        <form id="mapbookmark_form_3" class="useraccount_mapbookmark_form" action="{{path('useraccount_mapbookmark')}}" method="post" {{ form_enctype(form3) }} onsubmit="return false;">
 
             <table  style="width:100%;">
                 {% set name= null %}
@@ -131,13 +134,13 @@
                     <td>{{ form_label(form3.name) }}</td>
                 </tr>
                 <tr>
-                    <td>{{ form_widget(form3.name,{value: name ? name:'Local'}) }}</td>
+                    <td>{{ form_widget(form3.name,{value: name ? name:'Watershed'}) }}</td>
                 </tr>
                 <tr>
                     <td>{{ form_label(form3.zoomLevel) }}</td>
                 </tr>
                 <tr>
-                    <td>{{ form_widget(form3.zoomLevel,{value: level ? level:'17'}) }}</td>
+                    <td>{{ form_widget(form3.zoomLevel,{value: level ? level:'11'}) }}</td>
                 </tr>
                 <tr>
                     <td>{{ form_label(form3.address) }}</td>
@@ -159,8 +162,81 @@
 
 <script>
     $(function () {
-        $("div#useraccount_mapbookmark button").unbind("click");
-        $("div#useraccount_mapbookmark button").click(function (e) {
+
+        $("div#useraccount_mapbookmark form.useraccount_mapbookmark_form .address input[type='text']").blur(function () {
+
+            var address = $(this).val();
+
+            var _this = this;
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({'address': address}, function (results, status) {
+                if (status === google.maps.GeocoderStatus.OK)
+                {
+                    var pt = results[0].geometry.location;
+
+                    var lng = pt.lng();
+                    var lat = pt.lat();
+
+                    $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form input[type='hidden'][name='lat']").map(function () {
+                        $(this).val(lat);
+                    });
+                    $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form input[type='hidden'][name='lng']").map(function () {
+                        $(this).val(lng);
+                    });
+                    $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form .address input[type='text']").map(function () {
+                        $(this).val(results[0].formatted_address);
+                    });
+
+                    var layers = window.map.drawnItems.getLayers();
+                    for (var i = layers.length - 1; i >= 0; i--) {
+                        if (layers[i].source !== undefined && layers[i].source === 'searchbox_query') {
+                            window.map.drawnItems.removeLayer(layers[i]);
+                        }
+                    }
+
+                    var feature = L.marker([pt.lat(), pt.lng()], {draggable: 'true'});
+                    feature.bindLabel(results[0].formatted_address);
+                    feature.id = 0;
+                    feature.name = results[0].formatted_address;
+                    feature.index = window.map.drawnItems.getLayers().length;
+                    feature.type = 'marker';
+                    feature.source = 'searchbox_query';
+                    feature.on("dragend", function (e) {
+                    
+                        geocoder.geocode({'latLng':  e.target.getLatLng()}, function (results, status) {
+                            if (status === google.maps.GeocoderStatus.OK)
+                            {
+                                var pt = results[0].geometry.location;
+
+                                var lng = pt.lng();
+                                var lat = pt.lat();
+                                window.map.removeLayer(feature.label); 
+                                feature.bindLabel(results[0].formatted_address);
+                                $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form input[type='hidden'][name='lat']").map(function () {
+                                    $(this).val(lat);
+                                });
+                                $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form input[type='hidden'][name='lng']").map(function () {
+                                    $(this).val(lng);
+                                });
+                                $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form .address input[type='text']").map(function () {
+                                    $(this).val(results[0].formatted_address);
+                                });
+                            }
+                        });
+                    });
+                    window.map.drawnItems.addLayer(feature);
+                    window.map.setView(pt);
+                }
+                else {
+                    alert("The given address is not able geocoding!");
+
+                }
+            });
+
+        });
+
+        $("div#useraccount_mapbookmark form.useraccount_mapbookmark_form button").unbind("click");
+        $("div#useraccount_mapbookmark form.useraccount_mapbookmark_form button").click(function (e) {
             var address = $(this).parents("form").find("td.address input").val();
             var lng = null;
             var lat = null;
@@ -192,8 +268,8 @@
                 method: 'POST',
                 data: formData,
                 success: function (response) {
-                    if(typeof response !=='object') {
-                        response=JSON.parse(response);
+                    if (typeof response !== 'object') {
+                        response = JSON.parse(response);
                     }
                     alert(response.message);
                 },
