@@ -44,7 +44,7 @@
                     <td  class="address">{{ form_widget(form1.address,{value: address ? address:''}) }}</td>
                 </tr>
                 <tr>
-                    <td  class="get_address"><input class="get_address_from_map" type="checkbox">Get address by click on map</td>
+                    <td  class="get_address"><input class="get_address_from_map" type="checkbox">Click on the map to set map centre</td>
                 </tr>
                 <tr>
                     <td>
@@ -202,15 +202,15 @@
                     feature.type = 'marker';
                     feature.source = 'searchbox_query';
                     feature.on("dragend", function (e) {
-                    
-                        geocoder.geocode({'latLng':  e.target.getLatLng()}, function (results, status) {
+
+                        geocoder.geocode({'latLng': e.target.getLatLng()}, function (results, status) {
                             if (status === google.maps.GeocoderStatus.OK)
                             {
                                 var pt = results[0].geometry.location;
 
                                 var lng = pt.lng();
                                 var lat = pt.lat();
-                                window.map.removeLayer(feature.label); 
+                                window.map.removeLayer(feature.label);
                                 feature.bindLabel(results[0].formatted_address);
                                 $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form input[type='hidden'][name='lat']").map(function () {
                                     $(this).val(lat);
@@ -270,6 +270,14 @@
                 success: function (response) {
                     if (typeof response !== 'object') {
                         response = JSON.parse(response);
+                    }
+                    if (response.success === true) {
+
+                        $("nav.juturna-main_menu li#viewingscale ul.dropdown-menu li a[data-id='" + response.seq + "']").data("zoom", response.zoom);
+                        $("nav.juturna-main_menu li#viewingscale ul.dropdown-menu li a[data-id='" + response.seq + "']").data("center", response.lat + "," + response.lng);
+                        $("nav.juturna-main_menu li#viewingscale ul.dropdown-menu li a[data-id='" + response.seq + "']").data("address", response.address);
+                        $("nav.juturna-main_menu li#viewingscale ul.dropdown-menu li a[data-id='" + response.seq + "']").html(response.title);
+
                     }
                     alert(response.message);
                 },

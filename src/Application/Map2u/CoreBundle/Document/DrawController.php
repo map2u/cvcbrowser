@@ -136,7 +136,7 @@ class DrawController extends Controller {
     $upload_path = $this->get('kernel')->getRootDir() . '/../web/uploads';
     $user = $this->getUser();
     if (!isset($user) || empty($user)) {
-      return new Response(\json_encode(array('success' => false, 'message' => 'Must be a logged in user!')));
+      return new Response(\json_encode(array('success' => false, 'message' => 'You must log in to do this!')));
     }
     $request = $this->getRequest();
     $id = $request->get('id');
@@ -334,7 +334,7 @@ class DrawController extends Controller {
 
     $user = $this->getUser();
     if (!isset($user) || empty($user)) {
-      return new Response(\json_encode(array('success' => false, 'message' => 'Must be a logged in user!')));
+      return new Response(\json_encode(array('success' => false, 'message' => 'You must log in to do this!')));
     }
     $request = $this->getRequest();
     $id = $request->get('id');

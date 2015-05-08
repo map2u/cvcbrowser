@@ -41,7 +41,7 @@ class UserAccountController extends BaseController {
      * @Template()
      */
     public function mapbookmarkAction(Request $request) {
-        $scaleText=array(10 => "1:500,000",11 => "1:250,000", 12 => "1:150,000", 13 => "1:70,000", 14 => "1:35,000", 15 => "1:15,000", 16 => "1:8,000", 17 => "1:4,000");
+        $scaleText = array(10 => "1:500,000", 11 => "1:250,000", 12 => "1:150,000", 13 => "1:70,000", 14 => "1:35,000", 15 => "1:15,000", 16 => "1:8,000", 17 => "1:4,000");
         $em = $this->getDoctrine()->getManager();
         $form1 = $this->get('form.factory')->create(new MapBookmarkFormType("Map2u\CoreBundle\Entity\MapBookmark"));
         $form2 = $this->get('form.factory')->create(new MapBookmarkFormType("Map2u\CoreBundle\Entity\MapBookmark"));
@@ -52,7 +52,7 @@ class UserAccountController extends BaseController {
             if ($this->getUser()) {
                 $bookmark = $em->getRepository('Map2uCoreBundle:MapBookmark')->findOneBy(array('userId' => $this->getUser()->getId(), 'seq' => $seq));
             } else {
-                return new Response(\json_encode(array('success' => false, 'message' => 'Must be a logged in user!')));
+                return new Response(\json_encode(array('success' => false, 'message' => 'You must log in to do this!')));
             }
             if (!isset($bookmark) || $bookmark == null) {
                 $bookmark = new \Map2u\CoreBundle\Entity\MapBookmark();
@@ -69,7 +69,7 @@ class UserAccountController extends BaseController {
             $bookmark->setUser($this->getUser());
             $em->persist($bookmark);
             $em->flush();
-            return new Response(\json_encode(array('success' => true, 'message' => 'Successfully saved!')));
+            return new Response(\json_encode(array('success' => true, "seq" => $seq, "zoom" => $data['zoomLevel'], "lat" => $request->get('lat'), "lng" => $request->get('lng'), 'address'=>$data['address'], 'title'=>$data['name']." ".$scaleText[intval($data['zoomLevel'])], 'message' => 'Successfully saved!')));
         }
         $bookmarks = null;
         if ($this->getUser()) {

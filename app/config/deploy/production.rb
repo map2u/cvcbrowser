@@ -1,4 +1,4 @@
-server 'cvc.juturna.ca', :app, :web, :primary => true
+server 'nechako3.juturna.ca', :app, :web, :primary => true
 set :deploy_to, "/opt/cvc.juturna.ca/production/"
 set   :current_path, "/opt/cvc.juturna.ca/production/current"
 

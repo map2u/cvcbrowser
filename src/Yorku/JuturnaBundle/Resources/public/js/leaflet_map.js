@@ -650,6 +650,10 @@ function showStoryOnLeftsisebar(id) {
         method: 'GET',
         success: function (response) {
             $("div#leaflet_content.overlay-sidebar #sidebar_content").html(response);
+            if (window.leftSidebar.isVisible() === false) {
+                $(".sonata-bc .leftsidebar-close-control").hide();
+                window.leftSidebar.show();
+            }
         }
     });
 }
@@ -784,9 +788,11 @@ function viewingscale(map) {
     $("li#viewingscale ul li a").click(function () {
         var scale = $(this).data("zoom");
         var center = $(this).data("center");
+        var address = $(this).data("address");
         if ((center === null || center === undefined) && (parseInt(scale) !== 0)) {
             center = map.getCenter();
             map.setView(center, scale);
+            createSearchFeatureIcon(map, center.lat, center.lng, address);
             return;
         }
         if (parseInt(scale) === 0) {
@@ -795,12 +801,36 @@ function viewingscale(map) {
                 url: Routing.generate('useraccount_mapbookmark', {'_locale': window.locale}),
                 method: 'GET',
                 success: function (response) {
+
                     $("div#leaflet_content.overlay-sidebar #sidebar_content").html(response);
+                    if (window.leftSidebar.isVisible() === false) {
+                        $(".sonata-bc .leftsidebar-close-control").hide();
+                        window.leftSidebar.show();
+                    }
                 }
             });
             return;
         }
         center = center.split(",");
-        map.setView(center, scale);
+        map.setView([center[0], center[1]], scale);
+        createSearchFeatureIcon(map, center[0], center[1], address);
     });
+}
+
+function createSearchFeatureIcon(map, lat, lng, address) {
+    var layers = map.drawnItems.getLayers();
+    for (var i = layers.length - 1; i >= 0; i--) {
+        if (layers[i].source !== undefined && layers[i].source === 'searchbox_query') {
+            map.drawnItems.removeLayer(layers[i]);
+        }
+    }
+
+    var feature = L.marker([lat, lng]);
+    feature.bindLabel(address);
+    feature.id = 0;
+    feature.name = address;
+    feature.index = map.drawnItems.getLayers().length;
+    feature.type = 'marker';
+    feature.source = 'searchbox_query';
+    map.drawnItems.addLayer(feature);
 }

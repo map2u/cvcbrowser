@@ -49,7 +49,7 @@ class DefaultController extends Controller {
     $request = $this->getRequest();
     $user = $this->getUser();
     if (!isset($user) || empty($user)) {
-      return new Response(\json_encode(array('success' => false, 'message' => 'Must be a logged in user!')));
+      return new Response(\json_encode(array('success' => false, 'message' => 'You must log in to do this!')));
     }
     $drawname = $request->get('name');
     if (!isset($drawname) || empty($drawname)) {
@@ -83,7 +83,7 @@ class DefaultController extends Controller {
     $user = $this->getUser();
 
     if (!isset($user) || empty($user)) {
-      return new Response(\json_encode(array('success' => false, 'data' => 'Must be a logged in user!')));
+      return new Response(\json_encode(array('success' => false, 'data' => 'You must log in to do this!')));
     }
 //    if (!isset($id) || empty($id)) {
 //      return new Response(\json_encode(array('success' => false, 'data' => 'No valid Layer ID')));
@@ -144,7 +144,7 @@ class DefaultController extends Controller {
     $user = $this->getUser();
 
     if (!isset($user) || empty($user)) {
-      return new Response(\json_encode(array('success' => false, 'data' => 'Must be a logged in user!')));
+      return new Response(\json_encode(array('success' => false, 'data' => 'You must log in to do this!')));
     }
     if (!isset($id) || empty($id)) {
       return new Response(\json_encode(array('success' => false, 'data' => 'No valid Layer ID')));
