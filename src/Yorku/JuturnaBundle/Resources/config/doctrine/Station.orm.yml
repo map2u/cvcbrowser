@@ -67,29 +67,29 @@ Yorku\JuturnaBundle\Entity\Station:
             gedmo:
                 timestampable:
                     on: update
-#    manyToMany:                 
-#       species:
-#         targetEntity: Species
-#         inversedBy: stations
-#         orderBy:
-#             speciesName: ASC
-#         joinTable:
-#           name: stations_species
-#           joinColumns:
-#             station_id:
-#               referencedColumnName: id
-#           inverseJoinColumns:
-#             species_id:
-#               referencedColumnName: id                    
-#    oneToMany:        
-#        observations:
-#               targetEntity: BirdObservation
-#               cascade: {  }
-#               mappedBy: station            
-#        birds:
-#            targetEntity: Bird
-#            cascade: {  }
-#            mappedBy: station
+    manyToMany:                 
+       species:
+         targetEntity: Species
+         inversedBy: stations
+         orderBy:
+             speciesName: ASC
+         joinTable:
+           name: stations_species
+           joinColumns:
+             station_id:
+               referencedColumnName: id
+           inverseJoinColumns:
+             species_id:
+               referencedColumnName: id                    
+    oneToMany:        
+        observations:
+               targetEntity: BirdObservation
+               cascade: {  }
+               mappedBy: station            
+        birds:
+            targetEntity: Bird
+            cascade: {  }
+            mappedBy: station
     manyToOne:
         user:
             targetEntity: Application\Sonata\UserBundle\Entity\User

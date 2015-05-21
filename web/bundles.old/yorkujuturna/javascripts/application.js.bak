@@ -1,0 +1,6571 @@
+// Place your application-specific JavaScript functions	and	classes	here
+// This	file is	automatically included by javascript_include_tag :defaults
+// narHandler is for card layout used for sitedescription data input form
+/*
+  Written By Joseph	Zhao
+  Sept.	2010
+  Modifed by Joseph	Zhao Jan. 2011
+*/
+
+Ext.BLANK_IMAGE_URL="/images/default/s.gif";
+
+Ext.namespace('juturna');
+
+// Benthic data	model for ExtJS	4.0.2 version
+Benthic=Ext.define('Benthic',{
+			extend:'Ext.data.Model',fields:[
+						{name:'id',type:'int'},
+						{name:'user_id',type:'int'},
+						{name:'site_idname',type:'string'}
+			],
+			proxy:{
+				type:'ajax',
+				id:'benthics'
+			}
+		});
+
+// Station data	model for ExtJS	4.0.2 version
+Station=Ext.define('Station',{
+			extend:'Ext.data.Model',fields:[
+						{name:'id',type:'int'},
+						{name:'user_id',type:'int'},
+						{name:'site_idname',type:'string'}
+			],
+			associations:[{type:'hasMany',model:'Benthic',name:'benthics'}],
+			proxy:{
+				type:'ajax',
+				id:'stations'
+			}
+		});
+
+//This handler is for sitedescription data	input form card	layout,this function will be called by welcome/index.html.erb
+var	navHandler=function(direction) {
+	 // total cards
+	var	cardsTotal=2; 
+	var	j,k;
+	// get card panel object
+	var	newdataCardPanel=Ext.getCmp('newdatacardpanel_id'); 
+
+	if (newdataCardPanel ==	null)
+		return;
+	var	lay=newdataCardPanel.getLayout();
+	// get active card number
+	var	i=lay.activeItem.id.split('newsitedesc-card-')[1]; 
+
+	if(i==0	&& direction==1)
+	{
+		k=newdataCardPanel.getForm().findField('nooftransects').getValue();
+		if	(k == '')
+		{
+			alert("Please input	the	number of transects");
+			return;
+		}
+		// based on the transects number to enable input elements 
+		for( j=1; j<=k; j++)  
+		{
+			newdataCardPanel.getForm().findField('dom_veg_none'	+ j	).setDisabled(false);
+			newdataCardPanel.getForm().findField('dom_veg_cultivated' +	j ).setDisabled(false);
+			newdataCardPanel.getForm().findField('dom_veg_meadow' +	j ).setDisabled(false);
+			newdataCardPanel.getForm().findField('dom_veg_scrub' + j ).setDisabled(false);
+			newdataCardPanel.getForm().findField('dom_veg_forest' +	j ).setDisabled(false);
+		}
+		// to disable all other input elements out of the selected transects.
+		for( j= k+1; j<=10; j++) 
+		{
+			newdataCardPanel.getForm().findField('dom_veg_none'	+ j	).setDisabled(true);
+			newdataCardPanel.getForm().findField('dom_veg_none'	+ j	).setValue('N/A');
+			newdataCardPanel.getForm().findField('dom_veg_cultivated' +	j ).setDisabled(true);
+			newdataCardPanel.getForm().findField('dom_veg_cultivated' +	j ).setValue('N/A');
+			newdataCardPanel.getForm().findField('dom_veg_meadow' +	j ).setDisabled(true);
+			newdataCardPanel.getForm().findField('dom_veg_meadow' +	j ).setValue('N/A');
+			newdataCardPanel.getForm().findField('dom_veg_scrub' + j ).setDisabled(true);
+			newdataCardPanel.getForm().findField('dom_veg_scrub' + j ).setValue('N/A');
+			newdataCardPanel.getForm().findField('dom_veg_forest' +	j ).setDisabled(true);
+			newdataCardPanel.getForm().findField('dom_veg_forest' +	j ).setValue('N/A');
+		}
+
+	}
+
+	if(i==1	&& direction==1)
+	{
+		 k=newdataCardPanel.getForm().findField('nooftransects').getValue();
+		 if	(k == '')
+		 {
+			alert("Please input	the	number of transects");
+			return;
+		 }
+		 // based on the transects number to enable input elements 
+		 for( j=1; j<=k; j++)  
+		 {
+
+			newdataCardPanel.getForm().findField('wetted_width'	+ j	).setDisabled(false);
+			newdataCardPanel.getForm().findField('silt'	+ j	).setDisabled(false);
+			newdataCardPanel.getForm().findField('pebble' +	j ).setDisabled(false);
+			newdataCardPanel.getForm().findField('gravel' +	j ).setDisabled(false);
+			newdataCardPanel.getForm().findField('cobble' +	j ).setDisabled(false);
+			newdataCardPanel.getForm().findField('boulder' + j ).setDisabled(false);
+			newdataCardPanel.getForm().findField('o_canopy'	+ j	).setDisabled(false);
+		 }
+		 // to disable all other input elements out of the selected transects.
+		 for( j= k+1; j<=10; j++) 
+		 {
+			newdataCardPanel.getForm().findField('wetted_width'	+ j	).setDisabled(true);
+			newdataCardPanel.getForm().findField('wetted_width'	+ j	).setValue('');
+			newdataCardPanel.getForm().findField('silt'	+ j	).setDisabled(true);
+			newdataCardPanel.getForm().findField('silt'	+ j	).setValue('');
+			newdataCardPanel.getForm().findField('pebble' +	j ).setDisabled(true);
+			newdataCardPanel.getForm().findField('pebble' +	j ).setValue('');
+			newdataCardPanel.getForm().findField('gravel' +	j ).setDisabled(true);
+			newdataCardPanel.getForm().findField('gravel' +	j ).setValue('');
+			newdataCardPanel.getForm().findField('cobble' +	j ).setDisabled(true);
+			newdataCardPanel.getForm().findField('cobble' +	j ).setValue('');
+			newdataCardPanel.getForm().findField('boulder' + j ).setDisabled(true);
+			newdataCardPanel.getForm().findField('boulder' + j ).setValue('');
+			newdataCardPanel.getForm().findField('o_canopy'	+ j	).setDisabled(true);
+			newdataCardPanel.getForm().findField('o_canopy'	+ j	).setValue('Not	Measured');
+		 }
+
+	}
+
+	var	next=parseInt(i) + direction;
+	lay.setActiveItem(next);
+	// disable or enable prev button
+	Ext.getCmp("newsitedesc-move-prev").setDisabled(next ==	0); 
+
+	// disable or enable next button
+	Ext.getCmp("newsitedesc-move-next").setDisabled(next ==	cardsTotal);  
+
+	// disable or enable submit button
+	Ext.getCmp("newsitedesc-move-submit").setDisabled(next != cardsTotal);  
+
+};
+
+//This function for showing system help tab panel, this function will be called by welcome/index.html.erb
+function system_help() {
+
+	// get layout center_region object, all tabs in center region will be included.
+	var	centerPanel=Ext.getCmp('center_region'); 
+		var	bExist = false;
+		centerPanel.items.each(function(el,	ce,	index){
+			// if system help tab panel is already there, make it as active tab
+			if ((el.title == "System Help")	&& (bExist == false)) {  
+				bExist = true;
+				centerPanel.setActiveTab(ce);
+				var	iframe=centerPanel.getActiveTab(ce);
+				iframe.src='/admin/systemhelp';
+				iframe.items.items[0].reload();
+			}
+		});
+		// if there is no system help tab panel, create one and show it
+		if (bExist == false) {
+			var	panel=Ext.create('Ext.ux.SimpleIFrame',{border:false,src:'/admin/systemhelp'}); 
+			centerPanel.add({id:'system_help_tabpanel_id',title: 'System Help',layout:'fit',closable:true,items:panel});
+			centerPanel.setActiveTab(parseInt(centerPanel.items.length)-1);
+		}
+}
+
+//This function for user account management tab panel, this function will be called by welcome/index.html.erb
+function useraccountmanagement()
+{	
+	// get layout center_region object, all tabs in center region will be included.
+	var	centerPanel=Ext.getCmp('center_region');
+		var	bExist = false;
+		// if user account management tab panel is already there, make it as active tab
+		centerPanel.items.each(function(el,	ce,	index){
+			if ((el.title == "User Account Management")	&& (bExist == false)) { 
+				bExist = true;
+				centerPanel.setActiveTab(ce);
+				var	iframe=centerPanel.getActiveTab(ce);
+				iframe.src='/admin/accountmanage';
+				iframe.items.items[0].reload();
+			}
+		});
+		// if there is no user account management tab panel, create one and show it
+		if (bExist == false) {
+			var	panel=Ext.create('Ext.ux.SimpleIFrame',{border:false,src:'/admin/accountmanage'}); 
+			centerPanel.add({id:'useraccountmanagement_tabpanel_id',title: 'User Account Management',layout:'fit',closable:true,items:panel});
+			centerPanel.setActiveTab(parseInt(centerPanel.items.length)-1);
+		}
+
+
+}
+//This function is for user to reset google map range showed, this function will be called by welcome/index.html.erb
+function resetMapRange(){
+
+	var	myMap=Ext.getCmp("googlemap");
+	if(typeof myMap	== 'object')
+	{
+		if (myMap.getMap() != null)
+		{
+			var	level=myMap.getMap().getBoundsZoomLevel(wholeWatershedBound);
+			// center point of whole watershed bound as map center
+			myMap.getMap().setCenter(wholeWatershedBound.getCenter(),level); 
+		}
+	}
+
+}
+
+//This function is for user to show map legend, this function will be called by welcome/index.html.erb
+function showMapLegend(){
+	// if there is no map legend, create one and show it.
+	if (Ext.ux.NotificationMgr.positions.length	==0) 
+	{
+		mapLegendWin= new Ext.ux.Notification({title:'WQ Monitoring	Sites',html:'<table><tbody><tr><td width="20px"><img src="/images/icons/marker_blue.png" width="15px" height="24px"></td><td>Unimpaired</td></tr><tr><td><img src="/images/icons/marker.png" width="15px" height="24px"></td><td>Potentially Impaired</td></tr><tr><td><img	src="/images/icons/marker_green.png" width="15px" height="24px"></td><td>Selected Station</td></tr></tbody></table>',hideDelay:9000,width:250,closeAction:'hide',autoDestroy:false}).show(document);
+	}
+	// if map legend is there 
+	else  
+	{
+		if(mapLegendWin.isHidden())
+			//  if the legend is hidden, show it.
+			mapLegendWin.show();  
+		else
+			// if the legend is shown, hide it,
+			mapLegendWin.hide(); 
+
+	}
+
+}
+
+// This function is for user select one watershed on watershed list, system will highlight the boundary of the selected watershed
+function onSelectWatershed(watershed_id)
+{
+
+	var	varBounds=new GLatLngBounds;
+	var	myMap=Ext.getCmp("googlemap");
+	// first remove all highlighted watershed boundary
+	for	(var i=0;i<	subwatershedboundaries.length ;	i++) 
+	{
+		var	p;
+		myMap.getMap().removeOverlay(subwatershedboundaries[i].ws_polyline);
+	}
+	// highlight selected watershed boundary
+	for	(var i=0;i<	subwatershedboundaries.length ;	i++) 
+	{
+		// if the watershed id eq selected watershed id
+		if (subwatershedboundaries[i].watershed_id==parseInt(watershed_id)) 
+		{
+
+			myMap.getMap().addOverlay(subwatershedboundaries[i].ws_polyline);
+		}
+	}
+
+}
+
+// This function is for user select one watershed on watershed list, system will highlight the boundary of the selected watershed
+function onSelectSubwatershed(subwatershed_id)
+{
+
+
+	var	varBounds=new GLatLngBounds;
+	var	myMap=Ext.getCmp("googlemap");
+
+	// first remove all highlighted subwatershed boundary
+	for	(var i=0;i<	subwatershedboundaries.length ;	i++) 
+	{
+		var	p;
+		myMap.getMap().removeOverlay(subwatershedboundaries[i].polyline);
+	}
+	// highlight selected subwatershed boundary
+	for	(var i=0;i<	subwatershedboundaries.length ;	i++)  
+	{
+		// if the subwatershed id eq selected subwatershed id
+		if (subwatershedboundaries[i].subwatershed_id==subwatershed_id) 
+		{
+
+			myMap.getMap().addOverlay(subwatershedboundaries[i].polyline);
+		}
+	}
+}
+
+// This function is for show or hide subwatershed polygons
+function onShowOrHideWatersheds(){
+    // variable subwatershedPolygons is global array variable.
+	if ((subwatershedPolygons != undefined)	&& ( subwatershedPolygons != null))
+	{
+		for	(var i=0;i<subwatershedPolygons.length;i++)
+		{
+			if (subwatershedPolygons[i].isHidden())
+				subwatershedPolygons[i].show();
+			else
+				subwatershedPolygons[i].hide();
+		}
+	}
+}
+//This function is for user reset password before login
+function forgetpassword() {
+
+
+
+			var	forgetpasswordPanel=Ext.create('Ext.form.Panel',{
+				frame: true,
+				width: 260,
+				bodyPadding: 5,
+
+				fieldDefaults: {
+					labelAlign:	'right',
+					labelWidth:	90,
+					anchor:	'100%'
+				},
+
+				items: [{
+					xtype: 'textfield',
+					name: 'login',
+					fieldLabel:	'Login Name'
+				}, {
+					xtype: 'textfield',
+					name: 'email',
+					fieldLabel:	'or	 Email'
+				}],
+				buttons:[{text:'Reset Password',handler:function(){
+					if ((forgetpassword_win	!= null)&&(forgetpasswordPanel.getForm().isValid()))
+					{ 
+						// get all form data as json format
+						var	jsondata=Ext.JSON.encode(forgetpasswordPanel.getForm().getValues(false));
+						forgetpasswordPanel.getForm().submit({
+							//pass form data as variable name "data", in action user get the data by params[:data]
+							params:{data:jsondata}, 
+							method:'POST',
+							// use post method to submit login name or e-mail address for reset password, new password will be sent to user by e-mail.
+							url:'/users/resetpassword', 
+							format:'json',
+							success:function(result,request) 
+							{
+								var	results=Ext.JSON.decode(request.response.responseText);
+								if(results.success==true)
+								{
+								   alert(results.message);
+								}
+								else
+								{
+								   alert(results.message);
+								}
+							},
+							failure:function(result,request)
+							{
+								var	results=Ext.JSON.decode(request.response.responseText);
+								if(results.success==true)
+								{
+								   alert(results.message);
+								}
+								else
+								{
+								   alert(results.message);
+								}
+							}
+						});
+					}
+
+				}},{text:'Cancel',handler:function(){
+					if (forgetpassword_win != null)
+					{
+						forgetpassword_win.close();
+					}
+				}}]
+			});
+
+			var	forgetpassword_win=new Ext.Window({title:"Reset	User Account Login Password",width:285,modal:true,bodyStyle:'padding:5px;',	height:160,layout:'fit',closable:true,resizable:false,items:[forgetpasswordPanel]});
+			// show forget password form
+			forgetpassword_win.show() 
+
+}
+
+// This function is for logged in user to change password directly throught form.
+function changepassword() {
+
+		var	changepasswordPanel=Ext.create('Ext.form.Panel',{
+			frame: true,
+			width: 330,
+			bodyPadding: 5,
+
+			fieldDefaults: {
+				labelAlign:	'right',
+				labelWidth:	140,
+				anchor:	'100%'
+			},
+			
+			items: [{
+				xtype: 'textfield',
+				name: 'oldpassword',
+				inputType: 'password',
+				allowBlank:false,
+				fieldLabel:	'Current Password'
+			}, {
+				xtype: 'textfield',
+				inputType: 'password',
+				allowBlank:false,
+				name: 'password',
+				fieldLabel:	'New Password'
+			}, {
+				xtype: 'textfield',
+				inputType: 'password',
+				allowBlank:false,
+				name: 'password_confirmation',
+				fieldLabel:	'Password Confirmation'
+			}],
+			buttons:[{text:'Change Password',handler:function(){
+				if ((changepassword_win	!= null)&&(changepasswordPanel.getForm().isValid()))
+				{ 
+					var	jsondata=Ext.JSON.encode(changepasswordPanel.getForm().getValues(false));
+					changepasswordPanel.getForm().submit({
+						params:{data:jsondata},
+						method:'POST',
+						// for user to change password, system will check user old password first.
+						url:'/users/changepassword',
+						format:'json',
+						success:function(result,request) 
+						{
+							var	results=Ext.JSON.decode(request.response.responseText);
+							if(results.success==true)
+							{
+							   alert(results.message);
+							}
+							else
+							{
+							   alert(results.message);
+							}
+						},
+						failure:function(result,request)
+						{
+							var	results=Ext.JSON.decode(request.response.responseText);
+							if(results.success==true)
+							{
+							   alert(results.message);
+							}
+							else
+							{
+							   alert(results.message);
+							}
+						}
+					});
+				}
+
+			}},{text:'Cancel',handler:function(){
+				if (changepassword_win != null)
+				{
+					changepassword_win.close();
+				}
+			}}]
+		});
+
+		var	changepassword_win=new Ext.Window({title:"Change User Account Password",width:355,modal:true,bodyStyle:'padding:5px;', height:180,layout:'fit',closable:true,resizable:false,items:[changepasswordPanel]});
+		// show change password form.
+		changepassword_win.show()
+
+}
+
+// logged in user to click logout button to logout system.
+function logoutsystem()	{
+
+	Ext.Ajax.request({url:'/sessions/destroy',method:'POST',
+		success:function(result,request) {
+			var	results=Ext.JSON.decode(result.responseText)
+			if (results.success	== true	)
+			{
+				// if user successfully logged out, system will reload main page automatically
+				window.location.href="/";
+				alert("You have	successfully logged	out	of Juturna.\nPlease	wait a moment while	the	system reloads.");
+			}
+			else
+			{
+				alert("Logout failed, please try again");
+			}
+		},failure:function(result,request){
+			alert("Logout failed, please try again");
+		}
+	});
+}
+
+
+function userlogin() {
+
+
+
+					var	userLoginPanel=Ext.create('Ext.form.Panel',{
+				frame: true,
+				width: 260,
+				bodyPadding: 5,
+
+				fieldDefaults: {
+					labelAlign:	'right',
+					labelWidth:	90,
+					anchor:	'100%'
+				},
+
+				items: [{
+					xtype: 'textfield',
+					name: 'login',
+				allowBlank:false,
+					fieldLabel:	'Login Name'
+				}, {
+					xtype: 'textfield',
+					name: 'password',
+					inputType: 'password',
+				allowBlank:false,
+					fieldLabel:	'Password'
+				}, {
+					xtype: 'checkboxfield',
+					name: 'remember_me',
+					fieldLabel:	'',
+					labelSeparator:	'',
+					hideEmptyLabel:	false,
+					boxLabel: 'Remember	me'
+				}],
+				buttons:[{text:'OK',handler:function(){
+						if ((userlogin_win != null)	&& (userLoginPanel.getForm().isValid()))
+						{
+						var	jsondata=Ext.JSON.encode(userLoginPanel.getForm().getValues(false));
+						userLoginPanel.getForm().submit({
+								params:{data:jsondata},
+								method:'POST',
+								url:'/sessions/create',
+								format:'json',
+								success:function(result,request) 
+								{
+									var	results=Ext.JSON.decode(request.response.responseText);
+									if(results.success==true)
+									{
+										window.location.href="/";
+										alert(results.message);
+									}
+									else
+									{
+									   alert(results.message);
+									}
+								},
+								failure:function(result,request)
+								{
+									var	results=Ext.JSON.decode(request.response.responseText);
+									if(results.success==true)
+									{
+									   alert(results.message);
+									}
+									else
+									{
+									   alert(results.message);
+									}
+								}
+							});
+						}
+
+					}},{text:'Cancel',handler:function(){
+						if (userlogin_win != null)
+						{
+							userlogin_win.close();
+						}
+					}}]
+			});
+
+			var	userlogin_win=new Ext.Window({title:"User Account Login	Form",width:285,modal:true,bodyStyle:'padding:5px;', height:190,layout:'fit',closable:true,resizable:false,items:[userLoginPanel]});
+
+	userlogin_win.show()
+
+}
+
+function registration(){
+
+	var	centerPanel=Ext.getCmp('center_region');
+		var	bExist = false;
+		centerPanel.items.each(function(el,	ce,	index){
+		if ((el.title == "Create New Account") && (bExist == false)) {
+			bExist = true;
+				centerPanel.setActiveTab(ce);
+		var	iframe=centerPanel.getActiveTab(ce);
+				iframe.src='/users/new';
+		iframe.items.items[0].reload();
+		}
+	});
+	if (bExist == false) {
+	var	panel=Ext.create('Ext.ux.SimpleIFrame',{border:false,src:'/users/new'});
+	centerPanel.add({id:'registration_tabpanel_id',title: 'Create New Account',layout:'fit',closable:true,items:panel});
+	centerPanel.setActiveTab(parseInt(centerPanel.items.length)-1);
+	}
+
+}
+function system_admin_help() {
+
+	var	centerPanel=Ext.getCmp('center_region');
+		var	bExist = false;
+		centerPanel.items.each(function(el,	ce,	index){
+		if ((el.title == "System Administrator Help") && (bExist ==	false))	{
+			bExist = true;
+				centerPanel.setActiveTab(ce);
+		var	iframe=centerPanel.getActiveTab(ce);
+				iframe.src='/admin/adminhelp';
+		iframe.items.items[0].reload();
+		}
+	});
+	if (bExist == false) {
+	var	panel=Ext.create('Ext.ux.SimpleIFrame',{border:false,src:'/admin/adminhelp'});
+	centerPanel.add({id:'admin_help_tabpanel_id',title:	'System	Administrator Help',layout:'fit',closable:true,items:panel});
+	centerPanel.setActiveTab(parseInt(centerPanel.items.length)-1);
+	}
+
+}
+
+
+// Core	code
+function getObj(oTxt) {
+  return document.getElementById(oTxt);
+}
+
+function toUpper(w)	{
+return (w.charAt(0).toUpperCase() +	w.substring(1))
+}
+function Int(n){
+return parseInt(n);
+}
+// Core	code END
+
+function loadOpt(oCbo, ary,	selVal)	{
+var	key;
+var	i =	0;
+removeAllOptions(oCbo);
+for	(key in	ary) {
+oCbo.options[oCbo.options.length] =	new	Option(toUpper(ary[key]),
+key);
+oCbo[i].selected = (oCbo.options.value==selVal)	? true : false;
+i++;
+}
+}
+
+
+function makeOption(obj, text) {
+if (obj!=null && obj.options!=null)
+obj.options[obj.options.length]	= new Option(text, value)
+}
+
+function SelectAllOption(obj) {
+  if (obj!=null	&& obj.options!=null)
+  {
+	  for (	i=0;i< obj.options.length; i++)
+		obj.options[i].selected=true;
+  }
+}
+
+function UnselectAllOption(obj)	{
+  
+  if (obj!=null	&& obj.options!=null)
+  {
+	  for (	i=0;i< obj.options.length; i++)
+		obj.options[i].selected=false;
+  }
+}
+
+
+function removeAllOptions(oCbo)	{
+if (oCbo ==	undefined)
+   return;
+for	(var i=(oCbo.options.length-1);	i>=0; i--)
+oCbo.options[i]	= null;
+oCbo.selectedIndex = -1
+}
+
+
+function WatershedBounary()
+{  
+	this.watershed_id=0;
+	this.watershed_name='';
+	this.strokeColor="#ff0000";
+	this.strokeWeight=1;
+	this.strokeOpacity=0.6;
+	this.fillColor="#ff0000";
+	this.fillOpacity=0.3;
+	this.polygon=null;
+	this.polyline=null;
+}
+
+function SubwatershedBounary()
+{  
+	this.watershed_id=0;
+	this.watershed_name='';
+	this.subwatershed_id=0;
+	this.subwatershed_name='';
+	this.strokeColor="#ff0000";
+	this.strokeWeight=1;
+	this.strokeOpacity=0.6;
+	this.fillColor="#ff0000";
+	this.fillOpacity=0.3;
+	this.polygon=null;
+	this.polyline=null;
+}
+
+
+function onZoomToHere(lat,lng)
+{
+	var	myMap=Ext.getCmp("googlemap");
+	if(typeof myMap	== 'object')
+	{
+		if (myMap.getMap() != null)
+		{
+			myMap.getMap().setCenter(new GLatLng(lat,lng),12);
+		}
+	}
+}
+function showWatershedName()
+{
+	var	myMap=Ext.getCmp("googlemap");
+	if(typeof myMap	== 'object')
+	{
+		if (myMap.getMap() != null)
+		{
+
+			for	(var i=0;i<labelWatershedName.length;i++) {
+				if (labelWatershedName[i].isHidden())
+				{
+					labelWatershedName[i].show();
+					myMap.getMap().addOverlay(labelWatershedName[i]);
+				}
+				else
+				{
+					myMap.getMap().removeOverlay(labelWatershedName[i]);
+					labelWatershedName[i].hide();
+				}
+			};
+		}
+	}
+
+};
+function showWatershedDetails(id,text)
+{
+   var	detailPanel=Ext.getCmp("detail_info_tabpanel");
+	detailPanel.setActiveTab(0);
+		var	vParam=id;
+	var	i=0;
+
+		var	aParams=vParam.split('/');
+	if(aParams.length ==2)
+		 onSelectWatershed(aParams[aParams.length-1]);
+
+	if(aParams.length ==3)
+	{
+		 onSelectWatershed(aParams[aParams.length-2]);
+		 onSelectSubwatershed(aParams[aParams.length-1]);
+	}
+	if(aParams.length ==4)
+	{
+		 onSelectWatershed(aParams[aParams.length-3]);
+		 onSelectSubwatershed(aParams[aParams.length-2]);
+		 onShowStationInfoOnGoogleMap('',text,stationMarkers);
+	}
+
+	var	panel=Ext.create('Ext.form.Panel',{border:false,id:'detail_info_tabpanel_id',autoScroll:true,style:'padding:5px',autoLoad:'/admin/details?id=' + aParams.length	+ "&content_id=" + aParams[aParams.length-1]});
+	var	tab=detailPanel.getActiveTab();
+	tab.setTitle(text);
+	tab.removeAll();
+	tab.add(panel);
+}
+
+function addNewStation(){
+
+//alert(Ext.getCmp('menu_add_new_station_button').pressed);
+
+}
+
+function addnewstation(gmap,varMark,latitude,longitude,varAction,id)
+{	
+
+
+//var MetaData = Ext.data.Record.create([
+//		  {name: 'id'},
+//		  {name: 'site_idname'},
+//		  {name: 'site_alias'},
+//		  {name: 'nearst_inter'},
+//		  {name: 'lng'},
+//		  {name: 'lat'},
+//		  {name: 'ws_name'},
+//		  {name: 'minucipality'},
+//		  {name: 'subws_name'},
+//		  {name: 'description'}
+//]);
+// Query the server	for	metadata for the query we're about to run
+//metaDataStore	= new Ext.data.Store({
+//		  autoLoad:	true,
+//		  reader: new Ext.data.JsonReader({
+//				  root:	'data'
+//		  }, MetaData),
+//		  proxy: new Ext.data.HttpProxy({
+//				  url: '/stations/new2',
+//		params:{lng:longitude,lat:latitude}	
+//		  })
+//});
+
+	if (varAction=='update'	&& id != undefined && id !='')
+	{
+	   if (confirm("Do you want	to move	this station position?"))
+	   {
+		for(var	i=0;i<gmarkers.length;i++)
+		{
+			var	myMap=Ext.getCmp("googlemap");
+
+			if(id==gmarkers[i].id)
+			{
+				var	gmarker=gmarkers[i];
+				gmarker.enableDragging()
+				GEvent.clearListeners(gmarker, "dragstart");
+				GEvent.clearListeners(gmarker, "dragend");
+
+				GEvent.addListener(gmarker,	"dragstart", function () {
+					myMap.getMap().closeInfoWindow();
+				});
+				GEvent.addListener(gmarker,	"dragend", function	() {
+					point=gmarker.getLatLng();
+					addnewstation(myMap.getMap(),gmarker,parseInt(point.lat()*100000)/100000,parseInt(point.lng()*100000)/100000,'move',id);
+
+				});
+
+			}
+			else
+			{
+			   gmarkers[i].disableDragging();
+			   GEvent.clearListeners(gmarkers[i], "dragstart");
+			   GEvent.clearListeners(gmarkers[i], "dragend");
+			}
+		};
+	   }
+	}
+
+		var	newStationPanel= Ext.create('Ext.form.Panel',{	
+				url:"/stations/create",
+								height:340,
+								width:367,
+				monitorValid:true,
+				xtype:'panel',
+				frame:true,
+				labelAlign:'right',
+				border:false,
+//				layout:'form',
+				delay:50,
+				defaults:{
+					labelWidth:130,
+					width:330,
+				},
+				bodyStyle:'padding:15px;',
+				items:[{
+					xtype:'textfield',
+					fieldLabel:'Station	ID',
+					style:'background:#99CCCC',
+					name:'site_idname',
+					readOnly:true
+				},
+				{
+					xtype:'textfield',
+					fieldLabel:'Station	Name',
+					allowBlank:false,
+					name:'site_alias'
+				},
+				{
+					xtype:'textfield',
+					fieldLabel:'Nearest	Intersection',
+					name:'near_inter'
+				},
+				{
+					xtype:'textfield',
+					fieldLabel:'Logitude',
+					style:'background:#99CCCC',
+					readOnly:true,
+					name:'lng'
+				},
+				{
+					xtype:'textfield',
+					fieldLabel:'Latitude',
+					style:'background:#99CCCC',
+					readOnly:true,
+					name:'lat'
+				},
+				{
+					xtype:'textfield',
+					fieldLabel:'Municipality',
+					name:'municipality'
+				},
+				{
+					xtype:'textfield',
+					fieldLabel:'Watershed Name',
+					readOnly:true,
+					style:'background:#99CCCC',
+					name:'ws_name'
+				},
+				{
+					xtype:'hidden',
+					name:'subwatershed_id'
+				},
+				{
+					xtype:'hidden',
+					name:'watershed_id'
+				},
+				{
+					xtype:'textfield',
+					fieldLabel:'Subwatershed Name',
+					style:'background:#99CCCC',
+					readOnly:true,
+					name:'subws_name'
+				},
+				{
+					xtype:'textarea',
+					fieldLabel:'Location Description',
+					name:'description'
+				}],
+				buttons:[{text:'Submit',handler:function(){
+						
+							var	jsondata=Ext.JSON.encode(newStationPanel.getForm().getValues(false));
+							newStationPanel.getForm().submit({
+								params:{data:jsondata},
+								method:'POST',
+								waitMsg:'Sending Data ...',
+								timeout:9000,
+								format:'json',
+								success:function(result,request) 
+								{
+									var	results=Ext.JSON.decode(request.response.responseText);
+									if((results.success==true)&&(gmap != null)&&(varMark !=	null))
+									{
+										newstationwin.setTitle("Update station " + results.data.site_idname	+ "	data");
+										newStationPanel.getForm().findField('site_idname').setValue(results.data.site_idname);
+											point=varMark.getLatLng();
+										if (varMark)
+											gmap.removeOverlay(varMark);
+										var	blueIcon = new GIcon(G_DEFAULT_ICON);
+										blueIcon.image = "http://maps.google.com/mapfiles/marker_greenN.png";
+				
+										// Set up our GMarkerOptions object
+										markerOptions =	{draggable:true, icon:blueIcon,title: results.data.site_idname };
+										varMark	= new GMarker(point,markerOptions);
+										varMark.id=results.data.id;
+										varMark.disableDragging();
+										gmap.addOverlay(varMark);
+
+//	GEvent.addListener(newstation_mark,	"click", function () {
+ //	newstation_mark.openInfoWindowHtml("Loading	details...");
+//addnewstation(me,newstation_mark,parseInt(point.lat()*10000)/10000,parseInt(point.lng()*10000)/10000,null);
+										newstationwin.close();
+										var	stationPanel=Ext.getCmp("station-list-panel");
+										stationPanel.getRootNode().reload();
+										var	watershedTreePanel=Ext.getCmp("tree-panel");
+										watershedTreePanel.getRootNode().reload();
+
+										alert(results.message +	"\nPlease click	the	icon to	input data.");
+									}
+									else
+									{
+									   alert(results.message);
+									}
+								},
+								failure:function(result,request)
+								{
+									var	results=Ext.JSON.decode(request.response.responseText);
+									if(results.success==true)
+									{
+									   alert(results.message);
+									}
+									else
+									{
+									   alert(results.message);
+									}
+								}
+							});
+
+					}},{text:'Reset',handler:function(){
+						if (newStationPanel	!= null)
+						{
+							newStationPanel.getForm().reset();
+						}
+
+					}},{text:'Cancel',handler:function(){
+						if (newstationwin != null)
+						{
+							newstationwin.close();
+						}
+					}}]
+
+			});
+
+
+
+//newStationPanel.load({store:metaDataStore});
+			var	frmTitle='';
+			if (id == null || id ==	undefined)
+			{
+				frmTitle="Add New Station";
+			}
+			else
+			{
+				frmTitle="Update Station";
+			}
+
+			var	newstationwin=new Ext.Window({title:frmTitle,width:390,modal:true,bodyStyle:'padding:5px;',	height:387,layout:'fit',closable:true,resizable:false,items:[newStationPanel]});
+
+
+			newStationPanel.load({url:"/stations/new2",params:{lng:longitude,lat:latitude,id:id},method:"GET",waitMsg:'Geting Data ...',success:newstationwin.show()});
+
+
+
+
+}
+
+
+function onShowStationInfoOnGoogleMap(id,site_idname,stationMarkers)
+{
+	var	overlay;
+
+	if (typeof site_idname =='string')
+	{
+
+		for(var	i=0;i<gmarkers.length;i++)
+		{
+			if (typeof gmarkers[i] == 'object')
+			{
+				if (gmarkers[i].getIcon().image	!= '/images/icon/marker.png' &&	gmarkers[i].getIcon().image	!= '/images/icon/marker_grey.png' &&gmarkers[i].getIcon().image	!= '/images/icon/marker_blue.png' && gmarkers[i].getIcon().image !=	'/images/icon/marker_green.png')
+				{
+					stationMarkers.each(function(rec){
+
+						if (rec.data.id==gmarkers[i].id)
+						{
+							if (rec.data.overall_assessment	== null)
+							{	
+								gmarkers[i].setImage("/images/icons/marker_grey.png");
+							}
+							else
+							{
+							if (rec.data.overall_assessment.toLowerCase() == 'impaired'	)
+							{	
+								gmarkers[i].setImage("/images/icons/marker_yellow.png");
+							}
+							if (rec.data.overall_assessment.toLowerCase() == 'potentially impaired')
+							{	
+								gmarkers[i].setImage("/images/icons/marker.png");
+							}
+							if (rec.data.overall_assessment.toLowerCase() == 'unimpaired')
+							{	
+								gmarkers[i].setImage("/images/icons/marker_blue.png");
+							}
+							}
+						}
+					});
+				}
+				if(site_idname==gmarkers[i].getTitle())
+				{
+					if ((gmarkers[i].getLatLng().lat()==0) || (gmarkers[i].getLatLng().lng() ==	0))
+					{
+						alert("This	station	location is	not	correct!");
+						return;
+					}
+
+					overlay=gmarkers[i];
+						overlay.openInfoWindowHtml("Loading	details...");
+							point=overlay.getLatLng();
+					overlay.setImage("http://maps.google.com/mapfiles/marker_greenS.png");
+
+							url='/stations/gmapshowsiteinfo?id=' + overlay.getTitle()  + '&newdata=true&datafromgooglemap=true&upload_x=' +	point.lng()	+ "&upload_y="+	point.lat();
+
+					var	conn = new Ext.data.Connection();
+					conn.request({
+							url: url,
+							method:	'GET',
+	//						params:	{"metaID": metaID, columnName: field},
+							success: function(responseObject) {
+							overlay.openInfoWindowHtml(responseObject.responseText);
+							},
+							failure: function()	{
+							Ext.Msg.alert('Status',	'Unable	to show	history	at this	time. Please try again later.');
+							}
+					});
+				}
+			}
+		}
+	}
+
+}
+
+function groupinfosearch()
+{
+
+	var	bExist = false;
+	var	centerTabPanel=Ext.getCmp("center_region");
+	centerTabPanel.items.each(function(el, ce, index){
+		if ((el.title == "Group/School Info") && (bExist ==	false))	{
+			bExist = true;
+				centerTabPanel.setActiveTab(ce);
+		centerTabPanel.getActiveTab(ce).getUpdater().update({url:'/admin/groupschool'});
+alert("tttt");
+		}
+	});
+	if (bExist == false) {
+		var	item = centerTabPanel.add({
+			title: "Group/School Info",
+			conaction: '123456',
+		layout:'fit',
+			closable: true,
+			autoScroll:	true,
+		autoLoad:{url:'/admin/groupschool',script:true}
+		});
+		centerTabPanel.setActiveTab(parseInt(centerTabPanel.items.length) -	1);
+	}
+
+}
+
+function location_search(){
+
+	var	myMap=Ext.getCmp("googlemap");
+	if(typeof myMap	== 'object')
+	{
+		if (myMap.getMap() != null)
+		{
+			var	address_string=Ext.getCmp("address_lookup_text_id");
+
+			if(typeof address_string ==	'object')
+			{
+				var	address=address_string.getValue().replace(/^\s+|\s+$/,'');
+
+				if (address	!= '')
+				{		  
+					if (!myMap.geocoder) { 
+								myMap.geocoder = new GClientGeocoder();	
+						} 
+					myMap.geocoder.getLocations(address,function(response) {
+							if (!response || response.Status.code != 200 ) {
+								alert("The address " + address + " not found!");
+							}
+							else {
+								var	place=response.Placemark[0];
+								var	point=new GLatLng(place.Point.coordinates[1],place.Point.coordinates[0]);
+								if (position_marker	!= null)
+										myMap.getMap().removeOverlay(position_marker);
+							position_marker=new	GMarker(point,{draggable:true});
+								myMap.getMap().setCenter(point);
+							//	if (myMap.getMap().getZoom() < 13) 
+								//		myMap.getMap().setZoom(13);
+								myMap.getMap().addOverlay(position_marker);
+							position_marker.setImage("http://maps.google.com/mapfiles/marker_greenL.png");
+
+
+								position_marker.openInfoWindowHtml('Address:<br>' +	place.address +	'<br>Latitude:'	+ point.lat() +	'<br>Longitude:' + point.lng() + '<br><a href="#" onclick="javascript:onZoomToHere(\'' +  point.lat() +	 '\',\'' +	point.lng()+  '\')"	>Zoom To Here</a>');
+							GEvent.clearListeners(position_marker, "dragstart");
+							GEvent.clearListeners(position_marker, "dragend");
+
+							GEvent.addListener(position_marker,	"dragstart", function () {
+									myMap.getMap().closeInfoWindow();
+							});
+							GEvent.addListener(position_marker,	"dragend", function	() {
+									point=position_marker.getLatLng();
+								position_marker.openInfoWindowHtml("<br>Latitude:" + point.lat() + "<br>Longitude:"	+ point.lng()+ '<br><a href="#"	onclick="javascript:onZoomToHere(\'' +	point.lat()	+  '\',\'' +  point.lng()+	'\')" >Zoom	To Here</a>');
+							});
+						}
+					});
+	
+				}
+				else
+					alert("address can not be empty!");
+			}
+
+
+//			myMap.getMap().setCenter(new GLatLng(43.8424,-79.4243),11);
+		}
+	}
+
+};
+
+function showschoolsite(site_idname,groupname)
+{
+		var	bExist = false;
+	if (groupname == null || groupname == undefined)
+		return;
+	var	centerPanel=Ext.getCmp('center_region');
+		var	bExist = false;
+		centerPanel.items.each(function(el,	ce,	index){
+		if ((el.title == "Group	Name:" + groupname)	&& (bExist == false)) {
+			bExist = true;
+				centerPanel.setActiveTab(ce);
+		var	formPanel=centerPanel.getActiveTab(ce);
+		formPanel.getUpdater().update({url:'/admin/groupdetails?id=' + 4 + "&content_id=" +	site_idname});
+		}
+	});
+	if (bExist == false) {
+
+	centerPanel.add({id:'groupsite_id_'	+ groupname,title: "Group Name:" + groupname,layout:'fit',autoScroll:true,closable:true,autoLoad:{url:'/admin/groupdetails?id=4&content_id=' + site_idname,script:true}});
+	centerPanel.setActiveTab(parseInt(centerPanel.items.length)-1);
+	}
+}
+
+
+function station_datadownload(site_idname)
+{
+		var	bExist = false;
+	if (site_idname	== null	|| site_idname == undefined)
+		return;
+	var	centerPanel=Ext.getCmp('center_region');
+		var	bExist = false;
+		centerPanel.items.each(function(el,	ce,	index){
+		if ((el.title == "Station Data Download") && (bExist ==	false))	{
+			bExist = true;
+				centerPanel.setActiveTab(ce);
+		var	iframe=centerPanel.getActiveTab(ce);
+//				  iframe.src='/downloads/station?id=' +	site_idname;
+//		iframe.items.items[0].reload();
+		}
+	});
+	if (bExist == false) {
+	var	panel=Ext.create('Ext.form.Panel',{border:false,autoLoad:'/downloads/station?id=' +	site_idname});
+//	var	panel=Ext.create('Ext.ux.SimpleIFrame',{border:false,src:'/downloads/station?id=' +	site_idname});
+	centerPanel.add({id:'station_data_download_tabpanel_id',title: 'Station	Data Download',layout:'fit',closable:true,items:panel});
+	centerPanel.setActiveTab(parseInt(centerPanel.items.length)-1);
+	}
+
+};
+
+function sitereport_dateselection(site_idname)
+{
+
+	var	sitedescription_store=Ext.create('Ext.data.Store',{	
+				proxy: {
+					type: 'ajax',
+					url: '/site_descriptions/datelist?id=' + site_idname,
+					method:'GET',
+					baseParams:{tree:true},
+					reader:	{
+					type: 'json',
+					root: 'data',
+					}
+				},
+				fields:['id',
+					'sampling_date2'],
+				root:'data',
+				id:'id',
+				autoLoad:true});
+
+
+	var	benthic_store=Ext.create('Ext.data.Store',{	
+				proxy: {
+					type: 'ajax',
+					url: '/benthics/datelist?id=' +	site_idname,
+					method:'GET',
+					baseParams:{tree:true},
+					reader:	{
+					type: 'json',
+					root: 'data',
+					}
+				},
+				fields:['id',
+					'sampling_date2'],
+				root:'data',
+				id:'id',
+				autoLoad:true});
+	var	waterchemistry_store=Ext.create('Ext.data.Store',{ 
+				proxy: {
+					type: 'ajax',
+					url: '/water_chemistries/datelist?id=' + site_idname,
+					method:'GET',
+					baseParams:{tree:true},
+					reader:	{
+					type: 'json',
+					root: 'data',
+					}
+				},
+				fields:['id',
+					'sampling_date2'],
+				root:'data',
+				id:'id',
+				autoLoad:true});
+
+		var	dateSelectPanel=Ext.create('Ext.form.FormPanel',{width:	581,
+				frame:false,
+				labelWidth:195,
+				border:false,
+								height:380,
+				id:'dateselectpanel_id',
+				items:[{xtype:'fieldset',
+					title:'Select Sampling Date	for	Creating Report:',
+					width:362,
+					height:117,
+					defaults:{
+						labelWidth:180,
+						boxMaxWidth:180,
+						xtype:'combo'
+					},
+					items:[{
+							border:true,
+							triggerAction:'all',
+							name:'description_date',
+							id:'description_date_select_id',
+							valueField:'id',
+							hiddenField:'id',
+							editable:false,
+							fieldLabel:'Site Description Sampling Date',
+							forceSelection:true,
+							store:sitedescription_store,mode:'local',
+							displayField:'sampling_date2'
+						},{
+							border:true,
+							triggerAction:'all',
+							valueField:'id',
+							id:'benthic_date_select_id',
+							name:'benthic_date',
+							fieldLabel:'Benthic	Sampling Date',
+							forceSelection:true,
+							store:benthic_store,mode:'local',
+							displayField:'sampling_date2'
+						},{
+							border:true,
+							triggerAction:'all',
+							id:'waterchemistry_date_select_id',
+							valueField:'id',
+							name:'waterchemistry_date',
+							fieldLabel:'Water Chemistry	Sampling Date',
+							forceSelection:true,
+							store:waterchemistry_store,mode:'local',
+							displayField:'sampling_date2'
+						}]
+
+				}],
+				buttons:[{text:'OK',handler:function(){
+						if (report_dateselectwin !=	null)
+						{
+var	newwindow=window.open('/reports/station?id='+site_idname + '&description=' + Ext.getCmp("description_date_select_id").getValue() + '&benthic=' +Ext.getCmp('benthic_date_select_id').getValue()	+ '&waterchemistry='+ Ext.getCmp("waterchemistry_date_select_id").getValue() ,'_blank','toolbar=yes');
+newwindow.focus();
+							//newStationPanel.getForm().reset();
+						}
+
+					}},{text:'Cancel',handler:function(){
+						if (report_dateselectwin !=	null)
+						{
+							report_dateselectwin.close();
+						}
+					}}]
+			});
+
+			var	report_dateselectwin=new Ext.Window({title:"Please Select Sampling Date",width:385,modal:true,bodyStyle:'padding:5px;',	height:190,layout:'fit',closable:true,resizable:false,items:[dateSelectPanel]});
+
+	sitedescription_store.on("load",function(){
+		if (sitedescription_store.getCount()>0){
+			Ext.getCmp("description_date_select_id").setValue(sitedescription_store.getAt(0).data.sampling_date2);
+		}
+	});
+	benthic_store.on("load",function(){
+		if (benthic_store.getCount()>0){
+			Ext.getCmp("benthic_date_select_id").setValue(benthic_store.getAt(0).data.sampling_date2);
+		}
+	});
+	waterchemistry_store.on("load",function(){
+		if (waterchemistry_store.getCount()>0){
+			Ext.getCmp("waterchemistry_date_select_id").setValue(waterchemistry_store.getAt(0).data.sampling_date2);
+		}
+	});
+sitedescription_store.load();
+benthic_store.load();
+waterchemistry_store.load();
+	report_dateselectwin.show()
+
+}
+
+
+
+
+function onSetSiteDescriptionData(descr_id,site_idname,near_inter,municipality,minwidth,lat,lng,watershedname,varAction,authen)
+{
+	var	frmTitle="";
+	if ((descr_id == undefined)	|| (descr_id =='') || descr_id == null )
+	{
+		frmTitle='Input	New	Site Description Data';
+	}
+	else
+	{
+		frmTitle='Update Site Description Data';
+	}
+
+		var	newdataPanel1={	
+				frame:true,
+								height:399,
+								width:550,
+				xtype:'panel',
+//				fileUpload:true,
+				border:false,
+				layout:'fit',
+				id:'newsitedesc-card-0',
+
+			items:[{layout:'column',
+				frame:true,
+				border:false,
+				defaults:{columnWidth: .50 },
+				items:[{
+					border:false,
+					frame:true,
+					items:[{
+						bodyStyle:'padding-right:5px;',
+						frame:true,
+						items:[{
+							xtype:'fieldset',
+							frame:true,
+							defaults:{border:false,	labelWidth:130,width:285
+							},
+							title:'Site	Info',
+							width:315,
+											height:165,
+							items:[{
+								xtype:'textfield',
+								fieldLabel:'Station	ID',
+								name:'site_idname',
+								style:'background:#99CCCC',
+								allowBlank:false,
+								value:site_idname,
+								readOnly:true,
+								emptyText:'Enter a station id',
+								msgTarget:'side'
+							},
+							{
+								xtype:'textfield',
+								fieldLabel:'Group/School Name',
+								allowBlank:false,
+								emptyText:'Enter a Group/School	Name',
+								name:'groupname',
+								msgTarget:'side'
+							},
+							{
+								xtype:'hidden',
+								name:'id',
+								value:descr_id
+							},
+							{
+								xtype:'textfield',
+								fieldLabel:'Leader/Teacher Name',
+								allowBlank:false,
+								emptyText:'Enter Leader/Teacher	Name',
+								name:'leadername',
+								msgTarget:'side'
+							},
+							{
+								xtype:'textfield',
+								fieldLabel:'Watershed',
+								allowBlank:false,
+								emptyText:'Enter Watershed Name',
+								readOnly:true,
+								style:'background:#99CCCC',
+								name:'watershedname',
+								value: watershedname,
+								msgTarget:'side'
+							},
+							{
+								xtype:'datefield',
+								fieldLabel:'Sampling Date',
+								allowBlank:false,
+								emptyText:'Select Sampling Date',
+								value: new Date(),
+								name:'sampling_date',
+								msgTarget:'side'
+							},
+							{
+								xtype:'label',
+								text:' '
+							}]
+						}]
+					},
+					{
+						bodyStyle:'padding-right:5px;',
+						frame:true,
+
+						items:[{
+							xtype:'fieldset',
+							frame:true,
+							title:'Geographic Data:',
+							width:315,
+							defaults:{border:false,	labelWidth:130,width:285
+							},
+											height:220,
+							items:[{
+								xtype:'textfield',
+								fieldLabel:'Nearest	Intersection',
+								readOnly:true,
+								style:'background:#99CCCC',
+								value:near_inter,
+								name:'nearest_intersection',
+								msgTarget:'side'
+							},
+							{
+								xtype:'textfield',
+								fieldLabel:'Latitude',
+								emptyText:'Enter latitude',
+								readOnly:true,
+								style:'background:#99CCCC',
+								value:lat,
+								name:'lat',
+								msgTarget:'side'
+							},
+							{
+								xtype:'textfield',
+								fieldLabel:'Longitude',
+								readOnly:true,
+								emptyText:'Enter logitude',
+								style:'background:#99CCCC',
+								value:lng,
+								name:'lng',
+								msgTarget:'side'
+							},
+							{
+								xtype:'textfield',
+								fieldLabel:'Municipality',
+								readOnly:true,
+								style:'background:#99CCCC',
+								value:municipality,
+								name:'municipality',
+								msgTarget:'side'
+							},
+							{
+								xtype:'textfield',
+								fieldLabel:'Site Length(m)',
+								name:'sitelength',
+								msgTarget:'side'
+							},
+							{
+								xtype:'textfield',
+								fieldLabel:'Minimum	Width(m)',
+								value:minwidth,
+								name:'minwidth',
+								msgTarget:'side'
+							},
+							{
+								xtype:'numberfield',
+								fieldLabel:'Number of Transects',
+								emptyText:'Enter number	of transects',
+								name:'nooftransects',
+								allowDecimals:false,
+								allowNegative:false,
+								maxValue:10,
+								minValue:1,
+								allowBlank:false,
+								msgTarget:'side'
+							}]
+						}]
+					}
+					]},{
+						bodyStyle:'padding-right:5px;',
+						frame:true,
+						border:false,
+						items:[{
+							xtype:'fieldset',
+							frame:true,
+							title:'Site	Pictures',
+							width:315,
+							labelWidth:90,
+											height:160,
+							items:[{
+								xtype:'filefield',
+								fieldLabel:'Upstream',
+								width:285,
+								name:'upstream_picture',
+								msgTarget:'side'
+							},
+							{
+								xtype:'filefield',
+								fieldLabel:'Downstream',
+								width:285,
+								name:'downstream_picture',
+								msgTarget:'side'
+							},
+							{
+								xtype:'filefield',
+								fieldLabel:'Sketch',
+								width:285,
+								name:'sketch_picture',
+								msgTarget:'side'
+							}]
+						}]
+					}]
+
+				}]
+			};
+
+		var	newdataPanel2={	
+				frame:true,
+				labelWidth:135,
+				border:true,
+				id:'newdataPanel2_id',
+				layout:'table',
+				layoutConfig:{columns:3,border:true},
+				items:[
+						{
+							width:90,
+							xtype:'label',
+							text:'1'
+						},
+						{
+							width:90,
+							xtype:'label',
+							text:'1'
+						},
+						{
+							width:90,
+							xtype:'label',
+							text:'1'
+						},
+					{
+						xtype:'textfield',
+						fieldLabel:'Nearest	Intersection',
+						width:40,
+						name:'nearest_intersection',
+						allowBlank:false,
+						blankText:'Enter nearest intersection name',
+						msgTarget:'side'
+					},
+					{
+						xtype:'textfield',
+						fieldLabel:'Latitude',
+						allowBlank:false,
+						blankText:'Enter latitude',
+						width:40,
+						name:'lat',
+						msgTarget:'side'
+					},
+					{
+						xtype:'textfield',
+						fieldLabel:'Longitude',
+						width:40,
+						allowBlank:false,
+						blankText:'Enter longitude',
+						name:'lng',
+						msgTarget:'side'
+					},
+					{
+						xtype:'textfield',
+						fieldLabel:'Municipality',
+						allowBlank:false,
+						blankText:'Enter municipality name',
+						width:40,
+						name:'lastname',
+						msgTarget:'side'
+					},
+					{
+						xtype:'textfield',
+						fieldLabel:'Minimum	Width(m)',
+						allowBlank:false,
+						blankText:'Enter minimum width',
+						width:40,
+						name:'minwidth',
+						msgTarget:'side'
+					},
+					{
+						xtype:'textfield',
+						fieldLabel:'Number of Transects',
+						name:'notrans',
+						width:40,
+						msgTarget:'side'
+					}]};
+
+	var	genres=new Ext.data.SimpleStore({
+			fields:['id','genres'],
+			data:[['0','N/A'],['1','L'],['2','R'],['3','BOTH']]});
+	
+	var	forestcover=new	Ext.data.SimpleStore({
+			fields:['id','forestcover'],
+			data:[['0','Not	Measured'],['1','1 - 25%'],['2','26	- 50%'],['3','51 - 75%'],['4','> 75%'],['5','None']]});
+
+		var	newdataPanel3={	width: 581,
+				frame:true,
+				xtype:'panel',
+				labelWidth:95,
+				border:false,
+								height:399,
+				id:'newsitedesc-card-1',
+				layout:'fit',
+				items:[{ xtype:'fieldset',
+					title:'Riparian	Data: Dominant Vegetation Type(Please Select)',
+					width:642,
+					frame:true,
+					autoHeight:true,
+					items:[{ layout:'column',
+						border:false,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',						items:[
+						{
+							width:102,
+							style:'text-align:center;',									xtype:'label',
+							text:"Transect"
+						},
+						{
+							width:400,
+							xtype:'label',
+							border:false,
+							style:'border-left:1px solid green;text-align:center;',								text:'Dominant Vegetation Type'
+						}]
+					},{	layout:'column',
+						border:false,
+						style:'border-left:1px solid green;border-right:1px	solid green;',						
+						defaults:{ columnWidth:	.165,
+								border:true,width:68,xtype:'label'},
+						items:[
+						{
+							style:'text-align:center;',								text:'#'
+						},
+						{
+							style:'border-top:1px solid	green;border-left:1px solid	green;text-align:center;',							text:'None'
+						},
+						{
+							style:'border-top:1px solid	green;border-left:1px solid	green;text-align:center;',							text:'Cultivated'
+						},
+						{
+							style:'border-top:1px solid	green;border-left:1px solid	green;text-align:center;',							text:'Meadow'
+						},
+						{
+							style:'border-top:1px solid	green;border-left:1px solid	green;text-align:center;',							text:'Scrub'
+						},
+						{
+							style:'border-top:1px solid	green;border-left:1px solid	green;text-align:center;',							text:'Forest'
+						}]
+					},{	layout:'column',
+						border:false,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',						
+						frame:true,
+						defaults:{ columnWidth:	.165,
+								border:true,value:'N/A',
+								triggerAction:'all',
+								forceSelection:true,
+								store:genres,mode:'local',
+								displayField:'genres',width:68,xtype:'combo'},
+						items:[
+						{
+							xtype:'label',
+							text:'1'
+						},
+						{
+							fieldLabel:'',
+							name:'dom_veg_none1'
+						},
+						{
+							name:'dom_veg_cultivated1'
+						},
+						{
+							name:'dom_veg_meadow1'
+						},
+						{
+							name:'dom_veg_scrub1'
+						},
+						{
+							name:'dom_veg_forest1'
+						}]
+					},{	layout:'column',
+						border:false,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',						
+						frame:true,
+						defaults:{ columnWidth:	.165,
+								border:true,value:'N/A',
+								triggerAction:'all',
+								forceSelection:true,
+								store:genres,mode:'local',
+								displayField:'genres',width:68,xtype:'combo'},
+						items:[
+						{
+							xtype:'label',
+							text:'2'
+						},
+						{
+							fieldLabel:'',
+							name:'dom_veg_none2'
+						},
+						{
+							name:'dom_veg_cultivated2'
+						},
+						{
+							name:'dom_veg_meadow2'
+						},
+						{
+							name:'dom_veg_scrub2'
+						},
+						{
+							name:'dom_veg_forest2'
+
+						}]
+					},{	layout:'column',
+						border:false,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',						
+						frame:true,
+						defaults:{ columnWidth:	.165,
+								border:true,value:'N/A',
+								triggerAction:'all',
+								forceSelection:true,
+								store:genres,mode:'local',
+								displayField:'genres',width:68,xtype:'combo'},
+						items:[
+						{
+							xtype:'label',
+							text:'3'
+						},
+						{
+							fieldLabel:'',
+							name:'dom_veg_none3'
+						},
+						{
+							name:'dom_veg_cultivated3'
+						},
+						{
+							name:'dom_veg_meadow3'
+						},
+						{
+							name:'dom_veg_scrub3'
+						},
+						{
+							name:'dom_veg_forest3'
+
+						}]
+					},{	layout:'column',
+						border:false,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',						
+						frame:true,
+						defaults:{ columnWidth:	.165,
+								border:true,value:'N/A',
+								triggerAction:'all',
+								forceSelection:true,
+								store:genres,mode:'local',
+								displayField:'genres',width:68,xtype:'combo'},
+						items:[
+						{
+							xtype:'label',
+							text:'4'
+						},
+						{
+							fieldLabel:'',
+							name:'dom_veg_none4'
+						},
+						{
+							name:'dom_veg_cultivated4'
+						},
+						{
+							name:'dom_veg_meadow4'
+						},
+						{
+							name:'dom_veg_scrub4'
+						},
+						{
+							name:'dom_veg_forest4'
+
+						}]
+					},{	layout:'column',
+						border:false,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',						
+						frame:true,
+						defaults:{ columnWidth:	.165,
+								value:'N/A',
+								triggerAction:'all',
+								forceSelection:true,
+								store:genres,mode:'local',
+								displayField:'genres',width:68,xtype:'combo'},
+						items:[
+						{
+							xtype:'label',
+							text:'5',
+							name:'genres1'
+						},
+						{
+							fieldLabel:'',
+							name:'dom_veg_none5'
+						},
+						{
+							name:'dom_veg_cultivated5'
+						},
+						{
+							name:'dom_veg_meadow5'
+						},
+						{
+							name:'dom_veg_scrub5'
+						},
+						{
+							name:'dom_veg_forest5'
+
+						}]
+					},{	layout:'column',
+						border:false,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',						
+						frame:true,
+						defaults:{ columnWidth:	.165,
+								border:true,value:'N/A',
+								triggerAction:'all',
+								forceSelection:true,
+								store:genres,mode:'local',
+								displayField:'genres',width:68,xtype:'combo'},
+						items:[
+						{
+							xtype:'label',
+							text:'6'
+						},
+						{
+							fieldLabel:'',
+							name:'dom_veg_none6'
+						},
+						{
+							name:'dom_veg_cultivated6'
+						},
+						{
+							name:'dom_veg_meadow6'
+						},
+						{
+							name:'dom_veg_scrub6'
+						},
+						{
+							name:'dom_veg_forest6'
+
+						}]
+					},{	layout:'column',
+						border:false,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',						
+						frame:true,
+						defaults:{ columnWidth:	.165,
+								border:true,value:'N/A',
+								triggerAction:'all',
+								forceSelection:true,
+								store:genres,mode:'local',
+								displayField:'genres',width:68,xtype:'combo'},
+						items:[
+						{
+							xtype:'label',
+							text:'7'
+						},
+						{
+							fieldLabel:'',
+							name:'dom_veg_none7'
+						},
+						{
+							name:'dom_veg_cultivated7'
+						},
+						{
+							name:'dom_veg_meadow7'
+						},
+						{
+							name:'dom_veg_scrub7'
+						},
+						{
+							name:'dom_veg_forest7'
+
+						}]
+					},{	layout:'column',
+						border:false,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',						
+						frame:true,
+						defaults:{ columnWidth:	.165,
+								border:true,value:'N/A',
+								triggerAction:'all',
+								forceSelection:true,
+								store:genres,mode:'local',
+								displayField:'genres',width:68,xtype:'combo'},
+						items:[
+						{
+							xtype:'label',
+							text:'8'
+						},
+						{
+							fieldLabel:'',
+							name:'dom_veg_none8'
+						},
+						{
+							name:'dom_veg_cultivated8'
+						},
+						{
+							name:'dom_veg_meadow8'
+						},
+						{
+							name:'dom_veg_scrub8'
+						},
+						{
+							name:'dom_veg_forest8'
+
+						}]
+					},{	layout:'column',
+						border:false,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',						
+						frame:true,
+						defaults:{ columnWidth:	.165,
+								border:true,value:'N/A',
+								triggerAction:'all',
+								forceSelection:true,
+								store:genres,mode:'local',
+								displayField:'genres',width:68,xtype:'combo'},
+						items:[
+						{
+							xtype:'label',
+							text:'9'
+						},
+						{
+							fieldLabel:'',
+							name:'dom_veg_none9'
+						},
+						{
+							name:'dom_veg_cultivated9'
+						},
+						{
+							name:'dom_veg_meadow9'
+						},
+						{
+							name:'dom_veg_scrub9'
+						},
+						{
+							name:'dom_veg_forest9'
+
+						}]
+					},{	layout:'column',
+						border:false,
+						style:'border:1px solid	green;',
+						frame:true,
+						
+						defaults:{ columnWidth:	.165,
+								border:true,value:'N/A',
+								triggerAction:'all',
+								forceSelection:true,
+								store:genres,mode:'local',
+								displayField:'genres',width:68,xtype:'combo'},
+						items:[
+						{
+							xtype:'label',
+							text:'10'
+						},
+						{
+							fieldLabel:'',
+							name:'dom_veg_none10'
+						},
+						{
+							name:'dom_veg_cultivated10'
+						},
+						{
+							name:'dom_veg_meadow10'
+						},
+						{
+							name:'dom_veg_scrub10'
+						},
+						{
+							name:'dom_veg_forest10'
+						}]
+					}]
+				}]};
+
+		var	newdataPanel4={	width: 580,
+				frame:true,
+				labelWidth:95,
+				border:false,
+								height:399,
+				id:'newsitedesc-card-2',
+				items:[
+					{xtype:'fieldset',
+					title:'Stream Width,Substrate,Overhead Cover Data:',
+					width:642,
+					frame:true,
+					autoHeight:true,
+					border:true,
+					items:[{
+						layout:'column',
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',
+						border:false,
+						items:[{xtype:'label',
+							labelWidth:50,
+							style:'text-align:center;',									text:'Transect',
+							width:50
+							},
+							{xtype:'label',
+							labelWidth:80,
+							style:'border-left:1px solid green;text-align:center;',
+							text:'Wetted Width',
+							width:80
+							},{
+
+								xtype:'label',
+								width:300,
+								style:'border-left:1px solid green;text-align:center;',
+								labelWidth:300,
+								text:'Dominant Substrate Type'
+							},
+							{	xtype:'label',
+								style:'border-left:1px solid green;text-align:center;',
+								labelWidth:98,
+								text:'Estimated	Overhead',
+								width:168
+							}
+						]},{
+						layout:'column',
+						border:false,
+						style:'border-left:1px solid green;border-right:1px	solid green;',
+						items:[{xtype:'label',
+							text:'#',
+							style:'text-align:center;',
+							width:50
+							},{xtype:'label',
+							text:'(meters)',
+							style:'border-left:1px solid green;text-align:center;',
+							width:80
+							},{
+
+								xtype:'label',
+								style:'border-top:1px solid	green;border-left:1px solid	green;text-align:center;',
+								width:60,
+								text:'Silt/Sand'
+							},
+							{
+								xtype:'label',
+								style:'border-top:1px solid	green;border-left:1px solid	green;text-align:center;',
+								width:60,
+								text:'Pebble'
+							},
+							{
+								xtype:'label',
+								style:'border-top:1px solid	green;border-left:1px solid	green;text-align:center;',
+								width:60,
+								text:'Gravel'
+							},
+							{
+								xtype:'label',
+								style:'border-top:1px solid	green;border-left:1px solid	green;text-align:center;',
+								width:60,
+								text:'Cobble'
+							},
+							{
+								xtype:'label',
+								style:'border-top:1px solid	green;border-left:1px solid	green;text-align:center;',
+								width:60,
+								text:'Boulder'
+							},
+							{	xtype:'label',
+								style:'border-left:1px solid green;text-align:center;',
+								text:'Forest Cover',
+								width:168
+							}
+						]},{
+						layout:'column',
+						border:false,
+						frame:true,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',
+						items:[{xtype:'label',
+							text:'1',
+							width:50
+							},{xtype:'textfield',
+							width:80,
+							name:'wetted_width1'
+							},{
+
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'silt1'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'pebble1'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'gravel1'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'cobble1'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'boulder1'
+							},{
+								xtype:'combo',
+								columnWidth: .65,
+								triggerAction:'all',
+								forceSelection:true,
+								store:forestcover,
+								mode:'local',
+								displayField:'forestcover',
+								valueField:'forestcover',
+								editable:false,
+								lazyRender:true,
+								value:'Not Measured',
+								name:'o_canopy1'
+
+							}
+						]},{
+						layout:'column',
+						border:false,
+						frame:true,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',
+						items:[{xtype:'label',
+							text:'2',
+							width:50
+							},{xtype:'textfield',
+							width:80,
+							name:'wetted_width2'
+							},{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'silt2'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'pebble2'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'gravel2'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'cobble2'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'boulder2'
+							},{
+								xtype:'combo',
+								columnWidth: .65,
+								triggerAction:'all',
+								forceSelection:true,
+								store:forestcover,
+								mode:'local',
+								displayField:'forestcover',
+								valueField:'forestcover',
+								editable:false,
+								lazyRender:true,
+								value:'Not Measured',
+								name:'o_canopy2'
+
+							}
+						]},{
+						layout:'column',
+						border:false,
+						frame:true,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',
+						items:[{xtype:'label',
+							text:'3',
+							width:50
+							},{xtype:'textfield',
+							width:80,
+							name:'wetted_width3'
+							},{
+
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'silt3'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'pebble3'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'gravel3'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'cobble3'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'boulder3'
+							},{
+								xtype:'combo',
+								columnWidth: .65,
+								triggerAction:'all',
+								forceSelection:true,
+								store:forestcover,
+								mode:'local',
+								displayField:'forestcover',
+								valueField:'forestcover',
+								editable:false,
+								lazyRender:true,
+								value:'Not Measured',
+								name:'o_canopy3'
+
+							}
+						]},{
+						layout:'column',
+						border:false,
+						frame:true,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',
+						items:[{xtype:'label',
+							text:'4',
+							width:50
+							},{xtype:'textfield',
+							width:80,
+							name:'wetted_width4'
+							},{
+
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'silt4'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'pebble4'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'gravel4'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'cobble4'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'boulder4'
+							},{
+								xtype:'combo',
+								columnWidth: .65,
+								triggerAction:'all',
+								forceSelection:true,
+								store:forestcover,
+								mode:'local',
+								displayField:'forestcover',
+								valueField:'forestcover',
+								editable:false,
+								lazyRender:true,
+								value:'Not Measured',
+								name:'o_canopy4'
+
+							}
+						]},{
+						layout:'column',
+						frame:true,
+						border:false,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',
+						items:[{xtype:'label',
+							text:'5',
+							labelWidth:25,
+							width:50
+							},{xtype:'textfield',
+							width:80,
+							name:'wetted_width5'
+							},{
+
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'silt5'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'pebble5'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'gravel5'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'cobble5'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'boulder5'
+							},{
+								xtype:'combo',
+								columnWidth: .65,
+								triggerAction:'all',
+								forceSelection:true,
+								store:forestcover,
+								mode:'local',
+								displayField:'forestcover',
+								valueField:'forestcover',
+								editable:false,
+								lazyRender:true,
+								value:'Not Measured',
+								name:'o_canopy5'
+
+							}
+						]},{
+						layout:'column',
+						frame:true,
+						border:false,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',
+						items:[{xtype:'label',
+							text:'6',
+							labelWidth:25,
+							width:50
+							},{xtype:'textfield',
+							width:80,
+							name:'wetted_width6'
+							},{
+
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'silt6'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'pebble6'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'gravel6'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'cobble6'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'boulder6'
+							},{
+								xtype:'combo',
+								columnWidth: .65,
+								triggerAction:'all',
+								forceSelection:true,
+								store:forestcover,
+								mode:'local',
+								displayField:'forestcover',
+								valueField:'forestcover',
+								editable:false,
+								lazyRender:true,
+								value:'Not Measured',
+								name:'o_canopy6'
+
+							}
+						]},{
+						layout:'column',
+						border:false,
+						frame:true,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',
+						items:[{xtype:'label',
+							text:'7',
+							labelWidth:25,
+							width:50
+							},{xtype:'textfield',
+							width:80,
+							name:'wetted_width7'
+							},{
+
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'silt7'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'pebble7'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'gravel7'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'cobble7'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'boulder7'
+							},{
+								xtype:'combo',
+								columnWidth: .65,
+								triggerAction:'all',
+								forceSelection:true,
+								store:forestcover,
+								mode:'local',
+								displayField:'forestcover',
+								valueField:'forestcover',
+								editable:false,
+								lazyRender:true,
+								value:'Not Measured',
+								name:'o_canopy7'
+
+							}
+						]},{
+						layout:'column',
+						border:false,
+						frame:true,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',
+						items:[{xtype:'label',
+							text:'8',
+							labelWidth:25,
+							align:'center',
+							width:50
+							},{xtype:'textfield',
+							width:80,
+							name:'wetted_width8'
+							},{
+
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'silt8'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'pebble8'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'gravel8'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'cobble8'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'boulder8'
+							},{
+								xtype:'combo',
+								columnWidth: .65,
+								triggerAction:'all',
+								forceSelection:true,
+								store:forestcover,
+								mode:'local',
+								displayField:'forestcover',
+								valueField:'forestcover',
+								editable:false,
+								lazyRender:true,
+								value:'Not Measured',
+								name:'o_canopy8'
+
+							}
+						]},{
+						layout:'column',
+						border:false,
+						frame:true,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',
+						items:[{xtype:'label',
+							text:'9',
+							labelWidth:25,
+							width:50
+							},{xtype:'textfield',
+							width:80,
+							name:'wetted_width9'
+							},{
+
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'silt9'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'pebble9'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'gravel9'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'cobble9'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'boulder9'
+							},{
+								xtype:'combo',
+								columnWidth: .65,
+								triggerAction:'all',
+								forceSelection:true,
+								store:forestcover,
+								mode:'local',
+								displayField:'forestcover',
+								valueField:'forestcover',
+								editable:false,
+								lazyRender:true,
+								value:'Not Measured',
+								name:'o_canopy9'
+
+							}
+						]},{
+						layout:'column',
+						frame:true,
+						border:false,
+						style:'border:1px solid	green;',
+						items:[{xtype:'label',
+							text:'10',
+							labelWidth:25,
+							width:50
+							},{xtype:'textfield',
+							width:80,
+							name:'wetted_width10'
+							},{
+
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'silt10'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'pebble10'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'gravel10'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'cobble10'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'boulder10'
+							},{
+								xtype:'combo',
+								columnWidth: .65,
+								triggerAction:'all',
+								forceSelection:true,
+								store:forestcover,
+								mode:'local',
+								displayField:'forestcover',
+								valueField:'forestcover',
+								editable:false,
+								lazyRender:true,
+								value:'Not Measured',
+								name:'o_canopy10'
+							}
+						]}
+					]}
+				]};
+
+
+
+		var	 newdataCardPanel=Ext.create('Ext.form.Panel',{url:'/site_descriptions/' + varAction,
+					autoHeight:true,
+					activeItem:	0,
+					id:'newdatacardpanel_id',
+					fileUpload:true,
+					multipart: true,
+					enctype: 'multipart/form-data',
+					layout:'card',
+					items:[newdataPanel1,newdataPanel3,newdataPanel4],
+					buttons:[{id:'site_description_newdata_sinput_lableinfo_id',xtype:'label',text:"Site description data not yet submitted."},'-',{id:'newsitedesc-move-prev',text:'Prev',handler:Ext.pass(navHandler,[-1])},{id:'newsitedesc-move-next',text:'Next',handler:Ext.pass(navHandler,[1])},{id:'newsitedesc-move-submit',text:'Submit',disabled:true,handler:function(){
+						if (newdataCardPanel !=	null)
+						{
+							var	valid=newdataCardPanel.getForm().isValid();
+							if (valid==false)
+							{
+								alert("You missed some fields that must	have data there,\nPlease check form	again!");
+								return false;
+							}
+
+							var	jsondata=Ext.JSON.encode(newdataCardPanel.getForm().getValues(false));
+//alert(jsondata);
+							newdataCardPanel.getForm().submit({
+								params:{data:jsondata},
+								method:'POST',
+								url:'/site_descriptions/' +	varAction,
+								waitMsg:'sending data...',
+								format:'json',
+								success:function(newdataCardPanel,request) 
+								{
+									var	results=Ext.JSON.decode(request.response.responseText);
+										alert(results.message);
+										var	url=Ext.getCmp("detail_info_tabpanel_id").autoLoad;
+										var		detailPanel=Ext.getCmp("detail_info_tabpanel");
+										detailPanel.setActiveTab(0);
+										var	tab=detailPanel.getActiveTab();
+										tab.removeAll();
+
+										var	panel=Ext.create('Ext.form.Panel',{border:false,
+															id:'detail_info_tabpanel_id',autoScroll:true,
+															style:'padding:5px',autoLoad:url});
+										tab.add(panel);
+								},
+								failure:function(newdataCardPanel,request)
+								{
+									var	results=Ext.JSON.decode(request.response.responseText);
+										alert(results.message);
+
+								}
+							});
+
+						}
+
+					}},{text:'Reset',handler:function(){
+						if (newdataCardPanel !=	null)
+						{
+							newdataCardPanel.getForm().reset();
+						}
+
+					}},{text:'Cancel',handler:function(){
+						if (newsiteinfoinputwin	!= null)
+						{
+							newsiteinfoinputwin.close();
+						}
+				}}]
+			});
+//alert("1117");	
+
+//Ext.bind(navHandler,newdataCardPanel,[-1]);
+
+		var	newsiteinfoinputwin=new	Ext.Window({title:frmTitle,width:700,modal:true,bodyStyle:'padding:3px;', height:505,layout:'fit',closable:true,resizable:false,items:[newdataCardPanel]});
+
+	if ((descr_id == undefined)	|| (descr_id =='') || descr_id == null )
+	{
+		newsiteinfoinputwin.show();
+	}
+	else
+	{
+		newdataCardPanel.load({url:"/site_descriptions/edit2",params:{id:descr_id},method:'POST',waitMsg:'Geting Data ...',success:newsiteinfoinputwin.show()});
+	}
+
+
+
+}
+function onSetBenthicData(benthic_id,site_idname,varAction)
+{
+
+	var	frmTitle="";
+	if ((benthic_id	== undefined) || (benthic_id =='') || benthic_id ==	null )
+	{
+		frmTitle='Input	New	Benthic	Sampling Data';
+	}
+	else
+	{
+		frmTitle='Update Benthic Sampling Data';
+	}
+	var	methodStore=new	Ext.data.SimpleStore({
+			fields:['id','methods'],
+			data:[['0','Kick and Sweep'],['1','Travelling Kick and Sweep'],['2','Travelling	Kick and Sweep-trnsects']]});
+
+
+		var	benthicsPanel1={
+					border:false,
+					width:403,
+					height:165,
+					frame:true,
+					bodyStyle:'padding:5px;',
+					items:[{ 
+						 xtype:'fieldset',
+						 title:'Collection Method:',
+						 width:380,
+						 height:150,
+						 labelAlign:'right',
+						 defaults:{
+							labelWidth:175
+							},
+						 items:[{xtype:'combo',
+							mode:'local',
+							store:methodStore,
+							displayField:'methods',
+							fieldLabel:'Collection Method',
+							triggerAction:'all',
+							forceSelection:true,
+							editable:false,
+							value:'Kick	and	Sweep',
+							lazyRender:true,
+							name:'methods'
+							},{xtype:'textarea',
+							fieldLabel:'Collection Method Description',
+							name:'method_description'
+							},{
+							fieldLabel:'Sampling Date',
+							xtype:'datefield',
+							value:new Date(),
+							name:'sampling_date'
+							}]
+						}]
+					};
+
+				var	benthicsPanel2={
+				//	layout:'form',
+					border:false,
+					width:403,
+					height:165,
+					frame:true,
+					bodyStyle:'padding:5px;',
+					items:[{
+						xtype:'fieldset',
+						bodyStyle:'padding:5px;',
+						width:380,
+						height:150,
+						columnWidth: .5,
+						defaults:{
+							labelWidth:170,
+							labelAlign:'right'
+						},
+						title:'Identification Method:',
+						items:[{
+							xtype:'textfield',
+							fieldLabel:'Station	ID Name',
+							value:site_idname,
+							readOnly:true,
+							style:'background:#99CCCC',
+							name:'site_idname'
+							},{
+								xtype:'hidden',
+								name:'id',
+								value:benthic_id
+							},
+							{
+							border:false,
+							xtype:'radiogroup',
+							fieldLabel:'Location of	identification',
+							//name:'iden_identification_location',
+							defaults:{xtype:'radio',width:90},
+							items:[{
+								boxLabel:'Field',
+								inputValue:'Field',
+								name:'iden_identification_location'
+								},{
+								boxLabel:'Lab',
+								inputValue:'Lab',
+								name:'iden_identification_location'
+								}]
+							},{
+							border:false,
+							xtype:'radiogroup',
+							fieldLabel:'Condition of sample',
+							//name:'iden_sample_condition',
+							defaults:{xtype:'radio'},
+							items:[{
+								boxLabel:'Live',
+								inputValue:'Live',
+								value:'Live',
+								name:'iden_sample_condition'
+								},{
+								boxLabel:'Preserved',
+								inputValue:'Preserved',
+								value:'Preserved',
+								name:'iden_sample_condition'
+								}]
+							},{
+							border:false,
+							xtype:'radiogroup',
+							fieldLabel:'Assisted observation',
+							//name:'iden_assisted_observation',
+							defaults:{xtype:'radio'},
+							items:[{
+								boxLabel:'Microscope',
+								inputValue:'Microscope',
+								name:'iden_assisted_observation'
+								},{
+								boxLabel:'Hand Lens',
+								inputValue:'Hand_lens',
+								name:'iden_assisted_observation'
+								}]
+							}]
+						}]
+					};
+
+
+				var	benthicsPanel3={border:true,frame:true,
+					//layout:'form',
+					width:810,
+					height:300,
+					bodyStyle:'padding:5px;margin-top:10px;',
+					items:[{ border:true,
+						 width:	790,
+						 height:270,
+						 frame:true,
+						 xtype:'fieldset',
+						 title:'Collections:',
+						 items:[{
+							layout:'column',
+							border:false,
+							frame:true,
+							items:[{
+								layout:'column',
+								border:false,
+								width:792,
+								defaults:{xtype:'label',frame:true,border:false},
+								items:[{
+									width:150,
+									style:'text-align:center;border-bottom:1px solid grey;',
+									text:'Name'
+									},{
+									Width:40,
+									style:'text-align:left;border-bottom:1px solid grey;',
+									text:' Count'
+
+									},{
+									width:150,
+									style:'text-align:center;border-bottom:1px solid grey;',
+									text:'Name'
+									},{
+									width:40,
+									style:'text-align:left;border-bottom:1px solid grey;',
+									text:' Count'
+
+									},{
+									width:150,
+									style:'text-align:center;border-bottom:1px solid grey;',
+									text:'Name'
+									},{
+									width:40,
+									style:'text-align:left;border-bottom:1px solid grey;',
+									text:' Count'
+
+									},{
+									width:150,
+									style:'text-align:center;border-bottom:1px solid grey;',
+									text:'Name'
+									},{
+									width:40,
+									style:'text-align:left;border-bottom:1px solid grey;',
+									text:'Count	 '
+
+									}]
+								}]
+
+							},{
+							layout:'column',
+							border:false,
+							items:[{
+								
+								width: 190,
+								border:false,
+								defaults:{
+									xtype:'textfield',
+									labelAlign:'right',
+									width: 188,
+									labelWidth:147
+								},
+								items:[{
+								xtype:'textfield',
+								fieldLabel:'Amphipoda (Scuds)',
+								name:'amp'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Anisoptera (Dragonflies)',
+								name:'ani'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Ceratopogonidae	(No-see-ums)',
+								name:'cer'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Chironomidae (Midges)',
+								name:'chi'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Coelenterata(Hydras)',
+								name:'aca'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Beetles(Coleoptera)',
+								name:'col'
+								},{xtype:'textfield',
+								fieldLabel:'Cuclidae (Mosquitos)',
+								name:'cuc'
+								}]
+								},{
+								labelAlign:'right',
+								width: 190,
+								border:false,
+								defaults:{
+									xtype:'textfield',
+									labelAlign:'right',
+									width: 188,
+									labelWidth:147
+								},
+								items:[{
+								xtype:'textfield',
+								fieldLabel:'Decapoda(Crayfish)',
+								name:'dec'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Misc. Diptera (Misc. True Flies)',
+								name:'dip'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Ephemeroptera(Mayflies)',
+								name:'eph'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Gastropoda (Snails,	Limpets)',
+								name:'gas'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Hemiptera(True Bugs)',
+								name:'hem'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Hirudnea(Leeches)',
+								name:'hir'
+								},{xtype:'textfield',
+								fieldLabel:'Isopoda	(Sow Bugs)',
+								name:'iso'
+								}]
+								},{
+							//	layout:'form',
+								labelAlign:'right',
+								width: 190,
+								border:false,
+								defaults:{
+									xtype:'textfield',
+									labelAlign:'right',
+									width: 188,
+									labelWidth:147
+								},
+								items:[{xtype:'textfield',
+								fieldLabel:'Lepidoptera	(Aquatic Moths)',
+								name:'lep'
+								},{xtype:'textfield',
+								fieldLabel:'Megaloptera	(Fishflies,	Alderflies)',
+								name:'meg'
+								},{xtype:'textfield',
+								fieldLabel:'Nematoda(Roundworms)',
+								name:'nem'
+								},{xtype:'textfield',
+								fieldLabel:'Oligochaeta	(Aquatic Earthworms)',
+								name:'oli'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Pelecypoda(Clams)',
+								name:'pal'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Plecoptera (Stonesflies)',
+								name:'ple'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Simuliidae (Blackflies)',
+								name:'sim'
+								}
+								]
+								},{
+								//layout:'form',
+								labelAlign:'right',
+								width: 190,
+								border:false,
+								defaults:{
+									xtype:'textfield',
+									labelAlign:'right',
+									width: 188,
+									labelWidth:147
+								},
+								items:[{
+								xtype:'textfield',
+								fieldLabel:'Tabanidae (Horse and Deer Flies)',
+								name:'tba'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Tipulidae (Craneflies)',
+								name:'tip'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Trichoptera(Caddisflies)',
+								name:'tri'
+								},{xtype:'textfield',
+								fieldLabel:'Trombidiformes-Hydracarina (Mites)',
+								name:'tro'
+								},{xtype:'textfield',
+								fieldLabel:'Turbellaria	(Flatworms)',
+								name:'tub'
+								},{xtype:'textfield',
+								fieldLabel:'Zygoptera(Damselflies)',
+								name:'zyg'
+								},{xtype:'textfield',
+								fieldLabel:'Unidentified',
+								name:'uniden'
+								}]
+							}]
+						}]
+					}]
+				};
+
+
+				 benthicsMainPanel=Ext.create('Ext.form.Panel',{
+					//layout:'form',
+					border:false,
+					frame:true,
+					width:830,
+					height:504,
+					bodyStyle:'padding:5px;',
+					items:[{ border:true,
+						 columnWidth: .5,
+						 layout:'column',
+						 items:	[benthicsPanel2,benthicsPanel1]
+						},benthicsPanel3],
+						buttons: [{id:'benthic_newdata_ainput_lableinfo_id',xtype:'label',text:"Benthic	data not yet submitted."},'-',{id:'benthic_newdata_ainput_submit',text:'Submit',handler:function(){
+						if (benthicsMainPanel != null)
+						{
+							var	jsondata=Ext.JSON.encode(benthicsMainPanel.getForm().getValues(false));
+// alert(benthicsMainPanel.getForm().url);
+// alert(jsondata);
+							if(benthicsMainPanel.getForm().isValid())
+							{
+								benthicsMainPanel.getForm().submit({
+									params:{data:jsondata},
+									method:'POST',
+									url:'/benthics/' + varAction,
+									waitMsg:'Sending Data ...',
+									timeout:90000,
+									format:'json',
+									success:function(result,request) 
+									{
+										var	results=Ext.JSON.decode(request.response.responseText);
+										if(results.success==true)
+										{
+
+											Ext.getCmp('benthic_newdata_ainput_lableinfo_id').setText('Benthic data	submitted.');
+											Ext.getCmp('benthic_newdata_ainput_submit').setText('Update');
+											benthicsMainPanel.getForm().findField('id').setValue(results.data.id);
+											alert(results.message);
+										var	url=Ext.getCmp("detail_info_tabpanel_id").autoLoad;
+										var		detailPanel=Ext.getCmp("detail_info_tabpanel");
+										detailPanel.setActiveTab(0);
+										var	tab=detailPanel.getActiveTab();
+										tab.removeAll();
+
+										var	panel=Ext.create('Ext.form.Panel',{border:false,
+															id:'detail_info_tabpanel_id',autoScroll:true,
+															style:'padding:5px',autoLoad:url});
+										tab.add(panel);
+										}
+										else
+										{
+										   alert(results.message);
+										}
+									},
+									failure:function(result,request)
+									{
+										var	results=Ext.JSON.decode(request.response.responseText);
+										if(results.success==true)
+										{
+										   alert(results.message);
+										}
+										else
+										{
+										   alert(results.message);
+										}
+									}
+								});
+							}
+							else
+							{
+								alert("Some	items are invalid");
+							}
+						}
+
+
+						}},{text:'Reset',handler:function(){
+							if (benthicsMainPanel != null)
+							{
+								benthicsMainPanel.getForm().reset();
+							}
+
+						}},{text:'Cancel',handler:function(){
+							if (benthicsWin	!= null)
+							{
+								benthicsWin.close();
+							}
+						}
+						}]
+							
+					});
+
+				
+
+
+
+
+
+			benthicsWin=new	Ext.Window({
+				title:frmTitle,
+				closable:true,
+				resizable:false,
+				width:850,
+				modal:true,height:550,
+				layout:'fit',	
+				bodyStyle:'padding:5px;',
+				items:benthicsMainPanel
+			})
+
+	if ((benthic_id	== undefined) || (benthic_id =='') || benthic_id ==	null )
+	{
+		benthicsWin.show();
+	}
+	else
+	{
+
+//alert("id:" +	benthic_id );
+// benthicsWin.show();
+//alert("22");
+/*
+benthic_datastore.on('load',function(){
+
+if (benthic_datastore.data.getCount()==1)
+{
+alert(benthic_datastore.data.getCount());
+
+var	values=benthic_datastore.data.getAt(0);
+alert("length="	+ values.length);
+
+alert(benthic_datastore.data.getAt(0));
+
+//		benthicsMainPanel.getForm().loadRecord(benthic_datastore.data);
+//		benthicsWin.show();
+
+alert("33");
+//benthicsMainPanel.store=benthic_datastore;
+
+}
+});
+*/
+
+//benthic_datastore.load({params:{id:benthic_id}});
+
+
+	//	benthicsMainPanel.getForm().waitMsgTarget=benthicsMainPanel.getEl();
+		benthicsMainPanel.getForm().load({url:"/benthics/edit2",
+						params:{id:benthic_id},
+						success:benthicsWin.show()});
+		
+
+	}
+
+		
+
+}
+function onSetWaterchemistryData(waterchemistry_id,site_idname,varAction)
+{
+
+
+	var	frmTitle="";
+	if ((waterchemistry_id == undefined) ||	(waterchemistry_id =='') ||	waterchemistry_id == null )
+	{
+		frmTitle='Input	New	Water Chemistry	Sampling Data';
+	}
+	else
+	{
+		frmTitle='Update Water Chemistry Sampling Data';
+	}
+
+
+
+
+				waterchemistryPanel=Ext.create('Ext.form.Panel',{border:false,frame:true,
+					url:'/water_chemistries/' +	varAction,
+					width:500,
+					bodyStyle:'padding:5px;padding-left:40px;',
+					height:345,
+					items:[{
+						xtype:'fieldset',
+						bodyStyle:'padding:5px;',
+						title:'Water Chemistry Data',
+						width:405,
+						defaults:{
+							 labelWidth:220
+						},
+						height:300,
+						items:[{
+							xtype:'textfield',
+							fieldLabel:'Station	ID Name',
+							value:site_idname,
+							style:'background:#99CCCC',
+							readOnly:true,
+							name:'site_idname'
+							},{
+							fieldLabel:'Sampling Date',
+							xtype:'datefield',
+							value:new Date(),
+							name:'sampling_date'
+							},{
+								xtype:'hidden',
+								name:'id',
+								value:waterchemistry_id
+							},{
+
+							xtype:'textfield',
+							fieldLabel:'pH Levels',
+							name:'ph'
+							},{
+							xtype:'textfield',
+							fieldLabel:'Instrument Name	& Model',
+							name:'ph_meter'
+							},{
+							xtype:'textfield',
+							fieldLabel:'Water Temperature (C)',
+							name:'water_temp'
+							},{
+							xtype:'textfield',
+							fieldLabel:'Instrument Name	& Model',
+							name:'water_meter'
+							},{
+							xtype:'textfield',
+							fieldLabel:'Dissolved Oxygen(ppm)',
+							name:'dissolved_oxy'
+							},{
+							xtype:'textfield',
+							fieldLabel:'Instrument Name	& Model',
+							name:'do_meter'
+							},{xtype:'textfield',
+							fieldLabel:'Conductivity (uS/cm)',
+							name:'conductivity'
+							},{
+							xtype:'textfield',
+							fieldLabel:'Instrument Name	& Model',
+							name:'conduct_meter'
+							}]
+						}],
+
+						buttons: [{id:'waterchemistry_newdata_sinput_lableinfo_id',xtype:'label',text:"Water chemistry data	not	yet	submitted."},'-',{id:'waterchemistry_newdata_ainput_submit',text:'Submit',handler:function(){
+						if (waterchemistryPanel	!= null)
+						{
+							var	jsondata=Ext.JSON.encode(waterchemistryPanel.getForm().getValues(false));
+							waterchemistryPanel.getForm().submit({
+								params:{data:jsondata},
+								method:'POST',
+								waitMsg:'Sending Data ...',
+								timeout:90000,
+								format:'json',
+								success:function(result,request) 
+								{
+									var	results=Ext.JSON.decode(request.response.responseText);
+									if(results.success==true)
+									{
+										alert(results.message);
+										Ext.getCmp('waterchemistry_newdata_sinput_lableinfo_id').setText('Water	chemistry data submitted.');
+										Ext.getCmp('waterchemistry_newdata_ainput_submit').setText('Update');
+										waterchemistryPanel.getForm().findField('id').setValue(results.data.id);
+										var	url=Ext.getCmp("detail_info_tabpanel_id").autoLoad;
+										var		detailPanel=Ext.getCmp("detail_info_tabpanel");
+										detailPanel.setActiveTab(0);
+										var	tab=detailPanel.getActiveTab();
+										tab.removeAll();
+
+										var	panel=Ext.create('Ext.form.Panel',{border:false,
+															id:'detail_info_tabpanel_id',autoScroll:true,
+															style:'padding:5px',autoLoad:url});
+										tab.add(panel);
+									}
+									else
+									{
+									   alert(results.message);
+									}
+								},
+								failure:function(result,request)
+								{
+									var	results=Ext.JSON.decode(request.response.responseText);
+									if(results.success==true)
+									{
+										alert(results.message);
+									}
+									else
+									{
+									   alert(results.message);
+									}
+								}
+							});
+
+						}
+
+
+
+						}},{text:'Reset',handler:function(){
+							if (waterchemistryPanel	!= null)
+							{
+								waterchemistryPanel.getForm().reset();
+							}
+
+						}},{text:'Cancel',handler:function(){
+							if (waterchemistryWin != null)
+							{
+								waterchemistryWin.close();
+							}
+						}
+					}]
+		});
+		waterchemistryWin=new Ext.Window({
+					title:frmTitle,
+					closable:true,
+					modal:true,
+					resizable:false,
+					width:520,
+					modal:true,height:390,
+					layout:'fit',	
+					bodyStyle:'padding:5px;',
+					items:waterchemistryPanel});
+
+	if ((waterchemistry_id == undefined) ||	(waterchemistry_id =='') ||	waterchemistry_id == null )
+	{
+		waterchemistryWin.show();
+	}
+	else
+	{
+		waterchemistryPanel.load({url:"/water_chemistries/edit2",params:{id:waterchemistry_id },method:'POST',waitMsg:'Geting Data ...',success:waterchemistryWin.show()});
+
+	}
+}
+function onGoogleMap_SiteDataInput(descr_id,benthic_id,waterchemistry_id,site_idname,near_inter,municipality,minwidth,lat,lng,watershedname,varAction)
+//function googlemap_newdatainput(siteid)
+{
+
+	var	methodStore=new	Ext.data.SimpleStore({
+			fields:['id','methods'],
+			data:[['0','Kick and Sweep'],['1','Travelling Kick and Sweep'],['2','Travelling	Kick and Sweep-trnsects']]});
+
+
+		var	newdataPanel1={	
+				frame:true,
+								height:399,
+								width:550,
+				xtype:'panel',
+//				fileUpload:true,
+				border:false,
+				layout:'fit',
+				id:'newsitedesc-card-0',
+
+			items:[{layout:'column',
+				frame:true,
+				border:false,
+				defaults:{columnWidth: .50 },
+				items:[{
+					border:false,
+					frame:true,
+					items:[{
+						bodyStyle:'padding-right:5px;',
+						frame:true,
+						items:[{
+							xtype:'fieldset',
+							frame:true,
+							defaults:{border:false,	labelWidth:130,width:285
+							},
+							title:'Site	Info',
+							width:315,
+											height:165,
+							items:[{
+								xtype:'textfield',
+								fieldLabel:'Station	ID',
+								name:'site_idname',
+								style:'background:#99CCCC',
+								allowBlank:false,
+								value:site_idname,
+								readOnly:true,
+								emptyText:'Enter a station id',
+								msgTarget:'side'
+							},
+							{
+								xtype:'textfield',
+								fieldLabel:'Group/School Name',
+								allowBlank:false,
+								emptyText:'Enter a Group/School	Name',
+								name:'groupname',
+								msgTarget:'side'
+							},
+							{
+								xtype:'hidden',
+								name:'id',
+								value:descr_id
+							},
+							{
+								xtype:'textfield',
+								fieldLabel:'Leader/Teacher Name',
+								allowBlank:false,
+								emptyText:'Enter Leader/Teacher	Name',
+								name:'leadername',
+								msgTarget:'side'
+							},
+							{
+								xtype:'textfield',
+								fieldLabel:'Watershed',
+								allowBlank:false,
+								emptyText:'Enter Watershed Name',
+								readOnly:true,
+								style:'background:#99CCCC',
+								name:'watershedname',
+								value: watershedname,
+								msgTarget:'side'
+							},
+							{
+								xtype:'datefield',
+								fieldLabel:'Sampling Date',
+								allowBlank:false,
+								emptyText:'Select Sampling Date',
+								value: new Date(),
+								name:'sampling_date',
+								msgTarget:'side'
+							},
+							{
+								xtype:'label',
+								text:' '
+							}]
+						}]
+					},
+					{
+						bodyStyle:'padding-right:5px;',
+						frame:true,
+
+						items:[{
+							xtype:'fieldset',
+							frame:true,
+							title:'Geographic Data:',
+							width:315,
+							defaults:{border:false,	labelWidth:130,width:285
+							},
+											height:220,
+							items:[{
+								xtype:'textfield',
+								fieldLabel:'Nearest	Intersection',
+								readOnly:true,
+								style:'background:#99CCCC',
+								value:near_inter,
+								name:'nearest_intersection',
+								msgTarget:'side'
+							},
+							{
+								xtype:'textfield',
+								fieldLabel:'Latitude',
+								emptyText:'Enter latitude',
+								readOnly:true,
+								style:'background:#99CCCC',
+								value:lat,
+								name:'lat',
+								msgTarget:'side'
+							},
+							{
+								xtype:'textfield',
+								fieldLabel:'Longitude',
+								readOnly:true,
+								emptyText:'Enter logitude',
+								style:'background:#99CCCC',
+								value:lng,
+								name:'lng',
+								msgTarget:'side'
+							},
+							{
+								xtype:'textfield',
+								fieldLabel:'Municipality',
+								readOnly:true,
+								style:'background:#99CCCC',
+								value:municipality,
+								name:'municipality',
+								msgTarget:'side'
+							},
+							{
+								xtype:'textfield',
+								fieldLabel:'Site Length(m)',
+								name:'sitelength',
+								msgTarget:'side'
+							},
+							{
+								xtype:'textfield',
+								fieldLabel:'Minimum	Width(m)',
+								value:minwidth,
+								name:'minwidth',
+								msgTarget:'side'
+							},
+							{
+								xtype:'numberfield',
+								fieldLabel:'Number of Transects',
+								emptyText:'Enter number	of transects',
+								name:'nooftransects',
+								allowDecimals:false,
+								allowNegative:false,
+								maxValue:10,
+								minValue:1,
+								allowBlank:false,
+								msgTarget:'side'
+							}]
+						}]
+					}
+					]},{
+						bodyStyle:'padding-right:5px;',
+						frame:true,
+						border:false,
+						items:[{
+							xtype:'fieldset',
+							frame:true,
+							title:'Site	Pictures',
+							width:315,
+							labelWidth:90,
+											height:160,
+							items:[{
+								xtype:'filefield',
+								fieldLabel:'Upstream',
+								width:285,
+								name:'upstream_picture',
+								msgTarget:'side'
+							},
+							{
+								xtype:'filefield',
+								fieldLabel:'Downstream',
+								width:285,
+								name:'downstream_picture',
+								msgTarget:'side'
+							},
+							{
+								xtype:'filefield',
+								fieldLabel:'Sketch',
+								width:285,
+								name:'sketch_picture',
+								msgTarget:'side'
+							}]
+						}]
+					}]
+
+				}]
+			};
+
+		var	newdataPanel2={	
+				frame:true,
+				labelWidth:135,
+				border:true,
+				id:'newdataPanel2_id',
+				layout:'table',
+				layoutConfig:{columns:3,border:true},
+				items:[
+						{
+							width:90,
+							xtype:'label',
+							text:'1'
+						},
+						{
+							width:90,
+							xtype:'label',
+							text:'1'
+						},
+						{
+							width:90,
+							xtype:'label',
+							text:'1'
+						},
+					{
+						xtype:'textfield',
+						fieldLabel:'Nearest	Intersection',
+						width:40,
+						name:'nearest_intersection',
+						allowBlank:false,
+						blankText:'Enter nearest intersection name',
+						msgTarget:'side'
+					},
+					{
+						xtype:'textfield',
+						fieldLabel:'Latitude',
+						allowBlank:false,
+						blankText:'Enter latitude',
+						width:40,
+						name:'lat',
+						msgTarget:'side'
+					},
+					{
+						xtype:'textfield',
+						fieldLabel:'Longitude',
+						width:40,
+						allowBlank:false,
+						blankText:'Enter longitude',
+						name:'lng',
+						msgTarget:'side'
+					},
+					{
+						xtype:'textfield',
+						fieldLabel:'Municipality',
+						allowBlank:false,
+						blankText:'Enter municipality name',
+						width:40,
+						name:'lastname',
+						msgTarget:'side'
+					},
+					{
+						xtype:'textfield',
+						fieldLabel:'Minimum	Width(m)',
+						allowBlank:false,
+						blankText:'Enter minimum width',
+						width:40,
+						name:'minwidth',
+						msgTarget:'side'
+					},
+					{
+						xtype:'textfield',
+						fieldLabel:'Number of Transects',
+						name:'notrans',
+						width:40,
+						msgTarget:'side'
+					}]};
+
+	var	genres=new Ext.data.SimpleStore({
+			fields:['id','genres'],
+			data:[['0','N/A'],['1','L'],['2','R'],['3','BOTH']]});
+	
+	var	forestcover=new	Ext.data.SimpleStore({
+			fields:['id','forestcover'],
+			data:[['0','Not	Measured'],['1','1 - 25%'],['2','26	- 50%'],['3','51 - 75%'],['4','> 75%'],['5','None']]});
+
+		var	newdataPanel3={	width: 581,
+				frame:true,
+				xtype:'panel',
+				labelWidth:95,
+				border:false,
+								height:399,
+				id:'newsitedesc-card-1',
+				layout:'fit',
+				items:[{ xtype:'fieldset',
+					title:'Riparian	Data: Dominant Vegetation Type(Please Select)',
+					width:642,
+					frame:true,
+					autoHeight:true,
+					items:[{ layout:'column',
+						border:false,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',						items:[
+						{
+							width:102,
+							style:'text-align:center;',									xtype:'label',
+							text:"Transect"
+						},
+						{
+							width:400,
+							xtype:'label',
+							border:false,
+							style:'border-left:1px solid green;text-align:center;',								text:'Dominant Vegetation Type'
+						}]
+					},{	layout:'column',
+						border:false,
+						style:'border-left:1px solid green;border-right:1px	solid green;',						
+						defaults:{ columnWidth:	.165,
+								border:true,width:68,xtype:'label'},
+						items:[
+						{
+							style:'text-align:center;',								text:'#'
+						},
+						{
+							style:'border-top:1px solid	green;border-left:1px solid	green;text-align:center;',							text:'None'
+						},
+						{
+							style:'border-top:1px solid	green;border-left:1px solid	green;text-align:center;',							text:'Cultivated'
+						},
+						{
+							style:'border-top:1px solid	green;border-left:1px solid	green;text-align:center;',							text:'Meadow'
+						},
+						{
+							style:'border-top:1px solid	green;border-left:1px solid	green;text-align:center;',							text:'Scrub'
+						},
+						{
+							style:'border-top:1px solid	green;border-left:1px solid	green;text-align:center;',							text:'Forest'
+						}]
+					},{	layout:'column',
+						border:false,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',						
+						frame:true,
+						defaults:{ columnWidth:	.165,
+								border:true,value:'N/A',
+								triggerAction:'all',
+								forceSelection:true,
+								store:genres,mode:'local',
+								displayField:'genres',width:68,xtype:'combo'},
+						items:[
+						{
+							xtype:'label',
+							text:'1'
+						},
+						{
+							fieldLabel:'',
+							name:'dom_veg_none1'
+						},
+						{
+							name:'dom_veg_cultivated1'
+						},
+						{
+							name:'dom_veg_meadow1'
+						},
+						{
+							name:'dom_veg_scrub1'
+						},
+						{
+							name:'dom_veg_forest1'
+						}]
+					},{	layout:'column',
+						border:false,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',						
+						frame:true,
+						defaults:{ columnWidth:	.165,
+								border:true,value:'N/A',
+								triggerAction:'all',
+								forceSelection:true,
+								store:genres,mode:'local',
+								displayField:'genres',width:68,xtype:'combo'},
+						items:[
+						{
+							xtype:'label',
+							text:'2'
+						},
+						{
+							fieldLabel:'',
+							name:'dom_veg_none2'
+						},
+						{
+							name:'dom_veg_cultivated2'
+						},
+						{
+							name:'dom_veg_meadow2'
+						},
+						{
+							name:'dom_veg_scrub2'
+						},
+						{
+							name:'dom_veg_forest2'
+
+						}]
+					},{	layout:'column',
+						border:false,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',						
+						frame:true,
+						defaults:{ columnWidth:	.165,
+								border:true,value:'N/A',
+								triggerAction:'all',
+								forceSelection:true,
+								store:genres,mode:'local',
+								displayField:'genres',width:68,xtype:'combo'},
+						items:[
+						{
+							xtype:'label',
+							text:'3'
+						},
+						{
+							fieldLabel:'',
+							name:'dom_veg_none3'
+						},
+						{
+							name:'dom_veg_cultivated3'
+						},
+						{
+							name:'dom_veg_meadow3'
+						},
+						{
+							name:'dom_veg_scrub3'
+						},
+						{
+							name:'dom_veg_forest3'
+
+						}]
+					},{	layout:'column',
+						border:false,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',						
+						frame:true,
+						defaults:{ columnWidth:	.165,
+								border:true,value:'N/A',
+								triggerAction:'all',
+								forceSelection:true,
+								store:genres,mode:'local',
+								displayField:'genres',width:68,xtype:'combo'},
+						items:[
+						{
+							xtype:'label',
+							text:'4'
+						},
+						{
+							fieldLabel:'',
+							name:'dom_veg_none4'
+						},
+						{
+							name:'dom_veg_cultivated4'
+						},
+						{
+							name:'dom_veg_meadow4'
+						},
+						{
+							name:'dom_veg_scrub4'
+						},
+						{
+							name:'dom_veg_forest4'
+
+						}]
+					},{	layout:'column',
+						border:false,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',						
+						frame:true,
+						defaults:{ columnWidth:	.165,
+								value:'N/A',
+								triggerAction:'all',
+								forceSelection:true,
+								store:genres,mode:'local',
+								displayField:'genres',width:68,xtype:'combo'},
+						items:[
+						{
+							xtype:'label',
+							text:'5',
+							name:'genres1'
+						},
+						{
+							fieldLabel:'',
+							name:'dom_veg_none5'
+						},
+						{
+							name:'dom_veg_cultivated5'
+						},
+						{
+							name:'dom_veg_meadow5'
+						},
+						{
+							name:'dom_veg_scrub5'
+						},
+						{
+							name:'dom_veg_forest5'
+
+						}]
+					},{	layout:'column',
+						border:false,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',						
+						frame:true,
+						defaults:{ columnWidth:	.165,
+								border:true,value:'N/A',
+								triggerAction:'all',
+								forceSelection:true,
+								store:genres,mode:'local',
+								displayField:'genres',width:68,xtype:'combo'},
+						items:[
+						{
+							xtype:'label',
+							text:'6'
+						},
+						{
+							fieldLabel:'',
+							name:'dom_veg_none6'
+						},
+						{
+							name:'dom_veg_cultivated6'
+						},
+						{
+							name:'dom_veg_meadow6'
+						},
+						{
+							name:'dom_veg_scrub6'
+						},
+						{
+							name:'dom_veg_forest6'
+
+						}]
+					},{	layout:'column',
+						border:false,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',						
+						frame:true,
+						defaults:{ columnWidth:	.165,
+								border:true,value:'N/A',
+								triggerAction:'all',
+								forceSelection:true,
+								store:genres,mode:'local',
+								displayField:'genres',width:68,xtype:'combo'},
+						items:[
+						{
+							xtype:'label',
+							text:'7'
+						},
+						{
+							fieldLabel:'',
+							name:'dom_veg_none7'
+						},
+						{
+							name:'dom_veg_cultivated7'
+						},
+						{
+							name:'dom_veg_meadow7'
+						},
+						{
+							name:'dom_veg_scrub7'
+						},
+						{
+							name:'dom_veg_forest7'
+
+						}]
+					},{	layout:'column',
+						border:false,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',						
+						frame:true,
+						defaults:{ columnWidth:	.165,
+								border:true,value:'N/A',
+								triggerAction:'all',
+								forceSelection:true,
+								store:genres,mode:'local',
+								displayField:'genres',width:68,xtype:'combo'},
+						items:[
+						{
+							xtype:'label',
+							text:'8'
+						},
+						{
+							fieldLabel:'',
+							name:'dom_veg_none8'
+						},
+						{
+							name:'dom_veg_cultivated8'
+						},
+						{
+							name:'dom_veg_meadow8'
+						},
+						{
+							name:'dom_veg_scrub8'
+						},
+						{
+							name:'dom_veg_forest8'
+
+						}]
+					},{	layout:'column',
+						border:false,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',						
+						frame:true,
+						defaults:{ columnWidth:	.165,
+								border:true,value:'N/A',
+								triggerAction:'all',
+								forceSelection:true,
+								store:genres,mode:'local',
+								displayField:'genres',width:68,xtype:'combo'},
+						items:[
+						{
+							xtype:'label',
+							text:'9'
+						},
+						{
+							fieldLabel:'',
+							name:'dom_veg_none9'
+						},
+						{
+							name:'dom_veg_cultivated9'
+						},
+						{
+							name:'dom_veg_meadow9'
+						},
+						{
+							name:'dom_veg_scrub9'
+						},
+						{
+							name:'dom_veg_forest9'
+
+						}]
+					},{	layout:'column',
+						border:false,
+						style:'border:1px solid	green;',
+						frame:true,
+						
+						defaults:{ columnWidth:	.165,
+								border:true,value:'N/A',
+								triggerAction:'all',
+								forceSelection:true,
+								store:genres,mode:'local',
+								displayField:'genres',width:68,xtype:'combo'},
+						items:[
+						{
+							xtype:'label',
+							text:'10'
+						},
+						{
+							fieldLabel:'',
+							name:'dom_veg_none10'
+						},
+						{
+							name:'dom_veg_cultivated10'
+						},
+						{
+							name:'dom_veg_meadow10'
+						},
+						{
+							name:'dom_veg_scrub10'
+						},
+						{
+							name:'dom_veg_forest10'
+						}]
+					}]
+				}]};
+
+		var	newdataPanel4={	width: 580,
+				frame:true,
+				labelWidth:95,
+				border:false,
+								height:399,
+				id:'newsitedesc-card-2',
+				items:[
+					{xtype:'fieldset',
+					title:'Stream Width,Substrate,Overhead Cover Data:',
+					width:642,
+					frame:true,
+					autoHeight:true,
+					border:true,
+					items:[{
+						layout:'column',
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',
+						border:false,
+						items:[{xtype:'label',
+							labelWidth:50,
+							style:'text-align:center;',									text:'Transect',
+							width:50
+							},
+							{xtype:'label',
+							labelWidth:80,
+							style:'border-left:1px solid green;text-align:center;',
+							text:'Wetted Width',
+							width:80
+							},{
+
+								xtype:'label',
+								width:300,
+								style:'border-left:1px solid green;text-align:center;',
+								labelWidth:300,
+								text:'Dominant Substrate Type'
+							},
+							{	xtype:'label',
+								style:'border-left:1px solid green;text-align:center;',
+								labelWidth:98,
+								text:'Estimated	Overhead',
+								width:168
+							}
+						]},{
+						layout:'column',
+						border:false,
+						style:'border-left:1px solid green;border-right:1px	solid green;',
+						items:[{xtype:'label',
+							text:'#',
+							style:'text-align:center;',
+							width:50
+							},{xtype:'label',
+							text:'(meters)',
+							style:'border-left:1px solid green;text-align:center;',
+							width:80
+							},{
+
+								xtype:'label',
+								style:'border-top:1px solid	green;border-left:1px solid	green;text-align:center;',
+								width:60,
+								text:'Silt/Sand'
+							},
+							{
+								xtype:'label',
+								style:'border-top:1px solid	green;border-left:1px solid	green;text-align:center;',
+								width:60,
+								text:'Pebble'
+							},
+							{
+								xtype:'label',
+								style:'border-top:1px solid	green;border-left:1px solid	green;text-align:center;',
+								width:60,
+								text:'Gravel'
+							},
+							{
+								xtype:'label',
+								style:'border-top:1px solid	green;border-left:1px solid	green;text-align:center;',
+								width:60,
+								text:'Cobble'
+							},
+							{
+								xtype:'label',
+								style:'border-top:1px solid	green;border-left:1px solid	green;text-align:center;',
+								width:60,
+								text:'Boulder'
+							},
+							{	xtype:'label',
+								style:'border-left:1px solid green;text-align:center;',
+								text:'Forest Cover',
+								width:168
+							}
+						]},{
+						layout:'column',
+						border:false,
+						frame:true,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',
+						items:[{xtype:'label',
+							text:'1',
+							width:50
+							},{xtype:'textfield',
+							width:80,
+							name:'wetted_width1'
+							},{
+
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'silt1'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'pebble1'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'gravel1'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'cobble1'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'boulder1'
+							},{
+								xtype:'combo',
+								columnWidth: .65,
+								triggerAction:'all',
+								forceSelection:true,
+								store:forestcover,
+								mode:'local',
+								displayField:'forestcover',
+								valueField:'forestcover',
+								editable:false,
+								lazyRender:true,
+								value:'Not Measured',
+								name:'o_canopy1'
+
+							}
+						]},{
+						layout:'column',
+						border:false,
+						frame:true,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',
+						items:[{xtype:'label',
+							text:'2',
+							width:50
+							},{xtype:'textfield',
+							width:80,
+							name:'wetted_width2'
+							},{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'silt2'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'pebble2'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'gravel2'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'cobble2'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'boulder2'
+							},{
+								xtype:'combo',
+								columnWidth: .65,
+								triggerAction:'all',
+								forceSelection:true,
+								store:forestcover,
+								mode:'local',
+								displayField:'forestcover',
+								valueField:'forestcover',
+								editable:false,
+								lazyRender:true,
+								value:'Not Measured',
+								name:'o_canopy2'
+
+							}
+						]},{
+						layout:'column',
+						border:false,
+						frame:true,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',
+						items:[{xtype:'label',
+							text:'3',
+							width:50
+							},{xtype:'textfield',
+							width:80,
+							name:'wetted_width3'
+							},{
+
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'silt3'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'pebble3'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'gravel3'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'cobble3'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'boulder3'
+							},{
+								xtype:'combo',
+								columnWidth: .65,
+								triggerAction:'all',
+								forceSelection:true,
+								store:forestcover,
+								mode:'local',
+								displayField:'forestcover',
+								valueField:'forestcover',
+								editable:false,
+								lazyRender:true,
+								value:'Not Measured',
+								name:'o_canopy3'
+
+							}
+						]},{
+						layout:'column',
+						border:false,
+						frame:true,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',
+						items:[{xtype:'label',
+							text:'4',
+							width:50
+							},{xtype:'textfield',
+							width:80,
+							name:'wetted_width4'
+							},{
+
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'silt4'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'pebble4'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'gravel4'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'cobble4'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'boulder4'
+							},{
+								xtype:'combo',
+								columnWidth: .65,
+								triggerAction:'all',
+								forceSelection:true,
+								store:forestcover,
+								mode:'local',
+								displayField:'forestcover',
+								valueField:'forestcover',
+								editable:false,
+								lazyRender:true,
+								value:'Not Measured',
+								name:'o_canopy4'
+
+							}
+						]},{
+						layout:'column',
+						frame:true,
+						border:false,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',
+						items:[{xtype:'label',
+							text:'5',
+							labelWidth:25,
+							width:50
+							},{xtype:'textfield',
+							width:80,
+							name:'wetted_width5'
+							},{
+
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'silt5'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'pebble5'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'gravel5'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'cobble5'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'boulder5'
+							},{
+								xtype:'combo',
+								columnWidth: .65,
+								triggerAction:'all',
+								forceSelection:true,
+								store:forestcover,
+								mode:'local',
+								displayField:'forestcover',
+								valueField:'forestcover',
+								editable:false,
+								lazyRender:true,
+								value:'Not Measured',
+								name:'o_canopy5'
+
+							}
+						]},{
+						layout:'column',
+						frame:true,
+						border:false,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',
+						items:[{xtype:'label',
+							text:'6',
+							labelWidth:25,
+							width:50
+							},{xtype:'textfield',
+							width:80,
+							name:'wetted_width6'
+							},{
+
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'silt6'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'pebble6'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'gravel6'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'cobble6'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'boulder6'
+							},{
+								xtype:'combo',
+								columnWidth: .65,
+								triggerAction:'all',
+								forceSelection:true,
+								store:forestcover,
+								mode:'local',
+								displayField:'forestcover',
+								valueField:'forestcover',
+								editable:false,
+								lazyRender:true,
+								value:'Not Measured',
+								name:'o_canopy6'
+
+							}
+						]},{
+						layout:'column',
+						border:false,
+						frame:true,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',
+						items:[{xtype:'label',
+							text:'7',
+							labelWidth:25,
+							width:50
+							},{xtype:'textfield',
+							width:80,
+							name:'wetted_width7'
+							},{
+
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'silt7'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'pebble7'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'gravel7'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'cobble7'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'boulder7'
+							},{
+								xtype:'combo',
+								columnWidth: .65,
+								triggerAction:'all',
+								forceSelection:true,
+								store:forestcover,
+								mode:'local',
+								displayField:'forestcover',
+								valueField:'forestcover',
+								editable:false,
+								lazyRender:true,
+								value:'Not Measured',
+								name:'o_canopy7'
+
+							}
+						]},{
+						layout:'column',
+						border:false,
+						frame:true,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',
+						items:[{xtype:'label',
+							text:'8',
+							labelWidth:25,
+							align:'center',
+							width:50
+							},{xtype:'textfield',
+							width:80,
+							name:'wetted_width8'
+							},{
+
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'silt8'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'pebble8'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'gravel8'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'cobble8'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'boulder8'
+							},{
+								xtype:'combo',
+								columnWidth: .65,
+								triggerAction:'all',
+								forceSelection:true,
+								store:forestcover,
+								mode:'local',
+								displayField:'forestcover',
+								valueField:'forestcover',
+								editable:false,
+								lazyRender:true,
+								value:'Not Measured',
+								name:'o_canopy8'
+
+							}
+						]},{
+						layout:'column',
+						border:false,
+						frame:true,
+						style:'border-top:1px solid	green;border-left:1px solid	green;border-right:1px solid green;',
+						items:[{xtype:'label',
+							text:'9',
+							labelWidth:25,
+							width:50
+							},{xtype:'textfield',
+							width:80,
+							name:'wetted_width9'
+							},{
+
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'silt9'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'pebble9'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'gravel9'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'cobble9'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'boulder9'
+							},{
+								xtype:'combo',
+								columnWidth: .65,
+								triggerAction:'all',
+								forceSelection:true,
+								store:forestcover,
+								mode:'local',
+								displayField:'forestcover',
+								valueField:'forestcover',
+								editable:false,
+								lazyRender:true,
+								value:'Not Measured',
+								name:'o_canopy9'
+
+							}
+						]},{
+						layout:'column',
+						frame:true,
+						border:false,
+						style:'border:1px solid	green;',
+						items:[{xtype:'label',
+							text:'10',
+							labelWidth:25,
+							width:50
+							},{xtype:'textfield',
+							width:80,
+							name:'wetted_width10'
+							},{
+
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'silt10'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'pebble10'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'gravel10'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'cobble10'
+							},
+							{
+								xtype:'checkbox',
+								width:60,
+								boxLabel:'',
+								inputValue:'1',
+								name:'boulder10'
+							},{
+								xtype:'combo',
+								columnWidth: .65,
+								triggerAction:'all',
+								forceSelection:true,
+								store:forestcover,
+								mode:'local',
+								displayField:'forestcover',
+								valueField:'forestcover',
+								editable:false,
+								lazyRender:true,
+								value:'Not Measured',
+								name:'o_canopy10'
+							}
+						]}
+					]}
+				]};
+
+
+
+
+		var	 newdataCardPanel=Ext.create('Ext.form.Panel',{url:'/site_descriptions/' + varAction,
+					autoHeight:true,
+					activeItem:	0,
+					id:'newdatacardpanel_id',
+					fileUpload:true,
+					multipart: true,
+					enctype: 'multipart/form-data',
+					layout:'card',
+					items:[newdataPanel1,newdataPanel3,newdataPanel4],
+					buttons:[{id:'site_description_newdata_sinput_lableinfo_id',xtype:'label',text:"Site description data not yet submitted."},'-',{id:'newsitedesc-move-prev',text:'Prev',handler:Ext.pass(navHandler,[-1])},{id:'newsitedesc-move-next',text:'Next',handler:Ext.pass(navHandler,[1])},{id:'newsitedesc-move-submit',text:'Submit',disabled:true,handler:function(){
+						if (newdataCardPanel !=	null)
+						{
+							var	valid=newdataCardPanel.getForm().isValid();
+							if (valid==false)
+							{
+								alert("You missed some fields that must	have data there,\nPlease check form	again!");
+								return false;
+							}
+
+							var	jsondata=Ext.JSON.encode(newdataCardPanel.getForm().getValues(false));
+//alert(jsondata);
+							newdataCardPanel.getForm().submit({
+								params:{data:jsondata},
+								method:'POST',
+								url:'/site_descriptions/' +	varAction,
+								waitMsg:'sending data...',
+								format:'json',
+								success:function(newdataCardPanel,request) 
+								{
+									var	results=Ext.JSON.decode(request.response.responseText);
+										alert(results.message);
+
+										var	url=Ext.getCmp("detail_info_tabpanel_id").autoLoad;
+										var		detailPanel=Ext.getCmp("detail_info_tabpanel");
+										detailPanel.setActiveTab(0);
+										var	tab=detailPanel.getActiveTab();
+										tab.removeAll();
+
+										var	panel=Ext.create('Ext.form.Panel',{border:false,
+															id:'detail_info_tabpanel_id',autoScroll:true,
+															style:'padding:5px',autoLoad:url});
+										tab.add(panel);
+								},
+								failure:function(newdataCardPanel,request)
+								{
+									var	results=Ext.JSON.decode(request.response.responseText);
+										alert(results.message);
+
+								}
+							});
+
+						}
+
+					}},{text:'Reset',handler:function(){
+						if (newdataCardPanel !=	null)
+						{
+							newdataCardPanel.getForm().reset();
+						}
+
+					}},{text:'Cancel',handler:function(){
+						if (newdatainputwin	!= null)
+						{
+							newdatainputwin.close();
+						}
+				}}]
+			});
+
+
+/*
+		  newdataCardPanel=	Ext.create('Ext.form.Panel',{url:'/site_descriptions/' + varAction,
+					bodyStyle:'padding:15px;',
+					autoHeight:true,
+					activeItem:	0,
+					fileUpload:	true,
+					enctype: 'multipart/form-data',
+					layout:	'card',
+					items:[newdataPanel1,newdataPanel3,newdataPanel4],
+				id:'newsitedesc-card-0',
+					buttons: [{id:'site_description_newdata_ainput_lableinfo_id',xtype:'label',text:"Site description data not yet submitted."},'-',{id:'newsitedesc-move-prev',text:'Prev',handler:Ext.pass(navHandler,[-1])},
+						{id:'newsitedesc-move-next',text:'Next',handler:Ext.pass(navHandler,[-1])},						//{text:'Load',handler:function(){
+					//	if (newdataPanel !=	null)
+					//	{
+						
+							//newdataPanel.getForm().reset();
+					//	}
+
+					//}},{text:'Save',handler:function(){
+					//	if (newdataPanel !=	null)
+					//	{
+					//		newdataPanel.getForm().reset();
+					//	}
+//
+					//}},
+						{id:'newsitedesc-move-submit',text:'Submit',disabled:true,handler:function(){
+						if (newdataCardPanel !=	null)
+						{
+							var	valid=newdataCardPanel.getForm().isValid();
+							if (valid==false)
+							{
+								alert("You missed some fields that must	have data there,\nPlease check form	again!");
+								return false;
+							}
+							var	jsondata=Ext.JSON.encode(newdataCardPanel.getForm().getValues(false));
+							newdataCardPanel.getForm().submit({
+								params:{data:jsondata},
+								method:'POST',
+								waitMsg:'Sending Data ...',
+								multipart: true,
+								enctype: 'multipart/form-data',
+								timeout: 90000,
+								format:'json',
+								success:function(result,request) 
+								{
+									var	results=Ext.util.JSON.decode(request.response.responseText);
+									if(results.success==true)
+									{
+										alert(results.message);
+										Ext.getCmp('site_description_newdata_ainput_lableinfo_id').setText('Site description data submitted.');										
+										Ext.getCmp('newsitedesc-move-submit').setText('Update');
+										newdataCardPanel.getForm().findField('id').setValue(results.data.id);
+										
+									}
+									else
+									{
+									   alert(results.message);
+									}
+								},
+								failure:function(result,request)
+								{
+									var	results=Ext.util.JSON.decode(request.response.responseText);
+									if(results.success==true)
+									{
+									   alert(results.message);
+									}
+									else
+									{
+									   alert(results.message);
+									}
+								}
+							});
+
+						}
+
+					}},{text:'Reset',handler:function(){
+						if (newdataCardPanel !=	null)
+						{
+							newdataCardPanel.getForm().reset();
+						}
+
+					}},{text:'Cancel',handler:function(){
+						if (newdatainputwin	!= null)
+						{
+							newdatainputwin.close();
+						}
+				}}]
+			});
+*/
+
+
+// end of site description data	input
+
+// start of	benthic	data input
+
+
+
+
+	/*	var	benthicsPanel1={
+					layout:'form',
+					border:false,
+					width:405,
+					height:161,
+					frame:false,
+					bodyStyle:'padding:5px;',
+					items:[{ 
+						 xtype:'fieldset',
+						 title:'Collection Method:',
+						width:395,
+						height:142,
+						 labelWidth:175,
+						 labelAlign:'right',
+						 defaults:{width:185},
+						 items:[{xtype:'combo',
+							mode:'local',
+							store:methodStore,
+							displayField:'methods',
+							fieldLabel:'Collection Method',
+							triggerAction:'all',
+							forceSelection:true,
+							editable:false,
+							value:'Kick	and	Sweep',
+							lazyRender:true,
+							name:'methods'
+							},{xtype:'textarea',
+							fieldLabel:'Collection Method Description',
+							name:'method_description'
+							},{
+							fieldLabel:'Sampling Date',
+							xtype:'datefield',
+							value:new Date(),
+							name:'sampling_date'
+							}]
+						}]
+					};
+
+				var	benthicsPanel2={
+					layout:'form',
+					border:false,
+					width:405,
+					height:161,
+					frame:false,
+					bodyStyle:'padding:5px;',
+					items:[{
+						xtype:'fieldset',
+						bodyStyle:'padding:5px;',
+						width:395,
+						height:142,
+						columnWidth: .5,
+						title:'Identification Method:',
+						labelWidth:170,labelAlign:'right',
+						items:[{
+							xtype:'textfield',
+							width:90,
+							fieldLabel:'Station	ID Name',
+							value:site_idname,
+							style:'background:#99CCCC',
+							readOnly:true,
+							name:'site_idname'
+							},{
+								xtype:'hidden',
+								name:'id',
+								value:benthic_id
+							},
+							{
+							border:false,
+							xtype:'radiogroup',
+							fieldLabel:'Location of	identification',
+							name:'iden_identification_location',
+							defaults:{xtype:'radio',width:90},
+							items:[{
+								boxLabel:'Field',
+								inputValue:'Field',
+								name:'iden_identification_location'
+								},{
+								boxLabel:'Lab',
+								inputValue:'Lab',
+								name:'iden_identification_location'
+								}]
+							},{
+							border:false,
+							xtype:'radiogroup',
+							fieldLabel:'Condition of sample',
+							name:'iden_sample_condition',
+							defaults:{xtype:'radio'},
+							items:[{
+								boxLabel:'Live',
+								inputValue:'Live',
+								value:'Live',
+								name:'iden_sample_condition'
+								},{
+								boxLabel:'Preserved',
+								inputValue:'Preserved',
+								value:'Preserved',
+								name:'iden_sample_condition'
+								}]
+							},{
+							border:false,
+							xtype:'radiogroup',
+							fieldLabel:'Assisted observation',
+							name:'iden_assisted_observation',
+							defaults:{xtype:'radio'},
+							items:[{
+								boxLabel:'Microscope',
+								inputValue:'Microscope',
+								name:'iden_assisted_observation'
+								},{
+								boxLabel:'Hand Lens',
+								inputValue:'Hand_lens',
+								name:'iden_assisted_observation'
+								}]
+							}]
+						}]
+					};
+
+
+
+				var	benthicsPanel3={	border:true,frame:false,
+					layout:'form',
+					width:815,
+					height:270,
+					bodyStyle:'padding:5px;margin-top:10px;',
+					items:[{ border:true,
+						 width:	800,
+						 height:249,
+						 xtype:'fieldset',
+						 title:'Collections:',
+						 items:[{
+							layout:'column',
+							border:false,
+							labelWidth:160,
+							items:[{
+								layout:'column',
+								border:false,
+								defaults:{xtype:'label',width:30},
+								items:[{
+									width:180,
+									columnWidth: .195,
+									style:'text-align:center;border-bottom:1px solid grey;',
+									text:'Name'
+									},{
+									columnWidth: .05,
+									width:50,
+									style:'text-align:center;border-bottom:1px solid grey;',
+									text:' Count'
+
+									},{
+									width:195,
+									style:'text-align:center;border-bottom:1px solid grey;',
+									columnWidth: .18,
+									text:'Name'
+									},{
+									width:55,
+									style:'text-align:center;border-bottom:1px solid grey;',
+									columnWidth: .05,
+									text:' Count'
+
+									},{
+									width:210,
+									style:'text-align:center;border-bottom:1px solid grey;',
+									columnWidth: .18,
+									text:'Name'
+									},{
+									width:55,
+									style:'text-align:center;border-bottom:1px solid grey;',
+									columnWidth: .05,
+									text:' Count'
+
+									},{
+									width:210,
+									style:'text-align:center;border-bottom:1px solid grey;',
+									columnWidth: .23,
+									text:'Name'
+									},{
+									width:55,
+									columnWidth: .05,
+									style:'text-align:center;border-bottom:1px solid grey;',
+									text:'Count	 '
+
+									}]
+								}]
+
+							},{
+							layout:'column',
+							border:false,
+							items:[{
+								layout:'form',
+								labelWidth:155,
+								border:false,
+								columnWidth: .25,
+								labelAlign:'right',
+								defaults:{xtype:'textfield',width:30},
+								items:[{
+								xtype:'textfield',
+								fieldLabel:'Coelenterata(Hydras)',
+								name:'aca'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Nematoda(Roundworms)',
+								name:'nem'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Hirudnea(Leeches)',
+								name:'hir'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Pelecypoda(Clams)',
+								name:'pal'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Decapoda(Crayfish)',
+								name:'dec'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Ephemeroptera(Mayflies)',
+								name:'eph'
+								},{xtype:'textfield',
+								fieldLabel:'Zygoptera(Damselflies)',
+								name:'zyg'
+								}]
+								},{
+								layout:'form',
+								labelAlign:'right',
+								labelWidth:140,
+								columnWidth: .23,
+								border:false,
+								defaults:{xtype:'textfield',width:30},
+								items:[{
+								xtype:'textfield',
+								fieldLabel:'Hemiptera(True Bugs)',
+								name:'hem'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Trichoptera(Caddisflies)',
+								name:'tri'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Beetles(Coleoptera)',
+								name:'col'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Chironomidae (Midges)',
+								name:'chi'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Culicidae (Mosquitos)',
+								name:'cuc'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Tipulidae (Craneflies)',
+								name:'tip'
+								},{xtype:'textfield',
+								fieldLabel:'Misc. Diptera (Misc. True Flies)',
+								name:'dip'
+								}]
+								},{
+								layout:'form',
+								labelAlign:'right',
+								labelWidth:140,
+								columnWidth: .23,
+								border:false,
+								defaults:{xtype:'textfield',width:30},
+								items:[{xtype:'textfield',
+								fieldLabel:'Turbellaria	(Flatworms)',
+								name:'tub'
+								},{xtype:'textfield',
+								fieldLabel:'Oligochaeta	(Aquatic Earthworms)',
+								name:'oli'
+								},{xtype:'textfield',
+								fieldLabel:'Isopoda	(Sow Bugs)',
+								name:'iso'
+								},{xtype:'textfield',
+								fieldLabel:'Amphipoda (Scuds)',
+								name:'amp'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Trombidiformes-Hydracarina (Mites)',
+								name:'tro'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Anisoptera (Dragonflies)',
+								name:'ani'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Plecoptera (Stonesflies)',
+								name:'ple'
+								}
+								]
+								},{
+								layout:'form',
+								columnWidth: .29,
+								labelAlign:'right',
+								labelWidth:180,
+								border:false,
+								defaults:{xtype:'textfield',width:30},
+								items:[{
+								xtype:'textfield',
+								fieldLabel:'Megaloptera	(Fishflies,	Alderflies)',
+								name:'meg'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Lepidoptera	(Aquatic Moths)',
+								name:'lep'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Gastropoda (Snails,	Limpets)',
+								name:'gas'
+								},{xtype:'textfield',
+								fieldLabel:'Tabanidae (Horse and Deer Flies)',
+								name:'tba'
+								},{xtype:'textfield',
+								fieldLabel:'Ceratopogonidae	(No-see-ums)',
+								name:'cer'
+								},{xtype:'textfield',
+								fieldLabel:'Simuliidae (Blackflies)',
+								name:'sim'
+								},{xtype:'textfield',
+								fieldLabel:'Unidentified',
+								name:'uniden'
+								}]
+							}]
+						}]
+					}]
+				};
+
+
+
+
+
+				 newSiteBenthicsMainPanel=new Ext.FormPanel({url:'/benthics/' +	varAction,
+					layout:'form',
+					border:false,
+					frame:false,
+					width:830,
+					height:480,
+					bodyStyle:'padding:5px;',
+					items:[{ border:true,
+						 columnWidth: .5,
+						 layout:'column',
+						 items:	[benthicsPanel2,benthicsPanel1]
+						},benthicsPanel3],
+						buttons: [{id:'benthic_newdata_ainput_lableinfo_id',xtype:'label',text:"Benthic	data not yet submitted."},'-',{id:'benthic_newdata_ainput_submit',text:'Submit',handler:function(){
+						if (newSiteBenthicsMainPanel !=	null)
+						{
+							var	jsondata=Ext.util.JSON.encode(newSiteBenthicsMainPanel.getForm().getValues(false));
+							newSiteBenthicsMainPanel.getForm().submit({
+								params:{data:jsondata},
+								method:'POST',
+								waitMsg:'Sending Data ...',
+								timeout:90000,
+								format:'json',
+								success:function(result,request) 
+								{
+									var	results=Ext.util.JSON.decode(request.response.responseText);
+									if(results.success==true)
+									{
+
+										Ext.getCmp('benthic_newdata_ainput_lableinfo_id').setText('Benthic data	submitted.');
+										Ext.getCmp('benthic_newdata_ainput_submit').setText('Update');
+										newSiteBenthicsMainPanel.getForm().findField('id').setValue(results.data.id);
+											if(!StationDetailEl){
+												var	bd = Ext.getCmp('station-details-panel').body;
+												bd.update('').setStyle('background','#fff');
+												StationDetailEl	= bd.createChild();	//create default empty div
+											}
+
+											StationDetailEl.hide().load({url:'/admin/details?id=' +	4 +	"&content_id=" + site_idname ,text:'Loading'});
+
+
+											StationDetailEl.slideIn('l', {stopFx:true,duration:.2});
+
+										alert(results.message);
+									}
+									else
+									{
+									   alert(results.message);
+									}
+								},
+								failure:function(result,request)
+								{
+									var	results=Ext.util.JSON.decode(request.response.responseText);
+									if(results.success==true)
+									{
+									   alert(results.message);
+									}
+									else
+									{
+									   alert(results.message);
+									}
+								}
+							});
+
+						}
+
+
+						}},{text:'Reset',handler:function(){
+							if (newSiteBenthicsMainPanel !=	null)
+							{
+								newSiteBenthicsMainPanel.getForm().reset();
+							}
+
+						}},{text:'Cancel',handler:function(){
+							if (newdatainputwin	!= null)
+							{
+								newdatainputwin.close();
+							}
+						}
+						}]
+							
+					});
+
+				
+// end of benthic data input
+				
+// start of	water chemistry	data input
+
+				newSiteWaterchemistryPanel=new Ext.FormPanel({layout:'form',border:true,frame:false,
+					url:'/water_chemistries/' +	varAction,
+					width:350,
+					bodyStyle:'padding:5px;',
+					height:250,
+					labelWidth:160,
+					items:[{
+						xtype:'fieldset',
+						bodyStyle:'padding:5px;',
+						title:'Water Chemistry Data',
+						width:335,
+						height:300,
+						items:[{
+							xtype:'textfield',
+							fieldLabel:'Station	ID Name',
+							value:site_idname,
+							style:'background:#99CCCC',
+							readOnly:true,
+							name:'site_idname'
+							},{
+							fieldLabel:'Sampling Date',
+							xtype:'datefield',
+							value:new Date(),
+							name:'sampling_date'
+							},{
+								xtype:'hidden',
+								name:'id',
+								value:waterchemistry_id
+							},{
+
+							xtype:'textfield',
+							fieldLabel:'pH Levels',
+							name:'ph'
+							},{
+							xtype:'textfield',
+							fieldLabel:'Instrument Name	& Model',
+							name:'ph_meter'
+							},{
+							xtype:'textfield',
+							fieldLabel:'Water Temperature (C)',
+							name:'water_temp'
+							},{
+							xtype:'textfield',
+							fieldLabel:'Instrument Name	& Model',
+							name:'water_meter'
+							},{
+							xtype:'textfield',
+							fieldLabel:'Dissolved Oxygen(ppm)',
+							name:'dissolved_oxy'
+							},{
+							xtype:'textfield',
+							fieldLabel:'Instrument Name	& Model',
+							name:'do_meter'
+							},{xtype:'textfield',
+							fieldLabel:'Conductivity (uS/cm)',
+							name:'conductivity'
+							},{
+							xtype:'textfield',
+							fieldLabel:'Instrument Name	& Model',
+							name:'conduct_meter'
+							}]
+						}],
+
+						buttons: [{id:'waterchemistry_newdata_ainput_lableinfo_id',xtype:'label',text:'Water chemistry data	not	yet	submitted.'},'-',{id:'waterchemistry_newdata_ainput_submit',text:'Submit',handler:function(){
+						if (newSiteWaterchemistryPanel != null)
+						{
+							var	jsondata=Ext.util.JSON.encode(newSiteWaterchemistryPanel.getForm().getValues(false));
+							newSiteWaterchemistryPanel.getForm().submit({
+								params:{data:jsondata},
+								method:'POST',
+								waitMsg:'Sending Data ...',
+								timeout:90000,
+								format:'json',
+								success:function(result,request) 
+								{
+									var	results=Ext.util.JSON.decode(request.response.responseText);
+									if(results.success==true)
+									{
+										Ext.getCmp('waterchemistry_newdata_ainput_lableinfo_id').setText('Water	chemistry data submitted.');
+										Ext.getCmp('waterchemistry_newdata_ainput_submit').setText('Update');
+										newSiteWaterchemistryPanel.getForm().findField('id').setValue(results.data.id);
+											if(!StationDetailEl){
+												var	bd = Ext.getCmp('station-details-panel').body;
+												bd.update('').setStyle('background','#fff');
+												StationDetailEl	= bd.createChild();	//create default empty div
+											}
+
+											StationDetailEl.hide().load({url:'/admin/details?id=' +	4 +	"&content_id=" + site_idname ,text:'Loading'});
+
+
+											StationDetailEl.slideIn('l', {stopFx:true,duration:.2});
+										alert(results.message);
+									}
+									else
+									{
+									   alert(results.message);
+									}
+								},
+								failure:function(result,request)
+								{
+									var	results=Ext.util.JSON.decode(request.response.responseText);
+									if(results.success==true)
+									{
+									   alert(results.message);
+									}
+									else
+									{
+									   alert(results.message);
+									}
+								}
+							});
+
+						}
+
+
+
+						}},{text:'Reset',handler:function(){
+							if (newSiteWaterchemistryPanel != null)
+							{
+								newSiteWaterchemistryPanel.getForm().reset();
+							}
+
+						}},{text:'Cancel',handler:function(){
+							if (newdatainputwin	!= null)
+							{
+								newdatainputwin.close();
+							}
+						}
+					}]
+		});
+*/
+
+
+		var	benthicsPanel1={
+					border:false,
+					width:403,
+					height:165,
+					frame:true,
+					bodyStyle:'padding:5px;',
+					items:[{ 
+						 xtype:'fieldset',
+						 title:'Collection Method:',
+						 width:380,
+						 height:150,
+						 labelAlign:'right',
+						 defaults:{
+							labelWidth:175
+							},
+						 items:[{xtype:'combo',
+							mode:'local',
+							store:methodStore,
+							displayField:'methods',
+							fieldLabel:'Collection Method',
+							triggerAction:'all',
+							forceSelection:true,
+							editable:false,
+							value:'Kick	and	Sweep',
+							lazyRender:true,
+							name:'methods'
+							},{xtype:'textarea',
+							fieldLabel:'Collection Method Description',
+							name:'method_description'
+							},{
+							fieldLabel:'Sampling Date',
+							xtype:'datefield',
+							value:new Date(),
+							name:'sampling_date'
+							}]
+						}]
+					};
+
+				var	benthicsPanel2={
+				//	layout:'form',
+					border:false,
+					width:403,
+					height:165,
+					frame:true,
+					bodyStyle:'padding:5px;',
+					items:[{
+						xtype:'fieldset',
+						bodyStyle:'padding:5px;',
+						width:380,
+						height:150,
+						columnWidth: .5,
+						defaults:{
+							labelWidth:170,
+							labelAlign:'right'
+						},
+						title:'Identification Method:',
+						items:[{
+							xtype:'textfield',
+							fieldLabel:'Station	ID Name',
+							value:site_idname,
+							readOnly:true,
+							style:'background:#99CCCC',
+							name:'site_idname'
+							},{
+								xtype:'hidden',
+								name:'id',
+								value:benthic_id
+							},
+							{
+							border:false,
+							xtype:'radiogroup',
+							fieldLabel:'Location of	identification',
+							name:'iden_identification_location',
+							defaults:{xtype:'radio',width:90},
+							items:[{
+								boxLabel:'Field',
+								inputValue:'Field',
+								name:'iden_identification_location'
+								},{
+								boxLabel:'Lab',
+								inputValue:'Lab',
+								name:'iden_identification_location'
+								}]
+							},{
+							border:false,
+							xtype:'radiogroup',
+							fieldLabel:'Condition of sample',
+							name:'iden_sample_condition',
+							defaults:{xtype:'radio'},
+							items:[{
+								boxLabel:'Live',
+								inputValue:'Live',
+								value:'Live',
+								name:'iden_sample_condition'
+								},{
+								boxLabel:'Preserved',
+								inputValue:'Preserved',
+								value:'Preserved',
+								name:'iden_sample_condition'
+								}]
+							},{
+							border:false,
+							xtype:'radiogroup',
+							fieldLabel:'Assisted observation',
+							name:'iden_assisted_observation',
+							defaults:{xtype:'radio'},
+							items:[{
+								boxLabel:'Microscope',
+								inputValue:'Microscope',
+								name:'iden_assisted_observation'
+								},{
+								boxLabel:'Hand Lens',
+								inputValue:'Hand_lens',
+								name:'iden_assisted_observation'
+								}]
+							}]
+						}]
+					};
+
+
+				var	benthicsPanel3={border:true,frame:true,
+					//layout:'form',
+					width:810,
+					height:300,
+					bodyStyle:'padding:5px;margin-top:10px;',
+					items:[{ border:true,
+						 width:	790,
+						 height:270,
+						 frame:true,
+						 xtype:'fieldset',
+						 title:'Collections:',
+						 items:[{
+							layout:'column',
+							border:false,
+							frame:true,
+							items:[{
+								layout:'column',
+								border:false,
+								width:792,
+								defaults:{xtype:'label',frame:true,border:false},
+								items:[{
+									width:150,
+									style:'text-align:center;border-bottom:1px solid grey;',
+									text:'Name'
+									},{
+									Width:40,
+									style:'text-align:left;border-bottom:1px solid grey;',
+									text:' Count'
+
+									},{
+									width:150,
+									style:'text-align:center;border-bottom:1px solid grey;',
+									text:'Name'
+									},{
+									width:40,
+									style:'text-align:left;border-bottom:1px solid grey;',
+									text:' Count'
+
+									},{
+									width:150,
+									style:'text-align:center;border-bottom:1px solid grey;',
+									text:'Name'
+									},{
+									width:40,
+									style:'text-align:left;border-bottom:1px solid grey;',
+									text:' Count'
+
+									},{
+									width:150,
+									style:'text-align:center;border-bottom:1px solid grey;',
+									text:'Name'
+									},{
+									width:40,
+									style:'text-align:left;border-bottom:1px solid grey;',
+									text:'Count	 '
+
+									}]
+								}]
+
+							},{
+							layout:'column',
+							border:false,
+							items:[{
+								
+								width: 190,
+								border:false,
+								defaults:{
+									xtype:'textfield',
+									labelAlign:'right',
+									width: 188,
+									labelWidth:147
+								},
+								items:[{
+								xtype:'textfield',
+								fieldLabel:'Amphipoda (Scuds)',
+								name:'amp'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Anisoptera (Dragonflies)',
+								name:'ani'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Ceratopogonidae	(No-see-ums)',
+								name:'cer'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Chironomidae (Midges)',
+								name:'chi'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Coelenterata(Hydras)',
+								name:'aca'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Beetles(Coleoptera)',
+								name:'col'
+								},{xtype:'textfield',
+								fieldLabel:'Cuclidae (Mosquitos)',
+								name:'cuc'
+								}]
+								},{
+								labelAlign:'right',
+								width: 190,
+								border:false,
+								defaults:{
+									xtype:'textfield',
+									labelAlign:'right',
+									width: 188,
+									labelWidth:147
+								},
+								items:[{
+								xtype:'textfield',
+								fieldLabel:'Decapoda(Crayfish)',
+								name:'dec'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Misc. Diptera (Misc. True Flies)',
+								name:'dip'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Ephemeroptera(Mayflies)',
+								name:'eph'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Gastropoda (Snails,	Limpets)',
+								name:'gas'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Hemiptera(True Bugs)',
+								name:'hem'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Hirudnea(Leeches)',
+								name:'hir'
+								},{xtype:'textfield',
+								fieldLabel:'Isopoda	(Sow Bugs)',
+								name:'iso'
+								}]
+								},{
+							//	layout:'form',
+								labelAlign:'right',
+								width: 190,
+								border:false,
+								defaults:{
+									xtype:'textfield',
+									labelAlign:'right',
+									width: 188,
+									labelWidth:147
+								},
+								items:[{xtype:'textfield',
+								fieldLabel:'Lepidoptera	(Aquatic Moths)',
+								name:'lep'
+								},{xtype:'textfield',
+								fieldLabel:'Megaloptera	(Fishflies,	Alderflies)',
+								name:'meg'
+								},{xtype:'textfield',
+								fieldLabel:'Nematoda(Roundworms)',
+								name:'nem'
+								},{xtype:'textfield',
+								fieldLabel:'Oligochaeta	(Aquatic Earthworms)',
+								name:'oli'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Pelecypoda(Clams)',
+								name:'pal'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Plecoptera (Stonesflies)',
+								name:'ple'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Simuliidae (Blackflies)',
+								name:'sim'
+								}
+								]
+								},{
+								//layout:'form',
+								labelAlign:'right',
+								width: 190,
+								border:false,
+								defaults:{
+									xtype:'textfield',
+									labelAlign:'right',
+									width: 188,
+									labelWidth:147
+								},
+								items:[{
+								xtype:'textfield',
+								fieldLabel:'Tabanidae (Horse and Deer Flies)',
+								name:'tba'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Tipulidae (Craneflies)',
+								name:'tip'
+								},{
+								xtype:'textfield',
+								fieldLabel:'Trichoptera(Caddisflies)',
+								name:'tri'
+								},{xtype:'textfield',
+								fieldLabel:'Trombidiformes-Hydracarina (Mites)',
+								name:'tro'
+								},{xtype:'textfield',
+								fieldLabel:'Turbellaria	(Flatworms)',
+								name:'tub'
+								},{xtype:'textfield',
+								fieldLabel:'Zygoptera(Damselflies)',
+								name:'zyg'
+								},{xtype:'textfield',
+								fieldLabel:'Unidentified',
+								name:'uniden'
+								}]
+							}]
+						}]
+					}]
+				};
+
+
+				 benthicsMainPanel=Ext.create('Ext.form.Panel',{
+					//layout:'form',
+					border:false,
+					frame:true,
+					width:830,
+					height:504,
+					bodyStyle:'padding:5px;',
+					items:[{ border:true,
+						 columnWidth: .5,
+						 layout:'column',
+						 items:	[benthicsPanel2,benthicsPanel1]
+						},benthicsPanel3],
+						buttons: [{id:'benthic_newdata_ainput_lableinfo_id',xtype:'label',text:"Benthic	data not yet submitted."},'-',{id:'benthic_newdata_ainput_submit',text:'Submit',handler:function(){
+						if (benthicsMainPanel != null)
+						{
+							var	jsondata=Ext.JSON.encode(benthicsMainPanel.getForm().getValues(false));
+// alert(benthicsMainPanel.getForm().url);
+// alert(jsondata);
+							if(benthicsMainPanel.getForm().isValid())
+							{
+								benthicsMainPanel.getForm().submit({
+									params:{data:jsondata},
+									method:'POST',
+									url:'/benthics/' + varAction,
+									waitMsg:'Sending Data ...',
+									timeout:90000,
+									format:'json',
+									success:function(result,request) 
+									{
+										var	results=Ext.JSON.decode(request.response.responseText);
+										if(results.success==true)
+										{
+
+											Ext.getCmp('benthic_newdata_ainput_lableinfo_id').setText('Benthic data	submitted.');
+											Ext.getCmp('benthic_newdata_ainput_submit').setText('Update');
+											benthicsMainPanel.getForm().findField('id').setValue(results.data.id);
+											alert(results.message);
+										var	url=Ext.getCmp("detail_info_tabpanel_id").autoLoad;
+										var		detailPanel=Ext.getCmp("detail_info_tabpanel");
+										detailPanel.setActiveTab(0);
+										var	tab=detailPanel.getActiveTab();
+										tab.removeAll();
+
+										var	panel=Ext.create('Ext.form.Panel',{border:false,
+															id:'detail_info_tabpanel_id',autoScroll:true,
+															style:'padding:5px',autoLoad:url});
+										tab.add(panel);
+										}
+										else
+										{
+										   alert(results.message);
+										}
+									},
+									failure:function(result,request)
+									{
+										var	results=Ext.JSON.decode(request.response.responseText);
+										if(results.success==true)
+										{
+										   alert(results.message);
+										}
+										else
+										{
+										   alert(results.message);
+										}
+									}
+								});
+							}
+							else
+							{
+								alert("Some	items are invalid");
+							}
+						}
+
+
+						}},{text:'Reset',handler:function(){
+							if (benthicsMainPanel != null)
+							{
+								benthicsMainPanel.getForm().reset();
+							}
+
+						}},{text:'Cancel',handler:function(){
+							if (newdatainputwin	!= null)
+							{
+								newdatainputwin.close();
+							}
+						}
+						}]
+							
+					});
+
+				
+
+
+				waterchemistryPanel=Ext.create('Ext.form.Panel',{border:false,frame:true,
+					url:'/water_chemistries/' +	varAction,
+					width:500,
+					bodyStyle:'padding:5px;padding-left:40px;',
+					height:345,
+					items:[{
+						xtype:'fieldset',
+						bodyStyle:'padding:5px;',
+						title:'Water Chemistry Data',
+						width:405,
+						defaults:{
+							 labelWidth:220
+						},
+						height:300,
+						items:[{
+							xtype:'textfield',
+							fieldLabel:'Station	ID Name',
+							value:site_idname,
+							style:'background:#99CCCC',
+							readOnly:true,
+							name:'site_idname'
+							},{
+							fieldLabel:'Sampling Date',
+							xtype:'datefield',
+							value:new Date(),
+							name:'sampling_date'
+							},{
+								xtype:'hidden',
+								name:'id',
+								value:waterchemistry_id
+							},{
+
+							xtype:'textfield',
+							fieldLabel:'pH Levels',
+							name:'ph'
+							},{
+							xtype:'textfield',
+							fieldLabel:'Instrument Name	& Model',
+							name:'ph_meter'
+							},{
+							xtype:'textfield',
+							fieldLabel:'Water Temperature (C)',
+							name:'water_temp'
+							},{
+							xtype:'textfield',
+							fieldLabel:'Instrument Name	& Model',
+							name:'water_meter'
+							},{
+							xtype:'textfield',
+							fieldLabel:'Dissolved Oxygen(ppm)',
+							name:'dissolved_oxy'
+							},{
+							xtype:'textfield',
+							fieldLabel:'Instrument Name	& Model',
+							name:'do_meter'
+							},{xtype:'textfield',
+							fieldLabel:'Conductivity (uS/cm)',
+							name:'conductivity'
+							},{
+							xtype:'textfield',
+							fieldLabel:'Instrument Name	& Model',
+							name:'conduct_meter'
+							}]
+						}],
+
+						buttons: [{id:'waterchemistry_newdata_sinput_lableinfo_id',xtype:'label',text:"Water chemistry data	not	yet	submitted."},'-',{id:'waterchemistry_newdata_ainput_submit',text:'Submit',handler:function(){
+						if (waterchemistryPanel	!= null)
+						{
+							var	jsondata=Ext.JSON.encode(waterchemistryPanel.getForm().getValues(false));
+							waterchemistryPanel.getForm().submit({
+								params:{data:jsondata},
+								method:'POST',
+								waitMsg:'Sending Data ...',
+								timeout:90000,
+								format:'json',
+								success:function(result,request) 
+								{
+									var	results=Ext.JSON.decode(request.response.responseText);
+									if(results.success==true)
+									{
+										alert(results.message);
+										Ext.getCmp('waterchemistry_newdata_sinput_lableinfo_id').setText('Water	chemistry data submitted.');
+										Ext.getCmp('waterchemistry_newdata_ainput_submit').setText('Update');
+										waterchemistryPanel.getForm().findField('id').setValue(results.data.id);
+									
+
+										var	url=Ext.getCmp("detail_info_tabpanel_id").autoLoad;
+										var		detailPanel=Ext.getCmp("detail_info_tabpanel");
+										detailPanel.setActiveTab(0);
+										var	tab=detailPanel.getActiveTab();
+										tab.removeAll();
+
+										var	panel=Ext.create('Ext.form.Panel',{border:false,
+															id:'detail_info_tabpanel_id',autoScroll:true,
+															style:'padding:5px',autoLoad:url});
+										tab.add(panel);
+									}
+									else
+									{
+									   alert(results.message);
+									}
+								},
+								failure:function(result,request)
+								{
+									var	results=Ext.JSON.decode(request.response.responseText);
+									if(results.success==true)
+									{
+										alert(results.message);
+									}
+									else
+									{
+									   alert(results.message);
+									}
+								}
+							});
+
+						}
+
+
+
+						}},{text:'Reset',handler:function(){
+							if (waterchemistryPanel	!= null)
+							{
+								waterchemistryPanel.getForm().reset();
+							}
+
+						}},{text:'Cancel',handler:function(){
+							if (newdatainputwin	!= null)
+							{
+								newdatainputwin.close();
+							}
+						}
+					}]
+		});
+
+
+
+
+		var	newdatainputPanel={title:'',
+			frame:false,
+			xtype: 'tabpanel',
+			id:'newdatainputtabpanel',
+			width:860,
+			height:560,
+				plain: true,  //remove the header border
+				activeTab: 0,
+			items:[{
+				title: 'New	Site Description Data',
+				id:'new_site_description_data_input',
+				layout:	'fit',
+				items: [newdataCardPanel]
+			},{
+				title: 'New	Site Benthics Data',
+				id:'new_site_benthics_data_input',
+				layout:	'fit',
+				items: [benthicsMainPanel]
+			},{
+				title: 'New	Site Water Chemistry Data',
+				id:'new_site_waterchemistry_data_input',
+				layout:	'fit',
+				items: [waterchemistryPanel]
+			}]
+			//newSiteWaterchemistryPanel
+//			items:[newdataCardPanel,benthicsPanel,waterchemistryPanel]
+
+		};
+		newdatainputwin=new	Ext.Window({
+			title:'Input New Data',
+			width:880,
+			height:580,
+			layout:'fit',
+			bodyStyle:'padding:5px;',
+			modal:true,
+			closable:true,
+			items:[newdatainputPanel]
+		});
+
+		newdatainputwin.show();
+
+
+}
+function onDeleteStation(id,subwh_id)
+{
+	var	conn = new Ext.data.Connection();
+	conn.request({
+		url: "/stations/destroy",
+		method:	'POST',
+		params:	{id:id},
+		success: function(responseObject) {
+			var	results=Ext.JSON.decode(responseObject.responseText);
+			if(results.success==true)
+			{
+
+				alert(results.message);
+				var	stationPanel=Ext.getCmp("station-list-panel");
+				stationPanel.getRootNode().reload();
+
+				var	treePanel=Ext.getCmp("tree-panel");
+				treePanel.getRootNode().cascade(function(rec){
+					siteidname=rec.attributes.id.split("/");
+					if(siteidname.length==4	&& parseInt(siteidname[3])== id)
+					{
+						rec.remove();
+					}
+				});
+
+				var	myMap=Ext.getCmp("googlemap");
+				for(var	i=0;i<gmarkers.length;i++)
+				{
+
+					if(id==gmarkers[i].id)
+					{
+						myMap.getMap().removeOverlay(gmarkers[i]);
+
+					}
+				};
+
+
+			}
+			else
+			{
+			   alert(results.message);
+			}
+
+		},
+		failure: function()	{
+			Ext.Msg.alert('Status',	'Unable	to delete the data at this time. Please	try	again later.');
+		}
+	});
+
+}
+
+
+function onDeleteSiteDescription(site_idname,id)
+{
+	var	conn = new Ext.data.Connection();
+	conn.request({
+		url: "/site_descriptions/destroy",
+		method:	'POST',
+		params:	{id:id},
+		success: function(responseObject) {
+			var	results=Ext.JSON.decode(responseObject.responseText);
+			if(results.success==true)
+			{
+				alert(results.message);
+
+				var	url=Ext.getCmp("detail_info_tabpanel_id").autoLoad;
+				var		detailPanel=Ext.getCmp("detail_info_tabpanel");
+				detailPanel.setActiveTab(0);
+				var	tab=detailPanel.getActiveTab();
+				tab.removeAll();
+
+				var	panel=Ext.create('Ext.form.Panel',{border:false,
+									id:'detail_info_tabpanel_id',autoScroll:true,
+									style:'padding:5px',autoLoad:url});
+				tab.add(panel);
+
+			}
+			else
+			{
+			   alert(results.message);
+			}
+
+		},
+		failure: function()	{
+			var	results=Ext.JSON.decode(responseObject.responseText);
+			if(results.success==false)
+			{
+				alert(results.message);
+			}
+			else
+			{
+				   alert("gggg " + results.message);
+			}
+
+//			Ext.Msg.alert('Status',	'Unable	to delete the data at this time. Please	try	again later.');
+		}
+	});
+
+}
+
+function onDeleteBenthic(site_idname,id)
+{
+	var	conn = new Ext.data.Connection();
+	conn.request({
+		url: "/benthics/destroy",
+		method:	'POST',
+		params:	{id:id},
+		success: function(responseObject) {
+			var	results=Ext.JSON.decode(responseObject.responseText);
+			if(results.success==true)
+			{
+				alert(results.message);
+				var	url=Ext.getCmp("detail_info_tabpanel_id").autoLoad;
+				var		detailPanel=Ext.getCmp("detail_info_tabpanel");
+				detailPanel.setActiveTab(0);
+				var	tab=detailPanel.getActiveTab();
+				tab.removeAll();
+
+				var	panel=Ext.create('Ext.form.Panel',{border:false,
+									id:'detail_info_tabpanel_id',autoScroll:true,
+									style:'padding:5px',autoLoad:url});
+				tab.add(panel);
+			}
+			else
+			{
+			   alert(results.message);
+			}
+
+		},
+		failure: function()	{
+			Ext.Msg.alert('Status',	'Unable	to delete the data at this time. Please	try	again later.');
+		}
+	});
+
+}
+
+function onDeleteWaterChemistry(site_idname,id)
+{
+	var	conn = new Ext.data.Connection();
+	conn.request({
+		url: "/water_chemistries/destroy",
+		method:	'POST',
+		params:	{id:id},
+		success: function(responseObject) {
+			var	results=Ext.JSON.decode(responseObject.responseText);
+			if(results.success==true)
+			{
+				alert(results.message);
+				var	url=Ext.getCmp("detail_info_tabpanel_id").autoLoad;
+				var		detailPanel=Ext.getCmp("detail_info_tabpanel");
+				detailPanel.setActiveTab(0);
+				var	tab=detailPanel.getActiveTab();
+				tab.removeAll();
+
+				var	panel=Ext.create('Ext.form.Panel',{border:false,
+									id:'detail_info_tabpanel_id',autoScroll:true,
+									style:'padding:5px',autoLoad:url});
+				tab.add(panel);
+
+			}
+			else
+			{
+			   alert(results.message);
+			}
+
+		},
+		failure: function()	{
+			Ext.Msg.alert('Status',	'Unable	to delete the data at this time. Please	try	again later.');
+		}
+	});
+
+}
+function Sitedescription_Pictures(sitedesc_id)
+{
+	var	centerPanel=Ext.getCmp('center_region');
+		var	bExist = false;
+		centerPanel.items.each(function(el,	ce,	index){
+		if ((el.title == "Site Descriptiuon	Pictures") && (bExist == false)) {
+				bExist = true;
+				centerPanel.setActiveTab(ce);
+		var	iframe=centerPanel.getActiveTab(ce);
+				iframe.src='/sitepictures/index?sitedesc_id=' +	sitedesc_id;
+		iframe.items.items[0].setSrc('/sitepictures/index?sitedesc_id='	+ sitedesc_id);
+
+		}
+	});
+
+	if (bExist == false) {
+	var	panel=Ext.create('Ext.ux.SimpleIFrame',{border:false,src:'/sitepictures/index?id=' + sitedesc_id});
+	centerPanel.add({id:'admin_sitedescription_picturers_id',title:	'Site Descriptiuon Pictures',layout:'fit',closable:true,items:panel});
+	centerPanel.setActiveTab(parseInt(centerPanel.items.length)-1);
+	}
+
+
+
+}
+
+function GroupnameManagment()
+{
+	var	bExist = false;
+	var	centerPanel=Ext.getCmp("center_region");
+	centerPanel.items.each(function(el,	ce,	index){
+		if ((el.title == "Group	Name Management") && (bExist ==	false))	{
+				bExist = true;
+				centerPanel.setActiveTab(ce);
+		var	iframe=centerPanel.getActiveTab(ce);
+		iframe.items.items[0].setSrc('/groupnames');
+
+		}
+	});
+	if (bExist == false) {
+	var	panel=Ext.create('Ext.ux.SimpleIFrame',{border:false,src:'/groupnames'});
+	centerPanel.add({id:'admin_groupnamemanagement_id',title: 'Group Name Management',layout:'fit',closable:true,items:panel});
+	centerPanel.setActiveTab(parseInt(centerPanel.items.length)-1);
+	}
+}
+function SubwatershedManagement()
+{
+	var	bExist = false;
+	var	centerPanel=Ext.getCmp("center_region");
+	centerPanel.items.each(function(el,	ce,	index){
+		if ((el.title == "Subwatershed Management")	&& (bExist == false)) {
+				bExist = true;
+				centerPanel.setActiveTab(ce);
+		var	iframe=centerPanel.getActiveTab(ce);
+		iframe.items.items[0].setSrc('/subwatersheds/management');
+
+		}
+	});
+	if (bExist == false) {
+
+	var	panel=Ext.create('Ext.ux.SimpleIFrame',{border:false,src:'/subwatersheds/management'});
+	centerPanel.add({id:'admin_subwatershed_management_id',title: 'Subwatershed	Management',layout:'fit',closable:true,items:panel});
+	centerPanel.setActiveTab(parseInt(centerPanel.items.length)-1);
+
+	}
+
+}
+
+function WatershedManagement()
+{
+
+
+	var	bExist = false;
+	var	centerPanel=Ext.getCmp("center_region");
+	centerPanel.items.each(function(el,	ce,	index){
+		if ((el.title == "Watershed	Management") &&	(bExist	== false)) {
+				bExist = true;
+				centerPanel.setActiveTab(ce);
+		var	iframe=centerPanel.getActiveTab(ce);
+		iframe.items.items[0].setSrc('/watersheds/management');
+
+		}
+	});
+	if (bExist == false) {
+
+	var	panel=Ext.create('Ext.ux.SimpleIFrame',{border:false,src:'/watersheds/management'});
+	centerPanel.add({id:'admin_watershed_management_id',title: 'Watershed Management',layout:'fit',closable:true,items:panel});
+	centerPanel.setActiveTab(parseInt(centerPanel.items.length)-1);
+
+	}
+
+
+
+}
+function ReCalculateOverallAssessment()
+{
+	var	conn = new Ext.data.Connection();
+	conn.request({
+		url: "/benthics/re_calculate_benthic",
+		method:	'POST',
+		success: function(responseObject) {
+			var	results=Ext.JSON.decode(responseObject.responseText);
+			if(results.success==true)
+			{
+				alert(results.message);
+			}
+			else
+			{
+			   alert(results.message);
+			}
+
+		},
+		failure: function()	{
+			Ext.Msg.alert('Status',	'Unable	to re-calculate	overall	accessment at this time. Please	try	again later.');
+		}
+	});
+
+
+}
+
+function SystemBackup()
+{
+
+	var	bExist = false;
+	var	centerPanel=Ext.getCmp("center_region");
+	centerPanel.items.each(function(el,	ce,	index){
+		if ((el.title == "System Backup") && (bExist ==	false))	{
+				bExist = true;
+				centerPanel.setActiveTab(ce);
+		var	iframe=centerPanel.getActiveTab(ce);
+		iframe.items.items[0].setSrc('/admin/systembackup');
+
+		}
+	});
+	if (bExist == false) {
+
+	var	panel=Ext.create('Ext.ux.SimpleIFrame',{border:false,src:'/admin/systembackup'});
+	centerPanel.add({id:'admin_system_backup_id',title:	'System	Backup',layout:'fit',closable:true,items:panel});
+	centerPanel.setActiveTab(parseInt(centerPanel.items.length)-1);
+
+	}
+}
+
+function SystemWaterhsedsPolygons()
+{
+
+
+	var	bExist = false;
+	var	centerPanel=Ext.getCmp("center_region");
+	centerPanel.items.each(function(el,	ce,	index){
+		if ((el.title == "Upload Watersheds	Polygons") && (bExist == false)) {
+				bExist = true;
+				centerPanel.setActiveTab(ce);
+		var	iframe=centerPanel.getActiveTab(ce);
+		iframe.items.items[0].setSrc('/admin/watershedspolygons');
+
+		}
+	});
+	if (bExist == false) {
+
+	var	panel=Ext.create('Ext.ux.SimpleIFrame',{border:false,src:'/admin/watershedspolygons'});
+	centerPanel.add({id:'admin_watersheds_polygons_id',title: 'Upload Watersheds Polygons',layout:'fit',closable:true,items:panel});
+	centerPanel.setActiveTab(parseInt(centerPanel.items.length)-1);
+
+	}
+
+
+}
+function SystemParams()
+{
+
+	var	bExist = false;
+	var	centerPanel=Ext.getCmp("center_region");
+	centerPanel.items.each(function(el,	ce,	index){
+		if ((el.title == "System Parameters") && (bExist ==	false))	{
+				bExist = true;
+				centerPanel.setActiveTab(ce);
+		var	iframe=centerPanel.getActiveTab(ce);
+		iframe.items.items[0].setSrc('/admin/systemparams');
+
+		}
+	});
+	if (bExist == false) {
+
+	var	panel=Ext.create('Ext.ux.SimpleIFrame',{border:false,src:'/admin/systemparams'});
+	centerPanel.add({id:'admin_system_params_id',title:	'System	Parameters',layout:'fit',closable:true,items:panel});
+	centerPanel.setActiveTab(parseInt(centerPanel.items.length)-1);
+
+	}
+
+}
+

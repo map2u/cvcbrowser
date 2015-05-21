@@ -2,21 +2,6 @@
 
 namespace Yorku\JuturnaBundle\Controller;
 
-/**
- * <copyright>
- * This file/program is free and open source software released under the GNU General Public
- * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
- * Public Licence is available at http://www.gnu.org/licenses
- * </copyright>
- *
- * <author>Shuilin (Joseph) Zhao</author>
- * <company>SpEAR Lab, Faculty of Environmental Studies, York University
- * <email>zhaoshuilin2004@yahoo.ca</email>
- * <date>created at 2014/01/07</date>
- * <date>last updated at 2015/05/21</date>
- * <summary>This file is supposed for administrator to create,update system parameters</summary>
- */
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -240,44 +225,44 @@ class SystemparamsController extends Controller {
         if ($request->getMethod() == "PUT") {
             $editForm->bind($request);
 
-            if ($editForm->isValid()) {
+        if ($editForm->isValid()) {
 
 
-                $em = $this->getDoctrine()->getManager();
-                //   $data = $form->getData();
-                if ($this->getUser())
-                    $user = $this->getUser();
-                else
-                    $user = $em->getRepository('YorkuJuturnaBundle:Users')->findOneById(1);
-                $dir = $this->get('kernel')->getRootDir() . '/../web/img';
+            $em = $this->getDoctrine()->getManager();
+            //   $data = $form->getData();
+            if ($this->getUser())
+                $user = $this->getUser();
+            else
+                $user = $em->getRepository('YorkuJuturnaBundle:Users')->findOneById(1);
+            $dir = $this->get('kernel')->getRootDir() . '/../web/img';
 
-                if ($editForm['file1']->getData() != null) {
-                    $editForm['file1']->getData()->move($dir, $editForm['file1']->getData()->getClientOriginalName());
-                    $Logo1Blob = file_get_contents($dir . "/" . $editForm['file1']->getData()->getClientOriginalName());
-                    $entity->setLogo1Imagetype($editForm['file1']->getData()->getClientMimeType());
-                    $entity->setLogo1Filename($editForm['file1']->getData()->getClientOriginalName());
-                    $entity->setLogo1Blob($Logo1Blob);
-                }
-                if ($editForm['file2']->getData() != null) {
-                    $editForm['file2']->getData()->move($dir, $editForm['file2']->getData()->getClientOriginalName());
-                    $Logo2Blob = file_get_contents($dir . "/" . $editForm['file2']->getData()->getClientOriginalName());
-                    $entity->setLogo2Imagetype($editForm['file2']->getData()->getClientMimeType());
-                    $entity->setLogo2Filename($editForm['file2']->getData()->getClientOriginalName());
-                    $entity->setLogo2Blob($Logo2Blob);
-                }
-                if ($editForm['file3']->getData() != null) {
-                    $editForm['file3']->getData()->move($dir, $editForm['file3']->getData()->getClientOriginalName());
-                    $Logo3Blob = file_get_contents($dir . "/" . $editForm['file3']->getData()->getClientOriginalName());
-                    $entity->setLogo3Imagetype($editForm['file3']->getData()->getClientMimeType());
-                    $entity->setLogo3Filename($editForm['file3']->getData()->getClientOriginalName());
-                    $entity->setLogo3Blob($Logo3Blob);
-                }
-
-                $em->persist($entity);
-                $em->flush();
-
-                return $this->redirect($this->generateUrl('systemparams_edit', array('id' => $id)));
+            if ($editForm['file1']->getData() != null) {
+                $editForm['file1']->getData()->move($dir, $editForm['file1']->getData()->getClientOriginalName());
+                $Logo1Blob = file_get_contents($dir . "/" . $editForm['file1']->getData()->getClientOriginalName());
+                $entity->setLogo1Imagetype($editForm['file1']->getData()->getClientMimeType());
+                $entity->setLogo1Filename($editForm['file1']->getData()->getClientOriginalName());
+                $entity->setLogo1Blob($Logo1Blob);
             }
+            if ($editForm['file2']->getData() != null) {
+                $editForm['file2']->getData()->move($dir, $editForm['file2']->getData()->getClientOriginalName());
+                $Logo2Blob = file_get_contents($dir . "/" . $editForm['file2']->getData()->getClientOriginalName());
+                $entity->setLogo2Imagetype($editForm['file2']->getData()->getClientMimeType());
+                $entity->setLogo2Filename($editForm['file2']->getData()->getClientOriginalName());
+                $entity->setLogo2Blob($Logo2Blob);
+            }
+            if ($editForm['file3']->getData() != null) {
+                $editForm['file3']->getData()->move($dir, $editForm['file3']->getData()->getClientOriginalName());
+                $Logo3Blob = file_get_contents($dir . "/" . $editForm['file3']->getData()->getClientOriginalName());
+                $entity->setLogo3Imagetype($editForm['file3']->getData()->getClientMimeType());
+                $entity->setLogo3Filename($editForm['file3']->getData()->getClientOriginalName());
+                $entity->setLogo3Blob($Logo3Blob);
+            }
+
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('systemparams_edit', array('id' => $id)));
+        }
         }
         $editForm->remove('logo1Blob')
                 ->remove('logo2Blob')

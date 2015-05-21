@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Credit Valley Conservation Browser!{% endblock %}</title>
+        {% block page_stylesheets %}
+            {% include "::stylesheets.html.twig" %}
+      {#          <link rel="stylesheet" href="/bundles/sonataadmin/x-editable/css/bootstrap-editable.css" type="text/css" media="all" />
+            <link rel="stylesheet" href="/bundles/sonataadmin/bootstrap/css/bootstrap.min.css" type="text/css" media="all"  />
+            <link rel="stylesheet" href="/bundles/sonataadmin/bootstrap/css/bootstrap-responsive.min.css" type="text/css" media="all" />
+#}
+{#            <link rel="stylesheet" href="/bundles/sonataadmin/select2/select2.css" type="text/css" media="all" />#}
+            <!-- base application asset -->
+            <link rel="stylesheet" href="/bundles/sonataadmin/css/layout.css" type="text/css" media="all" />
+            <link rel="stylesheet" href="/bundles/sonataadmin/css/colors.css" type="text/css" media="all" />
+{#            <link rel="stylesheet" href="/bundles/map2ucore/css/loginform.css" type="text/css" media="all" />#}
+            <link rel="stylesheet" href="/bundles/map2uleaflet/css/leaflet.css" type="text/css" media="all" />
+            <link rel="stylesheet" href="/bundles/map2uleaflet/css/leaflet.map2u.css" type="text/css" media="all" />
+
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <div style="position: absolute;left:0px;width:100%;padding: 0px; margin:0px; background-color: #cc2030;top:80px;height:50px;z-index: -1;">
+    </div>
+    <div style="position: absolute;left:0px;width:100%;padding: 0px; margin:0px; background-color: #141412;top:130px;height:50px;z-index: -1;">
+    </div>
+    <body class="sonata-bc">
+        {% block body %}
+            {% block page_container %}
+                {% block page_header %}
+                    <div class="container-fluid">
+                        <div class="row-fluid juturna-page-header">
+                            {% block page_header_content %}
+                                {{ sonata_block_render({ 'type': 'map2ucorebundle.block.page_header_content' }, { 'mode': 'public'}) }}
+                            {% endblock %} 
+                        </div>
+                        <div class="row-fluid juturna-main_menu">
+                            {% block fixed_top_menu %}
+                                {{ sonata_block_render({ 'type': 'applicationmap2ucorebundle.block.fixed_topmenu' }, { 'mode': 'public'}) }}
+                            {% endblock %}
+                        </div>
+                    </div>
+                {% endblock %}
+                {% block maincontent %}
+                    <div class="container-fluid maincontent">
+                        <div class="row-fluid">
+                            <div class="col-lg-7 col-sm-7">
+                                <div class="row-fluid homepage_flash">
+
+                                </div>
+                                <div class="row-fluid">
+                                    <div class="col-lg-6 col-sm-6">
+
+                                    </div>
+                                    <div class="col-lg-6 col-sm-6">
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-5 col-sm-5">
+                                <div class="row-fluid  homepage_description">
+
+                                </div>
+                                <div class="row-fluid homepage_mapsnapshot">
+
+                                </div>
+                                <div class="row-fluid  homepage_logo">
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                {% endblock %}
+                {% block withsidebar_content %}
+
+                    {% block page_body %}
+                        <div  style="float:left;width:250px; min-height:600px;border-right: 1px solid lightblue;">
+                            {%- block content_sidebar -%}
+                            {%- endblock content_sidebar -%}
+                        </div>
+
+                        <div style="margin-left: 254px;min-height:600px;border:0px solid red;">
+                            <div id="top clearfix">
+                            </div>
+                            {%- block content_body -%}
+                            {%- endblock content_body -%}
+                        </div>
+
+                    {% endblock %}
+                {% endblock %}    
+                {% block footer %}
+                    <div class="container-fluid footer">
+
+                        {{ render(controller("YorkuJuturnaBundle:Homepage:footer")) }}
+
+                    </div>
+                {%endblock %}
+            {% endblock %}
+        {% endblock %}
+        {% block page_javascripts %}
+
+            <script type="text/javascript">
+
+                window.SONATA_CONFIG = {
+                    CONFIRM_EXIT: {% if admin_pool is defined and admin_pool.getOption('confirm_exit') %}true{% else %}false{% endif %},
+                    USE_SELECT2: {% if admin_pool is defined and admin_pool.getOption('use_select2') %}true{% else %}false{% endif %}
+                };
+                window.SONATA_TRANSLATIONS = {
+                    CONFIRM_EXIT: '{{ 'confirm_exit'|trans({}, 'SonataAdminBundle')|escape('js') }}'
+                };
+
+            </script> 
+
+
+
+            {% include "::headjavascripts.html.twig" %}
+
+       
+        {% endblock %}
+    </body>
+</html>

@@ -148,17 +148,19 @@
             <p><a href="{{path('homepage_storydetail',{id:story.id})}}" target="_blank">Learn more...</a></p>
 
         </div>
-{#        {% if story.storyText %}
+        {% if story.storyText %}
             <div style="margin-top:10px;" id="pdf_display">
                 {{story.storyText|raw}}
+                {#                <a class="media" href="{{app.request.getSchemeAndHttpHost()}}/uploads/stories/{{story.id}}/pdf/{{story.storyFile}}">PDF File</a> #}
             </div>
         {% endif %}
         {% if story.storyFileType == 'text/html' %}
             <div style="margin-top:10px;" id="pdf_display">
                 {{story.storyFile|raw}}
+                {#                <a class="media" href="{{app.request.getSchemeAndHttpHost()}}/uploads/stories/{{story.id}}/pdf/{{story.storyFile}}">PDF File</a> #}
             </div>
         {% endif %}
-#}        <script>
+        <script>
             //      window.onload = function () {
 
             {# var myPDF = new PDFObject({

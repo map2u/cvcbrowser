@@ -1,0 +1,16 @@
+{# empty Twig template #}
+<div id="species_introduce_show_id" class="container-fluid" style="padding-bottom: 10px;margin-bottom: 10px;border-bottom: 2px   #090 ridge;">
+    <div class="row-fluid" style="padding-bottom: 10px;">
+        {% if species is defined %}<table><tbody><tr><td>{{species[0].getSpeciesName()}}</td><td>{{species[0].getCode()}}</td></tr></tbody></table>{% endif %}
+       {% set images=species[0].getImages()| unserialize %}
+        {% if images|length ==0 %}
+        <img style="border: 1px #0000FF solid" src="{{ asset('/bundles/yorkujuturna/images/blankimage.png')}}" style="width:120px;height:180px;"/>
+        {% else %}
+        {% for image in images %}
+        <img style="border: 1px #0000FF solid" src="{{ asset('/uploads/images/species/pictures/')}}{{image}}" style="width:120px;height:180px;"/>
+
+        {% endfor %}
+       {% endif %}
+
+    </div>
+</div>

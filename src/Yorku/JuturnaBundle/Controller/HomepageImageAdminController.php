@@ -2,23 +2,8 @@
 
 namespace Yorku\JuturnaBundle\Controller;
 
-/**
- * <copyright>
- * This file/program is free and open source software released under the GNU General Public
- * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
- * Public Licence is available at http://www.gnu.org/licenses
- * </copyright>
- *
- * <author>Shuilin (Joseph) Zhao</author>
- * <company>SpEAR Lab, Faculty of Environmental Studies, York University
- * <email>zhaoshuilin2004@yahoo.ca</email>
- * <date>created at 2014/12/02</date>
- * <date>last updated at 2015/05/19</date>
- * <summary>This file is created for managing homepage images</summary>
- */
-
 use Sonata\AdminBundle\Controller\CRUDController;
-use Symfony\Component\HttpFoundation\Request;
+use  Symfony\Component\HttpFoundation\Request;
 
 class HomepageImageAdminController extends CRUDController {
 
@@ -43,11 +28,12 @@ class HomepageImageAdminController extends CRUDController {
             $form->bind($this->get('request'));
 
             $isFormValid = $form->isValid();
+            //   $this->addFlash('sonata_flash_success', $isFormValid);
             // persist if the form was valid and if in preview mode the preview was approved
             if ($isFormValid && (!$this->isInPreviewMode() || $this->isPreviewApproved())) {
                 // check and save uploaded image, function return $object
                 $object = $this->saveUploadedImage($form, $object);
-
+              
                 $this->admin->create($object);
 
                 if ($this->isXmlHttpRequest()) {
@@ -81,7 +67,7 @@ class HomepageImageAdminController extends CRUDController {
         ));
     }
 
-    public function editAction($id = NULL, Request $request = NULL) {
+    public function editAction($id = NULL,Request $request = NULL) {
 
         $templateKey = 'edit';
 
@@ -120,6 +106,8 @@ class HomepageImageAdminController extends CRUDController {
                                 'objectId' => $this->admin->getNormalizedIdentifier($object)
                     ));
                 }
+                //  $flash =$this->getFlash('no_shape_file_uploaded');
+                //  if(empty($flash))
                 $this->addFlash('sonata_flash_success', 'flash_edit_success');
 
                 // redirect to edit mode

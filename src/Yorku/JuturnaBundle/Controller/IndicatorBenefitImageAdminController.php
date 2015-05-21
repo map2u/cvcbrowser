@@ -2,23 +2,8 @@
 
 namespace Yorku\JuturnaBundle\Controller;
 
-/**
- * <copyright>
- * This file/program is free and open source software released under the GNU General Public
- * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
- * Public Licence is available at http://www.gnu.org/licenses
- * </copyright>
- *
- * <author>Shuilin (Joseph) Zhao</author>
- * <company>SpEAR Lab, Faculty of Environmental Studies, York University
- * <email>zhaoshuilin2004@yahoo.ca</email>
- * <date>created at 2014/12/02</date>
- * <date>last updated at 2015/05/19</date>
- * <summary>This file is created for create and update images management of Indicator Benefit</summary>
- */
-
 use Sonata\AdminBundle\Controller\CRUDController;
-use Symfony\Component\HttpFoundation\Request;
+use  Symfony\Component\HttpFoundation\Request;
 
 class IndicatorBenefitImageAdminController extends CRUDController {
 
@@ -54,7 +39,7 @@ class IndicatorBenefitImageAdminController extends CRUDController {
                     $object = $this->admin->create($object);
                     $object = $this->saveUploadedFiles($form, $object);
                     $this->admin->update($object);
-
+                    
                     if ($this->isXmlHttpRequest()) {
                         return $this->renderJson(array(
                                     'result' => 'ok',
@@ -105,7 +90,7 @@ class IndicatorBenefitImageAdminController extends CRUDController {
         ));
     }
 
-    public function editAction($id = NULL, Request $request = NULL) {
+    public function editAction($id = NULL,Request $request = NULL) {
 
         $templateKey = 'edit';
 
@@ -144,7 +129,10 @@ class IndicatorBenefitImageAdminController extends CRUDController {
                                 'objectId' => $this->admin->getNormalizedIdentifier($object)
                     ));
                 }
-                 // redirect to edit mode
+                //  $flash =$this->getFlash('no_shape_file_uploaded');
+                //  if(empty($flash))
+                //   $this->addFlash('sonata_flash_success', 'flash_edit_success');
+                // redirect to edit mode
                 return $this->redirectTo($object);
             }
             $return = $this->checkFormValid($isFormValid);
@@ -193,7 +181,7 @@ class IndicatorBenefitImageAdminController extends CRUDController {
     private function saveUploadedFiles($form, $object) {
         $imageFile = $form['image_file']->getData();
 
-
+       
         $dir = './uploads/images/indicatorbenefitimages/' . $object->getId();
         if (file_exists($dir) == false) {
             shell_exec("mkdir -p " . $dir);

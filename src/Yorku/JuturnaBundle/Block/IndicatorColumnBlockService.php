@@ -1,18 +1,12 @@
 <?php
 
-/**
- * <copyright>
- * This file/program is free and open source software released under the GNU General Public
- * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
- * Public Licence is available at http://www.gnu.org/licenses
- * </copyright>
+/*
+ * This file is part of the Sonata project.
  *
- * <author>Shuilin (Joseph) Zhao</author>
- * <company>SpEAR Lab, Faculty of Environmental Studies, York University
- * <email>zhaoshuilin2004@yahoo.ca</email>
- * <date>created at 2014/01/07</date>
- * <date>last updated at 2015/05/21</date>
- * <summary>This file is supposed display to indicators in a page column</summary>
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Yorku\JuturnaBundle\Block;
@@ -30,19 +24,21 @@ use Map2u\CoreBundle\Block\FixedTopmenuBlockService as baseFixedTopmenuBlockServ
 use Doctrine\ORM\EntityManager;
 use Ibrows\Bundle\NewsletterBundle\Entity\Newsletter;
 
+/**
+ *
+ * @author     Joseph Zhao jzhao@map2u.com
+ */
 class IndicatorColumnBlockService extends BaseBlockService {
 
-    // by service to get the object of entity manager
     protected $em;
 
-    // pass parameters when creating service
     public function __construct($name, $templating, EntityManager $entityManager) {
         parent::__construct($name, $templating);
         $this->em = $entityManager;
     }
 
     /**
-     *  
+     * {@inheritdoc}
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null) {
         $criteria = array(
@@ -55,7 +51,6 @@ class IndicatorColumnBlockService extends BaseBlockService {
             'context' => $blockContext,
             'settings' => $blockContext->getSettings(),
             'indicators' => $indicators,
-            'criteria' => $criteria,
             'block' => $blockContext->getBlock()
         );
 
@@ -67,14 +62,14 @@ class IndicatorColumnBlockService extends BaseBlockService {
     }
 
     /**
-     * return service name
+     * {@inheritdoc}
      */
     public function getName() {
         return 'Indicator Column';
     }
 
     /**
-     * set default settings
+     * {@inheritdoc}
      */
     public function setDefaultSettings(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(

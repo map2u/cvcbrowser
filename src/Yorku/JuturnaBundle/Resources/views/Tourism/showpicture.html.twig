@@ -1,0 +1,16 @@
+ {% if entities is defined and entities|length > 0 %}
+
+<div >
+
+                {% set images=entities.getImages()|unserialize %}
+                {% if images|length >= picture %}
+
+    <img style="border: 1px #0000FF solid" src="{{ asset('uploads/images/tourisms/pictures/')}}{{entities.getId()}}/{{images[picture]}}" />
+
+                {% endif %}
+
+
+</div>                            
+
+
+{% endif %}

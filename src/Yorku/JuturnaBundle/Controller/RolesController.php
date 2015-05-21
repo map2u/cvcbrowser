@@ -2,21 +2,6 @@
 
 namespace Yorku\JuturnaBundle\Controller;
 
-/**
- * <copyright>
- * This file/program is free and open source software released under the GNU General Public
- * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
- * Public Licence is available at http://www.gnu.org/licenses
- * </copyright>
- *
- * <author>Shuilin (Joseph) Zhao</author>
- * <company>SpEAR Lab, Faculty of Environmental Studies, York University
- * <email>zhaoshuilin2004@yahoo.ca</email>
- * <date>created at 2014/01/07</date>
- * <date>last updated at 2015/05/19</date>
- * <summary>This file is supposed for user to create,update,delete and list user roles</summary>
- */
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -30,7 +15,8 @@ use Yorku\JuturnaBundle\Form\RolesType;
  *
  * @Route("/roles")
  */
-class RolesController extends Controller {
+class RolesController extends Controller
+{
 
     /**
      * Lists all Roles entities.
@@ -39,7 +25,8 @@ class RolesController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('YorkuJuturnaBundle:Roles')->findAll();
@@ -48,7 +35,6 @@ class RolesController extends Controller {
             'entities' => $entities,
         );
     }
-
     /**
      * Creates a new Roles entity.
      *
@@ -56,8 +42,9 @@ class RolesController extends Controller {
      * @Method("POST")
      * @Template("YorkuJuturnaBundle:Roles:new.html.twig")
      */
-    public function createAction(Request $request) {
-        $entity = new Roles();
+    public function createAction(Request $request)
+    {
+        $entity  = new Roles();
         $form = $this->createForm(new RolesType(), $entity);
         $form->bind($request);
 
@@ -71,7 +58,7 @@ class RolesController extends Controller {
 
         return array(
             'entity' => $entity,
-            'form' => $form->createView(),
+            'form'   => $form->createView(),
         );
     }
 
@@ -82,13 +69,14 @@ class RolesController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function newAction() {
+    public function newAction()
+    {
         $entity = new Roles();
-        $form = $this->createForm(new RolesType(), $entity);
+        $form   = $this->createForm(new RolesType(), $entity);
 
         return array(
             'entity' => $entity,
-            'form' => $form->createView(),
+            'form'   => $form->createView(),
         );
     }
 
@@ -99,7 +87,8 @@ class RolesController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('YorkuJuturnaBundle:Roles')->find($id);
@@ -111,7 +100,7 @@ class RolesController extends Controller {
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity' => $entity,
+            'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -123,7 +112,8 @@ class RolesController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('YorkuJuturnaBundle:Roles')->find($id);
@@ -136,8 +126,8 @@ class RolesController extends Controller {
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity' => $entity,
-            'edit_form' => $editForm->createView(),
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -149,7 +139,8 @@ class RolesController extends Controller {
      * @Method("PUT")
      * @Template("YorkuJuturnaBundle:Roles:edit.html.twig")
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('YorkuJuturnaBundle:Roles')->find($id);
@@ -170,19 +161,19 @@ class RolesController extends Controller {
         }
 
         return array(
-            'entity' => $entity,
-            'edit_form' => $editForm->createView(),
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
-
     /**
      * Deletes a Roles entity.
      *
      * @Route("/{id}", name="roles_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, $id) {
+    public function deleteAction(Request $request, $id)
+    {
         $form = $this->createDeleteForm($id);
         $form->bind($request);
 
@@ -208,11 +199,11 @@ class RolesController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id) {
+    private function createDeleteForm($id)
+    {
         return $this->createFormBuilder(array('id' => $id))
-                        ->add('id', 'hidden')
-                        ->getForm()
+            ->add('id', 'hidden')
+            ->getForm()
         ;
     }
-
 }

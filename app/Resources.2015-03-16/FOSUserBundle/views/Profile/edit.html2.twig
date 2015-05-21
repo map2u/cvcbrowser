@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    {% block header %}
+        {{parent()}}
+    {% endblock %}
+{% block content %}
+     {% include "Map2uWebgisBundle:Admin:_profileEdit.html.twig" %}
+{% endblock %}
+
+{% endblock %}
