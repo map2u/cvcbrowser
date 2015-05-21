@@ -1,6 +1,20 @@
 <?php
 
 namespace Yorku\JuturnaBundle\Controller;
+/**
+ * <copyright>
+ * This file/program is free and open source software released under the GNU General Public
+ * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
+ * Public Licence is available at http://www.gnu.org/licenses
+ * </copyright>
+ *
+ * <author>Shuilin (Joseph) Zhao</author>
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <email>zhaoshuilin2004@yahoo.ca</email>
+ * <date>created at 2014/01/07</date>
+ * <date>last updated at 2015/05/21</date>
+ * <summary>This file is supposed for administrator to create,update stories</summary>
+ */
 
 use Sonata\AdminBundle\Controller\CRUDController;
 use Paradigma\Bundle\ImageBundle\Libs\ImageSize;

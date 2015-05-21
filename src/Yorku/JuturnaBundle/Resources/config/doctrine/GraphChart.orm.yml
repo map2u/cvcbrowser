@@ -9,10 +9,6 @@ Yorku\JuturnaBundle\Entity\GraphChart:
             nullable: false
             generator:
                 strategy: SEQUENCE
-#        category:
-#            type: text
-#            nullable: true
-#            column: category
         citation:
             type: string
             length: 230
@@ -41,10 +37,6 @@ Yorku\JuturnaBundle\Entity\GraphChart:
             type: text
             nullable: true
             column: graphchart_images
-#        tags:
-#            type: text
-#            nullable: true
-#            column: tags
         description:
             type: string
             length: 255

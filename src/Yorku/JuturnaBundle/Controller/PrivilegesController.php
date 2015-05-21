@@ -2,6 +2,20 @@
 
 namespace Yorku\JuturnaBundle\Controller;
 
+/**
+ * <copyright>
+ * This file/program is free and open source software released under the GNU General Public
+ * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
+ * Public Licence is available at http://www.gnu.org/licenses
+ * </copyright>
+ *
+ * <author>Shuilin (Joseph) Zhao</author>
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <email>zhaoshuilin2004@yahoo.ca</email>
+ * <date>created at 2014/01/07</date>
+ * <date>last updated at 2015/05/19</date>
+ * <summary>This file is suposed for user to create,update,delete and list user's privileges</summary>
+ */
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -15,8 +29,7 @@ use Yorku\JuturnaBundle\Form\PrivilegesType;
  *
  * @Route("/privileges")
  */
-class PrivilegesController extends Controller
-{
+class PrivilegesController extends Controller {
 
     /**
      * Lists all Privileges entities.
@@ -25,8 +38,7 @@ class PrivilegesController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('YorkuJuturnaBundle:Privileges')->findAll();
@@ -35,6 +47,7 @@ class PrivilegesController extends Controller
             'entities' => $entities,
         );
     }
+
     /**
      * Creates a new Privileges entity.
      *
@@ -42,9 +55,8 @@ class PrivilegesController extends Controller
      * @Method("POST")
      * @Template("YorkuJuturnaBundle:Privileges:new.html.twig")
      */
-    public function createAction(Request $request)
-    {
-        $entity  = new Privileges();
+    public function createAction(Request $request) {
+        $entity = new Privileges();
         $form = $this->createForm(new PrivilegesType(), $entity);
         $form->bind($request);
 
@@ -58,7 +70,7 @@ class PrivilegesController extends Controller
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -69,14 +81,13 @@ class PrivilegesController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function newAction()
-    {
+    public function newAction() {
         $entity = new Privileges();
-        $form   = $this->createForm(new PrivilegesType(), $entity);
+        $form = $this->createForm(new PrivilegesType(), $entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -87,8 +98,7 @@ class PrivilegesController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('YorkuJuturnaBundle:Privileges')->find($id);
@@ -100,7 +110,7 @@ class PrivilegesController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -112,8 +122,7 @@ class PrivilegesController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('YorkuJuturnaBundle:Privileges')->find($id);
@@ -126,8 +135,8 @@ class PrivilegesController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -139,8 +148,7 @@ class PrivilegesController extends Controller
      * @Method("PUT")
      * @Template("YorkuJuturnaBundle:Privileges:edit.html.twig")
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('YorkuJuturnaBundle:Privileges')->find($id);
@@ -161,19 +169,19 @@ class PrivilegesController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
+
     /**
      * Deletes a Privileges entity.
      *
      * @Route("/{id}", name="privileges_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->bind($request);
 
@@ -199,11 +207,11 @@ class PrivilegesController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
-            ->getForm()
+                        ->add('id', 'hidden')
+                        ->getForm()
         ;
     }
+
 }

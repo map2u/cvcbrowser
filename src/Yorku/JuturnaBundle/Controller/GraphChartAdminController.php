@@ -2,8 +2,22 @@
 
 namespace Yorku\JuturnaBundle\Controller;
 
+/**
+ * <copyright>
+ * This file/program is free and open source software released under the GNU General Public
+ * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
+ * Public Licence is available at http://www.gnu.org/licenses
+ * </copyright>
+ *
+ * <author>Shuilin (Joseph) Zhao</author>
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <email>zhaoshuilin2004@yahoo.ca</email>
+ * <date>created at 2014/01/06</date>
+ * <date>last updated at 2015/03/11</date>
+ * <summary>This file is created for graph chart controller suposed to manage all graphchart entities for administrator</summary>
+ */
 use Sonata\AdminBundle\Controller\CRUDController;
-use  Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Request;
 
 class GraphChartAdminController extends CRUDController {
 
@@ -23,12 +37,12 @@ class GraphChartAdminController extends CRUDController {
         /** @var $form \Symfony\Component\Form\Form */
         $form = $this->admin->getForm();
         $form->setData($object);
-        
+
         if ($this->getRestMethod() == 'POST') {
             $form->bind($this->get('request'));
 
             $isFormValid = $form->isValid();
-            //   $this->addFlash('sonata_flash_success', $isFormValid);
+
             // persist if the form was valid and if in preview mode the preview was approved
             if ($isFormValid && (!$this->isInPreviewMode() || $this->isPreviewApproved())) {
                 $upload_files = $form['graphchartImages_file']->getData();
@@ -40,22 +54,7 @@ class GraphChartAdminController extends CRUDController {
                     }
                     $object->setGraphchartImages(serialize($image_names));
                 }
-//                $categories = $form['category_choice']->getData();
-//                if ($categories !== null) {
-//                    $category_names = array();
-//                    foreach ($categories as $category) {
-//                        array_push($category_names, $category);
-//                    }
-//                    $object->setCategory(serialize($category_names));
-//                }
-//                $tags = $form['tags_choice']->getData();
-//                if ($tags !== null) {
-//                    $tag_names = array();
-//                    foreach ($tags as $tag) {
-//                        array_push($tag_names, $tag->getId());
-//                    }
-//                    $object->setTags(serialize($tag_names));
-//                }
+
                 $object->setUser($this->getUser());
                 $this->admin->create($object);
 
@@ -95,7 +94,7 @@ class GraphChartAdminController extends CRUDController {
         ));
     }
 
-    public function editAction($id = NULL,Request $request = NULL) {
+    public function editAction($id = NULL, Request $request = NULL) {
 
         $templateKey = 'edit';
 
@@ -134,29 +133,6 @@ class GraphChartAdminController extends CRUDController {
                     }
                     $object->setGraphchartImages(serialize($image_names));
                 }
-//                $categories = $form['category_choice']->getData();
-//                if ($categories !== null) {
-//                    $category_names = array();
-//                    foreach ($categories as $category) {
-//                        array_push($category_names, $category);
-//                    }
-//                    $object->setCategory(serialize($category_names));
-//                }
-//                $tags = $form['tags_choice']->getData();
-//                $object->setTags($tags);
-            //    if ($tags !== null) {
-            //        $tag_names = array();
-             //       foreach ($tags as $tag) {
-             //           array_push($tag_names, $tag->getId());
-             //       }
-              //      $object->setTags(serialize($tag_names));
-             //   }
-//        $dir = './uploads/images/header_logos';
-//        if ($image_file != null) {
-//          $image_file->move($dir, $image_file->getClientOriginalName());
-//          $object->setImageFilename($image_file->getClientOriginalName());
-//        }
-
 
                 $this->admin->update($object);
 
@@ -166,8 +142,7 @@ class GraphChartAdminController extends CRUDController {
                                 'objectId' => $this->admin->getNormalizedIdentifier($object)
                     ));
                 }
-                //  $flash =$this->getFlash('no_shape_file_uploaded');
-                //  if(empty($flash))
+
                 $this->addFlash('sonata_flash_success', 'flash_edit_success');
 
                 // redirect to edit mode

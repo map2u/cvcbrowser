@@ -2,11 +2,27 @@
 
 namespace Yorku\JuturnaBundle\Controller;
 
+/**
+ * <copyright>
+ * This file/program is free and open source software released under the GNU General Public
+ * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
+ * Public Licence is available at http://www.gnu.org/licenses
+ * </copyright>
+ *
+ * <author>Shuilin (Joseph) Zhao</author>
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <email>zhaoshuilin2004@yahoo.ca</email>
+ * <date>created at 2014/11/04</date>
+ * <date>last updated at 2015/03/15</date>
+ * <summary>This file is created for admin user created or modify category</summary>
+ */
 use Sonata\AdminBundle\Controller\CRUDController;
 use Symfony\Component\HttpFoundation\Request;
 
+// administrator created or modify Category class object
 class CategoryAdminController extends CRUDController {
 
+    // developer can moddify code to custom the function with category class object creation
     public function createAction(Request $request = NULL) {
 
         // the key used to lookup the template
@@ -28,9 +44,10 @@ class CategoryAdminController extends CRUDController {
             $form->bind($this->get('request'));
 
             $isFormValid = $form->isValid();
-            //   $this->addFlash('sonata_flash_success', $isFormValid);
+
             // persist if the form was valid and if in preview mode the preview was approved
             if ($isFormValid && (!$this->isInPreviewMode() || $this->isPreviewApproved())) {
+
                 // check and save uploaded image, function return $object
                 $object = $this->saveUploadedImage($form, $object);
 
@@ -67,6 +84,7 @@ class CategoryAdminController extends CRUDController {
         ));
     }
 
+    // developer can moddify code to custom the function with category class object update
     public function editAction($id = NULL, Request $request = NULL) {
 
         $templateKey = 'edit';
@@ -97,6 +115,8 @@ class CategoryAdminController extends CRUDController {
 
             // persist if the form was valid and if in preview mode the preview was approved
             if ($isFormValid && (!$this->isInPreviewMode() || $this->isPreviewApproved())) {
+
+                // check and save uploaded image, function return $object
                 $object = $this->saveUploadedImage($form, $object);
                 $this->admin->update($object);
 
@@ -106,8 +126,7 @@ class CategoryAdminController extends CRUDController {
                                 'objectId' => $this->admin->getNormalizedIdentifier($object)
                     ));
                 }
-                //  $flash =$this->getFlash('no_shape_file_uploaded');
-                //  if(empty($flash))
+
                 $this->addFlash('sonata_flash_success', 'flash_edit_success');
 
                 // redirect to edit mode
@@ -161,22 +180,24 @@ class CategoryAdminController extends CRUDController {
 
         $imageFile = $form['flashimage_files']->getData();
 
-
+        // set upload image to caateories folder and category id number subfolder
         $dir = './uploads/images/categories/' . $object->getId();
         if (file_exists($dir) == false) {
             shell_exec("mkdir -p " . $dir);
         }
+
         $images_array = array();
         if ($imageFile != null) {
             if (is_array($imageFile)) {
                 foreach ($imageFile as $file) {
                     if ($file != null) {
+                        // replace all file name space with under score _
                         array_push($images_array, str_replace(" ", "_", $file->getClientOriginalName()));
                         $file->move($dir, str_replace(" ", "_", $file->getClientOriginalName()));
                     }
                 }
             } else {
-
+                // replace all file name space with under score _
                 array_push($images_array, str_replace(" ", "_", $imageFile->getClientOriginalName()));
                 $imageFile->move($dir, str_replace(" ", "_", $imageFile->getClientOriginalName()));
             }
@@ -188,7 +209,9 @@ class CategoryAdminController extends CRUDController {
         $meadiagramFile = $form['meadiagram_file']->getData();
 
         $dir = './uploads/images/meadiagrams';
+        // save meadiagrams to meadiagrams folder
         if ($meadiagramFile != null) {
+            // replace all file name space with under score _
             $meadiagramFile->move($dir, str_replace(" ", "_", $meadiagramFile->getClientOriginalName()));
             $object->setMeaDiagram(str_replace(" ", "_", $meadiagramFile->getClientOriginalName()));
         }

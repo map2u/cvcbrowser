@@ -2,6 +2,20 @@
 
 namespace Yorku\JuturnaBundle\Admin;
 
+/**
+ * <copyright>
+ * This file/program is free and open source software released under the GNU General Public
+ * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
+ * Public Licence is available at http://www.gnu.org/licenses
+ * </copyright>
+ *
+ * <author>Shuilin (Joseph) Zhao</author>
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <email>zhaoshuilin2004@yahoo.ca</email>
+ * <date>created at 2014/11/04</date>
+ * <date>last updated at 2015/03/15</date>
+ * <summary>This file category administration form type</summary>
+ */
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -65,7 +79,7 @@ class CategoryAdmin extends Admin {
                     'required' => false,
                     'mapped' => false,
                     'multiple' => true))
-                ->add('rightColumnWidth', 'choice', array("required" => false, "choices" => array(2 => "2/10 page width",3 => "3/10 page width", 4 => "4/10 page width", 5 => "5/10 page width", 6 => "6/10 page width", 7 => "7/10 page width", 8 => "8/10 page width")))
+                ->add('rightColumnWidth', 'choice', array("required" => false, "choices" => array(2 => "2/10 page width", 3 => "3/10 page width", 4 => "4/10 page width", 5 => "5/10 page width", 6 => "6/10 page width", 7 => "7/10 page width", 8 => "8/10 page width")))
                 ->end()
                 ->with(' ', array('class' => 'col-md-6'))
                 ->add('rightColumn', 'ckeditor', array('label' => 'Right Column Content(page right column)',
