@@ -105,7 +105,7 @@ class ReportController extends Controller {
     protected function SiteDescriptionPictures($pdf, $description) {
         //         $pdf->writeHTML(count($description->sitepictures), true, false, true, false, 'J');
 
-        if ($description AND $description->getSitepictures()) {
+        if ($description && $description->getSitepictures()) {
             $i = 0;
             $max_width = 52;
             $max_height = 70;

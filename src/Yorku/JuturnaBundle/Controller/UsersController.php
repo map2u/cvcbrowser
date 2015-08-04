@@ -136,7 +136,7 @@ class UsersController extends Controller {
         $request = $this->getRequest();
         $json = $request->get('data');
         $data = json_decode($json, true);
-        if ($data['id'] == null or $data['id'] == '' or $data['id'] == 0) {
+        if ($data['id'] == null || $data['id'] == '' || $data['id'] == 0) {
             
         } else {
             $factory = $this->get('security.encoder_factory');

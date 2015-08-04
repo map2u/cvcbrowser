@@ -435,13 +435,13 @@ class AdminController extends Controller {
                 }
             }
         }
-        if ($epsg_number === 0 and ( $project_file === null || $project_file === '' || empty($project_file))) { // if user didn't input EPSG number and not upload projection file
+        if ($epsg_number === 0 && ( $project_file === null || $project_file === '' || empty($project_file))) { // if user didn't input EPSG number and not upload projection file
             array_push($errors, "No projection file defined!");
             //     return array("epsg"=>$epsg_number,'error' => 'No EPSG number and projection file defined!');
         } else {
 
             // check if projection uploaded
-            if ($epsg_number === 0 and $project_file != null) {
+            if ($epsg_number === 0 && $project_file != null) {
                 $jsontext = file_get_contents($project_file);
                 $i = strpos($jsontext, 'GEOGCS[');
                 if ($i !== FALSE) {
