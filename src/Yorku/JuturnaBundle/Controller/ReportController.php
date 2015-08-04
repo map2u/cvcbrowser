@@ -102,7 +102,7 @@ class ReportController extends Controller {
         //      return $this->render(sprintf('YorkuJuturnaBundle:Report:station.%s.twig', $format), array('station' => $station));
     }
 
-    public function SiteDescriptionPictures($pdf, $description) {
+    protected function SiteDescriptionPictures($pdf, $description) {
         //         $pdf->writeHTML(count($description->sitepictures), true, false, true, false, 'J');
 
         if ($description AND $description->getSitepictures()) {
@@ -147,7 +147,7 @@ class ReportController extends Controller {
         }
     }
 
-    public function writeReportHeader($pdf, $station_name) {
+    protected function writeReportHeader($pdf, $station_name) {
 
         $pdf->SetHeaderData('', 10, "Water Quality Monitoring Station Report for site " . $station_name, null, array(0, 0, 0), array(0, 0, 0));
         $pdf->setFooterData(array(0, 64, 0), array(0, 64, 128));
@@ -193,7 +193,7 @@ EOD;
         //       $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
     }
 
-    public function SiteDescriptionTable($pdf, $header, $data) {
+    protected function SiteDescriptionTable($pdf, $header, $data) {
         // Colors, line width and bold font
         $pdf->SetFillColor(186);
         $pdf->SetTextColor(255);
@@ -235,7 +235,7 @@ EOD;
     }
 
     //Page header
-    public function Header() {
+    protected function Header() {
         // Logo
         $image_file = K_PATH_IMAGES . 'logo_example.jpg';
         $this->Image($image_file, 10, 10, 15, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
@@ -246,7 +246,7 @@ EOD;
     }
 
     // Page footer
-    public function Footer($pdf) {
+    protected function Footer($pdf) {
         // Position at 15 mm from bottom
         $foottext = "This was report produced on " . DateTime()->format('Y-m-d H:i:s') . " at www.juturna.ca. Disclaimer: Data provided in this
 report is not guaranteed to be error free. Neither the TRCA, EcoSpark nor any of their contributing
