@@ -163,22 +163,6 @@ doctrine:
                     geometry: geometry 
                     
             
-            mandantA:
-                driver:   %database_driver_mandanta%
-                host:     %database_host_mandanta%
-                port:     %database_port_mandanta%
-                dbname:   %database_name_mandanta%
-                user:     %database_user_mandanta%
-                password: %database_password_mandanta%
-                charset:  UTF8
-            mandantB:
-                driver:   %database_driver_mandantb%
-                host:     %database_host_mandantb%
-                port:     %database_port_mandantb%
-                dbname:   %database_name_mandantb%
-                user:     %database_user_mandantb%
-                password: %database_password_mandantb%
-           
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"

@@ -55,14 +55,14 @@ sonata_page:
         homepage: {decorate: false, enabled: true}
 
     caches:
-        esi:
-            token:    %secret # default is a random value
-            version:  3                        # version 3 is the default on debian wheezy ...
-            servers:
-                - sudo varnishadm -S /etc/varnish/secret -T 127.0.0.1:6082 {{ COMMAND }} "{{ EXPRESSION }}" # you need to adapt this line to work with your configuration
+        esi: ~
+#            token:    %secret # default is a random value
+#            version:  3                        # version 3 is the default on debian wheezy ...
+#            servers:
+#                - sudo varnishadm -S /etc/varnish/secret -T 127.0.0.1:6082 {{ COMMAND }} "{{ EXPRESSION }}" # you need to adapt this line to work with your configuration
 
-        ssi:
-            token:    %secret # default is a random value
+        ssi: ~
+#            token:    %secret # default is a random value
 
     catch_exceptions:
         not_found: [404]    # render 404 page with "not_found" key (name generated: _page_internal_error_{key})

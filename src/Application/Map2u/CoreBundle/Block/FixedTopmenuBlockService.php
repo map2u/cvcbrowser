@@ -30,7 +30,6 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Map2u\CoreBundle\Block\FixedTopmenuBlockService as baseFixedTopmenuBlockService;
 use Doctrine\ORM\EntityManager;
-use Ibrows\Bundle\NewsletterBundle\Entity\Newsletter;
 
 /**
  *
@@ -40,6 +39,10 @@ class FixedTopmenuBlockService extends baseFixedTopmenuBlockService {
 
     private $container;
 
+    /**
+     * @param string          $name
+     * @param EngineInterface $templating
+     */
     public function __construct($name, $templating, EntityManager $entityManager, ContainerInterface $container) {
         $this->container = $container;
         parent::__construct($name, $templating, $entityManager);
