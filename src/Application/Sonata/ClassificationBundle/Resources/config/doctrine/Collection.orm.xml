@@ -16,12 +16,10 @@
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>
-<<<<<<< HEAD
-<!--        <many-to-one field="context" target-entity="Application\Sonata\ClassificationBundle\Entity\Context">
+
+        <!--        <many-to-one field="context" target-entity="Application\Sonata\ClassificationBundle\Entity\Context">
             <join-column name="context_id" referenced-column-name="id" nullable="true" />
         </many-to-one>-->
-=======
 
->>>>>>> update map2u bundles
     </entity>
 </doctrine-mapping>

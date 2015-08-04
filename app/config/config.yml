@@ -41,7 +41,8 @@ framework:
     session:
         # handler_id set to null will use default session handler from php.ini
         handler_id:  ~
-    fragments:       ~
+    fragments:      
+        enabled: false
     http_method_override: true
 
 # Twig Configuration

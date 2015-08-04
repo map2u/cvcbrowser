@@ -1,7 +1,7 @@
 <?php
 
 /**
-<<<<<<< HEAD
+
  * <copyright>
  * This file/program is free and open source software released under the GNU General Public
  * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
@@ -15,14 +15,7 @@
  * <date>last updated at 2015/03/11</date>
  * <summary>This is the extend of Sonata\NewsBundle\Entity\BasePostRepository entity</summary>
  * <purpose>for entity extend based on Sonata\NewsBundle\Entity\BasePostRepository</purpose>
-=======
- * This file is part of the <name> project.
- *
- * (c) <yourname> <youremail>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
->>>>>>> update map2u bundles
+
  */
 
 namespace Application\Sonata\NewsBundle\Entity;
@@ -39,13 +32,7 @@ use Sonata\NewsBundle\Entity\BasePostRepository;
  *
  * @author <yourname> <youremail>
  */
-<<<<<<< HEAD
+
 class PostRepository extends BasePostRepository {
     
 }
-=======
-class PostRepository extends BasePostRepository
-{
-
-}
->>>>>>> update map2u bundles

@@ -279,26 +279,7 @@ class AdminController extends Controller {
         return array("user" => $user);
     }
 
-    /**
-     * Displays a form to create a new Benthics entity.
-     *
-     * @Route("/landuse", name="admin_landuse")
-     * @Method("GET")
-     * @Template()
-     */
-    public function landuseAction() {
-        //   $em = $this->getDoctrine()->getManager();
-//   $entities = $em->getRepository('YorkuJuturnaBundle:Benthics')->findAll();
-        $request = $this->getRequest();
-        $id = $request->get("id");
-        if (isset($id)) {
-            $conn = $this->get('database_connection');
-            $sql = "SELECT * , st_area(the_geom) as area FROM landuse_2008_merge WHERE ogc_fid=" . $id;
-            $stmt = $conn->fetchAll($sql);
-        }
-        return array("data" => $stmt);
-    }
-
+ 
     /**
      * Displays a form to create a new Benthics entity.
      *
@@ -461,22 +442,7 @@ class AdminController extends Controller {
                 if ($subwatershed_column_return !== false) {
                     array_push($errors, $subwatershed_column_return);
                 }
-                /*                $sql="SELECT column_name FROM information_schema.columns WHERE table_name='geomupload_temp' and column_name='".$data['watershed_fieldname']."'";
-                  $stmt = $conn->fetchAll($sql);
-                  $rowCount = count($stmt);
-                  if($rowCount==0)
-                  {
-                  array_push($errors,"Sorry,the watershed field name:".$data['watershed_fieldname']." is not found in shape file!");
-                  }
-                  $sql="SELECT column_name FROM information_schema.columns WHERE table_name='geomupload_temp' and column_name='".$data['subwatershed_fieldname']."'";
-                  $stmt = $conn->fetchAll($sql);
-                  $rowCount = count($stmt);
-                  if($rowCount==0)
-                  {
-                  array_push($errors,"Sorry,the subwatershed field name:".$data['subwatershed_fieldname']." is not found in shape file!");
-                  }
-                 * 
-                 */
+            
                 if (count($errors) > 0) {
                     return array("errors" => $errors, 'form' => $form->createView());
                 }
@@ -490,9 +456,7 @@ class AdminController extends Controller {
                             'notice', 'Your changes were saved!'
                     );
                 }
-                //               $options = array('noparts' => false);
-//         echo 
-                //              $filename = $dir . "/" . $data['shape_file']->getClientOriginalName();
+                
                 // check if there are any duplicate watershed name already exist in watewrsheds tables;
                 $sql = "select id , watershed_name from watersheds where watershed_name in (select " . $data['watershed_fieldname'] . " from geomupload_temp)";
 

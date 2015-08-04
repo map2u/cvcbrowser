@@ -1,7 +1,6 @@
 <?php
 
 /**
-<<<<<<< HEAD
  * <copyright>
  * This file/program is free and open source software released under the GNU General Public
  * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
@@ -15,14 +14,6 @@
  * <date>last updated at 2015/03/11</date>
  * <summary>This is the extend of Sonata\ClassificationBundle\Entity\BaseCategory entity</summary>
  * <purpose>for entity extend based on Sonata\ClassificationBundle\Entity\BaseCategory</purpose>
-=======
- * This file is part of the <name> project.
- *
- * (c) <yourname> <youremail>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
->>>>>>> update map2u bundles
  */
 
 namespace Application\Sonata\ClassificationBundle\Entity;
@@ -37,28 +28,18 @@ use Sonata\ClassificationBundle\Entity\BaseCategory as BaseCategory;
  *
  * @author <yourname> <youremail>
  */
-<<<<<<< HEAD
 class Category extends BaseCategory {
 
-=======
-class Category extends BaseCategory
-{
->>>>>>> update map2u bundles
     /**
      * @var integer $id
      */
     protected $id;
-<<<<<<< HEAD
 
-=======
-  
->>>>>>> update map2u bundles
     /**
      * Get id
      *
      * @return integer $id
      */
-<<<<<<< HEAD
     public function getId() {
         return $this->id;
     }
@@ -111,10 +92,3 @@ class Category extends BaseCategory
     }
 
 }
-=======
-    public function getId()
-    {
-        return $this->id;
-    }
-}
->>>>>>> update map2u bundles
