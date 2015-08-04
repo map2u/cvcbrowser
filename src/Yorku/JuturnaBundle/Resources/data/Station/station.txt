@@ -1,7 +1,0 @@
-9.389167;;-83.595528;; Nube;; Las Nubes Biological Reserve
-9.370667;;-83.615000;; Coop;;Granotico, Coopeagri
-9.353139;;-83.632333;; Marv;;Marvin Arias Farm
-9.355250;;-83.611139;; Jose;;Jose Cruz Farm
-9.335806;;-83.627389;; Cusi;;Los Cusingos Bird Sanctuary, Quizarrá
-9.335444;;-83.590083;; LAES;;La Escondida,Quizarrá
-9.328139;;-83.624333;; Luis;;Squirrel Monkey Reserve, Quizarrá
