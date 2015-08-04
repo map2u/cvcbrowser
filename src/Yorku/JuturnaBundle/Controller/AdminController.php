@@ -1,5 +1,21 @@
 <?php
 
+/**
+ * <copyright>
+ * This file/program is free and open source software released under the GNU General Public
+ * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
+ * Public Licence is available at http://www.gnu.org/licenses
+ * </copyright>
+ *
+ * <author>Shuilin (Joseph) Zhao</author>
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <email>zhaoshuilin2004@yahoo.ca</email>
+ * <date>created at 2014/01/06</date>
+ * <date>last updated at 2015/03/11</date>
+ * <summary>This file is created for admin controller with bundle YorkuJuturnaBundle</summary>
+ * <purpose>all admin actions process in this controller except the sonata admin dashboard</purpose>
+ */
+
 namespace Yorku\JuturnaBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -32,15 +48,14 @@ class AdminController extends Controller {
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = null;// $em->getRepository('YorkuJuturnaBundle:BenthicCollections')->findAll();
+        $entities = null; // $em->getRepository('YorkuJuturnaBundle:BenthicCollections')->findAll();
 
         return array(
             'entities' => $entities,
         );
     }
 
-    
-   /**
+    /**
      * Lists all admin roles.
      *
      * @Route("/terms_of_use", name="admin_terms_of_use")
@@ -49,7 +64,8 @@ class AdminController extends Controller {
      */
     public function terms_of_useAction() {
         return new Response("Termal of Use");
-    }    
+    }
+
     /**
      * Lists all admin roles.
      *
@@ -83,7 +99,7 @@ class AdminController extends Controller {
 
         $conn = $this->get('database_connection');
 
-        $roles = null;//$conn->fetchAll("SELECT  * FROM roles  order by name");
+        $roles = null; //$conn->fetchAll("SELECT  * FROM roles  order by name");
 
         return new JsonResponse(array(
             'data' => $roles
@@ -100,21 +116,18 @@ class AdminController extends Controller {
     public function javascriptAction(Request $request) {
 
         $em = $this->getDoctrine()->getManager();
-        
-        $logos = $em->getRepository('YorkuJuturnaBundle:Logo')->findBy(array('enabled'=>true),array("showSeq"=>'ASC'));
+
+        $logos = $em->getRepository('YorkuJuturnaBundle:Logo')->findBy(array('enabled' => true), array("showSeq" => 'ASC'));
         $systemparams = $em->getRepository('YorkuJuturnaBundle:Systemparams')->findAll();
 
-        if ($systemparams)
-        {
+        if ($systemparams) {
             $systemparam = $systemparams[0];
-        }
-        else {
+        } else {
             $systemparam = null;
         }
-        return array('logos' => $logos,'systemparams' => $systemparams);
+        return array('logos' => $logos, 'systemparams' => $systemparams);
     }
 
- 
     /**
      * show details for watersheds , subwatersheds and stations.
      *
@@ -261,11 +274,12 @@ class AdminController extends Controller {
     public function sysmanagementAction() {
 //   $em = $this->getDoctrine()->getManager();
 //   $entities = $em->getRepository('YorkuJuturnaBundle:Benthics')->findAll();
-     //   $user=$this->get('security.context')->getToken()->getUser();
-        $user=$this->container->get('security.context')->getToken()->getUser();
-        return array("user"=>$user);
+        //   $user=$this->get('security.context')->getToken()->getUser();
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        return array("user" => $user);
     }
-  /**
+
+    /**
      * Displays a form to create a new Benthics entity.
      *
      * @Route("/landuse", name="admin_landuse")
@@ -276,15 +290,15 @@ class AdminController extends Controller {
         //   $em = $this->getDoctrine()->getManager();
 //   $entities = $em->getRepository('YorkuJuturnaBundle:Benthics')->findAll();
         $request = $this->getRequest();
-        $id=$request->get("id");
-        if(isset($id))
-        {
-                    $conn = $this->get('database_connection');
-                    $sql="SELECT * , st_area(the_geom) as area FROM landuse_2008_merge WHERE ogc_fid=".$id;
-                    $stmt = $conn->fetchAll($sql);
+        $id = $request->get("id");
+        if (isset($id)) {
+            $conn = $this->get('database_connection');
+            $sql = "SELECT * , st_area(the_geom) as area FROM landuse_2008_merge WHERE ogc_fid=" . $id;
+            $stmt = $conn->fetchAll($sql);
         }
-        return array("data"=>$stmt);
+        return array("data" => $stmt);
     }
+
     /**
      * Displays a form to create a new Benthics entity.
      *
@@ -596,7 +610,7 @@ class AdminController extends Controller {
                 }
             }
         }
-        if ($epsg_number === 0 and ($project_file === null || $project_file === '' || empty($project_file))) { // if user didn't input EPSG number and not upload projection file
+        if ($epsg_number === 0 and ( $project_file === null || $project_file === '' || empty($project_file))) { // if user didn't input EPSG number and not upload projection file
             array_push($errors, "No projection file defined!");
             //     return array("epsg"=>$epsg_number,'error' => 'No EPSG number and projection file defined!');
         } else {
@@ -623,5 +637,5 @@ class AdminController extends Controller {
             return array("epsg" => $epsg_number, "errors" => $errors);
         }
     }
-}
 
+}

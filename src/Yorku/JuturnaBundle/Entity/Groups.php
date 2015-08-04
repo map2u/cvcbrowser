@@ -1,5 +1,21 @@
 <?php
 
+/**
+ * <copyright>
+ * This file/program is free and open source software released under the GNU General Public
+ * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
+ * Public Licence is available at http://www.gnu.org/licenses
+ * </copyright>
+ *
+ * <author>Shuilin (Joseph) Zhao</author>
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <email>zhaoshuilin2004@yahoo.ca</email>
+ * <date>created at 2014/01/06</date>
+ * <date>last updated at 2015/03/11</date>
+ * <summary>This is the definition of Groups entity</summary>
+ * <purpose></purpose>
+ */
+
 namespace Yorku\JuturnaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -7,8 +23,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Groups
  */
-class Groups
-{
+class Groups {
+
     /**
      * @var string
      */
@@ -29,17 +45,15 @@ class Groups
      */
     private $id;
 
-
     /**
      * Set name
      *
      * @param string $name
      * @return Groups
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
-    
+
         return $this;
     }
 
@@ -48,8 +62,7 @@ class Groups
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -59,10 +72,9 @@ class Groups
      * @param string $leaderName
      * @return Groups
      */
-    public function setLeaderName($leaderName)
-    {
+    public function setLeaderName($leaderName) {
         $this->leaderName = $leaderName;
-    
+
         return $this;
     }
 
@@ -71,8 +83,7 @@ class Groups
      *
      * @return string 
      */
-    public function getLeaderName()
-    {
+    public function getLeaderName() {
         return $this->leaderName;
     }
 
@@ -82,10 +93,9 @@ class Groups
      * @param string $description
      * @return Groups
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
-    
+
         return $this;
     }
 
@@ -94,8 +104,7 @@ class Groups
      *
      * @return string 
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -104,8 +113,8 @@ class Groups
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
+
 }

@@ -1,5 +1,21 @@
 <?php
 
+/**
+ * <copyright>
+ * This file/program is free and open source software released under the GNU General Public
+ * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
+ * Public Licence is available at http://www.gnu.org/licenses
+ * </copyright>
+ *
+ * <author>Shuilin (Joseph) Zhao</author>
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <email>zhaoshuilin2004@yahoo.ca</email>
+ * <date>created at 2014/01/06</date>
+ * <date>last updated at 2015/03/11</date>
+ * <summary>This file is created for Users controller with bundle YorkuJuturnaBundle</summary>
+ * <purpose>all Users entity related actions process in this controller</purpose>
+ */
+
 namespace Yorku\JuturnaBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -187,42 +203,42 @@ class UsersController extends Controller {
         $json = $request->get('user');
         $data = json_decode($json, true);
 
-  /*      $qb = $em->getRepository('YorkuJuturnaBundle:Users')->createQueryBuilder('u') ;
-         
-        $user =$qb->select('u')
-        ->where(
-            $qb->expr()->orx(
-                $qb->expr()->like('u.username' ,':username') ,
-                $qb->expr()->like('u.email' ,':username')
-            )
-        )
-        //->andWhere($qb->expr()->eq('u.enabled' ,'true') )
-        ->setParameters(array('username' =>$data['username'] ) )        
-        ->getQuery()
-        ->getResult() ;        
-        */
-        
-         $user=$this->getDoctrine()->getManager()
-         ->createQuery('SELECT u FROM
+        /*      $qb = $em->getRepository('YorkuJuturnaBundle:Users')->createQueryBuilder('u') ;
+
+          $user =$qb->select('u')
+          ->where(
+          $qb->expr()->orx(
+          $qb->expr()->like('u.username' ,':username') ,
+          $qb->expr()->like('u.email' ,':username')
+          )
+          )
+          //->andWhere($qb->expr()->eq('u.enabled' ,'true') )
+          ->setParameters(array('username' =>$data['username'] ) )
+          ->getQuery()
+          ->getResult() ;
+         */
+
+        $user = $this->getDoctrine()->getManager()
+                ->createQuery('SELECT u FROM
          YorkuJuturnaBundle:Users u
          WHERE u.username = :username
          OR u.email = :username')
-         ->setParameters(array(
-                       'username' => $data['username']
-                        ))
-         ->getOneOrNullResult();
-         
-        
-        
-        
-        
-  //      $user = $em->getRepository('YorkuJuturnaBundle:Users')->findByUsernameOrEmail($data['username']);
+                ->setParameters(array(
+                    'username' => $data['username']
+                ))
+                ->getOneOrNullResult();
+
+
+
+
+
+        //      $user = $em->getRepository('YorkuJuturnaBundle:Users')->findByUsernameOrEmail($data['username']);
         if ($user) {
             $password = $this->createpassword();
             $manipulator = $this->get('fos_user.util.user_manipulator');
             $manipulator->changePassword($user->getUsername(), $password);
-            
-             $message = \Swift_Message::newInstance()
+
+            $message = \Swift_Message::newInstance()
                     ->setSubject('Juturna account password reset')
                     ->setFrom('bunchmj@yorku.ca')
                     ->setTo($user->getEmail())
@@ -230,7 +246,7 @@ class UsersController extends Controller {
             ;
 
             $this->get('mailer')->send($message);
-           
+
             return new JsonResponse(array(
                 'success' => false,
                 'message' => "Password has been successfully reset,please check your email!"
@@ -308,7 +324,7 @@ class UsersController extends Controller {
         //    $user = new Users();
         $request = $this->getRequest();
         $json = $request->get('user');
-        
+
         $data = json_decode($json, true);
 
         $entities_username = $em->getRepository('YorkuJuturnaBundle:Users')->findByUsername($data['username']);

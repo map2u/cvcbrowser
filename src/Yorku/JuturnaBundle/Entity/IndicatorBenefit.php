@@ -1,5 +1,21 @@
 <?php
 
+/**
+ * <copyright>
+ * This file/program is free and open source software released under the GNU General Public
+ * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
+ * Public Licence is available at http://www.gnu.org/licenses
+ * </copyright>
+ *
+ * <author>Shuilin (Joseph) Zhao</author>
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <email>zhaoshuilin2004@yahoo.ca</email>
+ * <date>created at 2014/01/06</date>
+ * <date>last updated at 2015/03/11</date>
+ * <summary>This is the definition of IndicatorBenefit entity</summary>
+ * <purpose></purpose>
+ */
+
 namespace Yorku\JuturnaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -374,15 +390,13 @@ class IndicatorBenefit {
      */
     private $uploadfilelayers;
 
-
     /**
      * Add uploadfilelayers
      *
      * @param \Map2u\CoreBundle\Entity\UploadfileLayer $uploadfilelayers
      * @return IndicatorBenefit
      */
-    public function addUploadfilelayer(\Map2u\CoreBundle\Entity\UploadfileLayer $uploadfilelayers)
-    {
+    public function addUploadfilelayer(\Map2u\CoreBundle\Entity\UploadfileLayer $uploadfilelayers) {
         $this->uploadfilelayers[] = $uploadfilelayers;
 
         return $this;
@@ -393,8 +407,7 @@ class IndicatorBenefit {
      *
      * @param \Map2u\CoreBundle\Entity\UploadfileLayer $uploadfilelayers
      */
-    public function removeUploadfilelayer(\Map2u\CoreBundle\Entity\UploadfileLayer $uploadfilelayers)
-    {
+    public function removeUploadfilelayer(\Map2u\CoreBundle\Entity\UploadfileLayer $uploadfilelayers) {
         $this->uploadfilelayers->removeElement($uploadfilelayers);
     }
 
@@ -403,10 +416,10 @@ class IndicatorBenefit {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getUploadfilelayers()
-    {
+    public function getUploadfilelayers() {
         return $this->uploadfilelayers;
     }
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -417,15 +430,13 @@ class IndicatorBenefit {
      */
     private $geoserverlayers;
 
-
     /**
      * Add clusterlayers
      *
      * @param \Map2u\CoreBundle\Entity\LeafletClusterLayer $clusterlayers
      * @return IndicatorBenefit
      */
-    public function addClusterlayer(\Map2u\CoreBundle\Entity\LeafletClusterLayer $clusterlayers)
-    {
+    public function addClusterlayer(\Map2u\CoreBundle\Entity\LeafletClusterLayer $clusterlayers) {
         $this->clusterlayers[] = $clusterlayers;
 
         return $this;
@@ -436,8 +447,7 @@ class IndicatorBenefit {
      *
      * @param \Map2u\CoreBundle\Entity\LeafletClusterLayer $clusterlayers
      */
-    public function removeClusterlayer(\Map2u\CoreBundle\Entity\LeafletClusterLayer $clusterlayers)
-    {
+    public function removeClusterlayer(\Map2u\CoreBundle\Entity\LeafletClusterLayer $clusterlayers) {
         $this->clusterlayers->removeElement($clusterlayers);
     }
 
@@ -446,8 +456,7 @@ class IndicatorBenefit {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getClusterlayers()
-    {
+    public function getClusterlayers() {
         return $this->clusterlayers;
     }
 
@@ -457,8 +466,7 @@ class IndicatorBenefit {
      * @param \Map2u\CoreBundle\Entity\GeoServerLayer $geoserverlayers
      * @return IndicatorBenefit
      */
-    public function addGeoserverlayer(\Map2u\CoreBundle\Entity\GeoServerLayer $geoserverlayers)
-    {
+    public function addGeoserverlayer(\Map2u\CoreBundle\Entity\GeoServerLayer $geoserverlayers) {
         $this->geoserverlayers[] = $geoserverlayers;
 
         return $this;
@@ -469,8 +477,7 @@ class IndicatorBenefit {
      *
      * @param \Map2u\CoreBundle\Entity\GeoServerLayer $geoserverlayers
      */
-    public function removeGeoserverlayer(\Map2u\CoreBundle\Entity\GeoServerLayer $geoserverlayers)
-    {
+    public function removeGeoserverlayer(\Map2u\CoreBundle\Entity\GeoServerLayer $geoserverlayers) {
         $this->geoserverlayers->removeElement($geoserverlayers);
     }
 
@@ -479,10 +486,10 @@ class IndicatorBenefit {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getGeoserverlayers()
-    {
+    public function getGeoserverlayers() {
         return $this->geoserverlayers;
     }
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -493,15 +500,13 @@ class IndicatorBenefit {
      */
     private $otherlinks;
 
-
     /**
      * Add additionalreferences
      *
      * @param \Yorku\JuturnaBundle\Entity\IndicatorReference $additionalreferences
      * @return IndicatorBenefit
      */
-    public function addAdditionalreference(\Yorku\JuturnaBundle\Entity\IndicatorReference $additionalreferences)
-    {
+    public function addAdditionalreference(\Yorku\JuturnaBundle\Entity\IndicatorReference $additionalreferences) {
         $this->additionalreferences[] = $additionalreferences;
 
         return $this;
@@ -512,8 +517,7 @@ class IndicatorBenefit {
      *
      * @param \Yorku\JuturnaBundle\Entity\IndicatorReference $additionalreferences
      */
-    public function removeAdditionalreference(\Yorku\JuturnaBundle\Entity\IndicatorReference $additionalreferences)
-    {
+    public function removeAdditionalreference(\Yorku\JuturnaBundle\Entity\IndicatorReference $additionalreferences) {
         $this->additionalreferences->removeElement($additionalreferences);
     }
 
@@ -522,8 +526,7 @@ class IndicatorBenefit {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getAdditionalreferences()
-    {
+    public function getAdditionalreferences() {
         return $this->additionalreferences;
     }
 
@@ -533,8 +536,7 @@ class IndicatorBenefit {
      * @param \Yorku\JuturnaBundle\Entity\IndicatorReference $otherlinks
      * @return IndicatorBenefit
      */
-    public function addOtherlink(\Yorku\JuturnaBundle\Entity\IndicatorReference $otherlinks)
-    {
+    public function addOtherlink(\Yorku\JuturnaBundle\Entity\IndicatorReference $otherlinks) {
         $this->otherlinks[] = $otherlinks;
 
         return $this;
@@ -545,8 +547,7 @@ class IndicatorBenefit {
      *
      * @param \Yorku\JuturnaBundle\Entity\IndicatorReference $otherlinks
      */
-    public function removeOtherlink(\Yorku\JuturnaBundle\Entity\IndicatorReference $otherlinks)
-    {
+    public function removeOtherlink(\Yorku\JuturnaBundle\Entity\IndicatorReference $otherlinks) {
         $this->otherlinks->removeElement($otherlinks);
     }
 
@@ -555,8 +556,8 @@ class IndicatorBenefit {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getOtherlinks()
-    {
+    public function getOtherlinks() {
         return $this->otherlinks;
     }
+
 }

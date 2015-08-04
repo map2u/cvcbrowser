@@ -1,5 +1,21 @@
 <?php
 
+/**
+ * <copyright>
+ * This file/program is free and open source software released under the GNU General Public
+ * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
+ * Public Licence is available at http://www.gnu.org/licenses
+ * </copyright>
+ *
+ * <author>Shuilin (Joseph) Zhao</author>
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <email>zhaoshuilin2004@yahoo.ca</email>
+ * <date>created at 2014/01/06</date>
+ * <date>last updated at 2015/03/11</date>
+ * <summary>This is the definition of Privileges entity</summary>
+ * <purpose></purpose>
+ */
+
 namespace Yorku\JuturnaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -10,8 +26,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="privileges")
  * @ORM\Entity
  */
-class Privileges
-{
+class Privileges {
+
     /**
      * @var integer
      *
@@ -36,15 +52,12 @@ class Privileges
      */
     private $name;
 
-
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -54,10 +67,9 @@ class Privileges
      * @param integer $roleId
      * @return Privileges
      */
-    public function setRoleId($roleId)
-    {
+    public function setRoleId($roleId) {
         $this->roleId = $roleId;
-    
+
         return $this;
     }
 
@@ -66,8 +78,7 @@ class Privileges
      *
      * @return integer 
      */
-    public function getRoleId()
-    {
+    public function getRoleId() {
         return $this->roleId;
     }
 
@@ -77,10 +88,9 @@ class Privileges
      * @param string $name
      * @return Privileges
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
-    
+
         return $this;
     }
 
@@ -89,8 +99,8 @@ class Privileges
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
+
 }

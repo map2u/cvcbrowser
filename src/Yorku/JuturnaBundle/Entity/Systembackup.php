@@ -1,5 +1,21 @@
 <?php
 
+/**
+ * <copyright>
+ * This file/program is free and open source software released under the GNU General Public
+ * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
+ * Public Licence is available at http://www.gnu.org/licenses
+ * </copyright>
+ *
+ * <author>Shuilin (Joseph) Zhao</author>
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <email>zhaoshuilin2004@yahoo.ca</email>
+ * <date>created at 2014/01/06</date>
+ * <date>last updated at 2015/03/11</date>
+ * <summary>This is the definition of Systembackup entity</summary>
+ * <purpose></purpose>
+ */
+
 namespace Yorku\JuturnaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -7,8 +23,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Systembackup
  */
-class Systembackup
-{
+class Systembackup {
+
     /**
      * @var integer
      */
@@ -49,14 +65,12 @@ class Systembackup
      */
     private $user;
 
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -66,10 +80,9 @@ class Systembackup
      * @param string $filename
      * @return Systembackup
      */
-    public function setFilename($filename)
-    {
+    public function setFilename($filename) {
         $this->filename = $filename;
-    
+
         return $this;
     }
 
@@ -78,8 +91,7 @@ class Systembackup
      *
      * @return string 
      */
-    public function getFilename()
-    {
+    public function getFilename() {
         return $this->filename;
     }
 
@@ -89,10 +101,9 @@ class Systembackup
      * @param string $foldername
      * @return Systembackup
      */
-    public function setFoldername($foldername)
-    {
+    public function setFoldername($foldername) {
         $this->foldername = $foldername;
-    
+
         return $this;
     }
 
@@ -101,8 +112,7 @@ class Systembackup
      *
      * @return string 
      */
-    public function getFoldername()
-    {
+    public function getFoldername() {
         return $this->foldername;
     }
 
@@ -112,10 +122,9 @@ class Systembackup
      * @param \DateTime $backupAt
      * @return Systembackup
      */
-    public function setBackupAt($backupAt)
-    {
+    public function setBackupAt($backupAt) {
         $this->backupAt = $backupAt;
-    
+
         return $this;
     }
 
@@ -124,8 +133,7 @@ class Systembackup
      *
      * @return \DateTime 
      */
-    public function getBackupAt()
-    {
+    public function getBackupAt() {
         return $this->backupAt;
     }
 
@@ -135,10 +143,9 @@ class Systembackup
      * @param \DateTime $createdAt
      * @return Systembackup
      */
-    public function setCreatedAt($createdAt)
-    {
+    public function setCreatedAt($createdAt) {
         $this->createdAt = $createdAt;
-    
+
         return $this;
     }
 
@@ -147,8 +154,7 @@ class Systembackup
      *
      * @return \DateTime 
      */
-    public function getCreatedAt()
-    {
+    public function getCreatedAt() {
         return $this->createdAt;
     }
 
@@ -158,10 +164,9 @@ class Systembackup
      * @param \DateTime $updatedAt
      * @return Systembackup
      */
-    public function setUpdatedAt($updatedAt)
-    {
+    public function setUpdatedAt($updatedAt) {
         $this->updatedAt = $updatedAt;
-    
+
         return $this;
     }
 
@@ -170,8 +175,7 @@ class Systembackup
      *
      * @return \DateTime 
      */
-    public function getUpdatedAt()
-    {
+    public function getUpdatedAt() {
         return $this->updatedAt;
     }
 
@@ -181,10 +185,9 @@ class Systembackup
      * @param \DateTime $finishedAt
      * @return Systembackup
      */
-    public function setFinishedAt($finishedAt)
-    {
+    public function setFinishedAt($finishedAt) {
         $this->finishedAt = $finishedAt;
-    
+
         return $this;
     }
 
@@ -193,8 +196,7 @@ class Systembackup
      *
      * @return \DateTime 
      */
-    public function getFinishedAt()
-    {
+    public function getFinishedAt() {
         return $this->finishedAt;
     }
 
@@ -204,10 +206,9 @@ class Systembackup
      * @param \Application\Sonata\UserBundle\Entity\User $user
      * @return Systembackup
      */
-    public function setUser(\Application\Sonata\UserBundle\Entity\User $user = null)
-    {
+    public function setUser(\Application\Sonata\UserBundle\Entity\User $user = null) {
         $this->user = $user;
-    
+
         return $this;
     }
 
@@ -216,8 +217,8 @@ class Systembackup
      *
      * @return \Application\Sonata\UserBundle\Entity\User 
      */
-    public function getUser()
-    {
+    public function getUser() {
         return $this->user;
     }
+
 }

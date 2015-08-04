@@ -1,5 +1,21 @@
 <?php
 
+/**
+ * <copyright>
+ * This file/program is free and open source software released under the GNU General Public
+ * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
+ * Public Licence is available at http://www.gnu.org/licenses
+ * </copyright>
+ *
+ * <author>Shuilin (Joseph) Zhao</author>
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <email>zhaoshuilin2004@yahoo.ca</email>
+ * <date>created at 2014/01/06</date>
+ * <date>last updated at 2015/03/11</date>
+ * <summary>This file is extend of Map2u\CoreBundle\Controller\UserAccountController</summary>
+ * <purpose>expose of routing of Map2u\CoreBundle\Controller\UserAccountController , add custom actions in this controller and override the old actions</purpose>
+ */
+
 namespace Application\Map2u\CoreBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -69,7 +85,7 @@ class UserAccountController extends BaseController {
             $bookmark->setUser($this->getUser());
             $em->persist($bookmark);
             $em->flush();
-            return new Response(\json_encode(array('success' => true, "seq" => $seq, "zoom" => $data['zoomLevel'], "lat" => $request->get('lat'), "lng" => $request->get('lng'), 'address'=>$data['address'], 'title'=>$data['name']." ".$scaleText[intval($data['zoomLevel'])], 'message' => 'Successfully saved!')));
+            return new Response(\json_encode(array('success' => true, "seq" => $seq, "zoom" => $data['zoomLevel'], "lat" => $request->get('lat'), "lng" => $request->get('lng'), 'address' => $data['address'], 'title' => $data['name'] . " " . $scaleText[intval($data['zoomLevel'])], 'message' => 'Successfully saved!')));
         }
         $bookmarks = null;
         if ($this->getUser()) {

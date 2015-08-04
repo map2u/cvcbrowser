@@ -1,36 +1,39 @@
 <?php
 
-/*
- * This file is part of the Sonata project.
+/**
+ * <copyright>
+ * This file/program is free and open source software released under the GNU General Public
+ * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
+ * Public Licence is available at http://www.gnu.org/licenses
+ * </copyright>
  *
- * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * <author>Shuilin (Joseph) Zhao</author>
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <email>zhaoshuilin2004@yahoo.ca</email>
+ * <date>created at 2014/01/06</date>
+ * <date>last updated at 2015/03/11</date>
+ * <summary>This is the extend of Sonata\CoreBundle\Model\BaseEntityManager</summary>
+ * <purpose>for entity extend based on Sonata\CoreBundle\Model\BaseEntityManager</purpose>
  */
 
 namespace Sonata\ClassificationBundle\Entity;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Sonata\AdminBundle\Datagrid\PagerInterface;
-
 use Sonata\ClassificationBundle\Model\CategoryInterface;
 use Sonata\ClassificationBundle\Model\CategoryManagerInterface;
-
 use Sonata\ClassificationBundle\Model\ContextInterface;
 use Sonata\ClassificationBundle\Model\ContextManagerInterface;
 use Sonata\CoreBundle\Model\BaseEntityManager;
-
 use Sonata\DatagridBundle\Pager\Doctrine\Pager;
 use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery;
 
-class CategoryManager extends BaseEntityManager implements CategoryManagerInterface
-{
+class CategoryManager extends BaseEntityManager implements CategoryManagerInterface {
+
     /**
      * @var array
      */
     protected $categories;
-
     protected $contextManager;
 
     /**
@@ -38,8 +41,7 @@ class CategoryManager extends BaseEntityManager implements CategoryManagerInterf
      * @param ManagerRegistry         $registry
      * @param ContextManagerInterface $contextManager
      */
-    public function __construct($class, ManagerRegistry $registry, ContextManagerInterface $contextManager)
-    {
+    public function __construct($class, ManagerRegistry $registry, ContextManagerInterface $contextManager) {
         parent::__construct($class, $registry);
 
         $this->contextManager = $contextManager;
@@ -55,14 +57,13 @@ class CategoryManager extends BaseEntityManager implements CategoryManagerInterf
      *
      * @return mixed
      */
-    public function getRootCategoriesPager($page = 1, $limit = 25, $criteria = array())
-    {
+    public function getRootCategoriesPager($page = 1, $limit = 25, $criteria = array()) {
         $page = (int) $page == 0 ? 1 : (int) $page;
 
         $queryBuilder = $this->getObjectManager()->createQueryBuilder()
-            ->select('c')
-            ->from($this->class, 'c')
-            ->andWhere('c.parent IS NULL');
+                ->select('c')
+                ->from($this->class, 'c')
+                ->andWhere('c.parent IS NULL');
 
         $pager = new Pager($limit);
         $pager->setQuery(new ProxyQuery($queryBuilder));
@@ -80,13 +81,12 @@ class CategoryManager extends BaseEntityManager implements CategoryManagerInterf
      *
      * @return PagerInterface
      */
-    public function getSubCategoriesPager($categoryId, $page = 1, $limit = 25, $criteria = array())
-    {
+    public function getSubCategoriesPager($categoryId, $page = 1, $limit = 25, $criteria = array()) {
         $queryBuilder = $this->getObjectManager()->createQueryBuilder()
-            ->select('c')
-            ->from($this->class, 'c')
-            ->where('c.parent = :categoryId')
-            ->setParameter('categoryId', $categoryId);
+                ->select('c')
+                ->from($this->class, 'c')
+                ->where('c.parent = :categoryId')
+                ->setParameter('categoryId', $categoryId);
 
         $pager = new Pager($limit);
         $pager->setQuery(new ProxyQuery($queryBuilder));
@@ -101,8 +101,7 @@ class CategoryManager extends BaseEntityManager implements CategoryManagerInterf
      *
      * @return CategoryInterface
      */
-    public function getRootCategory($context = null)
-    {
+    public function getRootCategory($context = null) {
         $context = $this->getContext($context);
 
         $this->loadCategories($context);
@@ -113,16 +112,15 @@ class CategoryManager extends BaseEntityManager implements CategoryManagerInterf
     /**
      * @return CategoryInterface[]
      */
-    public function getRootCategories($loadChildren = true)
-    {
+    public function getRootCategories($loadChildren = true) {
         $class = $this->getClass();
 
         $rootCategories = $this->getObjectManager()->createQuery(sprintf('SELECT c FROM %s c WHERE c.parent IS NULL', $class))
-            ->execute();
+                ->execute();
 
         $categories = array();
 
-        foreach($rootCategories as $category) {
+        foreach ($rootCategories as $category) {
             if ($category->getContext() === null) {
                 throw new \RuntimeException('Context cannot be null');
             }
@@ -138,8 +136,7 @@ class CategoryManager extends BaseEntityManager implements CategoryManagerInterf
      *
      * @return array
      */
-    public function getCategories($context = null)
-    {
+    public function getCategories($context = null) {
         $context = $this->getContext($context);
 
         $this->loadCategories($context);
@@ -152,8 +149,7 @@ class CategoryManager extends BaseEntityManager implements CategoryManagerInterf
      *
      * @return ContextInterface
      */
-    private function getContext($contextCode)
-    {
+    private function getContext($contextCode) {
         if (empty($contextCode)) {
             $contextCode = ContextInterface::DEFAULT_CONTEXT;
         }
@@ -181,8 +177,7 @@ class CategoryManager extends BaseEntityManager implements CategoryManagerInterf
      * Load all categories from the database, the current method is very efficient for < 256 categories
      *
      */
-    protected function loadCategories(ContextInterface $context)
-    {
+    protected function loadCategories(ContextInterface $context) {
         if (array_key_exists($context->getId(), $this->categories)) {
             return;
         }
@@ -190,8 +185,8 @@ class CategoryManager extends BaseEntityManager implements CategoryManagerInterf
         $class = $this->getClass();
 
         $categories = $this->getObjectManager()->createQuery(sprintf('SELECT c FROM %s c WHERE c.context = :context ORDER BY c.parent ASC', $class))
-            ->setParameter('context', $context->getId())
-            ->execute();
+                ->setParameter('context', $context->getId())
+                ->execute();
 
         if (count($categories) == 0) {
             // no category, create one for the provided context
@@ -234,13 +229,12 @@ class CategoryManager extends BaseEntityManager implements CategoryManagerInterf
     /**
      * {@inheritdoc}
      */
-    public function getPager(array $criteria, $page, $limit = 10, array $sort = array())
-    {
+    public function getPager(array $criteria, $page, $limit = 10, array $sort = array()) {
         $parameters = array();
 
         $query = $this->getRepository()
-            ->createQueryBuilder('c')
-            ->select('c');
+                ->createQueryBuilder('c')
+                ->select('c');
 
         if (isset($criteria['context'])) {
             $query->andWhere('c.context = :context');
@@ -262,4 +256,5 @@ class CategoryManager extends BaseEntityManager implements CategoryManagerInterf
 
         return $pager;
     }
+
 }

@@ -1,5 +1,21 @@
 <?php
 
+/**
+ * <copyright>
+ * This file/program is free and open source software released under the GNU General Public
+ * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
+ * Public Licence is available at http://www.gnu.org/licenses
+ * </copyright>
+ *
+ * <author>Shuilin (Joseph) Zhao</author>
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <email>zhaoshuilin2004@yahoo.ca</email>
+ * <date>created at 2014/01/06</date>
+ * <date>last updated at 2015/03/11</date>
+ * <summary>This is the definition of Systemparams entity</summary>
+ * <purpose></purpose>
+ */
+
 namespace Yorku\JuturnaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -7,8 +23,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Systemparams
  */
-class Systemparams
-{
+class Systemparams {
+
     /**
      * @var integer
      */
@@ -109,14 +125,12 @@ class Systemparams
      */
     private $geoserverWorkspace;
 
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -126,10 +140,9 @@ class Systemparams
      * @param string $logo1Name
      * @return Systemparams
      */
-    public function setLogo1Name($logo1Name)
-    {
+    public function setLogo1Name($logo1Name) {
         $this->logo1Name = $logo1Name;
-    
+
         return $this;
     }
 
@@ -138,8 +151,7 @@ class Systemparams
      *
      * @return string 
      */
-    public function getLogo1Name()
-    {
+    public function getLogo1Name() {
         return $this->logo1Name;
     }
 
@@ -149,10 +161,9 @@ class Systemparams
      * @param string $logo2Name
      * @return Systemparams
      */
-    public function setLogo2Name($logo2Name)
-    {
+    public function setLogo2Name($logo2Name) {
         $this->logo2Name = $logo2Name;
-    
+
         return $this;
     }
 
@@ -161,8 +172,7 @@ class Systemparams
      *
      * @return string 
      */
-    public function getLogo2Name()
-    {
+    public function getLogo2Name() {
         return $this->logo2Name;
     }
 
@@ -172,10 +182,9 @@ class Systemparams
      * @param string $logo3Name
      * @return Systemparams
      */
-    public function setLogo3Name($logo3Name)
-    {
+    public function setLogo3Name($logo3Name) {
         $this->logo3Name = $logo3Name;
-    
+
         return $this;
     }
 
@@ -184,8 +193,7 @@ class Systemparams
      *
      * @return string 
      */
-    public function getLogo3Name()
-    {
+    public function getLogo3Name() {
         return $this->logo3Name;
     }
 
@@ -195,10 +203,9 @@ class Systemparams
      * @param string $logo1Blob
      * @return Systemparams
      */
-    public function setLogo1Blob($logo1Blob)
-    {
+    public function setLogo1Blob($logo1Blob) {
         $this->logo1Blob = $logo1Blob;
-    
+
         return $this;
     }
 
@@ -207,8 +214,7 @@ class Systemparams
      *
      * @return string 
      */
-    public function getLogo1Blob()
-    {
+    public function getLogo1Blob() {
         return $this->logo1Blob;
     }
 
@@ -218,10 +224,9 @@ class Systemparams
      * @param string $logo2Blob
      * @return Systemparams
      */
-    public function setLogo2Blob($logo2Blob)
-    {
+    public function setLogo2Blob($logo2Blob) {
         $this->logo2Blob = $logo2Blob;
-    
+
         return $this;
     }
 
@@ -230,8 +235,7 @@ class Systemparams
      *
      * @return string 
      */
-    public function getLogo2Blob()
-    {
+    public function getLogo2Blob() {
         return $this->logo2Blob;
     }
 
@@ -241,10 +245,9 @@ class Systemparams
      * @param string $logo3Blob
      * @return Systemparams
      */
-    public function setLogo3Blob($logo3Blob)
-    {
+    public function setLogo3Blob($logo3Blob) {
         $this->logo3Blob = $logo3Blob;
-    
+
         return $this;
     }
 
@@ -253,8 +256,7 @@ class Systemparams
      *
      * @return string 
      */
-    public function getLogo3Blob()
-    {
+    public function getLogo3Blob() {
         return $this->logo3Blob;
     }
 
@@ -264,10 +266,9 @@ class Systemparams
      * @param string $logo1Url
      * @return Systemparams
      */
-    public function setLogo1Url($logo1Url)
-    {
+    public function setLogo1Url($logo1Url) {
         $this->logo1Url = $logo1Url;
-    
+
         return $this;
     }
 
@@ -276,8 +277,7 @@ class Systemparams
      *
      * @return string 
      */
-    public function getLogo1Url()
-    {
+    public function getLogo1Url() {
         return $this->logo1Url;
     }
 
@@ -287,10 +287,9 @@ class Systemparams
      * @param string $logo2Url
      * @return Systemparams
      */
-    public function setLogo2Url($logo2Url)
-    {
+    public function setLogo2Url($logo2Url) {
         $this->logo2Url = $logo2Url;
-    
+
         return $this;
     }
 
@@ -299,8 +298,7 @@ class Systemparams
      *
      * @return string 
      */
-    public function getLogo2Url()
-    {
+    public function getLogo2Url() {
         return $this->logo2Url;
     }
 
@@ -310,10 +308,9 @@ class Systemparams
      * @param string $logo3Url
      * @return Systemparams
      */
-    public function setLogo3Url($logo3Url)
-    {
+    public function setLogo3Url($logo3Url) {
         $this->logo3Url = $logo3Url;
-    
+
         return $this;
     }
 
@@ -322,8 +319,7 @@ class Systemparams
      *
      * @return string 
      */
-    public function getLogo3Url()
-    {
+    public function getLogo3Url() {
         return $this->logo3Url;
     }
 
@@ -333,10 +329,9 @@ class Systemparams
      * @param string $logo1Imagetype
      * @return Systemparams
      */
-    public function setLogo1Imagetype($logo1Imagetype)
-    {
+    public function setLogo1Imagetype($logo1Imagetype) {
         $this->logo1Imagetype = $logo1Imagetype;
-    
+
         return $this;
     }
 
@@ -345,8 +340,7 @@ class Systemparams
      *
      * @return string 
      */
-    public function getLogo1Imagetype()
-    {
+    public function getLogo1Imagetype() {
         return $this->logo1Imagetype;
     }
 
@@ -356,10 +350,9 @@ class Systemparams
      * @param string $logo2Imagetype
      * @return Systemparams
      */
-    public function setLogo2Imagetype($logo2Imagetype)
-    {
+    public function setLogo2Imagetype($logo2Imagetype) {
         $this->logo2Imagetype = $logo2Imagetype;
-    
+
         return $this;
     }
 
@@ -368,8 +361,7 @@ class Systemparams
      *
      * @return string 
      */
-    public function getLogo2Imagetype()
-    {
+    public function getLogo2Imagetype() {
         return $this->logo2Imagetype;
     }
 
@@ -379,10 +371,9 @@ class Systemparams
      * @param string $logo3Imagetype
      * @return Systemparams
      */
-    public function setLogo3Imagetype($logo3Imagetype)
-    {
+    public function setLogo3Imagetype($logo3Imagetype) {
         $this->logo3Imagetype = $logo3Imagetype;
-    
+
         return $this;
     }
 
@@ -391,8 +382,7 @@ class Systemparams
      *
      * @return string 
      */
-    public function getLogo3Imagetype()
-    {
+    public function getLogo3Imagetype() {
         return $this->logo3Imagetype;
     }
 
@@ -402,10 +392,9 @@ class Systemparams
      * @param string $logo1Filename
      * @return Systemparams
      */
-    public function setLogo1Filename($logo1Filename)
-    {
+    public function setLogo1Filename($logo1Filename) {
         $this->logo1Filename = $logo1Filename;
-    
+
         return $this;
     }
 
@@ -414,8 +403,7 @@ class Systemparams
      *
      * @return string 
      */
-    public function getLogo1Filename()
-    {
+    public function getLogo1Filename() {
         return $this->logo1Filename;
     }
 
@@ -425,10 +413,9 @@ class Systemparams
      * @param string $logo2Filename
      * @return Systemparams
      */
-    public function setLogo2Filename($logo2Filename)
-    {
+    public function setLogo2Filename($logo2Filename) {
         $this->logo2Filename = $logo2Filename;
-    
+
         return $this;
     }
 
@@ -437,8 +424,7 @@ class Systemparams
      *
      * @return string 
      */
-    public function getLogo2Filename()
-    {
+    public function getLogo2Filename() {
         return $this->logo2Filename;
     }
 
@@ -448,10 +434,9 @@ class Systemparams
      * @param string $logo3Filename
      * @return Systemparams
      */
-    public function setLogo3Filename($logo3Filename)
-    {
+    public function setLogo3Filename($logo3Filename) {
         $this->logo3Filename = $logo3Filename;
-    
+
         return $this;
     }
 
@@ -460,8 +445,7 @@ class Systemparams
      *
      * @return string 
      */
-    public function getLogo3Filename()
-    {
+    public function getLogo3Filename() {
         return $this->logo3Filename;
     }
 
@@ -471,10 +455,9 @@ class Systemparams
      * @param string $masteremail
      * @return Systemparams
      */
-    public function setMasteremail($masteremail)
-    {
+    public function setMasteremail($masteremail) {
         $this->masteremail = $masteremail;
-    
+
         return $this;
     }
 
@@ -483,8 +466,7 @@ class Systemparams
      *
      * @return string 
      */
-    public function getMasteremail()
-    {
+    public function getMasteremail() {
         return $this->masteremail;
     }
 
@@ -494,10 +476,9 @@ class Systemparams
      * @param string $geoserverHost
      * @return Systemparams
      */
-    public function setGeoserverHost($geoserverHost)
-    {
+    public function setGeoserverHost($geoserverHost) {
         $this->geoserverHost = $geoserverHost;
-    
+
         return $this;
     }
 
@@ -506,8 +487,7 @@ class Systemparams
      *
      * @return string 
      */
-    public function getGeoserverHost()
-    {
+    public function getGeoserverHost() {
         return $this->geoserverHost;
     }
 
@@ -517,10 +497,9 @@ class Systemparams
      * @param integer $geoserverPort
      * @return Systemparams
      */
-    public function setGeoserverPort($geoserverPort)
-    {
+    public function setGeoserverPort($geoserverPort) {
         $this->geoserverPort = $geoserverPort;
-    
+
         return $this;
     }
 
@@ -529,8 +508,7 @@ class Systemparams
      *
      * @return integer 
      */
-    public function getGeoserverPort()
-    {
+    public function getGeoserverPort() {
         return $this->geoserverPort;
     }
 
@@ -540,10 +518,9 @@ class Systemparams
      * @param string $geoserverWorkspace
      * @return Systemparams
      */
-    public function setGeoserverWorkspace($geoserverWorkspace)
-    {
+    public function setGeoserverWorkspace($geoserverWorkspace) {
         $this->geoserverWorkspace = $geoserverWorkspace;
-    
+
         return $this;
     }
 
@@ -552,8 +529,8 @@ class Systemparams
      *
      * @return string 
      */
-    public function getGeoserverWorkspace()
-    {
+    public function getGeoserverWorkspace() {
         return $this->geoserverWorkspace;
     }
+
 }

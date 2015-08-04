@@ -1,5 +1,21 @@
 <?php
 
+/**
+ * <copyright>
+ * This file/program is free and open source software released under the GNU General Public
+ * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
+ * Public Licence is available at http://www.gnu.org/licenses
+ * </copyright>
+ *
+ * <author>Shuilin (Joseph) Zhao</author>
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <email>zhaoshuilin2004@yahoo.ca</email>
+ * <date>created at 2014/01/06</date>
+ * <date>last updated at 2015/03/11</date>
+ * <summary>This is the definition of HomepageFlash entity</summary>
+ * <purpose></purpose>
+ */
+
 namespace Yorku\JuturnaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -329,15 +345,13 @@ class HomepageFlash {
      */
     private $alignLeft;
 
-
     /**
      * Set titleMargin
      *
      * @param integer $titleMargin
      * @return HomepageFlash
      */
-    public function setTitleMargin($titleMargin)
-    {
+    public function setTitleMargin($titleMargin) {
         $this->titleMargin = $titleMargin;
 
         return $this;
@@ -348,8 +362,7 @@ class HomepageFlash {
      *
      * @return integer 
      */
-    public function getTitleMargin()
-    {
+    public function getTitleMargin() {
         return $this->titleMargin;
     }
 
@@ -359,8 +372,7 @@ class HomepageFlash {
      * @param boolean $alignLeft
      * @return HomepageFlash
      */
-    public function setAlignLeft($alignLeft)
-    {
+    public function setAlignLeft($alignLeft) {
         $this->alignLeft = $alignLeft;
 
         return $this;
@@ -371,8 +383,8 @@ class HomepageFlash {
      *
      * @return boolean 
      */
-    public function getAlignLeft()
-    {
+    public function getAlignLeft() {
         return $this->alignLeft;
     }
+
 }

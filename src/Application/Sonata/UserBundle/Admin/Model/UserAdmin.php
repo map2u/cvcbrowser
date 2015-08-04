@@ -1,7 +1,22 @@
 <?php
 
-namespace Application\Sonata\UserBundle\Admin\Model;
+/**
+ * <copyright>
+ * This file/program is free and open source software released under the GNU General Public
+ * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
+ * Public Licence is available at http://www.gnu.org/licenses
+ * </copyright>
+ *
+ * <author>Shuilin (Joseph) Zhao</author>
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <email>zhaoshuilin2004@yahoo.ca</email>
+ * <date>created at 2014/01/06</date>
+ * <date>last updated at 2015/03/11</date>
+ * <summary>This is the extend of Sonata\AdminBundle\Admin\Admin</summary>
+ * <purpose>custom the User entity form for Sonata\AdminBundle\Admin\Admin</purpose>
+ */
 
+namespace Application\Sonata\UserBundle\Admin\Model;
 
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -9,23 +24,20 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\UserBundle\Model\UserInterface;
-
 use FOS\UserBundle\Model\UserManagerInterface;
 
-class UserAdmin extends Admin
-{
+class UserAdmin extends Admin {
 
     /**
      * {@inheritdoc}
      */
-    public function getFormBuilder()
-    {
+    public function getFormBuilder() {
         $this->formOptions['data_class'] = $this->getClass();
 
         $options = $this->formOptions;
         $options['validation_groups'] = (!$this->getSubject() || is_null($this->getSubject()->getId())) ? 'Registration' : 'Profile';
 
-        $formBuilder = $this->getFormContractor()->getFormBuilder( $this->getUniqid(), $options);
+        $formBuilder = $this->getFormContractor()->getFormBuilder($this->getUniqid(), $options);
 
         $this->defineFormBuilder($formBuilder);
 
@@ -35,8 +47,7 @@ class UserAdmin extends Admin
     /**
      * {@inheritdoc}
      */
-    public function getExportFields()
-    {
+    public function getExportFields() {
         // avoid security field to be exported
         return array_filter(parent::getExportFields(), function($v) {
             return !in_array($v, array('password', 'salt'));
@@ -46,21 +57,20 @@ class UserAdmin extends Admin
     /**
      * {@inheritdoc}
      */
-    protected function configureListFields(ListMapper $listMapper)
-    {
+    protected function configureListFields(ListMapper $listMapper) {
         $listMapper
-            ->addIdentifier('username')
-            ->add('email')
-            ->add('membership')
-            ->add('groups')
-            ->add('enabled', null, array('editable' => true))
-            ->add('locked', null, array('editable' => true))
-            ->add('createdAt')
+                ->addIdentifier('username')
+                ->add('email')
+                ->add('membership')
+                ->add('groups')
+                ->add('enabled', null, array('editable' => true))
+                ->add('locked', null, array('editable' => true))
+                ->add('createdAt')
         ;
 
         if ($this->isGranted('ROLE_ALLOWED_TO_SWITCH')) {
             $listMapper
-                ->add('impersonating', 'string', array('template' => 'SonataUserBundle:Admin:Field/impersonating.html.twig'))
+                    ->add('impersonating', 'string', array('template' => 'SonataUserBundle:Admin:Field/impersonating.html.twig'))
             ;
         }
     }
@@ -68,33 +78,31 @@ class UserAdmin extends Admin
     /**
      * {@inheritdoc}
      */
-    protected function configureDatagridFilters(DatagridMapper $filterMapper)
-    {
+    protected function configureDatagridFilters(DatagridMapper $filterMapper) {
         $filterMapper
-            ->add('id')
-            ->add('username')
-            ->add('locked')
-            ->add('email')
-            ->add('membership')
-            ->add('groups')
+                ->add('id')
+                ->add('username')
+                ->add('locked')
+                ->add('email')
+                ->add('membership')
+                ->add('groups')
         ;
     }
 
     /**
      * {@inheritdoc}
      */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
+    protected function configureShowFields(ShowMapper $showMapper) {
         $showMapper
-            ->with('General')
+                ->with('General')
                 ->add('username')
                 ->add('email')
                 ->add('membership')
-            ->end()
-            ->with('Groups')
+                ->end()
+                ->with('Groups')
                 ->add('groups')
-            ->end()
-            ->with('Profile')
+                ->end()
+                ->with('Profile')
                 ->add('dateOfBirth')
                 ->add('firstname')
                 ->add('lastname')
@@ -104,44 +112,43 @@ class UserAdmin extends Admin
                 ->add('locale')
                 ->add('timezone')
                 ->add('phone')
-            ->end()
-            ->with('Social')
+                ->end()
+                ->with('Social')
                 ->add('facebookUid')
                 ->add('facebookName')
                 ->add('twitterUid')
                 ->add('twitterName')
                 ->add('gplusUid')
                 ->add('gplusName')
-            ->end()
-            ->with('Security')
+                ->end()
+                ->with('Security')
                 ->add('token')
                 ->add('twoStepVerificationCode')
-            ->end()
+                ->end()
         ;
     }
 
     /**
      * {@inheritdoc}
      */
-    protected function configureFormFields(FormMapper $formMapper)
-    {
+    protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
-            ->with('General')
+                ->with('General')
                 ->add('username')
                 ->add('email')
                 ->add('membership')
                 ->add('plainPassword', 'text', array(
                     'required' => (!$this->getSubject() || is_null($this->getSubject()->getId()))
                 ))
-            ->end()
-            ->with('Groups')
+                ->end()
+                ->with('Groups')
                 ->add('groups', 'sonata_type_model', array(
                     'required' => false,
                     'expanded' => true,
                     'multiple' => true
                 ))
-            ->end()
-            ->with('Profile')
+                ->end()
+                ->with('Profile')
                 ->add('dateOfBirth', 'birthday', array('required' => false))
                 ->add('firstname', null, array('required' => false))
                 ->add('lastname', null, array('required' => false))
@@ -154,22 +161,22 @@ class UserAdmin extends Admin
                 ->add('locale', 'locale', array('required' => false))
                 ->add('timezone', 'timezone', array('required' => false))
                 ->add('phone', null, array('required' => false))
-            ->end()
-            ->with('Social')
+                ->end()
+                ->with('Social')
                 ->add('facebookUid', null, array('required' => false))
                 ->add('facebookName', null, array('required' => false))
                 ->add('twitterUid', null, array('required' => false))
                 ->add('twitterName', null, array('required' => false))
                 ->add('gplusUid', null, array('required' => false))
                 ->add('gplusName', null, array('required' => false))
-            ->end()
+                ->end()
         ;
 
         if ($this->getSubject() && !$this->getSubject()->hasRole('ROLE_SUPER_ADMIN')) {
             $formMapper
-                ->with('Management')
+                    ->with('Management')
                     ->add('realRoles', 'sonata_security_roles', array(
-                        'label'    => 'form.label_roles',
+                        'label' => 'form.label_roles',
                         'expanded' => true,
                         'multiple' => true,
                         'required' => false
@@ -178,23 +185,22 @@ class UserAdmin extends Admin
                     ->add('expired', null, array('required' => false))
                     ->add('enabled', null, array('required' => false))
                     ->add('credentialsExpired', null, array('required' => false))
-                ->end()
+                    ->end()
             ;
         }
 
         $formMapper
-            ->with('Security')
+                ->with('Security')
                 ->add('token', null, array('required' => false))
                 ->add('twoStepVerificationCode', null, array('required' => false))
-            ->end()
+                ->end()
         ;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function preUpdate($user)
-    {
+    public function preUpdate($user) {
         $this->getUserManager()->updateCanonicalFields($user);
         $this->getUserManager()->updatePassword($user);
     }
@@ -202,16 +208,15 @@ class UserAdmin extends Admin
     /**
      * @param UserManagerInterface $userManager
      */
-    public function setUserManager(UserManagerInterface $userManager)
-    {
+    public function setUserManager(UserManagerInterface $userManager) {
         $this->userManager = $userManager;
     }
 
     /**
      * @return UserManagerInterface
      */
-    public function getUserManager()
-    {
+    public function getUserManager() {
         return $this->userManager;
     }
+
 }

@@ -1,5 +1,21 @@
 <?php
 
+/**
+ * <copyright>
+ * This file/program is free and open source software released under the GNU General Public
+ * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
+ * Public Licence is available at http://www.gnu.org/licenses
+ * </copyright>
+ *
+ * <author>Shuilin (Joseph) Zhao</author>
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <email>zhaoshuilin2004@yahoo.ca</email>
+ * <date>created at 2014/01/06</date>
+ * <date>last updated at 2015/03/11</date>
+ * <summary>This is the definition of SchemaMigrations entity</summary>
+ * <purpose></purpose>
+ */
+
 namespace Yorku\JuturnaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -10,8 +26,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="schema_migrations")
  * @ORM\Entity
  */
-class SchemaMigrations
-{
+class SchemaMigrations {
+
     /**
      * @var integer
      *
@@ -29,15 +45,12 @@ class SchemaMigrations
      */
     private $version;
 
-
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -47,10 +60,9 @@ class SchemaMigrations
      * @param string $version
      * @return SchemaMigrations
      */
-    public function setVersion($version)
-    {
+    public function setVersion($version) {
         $this->version = $version;
-    
+
         return $this;
     }
 
@@ -59,8 +71,8 @@ class SchemaMigrations
      *
      * @return string 
      */
-    public function getVersion()
-    {
+    public function getVersion() {
         return $this->version;
     }
+
 }

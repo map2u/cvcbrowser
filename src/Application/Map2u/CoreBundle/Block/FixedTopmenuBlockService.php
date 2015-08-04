@@ -1,12 +1,19 @@
 <?php
 
-/*
- * This file is part of the Sonata project.
+/**
+ * <copyright>
+ * This file/program is free and open source software released under the GNU General Public
+ * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
+ * Public Licence is available at http://www.gnu.org/licenses
+ * </copyright>
  *
- * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * <author>Shuilin (Joseph) Zhao</author>
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <email>zhaoshuilin2004@yahoo.ca</email>
+ * <date>created at 2014/01/06</date>
+ * <date>last updated at 2015/03/11</date>
+ * <summary>This file is extend of Map2u\CoreBundle\Block\FixedTopmenuBlockService</summary>
+ * <purpose>based on Map2u\CoreBundle\Block\FixedTopmenuBlockService to override some actions and display contents</purpose>
  */
 
 namespace Application\Map2u\CoreBundle\Block;
@@ -22,9 +29,6 @@ use Sonata\BlockBundle\Block\BaseBlockService;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Map2u\CoreBundle\Block\FixedTopmenuBlockService as baseFixedTopmenuBlockService;
-//use Sonata\CoreBundle\Model\BaseEntityManager;
-//use Sonata\DoctrineORMAdminBundle\Datagrid\Pager;
-//use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
 use Doctrine\ORM\EntityManager;
 use Ibrows\Bundle\NewsletterBundle\Entity\Newsletter;
 
@@ -35,8 +39,9 @@ use Ibrows\Bundle\NewsletterBundle\Entity\Newsletter;
 class FixedTopmenuBlockService extends baseFixedTopmenuBlockService {
 
     private $container;
+
     public function __construct($name, $templating, EntityManager $entityManager, ContainerInterface $container) {
-          $this->container = $container;
+        $this->container = $container;
         parent::__construct($name, $templating, $entityManager);
     }
 

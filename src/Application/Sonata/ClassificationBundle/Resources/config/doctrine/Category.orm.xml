@@ -16,6 +16,7 @@
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>
+<<<<<<< HEAD
  
         <many-to-many field="graphcharts" target-entity="Yorku\JuturnaBundle\Entity\GraphChart" mapped-by="categories">
             <cascade>
@@ -26,6 +27,8 @@
                 <order-by-field name="graphchartTitle" direction="ASC" />
             </order-by>
         </many-to-many>
+=======
+>>>>>>> update map2u bundles
 
     </entity>
 </doctrine-mapping>

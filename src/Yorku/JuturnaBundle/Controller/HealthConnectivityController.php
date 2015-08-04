@@ -1,9 +1,19 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * <copyright>
+ * This file/program is free and open source software released under the GNU General Public
+ * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
+ * Public Licence is available at http://www.gnu.org/licenses
+ * </copyright>
+ *
+ * <author>Shuilin (Joseph) Zhao</author>
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <email>zhaoshuilin2004@yahoo.ca</email>
+ * <date>created at 2014/01/06</date>
+ * <date>last updated at 2015/03/11</date>
+ * <summary>This file is created for HealthConnectivity controller with bundle YorkuJuturnaBundle</summary>
+ * <purpose>all actions process related HealthConnectivity in this controller</purpose>
  */
 
 namespace Yorku\JuturnaBundle\Controller;
@@ -21,8 +31,7 @@ use Yorku\JuturnaBundle\Form\LeadernameType;
  *
  * @Route("/healthConnect")
  */
-class HealthConnectivityController extends Controller
-{
+class HealthConnectivityController extends Controller {
 
     /**
      * Lists all Leadername entities.
@@ -31,8 +40,7 @@ class HealthConnectivityController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('YorkuJuturnaBundle:HealthConnectivity')->findAll();
@@ -41,4 +49,5 @@ class HealthConnectivityController extends Controller
             'entities' => $entities,
         );
     }
+
 }

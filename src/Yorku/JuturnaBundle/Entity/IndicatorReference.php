@@ -1,5 +1,21 @@
 <?php
 
+/**
+ * <copyright>
+ * This file/program is free and open source software released under the GNU General Public
+ * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
+ * Public Licence is available at http://www.gnu.org/licenses
+ * </copyright>
+ *
+ * <author>Shuilin (Joseph) Zhao</author>
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <email>zhaoshuilin2004@yahoo.ca</email>
+ * <date>created at 2014/01/06</date>
+ * <date>last updated at 2015/03/11</date>
+ * <summary>This is the definition of IndicatorReference entity</summary>
+ * <purpose></purpose>
+ */
+
 namespace Yorku\JuturnaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -168,15 +184,13 @@ class IndicatorReference {
      */
     private $otherlinks_indicatorbenefits;
 
-
     /**
      * Add additional_indicatorbenefits
      *
      * @param \Yorku\JuturnaBundle\Entity\IndicatorBenefit $additionalIndicatorbenefits
      * @return IndicatorReference
      */
-    public function addAdditionalIndicatorbenefit(\Yorku\JuturnaBundle\Entity\IndicatorBenefit $additionalIndicatorbenefits)
-    {
+    public function addAdditionalIndicatorbenefit(\Yorku\JuturnaBundle\Entity\IndicatorBenefit $additionalIndicatorbenefits) {
         $this->additional_indicatorbenefits[] = $additionalIndicatorbenefits;
 
         return $this;
@@ -187,8 +201,7 @@ class IndicatorReference {
      *
      * @param \Yorku\JuturnaBundle\Entity\IndicatorBenefit $additionalIndicatorbenefits
      */
-    public function removeAdditionalIndicatorbenefit(\Yorku\JuturnaBundle\Entity\IndicatorBenefit $additionalIndicatorbenefits)
-    {
+    public function removeAdditionalIndicatorbenefit(\Yorku\JuturnaBundle\Entity\IndicatorBenefit $additionalIndicatorbenefits) {
         $this->additional_indicatorbenefits->removeElement($additionalIndicatorbenefits);
     }
 
@@ -197,8 +210,7 @@ class IndicatorReference {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getAdditionalIndicatorbenefits()
-    {
+    public function getAdditionalIndicatorbenefits() {
         return $this->additional_indicatorbenefits;
     }
 
@@ -208,8 +220,7 @@ class IndicatorReference {
      * @param \Yorku\JuturnaBundle\Entity\IndicatorBenefit $otherlinksIndicatorbenefits
      * @return IndicatorReference
      */
-    public function addOtherlinksIndicatorbenefit(\Yorku\JuturnaBundle\Entity\IndicatorBenefit $otherlinksIndicatorbenefits)
-    {
+    public function addOtherlinksIndicatorbenefit(\Yorku\JuturnaBundle\Entity\IndicatorBenefit $otherlinksIndicatorbenefits) {
         $this->otherlinks_indicatorbenefits[] = $otherlinksIndicatorbenefits;
 
         return $this;
@@ -220,8 +231,7 @@ class IndicatorReference {
      *
      * @param \Yorku\JuturnaBundle\Entity\IndicatorBenefit $otherlinksIndicatorbenefits
      */
-    public function removeOtherlinksIndicatorbenefit(\Yorku\JuturnaBundle\Entity\IndicatorBenefit $otherlinksIndicatorbenefits)
-    {
+    public function removeOtherlinksIndicatorbenefit(\Yorku\JuturnaBundle\Entity\IndicatorBenefit $otherlinksIndicatorbenefits) {
         $this->otherlinks_indicatorbenefits->removeElement($otherlinksIndicatorbenefits);
     }
 
@@ -230,8 +240,8 @@ class IndicatorReference {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getOtherlinksIndicatorbenefits()
-    {
+    public function getOtherlinksIndicatorbenefits() {
         return $this->otherlinks_indicatorbenefits;
     }
+
 }

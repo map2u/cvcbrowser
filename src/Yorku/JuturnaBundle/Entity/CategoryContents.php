@@ -1,5 +1,21 @@
 <?php
 
+/**
+ * <copyright>
+ * This file/program is free and open source software released under the GNU General Public
+ * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
+ * Public Licence is available at http://www.gnu.org/licenses
+ * </copyright>
+ *
+ * <author>Shuilin (Joseph) Zhao</author>
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <email>zhaoshuilin2004@yahoo.ca</email>
+ * <date>created at 2014/01/06</date>
+ * <date>last updated at 2015/03/11</date>
+ * <summary>This is the definition of CategoryContents entity</summary>
+ * <purpose></purpose>
+ */
+
 namespace Yorku\JuturnaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -350,15 +366,13 @@ class CategoryContents {
      */
     private $position;
 
-
     /**
      * Set position
      *
      * @param integer $position
      * @return CategoryContents
      */
-    public function setPosition($position)
-    {
+    public function setPosition($position) {
         $this->position = $position;
 
         return $this;
@@ -369,10 +383,10 @@ class CategoryContents {
      *
      * @return integer 
      */
-    public function getPosition()
-    {
+    public function getPosition() {
         return $this->position;
     }
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -381,8 +395,7 @@ class CategoryContents {
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->contentdetails = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -392,8 +405,7 @@ class CategoryContents {
      * @param \Yorku\JuturnaBundle\Entity\CategoryContentDetails $contentdetails
      * @return CategoryContents
      */
-    public function addContentdetail(\Yorku\JuturnaBundle\Entity\CategoryContentDetails $contentdetails)
-    {
+    public function addContentdetail(\Yorku\JuturnaBundle\Entity\CategoryContentDetails $contentdetails) {
         $this->contentdetails[] = $contentdetails;
 
         return $this;
@@ -404,8 +416,7 @@ class CategoryContents {
      *
      * @param \Yorku\JuturnaBundle\Entity\CategoryContentDetails $contentdetails
      */
-    public function removeContentdetail(\Yorku\JuturnaBundle\Entity\CategoryContentDetails $contentdetails)
-    {
+    public function removeContentdetail(\Yorku\JuturnaBundle\Entity\CategoryContentDetails $contentdetails) {
         $this->contentdetails->removeElement($contentdetails);
     }
 
@@ -414,15 +425,14 @@ class CategoryContents {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getContentdetails()
-    {
+    public function getContentdetails() {
         return $this->contentdetails;
     }
+
     /**
      * @var integer
      */
     private $categoryId;
-
 
     /**
      * Set categoryId
@@ -430,8 +440,7 @@ class CategoryContents {
      * @param integer $categoryId
      * @return CategoryContents
      */
-    public function setCategoryId($categoryId)
-    {
+    public function setCategoryId($categoryId) {
         $this->categoryId = $categoryId;
 
         return $this;
@@ -442,15 +451,14 @@ class CategoryContents {
      *
      * @return integer 
      */
-    public function getCategoryId()
-    {
+    public function getCategoryId() {
         return $this->categoryId;
     }
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $displayLayers;
-
 
     /**
      * Add displayLayers
@@ -458,8 +466,7 @@ class CategoryContents {
      * @param \Map2u\CoreBundle\Entity\UploadfileLayer $displayLayers
      * @return CategoryContents
      */
-    public function addDisplayLayer(\Map2u\CoreBundle\Entity\UploadfileLayer $displayLayers)
-    {
+    public function addDisplayLayer(\Map2u\CoreBundle\Entity\UploadfileLayer $displayLayers) {
         $this->displayLayers[] = $displayLayers;
 
         return $this;
@@ -470,8 +477,7 @@ class CategoryContents {
      *
      * @param \Map2u\CoreBundle\Entity\UploadfileLayer $displayLayers
      */
-    public function removeDisplayLayer(\Map2u\CoreBundle\Entity\UploadfileLayer $displayLayers)
-    {
+    public function removeDisplayLayer(\Map2u\CoreBundle\Entity\UploadfileLayer $displayLayers) {
         $this->displayLayers->removeElement($displayLayers);
     }
 
@@ -480,8 +486,8 @@ class CategoryContents {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getDisplayLayers()
-    {
+    public function getDisplayLayers() {
         return $this->displayLayers;
     }
+
 }

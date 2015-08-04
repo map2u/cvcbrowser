@@ -1,5 +1,21 @@
 <?php
 
+/**
+ * <copyright>
+ * This file/program is free and open source software released under the GNU General Public
+ * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
+ * Public Licence is available at http://www.gnu.org/licenses
+ * </copyright>
+ *
+ * <author>Shuilin (Joseph) Zhao</author>
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <email>zhaoshuilin2004@yahoo.ca</email>
+ * <date>created at 2014/01/06</date>
+ * <date>last updated at 2015/03/11</date>
+ * <summary>This is the definition of Contact entity</summary>
+ * <purpose></purpose>
+ */
+
 namespace Yorku\JuturnaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -7,8 +23,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Contact
  */
-class Contact
-{
+class Contact {
+
     /**
      * @var integer
      */
@@ -44,14 +60,12 @@ class Contact
      */
     private $updatedAt;
 
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -61,8 +75,7 @@ class Contact
      * @param string $name
      * @return Contact
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -73,8 +86,7 @@ class Contact
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -84,8 +96,7 @@ class Contact
      * @param string $email
      * @return Contact
      */
-    public function setEmail($email)
-    {
+    public function setEmail($email) {
         $this->email = $email;
 
         return $this;
@@ -96,8 +107,7 @@ class Contact
      *
      * @return string 
      */
-    public function getEmail()
-    {
+    public function getEmail() {
         return $this->email;
     }
 
@@ -107,8 +117,7 @@ class Contact
      * @param string $ipaddress
      * @return Contact
      */
-    public function setIpaddress($ipaddress)
-    {
+    public function setIpaddress($ipaddress) {
         $this->ipaddress = $ipaddress;
 
         return $this;
@@ -119,8 +128,7 @@ class Contact
      *
      * @return string 
      */
-    public function getIpaddress()
-    {
+    public function getIpaddress() {
         return $this->ipaddress;
     }
 
@@ -130,8 +138,7 @@ class Contact
      * @param string $message
      * @return Contact
      */
-    public function setMessage($message)
-    {
+    public function setMessage($message) {
         $this->message = $message;
 
         return $this;
@@ -142,8 +149,7 @@ class Contact
      *
      * @return string 
      */
-    public function getMessage()
-    {
+    public function getMessage() {
         return $this->message;
     }
 
@@ -153,8 +159,7 @@ class Contact
      * @param \DateTime $createdAt
      * @return Contact
      */
-    public function setCreatedAt($createdAt)
-    {
+    public function setCreatedAt($createdAt) {
         $this->createdAt = $createdAt;
 
         return $this;
@@ -165,8 +170,7 @@ class Contact
      *
      * @return \DateTime 
      */
-    public function getCreatedAt()
-    {
+    public function getCreatedAt() {
         return $this->createdAt;
     }
 
@@ -176,8 +180,7 @@ class Contact
      * @param \DateTime $updatedAt
      * @return Contact
      */
-    public function setUpdatedAt($updatedAt)
-    {
+    public function setUpdatedAt($updatedAt) {
         $this->updatedAt = $updatedAt;
 
         return $this;
@@ -188,8 +191,8 @@ class Contact
      *
      * @return \DateTime 
      */
-    public function getUpdatedAt()
-    {
+    public function getUpdatedAt() {
         return $this->updatedAt;
     }
+
 }

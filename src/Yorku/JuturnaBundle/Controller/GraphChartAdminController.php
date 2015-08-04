@@ -1,9 +1,25 @@
 <?php
 
+/**
+ * <copyright>
+ * This file/program is free and open source software released under the GNU General Public
+ * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
+ * Public Licence is available at http://www.gnu.org/licenses
+ * </copyright>
+ *
+ * <author>Shuilin (Joseph) Zhao</author>
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <email>zhaoshuilin2004@yahoo.ca</email>
+ * <date>created at 2014/01/06</date>
+ * <date>last updated at 2015/03/11</date>
+ * <summary>This file is created for GraphChart controller with bundle YorkuJuturnaBundle</summary>
+ * <purpose>manage all GraphChart entity actions process in this controller, for custom process create a new GraphChart and update an existing GraphChart</purpose>
+ */
+
 namespace Yorku\JuturnaBundle\Controller;
 
 use Sonata\AdminBundle\Controller\CRUDController;
-use  Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Request;
 
 class GraphChartAdminController extends CRUDController {
 
@@ -23,7 +39,7 @@ class GraphChartAdminController extends CRUDController {
         /** @var $form \Symfony\Component\Form\Form */
         $form = $this->admin->getForm();
         $form->setData($object);
-        
+
         if ($this->getRestMethod() == 'POST') {
             $form->bind($this->get('request'));
 
@@ -95,7 +111,7 @@ class GraphChartAdminController extends CRUDController {
         ));
     }
 
-    public function editAction($id = NULL,Request $request = NULL) {
+    public function editAction($id = NULL, Request $request = NULL) {
 
         $templateKey = 'edit';
 
@@ -144,13 +160,13 @@ class GraphChartAdminController extends CRUDController {
 //                }
 //                $tags = $form['tags_choice']->getData();
 //                $object->setTags($tags);
-            //    if ($tags !== null) {
-            //        $tag_names = array();
-             //       foreach ($tags as $tag) {
-             //           array_push($tag_names, $tag->getId());
-             //       }
-              //      $object->setTags(serialize($tag_names));
-             //   }
+                //    if ($tags !== null) {
+                //        $tag_names = array();
+                //       foreach ($tags as $tag) {
+                //           array_push($tag_names, $tag->getId());
+                //       }
+                //      $object->setTags(serialize($tag_names));
+                //   }
 //        $dir = './uploads/images/header_logos';
 //        if ($image_file != null) {
 //          $image_file->move($dir, $image_file->getClientOriginalName());

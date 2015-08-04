@@ -1,5 +1,21 @@
 <?php
 
+/**
+ * <copyright>
+ * This file/program is free and open source software released under the GNU General Public
+ * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
+ * Public Licence is available at http://www.gnu.org/licenses
+ * </copyright>
+ *
+ * <author>Shuilin (Joseph) Zhao</author>
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <email>zhaoshuilin2004@yahoo.ca</email>
+ * <date>created at 2014/01/06</date>
+ * <date>last updated at 2015/03/11</date>
+ * <summary>This is the definition of Dictionaries entity</summary>
+ * <purpose></purpose>
+ */
+
 namespace Yorku\JuturnaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -10,8 +26,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="dictionaries")
  * @ORM\Entity
  */
-class Dictionaries
-{
+class Dictionaries {
+
     /**
      * @var integer
      *
@@ -50,15 +66,12 @@ class Dictionaries
      */
     private $dataType;
 
-
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -68,10 +81,9 @@ class Dictionaries
      * @param string $tableName
      * @return Dictionaries
      */
-    public function setTableName($tableName)
-    {
+    public function setTableName($tableName) {
         $this->tableName = $tableName;
-    
+
         return $this;
     }
 
@@ -80,8 +92,7 @@ class Dictionaries
      *
      * @return string 
      */
-    public function getTableName()
-    {
+    public function getTableName() {
         return $this->tableName;
     }
 
@@ -91,10 +102,9 @@ class Dictionaries
      * @param string $columnName
      * @return Dictionaries
      */
-    public function setColumnName($columnName)
-    {
+    public function setColumnName($columnName) {
         $this->columnName = $columnName;
-    
+
         return $this;
     }
 
@@ -103,8 +113,7 @@ class Dictionaries
      *
      * @return string 
      */
-    public function getColumnName()
-    {
+    public function getColumnName() {
         return $this->columnName;
     }
 
@@ -114,10 +123,9 @@ class Dictionaries
      * @param string $description
      * @return Dictionaries
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
-    
+
         return $this;
     }
 
@@ -126,8 +134,7 @@ class Dictionaries
      *
      * @return string 
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -137,10 +144,9 @@ class Dictionaries
      * @param string $dataType
      * @return Dictionaries
      */
-    public function setDataType($dataType)
-    {
+    public function setDataType($dataType) {
         $this->dataType = $dataType;
-    
+
         return $this;
     }
 
@@ -149,8 +155,8 @@ class Dictionaries
      *
      * @return string 
      */
-    public function getDataType()
-    {
+    public function getDataType() {
         return $this->dataType;
     }
+
 }

@@ -1,5 +1,21 @@
 <?php
 
+/**
+ * <copyright>
+ * This file/program is free and open source software released under the GNU General Public
+ * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
+ * Public Licence is available at http://www.gnu.org/licenses
+ * </copyright>
+ *
+ * <author>Shuilin (Joseph) Zhao</author>
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <email>zhaoshuilin2004@yahoo.ca</email>
+ * <date>created at 2014/01/06</date>
+ * <date>last updated at 2015/03/11</date>
+ * <summary>This is the definition of HomePageHeader entity</summary>
+ * <purpose></purpose>
+ */
+
 namespace Application\Map2u\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -7,8 +23,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * HomePageHeader
  */
-class HomePageHeader
-{
+class HomePageHeader {
+
     /**
      * @var array
      */
@@ -49,15 +65,13 @@ class HomePageHeader
      */
     private $systemBackgroundImageOpacity;
 
-
     /**
      * Set headerLogo
      *
      * @param array $headerLogo
      * @return HomePageHeader
      */
-    public function setHeaderLogo($headerLogo)
-    {
+    public function setHeaderLogo($headerLogo) {
         $this->headerLogo = $headerLogo;
 
         return $this;
@@ -68,8 +82,7 @@ class HomePageHeader
      *
      * @return array 
      */
-    public function getHeaderLogo()
-    {
+    public function getHeaderLogo() {
         return $this->headerLogo;
     }
 
@@ -79,8 +92,7 @@ class HomePageHeader
      * @param string $menubarLogo
      * @return HomePageHeader
      */
-    public function setMenubarLogo($menubarLogo)
-    {
+    public function setMenubarLogo($menubarLogo) {
         $this->menubarLogo = $menubarLogo;
 
         return $this;
@@ -91,8 +103,7 @@ class HomePageHeader
      *
      * @return string 
      */
-    public function getMenubarLogo()
-    {
+    public function getMenubarLogo() {
         return $this->menubarLogo;
     }
 
@@ -102,8 +113,7 @@ class HomePageHeader
      * @param string $headerTitle
      * @return HomePageHeader
      */
-    public function setHeaderTitle($headerTitle)
-    {
+    public function setHeaderTitle($headerTitle) {
         $this->headerTitle = $headerTitle;
 
         return $this;
@@ -114,8 +124,7 @@ class HomePageHeader
      *
      * @return string 
      */
-    public function getHeaderTitle()
-    {
+    public function getHeaderTitle() {
         return $this->headerTitle;
     }
 
@@ -125,8 +134,7 @@ class HomePageHeader
      * @param string $headerTitleColor
      * @return HomePageHeader
      */
-    public function setHeaderTitleColor($headerTitleColor)
-    {
+    public function setHeaderTitleColor($headerTitleColor) {
         $this->headerTitleColor = $headerTitleColor;
 
         return $this;
@@ -137,8 +145,7 @@ class HomePageHeader
      *
      * @return string 
      */
-    public function getHeaderTitleColor()
-    {
+    public function getHeaderTitleColor() {
         return $this->headerTitleColor;
     }
 
@@ -148,8 +155,7 @@ class HomePageHeader
      * @param string $headerBackgroundImage
      * @return HomePageHeader
      */
-    public function setHeaderBackgroundImage($headerBackgroundImage)
-    {
+    public function setHeaderBackgroundImage($headerBackgroundImage) {
         $this->headerBackgroundImage = $headerBackgroundImage;
 
         return $this;
@@ -160,8 +166,7 @@ class HomePageHeader
      *
      * @return string 
      */
-    public function getHeaderBackgroundImage()
-    {
+    public function getHeaderBackgroundImage() {
         return $this->headerBackgroundImage;
     }
 
@@ -171,8 +176,7 @@ class HomePageHeader
      * @param string $systemBackgroundImage
      * @return HomePageHeader
      */
-    public function setSystemBackgroundImage($systemBackgroundImage)
-    {
+    public function setSystemBackgroundImage($systemBackgroundImage) {
         $this->systemBackgroundImage = $systemBackgroundImage;
 
         return $this;
@@ -183,8 +187,7 @@ class HomePageHeader
      *
      * @return string 
      */
-    public function getSystemBackgroundImage()
-    {
+    public function getSystemBackgroundImage() {
         return $this->systemBackgroundImage;
     }
 
@@ -194,8 +197,7 @@ class HomePageHeader
      * @param float $headerBackgroundImageOpacity
      * @return HomePageHeader
      */
-    public function setHeaderBackgroundImageOpacity($headerBackgroundImageOpacity)
-    {
+    public function setHeaderBackgroundImageOpacity($headerBackgroundImageOpacity) {
         $this->headerBackgroundImageOpacity = $headerBackgroundImageOpacity;
 
         return $this;
@@ -206,8 +208,7 @@ class HomePageHeader
      *
      * @return float 
      */
-    public function getHeaderBackgroundImageOpacity()
-    {
+    public function getHeaderBackgroundImageOpacity() {
         return $this->headerBackgroundImageOpacity;
     }
 
@@ -217,8 +218,7 @@ class HomePageHeader
      * @param float $systemBackgroundImageOpacity
      * @return HomePageHeader
      */
-    public function setSystemBackgroundImageOpacity($systemBackgroundImageOpacity)
-    {
+    public function setSystemBackgroundImageOpacity($systemBackgroundImageOpacity) {
         $this->systemBackgroundImageOpacity = $systemBackgroundImageOpacity;
 
         return $this;
@@ -229,23 +229,22 @@ class HomePageHeader
      *
      * @return float 
      */
-    public function getSystemBackgroundImageOpacity()
-    {
+    public function getSystemBackgroundImageOpacity() {
         return $this->systemBackgroundImageOpacity;
     }
+
     /**
      * @var integer
      */
     private $id;
-
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
+
 }

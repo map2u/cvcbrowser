@@ -1,5 +1,21 @@
 <?php
 
+/**
+ * <copyright>
+ * This file/program is free and open source software released under the GNU General Public
+ * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
+ * Public Licence is available at http://www.gnu.org/licenses
+ * </copyright>
+ *
+ * <author>Shuilin (Joseph) Zhao</author>
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <email>zhaoshuilin2004@yahoo.ca</email>
+ * <date>created at 2014/01/06</date>
+ * <date>last updated at 2015/03/11</date>
+ * <summary>This is the definition of GraphChart entity</summary>
+ * <purpose></purpose>
+ */
+
 namespace Yorku\JuturnaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -322,8 +338,7 @@ class GraphChart {
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -333,8 +348,7 @@ class GraphChart {
      * @param \Application\Sonata\ClassificationBundle\Entity\Tag $tags
      * @return GraphChart
      */
-    public function addTag(\Application\Sonata\ClassificationBundle\Entity\Tag $tags)
-    {
+    public function addTag(\Application\Sonata\ClassificationBundle\Entity\Tag $tags) {
         $this->tags[] = $tags;
 
         return $this;
@@ -345,15 +359,14 @@ class GraphChart {
      *
      * @param \Application\Sonata\ClassificationBundle\Entity\Tag $tags
      */
-    public function removeTag(\Application\Sonata\ClassificationBundle\Entity\Tag $tags)
-    {
+    public function removeTag(\Application\Sonata\ClassificationBundle\Entity\Tag $tags) {
         $this->tags->removeElement($tags);
     }
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $categories;
-
 
     /**
      * Add categories
@@ -361,8 +374,7 @@ class GraphChart {
      * @param \Application\Sonata\ClassificationBundle\Entity\Category $categories
      * @return GraphChart
      */
-    public function addCategory(\Application\Sonata\ClassificationBundle\Entity\Category $categories)
-    {
+    public function addCategory(\Application\Sonata\ClassificationBundle\Entity\Category $categories) {
         $this->categories[] = $categories;
 
         return $this;
@@ -373,8 +385,7 @@ class GraphChart {
      *
      * @param \Application\Sonata\ClassificationBundle\Entity\Category $categories
      */
-    public function removeCategory(\Application\Sonata\ClassificationBundle\Entity\Category $categories)
-    {
+    public function removeCategory(\Application\Sonata\ClassificationBundle\Entity\Category $categories) {
         $this->categories->removeElement($categories);
     }
 
@@ -383,8 +394,8 @@ class GraphChart {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getCategories()
-    {
+    public function getCategories() {
         return $this->categories;
     }
+
 }

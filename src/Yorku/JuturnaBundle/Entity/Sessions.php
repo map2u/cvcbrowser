@@ -1,5 +1,21 @@
 <?php
 
+/**
+ * <copyright>
+ * This file/program is free and open source software released under the GNU General Public
+ * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
+ * Public Licence is available at http://www.gnu.org/licenses
+ * </copyright>
+ *
+ * <author>Shuilin (Joseph) Zhao</author>
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <email>zhaoshuilin2004@yahoo.ca</email>
+ * <date>created at 2014/01/06</date>
+ * <date>last updated at 2015/03/11</date>
+ * <summary>This is the definition of Sessions entity</summary>
+ * <purpose></purpose>
+ */
+
 namespace Yorku\JuturnaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -10,8 +26,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="sessions")
  * @ORM\Entity
  */
-class Sessions
-{
+class Sessions {
+
     /**
      * @var integer
      *
@@ -50,15 +66,12 @@ class Sessions
      */
     private $updatedAt;
 
-
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -68,10 +81,9 @@ class Sessions
      * @param string $sessionId
      * @return Sessions
      */
-    public function setSessionId($sessionId)
-    {
+    public function setSessionId($sessionId) {
         $this->sessionId = $sessionId;
-    
+
         return $this;
     }
 
@@ -80,8 +92,7 @@ class Sessions
      *
      * @return string 
      */
-    public function getSessionId()
-    {
+    public function getSessionId() {
         return $this->sessionId;
     }
 
@@ -91,10 +102,9 @@ class Sessions
      * @param string $data
      * @return Sessions
      */
-    public function setData($data)
-    {
+    public function setData($data) {
         $this->data = $data;
-    
+
         return $this;
     }
 
@@ -103,8 +113,7 @@ class Sessions
      *
      * @return string 
      */
-    public function getData()
-    {
+    public function getData() {
         return $this->data;
     }
 
@@ -114,10 +123,9 @@ class Sessions
      * @param \DateTime $createdAt
      * @return Sessions
      */
-    public function setCreatedAt($createdAt)
-    {
+    public function setCreatedAt($createdAt) {
         $this->createdAt = $createdAt;
-    
+
         return $this;
     }
 
@@ -126,8 +134,7 @@ class Sessions
      *
      * @return \DateTime 
      */
-    public function getCreatedAt()
-    {
+    public function getCreatedAt() {
         return $this->createdAt;
     }
 
@@ -137,10 +144,9 @@ class Sessions
      * @param \DateTime $updatedAt
      * @return Sessions
      */
-    public function setUpdatedAt($updatedAt)
-    {
+    public function setUpdatedAt($updatedAt) {
         $this->updatedAt = $updatedAt;
-    
+
         return $this;
     }
 
@@ -149,8 +155,8 @@ class Sessions
      *
      * @return \DateTime 
      */
-    public function getUpdatedAt()
-    {
+    public function getUpdatedAt() {
         return $this->updatedAt;
     }
+
 }

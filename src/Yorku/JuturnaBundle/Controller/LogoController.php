@@ -1,5 +1,21 @@
 <?php
 
+/**
+ * <copyright>
+ * This file/program is free and open source software released under the GNU General Public
+ * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
+ * Public Licence is available at http://www.gnu.org/licenses
+ * </copyright>
+ *
+ * <author>Shuilin (Joseph) Zhao</author>
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <email>zhaoshuilin2004@yahoo.ca</email>
+ * <date>created at 2014/01/06</date>
+ * <date>last updated at 2015/03/11</date>
+ * <summary>This file is created for Logo controller with bundle YorkuJuturnaBundle</summary>
+ * <purpose>all actions process related Logo except the SonataAdmin Dashboard for logo entity management in this controller</purpose>
+ */
+
 namespace Yorku\JuturnaBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -15,8 +31,7 @@ use Yorku\JuturnaBundle\Form\LogoType;
  *
  * @Route("/logo")
  */
-class LogoController extends Controller
-{
+class LogoController extends Controller {
 
     /**
      * Lists all Logo entities.
@@ -25,8 +40,7 @@ class LogoController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('YorkuJuturnaBundle:Logo')->findAll();
@@ -35,6 +49,7 @@ class LogoController extends Controller
             'entities' => $entities,
         );
     }
+
     /**
      * Creates a new Logo entity.
      *
@@ -42,8 +57,7 @@ class LogoController extends Controller
      * @Method("POST")
      * @Template("YorkuJuturnaBundle:Logo:new.html.twig")
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $entity = new Logo();
         $request = $this->getRequest();
         $form = $this->createCreateForm($entity);
@@ -52,16 +66,15 @@ class LogoController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $dir = './img';
-           
-            $file=$form['imagefile']->getData();
-            if ($file != null)
-            {
-                $filename=str_replace(" ","_",$file->getClientOriginalName());
+
+            $file = $form['imagefile']->getData();
+            if ($file != null) {
+                $filename = str_replace(" ", "_", $file->getClientOriginalName());
                 $file->move($dir, $file->getClientOriginalName());
-                rename($dir.'/'.$file->getClientOriginalName(),$dir.'/'.$filename);
+                rename($dir . '/' . $file->getClientOriginalName(), $dir . '/' . $filename);
                 $entity->setImageFilename($filename);
             }
-           
+
             $em->persist($entity);
             $em->flush();
 
@@ -70,24 +83,23 @@ class LogoController extends Controller
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
     /**
-    * Creates a form to create a Logo entity.
-    *
-    * @param Logo $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createCreateForm(Logo $entity)
-    {
+     * Creates a form to create a Logo entity.
+     *
+     * @param Logo $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(Logo $entity) {
         $form = $this->createForm(new LogoType(), $entity, array(
             'action' => $this->generateUrl('logo_create'),
             'method' => 'POST',
         ));
-        $form->add('imagefile','file',array('label' => 'Image File','mapped'=>false));
+        $form->add('imagefile', 'file', array('label' => 'Image File', 'mapped' => false));
         $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
@@ -100,14 +112,13 @@ class LogoController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function newAction()
-    {
+    public function newAction() {
         $entity = new Logo();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -118,8 +129,7 @@ class LogoController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('YorkuJuturnaBundle:Logo')->find($id);
@@ -131,7 +141,7 @@ class LogoController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -143,8 +153,7 @@ class LogoController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('YorkuJuturnaBundle:Logo')->find($id);
@@ -154,38 +163,38 @@ class LogoController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        
+
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a Logo entity.
-    *
-    * @param Logo $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Logo $entity)
-    {
+     * Creates a form to edit a Logo entity.
+     *
+     * @param Logo $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(Logo $entity) {
         $form = $this->createForm(new LogoType(), $entity, array(
             'action' => $this->generateUrl('logo_update', array('id' => $entity->getId())),
             'method' => 'POST',
         ));
 
-        
-                
-        $form->add('imagefile','file',array('label' => 'Image File','mapped'=>false,'required'=>false,'attr' => array("accept" => "image/*")));
+
+
+        $form->add('imagefile', 'file', array('label' => 'Image File', 'mapped' => false, 'required' => false, 'attr' => array("accept" => "image/*")));
 
         $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }
+
     /**
      * Edits an existing Logo entity.
      *
@@ -193,11 +202,10 @@ class LogoController extends Controller
      * @Method("POST")
      * @Template("YorkuJuturnaBundle:Logo:edit.html.twig")
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
- 
+
         $entity = $em->getRepository('YorkuJuturnaBundle:Logo')->find($id);
 
         if (!$entity) {
@@ -209,12 +217,11 @@ class LogoController extends Controller
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $dir = './img';
-            $file=$editForm['imagefile']->getData();
-            if ($file != null)
-            {
-                $filename=str_replace(" ","_",$file->getClientOriginalName());
+            $file = $editForm['imagefile']->getData();
+            if ($file != null) {
+                $filename = str_replace(" ", "_", $file->getClientOriginalName());
                 $file->move($dir, $file->getClientOriginalName());
-                rename($dir.'/'.$file->getClientOriginalName(),$dir.'/'.$filename);
+                rename($dir . '/' . $file->getClientOriginalName(), $dir . '/' . $filename);
                 $entity->setImageFilename($filename);
             }
             $em->flush();
@@ -222,19 +229,19 @@ class LogoController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
+
     /**
      * Deletes a Logo entity.
      *
      * @Route("/{id}", name="logo_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -260,13 +267,13 @@ class LogoController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('logo_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
+                        ->setAction($this->generateUrl('logo_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+                        ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->getForm()
         ;
     }
+
 }

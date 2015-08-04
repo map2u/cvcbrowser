@@ -9,38 +9,9 @@
         <id name="id" column="id" type="integer">
             <generator strategy="AUTO" />
         </id>
-        <one-to-many field="user_tourisms" target-entity="Yorku\JuturnaBundle\Entity\Tourism" mapped-by="user">
-            <cascade>
-                <cascade-persist/>
-            </cascade>
-            <order-by>
-                <order-by-field name="name" direction="ASC" />
-            </order-by>
-        </one-to-many>
-       <one-to-many field="birds" target-entity="Yorku\JuturnaBundle\Entity\Bird" mapped-by="user">
-            <cascade>
-                <cascade-persist/>
-            </cascade>
-            <order-by>
-                <order-by-field name="commonName" direction="ASC" />
-            </order-by>
-        </one-to-many>
-       <one-to-many field="stations" target-entity="Yorku\JuturnaBundle\Entity\Station" mapped-by="user">
-            <cascade>
-                <cascade-persist/>
-            </cascade>
-            <order-by>
-                <order-by-field name="stationName" direction="ASC" />
-            </order-by>
-        </one-to-many>
-       <one-to-many field="tourismgeoms" target-entity="Yorku\JuturnaBundle\Entity\TourismGeoms" mapped-by="user">
-            <cascade>
-                <cascade-persist/>
-            </cascade>
-            <order-by>
-                <order-by-field name="name" direction="ASC" />
-            </order-by>
-        </one-to-many>
+       
+       
+     
         
         
         
