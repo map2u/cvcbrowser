@@ -174,7 +174,6 @@ class HomepageImageAdminController extends CRUDController {
 
     private function saveUploadedImage($form, $object) {
         $imageFile = $form['image_file']->getData();
-        var_dump($imageFile);
         $dir = './uploads/images/homepageimages';
         if ($imageFile != null) {
             $imageFile->move($dir, $imageFile->getClientOriginalName());

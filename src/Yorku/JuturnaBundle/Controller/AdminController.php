@@ -279,7 +279,6 @@ class AdminController extends Controller {
         return array("user" => $user);
     }
 
- 
     /**
      * Displays a form to create a new Benthics entity.
      *
@@ -362,160 +361,6 @@ class AdminController extends Controller {
         return array();
     }
 
-    /**
-     * Displays a form to create a new Benthics entity.
-     *
-     * @Route("/watershedspolygons", name="admin_watershedspolygons")
-     * @Method("GET|POST")
-     * @Template()
-     */
-    public function watershedspolygonsAction() {
-
-        $form = $this->createFormBuilder()
-                ->add('shape_file', 'file', array('label' => 'Shape File(.shp):',
-                    "attr" => array(
-                        "accept" => "application/octet-stream"
-                    )
-                ))
-                ->add('dbf_file', 'file', array('label' => 'Database File(.dbf):',
-                    "attr" => array(
-                        "accept" => "project\*.dbf"
-                    )
-                ))
-                ->add('index_file', 'file', array('label' => 'Index File(.shx):',
-                    "attr" => array(
-                        "accept" => "project\*.ndx"
-                    )
-                ))
-                ->add('proj_file', 'file', array('label' => 'Projection File(.prj):', 'required' => false
-                ))
-                ->add('watershed_fieldname', 'text', array('label' =>
-                    'Watershed Field Name:',
-                    "attr" => array(
-                        "accept" => "project\*.prj"
-                    )
-                ))
-                ->add('epsg_number', 'text', array('label' => 'EPSG Number:',
-                ))
-                ->add('overwrite', 'checkbox', array('label' => 'Overwrite Same Name:',
-                ))
-                ->add('subwatershed_fieldname', 'text', array('label' => 'Subwatershed Field Name:',
-                    "attr" => array(
-                        "accept" => "project\*.prj"
-                    )
-                ))
-                ->add('description', 'textarea', array('label' =>
-                    'Description:', 'required' => false))
-                ->getForm();
-
-
-        $request = $this->getRequest();
-        if ($request->getMethod() == "POST") {
-            $errors = array();
-            $form->bind($request);
-            $dir = './shapefiles';
-
-            if ($form->isValid()) {
-
-                $data = $form->getData();
-
-
-                if ($data['proj_file'] != null)
-                    $data['proj_file']->move($dir, $data['proj_file']->getClientOriginalName());
-
-                $epsg = $this->checkEPSG(strval($data['epsg_number']), $dir . '/' . $data['proj_file']->getClientOriginalName());
-                if ($epsg['epsg'] === 0) {
-                    return array('errors' => $epsg['errors'], 'form' => $form->createView());
-                }
-                // if pass the epsg number check, then save uploaded shape file to folder web/shapefiles
-                $data['shape_file']->move($dir, $data['shape_file']->getClientOriginalName());
-                $data['index_file']->move($dir, $data['index_file']->getClientOriginalName());
-                $data['dbf_file']->move($dir, $data['dbf_file']->getClientOriginalName());
-
-                $output = shell_exec('ogr2ogr2 -overwrite -f "PostgreSQL" PG:"host=127.0.0.1 user=jzhao dbname=juturna3_0 password=jzhao" -nlt GEOMETRY -a_srs EPSG:' . $epsg['epsg'] . ' -lco GEOMETRY_NAME=geom -nln geomupload_temp ' . $dir . '/' . $data['shape_file']->getClientOriginalName());
-
-                $watershed_column_return = $this->isColumnExist($conn, 'geomupload_temp', $data['watershed_fieldname']);
-                if ($watershed_column_return !== false) {
-                    array_push($errors, $watershed_column_return);
-                }
-                $subwatershed_column_return = $this->isColumnExist($conn, 'geomupload_temp', $data['subwatershed_fieldname']);
-                if ($subwatershed_column_return !== false) {
-                    array_push($errors, $subwatershed_column_return);
-                }
-            
-                if (count($errors) > 0) {
-                    return array("errors" => $errors, 'form' => $form->createView());
-                }
-
-
-                $conn = $this->get('database_connection');
-                if ($this->getUser()) {
-                    
-                } else {
-                    $this->get('session')->getFlashBag()->add(
-                            'notice', 'Your changes were saved!'
-                    );
-                }
-                
-                // check if there are any duplicate watershed name already exist in watewrsheds tables;
-                $sql = "select id , watershed_name from watersheds where watershed_name in (select " . $data['watershed_fieldname'] . " from geomupload_temp)";
-
-
-// start watershed polygon process
-                //               $overlap_results = $conn->fetchAll($sql);
-                //               $overlap_size = sizeof($overlap_results);
-                // empty the temp table;
-                $sql = "delete from temp_polygon ";
-                $stmt = $conn->query($sql);
-                // create watershed union polygon and insert into temp table
-                $sql = "insert into temp_polygon (watershed_name,the_geom)  select " . $data['watershed_fieldname'] . ",st_union(geom) as the_geom from  geomupload_temp group by " . $data['watershed_fieldname'];
-                $stmt = $conn->query($sql);
-
-                if ($data['overwrite'] === true) {
-                    // insert into temp_polygon (watershed_name,the_geom)  select  name,st_union(geom) as the_geom from  geomupload_temp group by name;
-                    $sql = "update watersheds set the_geom=temp_polygon.the_geom,updated_at=now() from temp_polygon  where watersheds.watershed_name=temp_polygon.watershed_name";
-                    $stmt = $conn->query($sql);
-                }
-                // delete those polygons from temp_polygon not insert into watersheds table
-                //               $sql = "delete from geomupload_temp where " . $data['watershed_fieldname'] . " in ( select watershed_name from  watersheds )";
-                $sql = "delete from temp_polygon where watershed_name in ( select watershed_name from  watersheds )";
-                $stmt = $conn->query($sql);
-
-                // insert shape file polygon into watershed table without duplicate watershed name
-                $sql = "insert into watersheds (user_id,watershed_letter_id,watershed_name,the_geom,created_at,updated_at)  select " . $this->getUser()->getId() . ", upper(substring(watershed_name,0,3)),watershed_name,the_geom,now(),now() from  temp_polygon ";
-                $stmt = $conn->query($sql);
-
-// end watershed polygon process 
-//            
-// start subwatershed polygon process
-                $sql = "delete from temp_polygon ";
-                $stmt = $conn->query($sql);
-// create subwatershed union polygon and insert into temp table
-                $sql = "insert into temp_polygon (watershed_name,subwatershed_name,the_geom)  select " . $data['watershed_fieldname'] . " as watershed_name, " . $data['subwatershed_fieldname'] . " as subwatershed_name,st_union(geom) as the_geom from  geomupload_temp group by " . $data['watershed_fieldname'] . "," . $data['subwatershed_fieldname'];
-// insert into temp_polygon (watershed_name,the_geom)  select  name,st_union(geom) as the_geom from  geomupload_temp group by name;
-                $stmt = $conn->query($sql);
-
-                if ($data['overwrite'] === true) {
-// empty the temp table;
-                    $sql = "update subwatersheds set the_geom=a.the_geom,updated_at=now() from temp_polygon a,watersheds b where subwatersheds.subwatershed_name=a.subwatershed_name and subwatersheds.watershed_id=b.id and a.watershed_name=b.watershed_name";
-                    $stmt = $conn->query($sql);
-                }
-
-// delete those polygons not insert into watersheds table
-                $sql = "delete from temp_polygon where (watershed_name,subwatershed_name) in ( select watersheds.watershed_name, subwatersheds.subwatershed_name from  watersheds,subwatersheds where subwatersheds.watershed_id=watersheds.id)";
-                $stmt = $conn->query($sql);
-
-                $sql = "insert into subwatersheds (user_id,watershed_id,subwatershed_name,the_geom,created_at,updated_at)  select " . $this->getUser()->getId() . ",a.id,b.subwatershed_name,b.the_geom,now(),now() from  temp_polygon b, watersheds a where a.watershed_name=b.watershed_name";
-                $stmt = $conn->query($sql);
-
-
-// end subwatershed polygon process      
-            }
-        }
-        $formView = $form->createView();
-        return array("form" => $formView);
-    }
-
     private function processUploadedShapefile($conn, $data, $shapfile) {
         
     }
@@ -523,9 +368,18 @@ class AdminController extends Controller {
     // check the uploaded shapefile and if the assigned content field name exist or not
     private function isColumnExist($conn, $tablename, $columnname) {
 
-        $sql = "SELECT column_name FROM information_schema.columns WHERE table_name='" . $tablename . "' and column_name='" . $columnname . "'";
-        $stmt = $conn->fetchAll($sql);
-        $rowCount = count($stmt);
+        $sql = "SELECT column_name FROM information_schema.columns WHERE table_name=:tablename and column_name=:column_name";
+
+        //    $sql = "SELECT st_srid(the_geom) as srid , box(the_geom) as bounds, st_astext(st_centroid(the_geom)) as the_geom FROM manifold_geoms WHERE userboundary_id=:userboundary_id  and ogc_fid=:ogc_fid";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':tablename', $tablename);
+        $stmt->bindParam(':column_name', $columnname); //PDO::PARAM_STR, 12);
+        $stmt->execute();
+
+//    $sql = "SELECT st_srid(the_geom) as srid , box(the_geom) as bounds, st_astext(st_centroid(the_geom)) as the_geom FROM manifold_geoms WHERE userboundary_id=" . $userboundary_id . ' and ogc_fid=' . $ogc_fid;
+        $stmt_result = $stmt->fetchAll();
+
+        $rowCount = count($stmt_result);
         if ($rowCount == 0) {
             return "Sorry,the watershed field name:" . $columnname . " is not found in shape file!";
         } else {
@@ -563,8 +417,15 @@ class AdminController extends Controller {
             } else {
                 $epsg_name = substr($epsg_name, $pos + 5);
                 $epsg_number = intval($epsg_name);
-                $sql = "select count(*) as count from spatial_ref_sys where auth_name='EPSG' and auth_srid=$epsg_number";
-                $stmt = $conn->query($sql); // Simple, but has several drawbacks
+                $sql = "select count(*) as count from spatial_ref_sys where auth_name='EPSG' and auth_srid=:epsg_number";
+                $stmt = $conn->prepare($sql);
+                $stmt->bindParam(':epsg_number', $epsg_number);
+
+                $stmt->execute();
+
+//    $sql = "SELECT st_srid(the_geom) as srid , box(the_geom) as bounds, st_astext(st_centroid(the_geom)) as the_geom FROM manifold_geoms WHERE userboundary_id=" . $userboundary_id . ' and ogc_fid=' . $ogc_fid;
+                //   $stmt_result = $stmt->fetch();
+                //     $stmt = $conn->query($sql); // Simple, but has several drawbacks
                 $row = $stmt->fetch();
                 if ($row['count'] == 0) {
 
@@ -589,6 +450,7 @@ class AdminController extends Controller {
                     $jsontext = substr($jsontext, 0, $i + 2);
 
                     $sql = "select srid from spatial_ref_sys where srtext like '%" . $jsontext . "%'";
+
                     $stmt = $conn->fetchAll($sql); // Simple, but has several drawbacks
                     if (sizeof($stmt) == 0) {
                         array_push($errors, "EPSG number not found by projection file!");

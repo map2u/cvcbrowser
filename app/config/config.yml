@@ -13,7 +13,7 @@ imports:
     - { resource: sonata/sonata_user.yml }
     - { resource: sonata/sonata_formatter.yml }
     - { resource: fos_user.yml }
-    - { resource: ibrows_newsletter.yml }
+
 #    - { resource: wowo_newsletter.yml }
     - { resource: stfalcon_tinymce.yml }
     - { resource: sonata/sonata_news.yml }
@@ -206,11 +206,6 @@ doctrine:
                         alias: Gedmo
                         prefix: Gedmo\Tree\Entity
                         dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Entity"
-                    ibrows_newsletter:
-                            type: annotation
-                            prefix: Ibrows\Map2uBundle\Entity\Newsletter
-                            dir: "%kernel.root_dir%/../src/Ibrows/Map2uBundle/Entity/Newsletter"
-                            is_bundle: false
                   dql:
                       numeric_functions:
                           st_contains:        CrEOF\Spatial\ORM\Query\AST\Functions\PostgreSql\STContains
@@ -218,22 +213,7 @@ doctrine:
                           st_area:            CrEOF\Spatial\ORM\Query\AST\Functions\PostgreSql\STArea
                           st_length:          CrEOF\Spatial\ORM\Query\AST\Functions\PostgreSql\STLength
                           st_geomfromtext:    CrEOF\Spatial\ORM\Query\AST\Functions\PostgreSql\STGeomFromText
-                mandantA:
-                    connection: mandantA
-                    mappings:
-                        ibrows_newsletter:
-                            type: annotation
-                            prefix: Ibrows\Map2uBundle\Entity\Newsletter
-                            dir: "%kernel.root_dir%/../src/Ibrows/Map2uBundle/Entity/Newsletter"
-                            is_bundle: false
-                mandantB:
-                    connection: mandantB
-                    mappings:
-                        ibrows_newsletter:
-                            type: annotation
-                            prefix: Ibrows\Map2uBundle\Entity\Newsletter
-                            dir: "%kernel.root_dir%/../src/Ibrows/Map2uBundle/Entity/Newsletter"
-                            is_bundle: false
+
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"
