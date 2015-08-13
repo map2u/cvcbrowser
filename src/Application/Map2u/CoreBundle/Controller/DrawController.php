@@ -24,8 +24,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Map2u\CoreBundle\Entity\UploadShapefileLayer;
 use Paradigma\Bundle\ImageBundle\Libs\ImageSize;
 use Paradigma\Bundle\ImageBundle\Libs\ImageResizer;
 use Yorku\JuturnaBundle\Entity\Story;
@@ -46,129 +44,139 @@ class DrawController extends BaseController {
      * @Method("GET|POST")
      * @Template()
      */
-    public function saveAction() {
+    public function saveAction(Request $request) {
 
         $icon_path = $this->get('kernel')->getRootDir() . '/../web/images/markers';
         $user = $this->getUser();
         if (!isset($user) || empty($user)) {
             return new Response(\json_encode(array('success' => false, 'message' => 'You must log in to do this!')));
         }
-        $request = $this->getRequest();
-        $id = $request->get('id');
-        $drawname = $request->get('name');
-        $feature = $request->get('feature');
-        $public = $request->get('public');
-        $featurelayer_id = $request->get('featurelayer');
+        $req_params = $this->getSaveActionReq($request);
 
-        if (gettype($feature) == 'string') {
-            $feature = json_decode($feature);
+//        $id = $request->get('id');
+//        $drawname = $request->get('name');
+//        $feature = $request->get('feature');
+//        $public = $request->get('public');
+//        $featurelayer_id = $request->get('featurelayer');
+
+        if (gettype($req_params['feature']) == 'string') {
+            $req_params['feature'] = json_decode($req_params['feature']);
         }
-        $drawradius = $request->get('radius');
-        $drawtype = $request->get('type');
-        $drawbuffer = $request->get('buffer');
-        $description = $request->get('description');
-        $selected_marker = $request->get('select_marker');
-        $upload_marker_icon = $request->files->get('upload_marker_icon');
+//        $drawradius = $request->get('radius');
+//        $drawtype = $request->get('type');
+//        $drawbuffer = $request->get('buffer');
+//        $description = $request->get('description');
+//        $selected_marker = $request->get('select_marker');
+//        $upload_marker_icon = $request->files->get('upload_marker_icon');
 
 
         $update_geom = false;
-//    var_dump($feature);
+
         $em = $this->getDoctrine()->getManager();
-        if (!isset($id)) {
+
+        if (!isset($req_params['id'])) {
             return new Response(\json_encode(array('success' => false, 'message' => 'Parameter Id not found!')));
         }
-        if ((isset($id) && ( $id === 0 || $id === '0' || $id === 'undefined'))) {
+
+        if ((isset($req_params['id']) && ( $req_params['id'] === 0 || $req_params['id'] === '0' || $req_params['id'] === 'undefined'))) {
             $usergeometries = new UserDrawGeometries();
         } else {
-            $usergeometries = $em->getRepository('ApplicationMap2uCoreBundle:UserDrawGeometries')->find($id);
+            $usergeometries = $em->getRepository('ApplicationMap2uCoreBundle:UserDrawGeometries')->find($req_params['id']);
 
             $update_geom = true;
         }
         if ($usergeometries) {
-            $usergeometries->setUserId($user->getId());
-            $usergeometries->setUser($user);
-            //    $usergeometries->setUserId(1);
 
-            $featurelayer = $em->getRepository('Map2uCoreBundle:UserDrawLayer')->findOneBy(array("id" => $featurelayer_id));
-            $usergeometries->setUserdrawlayer($featurelayer);
 
-            $usergeometries->setName($drawname);
-            if (isset($description)) {
-                $usergeometries->setDescription($description);
-            }
-            if ($upload_marker_icon) {
-                if (!file_exists($icon_path . "/" . $user->getId())) {
-                    mkdir($icon_path . "/" . $user->getId(), 0755, true);
-                }
-                move_uploaded_file($upload_marker_icon->getPathname(), $icon_path . "/" . $user->getId() . "/" . $upload_marker_icon->getClientOriginalName());
-                $selected_marker = $user->getId() . "/" . $upload_sldfile->getClientOriginalName();
-                $usergeometries->setMarkerIcon($selected_marker);
-            } else {
-                if (isset($selected_marker)) {
-                    $usergeometries->setMarkerIcon($selected_marker);
-                }
-            }
+            $this->setSaveActionUserGeometry($usergeometries, $em, $user, $req_params, $icon_path);
 
-            $usergeometries->setGeomType($drawtype);
-            $usergeometries->setRadius($drawradius);
-            $usergeometries->setBuffer($drawbuffer);
-            $em->persist($usergeometries);
-            $em->flush();
+//            $usergeometries->setUserId($user->getId());
+//            $usergeometries->setUser($user);
+//            $featurelayer = $em->getRepository('Map2uCoreBundle:UserDrawLayer')->findOneBy(array("id" => $req_params['featurelayer_id']));
+//            $usergeometries->setUserdrawlayer($featurelayer);
+//
+//            $usergeometries->setName($req_params['drawname']);
+//            if (isset($req_params['description'])) {
+//                $usergeometries->setDescription($req_params['description']);
+//            }
+//            if ($req_params['upload_marker_icon']) {
+//                if (!file_exists($icon_path . "/" . $user->getId())) {
+//                    mkdir($icon_path . "/" . $user->getId(), 0755, true);
+//                }
+//                move_uploaded_file($req_params['upload_marker_icon']->getPathname(), $icon_path . "/" . $user->getId() . "/" . $req_params['upload_marker_icon']->getClientOriginalName());
+//                $selected_marker = $user->getId() . "/" . $req_params['upload_sldfile']->getClientOriginalName();
+//                $usergeometries->setMarkerIcon($selected_marker);
+//            } else {
+//                if (isset($req_params['selected_marker'])) {
+//                    $usergeometries->setMarkerIcon($req_params['selected_marker']);
+//                }
+//            }
+//
+//            $usergeometries->setGeomType($req_params['drawtype']);
+//            $usergeometries->setRadius($req_params['drawradius']);
+//            $usergeometries->setBuffer($req_params['drawbuffer']);
+//            $em->persist($usergeometries);
+//            $em->flush();
+//            
+//            
+
+
+
             $usergeometries_id = $usergeometries->getId();
-
-            $conn = $this->get('database_connection');
-            $feature_geojson = $feature->geometry;
-            if ($drawtype === 'circle' || $drawtype === 'marker') {
-                $lng = $feature->geometry->coordinates[0];
-                $lat = $feature->geometry->coordinates[1];
-                if ($update_geom === true) {
-                    $sql = "UPDATE userdrawgeometries_geom set the_geom = ST_GeomFromText('POINT($lng $lat)', 4326) where userdrawgeometries_id=$usergeometries_id";
-                } else {
-
-                    //     $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, st_geomfromgeojson('$feature_geojson'))";
-                    $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, ST_GeomFromText('POINT($lng $lat)', 4326))";
-                }
-            }
-            if ($drawtype === 'rectangle' || $drawtype === 'polygon') {
-                $points = '';
-                // var_dump(count($feature['geometry']['coordinates'][0]));
-
-                foreach ($feature->geometry->coordinates[0] as $point) {
-
-                    if ($points === '') {
-                        $points = "$point[0]  $point[1]";
-                    } else {
-                        $points = $points . ",$point[0]  $point[1]";
-                    }
-                }
-                if ($update_geom === true) {
-                    $sql = "UPDATE userdrawgeometries_geom set the_geom = ST_GeomFromText('POLYGON(($points))', 4326) where userdrawgeometries_id=$usergeometries_id";
-                } else {
-                    //     $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, st_geomfromgeojson('$feature_geojson'))";
-                    $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, ST_GeomFromText('POLYGON(($points))', 4326))";
-                }
-            }
-            if ($drawtype === 'polyline') {
-                $points = '';
-                //    var_dump(count($feature['geometry']['coordinates']));
-                //        var_dump($feature['geometry']['coordinates']);
-                foreach ($feature->geometry->coordinates as $point) {
-
-                    if ($points === '') {
-                        $points = "$point[0]  $point[1]";
-                    } else {
-                        $points = $points . ",$point[0]  $point[1]";
-                    }
-                }
-                if ($update_geom === true) {
-                    $sql = "UPDATE userdrawgeometries_geom set the_geom = ST_GeomFromText('LINESTRING($points)', 4326) where userdrawgeometries_id=$usergeometries_id";
-                } else {
-
-                    //     $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, st_geomfromgeojson('$feature_geojson'))";
-                    $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, ST_GeomFromText('LINESTRING($points)', 4326))";
-                }
-            }
-            $stmt = $conn->query($sql);
+            $this->saveActionGeometriesSave($usergeometries_id, $req_params, $update_geom);
+//            $conn = $this->get('database_connection');
+//
+//            if ($req_params['drawtype'] === 'circle' || $req_params['drawtype'] === 'marker') {
+//                $lng = $req_params['feature']->geometry->coordinates[0];
+//                $lat = $req_params['feature']->geometry->coordinates[1];
+//                if ($update_geom === true) {
+//                    $sql = "UPDATE userdrawgeometries_geom set the_geom = ST_GeomFromText('POINT($lng $lat)', 4326) where userdrawgeometries_id=$usergeometries_id";
+//                } else {
+//
+//                    //     $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, st_geomfromgeojson('$feature_geojson'))";
+//                    $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, ST_GeomFromText('POINT($lng $lat)', 4326))";
+//                }
+//            }
+//            if ($req_params['drawtype'] === 'rectangle' || $req_params['drawtype'] === 'polygon') {
+//                $points = '';
+//                // var_dump(count($feature['geometry']['coordinates'][0]));
+//
+//                foreach ($req_params['feature']->geometry->coordinates[0] as $point) {
+//
+//                    if ($points === '') {
+//                        $points = "$point[0]  $point[1]";
+//                    } else {
+//                        $points = $points . ",$point[0]  $point[1]";
+//                    }
+//                }
+//                if ($update_geom === true) {
+//                    $sql = "UPDATE userdrawgeometries_geom set the_geom = ST_GeomFromText('POLYGON(($points))', 4326) where userdrawgeometries_id=$usergeometries_id";
+//                } else {
+//                    //     $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, st_geomfromgeojson('$feature_geojson'))";
+//                    $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, ST_GeomFromText('POLYGON(($points))', 4326))";
+//                }
+//            }
+//            if ($req_params['drawtype'] === 'polyline') {
+//                $points = '';
+//                //    var_dump(count($feature['geometry']['coordinates']));
+//                //        var_dump($feature['geometry']['coordinates']);
+//                foreach ($req_params['feature']->geometry->coordinates as $point) {
+//
+//                    if ($points === '') {
+//                        $points = "$point[0]  $point[1]";
+//                    } else {
+//                        $points = $points . ",$point[0]  $point[1]";
+//                    }
+//                }
+//                if ($update_geom === true) {
+//                    $sql = "UPDATE userdrawgeometries_geom set the_geom = ST_GeomFromText('LINESTRING($points)', 4326) where userdrawgeometries_id=$usergeometries_id";
+//                } else {
+//
+//                    //     $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, st_geomfromgeojson('$feature_geojson'))";
+//                    $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, ST_GeomFromText('LINESTRING($points)', 4326))";
+//                }
+//            }
+//            $stmt = $conn->query($sql);
 
             $this->moveuploadedImages($request, $em, $usergeometries);
             $this->moveuploadedVideo($request, $em, $usergeometries);
@@ -179,8 +187,6 @@ class DrawController extends BaseController {
             return new Response(\json_encode(array('success' => false, 'id' => $usergeometries_id, 'message' => 'User draw geometry id:' . $usergeometries_id . ' not found!')));
         }
 
-
-        // st_geomfromgeojson (text)?
 
         return new Response(\json_encode(array('success' => false)));
     }
@@ -342,6 +348,145 @@ class DrawController extends BaseController {
             }
 
             $sql = "UPDATE stories set the_geom = ST_GeomFromText('LINESTRING($points)', 4326) where id=$story_id";
+        }
+        $stmt = $conn->query($sql);
+    }
+
+    /**
+     * 
+     * @param type $request
+     * @return array
+     */
+    private function getSaveActionReq($request) {
+        $result = array();
+        $result['id'] = $request->get('id');
+        $result['drawname'] = $request->get('name');
+        $result['feature'] = $request->get('feature');
+        $result['public'] = $request->get('public');
+        $result['featurelayer_id'] = $request->get('featurelayer');
+        $result['drawradius'] = $request->get('radius');
+        $result['drawtype'] = $request->get('type');
+        $result['drawbuffer'] = $request->get('buffer');
+        $result['description'] = $request->get('description');
+        $result['selected_marker'] = $request->get('select_marker');
+        if ($request->files) {
+            $result['upload_marker_icon'] = $request->files->get('upload_marker_icon');
+        } else {
+            $result['upload_marker_icon'] = null;
+        }
+
+        return $result;
+    }
+
+    /**
+     * 
+     * @param Application\Map2u\CoreBundle\Entity\UserDrawGeometries $usergeometries
+     * @param Doctrine\ORM\EntityManager $em
+     * @param Application\Sonata\UserBundle\Entity\User $user
+     * @param array $req_params
+     * @param string $icon_path
+     * @return Application\Map2u\CoreBundle\Entity\UserDrawGeometries
+     */
+    private function setSaveActionUserGeometry(Application\Map2u\CoreBundle\Entity\UserDrawGeometries $usergeometries, Doctrine\ORM\EntityManager $em, Application\Sonata\UserBundle\Entity\User $user, array $req_params, string $icon_path) {
+        $usergeometries->setUserId($user->getId());
+        $usergeometries->setUser($user);
+        $featurelayer = $em->getRepository('Map2uCoreBundle:UserDrawLayer')->findOneBy(array("id" => $req_params['featurelayer_id']));
+        $usergeometries->setUserdrawlayer($featurelayer);
+
+        $usergeometries->setName($req_params['drawname']);
+        if (isset($req_params['description'])) {
+            $usergeometries->setDescription($req_params['description']);
+        }
+
+        $this->moveuploadedMarkerIcon($usergeometries, $req_params, $user, $icon_path);
+
+
+        $usergeometries->setGeomType($req_params['drawtype']);
+        $usergeometries->setRadius($req_params['drawradius']);
+        $usergeometries->setBuffer($req_params['drawbuffer']);
+        $em->persist($usergeometries);
+        $em->flush();
+
+        return $usergeometries;
+    }
+
+    /**
+     * 
+     * @param \Application\Map2u\CoreBundle\Controller\Application\Map2u\CoreBundle\Entity\UserDrawGeometries $usergeometries
+     * @param array $req_params
+     * @param \Application\Map2u\CoreBundle\Controller\Application\Sonata\UserBundle\Entity\User $user
+     * @param string $icon_path
+     * @return \Application\Map2u\CoreBundle\Controller\Application\Map2u\CoreBundle\Entity\UserDrawGeometries
+     */
+    private function moveuploadedMarkerIcon(Application\Map2u\CoreBundle\Entity\UserDrawGeometries $usergeometries, array $req_params, Application\Sonata\UserBundle\Entity\User $user, string $icon_path) {
+        if ($req_params['upload_marker_icon']) {
+            if (!file_exists($icon_path . "/" . $user->getId())) {
+                mkdir($icon_path . "/" . $user->getId(), 0755, true);
+            }
+            move_uploaded_file($req_params['upload_marker_icon']->getPathname(), $icon_path . "/" . $user->getId() . "/" . $req_params['upload_marker_icon']->getClientOriginalName());
+            $selected_marker = $user->getId() . "/" . $req_params['upload_sldfile']->getClientOriginalName();
+            $usergeometries->setMarkerIcon($selected_marker);
+        } else {
+            if (isset($req_params['selected_marker'])) {
+                $usergeometries->setMarkerIcon($req_params['selected_marker']);
+            }
+        }
+        return $usergeometries;
+    }
+
+    private function saveActionGeometriesSave($usergeometries_id, array $req_params, $update_geom) {
+
+        $conn = $this->get('database_connection');
+
+        if ($req_params['drawtype'] === 'circle' || $req_params['drawtype'] === 'marker') {
+            $lng = $req_params['feature']->geometry->coordinates[0];
+            $lat = $req_params['feature']->geometry->coordinates[1];
+            if ($update_geom === true) {
+                $sql = "UPDATE userdrawgeometries_geom set the_geom = ST_GeomFromText('POINT($lng $lat)', 4326) where userdrawgeometries_id=$usergeometries_id";
+            } else {
+
+                //     $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, st_geomfromgeojson('$feature_geojson'))";
+                $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, ST_GeomFromText('POINT($lng $lat)', 4326))";
+            }
+        }
+        if ($req_params['drawtype'] === 'rectangle' || $req_params['drawtype'] === 'polygon') {
+            $points = '';
+            // var_dump(count($feature['geometry']['coordinates'][0]));
+
+            foreach ($req_params['feature']->geometry->coordinates[0] as $point) {
+
+                if ($points === '') {
+                    $points = "$point[0]  $point[1]";
+                } else {
+                    $points = $points . ",$point[0]  $point[1]";
+                }
+            }
+            if ($update_geom === true) {
+                $sql = "UPDATE userdrawgeometries_geom set the_geom = ST_GeomFromText('POLYGON(($points))', 4326) where userdrawgeometries_id=$usergeometries_id";
+            } else {
+                //     $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, st_geomfromgeojson('$feature_geojson'))";
+                $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, ST_GeomFromText('POLYGON(($points))', 4326))";
+            }
+        }
+        if ($req_params['drawtype'] === 'polyline') {
+            $points = '';
+            //    var_dump(count($feature['geometry']['coordinates']));
+            //        var_dump($feature['geometry']['coordinates']);
+            foreach ($req_params['feature']->geometry->coordinates as $point) {
+
+                if ($points === '') {
+                    $points = "$point[0]  $point[1]";
+                } else {
+                    $points = $points . ",$point[0]  $point[1]";
+                }
+            }
+            if ($update_geom === true) {
+                $sql = "UPDATE userdrawgeometries_geom set the_geom = ST_GeomFromText('LINESTRING($points)', 4326) where userdrawgeometries_id=$usergeometries_id";
+            } else {
+
+                //     $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, st_geomfromgeojson('$feature_geojson'))";
+                $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, ST_GeomFromText('LINESTRING($points)', 4326))";
+            }
         }
         $stmt = $conn->query($sql);
     }

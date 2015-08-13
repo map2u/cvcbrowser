@@ -68,27 +68,24 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "git@map2u.familyds.com:/volume1/homes/git/repositories/Map2uCoreBundle.git"
+            "url": "https://github.com/josephzhao/map2ucore.git"
         },
         {
             "type": "vcs",
-            "url": "git@map2u.familyds.com:/volume1/homes/git/repositories/Map2uLeafletBundle.git"
+            "url": "https://github.com/josephzhao/map2uleaflet.git"
         },
         {
             "type": "vcs",
-            "url": "git@map2u.familyds.com:/volume1/homes/git/repositories/Map2uForumBundle.git"
+            "url": "https://github.com/josephzhao/map2uforum.git"
         },
         {
             "type": "vcs",
-            "url": "git@map2u.familyds.com:/volume1/homes/git/repositories/Map2uDashboardBundle.git"
+            "url": "https://github.com/josephzhao/map2udashboard.git"
         },
+       
         {
             "type": "vcs",
-            "url": "git@map2u.familyds.com:/volume1/homes/git/repositories/Map2uMapfishPrintBundle.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@map2u.familyds.com:/volume1/homes/git/repositories/Map2uWebBundle.git"
+            "url": "https://github.com/josephzhao/map2uweb.git"
         }],
     "scripts": {
         "post-install-cmd": [

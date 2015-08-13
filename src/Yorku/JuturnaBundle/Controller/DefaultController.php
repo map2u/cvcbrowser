@@ -8,7 +8,7 @@
  * </copyright>
  *
  * <author>Shuilin (Joseph) Zhao</author>
- * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University</company>
  * <email>zhaoshuilin2004@yahoo.ca</email>
  * <date>created at 2014/01/06</date>
  * <date>last updated at 2015/03/11</date>

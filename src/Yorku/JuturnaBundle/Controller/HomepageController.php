@@ -67,17 +67,7 @@ class HomepageController extends Controller {
         }
         $em = $this->getDoctrine()->getManager();
         $category = $em->getRepository('YorkuJuturnaBundle:Category')->findOneByName($type);
-        //    var_dump($category);
-//        if (!isset($id)) {
-//            return new Response(\json_encode(array('success' => false, 'message' => 'Parameter Id not found!')));
-//        }
-//        if  ((isset($id) && ( $id === 0 || $id === '0' || $id === 'undefined'))) {
-//            $usergeometries = new UserDrawGeometries();
-//        } else {
         $image = $em->getRepository('YorkuJuturnaBundle:HomepageImage')->findOneBy(array('category' => $category));
-//
-//            $update_geom = true;
-//        }
         return array('_locale' => $locale, 'image' => $image, 'type' => strtolower(str_replace("-", "_", $type)));
     }
 
@@ -91,16 +81,7 @@ class HomepageController extends Controller {
     public function flashsAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $locale = $request->getLocale();
-//        if (!isset($id)) {
-//            return new Response(\json_encode(array('success' => false, 'message' => 'Parameter Id not found!')));
-//        }
-//        if  ((isset($id) && ( $id === 0 || $id === '0' || $id === 'undefined'))) {
-//            $usergeometries = new UserDrawGeometries();
-//        } else {
-        $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
-//
-//            $update_geom = true;
-//        }
+       $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
         return array('_locale' => $locale, 'flashs' => $flashs);
     }
 
@@ -202,24 +183,6 @@ class HomepageController extends Controller {
 
         return array('_locale' => $locale, 'ecosystems' => $ecosystems, 'image' => $image, 'flashs' => $flashs, "category" => $category);
 
-
-//        $em = $this->getDoctrine()->getManager();
-//        $session = $request->getSession();
-//        $locale = $request->getLocale();
-//        $session->set('current_menu', "ecosystems");
-//        $category = $em->getRepository('YorkuJuturnaBundle:Category')->findOneByName("Ecosystems");
-//
-////        if (!isset($id)) {
-////            return new Response(\json_encode(array('success' => false, 'message' => 'Parameter Id not found!')));
-////        }
-////        if  ((isset($id) && ( $id === 0 || $id === '0' || $id === 'undefined'))) {
-////            $usergeometries = new UserDrawGeometries();
-////        } else {
-//        $image = $em->getRepository('YorkuJuturnaBundle:HomepageImage')->findOneBy(array('category' => $category));
-//
-//        $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
-//
-//        return array('_locale' => $locale, 'image' => $image, 'flashs' => $flashs);
     }
 
     /**
@@ -258,17 +221,7 @@ class HomepageController extends Controller {
         $locale = $request->getLocale();
         $em = $this->getDoctrine()->getManager();
         $category = $em->getRepository('YorkuJuturnaBundle:Category')->findOneByName("Ecosystems");
-
-//        if (!isset($id)) {
-//            return new Response(\json_encode(array('success' => false, 'message' => 'Parameter Id not found!')));
-//        }
-//        if  ((isset($id) && ( $id === 0 || $id === '0' || $id === 'undefined'))) {
-//            $usergeometries = new UserDrawGeometries();
-//        } else {
         $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
-//
-//            $update_geom = true;
-//        }
         return array('_locale' => $locale, 'flashs' => $flashs);
     }
 
@@ -317,29 +270,8 @@ class HomepageController extends Controller {
         $locale = $request->getLocale();
         $session->set('current_menu', "about_us");
         $em = $this->getDoctrine()->getManager();
-//        if (!isset($id)) {
-//            return new Response(\json_encode(array('success' => false, 'message' => 'Parameter Id not found!')));
-//        }
-//        if  ((isset($id) && ( $id === 0 || $id === '0' || $id === 'undefined'))) {
-//            $usergeometries = new UserDrawGeometries();
-//        } else {
-        $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
-//
-//            $update_geom = true;
-//        }
+       $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
         return array('_locale' => $locale, 'flashs' => $flashs);
-    }
-
-    /**
-     * .
-     *
-     * @Route("/uploadstory", name="homepage_uploadstory")
-     * @Method("GET|POST")
-     * @Template()
-     */
-    public function uploadstoryAction(Request $request) {
-        $locale = $request->getLocale();
-        return array('_locale' => $locale);
     }
 
     /**
