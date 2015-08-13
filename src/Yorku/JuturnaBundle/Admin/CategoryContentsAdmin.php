@@ -92,7 +92,7 @@ class CategoryContentsAdmin extends Admin {
                     'multiple' => false
                 ))
                 ->add('displayLayers', 'entity', array('label' => 'Display Map Layers',
-                    'required' => true,
+                    'required' => false,
                     'expanded' => false,
                     'class' => 'Map2u\CoreBundle\Entity\UploadfileLayer',
                     'property' => 'layerName',
@@ -102,10 +102,12 @@ class CategoryContentsAdmin extends Admin {
                     'class' => 'Application\Sonata\ClassificationBundle\Entity\Tag',
                     'property' => 'name',
                     'expanded' => false,
+                    'required' => false,
                     'mapped' => false,
                     'multiple' => true))
                 ->add('detail', 'ckeditor', array('label' => '',
                     'config_name' => 'forums',
+                    'required' => false,
                     'config' => array('uiColor' => '#ffffff')
                 ))
                 ->end()
