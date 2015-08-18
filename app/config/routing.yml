@@ -104,7 +104,9 @@ _sonata_admin:
     
 soanata_user:
      resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
-     prefix: /admin
+     prefix: /{_locale}
+     requirements:
+       _locale: en|zh
 
 hwi_oauth_redirect:
     resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"

@@ -28,9 +28,9 @@ file that was distributed with this source code.
                             <span class="label">{{ 'post_is_not_public'|trans({}, 'SonataNewsBundle') }}</span>
                         {% endif %}
 
-                        <a href="{{ url('admin_sonata_news_post_edit', { 'id': post.id }) }}">{{ post.title }}</a> <br>- {{ 'archive_author'|trans({'%author%': post.author }, 'SonataNewsBundle') }} - {{ post.publicationDateStart | format_date }}</li>
+                        <a href="{{ url('admin_sonata_news_post_edit', { 'id': post.id }) }}">{{ post.title }}</a> <br>- {{ 'archive_author'|trans({'%author%': post.author }, 'SonataNewsBundle') }} - {{ post.publicationDateStart | date("Y/m/d") }}</li>
                 {% else %}
-                    <li><a href="{{ url('sonata_news_view', { 'permalink': sonata_news_permalink(post) }) }}" target="_blank">{{ post.title }}</a> <br>- {{ 'archive_author'|trans({'%author%': post.author }, 'SonataNewsBundle') }} - {{ post.publicationDateStart | format_date }}</li>
+                    <li><a href="{{ url('sonata_news_view', { 'permalink': sonata_news_permalink(post) }) }}" target="_blank">{{ post.title }}</a> <br>- {{ 'archive_author'|trans({'%author%': post.author }, 'SonataNewsBundle') }} - {{ post.publicationDateStart | date("Y/m/d") }}</li>
                 {% endif %}
             {% else %}
                 <li>{{ 'no_post_found'|trans({}, 'SonataNewsBundle') }}</li>

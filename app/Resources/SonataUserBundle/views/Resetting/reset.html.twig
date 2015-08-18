@@ -1,29 +1,26 @@
 {#% extends "FOSUserBundle::layout.html.twig" %#}
 {% extends "::baseLayout.html.twig" %}
 
-  {% block body %}
-  {% block header %}
-      {{parent()}}
+{% block body %}
+    {% block header %}
+        {{parent()}}
     {% endblock %}
     {% block maincontent %}
 
     {% endblock %} 
-{% block fos_user_content %}
-<div class="container-fluid">
+    {% block fos_user_content %}
+        <div class="container-fluid">
 
-    <div class="row-fluid">
-        <div class="span6 offset3">
-
-      {% block fos_user_content %}
-{% include "FOSUserBundle:Resetting:reset_content.html.twig" %}
-{% endblock fos_user_content %}
-
+            <div class="row-fluid">
+                <div class="span6 offset3">
+                    {% include "FOSUserBundle:Resetting:reset_content.html.twig" %}
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-{% endblock  %}
-     {% block footer %}
-     {% endblock %}
+    {% endblock fos_user_content %}
+
+    {% block footer %}
+    {% endblock %}
 {% endblock body %}
 
 
