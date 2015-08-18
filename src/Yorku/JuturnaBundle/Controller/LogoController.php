@@ -204,8 +204,6 @@ class LogoController extends Controller {
      */
     public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
-        $request = $this->getRequest();
-
         $entity = $em->getRepository('YorkuJuturnaBundle:Logo')->find($id);
 
         if (!$entity) {
@@ -216,23 +214,11 @@ class LogoController extends Controller {
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
-            $dir = './img';
-            $file = $editForm['imagefile']->getData();
-            if ($file != null) {
-                $filename = str_replace(" ", "_", $file->getClientOriginalName());
-                $file->move($dir, $file->getClientOriginalName());
-                rename($dir . '/' . $file->getClientOriginalName(), $dir . '/' . $filename);
-                $entity->setImageFilename($filename);
-            }
-            $em->flush();
+            $entity=$this->moveUploadedImages($editForm, $em, $entity);
             return $this->redirect($this->generateUrl('logo_edit', array('id' => $id)));
         }
 
-        return array(
-            'entity' => $entity,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
+        return array('entity' => $entity, 'edit_form' => $editForm->createView(), 'delete_form' => $deleteForm->createView());
     }
 
     /**
@@ -274,6 +260,20 @@ class LogoController extends Controller {
                         ->add('submit', 'submit', array('label' => 'Delete'))
                         ->getForm()
         ;
+    }
+
+    private function moveUploadedImages($editForm, $em, $entity) {
+        $dir = './img';
+        $file = $editForm['imagefile']->getData();
+        if ($file != null) {
+            $filename = str_replace(" ", "_", $file->getClientOriginalName());
+            $file->move($dir, $file->getClientOriginalName());
+            rename($dir . '/' . $file->getClientOriginalName(), $dir . '/' . $filename);
+            $entity->setImageFilename($filename);
+            $em->persist($entity);
+        }
+        $em->flush();
+        return $entity;
     }
 
 }

@@ -106,9 +106,6 @@ class UsersController extends Controller {
         );
     }
 
-
-
-
     /**
      * resetpassword user account password.
      *
@@ -229,8 +226,6 @@ class UsersController extends Controller {
             ));
         }
     }
-
-
 
     /**
      * Finds and displays a Users entity.
@@ -355,39 +350,21 @@ class UsersController extends Controller {
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('YorkuJuturnaBundle:Users')->find($id);
         if (true === $request->isXmlHttpRequest()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('YorkuJuturnaBundle:Users')->find($id);
-
             if (!$entity) {
-                return new JsonResponse(array(
-                    'success' => true,
-                    'message' => "Unable to find Users entity!"
-                ));
+                return new JsonResponse(array('success' => true, 'message' => "Unable to find Users entity!"));
             }
             $em->remove($entity);
             $em->flush();
-            return new JsonResponse(array(
-                'success' => true,
-                'message' => "Account successfully deleted!"
-            ));
+            return new JsonResponse(array('success' => true, 'message' => "Account successfully deleted!"));
         } else {
-
             $form = $this->createDeleteForm($id);
             $form->bind($request);
-
             if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $entity = $em->getRepository('YorkuJuturnaBundle:Users')->find($id);
-
-                if (!$entity) {
-                    throw $this->createNotFoundException('Unable to find Users entity.');
-                }
-
-                $em->remove($entity);
-                $em->flush();
+                $this->removeUser($em, $entity);
             }
-
             return $this->redirect($this->generateUrl('users'));
         }
     }
@@ -415,6 +392,20 @@ class UsersController extends Controller {
             $str .= $characters[$rand];
         }
         return $str;
+    }
+
+    /**
+     * 
+     * @param Entitymanager $em
+     * @param Entity $entity
+     * @throws type
+     */
+    private function removeUser($em, $entity) {
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Users entity.');
+        }
+        $em->remove($entity);
+        $em->flush();
     }
 
 }
