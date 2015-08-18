@@ -60,7 +60,7 @@ assetic:
         - Map2uCoreBundle
         - Map2uWebBundle
         - Map2uLeafletBundle
-        - IbrowsNewsletterBundle
+#        - IbrowsNewsletterBundle
     java:               /usr/bin/java
     node:               /usr/bin/node
     ruby:               /usr/bin/ruby
@@ -144,7 +144,7 @@ doctrine:
             point:      CrEOF\Spatial\DBAL\Types\Geometry\PointType
             polygon:    CrEOF\Spatial\DBAL\Types\Geometry\PolygonType
             linestring: CrEOF\Spatial\DBAL\Types\Geometry\LineStringType
-            enum: Doctrine\DBAL\Types\StringType
+            enum:       Doctrine\DBAL\Types\StringType
 #        mapping_types:
 #            Geometry: Geometry 
 #            geometry: geometry 

@@ -16,7 +16,7 @@
  * <purpose>expose of routing of Map2u\CoreBundle\Controller\HelpController , add custom actions in this controller and override the old actions</purpose>
  */
 
-namespace Map2u\CoreBundle\Controller;
+namespace Application\Map2u\CoreBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

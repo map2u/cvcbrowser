@@ -104,7 +104,7 @@ Yorku\JuturnaBundle\Entity\CategoryContents:
          orderBy:
              layerName: ASC
          joinTable:
-           name: categorycontent_layers
+           name: categorycontent_dlayers
            joinColumns:
              categorycontent_id:
                referencedColumnName: id

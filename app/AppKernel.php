@@ -63,15 +63,15 @@ class AppKernel extends Kernel {
             new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
-            new Ibrows\Bundle\NewsletterBundle\IbrowsNewsletterBundle(),
-            new Ibrows\Map2uBundle\IbrowsMap2uBundle(),
+//            new Ibrows\Bundle\NewsletterBundle\IbrowsNewsletterBundle(),
+//            new Ibrows\Map2uBundle\IbrowsMap2uBundle(),
             new Application\Map2u\CoreBundle\ApplicationMap2uCoreBundle(),
             new Application\Map2u\LeafletBundle\ApplicationMap2uLeafletBundle(),
             new Application\Map2u\DashboardBundle\ApplicationMap2uDashboardBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
-            $bundles[] = new Acme\DemoBundle\AcmeDemoBundle();
+//            $bundles[] = new Acme\DemoBundle\AcmeDemoBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();

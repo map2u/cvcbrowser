@@ -55,4 +55,4 @@ doctrine:
                     ApplicationSonataClassificationBundle: ~
                     SonataClassificationBundle: ~
                     SonataNewsBundle: ~
-                    IbrowsNewsletterBundle: ~
+#                    IbrowsNewsletterBundle: ~

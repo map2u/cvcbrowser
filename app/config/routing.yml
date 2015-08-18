@@ -132,10 +132,10 @@ qq_login:
 #    pattern: /login/check-github   
 
 # IbrowsNewsletter
-ibrows_newsletter:
-    resource: "@IbrowsNewsletterBundle/Controller/"
-    type:     annotation
-    prefix:   /newsletter
+#ibrows_newsletter:
+#    resource: "@IbrowsNewsletterBundle/Controller/"
+#    type:     annotation
+#    prefix:   /newsletter
 #    requirements:
 #      _locale: en|zh    
 blog:
