@@ -59,7 +59,6 @@ class AppKernel extends Kernel {
             new Map2u\LeafletBundle\Map2uLeafletBundle(),
             new Map2u\ForumBundle\Map2uForumBundle(),
             new Map2u\DashboardBundle\Map2uDashboardBundle(),
-            new Map2u\Mapfish\PrintBundle\Map2uMapfishPrintBundle(),
             new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
