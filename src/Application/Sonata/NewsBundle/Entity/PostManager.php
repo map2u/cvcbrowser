@@ -27,6 +27,7 @@ use Sonata\NewsBundle\Model\BlogInterface;
 use Sonata\NewsBundle\Model\PostInterface;
 use Sonata\NewsBundle\Model\PostManagerInterface;
 use Sonata\NewsBundle\Entity\PostManager as basePostManager;
+use Sonata\ClassificationBundle\Model\CollectionInterface;
 
 class PostManager extends basePostManager {
 

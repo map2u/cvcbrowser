@@ -45,183 +45,20 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-        $this->user_tourisms = new \Doctrine\Common\Collections\ArrayCollection();
         $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
         $this->stations = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->tourismgeoms= new \Doctrine\Common\Collections\ArrayCollection();
     }
     
   
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $user_tourisms;
 
-   
 
-    /**
-     * Add user_tourisms
-     *
-     * @param \Yorku\JuturnaBundle\Entity\Tourism $userTourisms
-     * @return User
-     */
-    public function addUserTourism(\Yorku\JuturnaBundle\Entity\Tourism $userTourisms)
-    {
-        $this->user_tourisms[] = $userTourisms;
-    
-        return $this;
-    }
-
-    /**
-     * Remove user_tourisms
-     *
-     * @param \Yorku\JuturnaBundle\Entity\Tourism $userTourisms
-     */
-    public function removeUserTourism(\Yorku\JuturnaBundle\Entity\Tourism $userTourisms)
-    {
-        $this->user_tourisms->removeElement($userTourisms);
-    }
-
-    /**
-     * Get user_tourisms
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getUserTourisms()
-    {
-        return $this->user_tourisms;
-    }
-
-   
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $birds;
 
     
 
-    /**
-     * Add birds
-     *
-     * @param \Yorku\JuturnaBundle\Entity\Bird $birds
-     * @return User
-     */
-    public function addBird(\Yorku\JuturnaBundle\Entity\Bird $birds)
-    {
-        $this->birds[] = $birds;
-    
-        return $this;
-    }
 
-    /**
-     * Remove birds
-     *
-     * @param \Yorku\JuturnaBundle\Entity\Bird $birds
-     */
-    public function removeBird(\Yorku\JuturnaBundle\Entity\Bird $birds)
-    {
-        $this->birds->removeElement($birds);
-    }
 
-    /**
-     * Get birds
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getBirds()
-    {
-        return $this->birds;
-    }
-
-    
-   
-
-   
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $stations;
-
-   
-    /**
-     * Add stations
-     *
-     * @param \Yorku\JuturnaBundle\Entity\Station $stations
-     * @return User
-     */
-    public function addStation(\Yorku\JuturnaBundle\Entity\Station $stations)
-    {
-        $this->stations[] = $stations;
-    
-        return $this;
-    }
-
-    /**
-     * Remove stations
-     *
-     * @param \Yorku\JuturnaBundle\Entity\Station $stations
-     */
-    public function removeStation(\Yorku\JuturnaBundle\Entity\Station $stations)
-    {
-        $this->stations->removeElement($stations);
-    }
-
-    /**
-     * Get stations
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getStations()
-    {
-        return $this->stations;
-    }
-
-    
-
-    
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $tourismgeoms;
-
-   
-
-    /**
-     * Add tourismgeoms
-     *
-     * @param \Yorku\JuturnaBundle\Entity\TourismGeoms $tourismgeoms
-     * @return User
-     */
-    public function addTourismgeom(\Yorku\JuturnaBundle\Entity\TourismGeoms $tourismgeoms)
-    {
-        $this->tourismgeoms[] = $tourismgeoms;
-    
-        return $this;
-    }
-
-    /**
-     * Remove tourismgeoms
-     *
-     * @param \Yorku\JuturnaBundle\Entity\TourismGeoms $tourismgeoms
-     */
-    public function removeTourismgeom(\Yorku\JuturnaBundle\Entity\TourismGeoms $tourismgeoms)
-    {
-        $this->tourismgeoms->removeElement($tourismgeoms);
-    }
-
-    /**
-     * Get tourismgeoms
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getTourismgeoms()
-    {
-        return $this->tourismgeoms;
-    }
-
+ 
     
     /**
      * @var \Yorku\JuturnaBundle\Entity\MemberShip

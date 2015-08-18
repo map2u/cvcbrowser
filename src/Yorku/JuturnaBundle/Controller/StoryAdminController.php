@@ -22,6 +22,9 @@ use Sonata\AdminBundle\Controller\CRUDController;
 use Paradigma\Bundle\ImageBundle\Libs\ImageSize;
 use Paradigma\Bundle\ImageBundle\Libs\ImageResizer;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Sonata\AdminBundle\Exception\ModelManagerException;
 
 class StoryAdminController extends CRUDController {
 

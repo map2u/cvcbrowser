@@ -29,7 +29,7 @@ use Paradigma\Bundle\ImageBundle\Libs\ImageResizer;
 use Yorku\JuturnaBundle\Entity\Story;
 use Application\Map2u\CoreBundle\Entity\UserDrawGeometries;
 use Map2u\CoreBundle\Controller\DrawController as BaseController;
-
+use Gaufrette\Exception;
 /**
  * Welcome controller.
  *
@@ -380,14 +380,15 @@ class DrawController extends BaseController {
 
     /**
      * 
-     * @param Application\Map2u\CoreBundle\Entity\UserDrawGeometries $usergeometries
-     * @param Doctrine\ORM\EntityManager $em
-     * @param Application\Sonata\UserBundle\Entity\User $user
+     * @param \Application\Map2u\CoreBundle\Entity\UserDrawGeometries $usergeometries
+     * @param \Doctrine\ORM\EntityManager $em
+     * @param \Application\Sonata\UserBundle\Entity\User $user
      * @param array $req_params
      * @param string $icon_path
-     * @return Application\Map2u\CoreBundle\Entity\UserDrawGeometries
+     * @return \Application\Map2u\CoreBundle\Entity\UserDrawGeometries
      */
-    private function setSaveActionUserGeometry(Application\Map2u\CoreBundle\Entity\UserDrawGeometries $usergeometries, Doctrine\ORM\EntityManager $em, Application\Sonata\UserBundle\Entity\User $user, array $req_params, string $icon_path) {
+    //private function setSaveActionUserGeometry(Application\Map2u\CoreBundle\Entity\UserDrawGeometries $usergeometries, \Doctrine\ORM\EntityManager $em, Application\Sonata\UserBundle\Entity\User $user, array $req_params, string $icon_path) {
+    private function setSaveActionUserGeometry(\Application\Map2u\CoreBundle\Entity\UserDrawGeometries $usergeometries, \Doctrine\ORM\EntityManager $em, \Application\Sonata\UserBundle\Entity\User $user, array $req_params, string $icon_path) {
         $usergeometries->setUserId($user->getId());
         $usergeometries->setUser($user);
         $featurelayer = $em->getRepository('Map2uCoreBundle:UserDrawLayer')->findOneBy(array("id" => $req_params['featurelayer_id']));
@@ -418,7 +419,7 @@ class DrawController extends BaseController {
      * @param string $icon_path
      * @return \Application\Map2u\CoreBundle\Controller\Application\Map2u\CoreBundle\Entity\UserDrawGeometries
      */
-    private function moveuploadedMarkerIcon(Application\Map2u\CoreBundle\Entity\UserDrawGeometries $usergeometries, array $req_params, Application\Sonata\UserBundle\Entity\User $user, string $icon_path) {
+    private function moveuploadedMarkerIcon(\Application\Map2u\CoreBundle\Entity\UserDrawGeometries $usergeometries, array $req_params, \Application\Sonata\UserBundle\Entity\User $user, string $icon_path) {
         if ($req_params['upload_marker_icon']) {
             if (!file_exists($icon_path . "/" . $user->getId())) {
                 mkdir($icon_path . "/" . $user->getId(), 0755, true);
