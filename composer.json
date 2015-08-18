@@ -54,7 +54,6 @@
         "map2u/web-bundle": "dev-master",
         "map2u/forum-bundle": "dev-master",
         "map2u/dashboard-bundle": "dev-master",
-        "map2u/mapfish-print-bundle": "dev-master",
         "creof/doctrine2-spatial": "dev-master",
         "lunetics/locale-bundle": "2.4.*",
         "excelwebzone/recaptcha-bundle": "2.3.*@dev",
