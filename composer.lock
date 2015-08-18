@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "63e2fe36643f2be94426855b928f16e5",
+    "hash": "a9b257afb31770c112bc3b96de16ce7e",
     "packages": [
         {
             "name": "a2lix/i18n-doctrine-bundle",
@@ -3167,41 +3167,6 @@
             "time": "2015-06-05 16:57:39"
         },
         {
-            "name": "map2u/mapfish-print-bundle",
-            "version": "dev-master",
-            "target-dir": "Map2u/Mapfish/PrintBundle",
-            "source": {
-                "type": "git",
-                "url": "git@map2u.familyds.com:/volume1/homes/git/repositories/Map2uMapfishPrintBundle.git",
-                "reference": "57d967adcc6b6a22c7ba94323dddc48347bd666f"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.4-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Map2u\\Mapfish\\PrintBundle": ""
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Joseph Zhao",
-                    "email": "zhaoshuilin2004@yahoo.ca"
-                }
-            ],
-            "description": "Map2u Mapfish Print Bundle",
-            "keywords": [
-                "Map2u Mapfish Print Bundle,Symfony 2"
-            ],
-            "time": "2014-08-15 19:12:33"
-        },
-        {
             "name": "map2u/web-bundle",
             "version": "dev-master",
             "target-dir": "Map2u/WebBundle",
@@ -5958,7 +5923,6 @@
         "map2u/web-bundle": 20,
         "map2u/forum-bundle": 20,
         "map2u/dashboard-bundle": 20,
-        "map2u/mapfish-print-bundle": 20,
         "creof/doctrine2-spatial": 20,
         "excelwebzone/recaptcha-bundle": 20,
         "stfalcon/tinymce-bundle": 20,
