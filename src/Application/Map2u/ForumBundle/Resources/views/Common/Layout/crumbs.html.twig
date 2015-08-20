@@ -1,9 +1,11 @@
 {%- spaceless -%}
-	<ol class="breadcrumb">
-		{%- for key, crumb in crumbs.getTrail -%}
-			<li>
-				<a href="{{- crumb.url -}}" title="{{- crumb.label -}}">{{- crumb.label |raw -}}</a>
-			</li>
-		{%- endfor -%}
-	</ol>
+<ol class="breadcrumb">
+    {%- for key, crumb in crumbs.getTrail -%}
+    <li>
+        {% autoescape 'html' %}
+            <a href="{{- crumb.url -}}" title="{{- crumb.label -}}">{{- crumb.label |raw -}}</a>
+        {% endautoescape %}
+    </li>
+    {%- endfor -%}
+</ol>
 {%- endspaceless -%}

@@ -55,8 +55,9 @@
                                             {#                                            <h3>{{indicatorbenefitimage.getImageTitle()}}</h3>#}
                                             {# <p>{{indicatorbenefitimage.getImageCaption()}}</p>#}
                                         </div>
-                                        <img style="width:100%;overflow: hidden;" src="{{ asset('uploads/images/indicatorbenefitimages/'~indicatorbenefitimage.id~"/")}}{{image|raw}}" width="100%">
-
+                                        {% autoescape 'html' %}
+                                            <img style="width:100%;overflow: hidden;" src="{{ asset('uploads/images/indicatorbenefitimages/'~indicatorbenefitimage.id~"/")}}{{image|raw}}" width="100%">
+                                        {% endautoescape %}
                                     </div>
                                     {% set i=i+1 %}
                                 {% endfor %}
@@ -79,8 +80,9 @@
                                         <h2>{{benefit.title|title}}</h2>
 
                                     </div>
-                                    <img style="width:100%;overflow: hidden;" src="{{ asset('uploads/images/indicatorbenefitimages/'~indicatorbenefitimage.id~"/")}}{{image|raw}}" width="100%">
-
+                                    {% autoescape 'html' %}
+                                        <img style="width:100%;overflow: hidden;" src="{{ asset('uploads/images/indicatorbenefitimages/'~indicatorbenefitimage.id~"/")}}{{image|raw}}" width="100%">
+                                    {% endautoescape %}
                                 {% endfor %}
                             {% endif %}
                         {% endfor %}
@@ -92,7 +94,9 @@
     </div>
     <div class="container-fluid" style="margin: 15px auto;max-width: 1200px;">
         <div class="row-fluid">
-            {{benefit.briefReport|raw}}
+            {% autoescape 'html' %}
+                {{benefit.briefReport|raw}}
+            {% endautoescape %}
             {% for reference in benefit.indicatorreferences %}
                 {% if reference.website %}
                     <p>

@@ -39,8 +39,9 @@
                                     <h2>{{story.storyName|title}}</h2>
 
                                 </div>
-                                <img style="width:100%;overflow: hidden;" src="{{ asset('uploads/stories/'~story.id~'/images/')}}{{image|raw}}" width="100%">
-
+                                {% autoescape 'html' %}
+                                    <img style="width:100%;overflow: hidden;" src="{{ asset('uploads/stories/'~story.id~'/images/')}}{{image|raw}}" width="100%">
+                                {% endautoescape %}
                             </div>
                             {% set i=i+1 %}
                         {% endfor %}
@@ -57,7 +58,9 @@
                             {#                                            <h3>{{indicatorbenefitimage.getImageTitle()}}</h3>#}
                             {# <p>{{indicatorbenefitimage.getImageCaption()}}</p>#}
                         </div>
-                        <img style="width:100%;overflow: hidden;" src="{{ asset('uploads/stories/'~story.id~'/images/')}}{{images[0]|raw}}" width="100%">
+                        {% autoescape 'html' %}
+                            <img style="width:100%;overflow: hidden;" src="{{ asset('uploads/stories/'~story.id~'/images/')}}{{images[0]|raw}}" width="100%">
+                        {% endautoescape %}
                     </div>
                 {% endif %}
             {% endif %}
@@ -66,7 +69,7 @@
     <div class="container-fluid" style="margin: 15px auto;max-width: 1200px;">
         <div class="row-fluid">
             <div style="margin: 15px auto;text-align:center;">
-{#                <h2> {{story.storyName|title}}</h2>#}
+                {#                <h2> {{story.storyName|title}}</h2>#}
             </div>
         </div>
         <div class="row-fluid" style="height:700px;overflow:auto;border: 1px solid gainsboro;">
@@ -114,55 +117,55 @@
         {% if story.storyFile and story.storyFileType == 'application/pdf' %}
 
 
-                    function loadPDFJS(pageUrl) {
-                        // PDFJS.workerSrc = 'resources/js/pdfjs/pdf.worker.js';
-                        var currentPage = 1;
-                        var pages = [];
-                        var globalPdf = null;
-                        var container = document.getElementById('pdf_display');
-                        function renderPage(page) {
-                            //
-                            // Prepare canvas using PDF page dimensions
-                            //
-                            var canvas = document.createElement('canvas');
-                            // Link: http://stackoverflow.com/a/13039183/1577396
-                            // Canvas width should be set to the window's width for appropriate
-                            // scaling factor of the document with respect to the canvas width
-                            var viewport = page.getViewport(1.5);
-                            //  var viewport = page.getViewport(window.screen.width / page.getViewport(1.0).width);
-                            // append the created canvas to the container
-                            container.appendChild(canvas);
-                            // Get context of the canvas
-                            var context = canvas.getContext('2d');
-                            canvas.height = viewport.height;
-                            canvas.width = viewport.width;
-                            //
-                            // Render PDF page into canvas context
-                            //
-                            var renderContext = {
-                                canvasContext: context,
-                                viewport: viewport
-                            };
-                            page.render(renderContext).then(function () {
-                                if (currentPage < globalPdf.numPages) {
-                                    pages[currentPage] = canvas;
-                                    currentPage++;
-                                    globalPdf.getPage(currentPage).then(renderPage);
-                                } else {
-                                    // Callback function here, which will trigger when all pages are loaded
-                                }
-                            });
-                        }
-                        PDFJS.getDocument(pageUrl).then(function (pdf) {
-                            if (!globalPdf) {
-                                globalPdf = pdf;
+                function loadPDFJS(pageUrl) {
+                    // PDFJS.workerSrc = 'resources/js/pdfjs/pdf.worker.js';
+                    var currentPage = 1;
+                    var pages = [];
+                    var globalPdf = null;
+                    var container = document.getElementById('pdf_display');
+                    function renderPage(page) {
+                        //
+                        // Prepare canvas using PDF page dimensions
+                        //
+                        var canvas = document.createElement('canvas');
+                        // Link: http://stackoverflow.com/a/13039183/1577396
+                        // Canvas width should be set to the window's width for appropriate
+                        // scaling factor of the document with respect to the canvas width
+                        var viewport = page.getViewport(1.5);
+                        //  var viewport = page.getViewport(window.screen.width / page.getViewport(1.0).width);
+                        // append the created canvas to the container
+                        container.appendChild(canvas);
+                        // Get context of the canvas
+                        var context = canvas.getContext('2d');
+                        canvas.height = viewport.height;
+                        canvas.width = viewport.width;
+                        //
+                        // Render PDF page into canvas context
+                        //
+                        var renderContext = {
+                            canvasContext: context,
+                            viewport: viewport
+                        };
+                        page.render(renderContext).then(function () {
+                            if (currentPage < globalPdf.numPages) {
+                                pages[currentPage] = canvas;
+                                currentPage++;
+                                globalPdf.getPage(currentPage).then(renderPage);
+                            } else {
+                                // Callback function here, which will trigger when all pages are loaded
                             }
-                            pdf.getPage(currentPage).then(renderPage);
                         });
                     }
-                    loadPDFJS("{{app.request.getSchemeAndHttpHost()}}/uploads/stories/{{story.id}}/pdf/{{story.storyFile}}");
+                    PDFJS.getDocument(pageUrl).then(function (pdf) {
+                        if (!globalPdf) {
+                            globalPdf = pdf;
+                        }
+                        pdf.getPage(currentPage).then(renderPage);
+                    });
+                }
+                loadPDFJS("{{app.request.getSchemeAndHttpHost()}}/uploads/stories/{{story.id}}/pdf/{{story.storyFile}}");
 
         {% endif %}
-                });
+            });
     </script>
 {% endblock %}

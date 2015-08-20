@@ -7,7 +7,9 @@
     </div>
     <a href="{{path('homepage_'~type,{locale:app.request.locale})}}" >
         <div class="homepage_image_brief_desc">
-            {{image.getIntroduce()|raw}}
+            {% autoescape 'html' %}
+                {{image.getIntroduce()|raw}}
+            {% endautoescape %}
         </div>
     </a>
 {% endif %}

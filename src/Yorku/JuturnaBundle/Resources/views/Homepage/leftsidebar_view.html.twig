@@ -43,7 +43,9 @@
 
                                 {% for image in images %}
                                     <div style="border-radius: 5px;" data-id="{{i}}" data-slide-no="{{i}}"  class="item  carousel-item {% if i==0 %} active {% endif %}" >
-                                        <img style="border-radius: 5px;width:300px;height:200px;overflow: hidden;" src="{{ asset('uploads/images/indicatorbenefitimages/'~indicatorbenefitimage.id~"/")}}{{image|raw}}" width="100%">
+                                        {% autoescape 'html' %}
+                                            <img style="border-radius: 5px;width:300px;height:200px;overflow: hidden;" src="{{ asset('uploads/images/indicatorbenefitimages/'~indicatorbenefitimage.id~"/")}}{{image|raw}}" width="100%">
+                                        {% endautoescape %}
                                         <div class="carousel-caption">
                                             <h5>{{indicatorbenefitimage.getImageTitle()}}</h5>
                                             <p>{{indicatorbenefitimage.getImageCaption()}}</p>
@@ -66,8 +68,9 @@
                                 {% set images=indicatorbenefitimage.getFileName()|unserialize %}
                                 {% if images|length > 0 %}
                                     {% for image in images %}
-
-                                        <img style="border-radius: 5px;width:300px;height:200px;overflow: hidden;" src="{{ asset('uploads/images/indicatorbenefitimages/'~indicatorbenefitimage.id~"/")}}{{image|raw}}" width="100%">
+                                        {% autoescape 'html' %}
+                                            <img style="border-radius: 5px;width:300px;height:200px;overflow: hidden;" src="{{ asset('uploads/images/indicatorbenefitimages/'~indicatorbenefitimage.id~"/")}}{{image|raw}}" width="100%">
+                                        {% endautoescape %}
                                         <div class="carousel-caption">
                                             <h5>{{indicatorbenefitimage.getImageTitle()}}</h5>
                                             <p>{{indicatorbenefitimage.getImageCaption()}}</p>
@@ -124,7 +127,9 @@
                         {% set i=0 %}
                         {% for image in images %}
                             <div style="border-radius: 5px;" class="item {% if i==0%} active {% endif %}" >
-                                <img style="border-radius: 5px;width:300px;height:200px;overflow: hidden;" src="{{ asset('uploads/stories/'~story.id~'/images/')}}{{image|raw}}" width="100%">
+                                {% autoescape 'html' %}
+                                    <img style="border-radius: 5px;width:300px;height:200px;overflow: hidden;" src="{{ asset('uploads/stories/'~story.id~'/images/')}}{{image|raw}}" width="100%">
+                                {% endautoescape %}
                                 <div class="carousel-caption">
                                 </div>
                             </div>
@@ -137,7 +142,9 @@
             {% else %}
                 {% if images|length > 0 %}
                     <div style="border-radius: 5px;">
-                        <img style="border-radius: 5px;width:300px;height:200px;overflow: hidden;" src="{{ asset('uploads/stories/'~story.id~'/images/')}}{{images[0]|raw}}" width="100%">
+                        {% autoescape 'html' %}
+                            <img style="border-radius: 5px;width:300px;height:200px;overflow: hidden;" src="{{ asset('uploads/stories/'~story.id~'/images/')}}{{images[0]|raw}}" width="100%">
+                        {% endautoescape %}
                     </div>
                 {% endif %}
             {% endif %}
@@ -150,13 +157,17 @@
         </div>
         {% if story.storyText %}
             <div style="margin-top:10px;" id="pdf_display">
-                {{story.storyText|raw}}
+                {% autoescape 'html' %}
+                    {{story.storyText|raw}}
+                {% endautoescape %}
                 {#                <a class="media" href="{{app.request.getSchemeAndHttpHost()}}/uploads/stories/{{story.id}}/pdf/{{story.storyFile}}">PDF File</a> #}
             </div>
         {% endif %}
         {% if story.storyFileType == 'text/html' %}
             <div style="margin-top:10px;" id="pdf_display">
-                {{story.storyFile|raw}}
+                {% autoescape 'html' %}
+                    {{story.storyFile|raw}}
+                {% endautoescape %}
                 {#                <a class="media" href="{{app.request.getSchemeAndHttpHost()}}/uploads/stories/{{story.id}}/pdf/{{story.storyFile}}">PDF File</a> #}
             </div>
         {% endif %}
