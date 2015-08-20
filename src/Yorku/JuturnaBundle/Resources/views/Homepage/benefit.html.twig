@@ -94,8 +94,8 @@
     </div>
     <div class="container-fluid" style="margin: 15px auto;max-width: 1200px;">
         <div class="row-fluid">
-            {% autoescape  %}
-                {{benefit.briefReport|raw}}
+            {% autoescape false%}
+                {{benefit.briefReport}}
             {% endautoescape %}
             {% for reference in benefit.indicatorreferences %}
                 {% if reference.website %}
