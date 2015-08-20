@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a9b257afb31770c112bc3b96de16ce7e",
+    "hash": "abd10b50f735f4806b4acd34c1776027",
     "packages": [
         {
             "name": "a2lix/i18n-doctrine-bundle",
@@ -1673,12 +1673,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/hwi/HWIOAuthBundle.git",
-                "reference": "e6f9814edc7d00c277df0f1f7a025119831fe1f6"
+                "reference": "2ca54c138ed8a536ee4bd2ae2850103631e7c128"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hwi/HWIOAuthBundle/zipball/e6f9814edc7d00c277df0f1f7a025119831fe1f6",
-                "reference": "e6f9814edc7d00c277df0f1f7a025119831fe1f6",
+                "url": "https://api.github.com/repos/hwi/HWIOAuthBundle/zipball/2ca54c138ed8a536ee4bd2ae2850103631e7c128",
+                "reference": "2ca54c138ed8a536ee4bd2ae2850103631e7c128",
                 "shasum": ""
             },
             "require": {
@@ -1782,7 +1782,7 @@
                 "yahoo",
                 "yandex"
             ],
-            "time": "2015-08-17 12:08:26"
+            "time": "2015-08-20 12:28:30"
         },
         {
             "name": "ibrows/newsletter-bundle",
@@ -3791,12 +3791,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "d47fa796b1614b49637837a1e8ef2e22433d0c33"
+                "reference": "23e4a28dcb31bf849facd8aa7a4e1fe17ac33284"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/d47fa796b1614b49637837a1e8ef2e22433d0c33",
-                "reference": "d47fa796b1614b49637837a1e8ef2e22433d0c33",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/23e4a28dcb31bf849facd8aa7a4e1fe17ac33284",
+                "reference": "23e4a28dcb31bf849facd8aa7a4e1fe17ac33284",
                 "shasum": ""
             },
             "require": {
@@ -3871,7 +3871,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2015-08-17 15:26:45"
+            "time": "2015-08-20 13:19:28"
         },
         {
             "name": "sonata-project/block-bundle",
@@ -4754,12 +4754,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataMediaBundle.git",
-                "reference": "76a32bf9bb0f9d6ba0d2a31ffedf27cb7d519901"
+                "reference": "d7a0c9a98485c114dd0770735647d41499409d97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataMediaBundle/zipball/76a32bf9bb0f9d6ba0d2a31ffedf27cb7d519901",
-                "reference": "76a32bf9bb0f9d6ba0d2a31ffedf27cb7d519901",
+                "url": "https://api.github.com/repos/sonata-project/SonataMediaBundle/zipball/d7a0c9a98485c114dd0770735647d41499409d97",
+                "reference": "d7a0c9a98485c114dd0770735647d41499409d97",
                 "shasum": ""
             },
             "require": {
@@ -4838,7 +4838,7 @@
                 "vimeo",
                 "youtube"
             ],
-            "time": "2015-08-09 10:20:27"
+            "time": "2015-08-19 23:23:58"
         },
         {
             "name": "sonata-project/news-bundle",
