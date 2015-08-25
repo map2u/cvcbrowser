@@ -3,7 +3,7 @@
     {%- for key, crumb in crumbs.getTrail -%}
     <li>
         {% autoescape 'html' %}
-            <a href="{{- crumb.url -}}" title="{{- crumb.label -}}">{{- crumb.label |raw -}}</a>
+            <a href="{{- crumb.url -}}" title="{{- crumb.label -}}">{{- crumb.label -}}</a>
         {% endautoescape %}
     </li>
     {%- endfor -%}

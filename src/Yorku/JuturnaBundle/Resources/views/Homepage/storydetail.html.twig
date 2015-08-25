@@ -40,7 +40,7 @@
 
                                 </div>
                                 {% autoescape 'html' %}
-                                    <img style="width:100%;overflow: hidden;" src="{{ asset('uploads/stories/'~story.id~'/images/')}}{{image|raw}}" width="100%">
+                                    <img style="width:100%;overflow: hidden;" src="{{ asset('uploads/stories/'~story.id~'/images/')}}{{image}}" width="100%">
                                 {% endautoescape %}
                             </div>
                             {% set i=i+1 %}
@@ -59,7 +59,7 @@
                             {# <p>{{indicatorbenefitimage.getImageCaption()}}</p>#}
                         </div>
                         {% autoescape 'html' %}
-                            <img style="width:100%;overflow: hidden;" src="{{ asset('uploads/stories/'~story.id~'/images/')}}{{images[0]|raw}}" width="100%">
+                            <img style="width:100%;overflow: hidden;" src="{{ asset('uploads/stories/'~story.id~'/images/')}}{{images[0]}}" width="100%">
                         {% endautoescape %}
                     </div>
                 {% endif %}

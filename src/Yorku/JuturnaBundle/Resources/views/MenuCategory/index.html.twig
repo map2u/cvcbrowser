@@ -31,7 +31,7 @@
     {% elseif category.getDescription() != null%}
         <div>
             {% autoescape 'html' %}
-                {{category.getDescription()|raw}}
+                {{category.getDescription()}}
             {% endautoescape %}
         </div>
     {% endif %}

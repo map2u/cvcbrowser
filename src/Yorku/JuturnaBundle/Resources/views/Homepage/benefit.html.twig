@@ -56,7 +56,7 @@
                                             {# <p>{{indicatorbenefitimage.getImageCaption()}}</p>#}
                                         </div>
                                         {% autoescape 'html' %}
-                                            <img style="width:100%;overflow: hidden;" src="{{ asset('uploads/images/indicatorbenefitimages/'~indicatorbenefitimage.id~"/")}}{{image|raw}}" width="100%">
+                                            <img style="width:100%;overflow: hidden;" src="{{ asset('uploads/images/indicatorbenefitimages/'~indicatorbenefitimage.id~"/")}}{{image}}" width="100%">
                                         {% endautoescape %}
                                     </div>
                                     {% set i=i+1 %}
@@ -81,7 +81,7 @@
 
                                     </div>
                                     {% autoescape 'html' %}
-                                        <img style="width:100%;overflow: hidden;" src="{{ asset('uploads/images/indicatorbenefitimages/'~indicatorbenefitimage.id~"/")}}{{image|raw}}" width="100%">
+                                        <img style="width:100%;overflow: hidden;" src="{{ asset('uploads/images/indicatorbenefitimages/'~indicatorbenefitimage.id~"/")}}{{image}}" width="100%">
                                     {% endautoescape %}
                                 {% endfor %}
                             {% endif %}
@@ -94,9 +94,9 @@
     </div>
     <div class="container-fluid" style="margin: 15px auto;max-width: 1200px;">
         <div class="row-fluid">
-            {% filter raw  %}
-                {{benefit.briefReport}}
-            {% endfilter %}
+            {% autoescape %}
+                {{benefit.briefReport }}
+            {% endautoescape %}
             {% for reference in benefit.indicatorreferences %}
                 {% if reference.website %}
                     <p>
