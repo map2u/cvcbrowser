@@ -162,7 +162,7 @@ doctrine:
                     Geometry: Geometry 
                     geometry: geometry 
                     
-            
+                        
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"

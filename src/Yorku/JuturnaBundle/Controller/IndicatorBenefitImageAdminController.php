@@ -22,6 +22,7 @@ use Sonata\AdminBundle\Controller\CRUDController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Sonata\AdminBundle\Exception\ModelManagerException;
 
 class IndicatorBenefitImageAdminController extends CRUDController {
 
