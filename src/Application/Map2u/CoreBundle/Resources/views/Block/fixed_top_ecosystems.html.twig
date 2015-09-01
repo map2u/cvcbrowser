@@ -1,0 +1,17 @@
+{% if ecosystems is defined %}
+    {% for ecosystem in ecosystems %}
+        <li  style="" class="dropdown-submenu">
+            <a class="dropdown-toggle" href="#{#{path("homepage_ecosystems",{_locale:app.request.locale,id:ecosystem.id})}#}">{{ecosystem.name|title}}</a>
+            {% set benefits = ecosystem.indicatorbenefits %}
+            {% if benefits | length > 0 %}
+                <ul class="dropdown-menu">
+                    {% for benefit in benefits %}
+                        <li>
+                            <a href="{{path('homepage_map',{'locale':app.request.locale,'view':'benefit','id':benefit.id})}}">{{benefit.title|title|truncate(22, true, ' ...')}}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}    
+        </li>
+    {% endfor %}
+{% endif %}  

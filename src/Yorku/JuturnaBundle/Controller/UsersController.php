@@ -203,26 +203,31 @@ class UsersController extends Controller {
                 ));
             }
 
-            $encoder_service = $this->get('security.encoder_factory');
-            $encoder = $encoder_service->getEncoder($user);
-            $encoded_pass = $encoder->encodePassword($password, $user->getSalt());
-            if ($encoded_pass === $user->getPassword()) {
-                $manipulator = $this->get('fos_user.util.user_manipulator');
-                $manipulator->changePassword($user->getUsername(), $data['password']);
-                return new JsonResponse(array(
-                    'success' => false,
-                    'message' => "Password has been successfully changed!"
-                ));
-            } else {
-                return new JsonResponse(array(
-                    'success' => false,
-                    'message' => "Current password is not correct!"
-                ));
-            }
+            return $this->matchPassword($user, $password, $data);
+
         } else {
             return new JsonResponse(array(
                 'success' => false,
                 'message' => "for changing user password, You must login first."
+            ));
+        }
+    }
+
+    private function matchPassword($user, $password, $data) {
+        $encoder_service = $this->get('security.encoder_factory');
+        $encoder = $encoder_service->getEncoder($user);
+        $encoded_pass = $encoder->encodePassword($password, $user->getSalt());
+        if ($encoded_pass === $user->getPassword()) {
+            $manipulator = $this->get('fos_user.util.user_manipulator');
+            $manipulator->changePassword($user->getUsername(), $data['password']);
+            return new JsonResponse(array(
+                'success' => false,
+                'message' => "Password has been successfully changed!"
+            ));
+        } else {
+            return new JsonResponse(array(
+                'success' => false,
+                'message' => "Current password is not correct!"
             ));
         }
     }
