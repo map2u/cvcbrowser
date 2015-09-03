@@ -1,17 +1,29 @@
-{% if mapbookmarks|length == 0 %}
-    <li  style="" >
-        <a data-id="1" data-zoom="11" data-address="" href="#">Watershed 1:250 000</a>
+{% if app.request.attributes.get('_route')=='homepage_map' %}
+    <li id="viewingscale" class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Viewing Scale
+            <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            {% if mapbookmarks|length == 0 %}
+                <li  style="" >
+                    <a data-id="1" data-zoom="11" data-address="" href="#">Watershed 1:250 000</a>
+                </li>
+                <li  style="" >
+                    <a data-id="2" data-zoom="14" data-address="" href="#">Subwatershed 1:35 000</a>
+                </li>
+                <li  style="">
+                    <a data-id="3"  data-zoom="17" data-address="" href="#">Local 1:4000</a>
+                </li>
+            {% else %}
+                {% for mapbookmark in mapbookmarks %}
+                    <li  style="">
+                        <a data-center="{{mapbookmark.lat}},{{mapbookmark.lng}}" data-address="{{mapbookmark.address}}" data-id="{{loop.index}}"  data-zoom="{{mapbookmark.zoomLevel}}" href="#">{{mapbookmark.name}}  {{mapbookmark.scaleText}}</a>
+                    </li>
+                {% endfor %}
+            {% endif %}
+
+            <li  style="">
+                <a  data-zoom="0" href="#">Set Map Center</a>
+
+            </li>
+        </ul>
     </li>
-    <li  style="" >
-        <a data-id="2" data-zoom="14" data-address="" href="#">Subwatershed 1:35 000</a>
-    </li>
-    <li  style="">
-        <a data-id="3"  data-zoom="17" data-address="" href="#">Local 1:4000</a>
-    </li>
-{% else %}
-    {% for mapbookmark in mapbookmarks %}
-        <li  style="">
-            <a data-center="{{mapbookmark.lat}},{{mapbookmark.lng}}" data-address="{{mapbookmark.address}}" data-id="{{loop.index}}"  data-zoom="{{mapbookmark.zoomLevel}}" href="#">{{mapbookmark.name}}  {{mapbookmark.scaleText}}</a>
-        </li>
-    {% endfor %}
 {% endif %}

@@ -202,7 +202,7 @@ class StoryAdminController extends CRUDController {
     private function saveUploadedFiles($form, $object) {
         $imageFile = $form['image_file']->getData();
 
-        $user = $this->getUser();
+
         $dir = './uploads/stories/' . $object->getId() . '/images';
         if (file_exists($dir) == false) {
             shell_exec("mkdir -p " . $dir);
@@ -215,16 +215,16 @@ class StoryAdminController extends CRUDController {
                     if ($file != null) {
                         array_push($images_array, str_replace(" ", "_", $file->getClientOriginalName()));
                         $file->move($dir, str_replace(" ", "_", $file->getClientOriginalName()));
-                        $resize = $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $file->getClientOriginalName()), $dir . '/icon_' . str_replace(" ", "_", $imageFile->getClientOriginalName()), new ImageSize(50, 40), ImageResizer::RESIZE_TYPE_CROP);
-                        $resize = $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $file->getClientOriginalName()), $dir . '/medium_' . str_replace(" ", "_", $imageFile->getClientOriginalName()), new ImageSize(500, 400), ImageResizer::RESIZE_TYPE_AUTO);
+                        $adminicon_resize = $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $file->getClientOriginalName()), $dir . '/icon_' . str_replace(" ", "_", $imageFile->getClientOriginalName()), new ImageSize(50, 40), ImageResizer::RESIZE_TYPE_CROP);
+                        $adminmedium_resize = $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $file->getClientOriginalName()), $dir . '/medium_' . str_replace(" ", "_", $imageFile->getClientOriginalName()), new ImageSize(500, 400), ImageResizer::RESIZE_TYPE_AUTO);
                     }
                 }
             } else {
 
                 array_push($images_array, str_replace(" ", "_", $imageFile->getClientOriginalName()));
                 $imageFile->move($dir, str_replace(" ", "_", $imageFile->getClientOriginalName()));
-                $resize = $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $imageFile->getClientOriginalName()), $dir . '/icon_' . str_replace(" ", "_", $imageFile->getClientOriginalName()), new ImageSize(50, 40), ImageResizer::RESIZE_TYPE_CROP);
-                $resize = $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $imageFile->getClientOriginalName()), $dir . '/medium_' . str_replace(" ", "_", $imageFile->getClientOriginalName()), new ImageSize(500, 400), ImageResizer::RESIZE_TYPE_AUTO);
+                $adminicon_resize = $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $imageFile->getClientOriginalName()), $dir . '/icon_' . str_replace(" ", "_", $imageFile->getClientOriginalName()), new ImageSize(50, 40), ImageResizer::RESIZE_TYPE_CROP);
+                $adminmedium_resize = $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $imageFile->getClientOriginalName()), $dir . '/medium_' . str_replace(" ", "_", $imageFile->getClientOriginalName()), new ImageSize(500, 400), ImageResizer::RESIZE_TYPE_AUTO);
             }
             $object->setImageFile(serialize($images_array));
         }

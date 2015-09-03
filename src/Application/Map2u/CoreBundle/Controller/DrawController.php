@@ -55,21 +55,9 @@ class DrawController extends BaseController {
         }
         $req_params = $this->getSaveActionReq($request);
 
-//        $id = $request->get('id');
-//        $drawname = $request->get('name');
-//        $feature = $request->get('feature');
-//        $public = $request->get('public');
-//        $featurelayer_id = $request->get('featurelayer');
-
         if (gettype($req_params['feature']) == 'string') {
             $req_params['feature'] = json_decode($req_params['feature']);
         }
-//        $drawradius = $request->get('radius');
-//        $drawtype = $request->get('type');
-//        $drawbuffer = $request->get('buffer');
-//        $description = $request->get('description');
-//        $selected_marker = $request->get('select_marker');
-//        $upload_marker_icon = $request->files->get('upload_marker_icon');
 
 
         $update_geom = false;
@@ -89,96 +77,10 @@ class DrawController extends BaseController {
         }
         if ($usergeometries) {
 
-
             $this->setSaveActionUserGeometry($usergeometries, $em, $user, $req_params, $icon_path);
-
-//            $usergeometries->setUserId($user->getId());
-//            $usergeometries->setUser($user);
-//            $featurelayer = $em->getRepository('Map2uCoreBundle:UserDrawLayer')->findOneBy(array("id" => $req_params['featurelayer_id']));
-//            $usergeometries->setUserdrawlayer($featurelayer);
-//
-//            $usergeometries->setName($req_params['drawname']);
-//            if (isset($req_params['description'])) {
-//                $usergeometries->setDescription($req_params['description']);
-//            }
-//            if ($req_params['upload_marker_icon']) {
-//                if (!file_exists($icon_path . "/" . $user->getId())) {
-//                    mkdir($icon_path . "/" . $user->getId(), 0755, true);
-//                }
-//                move_uploaded_file($req_params['upload_marker_icon']->getPathname(), $icon_path . "/" . $user->getId() . "/" . $req_params['upload_marker_icon']->getClientOriginalName());
-//                $selected_marker = $user->getId() . "/" . $req_params['upload_sldfile']->getClientOriginalName();
-//                $usergeometries->setMarkerIcon($selected_marker);
-//            } else {
-//                if (isset($req_params['selected_marker'])) {
-//                    $usergeometries->setMarkerIcon($req_params['selected_marker']);
-//                }
-//            }
-//
-//            $usergeometries->setGeomType($req_params['drawtype']);
-//            $usergeometries->setRadius($req_params['drawradius']);
-//            $usergeometries->setBuffer($req_params['drawbuffer']);
-//            $em->persist($usergeometries);
-//            $em->flush();
-//            
-//            
-
-
 
             $usergeometries_id = $usergeometries->getId();
             $this->saveActionGeometriesSave($usergeometries_id, $req_params, $update_geom);
-//            $conn = $this->get('database_connection');
-//
-//            if ($req_params['drawtype'] === 'circle' || $req_params['drawtype'] === 'marker') {
-//                $lng = $req_params['feature']->geometry->coordinates[0];
-//                $lat = $req_params['feature']->geometry->coordinates[1];
-//                if ($update_geom === true) {
-//                    $sql = "UPDATE userdrawgeometries_geom set the_geom = ST_GeomFromText('POINT($lng $lat)', 4326) where userdrawgeometries_id=$usergeometries_id";
-//                } else {
-//
-//                    //     $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, st_geomfromgeojson('$feature_geojson'))";
-//                    $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, ST_GeomFromText('POINT($lng $lat)', 4326))";
-//                }
-//            }
-//            if ($req_params['drawtype'] === 'rectangle' || $req_params['drawtype'] === 'polygon') {
-//                $points = '';
-//                // var_dump(count($feature['geometry']['coordinates'][0]));
-//
-//                foreach ($req_params['feature']->geometry->coordinates[0] as $point) {
-//
-//                    if ($points === '') {
-//                        $points = "$point[0]  $point[1]";
-//                    } else {
-//                        $points = $points . ",$point[0]  $point[1]";
-//                    }
-//                }
-//                if ($update_geom === true) {
-//                    $sql = "UPDATE userdrawgeometries_geom set the_geom = ST_GeomFromText('POLYGON(($points))', 4326) where userdrawgeometries_id=$usergeometries_id";
-//                } else {
-//                    //     $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, st_geomfromgeojson('$feature_geojson'))";
-//                    $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, ST_GeomFromText('POLYGON(($points))', 4326))";
-//                }
-//            }
-//            if ($req_params['drawtype'] === 'polyline') {
-//                $points = '';
-//                //    var_dump(count($feature['geometry']['coordinates']));
-//                //        var_dump($feature['geometry']['coordinates']);
-//                foreach ($req_params['feature']->geometry->coordinates as $point) {
-//
-//                    if ($points === '') {
-//                        $points = "$point[0]  $point[1]";
-//                    } else {
-//                        $points = $points . ",$point[0]  $point[1]";
-//                    }
-//                }
-//                if ($update_geom === true) {
-//                    $sql = "UPDATE userdrawgeometries_geom set the_geom = ST_GeomFromText('LINESTRING($points)', 4326) where userdrawgeometries_id=$usergeometries_id";
-//                } else {
-//
-//                    //     $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, st_geomfromgeojson('$feature_geojson'))";
-//                    $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, ST_GeomFromText('LINESTRING($points)', 4326))";
-//                }
-//            }
-//            $stmt = $conn->query($sql);
 
             $this->moveuploadedImages($request, $em, $usergeometries);
             $this->moveuploadedVideo($request, $em, $usergeometries);
@@ -256,32 +158,16 @@ class DrawController extends BaseController {
     private function saveUploadedFiles($request, $story) {
         $imageFile = $request->files->get('image_files');
 
-        $user = $this->getUser();
         $dir = './uploads/stories/' . $story->getId() . '/images';
         if (file_exists($dir) == false) {
             shell_exec("mkdir -p " . $dir);
         }
-        $images_array = array();
-        if ($imageFile != null) {
-            if (is_array($imageFile)) {
-                foreach ($imageFile as $file) {
 
-                    if ($file != null) {
-                        array_push($images_array, str_replace(" ", "_", $file->getClientOriginalName()));
-                        $file->move($dir, str_replace(" ", "_", $file->getClientOriginalName()));
-                        $resize = $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $file->getClientOriginalName()), $dir . '/icon_' . str_replace(" ", "_", $file->getClientOriginalName()), new ImageSize(50, 40), ImageResizer::RESIZE_TYPE_CROP);
-                        $resize = $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $file->getClientOriginalName()), $dir . '/medium_' . str_replace(" ", "_", $file->getClientOriginalName()), new ImageSize(500, 400), ImageResizer::RESIZE_TYPE_AUTO);
-                    }
-                }
-            } else {
 
-                array_push($images_array, str_replace(" ", "_", $imageFile->getClientOriginalName()));
-                $imageFile->move($dir, str_replace(" ", "_", $imageFile->getClientOriginalName()));
-                $resize = $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $imageFile->getClientOriginalName()), $dir . '/icon_' . str_replace(" ", "_", $imageFile->getClientOriginalName()), new ImageSize(50, 40), ImageResizer::RESIZE_TYPE_CROP);
-                $resize = $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $imageFile->getClientOriginalName()), $dir . '/medium_' . str_replace(" ", "_", $imageFile->getClientOriginalName()), new ImageSize(500, 400), ImageResizer::RESIZE_TYPE_AUTO);
-            }
-            $story->setImageFile(serialize($images_array));
-        }
+        $images_array = $this->resizeUploadedImageFiles($imageFile, $dir);
+
+        $story->setImageFile(serialize($images_array));
+
         $storyFile = $request->files->get('story_file');
 
         $dir = './uploads/stories/' . $story->getId() . '/pdf';
@@ -294,6 +180,32 @@ class DrawController extends BaseController {
             $story->setStoryFile(str_replace(" ", "_", $storyFile->getClientOriginalName()));
         }
         return $story;
+    }
+
+    private function resizeUploadedImageFiles($imageFile, $dir) {
+        $images_array = array();
+        if ($imageFile == null) {
+            return $images_array;
+        }
+        if (is_array($imageFile)) {
+            foreach ($imageFile as $file) {
+
+                if ($file != null) {
+                    array_push($images_array, str_replace(" ", "_", $file->getClientOriginalName()));
+                    $file->move($dir, str_replace(" ", "_", $file->getClientOriginalName()));
+                    $icon_resize = $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $file->getClientOriginalName()), $dir . '/icon_' . str_replace(" ", "_", $file->getClientOriginalName()), new ImageSize(50, 40), ImageResizer::RESIZE_TYPE_CROP);
+                    $medium_resize = $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $file->getClientOriginalName()), $dir . '/medium_' . str_replace(" ", "_", $file->getClientOriginalName()), new ImageSize(500, 400), ImageResizer::RESIZE_TYPE_AUTO);
+                }
+            }
+        } else {
+
+            array_push($images_array, str_replace(" ", "_", $imageFile->getClientOriginalName()));
+            $imageFile->move($dir, str_replace(" ", "_", $imageFile->getClientOriginalName()));
+            $icon_resize = $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $imageFile->getClientOriginalName()), $dir . '/icon_' . str_replace(" ", "_", $imageFile->getClientOriginalName()), new ImageSize(50, 40), ImageResizer::RESIZE_TYPE_CROP);
+            $medium_resize = $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $imageFile->getClientOriginalName()), $dir . '/medium_' . str_replace(" ", "_", $imageFile->getClientOriginalName()), new ImageSize(500, 400), ImageResizer::RESIZE_TYPE_AUTO);
+        }
+
+        return $images_array;
     }
 
     private function saveStoryGeom($story, $lat, $lng, $type, $the_geom) {
@@ -325,7 +237,6 @@ class DrawController extends BaseController {
         }
         if ($type === 'rectangle' || $type === 'polygon') {
             $points = '';
-            // var_dump(count($feature['geometry']['coordinates'][0]));
 
             foreach ($feature->geometry->coordinates[0] as $point) {
 
@@ -390,7 +301,7 @@ class DrawController extends BaseController {
      * @return UserDrawGeometries
      */
     //private function setSaveActionUserGeometry(Application\Map2u\CoreBundle\Entity\UserDrawGeometries $usergeometries, \Doctrine\ORM\EntityManager $em, Application\Sonata\UserBundle\Entity\User $user, array $req_params, string $icon_path) {
-    private function setSaveActionUserGeometry(UserDrawGeometries $usergeometries, \Doctrine\ORM\EntityManager $em, User $user, array $req_params,  $icon_path) {
+    private function setSaveActionUserGeometry(UserDrawGeometries $usergeometries, \Doctrine\ORM\EntityManager $em, User $user, array $req_params, $icon_path) {
         $usergeometries->setUserId($user->getId());
         $usergeometries->setUser($user);
         $featurelayer = $em->getRepository('Map2uCoreBundle:UserDrawLayer')->findOneBy(array("id" => $req_params['featurelayer_id']));
@@ -421,7 +332,7 @@ class DrawController extends BaseController {
      * @param string $icon_path
      * @return UserDrawGeometries
      */
-    private function moveuploadedMarkerIcon(UserDrawGeometries $usergeometries, array $req_params, User $user,  $icon_path) {
+    private function moveuploadedMarkerIcon(UserDrawGeometries $usergeometries, array $req_params, User $user, $icon_path) {
         if ($req_params['upload_marker_icon']) {
             if (!file_exists($icon_path . "/" . $user->getId())) {
                 mkdir($icon_path . "/" . $user->getId(), 0755, true);
