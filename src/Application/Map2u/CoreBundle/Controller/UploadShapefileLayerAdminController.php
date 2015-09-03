@@ -35,64 +35,65 @@ class UploadShapefileLayerAdminController extends CRUDController {
         }
 
         $object = $this->admin->getNewInstance();
+        return $this->submitForm($object, $sld_path);
 
-        $this->admin->setSubject($object);
-
-        /** @var $form \Symfony\Component\Form\Form */
-        $form = $this->admin->getForm();
-        $form->setData($object);
-
-        if ($this->getRestMethod() == 'POST') {
-            $form->bind($this->get('request'));
-
-            $isFormValid = $form->isValid();
-            //   $this->addFlash('sonata_flash_success', $isFormValid);
-            // persist if the form was valid and if in preview mode the preview was approved
-            if ($isFormValid && (!$this->isInPreviewMode() || $this->isPreviewApproved())) {
-                $upload_sld_file = $form['uploadSldName']->getData();
-                if ($upload_sld_file !== null) {
-                    $upload_sld_file->move($sld_path . '/sld/' . $this->getUser()->getId(), $upload_sld_file->getClientOriginalName());
-                    $object->setDefaultSldName($this->getUser()->getId() . '/' . $upload_sld_file->getClientOriginalName());
-                }
-
-                $object->setUserId($this->getUser()->getId());
-                $this->admin->create($object);
-
-
-                if ($this->isXmlHttpRequest()) {
-                    return $this->renderJson(array(
-                                'result' => 'ok',
-                                'objectId' => $this->admin->getNormalizedIdentifier($object)
-                    ));
-                }
-
-                $this->addFlash('sonata_flash_success', 'flash_create_success');
-                // redirect to edit mode
-                return $this->redirectTo($object);
-            }
-
-            // show an error message if the form failed validation
-            if (!$isFormValid) {
-                if (!$this->isXmlHttpRequest()) {
-                    $this->addFlash('sonata_flash_error', 'flash_create_error');
-                }
-            } elseif ($this->isPreviewRequested()) {
-                // pick the preview template if the form was valid and preview was requested
-                $templateKey = 'preview';
-                $this->admin->getShow();
-            }
-        }
-
-        $view = $form->createView();
-
-        // set the theme for the current Admin Form
-        $this->get('twig')->getExtension('form')->renderer->setTheme($view, $this->admin->getFormTheme());
-
-        return $this->render($this->admin->getTemplate($templateKey), array(
-                    'action' => 'create',
-                    'form' => $view,
-                    'object' => $object,
-        ));
+//        $this->admin->setSubject($object);
+//
+//        /** @var $form \Symfony\Component\Form\Form */
+//        $form = $this->admin->getForm();
+//        $form->setData($object);
+//
+//        if ($this->getRestMethod() == 'POST') {
+//            $form->bind($this->get('request'));
+//
+//            $isFormValid = $form->isValid();
+//            //   $this->addFlash('sonata_flash_success', $isFormValid);
+//            // persist if the form was valid and if in preview mode the preview was approved
+//            if ($isFormValid && (!$this->isInPreviewMode() || $this->isPreviewApproved())) {
+//                $upload_sld_file = $form['uploadSldName']->getData();
+//                if ($upload_sld_file !== null) {
+//                    $upload_sld_file->move($sld_path . '/sld/' . $this->getUser()->getId(), $upload_sld_file->getClientOriginalName());
+//                    $object->setDefaultSldName($this->getUser()->getId() . '/' . $upload_sld_file->getClientOriginalName());
+//                }
+//
+//                $object->setUserId($this->getUser()->getId());
+//                $this->admin->create($object);
+//
+//
+//                if ($this->isXmlHttpRequest()) {
+//                    return $this->renderJson(array(
+//                                'result' => 'ok',
+//                                'objectId' => $this->admin->getNormalizedIdentifier($object)
+//                    ));
+//                }
+//
+//                $this->addFlash('sonata_flash_success', 'flash_create_success');
+//                // redirect to edit mode
+//                return $this->redirectTo($object);
+//            }
+//
+//            // show an error message if the form failed validation
+//            if (!$isFormValid) {
+//                if (!$this->isXmlHttpRequest()) {
+//                    $this->addFlash('sonata_flash_error', 'flash_create_error');
+//                }
+//            } elseif ($this->isPreviewRequested()) {
+//                // pick the preview template if the form was valid and preview was requested
+//                $templateKey = 'preview';
+//                $this->admin->getShow();
+//            }
+//        }
+//
+//        $view = $form->createView();
+//
+//        // set the theme for the current Admin Form
+//        $this->get('twig')->getExtension('form')->renderer->setTheme($view, $this->admin->getFormTheme());
+//
+//        return $this->render($this->admin->getTemplate($templateKey), array(
+//                    'action' => 'create',
+//                    'form' => $view,
+//                    'object' => $object,
+//        ));
     }
 
     public function editAction($id = NULL, Request $request = NULL) {
@@ -110,6 +111,10 @@ class UploadShapefileLayerAdminController extends CRUDController {
         if (false === $this->admin->isGranted('EDIT', $object)) {
             throw new AccessDeniedException();
         }
+        return $this->submitForm($object, $sld_path);
+    }
+
+    private function submitForm($object, $sld_path) {
 
         $this->admin->setSubject($object);
 
@@ -130,11 +135,6 @@ class UploadShapefileLayerAdminController extends CRUDController {
                     $upload_sld_file->move($sld_path . '/sld/' . $this->getUser()->getId(), $upload_sld_file->getClientOriginalName());
                     $object->setDefaultSldName($this->getUser()->getId() . '/' . $upload_sld_file->getClientOriginalName());
                 }
-//        $dir = './uploads/images/header_logos';
-//        if ($image_file != null) {
-//          $image_file->move($dir, $image_file->getClientOriginalName());
-//          $object->setImageFilename($image_file->getClientOriginalName());
-//        }
 
                 $object->setUserId($this->getUser()->getId());
                 $this->admin->update($object);

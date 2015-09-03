@@ -184,25 +184,25 @@ class DrawController extends BaseController {
 
     private function resizeUploadedImageFiles($imageFile, $dir) {
         $images_array = array();
-        if ($imageFile == null) {
+        if ($imageFile === null) {
             return $images_array;
         }
         if (is_array($imageFile)) {
             foreach ($imageFile as $file) {
 
-                if ($file != null) {
+                if ($file !== null) {
                     array_push($images_array, str_replace(" ", "_", $file->getClientOriginalName()));
                     $file->move($dir, str_replace(" ", "_", $file->getClientOriginalName()));
-                    $icon_resize = $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $file->getClientOriginalName()), $dir . '/icon_' . str_replace(" ", "_", $file->getClientOriginalName()), new ImageSize(50, 40), ImageResizer::RESIZE_TYPE_CROP);
-                    $medium_resize = $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $file->getClientOriginalName()), $dir . '/medium_' . str_replace(" ", "_", $file->getClientOriginalName()), new ImageSize(500, 400), ImageResizer::RESIZE_TYPE_AUTO);
+                    $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $file->getClientOriginalName()), $dir . '/icon_' . str_replace(" ", "_", $file->getClientOriginalName()), new ImageSize(50, 40), ImageResizer::RESIZE_TYPE_CROP);
+                    $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $file->getClientOriginalName()), $dir . '/medium_' . str_replace(" ", "_", $file->getClientOriginalName()), new ImageSize(500, 400), ImageResizer::RESIZE_TYPE_AUTO);
                 }
             }
         } else {
 
             array_push($images_array, str_replace(" ", "_", $imageFile->getClientOriginalName()));
             $imageFile->move($dir, str_replace(" ", "_", $imageFile->getClientOriginalName()));
-            $icon_resize = $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $imageFile->getClientOriginalName()), $dir . '/icon_' . str_replace(" ", "_", $imageFile->getClientOriginalName()), new ImageSize(50, 40), ImageResizer::RESIZE_TYPE_CROP);
-            $medium_resize = $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $imageFile->getClientOriginalName()), $dir . '/medium_' . str_replace(" ", "_", $imageFile->getClientOriginalName()), new ImageSize(500, 400), ImageResizer::RESIZE_TYPE_AUTO);
+            $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $imageFile->getClientOriginalName()), $dir . '/icon_' . str_replace(" ", "_", $imageFile->getClientOriginalName()), new ImageSize(50, 40), ImageResizer::RESIZE_TYPE_CROP);
+            $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $imageFile->getClientOriginalName()), $dir . '/medium_' . str_replace(" ", "_", $imageFile->getClientOriginalName()), new ImageSize(500, 400), ImageResizer::RESIZE_TYPE_AUTO);
         }
 
         return $images_array;
@@ -301,7 +301,7 @@ class DrawController extends BaseController {
      * @return UserDrawGeometries
      */
     //private function setSaveActionUserGeometry(Application\Map2u\CoreBundle\Entity\UserDrawGeometries $usergeometries, \Doctrine\ORM\EntityManager $em, Application\Sonata\UserBundle\Entity\User $user, array $req_params, string $icon_path) {
-    private function setSaveActionUserGeometry(UserDrawGeometries $usergeometries, \Doctrine\ORM\EntityManager $em, User $user, array $req_params, $icon_path) {
+    private function setSaveActionUserGeometry($usergeometries, $em, $user, $req_params, $icon_path) {
         $usergeometries->setUserId($user->getId());
         $usergeometries->setUser($user);
         $featurelayer = $em->getRepository('Map2uCoreBundle:UserDrawLayer')->findOneBy(array("id" => $req_params['featurelayer_id']));
