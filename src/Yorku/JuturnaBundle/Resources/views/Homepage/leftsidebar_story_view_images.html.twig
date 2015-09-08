@@ -1,0 +1,9 @@
+{% if images|length > 1 %}
+    {% include 'YorkuJuturnaBundle:Homepage:leftsidebar_story_view_multi_images.html.twig' with {'story':story,'images':images} %}
+{% elseif images|length > 0 %}
+    <div style="border-radius: 5px;">
+        {% autoescape 'html' %}
+            <img style="border-radius: 5px;width:300px;height:200px;overflow: hidden;" src="{{ asset('uploads/stories/'~story.id~'/images/')}}{{images[0]}}" width="100%">
+        {% endautoescape %}
+    </div>
+{% endif %}

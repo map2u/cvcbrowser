@@ -1,0 +1,23 @@
+<div class="carousel-inner" style="border-radius: 5px;">
+    {% for indicatorbenefitimage in entities.indicatorbenefitimages %}
+        {% set images=indicatorbenefitimage.getFileName()|unserialize %}
+        {% if images|length > 0 %}
+
+            {% for image in images %}
+                <div style="border-radius: 5px;" data-id="{{loop.index-1}}" data-slide-no="{{loop.index-1}}"  class="item  carousel-item {% if loop.index==1 %} active {% endif %}" >
+                    {% autoescape 'html' %}
+                        <img style="border-radius: 5px;width:300px;height:200px;overflow: hidden;" src="{{ asset('uploads/images/indicatorbenefitimages/'~indicatorbenefitimage.id~"/")}}{{image}}" width="100%">
+                    {% endautoescape %}
+                    <div class="carousel-caption">
+                        <h5>{{indicatorbenefitimage.getImageTitle()}}</h5>
+                        <p>{{indicatorbenefitimage.getImageCaption()}}</p>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+    {% endfor %}
+</div>
+<a class="left carousel-control"  data-slide="prev"><span>‹</span></a>
+<a class="right carousel-control" data-slide="next"><span>›</span></a>

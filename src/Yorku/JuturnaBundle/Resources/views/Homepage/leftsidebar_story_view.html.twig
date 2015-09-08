@@ -5,37 +5,7 @@
     <a href="{{path('homepage_storydetail',{id:story.id})}}" target="_blank">{{story.storyName|title}}</a>
 </h4>
 <div>
-    {% if images|length > 1 %}
-        <div id="leftsidebar_story_{{story.id}}" class="carousel slide" style=" border:1px solid background;border-radius: 5px;">
-            <ol class="carousel-indicators">
-                {% for image in images %}
-                    <li data-target="#leftsidebar_story_{{story.id}}" data-slide-to="{{loop.index-1}}" {% if loop.index==1 %} class="active" {% endif %}>
-                    </li>
-                {% endfor %}
-            </ol>
-            <div class="carousel-inner" style="border-radius: 5px;">
-                {% for image in images %}
-                    <div style="border-radius: 5px;" class="item {% if loop.index==1%} active {% endif %}" >
-                        {% autoescape 'html' %}
-                            <img style="border-radius: 5px;width:300px;height:200px;overflow: hidden;" src="{{ asset('uploads/stories/'~story.id~'/images/')}}{{image}}" width="100%">
-                        {% endautoescape %}
-                        <div class="carousel-caption">
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-            <a class="left carousel-control"  data-slide="prev">‹</a>
-            <a class="right carousel-control"  data-slide="next">›</a>
-        </div>
-    {% else %}
-        {% if images|length > 0 %}
-            <div style="border-radius: 5px;">
-                {% autoescape 'html' %}
-                    <img style="border-radius: 5px;width:300px;height:200px;overflow: hidden;" src="{{ asset('uploads/stories/'~story.id~'/images/')}}{{images[0]}}" width="100%">
-                {% endautoescape %}
-            </div>
-        {% endif %}
-    {% endif %}
+    {% include 'YorkuJuturnaBundle:Homepage:leftsidebar_story_view_images.html.twig' with {'story':story,'images':images} %}
 </div>
 <div style="margin-top:15px;">
     {#<b>Summary:</b>#}

@@ -29,7 +29,7 @@ class GraphChartAdminController extends CRUDController {
 
         // the key used to lookup the template
         $templateKey = 'edit';
-        $image_path = $this->get('kernel')->getRootDir() . '/../web/images';
+      
         if (false === $this->admin->isGranted('CREATE')) {
             throw new AccessDeniedException();
         }
@@ -58,22 +58,7 @@ class GraphChartAdminController extends CRUDController {
                     }
                     $object->setGraphchartImages(serialize($image_names));
                 }
-//                $categories = $form['category_choice']->getData();
-//                if ($categories !== null) {
-//                    $category_names = array();
-//                    foreach ($categories as $category) {
-//                        array_push($category_names, $category);
-//                    }
-//                    $object->setCategory(serialize($category_names));
-//                }
-//                $tags = $form['tags_choice']->getData();
-//                if ($tags !== null) {
-//                    $tag_names = array();
-//                    foreach ($tags as $tag) {
-//                        array_push($tag_names, $tag->getId());
-//                    }
-//                    $object->setTags(serialize($tag_names));
-//                }
+
                 $object->setUser($this->getUser());
                 $this->admin->create($object);
 
@@ -152,29 +137,6 @@ class GraphChartAdminController extends CRUDController {
                     }
                     $object->setGraphchartImages(serialize($image_names));
                 }
-//                $categories = $form['category_choice']->getData();
-//                if ($categories !== null) {
-//                    $category_names = array();
-//                    foreach ($categories as $category) {
-//                        array_push($category_names, $category);
-//                    }
-//                    $object->setCategory(serialize($category_names));
-//                }
-//                $tags = $form['tags_choice']->getData();
-//                $object->setTags($tags);
-                //    if ($tags !== null) {
-                //        $tag_names = array();
-                //       foreach ($tags as $tag) {
-                //           array_push($tag_names, $tag->getId());
-                //       }
-                //      $object->setTags(serialize($tag_names));
-                //   }
-//        $dir = './uploads/images/header_logos';
-//        if ($image_file != null) {
-//          $image_file->move($dir, $image_file->getClientOriginalName());
-//          $object->setImageFilename($image_file->getClientOriginalName());
-//        }
-
 
                 $this->admin->update($object);
 
@@ -184,8 +146,7 @@ class GraphChartAdminController extends CRUDController {
                                 'objectId' => $this->admin->getNormalizedIdentifier($object)
                     ));
                 }
-                //  $flash =$this->getFlash('no_shape_file_uploaded');
-                //  if(empty($flash))
+
                 $this->addFlash('sonata_flash_success', 'flash_edit_success');
 
                 // redirect to edit mode
