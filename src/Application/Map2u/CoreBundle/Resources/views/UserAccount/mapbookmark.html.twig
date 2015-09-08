@@ -3,136 +3,16 @@
 *if map center address is empty, current map center will be saved as viewing scale center.
 <div id="useraccount_mapbookmark" style="margin:20px 10px;">
     <div style="border: 1px solid gainsboro; border-radius: 3px;margin:3px;padding:10px;">
-        <form id="mapbookmark_form_1" class="useraccount_mapbookmark_form" action="{{path('useraccount_mapbookmark')}}" method="post" {{ form_enctype(form1) }} onsubmit="return false;">
+        {% include 'ApplicationMap2uCoreBundle:UserAccount:mapbookmark_form.html.twig' with {'form':form1,'index':1,'level':17} %}
 
-            {% set name,level,lat,lng,address= null,null,null,null,null %}
-            {% for bookmark in bookmarks %}
-                {% if bookmark.seq == 1 %}
-                    {% set name,level,lat,lng,address= bookmark.name,bookmark.zoomLevel|number_format(0),bookmark.lat,bookmark.lng, bookmark.address%}
-                {% endif %}
-            {% endfor %}
-            <table  style="width:100%;">
-                <tbody>
-                <input type="hidden" name="seq" value="1">
-                <input type="hidden" name="lat" value="{{lat}}">
-                <input type="hidden" name="lng"  value="{{lng}}">
-
-                <tr>
-                    <td>{{ form_label(form1.name) }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form_widget(form1.name,{value: name ? name:'Local'}) }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form_label(form1.zoomLevel) }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form_widget(form1.zoomLevel,{value: level ? level:'17'}) }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form_label(form1.address) }}</td>
-                </tr>
-                <tr>
-                    <td  class="address">{{ form_widget(form1.address,{value: address ? address:''}) }}</td>
-                </tr>
-                <tr>
-                    <td  class="get_address"><input class="get_address_from_map" type="checkbox">Click on the map to set map centre</td>
-                </tr>
-                <tr>
-                    <td>
-                        <button type="button" style="margin-top: 3px;"  class="btn btn-sm btn-primary" value="save">Save</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            {{ form_widget(form1._token) }}
-        </form>
     </div>
     <div style="border: 1px solid gainsboro; border-radius: 3px;margin:3px;padding:10px;">
-        <form id="mapbookmark_form_2" class="useraccount_mapbookmark_form" action="{{path('useraccount_mapbookmark')}}" method="post" {{ form_enctype(form2) }} onsubmit="return false;">
-            {#    {{form}}#}
-            <table style="width:100%;">
-                {% set name,level,lat,lng,address= null,null,null,null,null %}
-                {% for bookmark in bookmarks %}
-                    {% if bookmark.seq == 2 %}
-                        {% set name,level,lat,lng,address= bookmark.name,bookmark.zoomLevel|number_format(0),bookmark.lat,bookmark.lng, bookmark.address%}
-                    {% endif %}
-                {% endfor %}
-                <tbody>
-                <input type="hidden" name="seq" value="2">
-                <input type="hidden" name="lat" value="{{lat}}">
-                <input type="hidden" name="lng"  value="{{lng}}">
+        {% include 'ApplicationMap2uCoreBundle:UserAccount:mapbookmark_form.html.twig' with {'form':form2,'index':2,'level':14} %}
 
-                <tr>
-                    <td>{{ form_label(form2.name) }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form_widget(form2.name,{value: name ? name:'Subwatershed'}) }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form_label(form2.zoomLevel) }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form_widget(form2.zoomLevel,{value: level ? level:'14'}) }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form_label(form2.address) }}</td>
-                </tr>
-                <tr>
-                    <td class="address">{{ form_widget(form2.address,{value: address ? address:''}) }}</td>
-                </tr>
-                <tr>
-                    <td>
-                        <button type="button" style="margin-top: 3px;"  class="btn btn-sm btn-primary" value="save">Save</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            {{ form_widget(form2._token) }}
-        </form>
     </div>          
 
     <div style="border: 1px solid gainsboro; border-radius: 3px;margin:3px;padding:10px;">
-        <form id="mapbookmark_form_3" class="useraccount_mapbookmark_form" action="{{path('useraccount_mapbookmark')}}" method="post" {{ form_enctype(form3) }} onsubmit="return false;">
-
-            <table  style="width:100%;">
-                {% set name,level,lat,lng,address= null,null,null,null,null %}
-                {% for bookmark in bookmarks %}
-                    {% if bookmark.seq == 3 %}
-                        {% set name,level,lat,lng,address= bookmark.name,bookmark.zoomLevel|number_format(0),bookmark.lat,bookmark.lng, bookmark.address%}
-                    {% endif %}
-                {% endfor %}
-                <tbody>
-                <input type="hidden" name="seq" value="3">
-                <input type="hidden" name="lat" value="{{lat}}">
-                <input type="hidden" name="lng"  value="{{lng}}">
-                <tr>
-                    <td>{{ form_label(form3.name) }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form_widget(form3.name,{value: name ? name:'Watershed'}) }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form_label(form3.zoomLevel) }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form_widget(form3.zoomLevel,{value: level ? level:'11'}) }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form_label(form3.address) }}</td>
-                </tr>
-                <tr>
-                    <td class="address">{{ form_widget(form3.address,{value: address ? address:''}) }}</td>
-                </tr>
-                <tr>
-                    <td>
-                        <button type="button" style="margin-top: 3px;" class="btn btn-sm btn-primary" value="save">Save</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            {{ form_widget(form3._token) }}
-        </form>
+        {% include 'ApplicationMap2uCoreBundle:UserAccount:mapbookmark_form.html.twig' with {'form':form3,'index':3,'level':11} %}
     </div>
 </div>
 

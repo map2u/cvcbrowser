@@ -1,0 +1,11 @@
+
+{% for reference in benefit.otherlinks %}
+    {% if reference.website %}
+        <p>
+            <a href="{{reference.website}}">{{reference.reference}}
+            </a>
+        </p>
+    {% else %}
+        <p>{{reference.reference}}</p>
+    {% endif %}
+{% endfor %}

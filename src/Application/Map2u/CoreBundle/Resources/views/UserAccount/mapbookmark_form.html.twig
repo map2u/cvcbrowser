@@ -1,0 +1,40 @@
+<form id="mapbookmark_form_{{index}}" class="useraccount_mapbookmark_form" action="{{path('useraccount_mapbookmark')}}" method="post" {{ form_enctype(form) }} onsubmit="return false;">
+
+    <table  style="width:100%;">
+        {% set name,level,lat,lng,address= null,null,null,null,null %}
+        {% for bookmark in bookmarks %}
+            {% if bookmark.seq == index %}
+                {% set name,level,lat,lng,address= bookmark.name,bookmark.zoomLevel|number_format(0),bookmark.lat,bookmark.lng, bookmark.address%}
+            {% endif %}
+        {% endfor %}
+        <tbody>
+        <input type="hidden" name="seq" value="3">
+        <input type="hidden" name="lat" value="{{lat}}">
+        <input type="hidden" name="lng"  value="{{lng}}">
+        <tr>
+            <td>{{ form_label(form.name) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_widget(form.name,{value: name ? name:'Watershed'}) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.zoomLevel) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_widget(form.zoomLevel,{value: level ? level:level}) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.address) }}</td>
+        </tr>
+        <tr>
+            <td class="address">{{ form_widget(form.address,{value: address ? address:''}) }}</td>
+        </tr>
+        <tr>
+            <td>
+                <button type="button" style="margin-top: 3px;" class="btn btn-sm btn-primary" value="save">Save</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    {{ form_widget(form._token) }}
+</form>

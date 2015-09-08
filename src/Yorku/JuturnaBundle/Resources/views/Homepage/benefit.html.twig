@@ -25,7 +25,8 @@
                     {% set images_array = images_array|merge({id:indicatorbenefitimage.getId(),images:images}) %}
                 {% endif %}
                 {% set count = count + images|length %}
-            {% endfor %}     
+            {% endfor %}   
+            
             {% if count > 1 %}
                 {% include 'YorkuJuturnaBundle:Homepage:multi_indicatorbenefitimage.html.twig' with {'benefit':benefit} %}
 
@@ -41,39 +42,9 @@
             {% autoescape %}
                 {{benefit.briefReport }}
             {% endautoescape %}
-            {% for reference in benefit.indicatorreferences %}
-                {% if reference.website %}
-                    <p>
-                        <a href="{{reference.website}}">{{reference.reference}}
-                        </a>
-                    </p>
-                {% else %}
-                    <p>{{reference.reference}}</p>
-                {% endif %}
-            {% endfor %}
-
-            {% for reference in benefit.additionalreferences %}
-                {% if reference.website %}
-                    <p>
-                        <a href="{{reference.website}}">{{reference.reference}}
-                        </a>
-                    </p>
-                {% else %}
-                    <p>{{reference.reference}}</p>
-                {% endif %}
-            {% endfor %}
-
-            {% for reference in benefit.otherlinks %}
-                {% if reference.website %}
-                    <p>
-                        <a href="{{reference.website}}">{{reference.reference}}
-                        </a>
-                    </p>
-                {% else %}
-                    <p>{{reference.reference}}</p>
-                {% endif %}
-            {% endfor %}
-
+            {% include 'YorkuJuturnaBundle:Homepage:benefit_indicatorreferences.html.twig' with {'benefit':benefit} %}
+            {% include 'YorkuJuturnaBundle:Homepage:benefit_additionalreferences.html.twig' with {'benefit':benefit} %}
+            {% include 'YorkuJuturnaBundle:Homepage:benefit_otherlinks.html.twig' with {'benefit':benefit} %}
         </div>
     </div>
     {% block footer %}

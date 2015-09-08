@@ -5,7 +5,6 @@
             {% for image in images %}
                 <div class="carousel-caption">
                     <h2>{{benefit.title|title}}</h2>
-
                 </div>
                 {% autoescape 'html' %}
                     <img style="width:100%;overflow: hidden;" src="{{ asset('uploads/images/indicatorbenefitimages/'~indicatorbenefitimage.id~"/")}}{{image}}" width="100%">
