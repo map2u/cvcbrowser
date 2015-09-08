@@ -91,8 +91,7 @@ class DrawController extends BaseController {
             return new Response(\json_encode(array('success' => false, 'id' => $usergeometries_id, 'message' => 'User draw geometry id:' . $usergeometries_id . ' not found!')));
         }
 
-
-        return new Response(\json_encode(array('success' => false)));
+        return $this->redirect($this->generateUrl('draw_save', array('success' => false)));
     }
 
     /**
