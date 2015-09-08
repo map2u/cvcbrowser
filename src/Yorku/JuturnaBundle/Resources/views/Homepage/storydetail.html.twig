@@ -16,7 +16,7 @@
 
 
             {% set images=story.getImageFile()|unserialize %}
-            {% include 'YorkuJuturnaBundle:Homepage:storydetails_images.html.twig' with {'images',images, 'story':story} %}
+            {% include 'YorkuJuturnaBundle:Homepage:storydetails_images.html.twig' with {'images':images, 'story':story} %}
 
 
         </div>
