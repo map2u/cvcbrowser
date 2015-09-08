@@ -1,0 +1,16 @@
+<div id="indicator_benefit_flash" style="border-radius: 5px;">
+    {% for indicatorbenefitimage in benefit.indicatorbenefitimages %}
+        {% set images=indicatorbenefitimage.getFileName()|unserialize %}
+        {% if images|length > 0 %}
+            {% for image in images %}
+                <div class="carousel-caption">
+                    <h2>{{benefit.title|title}}</h2>
+
+                </div>
+                {% autoescape 'html' %}
+                    <img style="width:100%;overflow: hidden;" src="{{ asset('uploads/images/indicatorbenefitimages/'~indicatorbenefitimage.id~"/")}}{{image}}" width="100%">
+                {% endautoescape %}
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+</div>

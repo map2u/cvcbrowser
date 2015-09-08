@@ -36,22 +36,7 @@
                             <input type="radio" id="private" value="false" name="public" style="margin-left: 15px;margin-right: 6px;"  {% if usergeometry is not defined or (usergeometry is defined and usergeometry == null or (usergeometry and (usergeometry.getPublic() == false or usergeometry.getPublic() == null))) %} checked="checked" {% endif %}>Private</input>
                         </div>
                     </div>
-                    {% if userdrawlayers is defined %}
-                        <div style="height: 100%; display: table-row;">
-                            <div style="display: table-cell;">
-                                Map Layer:
-                            </div>
-                        </div>
-                        <div style="height: 100%; display: table-row;">
-                            <div style="display: table-cell;">
-                                <select id="featurelayer"  name="featurelayer"  style="width:230px">
-                                    {% for userdrawlayer in userdrawlayers %}
-                                        <option value="{{userdrawlayer.getId()}}" {% if usergeometry is defined and usergeometry and usergeometry.getUserdrawlayer() and usergeometry.getUserdrawlayer().getId() == userdrawlayer.getId() %} selected {% endif %}>{{userdrawlayer.getName()}}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>
-                    {% endif %}
+                    {% include 'ApplicationMap2uCoreBundle:Draw:userdrawlayers_options.html' with {'userdrawlayer':userdrawlayer} %}
                     <div style="height: 100%; display: table-row;">
                         <div style="display: table-cell;">
 

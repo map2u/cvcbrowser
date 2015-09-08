@@ -1,0 +1,16 @@
+{% if userdrawlayers is defined %}
+    <div style="height: 100%; display: table-row;">
+        <div style="display: table-cell;">
+            Map Layer:
+        </div>
+    </div>
+    <div style="height: 100%; display: table-row;">
+        <div style="display: table-cell;">
+            <select id="featurelayer"  name="featurelayer"  style="width:230px">
+                {% for userdrawlayer in userdrawlayers %}
+                    <option value="{{userdrawlayer.getId()}}" {% if usergeometry is defined and usergeometry and usergeometry.getUserdrawlayer() and usergeometry.getUserdrawlayer().getId() == userdrawlayer.getId() %} selected {% endif %}>{{userdrawlayer.getName()}}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+{% endif %}

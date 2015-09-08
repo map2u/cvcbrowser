@@ -1,0 +1,13 @@
+
+<div>
+    {% set videos=usergeometries.getVideo()|unserialize %}
+    {% if videos|length > 0 %}
+        {% for video in videos %}
+            {% if video !=null and video !='' %}
+                <video src="{{video}}" controls>
+                    Your browser does not support the <code>video</code> element.
+                </video>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+</div>

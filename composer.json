@@ -106,6 +106,7 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ]
     },
+    
     "config": {
         "bin-dir": "bin",
         "discard-changes": true

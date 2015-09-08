@@ -55,7 +55,7 @@ class DrawController extends BaseController {
         }
         $req_params = $this->getSaveActionReq($request);
 
-        if (gettype($req_params['feature']) == 'string') {
+        if (gettype($req_params['feature']) === 'string') {
             $req_params['feature'] = json_decode($req_params['feature']);
         }
 
@@ -104,7 +104,7 @@ class DrawController extends BaseController {
      */
     public function createstoryAction(Request $request) {
 
-        if ($request->getMethod() == "POST") {
+        if ($request->getMethod() === "POST") {
             try {
                 $id = $request->get("id");
                 $storyName = $request->get("name");
@@ -122,7 +122,7 @@ class DrawController extends BaseController {
                 if (isset($id) && intval($id) > 0) {
                     $story = $em->getRepository("YorkuJuturnaBundle:Story")->find($id);
                 }
-                if ($story == null) {
+                if ($story === null) {
                     $story = new Story();
                 }
                 $story->setStoryName($storyName);
@@ -159,7 +159,7 @@ class DrawController extends BaseController {
         $imageFile = $request->files->get('image_files');
 
         $dir = './uploads/stories/' . $story->getId() . '/images';
-        if (file_exists($dir) == false) {
+        if (file_exists($dir) === false) {
             shell_exec("mkdir -p " . $dir);
         }
 
@@ -171,7 +171,7 @@ class DrawController extends BaseController {
         $storyFile = $request->files->get('story_file');
 
         $dir = './uploads/stories/' . $story->getId() . '/pdf';
-        if (file_exists($dir) == false) {
+        if (file_exists($dir) === false) {
             shell_exec("mkdir -p " . $dir);
         }
         if ($storyFile != null) {
@@ -213,17 +213,17 @@ class DrawController extends BaseController {
 
         $conn = $this->get('database_connection');
 
-        if ($the_geom == null) {
+        if ($the_geom === null) {
             return;
         }
         $feature = null;
 
-        if (gettype($the_geom) == 'string') {
+        if (gettype($the_geom) === 'string') {
 
             $feature = json_decode(str_replace("'", '"', $the_geom));
         }
 
-        if ($feature->geometry == null) {
+        if ($feature->geometry === null) {
             return;
         }
 
