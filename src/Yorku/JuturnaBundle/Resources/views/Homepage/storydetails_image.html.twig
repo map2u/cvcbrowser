@@ -1,0 +1,15 @@
+
+{% if images|length > 1 %}
+    {% include 'YorkuJuturnaBundle:Homepage:storydetails_multi_images.html.twig' with {'story':story} %}
+{% else %}
+    {% if images|length == 1 %}
+        <div id="story_image">
+            <div class="carousel-caption">
+                <h2>{{story.storyName|title}}</h2>
+            </div>
+            {% autoescape 'html' %}
+                <img style="width:100%;overflow: hidden;" src="{{ asset('uploads/stories/'~story.id~'/images/')}}{{images[0]}}" width="100%">
+            {% endautoescape %}
+        </div>
+    {% endif %}
+{% endif %}

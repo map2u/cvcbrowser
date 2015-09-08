@@ -18,12 +18,6 @@
         <div class="row-fluid benefit_flash">
             {% set count = 0%}
             {% for indicatorbenefitimage in benefit.indicatorbenefitimages %}
-                {% set images=indicatorbenefitimage.getFileName()|unserialize %}
-                {% if count ==0 %}
-                    {% set images_array = {id:indicatorbenefitimage.getId(),images:images} %}
-                {% else %}
-                    {% set images_array = images_array|merge({id:indicatorbenefitimage.getId(),images:images}) %}
-                {% endif %}
                 {% set count = count + images|length %}
             {% endfor %}   
             
@@ -31,9 +25,7 @@
                 {% include 'YorkuJuturnaBundle:Homepage:multi_indicatorbenefitimage.html.twig' with {'benefit':benefit} %}
 
             {% else %}
-                {% if count == 1 %}
                     {% include 'YorkuJuturnaBundle:Homepage:single_indicatorbenefitimage.html.twig' with {'benefit':benefit} %}
-                {% endif %}
             {% endif %}
         </div>
     </div>

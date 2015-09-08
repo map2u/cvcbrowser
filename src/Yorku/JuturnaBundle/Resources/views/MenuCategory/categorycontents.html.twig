@@ -1,0 +1,21 @@
+{% for categorycontent in categorycontents %}
+    <h4>
+        <a data-id="{{categorycontent.id}}" href="#">
+            {{categorycontent.title}}
+        </a>
+    </h4>
+
+    {% if categorycontent.contentdetails %}
+        <div class="menucategory_details" data-id="{{categorycontent.id}}" style="display:block;">
+            <ul>
+                {% for contentdetail in categorycontent.contentdetails %}
+                    {% if contentdetail.detail | length > 0 %}
+                        <li>
+                            {{contentdetail.detail}}
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endfor %}

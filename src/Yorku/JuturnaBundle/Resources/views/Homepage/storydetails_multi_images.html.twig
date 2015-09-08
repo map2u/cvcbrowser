@@ -1,0 +1,24 @@
+<div id="story_flash" class="carousel slide" style=" border:1px solid background;height:350px;overflow: hidden;">
+    <ol class="carousel-indicators">
+        {% for image in images %}
+            <li data-target="#indicator_benefit_flash" data-slide-to="{{loop.index-1}}" {% if loop.index==1 %} class="active" {% endif %}>
+            </li>
+
+        {% endfor %}
+    </ol>
+    <div class="carousel-inner">
+        {% for image in images %}
+            <div  class="item {% if loop.index==1%} active {% endif %}" >
+                <div class="carousel-caption">
+                    <h2>{{story.storyName|title}}</h2>
+                </div>
+                {% autoescape 'html' %}
+                    <img style="width:100%;overflow: hidden;" src="{{ asset('uploads/stories/'~story.id~'/images/')}}{{image}}" width="100%">
+                {% endautoescape %}
+            </div>
+
+        {% endfor %}
+    </div>
+    <a class="left carousel-control" href="#indicator_benefit_flash" data-slide="prev">‹</a>
+    <a class="right carousel-control" href="#indicator_benefit_flash" data-slide="next">›</a>
+</div>

@@ -1,0 +1,76 @@
+<script>
+    $(function ()
+    {
+
+        $('#story_flash').on('slide', function (e) {
+            $(this).find('.active').css({"margin-top": ($(".carousel-inner").height() - $(this).find('.active').height()) / 2 + "px"});
+        });
+
+        $('#story_flash').carousel({
+            interval: 7000
+        });
+        window.onresize = function () {
+
+            if ($(".story_flash #story_image img").length === 1) {
+                $(".story_flash #story_image img").css({"margin-top": ($(".story_flash #story_image").height() - $(".story_flash #story_image img").height()) / 2 + "px"});
+            }
+            else
+            {
+                $("#story_flash .item.carousel-item.active img").css({"margin-top": ($("#story_flash .carousel-inner").height() - $("#story_flash .item.carousel-item.active img").height()) / 2 + "px"});
+                $("#story_flash .item.carousel-item.active div.carousel-caption").css({"margin-top": ($("#story_flash .item.carousel-item.active img").height() - $("#story_flash .carousel-inner").height()) / 2 + "px"});
+            }
+        };
+    {% if story.storyFile and story.storyFileType == 'application/pdf' %}
+
+
+            function loadPDFJS(pageUrl) {
+                // PDFJS.workerSrc = 'resources/js/pdfjs/pdf.worker.js';
+                var currentPage = 1;
+                var pages = [];
+                var globalPdf = null;
+                var container = document.getElementById('pdf_display');
+                function renderPage(page) {
+                    //
+                    // Prepare canvas using PDF page dimensions
+                    //
+                    var canvas = document.createElement('canvas');
+                    // Link: http://stackoverflow.com/a/13039183/1577396
+                    // Canvas width should be set to the window's width for appropriate
+                    // scaling factor of the document with respect to the canvas width
+                    var viewport = page.getViewport(1.5);
+                    //  var viewport = page.getViewport(window.screen.width / page.getViewport(1.0).width);
+                    // append the created canvas to the container
+                    container.appendChild(canvas);
+                    // Get context of the canvas
+                    var context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+                    //
+                    // Render PDF page into canvas context
+                    //
+                    var renderContext = {
+                        canvasContext: context,
+                        viewport: viewport
+                    };
+                    page.render(renderContext).then(function () {
+                        if (currentPage < globalPdf.numPages) {
+                            pages[currentPage] = canvas;
+                            currentPage++;
+                            globalPdf.getPage(currentPage).then(renderPage);
+                        } else {
+                            // Callback function here, which will trigger when all pages are loaded
+                        }
+                    });
+                }
+                PDFJS.getDocument(pageUrl).then(function (pdf) {
+                    if (!globalPdf) {
+                        globalPdf = pdf;
+                    }
+                    pdf.getPage(currentPage).then(renderPage);
+                });
+            }
+            loadPDFJS("{{app.request.getSchemeAndHttpHost()}}/uploads/stories/{{story.id}}/pdf/{{story.storyFile}}");
+
+    {% endif %}
+        });
+</script>

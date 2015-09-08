@@ -16,54 +16,9 @@
 
 
             {% set images=story.getImageFile()|unserialize %}
+            {% include 'YorkuJuturnaBundle:Homepage:storydetails_images.html.twig' with {'images',images, 'story':story} %}
 
 
-            {% if images|length > 1 %}
-                <div id="story_flash" class="carousel slide" style=" border:1px solid background;height:350px;overflow: hidden;">
-                    <ol class="carousel-indicators">
-                        {% set i=0 %}
-
-                        {% for image in images %}
-                            <li data-target="#indicator_benefit_flash" data-slide-to="{{i}}" {% if i==0 %} class="active" {% endif %}>
-                            </li>
-                            {% set i=i+1 %}
-                        {% endfor %}
-
-                    </ol>
-                    <div class="carousel-inner">
-                        {% set i=0 %}
-
-                        {% for image in images %}
-                            <div  class="item {% if i==0%} active {% endif %}" >
-                                <div class="carousel-caption">
-                                    <h2>{{story.storyName|title}}</h2>
-
-                                </div>
-                                {% autoescape 'html' %}
-                                    <img style="width:100%;overflow: hidden;" src="{{ asset('uploads/stories/'~story.id~'/images/')}}{{image}}" width="100%">
-                                {% endautoescape %}
-                            </div>
-                            {% set i=i+1 %}
-                        {% endfor %}
-                    </div>
-                    <a class="left carousel-control" href="#indicator_benefit_flash" data-slide="prev">‹</a>
-                    <a class="right carousel-control" href="#indicator_benefit_flash" data-slide="next">›</a>
-                </div>
-            {% else %}
-                {% if images|length == 1 %}
-                    <div id="story_image">
-                        <div class="carousel-caption">
-                            <h2>{{story.storyName|title}}</h2>
-
-                            {#                                            <h3>{{indicatorbenefitimage.getImageTitle()}}</h3>#}
-                            {# <p>{{indicatorbenefitimage.getImageCaption()}}</p>#}
-                        </div>
-                        {% autoescape 'html' %}
-                            <img style="width:100%;overflow: hidden;" src="{{ asset('uploads/stories/'~story.id~'/images/')}}{{images[0]}}" width="100%">
-                        {% endautoescape %}
-                    </div>
-                {% endif %}
-            {% endif %}
         </div>
     </div>
     <div class="container-fluid" style="margin: 15px auto;max-width: 1200px;">
@@ -93,79 +48,9 @@
         {{ parent() }}
 
     {% endblock %}
-    <script>
-        $(function () {
 
-            $('#story_flash').on('slide', function (e) {
-                $(this).find('.active').css({"margin-top": ($(".carousel-inner").height() - $(this).find('.active').height()) / 2 + "px"});
-            });
-
-            $('#story_flash').carousel({
-                interval: 7000
-            });
-            window.onresize = function () {
-
-                if ($(".story_flash #story_image img").length === 1) {
-                    $(".story_flash #story_image img").css({"margin-top": ($(".story_flash #story_image").height() - $(".story_flash #story_image img").height()) / 2 + "px"});
-                }
-                else
-                {
-                    $("#story_flash .item.carousel-item.active img").css({"margin-top": ($("#story_flash .carousel-inner").height() - $("#story_flash .item.carousel-item.active img").height()) / 2 + "px"});
-                    $("#story_flash .item.carousel-item.active div.carousel-caption").css({"margin-top": ($("#story_flash .item.carousel-item.active img").height() - $("#story_flash .carousel-inner").height()) / 2 + "px"});
-                }
-            };
-        {% if story.storyFile and story.storyFileType == 'application/pdf' %}
+    {% include 'YorkuJuturnaBundle:Homepage:storydetails_javascript.html.twig' with {'story':story} %}
 
 
-                function loadPDFJS(pageUrl) {
-                    // PDFJS.workerSrc = 'resources/js/pdfjs/pdf.worker.js';
-                    var currentPage = 1;
-                    var pages = [];
-                    var globalPdf = null;
-                    var container = document.getElementById('pdf_display');
-                    function renderPage(page) {
-                        //
-                        // Prepare canvas using PDF page dimensions
-                        //
-                        var canvas = document.createElement('canvas');
-                        // Link: http://stackoverflow.com/a/13039183/1577396
-                        // Canvas width should be set to the window's width for appropriate
-                        // scaling factor of the document with respect to the canvas width
-                        var viewport = page.getViewport(1.5);
-                        //  var viewport = page.getViewport(window.screen.width / page.getViewport(1.0).width);
-                        // append the created canvas to the container
-                        container.appendChild(canvas);
-                        // Get context of the canvas
-                        var context = canvas.getContext('2d');
-                        canvas.height = viewport.height;
-                        canvas.width = viewport.width;
-                        //
-                        // Render PDF page into canvas context
-                        //
-                        var renderContext = {
-                            canvasContext: context,
-                            viewport: viewport
-                        };
-                        page.render(renderContext).then(function () {
-                            if (currentPage < globalPdf.numPages) {
-                                pages[currentPage] = canvas;
-                                currentPage++;
-                                globalPdf.getPage(currentPage).then(renderPage);
-                            } else {
-                                // Callback function here, which will trigger when all pages are loaded
-                            }
-                        });
-                    }
-                    PDFJS.getDocument(pageUrl).then(function (pdf) {
-                        if (!globalPdf) {
-                            globalPdf = pdf;
-                        }
-                        pdf.getPage(currentPage).then(renderPage);
-                    });
-                }
-                loadPDFJS("{{app.request.getSchemeAndHttpHost()}}/uploads/stories/{{story.id}}/pdf/{{story.storyFile}}");
 
-        {% endif %}
-            });
-    </script>
 {% endblock %}

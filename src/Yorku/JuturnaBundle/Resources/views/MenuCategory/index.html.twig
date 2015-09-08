@@ -6,28 +6,7 @@
         <h4>{{category.getName() ? category.getName() : 'No Category Name'}}</h4>
     {% endif %}    
     {% if categorycontents != null %}
-        {% for categorycontent in categorycontents %}
-            <h4>
-                <a data-id="{{categorycontent.id}}" href="#">
-                    {{categorycontent.title}}
-                </a>
-            </h4>
-
-            {% if categorycontent.contentdetails %}
-                <div class="menucategory_details" data-id="{{categorycontent.id}}" style="display:block;">
-                    <ul>
-                        {% for contentdetail in categorycontent.contentdetails %}
-                            {% if contentdetail.detail | length > 0 %}
-                                <li>
-                                    {{contentdetail.detail}}
-                                </li>
-                            {% endif %}
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
-        {% endfor %}
-
+        {% include 'YorkuJuturnaBundle:MenuCategory:categorycontents.html.twig' with {'categorycontents':categorycontents} %}
     {% elseif category.getDescription() != null%}
         <div>
             {% autoescape 'html' %}
