@@ -1,0 +1,10 @@
+<div class="carousel-inner">
+    {% set i=0 %}
+    {% for image in images %}
+        <div id="usergeometries-image-{{i}}" data-id="{{i}}" data-slide-no="{{i}}" class="item carousel-item  {% if i==0%} active {% endif %}">
+            <img src="{{image}}"  width="100%">
+
+        </div>
+        {% set i=i+1 %}
+    {% endfor %}
+</div>

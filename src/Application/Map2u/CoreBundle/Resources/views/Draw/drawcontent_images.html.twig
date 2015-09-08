@@ -1,27 +1,15 @@
 
 <div >
-    {% set images=usergeometries.getImages()|unserialize %}
     {% if images|length > 0 %}
         <div id="usergeometriesCarousel" class="carousel slide"  data-ride="carousel">
             <ol class="carousel-indicators">
-                {% set i=0 %}
                 {% for image in images %}
                     <li data-target="#usergeometriesCarousel" data-slide-to="{{i}}" {% if i==0 %} class="active" {% endif %}>
                     </li>
                     {% set i=i+1 %}
                 {% endfor %}
             </ol>
-            <div class="carousel-inner">
-                {% set i=0 %}
-                {% for image in images %}
-                    <div id="usergeometries-image-{{i}}" data-id="{{i}}" data-slide-no="{{i}}" class="item carousel-item  {% if i==0%} active {% endif %}">
-                        <img src="{{image}}"  width="100%">
-
-                    </div>
-                    {% set i=i+1 %}
-                {% endfor %}
-            </div>
-
+            {% include 'ApplicationMap2uCoreBundle:Draw:drawcontent_images_carousel_inner.html.twig' with {'images':images,'i':0} %}
             <a class="left carousel-control" href="#usergeometriesCarousel" data-slide="prev"><span class="icon-prev"></span></a>
             <a class="right carousel-control" href="#usergeometriesCarousel" data-slide="next"><span class="icon-next"></span></a>
         </div>

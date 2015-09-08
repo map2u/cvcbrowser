@@ -1,0 +1,6 @@
+<div style="height: 100%; display: table-row;">
+    <div style="display: table-cell;">
+        <input type="radio" id="public" value="true" name="public"  style="margin-right: 6px;" {% if usergeometry is defined and usergeometry and usergeometry.getPublic() == true %} checked="checked" {% endif %}>Public</input>
+        <input type="radio" id="private" value="false" name="public" style="margin-left: 15px;margin-right: 6px;"  {% if usergeometry is not defined or (usergeometry is defined and usergeometry == null or (usergeometry and (usergeometry.getPublic() == false or usergeometry.getPublic() == null))) %} checked="checked" {% endif %}>Private</input>
+    </div>
+</div>

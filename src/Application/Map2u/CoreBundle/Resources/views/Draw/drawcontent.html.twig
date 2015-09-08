@@ -11,9 +11,10 @@
         </style>
         Name:{{usergeometries.getName()}}<br>
         Description:{{usergeometries.getDescription()}}<br>
-        {% include 'ApplicationMap2uCoreBundle:Draw:drawcontent_images.html' with {'usergeometries':usergeometries} %}
-        {% include 'ApplicationMap2uCoreBundle:Draw:drawcontent_videos.html' with {'usergeometries':usergeometries} %}
-        {% include 'ApplicationMap2uCoreBundle:Draw:drawcontent_audios.html' with {'usergeometries':usergeometries} %}
+        {% set images=usergeometries.getImages()|unserialize %}
+        {% include 'ApplicationMap2uCoreBundle:Draw:drawcontent_images.html.twig' with {'images':images,'i':0} %}
+        {% include 'ApplicationMap2uCoreBundle:Draw:drawcontent_videos.html.twig' with {'usergeometries':usergeometries} %}
+        {% include 'ApplicationMap2uCoreBundle:Draw:drawcontent_audios.html.twig' with {'usergeometries':usergeometries} %}
 
         <script type="text/javascript">
 
