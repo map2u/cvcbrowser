@@ -47,10 +47,11 @@ class MenuCategoryController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $category = $em->getRepository('YorkuJuturnaBundle:Category')->findOneBy(array('slug' => $categorySlug));
         if ($category) {
-            if (intval($layerId) == 0)
+            if (intval($layerId) == 0) {
                 $categorycontents = $em->getRepository('YorkuJuturnaBundle:CategoryContents')->findBy(array('id' => $contentId, 'category' => $category), array('position' => 'ASC'));
-            else
+            } else {
                 $categorycontents = $em->getRepository('YorkuJuturnaBundle:CategoryContents')->findBy(array('layerId' => $layerId, 'category' => $category), array('position' => 'ASC'));
+            }
         }
 
         return array('_locale' => $_locale, 'categorycontents' => $categorycontents, 'category' => $category);

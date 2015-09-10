@@ -55,8 +55,6 @@ class AdminController extends Controller {
         );
     }
 
-
-
     /**
      * Lists all admin userprofile.
      *
@@ -98,14 +96,6 @@ class AdminController extends Controller {
         }
         return array('logos' => $logos, 'systemparams' => $systemparams);
     }
-
- 
-   
-
- 
-
- 
-
 
     /**
      * Displays a form to create a new Benthics entity.
@@ -160,22 +150,6 @@ class AdminController extends Controller {
         return array("databaseform" => $databaseform->createView(), "systemform" => $systemform->createView());
     }
 
-
-
-    /**
-     * Displays a form to create a new Benthics entity.
-     *
-     * @Route("/database_backup", name="admin_database_backup")
-     * @Method("POST")
-     * @Template()
-     */
-    public function database_backupAction() {
-//   $em = $this->getDoctrine()->getManager();
-//   $entities = $em->getRepository('YorkuJuturnaBundle:Benthics')->findAll();
-
-        return array();
-    }
-
    
 
     // check the uploaded shapefile and if the assigned content field name exist or not
@@ -202,7 +176,7 @@ class AdminController extends Controller {
 
     /*
      *   input parameter
-     *  $epsg_name like EPSG:4326 or 4326
+     *   $epsg_name like EPSG:4326 or 4326
      *   $project_file line /shapfiles/testshapefile.prj
      *   return array with epsg and error variable
      */

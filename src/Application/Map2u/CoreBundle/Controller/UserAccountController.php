@@ -46,7 +46,7 @@ class UserAccountController extends BaseController {
      * @Template()
      */
     public function profileAction(Request $request) {
-        return array();
+        return $this->render('ApplicationMap2uCoreBundle:UserAccount:profile.html.twig', array());
     }
 
     /**
@@ -91,7 +91,8 @@ class UserAccountController extends BaseController {
         if ($this->getUser()) {
             $bookmarks = $em->getRepository('Map2uCoreBundle:MapBookmark')->findBy(array('userId' => $this->getUser()->getId()), array("seq" => 'ASC'));
         }
-        return array("bookmarks" => $bookmarks, "form1" => $form1->createView(), "form2" => $form2->createView(), "form3" => $form3->createView());
+        return $this->render('ApplicationMap2uCoreBundle:UserAccount:mapbookmark.html.twig', array("bookmarks" => $bookmarks, "form1" => $form1->createView(), "form2" => $form2->createView(), "form3" => $form3->createView()));
+        //  return array("bookmarks" => $bookmarks, "form1" => $form1->createView(), "form2" => $form2->createView(), "form3" => $form3->createView());
     }
 
 }
