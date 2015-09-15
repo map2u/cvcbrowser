@@ -16,7 +16,7 @@
 {% if story.storyText %}
     <div style="margin-top:10px;" id="pdf_display">
         {% autoescape 'html' %}
-            {{story.storyText}}
+            {{story.storyText|raw}}
         {% endautoescape %}
         {#                <a class="media" href="{{app.request.getSchemeAndHttpHost()}}/uploads/stories/{{story.id}}/pdf/{{story.storyFile}}">PDF File</a> #}
     </div>
@@ -24,7 +24,7 @@
 {% if story.storyFileType == 'text/html' %}
     <div style="margin-top:10px;" id="pdf_display">
         {% autoescape 'html' %}
-            {{story.storyFile}}
+            {{story.storyFile|raw}}
         {% endautoescape %}
         {#                <a class="media" href="{{app.request.getSchemeAndHttpHost()}}/uploads/stories/{{story.id}}/pdf/{{story.storyFile}}">PDF File</a> #}
     </div>
