@@ -380,7 +380,7 @@ window.onload = function () {
 
                 // alert(keys.length + "," + keys[0]);
                 // div style="height: 305px;" class="leaflet-control" id="sidebar-left" data-viewtype="benefit" data-viewlayers="8,7,"
-                var default_layers = $("div#sidebar-left.leaflet-control").data("viewlayers").toString();
+                var default_layers = $("div#sidebar-left.leaflet-control").data("viewlayers");//.toString();
                 var default_datatype = $("div#sidebar-left.leaflet-control").data("viewtype");
                 var default_layers_array = [];
                 if (default_layers !== undefined && default_layers.trim().length > 0) {
@@ -388,13 +388,13 @@ window.onload = function () {
                     default_layers_array = default_layers.split(",");
                 }
 
-                var cluster_layers = $("div#sidebar-left.leaflet-control").data("viewclusterlayers").toString();
+                var cluster_layers = $("div#sidebar-left.leaflet-control").data("viewclusterlayers");//.toString();
                 var cluster_layers_array = [];
                 if (cluster_layers !== undefined && cluster_layers.trim().length > 0) {
                     cluster_layers = cluster_layers.substr(0, cluster_layers.length - 1);
                     cluster_layers_array = cluster_layers.split(",");
                 }
-                var geoserver_layers = $("div#sidebar-left.leaflet-control").data("viewgeoserverlayers").toString();
+                var geoserver_layers = $("div#sidebar-left.leaflet-control").data("viewgeoserverlayers");//.toString();
                 var geoserver_layers_array = [];
                 if (geoserver_layers !== undefined && geoserver_layers.trim().length > 0) {
                     geoserver_layers = geoserver_layers.substr(0, geoserver_layers.length - 1);
@@ -680,11 +680,13 @@ function loadStoriesLayer(map, layersControl) {
                 var photo_layer = L.layerGroup();
 
                 var default_showonmap = false;
-                var default_layers = $("div#sidebar-left.leaflet-control").data("viewtype").toString();
-                if (default_layers === 'stories')
-                {
-                    default_showonmap = true;
-                    photo_layer.addTo(map);
+                if ($("div#sidebar-left.leaflet-control").data("viewtype")) {
+                    var default_layers = $("div#sidebar-left.leaflet-control").data("viewtype").toString();
+                    if (default_layers === 'stories')
+                    {
+                        default_showonmap = true;
+                        photo_layer.addTo(map);
+                    }
                 }
                 map.dataLayers[map.dataLayers.length] = {'map': map, 'layerType': 'stories', 'clusterLayer': true, 'defaultShowOnMap': default_showonmap, 'layer': photo_markers, 'minZoom': null, 'maxZoom': null, 'index_id': 0, 'layerId': 0, layerTitle: 'Stories', 'datasource': -2, 'sld': null, 'filename': null, 'layerName': 'Stories', 'hostName': null};
                 $.each(result.stories, function (k, photo) {
