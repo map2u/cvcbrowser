@@ -34,6 +34,12 @@ Yorku\JuturnaBundle\Entity\Story:
             length: 250
             nullable: true
             column: image_file
+        altText:
+            type: string
+            length: 500
+            fixed: false
+            nullable: true
+            column: alt_text                 
         storyFile:
             type: string
             length: 255

@@ -9,7 +9,7 @@
         {% for image in images %}
             <div style="border-radius: 5px;" class="item {% if loop.index==1%} active {% endif %}" >
                 {% autoescape 'html' %}
-                    <img style="border-radius: 5px;width:300px;height:200px;overflow: hidden;" src="{{ asset('uploads/stories/'~story.id~'/images/')}}{{image}}" width="100%">
+                    <img style="border-radius: 5px;width:300px;height:200px;overflow: hidden;" src="{{ asset('uploads/stories/'~story.id~'/images/')}}{{image}}" width="100%"  alt="{{story.getAltText()}}">
                 {% endautoescape %}
                 <div class="carousel-caption">
                 </div>

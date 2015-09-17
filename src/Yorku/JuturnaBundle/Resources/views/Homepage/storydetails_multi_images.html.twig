@@ -13,7 +13,7 @@
                     <h2>{{story.storyName|title}}</h2>
                 </div>
                 {% autoescape 'html' %}
-                    <img style="width:100%;overflow: hidden;" src="{{ asset('uploads/stories/'~story.id~'/images/')}}{{image}}" width="100%">
+                    <img style="width:100%;overflow: hidden;" src="{{ asset('uploads/stories/'~story.id~'/images/')}}{{image}}" width="100%"  alt="{{story.getAltText()}}">
                 {% endautoescape %}
             </div>
 

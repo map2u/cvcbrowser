@@ -300,4 +300,32 @@ class IndicatorBenefitImage {
         return $this->indicator;
     }
 
+    /**
+     * @var string
+     */
+    private $altText;
+
+
+    /**
+     * Set altText
+     *
+     * @param string $altText
+     * @return IndicatorBenefitImage
+     */
+    public function setAltText($altText)
+    {
+        $this->altText = $altText;
+
+        return $this;
+    }
+
+    /**
+     * Get altText
+     *
+     * @return string 
+     */
+    public function getAltText()
+    {
+        return $this->altText;
+    }
 }

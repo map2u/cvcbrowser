@@ -60,13 +60,13 @@ class HomepageImageAdmin extends Admin {
                 ->add('title')
                 ->add('category')
                 ->add('image')
+                ->add('altText')
                 ->add('introduce')
                 ->add('url')
                 ->add('published')
                 ->add('active')
                 ->add('createdAt')
                 ->add('updatedAt')
-                ->add('description')
                 ->add('_action', 'actions', array(
                     'actions' => array(
                         'show' => array(),
@@ -93,6 +93,7 @@ class HomepageImageAdmin extends Admin {
                     'multiple' => false
                 ))
                 ->add('image_file', 'file', array('label' => 'Image Files:', 'mapped' => false, 'required' => false))
+                ->add('altText')
                 ->add('introduce', 'ckeditor', array('label' => 'Introduce', 'required' => false,
                     'config_name' => 'basic',
                     'config' => array('uiColor' => '#ffffff')
@@ -120,6 +121,7 @@ class HomepageImageAdmin extends Admin {
                 ->add('title')
                 ->add('category')
                 ->add('image')
+                ->add('altText')
                 ->add('introduce')
                 ->add('url')
                 ->add('published')

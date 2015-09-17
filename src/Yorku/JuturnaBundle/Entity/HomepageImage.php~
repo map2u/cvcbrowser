@@ -12,7 +12,7 @@
  * <email>zhaoshuilin2004@yahoo.ca</email>
  * <date>created at 2014/01/06</date>
  * <date>last updated at 2015/03/11</date>
- * <summary>This is the definition of HomepageFlash entity</summary>
+ * <summary>This is the definition of HomepageImage entity</summary>
  * <purpose></purpose>
  */
 
@@ -21,9 +21,9 @@ namespace Yorku\JuturnaBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * HomepageFlash
+ * HomepageImage
  */
-class HomepageFlash {
+class HomepageImage {
 
     /**
      * @var integer
@@ -38,12 +38,12 @@ class HomepageFlash {
     /**
      * @var string
      */
-    private $introduce;
+    private $image;
 
     /**
      * @var string
      */
-    private $image;
+    private $introduce;
 
     /**
      * @var string
@@ -95,24 +95,24 @@ class HomepageFlash {
     }
 
     /**
-     * Set id
-     * @param integer $id
-     * @return HomepageFlash 
-     */
-    public function setId($id) {
-        $this->id = $id;
-        return $this;
-    }
-
-    /**
      * Set title
      *
      * @param string $title
-     * @return HomepageFlash
+     * @return HomepageImage
      */
     public function setTitle($title) {
         $this->title = $title;
 
+        return $this;
+    }
+
+    /**
+     * Set id
+     * @param integer $id
+     * @return HomepageImage 
+     */
+    public function setId($id) {
+        $this->id = $id;
         return $this;
     }
 
@@ -126,31 +126,10 @@ class HomepageFlash {
     }
 
     /**
-     * Set introduce
-     *
-     * @param string $introduce
-     * @return HomepageFlash
-     */
-    public function setIntroduce($introduce) {
-        $this->introduce = $introduce;
-
-        return $this;
-    }
-
-    /**
-     * Get introduce
-     *
-     * @return string 
-     */
-    public function getIntroduce() {
-        return $this->introduce;
-    }
-
-    /**
      * Set image
      *
      * @param string $image
-     * @return HomepageFlash
+     * @return HomepageImage
      */
     public function setImage($image) {
         $this->image = $image;
@@ -168,10 +147,31 @@ class HomepageFlash {
     }
 
     /**
+     * Set introduce
+     *
+     * @param string $introduce
+     * @return HomepageImage
+     */
+    public function setIntroduce($introduce) {
+        $this->introduce = $introduce;
+
+        return $this;
+    }
+
+    /**
+     * Get introduce
+     *
+     * @return string 
+     */
+    public function getIntroduce() {
+        return $this->introduce;
+    }
+
+    /**
      * Set url
      *
      * @param string $url
-     * @return HomepageFlash
+     * @return HomepageImage
      */
     public function setUrl($url) {
         $this->url = $url;
@@ -192,7 +192,7 @@ class HomepageFlash {
      * Set published
      *
      * @param boolean $published
-     * @return HomepageFlash
+     * @return HomepageImage
      */
     public function setPublished($published) {
         $this->published = $published;
@@ -213,7 +213,7 @@ class HomepageFlash {
      * Set active
      *
      * @param boolean $active
-     * @return HomepageFlash
+     * @return HomepageImage
      */
     public function setActive($active) {
         $this->active = $active;
@@ -234,7 +234,7 @@ class HomepageFlash {
      * Set createdAt
      *
      * @param \DateTime $createdAt
-     * @return HomepageFlash
+     * @return HomepageImage
      */
     public function setCreatedAt($createdAt) {
         $this->createdAt = $createdAt;
@@ -255,7 +255,7 @@ class HomepageFlash {
      * Set updatedAt
      *
      * @param \DateTime $updatedAt
-     * @return HomepageFlash
+     * @return HomepageImage
      */
     public function setUpdatedAt($updatedAt) {
         $this->updatedAt = $updatedAt;
@@ -276,7 +276,7 @@ class HomepageFlash {
      * Set description
      *
      * @param string $description
-     * @return HomepageFlash
+     * @return HomepageImage
      */
     public function setDescription($description) {
         $this->description = $description;
@@ -297,7 +297,7 @@ class HomepageFlash {
      * Set category
      *
      * @param \Yorku\JuturnaBundle\Entity\Category $category
-     * @return HomepageFlash
+     * @return HomepageImage
      */
     public function setCategory(\Yorku\JuturnaBundle\Entity\Category $category = null) {
         $this->category = $category;
@@ -318,7 +318,7 @@ class HomepageFlash {
      * Set subcategory
      *
      * @param \Yorku\JuturnaBundle\Entity\Category $subcategory
-     * @return HomepageFlash
+     * @return HomepageImage
      */
     public function setSubcategory(\Yorku\JuturnaBundle\Entity\Category $subcategory = null) {
         $this->subcategory = $subcategory;
@@ -335,84 +335,8 @@ class HomepageFlash {
         return $this->subcategory;
     }
 
-    /**
-     * @var integer
-     */
-    private $titleMargin;
-
-    /**
-     * @var boolean
-     */
-    private $alignLeft;
-
-    /**
-     * Set titleMargin
-     *
-     * @param integer $titleMargin
-     * @return HomepageFlash
-     */
-    public function setTitleMargin($titleMargin) {
-        $this->titleMargin = $titleMargin;
-
-        return $this;
+    public function __toString() {
+        return $this->title;
     }
 
-    /**
-     * Get titleMargin
-     *
-     * @return integer 
-     */
-    public function getTitleMargin() {
-        return $this->titleMargin;
-    }
-
-    /**
-     * Set alignLeft
-     *
-     * @param boolean $alignLeft
-     * @return HomepageFlash
-     */
-    public function setAlignLeft($alignLeft) {
-        $this->alignLeft = $alignLeft;
-
-        return $this;
-    }
-
-    /**
-     * Get alignLeft
-     *
-     * @return boolean 
-     */
-    public function getAlignLeft() {
-        return $this->alignLeft;
-    }
-
-    /**
-     * @var string
-     */
-    private $altText;
-
-
-    /**
-     * Set altText
-     *
-     * @param string $altText
-     * @return HomepageFlash
-     */
-    public function setAltText($altText)
-    {
-        $this->altText = $altText;
-
-        return $this;
-    }
-
-    /**
-     * Get altText
-     *
-     * @return string 
-     */
-    public function getAltText()
-    {
-        return $this->altText;
-    }
 }

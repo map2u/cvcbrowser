@@ -27,9 +27,15 @@ Yorku\JuturnaBundle\Entity\IndicatorBenefitImage:
             column: image_caption
         fileName:
             type: string
-            length: 255
+            length: 550
             nullable: true
             column: file_name
+        altText:
+            type: string
+            length: 500
+            fixed: false
+            nullable: true
+            column: alt_text                 
         description:
             type: string
             length: 255

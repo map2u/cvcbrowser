@@ -60,12 +60,12 @@ class HomepageFlashAdmin extends Admin {
                 ->add('title')
                 ->add('introduce')
                 ->add('image')
+                ->add('altText')
                 ->add('url')
                 ->add('published')
                 ->add('active')
                 ->add('createdAt')
                 ->add('updatedAt')
-                ->add('description')
                 ->add('_action', 'actions', array(
                     'actions' => array(
                         'show' => array(),
@@ -93,6 +93,7 @@ class HomepageFlashAdmin extends Admin {
                 ))
                 ->add('introduce')
                 ->add('image_file', 'file', array('label' => 'Image Files:', 'mapped' => false, 'required' => false))
+                ->add('altText')
                 ->add('url')
                 ->add('published')
                 ->add('active')
@@ -117,6 +118,7 @@ class HomepageFlashAdmin extends Admin {
                 ->add('title')
                 ->add('introduce')
                 ->add('image')
+                ->add('altText')
                 ->add('url')
                 ->add('published')
                 ->add('active')

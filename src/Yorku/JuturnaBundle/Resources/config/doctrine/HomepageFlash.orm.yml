@@ -35,6 +35,12 @@ Yorku\JuturnaBundle\Entity\HomepageFlash:
             fixed: false
             nullable: false
             column: introduce
+        altText:
+            type: string
+            length: 100
+            fixed: false
+            nullable: true
+            column: alt_text            
         image:
             type: string
             length: 250

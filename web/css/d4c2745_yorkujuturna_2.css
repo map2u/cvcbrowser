@@ -16,7 +16,7 @@ and open the template in the editor.
     Created on : 12-Mar-2015, 11:58:13 AM
     Author     : josephzhao
 */
-/* line 11, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_header.scss */
+/* line 11, ../../Resources/assets/stylesheets/yorkujuturna/_header.scss */
 .juturna-page-header {
   width: 1200px;
   height: 130px;
@@ -25,24 +25,25 @@ and open the template in the editor.
   margin: 0 auto;
 }
 
-/* line 19, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_header.scss */
+/* line 19, ../../Resources/assets/stylesheets/yorkujuturna/_header.scss */
 .homepage_title {
-  padding: 10px 0 0 0;
+  padding: 8px 0 0 0;
   margin: 0;
   color: white;
 }
 
-/* line 23, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_header.scss */
-.homepage_title a h2 {
+/* line 23, ../../Resources/assets/stylesheets/yorkujuturna/_header.scss */
+.homepage_title a {
   color: white;
+  font-size: 24px;
 }
 
-/* line 27, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_header.scss */
+/* line 27, ../../Resources/assets/stylesheets/yorkujuturna/_header.scss */
 .homepage_title a:hover {
   text-decoration: none;
 }
 
-/* line 31, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_header.scss */
+/* line 31, ../../Resources/assets/stylesheets/yorkujuturna/_header.scss */
 div#homepage_titlebar_background {
   position: absolute;
   left: 0px;
@@ -55,7 +56,7 @@ div#homepage_titlebar_background {
   z-index: -1;
 }
 
-/* line 41, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_header.scss */
+/* line 41, ../../Resources/assets/stylesheets/yorkujuturna/_header.scss */
 div#homepage_menubar_background {
   position: absolute;
   left: 0px;
@@ -68,7 +69,7 @@ div#homepage_menubar_background {
   z-index: -1;
 }
 
-/* line 53, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_header.scss */
+/* line 53, ../../Resources/assets/stylesheets/yorkujuturna/_header.scss */
 div.leafmap_title_tooltip {
   color: #222;
   background: #fff;
@@ -90,7 +91,7 @@ and open the template in the editor.
     Created on : 12-Mar-2015, 1:14:08 PM
     Author     : josephzhao
 */
-/* line 11, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 11, ../../Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .juturna-main_menu {
   position: relative;
   width: 1200px;
@@ -99,60 +100,60 @@ and open the template in the editor.
   margin: 0 auto;
 }
 
-/* line 20, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 20, ../../Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .nav.navbar-nav, .collapse.navbar-collapse.navbar-main-collapse {
   margin-left: 0px;
   padding-left: 0px;
 }
 
-/* line 25, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 25, ../../Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .navbar-nav li a, ul.dropdown-menu li a {
   color: white;
   font-size: 16px;
   font-weight: 400;
 }
 
-/* line 31, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 31, ../../Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .nav.navbar-nav li.dropdown.open ul.dropdown-menu li a {
   color: white;
 }
 
-/* line 34, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 34, ../../Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .nav.navbar-nav li.dropdown.open ul.dropdown-menu li a:hover {
   color: #3c4142;
 }
 
-/* line 37, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 37, ../../Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .nav.navbar-nav li.dropdown.open a {
   color: #3c4142;
 }
 
-/* line 40, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 40, ../../Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .nav.navbar-nav li.dropdown ul {
   background-color: #3c4142;
   color: white;
   z-index: 9999;
 }
 
-/* line 46, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 46, ../../Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .nav.navbar-nav li a:hover {
   color: #3c4142;
 }
 
-/* line 51, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 51, ../../Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .dropdown-menu {
   background-color: #3c4142;
   color: white;
 }
 
-/* line 55, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 55, ../../Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .dropdown-submenu {
   background-color: #3c4142;
   color: white;
   position: relative;
 }
 
-/* line 61, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 61, ../../Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .dropdown-submenu > .dropdown-menu {
   top: 0;
   left: 100%;
@@ -166,7 +167,7 @@ and open the template in the editor.
       border-radius: 0 6px 6px 6px;*/
 }
 
-/* line 74, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 74, ../../Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .dropdown-submenu:hover > .dropdown-menu {
   display: block;
   background-color: #3c4142;
@@ -174,7 +175,7 @@ and open the template in the editor.
   color: white;
 }
 
-/* line 81, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 81, ../../Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .dropdown-submenu > a:after {
   display: block;
   content: " ";
@@ -189,17 +190,17 @@ and open the template in the editor.
   margin-right: -10px;
 }
 
-/* line 95, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 95, ../../Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .dropdown-submenu:hover > a:after {
   border-left-color: #fff;
 }
 
-/* line 99, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 99, ../../Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .dropdown-submenu.pull-left {
   float: none;
 }
 
-/* line 103, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
+/* line 103, ../../Resources/assets/stylesheets/yorkujuturna/_main_menu.scss */
 .dropdown-submenu.pull-left > .dropdown-menu {
   left: -100%;
   margin-left: 10px;
@@ -217,7 +218,7 @@ and open the template in the editor.
     Created on : 12-Mar-2015, 1:14:08 PM
     Author     : josephzhao
 */
-/* line 11, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_menu_login.scss */
+/* line 11, ../../Resources/assets/stylesheets/yorkujuturna/_menu_login.scss */
 .navbar .nav > li.login .login-dropdown {
   position: absolute;
   white-space: normal;
@@ -233,12 +234,12 @@ and open the template in the editor.
   display: none;
 }
 
-/* line 12, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_menu_login.scss */
+/* line 12, ../../Resources/assets/stylesheets/yorkujuturna/_menu_login.scss */
 #register-form {
   background-color: #ada69a;
 }
 
-/* line 13, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_menu_login.scss */
+/* line 13, ../../Resources/assets/stylesheets/yorkujuturna/_menu_login.scss */
 #login-form {
   padding: 0px;
   margin: 0;
@@ -253,13 +254,13 @@ and open the template in the editor.
     Created on : 18-Mar-2015, 9:02:20 AM
     Author     : josephzhao
 */
-/* line 10, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_benefit.scss */
+/* line 10, ../../Resources/assets/stylesheets/yorkujuturna/_benefit.scss */
 #indicator_benefit_flash {
   height: 350px;
   overflow: hidden;
 }
 
-/* line 17, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_benefit.scss */
+/* line 17, ../../Resources/assets/stylesheets/yorkujuturna/_benefit.scss */
 #indicator_benefit_flash div.carousel-caption {
   top: 0px;
   margin-top: 95px;
@@ -273,18 +274,18 @@ and open the template in the editor.
       height: 350px;*/
 }
 
-/* line 35, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_benefit.scss */
+/* line 35, ../../Resources/assets/stylesheets/yorkujuturna/_benefit.scss */
 #benefit_leafletsidebar_view h4 {
   text-align: enter;
 }
 
-/* line 39, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_benefit.scss */
+/* line 39, ../../Resources/assets/stylesheets/yorkujuturna/_benefit.scss */
 #leftsidebar_indicator_benefit_flash a.carousel-control {
   padding-top: 90px;
   font-size: 30px;
 }
 
-/* line 45, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_benefit.scss */
+/* line 45, ../../Resources/assets/stylesheets/yorkujuturna/_benefit.scss */
 #leftsidebar_indicator_benefit_flash div.carousel-caption {
   top: 0px;
   margin-top: 40px;
@@ -296,7 +297,7 @@ and open the template in the editor.
   font-size: 16px;
 }
 
-/* line 57, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_benefit.scss */
+/* line 57, ../../Resources/assets/stylesheets/yorkujuturna/_benefit.scss */
 #leftsidebar_indicator_benefit_flash div.carousel-caption h5 {
   font-size: 18px;
 }
@@ -310,19 +311,19 @@ and open the template in the editor.
     Created on : 19-Mar-2015, 3:07:01 PM
     Author     : josephzhao
 */
-/* line 11, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_story.scss */
+/* line 11, ../../Resources/assets/stylesheets/yorkujuturna/_story.scss */
 #story_flash, .story_flash, #story_image {
   height: 355px;
   margin-bottom: 30px;
   overflow: hidden;
 }
 
-/* line 16, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_story.scss */
+/* line 16, ../../Resources/assets/stylesheets/yorkujuturna/_story.scss */
 #story_flash .carousel-inner {
   height: 355px;
 }
 
-/* line 20, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_story.scss */
+/* line 20, ../../Resources/assets/stylesheets/yorkujuturna/_story.scss */
 #story_flash div.carousel-caption, #story_image div.carousel-caption {
   top: 0px;
   margin-top: 265px;
@@ -332,13 +333,13 @@ and open the template in the editor.
   font-size: 20px;
 }
 
-/* line 32, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_story.scss */
+/* line 32, ../../Resources/assets/stylesheets/yorkujuturna/_story.scss */
 #pdf_display {
   margin-top: 20px auto;
   padding: 20px;
 }
 
-/* line 38, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_story.scss */
+/* line 38, ../../Resources/assets/stylesheets/yorkujuturna/_story.scss */
 #pdf_display canvas {
   border: 1px solid gainsboro;
   margin: 2px auto;
@@ -353,7 +354,7 @@ and open the template in the editor.
     Created on : 2-Apr-2015, 3:52:24 PM
     Author     : josephzhao
 */
-/* line 11, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_photomarker.scss */
+/* line 11, ../../Resources/assets/stylesheets/yorkujuturna/_photomarker.scss */
 .leaflet-photomarker-container .leaflet-photomarker-img {
   border: solid white 1px;
   background-color: white;
@@ -380,38 +381,38 @@ and open the template in the editor.
     height: 385px;
     margin: 10px 0px 20px 0;
 }*/
-/* line 21, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
+/* line 21, ../../Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
 #homepageFlashCarousel {
   height: 355px;
   margin-bottom: 30px;
 }
 
-/* line 25, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
+/* line 25, ../../Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
 #homepageFlashCarousel .carousel-inner {
   height: 355px;
 }
 
-/* line 29, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
+/* line 29, ../../Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
 #homepageFlashCarousel ol.carousel-indicators {
   width: 50%;
   margin: -45px auto;
 }
 
-/* line 38, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
+/* line 38, ../../Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
 ol.carousel-indicators li {
   color: #141412;
   font-size: 10px;
   background-color: #141412;
 }
 
-/* line 45, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
+/* line 45, ../../Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
 ol.carousel-indicators li.active {
   color: green;
   font-size: 10px;
   background-color: green;
 }
 
-/* line 50, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
+/* line 50, ../../Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
 .homepage_images {
   width: 1200px;
   margin: 10px auto;
@@ -420,19 +421,19 @@ ol.carousel-indicators li.active {
   padding: 0px;
 }
 
-/* line 57, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
+/* line 57, ../../Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
 .homepage_images img {
   height: 230px;
   margin: 3px;
   border-radius: 5px;
 }
 
-/* line 62, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
+/* line 62, ../../Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
 .homepage_image_brief_desc {
   margin-bottom: 50px;
 }
 
-/* line 66, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
+/* line 66, ../../Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
 #homepageFlashCarousel div.carousel-caption {
   top: 0px;
   width: 330px;
@@ -444,14 +445,14 @@ ol.carousel-indicators li.active {
   height: 355px;
 }
 
-/* line 82, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
+/* line 82, ../../Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
 #homepageFlashCarousel div.carousel-caption h4 {
   font-weight: 500;
   text-align: center;
   font-size: 24px;
 }
 
-/* line 90, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
+/* line 90, ../../Resources/assets/stylesheets/yorkujuturna/_homepage_flash.scss */
 .homepage_image_brief_desc {
   position: absolute;
   bottom: 20px;
@@ -475,12 +476,12 @@ and open the template in the editor.
     Created on : 15-Mar-2015, 4:02:42 PM
     Author     : josephzhao
 */
-/* line 12, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_ecosystem_page.scss */
+/* line 12, ../../Resources/assets/stylesheets/yorkujuturna/_ecosystem_page.scss */
 .ecosystem_page_image {
   margin-bottom: 15px;
 }
 
-/* line 15, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_ecosystem_page.scss */
+/* line 15, ../../Resources/assets/stylesheets/yorkujuturna/_ecosystem_page.scss */
 .ecosystem_page_image #ecosystem_image {
   display: inline-block;
   overflow: hidden;
@@ -492,7 +493,7 @@ and open the template in the editor.
   /* <-- reset the font property */
 }
 
-/* line 24, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_ecosystem_page.scss */
+/* line 24, ../../Resources/assets/stylesheets/yorkujuturna/_ecosystem_page.scss */
 .ecosystem_page_image h1 {
   position: absolute;
   width: 100%;
@@ -513,13 +514,13 @@ and open the template in the editor.
     Created on : 12-Mar-2015, 11:58:23 AM
     Author     : josephzhao
 */
-/* line 11, ../../../../../../NetBeansProjects/CVCBrowser/app/Resources/assets/stylesheets/yorkujuturna/_footer.scss */
+/* line 11, ../../Resources/assets/stylesheets/yorkujuturna/_footer.scss */
 .juturna-page-footer {
   width: 1200px;
   margin: 2px auto;
 }
 
-/* line 28, assetic_compassGiTcsx.scss */
+/* line 28, assetic_compassB00wq9.scss */
 .sonata-bc .tooltip.left {
   margin-left: -12px;
 }

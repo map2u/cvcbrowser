@@ -33,6 +33,7 @@ class IndicatorBenefitImageAdmin extends Admin {
         $datagridMapper
                 ->add('id')
                 ->add('imageName')
+                ->add('altText')
                 ->add('imageTitle')
                 ->add('fileName')
 
@@ -49,6 +50,7 @@ class IndicatorBenefitImageAdmin extends Admin {
                 ->add('imageTitle')
                 ->add('indicator')
                 ->add('fileName')
+                ->add('altText')
                 ->add('updatedAt')
                 ->add('_action', 'actions', array(
                     'actions' => array(
@@ -77,6 +79,7 @@ class IndicatorBenefitImageAdmin extends Admin {
                     'multiple' => false
                 ))
                 ->add('image_file', 'file', array('required' => false, 'mapped' => false, 'label' => 'Image Files'))
+                ->add('altText')
                 ->add('description', 'textarea', array('required' => false))
                 ->end()
         ;
@@ -93,6 +96,7 @@ class IndicatorBenefitImageAdmin extends Admin {
                 ->add('imageCaption')
                 ->add('indicator')
                 ->add('fileName')
+                ->add('altText')
                 ->add('createdAt')
                 ->add('updatedAt')
         ;

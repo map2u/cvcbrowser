@@ -1,5 +1,21 @@
 <?php
 
+/**
+ * <copyright>
+ * This file/program is free and open source software released under the GNU General Public
+ * License version 3, and is distributed WITHOUT ANY WARRANTY. A copy of the GNU General
+ * Public Licence is available at http://www.gnu.org/licenses
+ * </copyright>
+ *
+ * <author>Shuilin (Joseph) Zhao</author>
+ * <company>SpEAR Lab, Faculty of Environmental Studies, York University
+ * <email>zhaoshuilin2004@yahoo.ca</email>
+ * <date>created at 2014/01/06</date>
+ * <date>last updated at 2015/03/11</date>
+ * <summary>This is the definition of IndicatorBenefitImage entity</summary>
+ * <purpose></purpose>
+ */
+
 namespace Yorku\JuturnaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -18,6 +34,16 @@ class IndicatorBenefitImage {
      * @var string
      */
     private $imageName;
+
+    /**
+     * @var string
+     */
+    private $imageTitle;
+
+    /**
+     * @var string
+     */
+    private $imageCaption;
 
     /**
      * @var \DateTime
@@ -80,6 +106,48 @@ class IndicatorBenefitImage {
      */
     public function getImageName() {
         return $this->imageName;
+    }
+
+    /**
+     * Set imageTitle
+     *
+     * @param string $imageTitle
+     * @return IndicatorBenefitImage
+     */
+    public function setImageTitle($imageTitle) {
+        $this->imageTitle = $imageTitle;
+
+        return $this;
+    }
+
+    /**
+     * Get imageTitle
+     *
+     * @return string 
+     */
+    public function getImageTitle() {
+        return $this->imageTitle;
+    }
+
+    /**
+     * Set imageCaption
+     *
+     * @param string $imageCaption
+     * @return IndicatorBenefitImage
+     */
+    public function setImageCaption($imageCaption) {
+        $this->imageCaption = $imageCaption;
+
+        return $this;
+    }
+
+    /**
+     * Get imageCaption
+     *
+     * @return string 
+     */
+    public function getImageCaption() {
+        return $this->imageCaption;
     }
 
     /**
@@ -164,15 +232,13 @@ class IndicatorBenefitImage {
      */
     private $description;
 
-
     /**
      * Set fileName
      *
      * @param string $fileName
      * @return IndicatorBenefitImage
      */
-    public function setFileName($fileName)
-    {
+    public function setFileName($fileName) {
         $this->fileName = $fileName;
 
         return $this;
@@ -183,8 +249,7 @@ class IndicatorBenefitImage {
      *
      * @return string 
      */
-    public function getFileName()
-    {
+    public function getFileName() {
         return $this->fileName;
     }
 
@@ -194,8 +259,7 @@ class IndicatorBenefitImage {
      * @param string $description
      * @return IndicatorBenefitImage
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
 
         return $this;
@@ -206,8 +270,34 @@ class IndicatorBenefitImage {
      *
      * @return string 
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
+
+    /**
+     * @var \Yorku\JuturnaBundle\Entity\Indicator
+     */
+    private $indicator;
+
+    /**
+     * Set indicator
+     *
+     * @param \Yorku\JuturnaBundle\Entity\Indicator $indicator
+     * @return IndicatorBenefitImage
+     */
+    public function setIndicator(\Yorku\JuturnaBundle\Entity\Indicator $indicator = null) {
+        $this->indicator = $indicator;
+
+        return $this;
+    }
+
+    /**
+     * Get indicator
+     *
+     * @return \Yorku\JuturnaBundle\Entity\Indicator 
+     */
+    public function getIndicator() {
+        return $this->indicator;
+    }
+
 }

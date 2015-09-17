@@ -6,7 +6,7 @@
             {% if images|length > 0 %}
                 {% for image in images %}
                     {% autoescape 'html' %}
-                        <img style="border-radius: 5px;width:300px;height:200px;overflow: hidden;" src="{{ asset('uploads/images/indicatorbenefitimages/'~indicatorbenefitimage.id~"/")}}{{image}}" width="100%">
+                        <img style="border-radius: 5px;width:300px;height:200px;overflow: hidden;" src="{{ asset('uploads/images/indicatorbenefitimages/'~indicatorbenefitimage.id~"/")}}{{image}}" width="100%" alt="{{indicatorbenefitimage.getAltText()}}">
                     {% endautoescape %}
                     <div class="carousel-caption">
                         <h5>{{indicatorbenefitimage.getImageTitle()}}</h5>

@@ -339,4 +339,32 @@ class HomepageImage {
         return $this->title;
     }
 
+    /**
+     * @var string
+     */
+    private $altText;
+
+
+    /**
+     * Set altText
+     *
+     * @param string $altText
+     * @return HomepageImage
+     */
+    public function setAltText($altText)
+    {
+        $this->altText = $altText;
+
+        return $this;
+    }
+
+    /**
+     * Get altText
+     *
+     * @return string 
+     */
+    public function getAltText()
+    {
+        return $this->altText;
+    }
 }

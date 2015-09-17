@@ -123,32 +123,4 @@ class UserDrawGeometries extends BaseUserDrawGeometries {
         parent::__construct();
     }
 
-    /**
-     * @var string
-     */
-    private $altText;
-
-
-    /**
-     * Set altText
-     *
-     * @param string $altText
-     * @return UserDrawGeometries
-     */
-    public function setAltText($altText)
-    {
-        $this->altText = $altText;
-
-        return $this;
-    }
-
-    /**
-     * Get altText
-     *
-     * @return string 
-     */
-    public function getAltText()
-    {
-        return $this->altText;
-    }
 }

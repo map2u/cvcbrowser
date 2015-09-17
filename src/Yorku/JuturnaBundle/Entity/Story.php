@@ -387,4 +387,32 @@ class Story {
         return $this->storyText;
     }
 
+    /**
+     * @var string
+     */
+    private $altText;
+
+
+    /**
+     * Set altText
+     *
+     * @param string $altText
+     * @return Story
+     */
+    public function setAltText($altText)
+    {
+        $this->altText = $altText;
+
+        return $this;
+    }
+
+    /**
+     * Get altText
+     *
+     * @return string 
+     */
+    public function getAltText()
+    {
+        return $this->altText;
+    }
 }

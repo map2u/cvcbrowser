@@ -63,10 +63,9 @@ class UserDrawGeometriesAdmin extends Admin {
                 ->add('buffer')
                 ->add('markerIcon')
                 ->add('public')
-                ->add('description')
-                ->add('createdAt')
                 ->add('updatedAt')
                 ->add('images')
+                ->add('altText')
                 ->add('video')
                 ->add('audio')
                 ->add('_action', 'actions', array(
@@ -95,6 +94,7 @@ class UserDrawGeometriesAdmin extends Admin {
                 ->add('public')
                 ->add('description')
                 ->add('images')
+                ->add('altText')
                 ->add('video')
                 ->add('audio')
         ;
@@ -118,6 +118,7 @@ class UserDrawGeometriesAdmin extends Admin {
                 ->add('createdAt')
                 ->add('updatedAt')
                 ->add('images')
+                ->add('altText')
                 ->add('video')
                 ->add('audio')
         ;

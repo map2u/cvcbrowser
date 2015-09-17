@@ -27,4 +27,10 @@ Application\Map2u\CoreBundle\Entity\UserDrawGeometries:
             length: 2500
             fixed: false
             nullable: true
-            column: audio            
+            column: audio        
+        altText:
+            type: string
+            length: 100
+            fixed: false
+            nullable: true
+            column: alt_text                       

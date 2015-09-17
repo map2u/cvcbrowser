@@ -27,6 +27,12 @@ Yorku\JuturnaBundle\Entity\HomepageImage:
             fixed: false
             nullable: false
             column: introduce
+        altText:
+            type: string
+            length: 100
+            fixed: false
+            nullable: true
+            column: alt_text                 
         url:
             type: string
             length: 250
