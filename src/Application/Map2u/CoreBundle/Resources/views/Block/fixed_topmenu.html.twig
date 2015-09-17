@@ -6,14 +6,11 @@
         <div class="collapse navbar-collapse navbar-main-collapse">
             <div id="cms-block-8" class="cms-block cms-block-element environment_services">
                 <ul class="nav navbar-nav">
-                    <li {% if app.request.attributes.get('_route')=='welcome_home' %} class="active" {% endif %}><a href="{{path('welcome_home')}}" >Home
-                        </a>
+                    <li {% if app.request.attributes.get('_route')=='welcome_home' %} class="active" {% endif %}><a href="{{path('welcome_home')}}" >Home</a>
                     </li>
                     {% if app.request.attributes.get('_route')=='homepage_map' %}
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle  {% if app.session.get('current_menu')=='well_being' %} active {% endif %}" data-toggle="dropdown">Well-Being
-                                <b class="caret"></b>
-                            </a>
+                            <a href="#" class="dropdown-toggle  {% if app.session.get('current_menu')=='well_being' %} active {% endif %}" data-toggle="dropdown">Well-Being<b class="caret"></b></a>
                             <ul class="dropdown-menu multi-level">
                                 {% include 'ApplicationMap2uCoreBundle:Block:fixed_top_wellbeingdomains.html.twig' with {'wellbeingdomains':wellbeingdomains} %}
                             </ul>
@@ -31,11 +28,11 @@
                     {% endif %} 
                 </ul>
                 <ul class="nav navbar-nav pull-right">
-                   
-                                {% include 'ApplicationMap2uCoreBundle:Block:fixed_top_mapbookmarks.html.twig' with {'mapbookmarks':mapbookmarks} %}
+
+                    {% include 'ApplicationMap2uCoreBundle:Block:fixed_top_mapbookmarks.html.twig' with {'mapbookmarks':mapbookmarks} %}
 
 
-                    <li><a href="/CVCHelpsystem.html" target="_blank"><i class="fa fa-question"></i>Help</a></li>
+                    <li><a href="/CVCHelpsystem.html" target="_blank"><span class="fa fa-question"></span>Help</a></li>
                         {% include 'ApplicationMap2uCoreBundle:Block:fixed_top_user.html.twig' %}
 
                     {#{% if app.user %}
