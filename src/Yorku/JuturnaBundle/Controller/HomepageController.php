@@ -81,7 +81,7 @@ class HomepageController extends Controller {
     public function flashsAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $locale = $request->getLocale();
-       $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
+        $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
         return array('_locale' => $locale, 'flashs' => $flashs);
     }
 
@@ -182,7 +182,6 @@ class HomepageController extends Controller {
         $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
 
         return array('_locale' => $locale, 'ecosystems' => $ecosystems, 'image' => $image, 'flashs' => $flashs, "category" => $category);
-
     }
 
     /**
@@ -254,7 +253,25 @@ class HomepageController extends Controller {
             } else {
                 $flash_message = "Contact info submit failed!";
             }
+            return $this->redirect($this->generateUrl('contact_us_edit', array('_locale' => $locale, 'form' => $form->createView(), "flash_message" => $flash_message)));
         }
+        return array('_locale' => $locale, 'form' => $form->createView(), "flash_message" => $flash_message);
+    }
+
+    /**
+     * .
+     *
+     * @Route("/contact_us_edit", name="homepage_contact_us_edit")
+     * @Method("GET")
+     * @Template()
+     */
+    public function contact_us_editAction(Request $request) {
+
+        $locale = $request->getLocale();
+
+        $contact = new \Yorku\JuturnaBundle\Entity\Contact();
+        $form = $this->createForm(new ContactType(), $contact);
+        $flash_message = null;
         return array('_locale' => $locale, 'form' => $form->createView(), "flash_message" => $flash_message);
     }
 
@@ -270,7 +287,7 @@ class HomepageController extends Controller {
         $locale = $request->getLocale();
         $session->set('current_menu', "about_us");
         $em = $this->getDoctrine()->getManager();
-       $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
+        $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
         return array('_locale' => $locale, 'flashs' => $flashs);
     }
 

@@ -46,7 +46,18 @@ class UserAccountController extends BaseController {
      * @Template()
      */
     public function profileAction(Request $request) {
-        return $this->render('ApplicationMap2uCoreBundle:UserAccount:profile.html.twig', array());
+        return $this->redirect($this->generateUrl('useraccount_profileedit', array('success' => false)));
+    }
+
+    /**
+     * get feature extend.
+     * params: ogc_fid and userboundary_id
+     * @Route("/profileedit", name="useraccount_profileedit", options={"expose"=true})
+     * @Method("GET")
+     * @Template()
+     */
+    public function profileeditAction(Request $request) {
+        return array();
     }
 
     /**
@@ -91,8 +102,18 @@ class UserAccountController extends BaseController {
         if ($this->getUser()) {
             $bookmarks = $em->getRepository('Map2uCoreBundle:MapBookmark')->findBy(array('userId' => $this->getUser()->getId()), array("seq" => 'ASC'));
         }
-        return $this->render('ApplicationMap2uCoreBundle:UserAccount:mapbookmark.html.twig', array("bookmarks" => $bookmarks, "form1" => $form1->createView(), "form2" => $form2->createView(), "form3" => $form3->createView()));
-        //  return array("bookmarks" => $bookmarks, "form1" => $form1->createView(), "form2" => $form2->createView(), "form3" => $form3->createView());
+        return $this->redirect($this->generateUrl('useraccount_mapbookmarkedit'));
+    }
+
+    /**
+     * get feature extend.
+     * params: ogc_fid and userboundary_id
+     * @Route("/mapbookmarkedit", name="useraccount_mapbookmarkedit", options={"expose"=true})
+     * @Method("GET|POST")
+     * @Template()
+     */
+    public function mapbookmarkeditAction(Request $request) {
+        return array();
     }
 
 }
