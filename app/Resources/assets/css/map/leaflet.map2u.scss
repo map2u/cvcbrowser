@@ -39,6 +39,7 @@ div#leaflet_content.overlay-sidebar {
 .icon.key{background-position:-120px 0}
 .icon.business{background-position:-120px 0}
 .icon.graphchart{background-position:-60px -40px}
+.icon.measure{background-position:-104px -40px}
 .icon.share{background-position:-140px 0}
 .icon.clipboard{background-position:-160px 0}
 .icon.link{background-position:-180px 0}
@@ -49,6 +50,7 @@ div#leaflet_content.overlay-sidebar {
 .icon.uploadfile-list{background-position:-20px -20px}
 .control-button.disabled .icon.uploadfile-list{background-position:-20px -40px}
 .control-button.disabled .icon.graphchart{background-position:-40px -40px}
+.control-button.disabled .icon.measure{background-position:-84px -40px}
 
 .icon.check{background-position:-220px 0}
 .icon.note{background-position:-240px 0}
@@ -84,7 +86,7 @@ div#leaflet_content.overlay-sidebar {
 }
 .maptoolbar-control{
 
-    width:82px;
+    width:114px;
     height: 32px;
     border-radius:3px;
     /*    margin-top:40px;
@@ -94,7 +96,95 @@ div#leaflet_content.overlay-sidebar {
     right:42px;
     border: 1px solid green;
 }
-.maptoolbar-control .maptoolbar-control-reset,.maptoolbar-control .maptoolbar-control-prev,.maptoolbar-control .maptoolbar-control-next{
+
+.mapmeasurement-control{
+
+    width:35px;
+    height: 145px;
+    border-radius:3px;
+    /*    margin-top:40px;
+        margin-right: 60px;*/
+    top:45px;
+    padding-left:2px;
+    left:0px;
+   
+}
+.mapmeasurement-control ul.leaflet-measure-toolbar {
+    padding-left:0px;
+}
+.mapmeasurement-control .leaflet-measure-actions {
+    background-image: url('/images/spritesheet.png');
+    background-repeat: no-repeat;
+}
+
+.leaflet-retina .mapmeasurement-control .leaflet-measure-actions {
+    background-image: url('/images/spritesheet-2x.png');
+    background-size: 270px 30px;
+}
+
+.mapmeasurement-control .leaflet-measure-actions {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    background-color: white;
+
+    color: #FFF;
+    font: 11px/19px "Helvetica Neue", Arial, Helvetica, sans-serif;
+    line-height: 28px;
+    text-decoration: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 28px;
+    width: 28px;
+    border-radius:3px;
+    border: 1px solid grey;
+
+}
+
+.mapmeasurement-control .leaflet-measure-actions.active {
+    background-color: #08C;
+    
+}
+
+.mapmeasurement-control .mapmeasurement-control-polyline {
+    background-position: -2px -2px;
+}
+
+.leaflet-touch .mapmeasurement-control .mapmeasurement-control-polyline {
+    background-position: 0 -1px;
+}
+
+.mapmeasurement-control .mapmeasurement-control-polygon {
+    background-position: -31px -2px;
+}
+
+.leaflet-touch .mapmeasurement-control .mapmeasurement-control-polygon {
+    background-position: -29px -1px;
+}
+
+.mapmeasurement-control .mapmeasurement-control-rectangle {
+    background-position: -62px -2px;
+}
+
+.leaflet-touch .mapmeasurement-control .mapmeasurement-control-rectangle {
+    background-position: -60px -1px;
+}
+
+.mapmeasurement-control .mapmeasurement-control-circle {
+    background-position: -92px -2px;
+}
+
+.leaflet-touch .mapmeasurement-control .mapmeasurement-control-circle {
+    background-position: -90px -1px;
+}
+
+
+
+
+.mapmeasurement-control .mapmeasurement-control-polyline,.mapmeasurement-control .mapmeasurement-control-polygon,.mapmeasurement-control .mapmeasurement-control-rectangle,.mapmeasurement-control .mapmeasurement-control-circle {
+
+}
+.maptoolbar-control .maptoolbar-control-reset,.maptoolbar-control .maptoolbar-control-measure,.maptoolbar-control .maptoolbar-control-prev,.maptoolbar-control .maptoolbar-control-next{
     margin-bottom:0px;
     border-radius:3px;
     width:24px;
@@ -105,6 +195,32 @@ div#leaflet_content.overlay-sidebar {
 
     display: inline-block;
     border: 1px solid green;
+}
+.mapmeasurement-control-active {
+    margin-bottom:0px;
+    border-radius:3px;
+    width:24px;
+    background-color: white;
+    margin-left: 1px;
+    margin-top: 3px;
+    height: 24px;
+    display: inline-block;
+    border: 1px solid green;
+}
+.maptoolbar-control .maptoolbar-control-measure {
+    margin-right: 6px;
+}
+.maptoolbar-control .maptoolbar-control-measure.active {
+    background-color: #08C;
+}
+.mapmeasurement-control.active {
+    background-color: #f00;
+}
+.maptoolbar-control .maptoolbar-control-measure,.mapmeasurement-control .mapmeasurement-control-active {
+    background-position: 0px 0px;
+    background-image: url(/images/ruler-icon.png);
+    background-size: 22px 22px;
+    background-repeat: no-repeat;
 }
 .maptoolbar-control .maptoolbar-control-reset {
     background-position: 3px 3px;

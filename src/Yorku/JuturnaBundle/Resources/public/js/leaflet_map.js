@@ -24,15 +24,8 @@ window.onload = function () {
     var leafletmap_tooltip;
     var layersControl;
     var leftSidebar;
-
-
-
     $('#leafmap').height($(window).height() - $(".juturna-page-header").height() - $(".juturna-main_menu").height() - 2);
-
     $('.leaflet-sidebar #sidebar-left').height($(window).height() - $(".juturna-page-header").height() - $(".juturna-main_menu").height() - 60);
-
-
-
     $(window).resize(function () { /* do something */
         $('#leafmap').height($(window).height() - $(".juturna-page-header").height() - $(".juturna-main_menu").height() - 2);
         $('#map-ui').height($(window).height() - $(".juturna-page-header").height() - $(".juturna-main_menu").height() - 2);
@@ -41,16 +34,12 @@ window.onload = function () {
     map = new L.MAP2U.Map('leafmap', {
         'zoomControl': false
     }).setView([43.73737, -79.95987], 10);
-
     this.map = map;
-
-
     //add a tile layer to add to our map, in this case it's the 'standard' OpenStreetMap.org tile server
     var mapnik = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
         maxZoom: 18
     });
-
     var googleLayer_satellite = new L.Google('SATELLITE', {attribution: ""});
     var googleLayer_roadmap = new L.Google('ROADMAP', {attribution: ""});
     var googleLayer_hybrid = new L.Google('HYBRID', {attribution: ""});
@@ -64,29 +53,12 @@ window.onload = function () {
     var Thunderforest_Transport = L.tileLayer('http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://www.opencyclemap.org">OpenCycleMap</a>, &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
     });
-
-
-
-//    var subw = new L.TileLayer.WMS(
-//            "http://www.snitcr.go.cr/cgi-bin/mapserv?map=ortofoto.map",
-//            {
-//                layers: 'Mosaico5000',
-//                format: 'image/png',
-//                transparent: true,
-//                srs: 'EPSG:4326',
-//                attribution: ""
-//            });
-//
-//    map.addLayer(subw);
-//    
     var mapnik_minimap = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
         maxZoom: 18
     });
     var miniMap = new L.Control.MiniMap(mapnik_minimap, {position: 'bottomright', width: 150, height: 150, zoomLevelOffset: -4, zoomAnimation: false, toggleDisplay: true, autoToggleDisplay: false}).addTo(map);
-
     map.addLayer(mapnik);
-    // map.addLayer(Thunderforest_Transport);
     var subwatersheds = new L.TileLayer.WMS(
             "http://cobas.juturna.ca:8080/geoserver/juturna/wms",
             {
@@ -96,8 +68,6 @@ window.onload = function () {
                 srs: 'EPSG:4326',
                 attribution: ""
             });
-
-
     map.baseLayers = [
         {'layer': mapnik, 'layerName': 'Open Street Map'},
         {'layer': Thunderforest_Transport, 'layerName': 'Thunderforest_Transport'},
@@ -110,14 +80,9 @@ window.onload = function () {
     ];
     map.noteLayer = new L.FeatureGroup();
     map.noteLayer.options = {code: 'N'};
-
-
-
     map.dataLayers = [];
-
     var index;
     var layers = [];
-
     var leftsidebarControl = L.Control.extend({
         options: {
             position: 'topleft'
@@ -137,11 +102,9 @@ window.onload = function () {
             return container;
         }
     });
-
     map.addControl(new leftsidebarControl());
     var history = new L.HistoryControl({position: 'topleft', useExternalControls: true});
     map.addControl(history);
-
     var MapToolbarControl = L.Control.extend({
         options: {
             position: 'topright'
@@ -150,6 +113,20 @@ window.onload = function () {
         onAdd: function (map) {
             // create the control container with a particular class name
             var container = L.DomUtil.create('div', 'maptoolbar-control');
+            var measureUI = L.DomUtil.create('div', 'maptoolbar-control-measure', container);
+            L.DomEvent
+                    .addListener(measureUI, 'click', L.DomEvent.stopPropagation)
+                    .addListener(measureUI, 'click', L.DomEvent.preventDefault)
+                    .addListener(measureUI, 'click', function () {
+                        if ($(this).hasClass("active")) {
+                            $(this).removeClass("active");
+                        }
+                        else {
+                            $(this).addClass("active");
+                        }
+                        MapMeasurement(this, map);
+                    });
+            measureUI.title = I18n.t('Map Measurement');
 
             var controlUI = L.DomUtil.create('div', 'maptoolbar-control-reset', container);
             L.DomEvent
@@ -159,9 +136,9 @@ window.onload = function () {
                         MapExtentReset(map);
                     });
             controlUI.title = I18n.t('Reset Map Extent');
+
+
             var Prev_Extent = L.DomUtil.create('div', 'maptoolbar-control-prev', container);
-
-
             L.DomEvent
                     .addListener(Prev_Extent, 'click', L.DomEvent.stopPropagation)
                     .addListener(Prev_Extent, 'click', L.DomEvent.preventDefault)
@@ -182,12 +159,44 @@ window.onload = function () {
             return container;
         }
     });
-
     map.addControl(new MapToolbarControl());
+
+
+
+
+    var MapMeasurementControl = L.Control.extend({
+        options: {
+            position: 'topleft'
+
+        },
+        onAdd: function (map) {
+            var toolbuttons = ['polyline', 'polygon', 'rectangle', 'circle'];
+            // create the control container with a particular class name
+            var container = L.DomUtil.create('div', 'mapmeasurement-control hidden');
+
+            var list = $('<ul>')
+                    .attr("class", "leaflet-measure-toolbar")
+                    .appendTo(container);
+            toolbuttons.forEach(function (tool_name) {
+                var item = $('<li>')
+                        .attr("class", "leaflet-measure-actions mapmeasurement-control-" + tool_name)
+                        .attr('value', tool_name)
+                        .appendTo(list);
+                item.on('click', function () {
+                    $(".mapmeasurement-control .leaflet-measure-actions").removeClass("active");
+                    $(this).addClass("active");
+                    measureArea(map, $(this).attr('value'));
+                });
+            });
+            return container;
+        }
+    });
+    map.addControl(new MapMeasurementControl());
+
+
 
     var position = $('html').attr('dir') === 'rtl' ? 'topleft' : 'topright';
     L.MAP2U.zoom({position: position}).addTo(map);
-
     L.control.locate({
         position: position,
         strings: {
@@ -197,7 +206,6 @@ window.onload = function () {
     }).addTo(map);
     L.control.scale().addTo(map);
     mouseposition = L.control.mousePosition({'emptyString': '', 'position': 'bottomleft'}).addTo(map);
-
     leafletmap_tooltip = d3.select("#leafmap").append("div").attr("class", "leafmap_title_tooltip hidden");
     //  var map_tooltip = d3.select("#leafmap").append("div").attr("class", "leafmap_title_tooltip hidden");
 
@@ -205,12 +213,10 @@ window.onload = function () {
         position: 'left'
     });
     map.addControl(leftSidebar);
-
     var rightSidebar = L.control.sidebar('sidebar-right', {
         position: 'right'
     });
     map.addControl(rightSidebar);
-
     this.rightSidebar = rightSidebar;
     this.leftSidebar = leftSidebar;
     layersControl = L.MAP2U.layers({
@@ -222,39 +228,34 @@ window.onload = function () {
     });
     layersControl.addTo(map);
     this.layersControl = layersControl;
-
     L.MAP2U.uploadfile({position: position,
         sidebar: rightSidebar,
         'short': true
     }).addTo(map);
-
     L.MAP2U.uploadfile_list({position: position,
         sidebar: rightSidebar,
         'short': true
     }).addTo(map);
-
     var graphchart = L.MAP2U.graphchart({
         position: position,
         sidebar: rightSidebar
     });
     graphchart.addTo(map);
     this.graphchart = graphchart;
-    L.MAP2U.share({
+//    var measure = L.MAP2U.measure({
+//        position: position,
+//        sidebar: rightSidebar,
+//        'short': true
+//    });
+//    measure.addTo(map);
+//    this.measure = measure;
+    L.MAP2U.query({
         position: position,
         sidebar: rightSidebar,
         'short': true
     }).addTo(map);
-
-
-    L.MAP2U.note({
-        position: position,
-        sidebar: rightSidebar
-    }).addTo(map);
-
-
     setTimeout(function () {
         leftSidebar.toggle();
-
     }, 500);
     map.on("click", function (e) {
         if ($("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form td.get_address input.get_address_from_map").length > 0 && $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form td.get_address input.get_address_from_map").is(":checked"))
@@ -277,23 +278,17 @@ window.onload = function () {
                     }
 
                     var pt = results[0].geometry.location;
-
                     var lng = pt.lng();
                     var lat = pt.lat();
-
                     $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form input[type='hidden'][name='lat']").map(function () {
                         $(this).val(lat);
                     });
                     $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form input[type='hidden'][name='lng']").map(function () {
                         $(this).val(lng);
                     });
-
-
                     $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form .address input[type='text']").map(function () {
                         $(this).val(results[0].formatted_address);
                     });
-
-
                     var layers = map.drawnItems.getLayers();
                     for (var i = layers.length - 1; i >= 0; i--) {
                         if (layers[i].source !== undefined && layers[i].source === 'searchbox_query') {
@@ -314,7 +309,6 @@ window.onload = function () {
                             if (status === google.maps.GeocoderStatus.OK)
                             {
                                 var pt = results[0].geometry.location;
-
                                 var lng = pt.lng();
                                 var lat = pt.lat();
                                 map.removeLayer(feature.label);
@@ -331,17 +325,12 @@ window.onload = function () {
                             }
                         });
                     });
-
                     map.drawnItems.addLayer(feature);
                 }
                 else {
                     alert("The given address is not able geocoding!");
                 }
             });
-
-
-
-
         }
     });
 // if close left sidebar, then show sidebar controller icon
@@ -354,8 +343,6 @@ window.onload = function () {
             $(".sonata-bc .leftsidebar-close-control").hide();
         }
     });
-
-
     $.ajax({
         url: Routing.generate('leaflet_userlayers', {_locale: window.locale}),
         method: 'GET',
@@ -368,19 +355,16 @@ window.onload = function () {
                 result = JSON.parse(response);
             else
                 result = response;
-
             if (result.success === true && result.layers) {
 
                 result.layers = sortByKey(result.layers, 'seq');
-
                 var keys = Object.keys(result.layers).map(function (k) {
 
                     return k;
                 });
-
                 // alert(keys.length + "," + keys[0]);
                 // div style="height: 305px;" class="leaflet-control" id="sidebar-left" data-viewtype="benefit" data-viewlayers="8,7,"
-                var default_layers = $("div#sidebar-left.leaflet-control").data("viewlayers");//.toString();
+                var default_layers = $("div#sidebar-left.leaflet-control").data("viewlayers"); //.toString();
                 var default_datatype = $("div#sidebar-left.leaflet-control").data("viewtype");
                 var default_layers_array = [];
                 if (default_layers !== undefined && default_layers.trim().length > 0) {
@@ -388,13 +372,13 @@ window.onload = function () {
                     default_layers_array = default_layers.split(",");
                 }
 
-                var cluster_layers = $("div#sidebar-left.leaflet-control").data("viewclusterlayers");//.toString();
+                var cluster_layers = $("div#sidebar-left.leaflet-control").data("viewclusterlayers"); //.toString();
                 var cluster_layers_array = [];
                 if (cluster_layers !== undefined && cluster_layers.trim().length > 0) {
                     cluster_layers = cluster_layers.substr(0, cluster_layers.length - 1);
                     cluster_layers_array = cluster_layers.split(",");
                 }
-                var geoserver_layers = $("div#sidebar-left.leaflet-control").data("viewgeoserverlayers");//.toString();
+                var geoserver_layers = $("div#sidebar-left.leaflet-control").data("viewgeoserverlayers"); //.toString();
                 var geoserver_layers_array = [];
                 if (geoserver_layers !== undefined && geoserver_layers.trim().length > 0) {
                     geoserver_layers = geoserver_layers.substr(0, geoserver_layers.length - 1);
@@ -438,7 +422,6 @@ window.onload = function () {
                 //    map.dataLayers[map.dataLayers.length] = {'map': map, 'layerType': 'userdraw', 'layer': null, 'index_id': -1, 'layerId': -1, layerTitle: "My draw geometries", 'layerName': 'My draw geometries', type: 'geojson'};
                 //    layersControl.refreshOverlays();
                 loadStoriesLayer(map, layersControl);
-
                 setTimeout(function () {
 
 
@@ -456,12 +439,9 @@ window.onload = function () {
                         $(".control-layers.leaflet-control .control-button").trigger("click");
                     }
                 }, 3000);
-
             }
         }
     });
-
-
     $(window).resize();
     // $(".navbar.navbar-fixed-top").resize();
 
@@ -477,7 +457,7 @@ window.onload = function () {
 
 
 
-    //   layersControl.createHeatMapLayer();
+//   layersControl.createHeatMapLayer();
     $(".search_form").on("submit", function (e) {
         e.preventDefault();
 //    $("header").addClass("closed");
@@ -520,7 +500,6 @@ window.onload = function () {
                         else if (map.drawControl._toolbars.edit._activeMode && map.drawControl._toolbars.edit._activeMode.handler.type === 'edit') {
 
                             var radius = 0;
-
                             $.ajax({
                                 url: Routing.generate('draw_' + e.target.type),
                                 method: 'GET',
@@ -545,18 +524,13 @@ window.onload = function () {
                             });
                         }
                         ;
-
-
                     });
-
                     map.drawnItems.addLayer(feature);
                     if (pt !== undefined && pt.lat !== undefined && pt.lng !== undefined)
                         //      map.panTo(new L.LatLng(pt.lat(), pt.lng()));
                         map.setView(new L.LatLng(pt.lat(), pt.lng()), 14);
-
                 }
                 ;
-
             });
         } else {
             alert("search can not be empty!");
@@ -571,7 +545,7 @@ window.onload = function () {
         var HOST_URL = 'http://open.mapquestapi.com';
         var SAMPLE_POST = HOST_URL + '/nominatim/v1/search.php?format=json';
         var searchType = '';
-        var safe = SAMPLE_POST + "&q=" + map.getCenter().lat + "," + map.getCenter().lng;//westminster+abbey";
+        var safe = SAMPLE_POST + "&q=" + map.getCenter().lat + "," + map.getCenter().lng; //westminster+abbey";
 //            alert(safe);
         $.ajax({
             url: safe,
@@ -588,24 +562,13 @@ window.onload = function () {
                 //  alert(JSON.stringify(html));
             }
         });
-
-
-
-
     });
-
-
     if (typeof initLeftsidebarPanel === 'function') {
         initLeftsidebarPanel();
     }
     $('.leaflet-control .control-button').tooltip({placement: 'left', container: 'body'});
-
     viewingscale(map);
-
-
 };
-
-
 function saveuserdraw() {
     for (var i = 0; i < map.drawlayer._originalPoints.length; i++) {
         //  layer._originalPoints.each(function(point) {
@@ -678,7 +641,6 @@ function loadStoriesLayer(map, layersControl) {
                     maxClusterRadius: 40
                 }).addTo(map);
                 var photo_layer = L.layerGroup();
-
                 var default_showonmap = false;
                 if ($("div#sidebar-left.leaflet-control").data("viewtype")) {
                     var default_layers = $("div#sidebar-left.leaflet-control").data("viewtype").toString();
@@ -699,9 +661,6 @@ function loadStoriesLayer(map, layersControl) {
                             images = JSON.parse(photo.image_file);
                         else
                             images = photo.image_file;
-
-
-
                         if (images.length === 0) {
                             //  images[0] = '/bundles/map2uleaflet/images/photo_unavailable_t.png';
                             icon_image = '/bundles/map2uleaflet/images/photo_unavailable_t.png';
@@ -719,8 +678,6 @@ function loadStoriesLayer(map, layersControl) {
 
 
                                 var zoom = e._zoom;
-
-
                                 if (zoom <= 11) {
                                     photo_marker.scale(0.5);
                                 }
@@ -734,9 +691,6 @@ function loadStoriesLayer(map, layersControl) {
                                 }
                             }
                         });
-
-
-
                         var html = '<a href="#" onclick="showStoryOnLeftsisebar(' + photo.id + '); return false;"><h4>' + photo.story_name + '</h4></a>';
                         if (medium_image === '') {
                             if (images.length > 1) {
@@ -744,7 +698,6 @@ function loadStoriesLayer(map, layersControl) {
                             }
                             else {
                                 html = html + '<img src="' + medium_image + '" style="width:300px;"/>';
-
                             }
                         }
                         else
@@ -755,9 +708,7 @@ function loadStoriesLayer(map, layersControl) {
                         photo_marker.bindPopup('<a href="#" onclick="showStoryOnLeftsisebar(' + photo.id + '); return false;"><h4>' + photo.story_name + '</h4></a><img src="' + medium_image + '" style="width:300px;"/>');
                         $("<img>").attr("src", medium_image).load(function () {
                             photo_markers.addLayer(photo_marker);
-
                         });
-
                     }
                     ;
                 });
@@ -766,7 +717,6 @@ function loadStoriesLayer(map, layersControl) {
             }
         }
     });
-
 }
 
 function sortByKey(array, key) {

@@ -1,0 +1,58 @@
+Yorku\JuturnaBundle\Entity\ThemeticmapDataset:
+    type: entity
+    table: themeticmap_dataset
+
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        userId:    
+            type: integer
+            unsigned: false
+            nullable: false  
+            column: user_id                
+        name:
+            type: string
+            length: 255
+            nullable: false
+            column: name
+        useruploadfileId:    
+            type: integer
+            unsigned: false
+            nullable: false  
+            column: useruploadfile_id
+        keyField:
+            type: string
+            length: 255
+            nullable: true
+            column: key_field            
+        valueField:
+            type: string
+            length: 255
+            nullable: true
+            column: value_field            
+        type:
+            type: string
+            length: 255
+            nullable: true
+            column: type
+        createdAt:
+            type: datetime
+            nullable: true
+            column: created_at
+            gedmo:
+              timestampable:
+                on: create
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+            gedmo:
+              timestampable:
+                on: update
+
+    lifecycleCallbacks: {  }

@@ -79,23 +79,7 @@ class CategoryAdminController extends BaseController {
         }
 
         $rootCategories = $categoryManager->getRootCategories(false);
-
-        if (!$currentContext) {
-            $mainCategory = current($rootCategories);
-            if ($mainCategory) {
-                $currentContext = $mainCategory->getContext();
-            }
-        } else {
-            foreach ($rootCategories as $category) {
-                if ($currentContext->getId() != $category->getContext()->getId()) {
-                    continue;
-                }
-
-                $mainCategory = $category;
-
-                break;
-            }
-        }
+        list($currentContext, $mainCategory) = $this->getCurrentContext();
 
         $datagrid = $this->admin->getDatagrid();
 
@@ -115,6 +99,26 @@ class CategoryAdminController extends BaseController {
                     'form' => $formView,
                     'csrf_token' => $this->getCsrfToken('sonata.batch'),
         ));
+    }
+
+    private function getCurrentContext($currentContext, $rootCategories) {
+        if (!$currentContext) {
+            $mainCategory = current($rootCategories);
+            if ($mainCategory) {
+                $currentContext = $mainCategory->getContext();
+            }
+        } else {
+            foreach ($rootCategories as $category) {
+                if ($currentContext->getId() != $category->getContext()->getId()) {
+                    continue;
+                }
+
+                $mainCategory = $category;
+
+                break;
+            }
+        }
+        return [$currentContext, $mainCategory];
     }
 
 }

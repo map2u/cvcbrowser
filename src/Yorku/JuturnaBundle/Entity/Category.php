@@ -311,6 +311,11 @@ class Category {
     /**
      * @var string
      */
+    private $altText;
+
+    /**
+     * @var string
+     */
     private $meaDiagram;
 
     /**
@@ -332,6 +337,26 @@ class Category {
      */
     public function getFlashImages() {
         return $this->flashImages;
+    }
+
+    /**
+     * Set altText
+     *
+     * @param string $altText
+     * @return Category
+     */
+    public function setAltText($altText) {
+        $this->altText = $altText;
+        return $this;
+    }
+
+    /**
+     * Get altText
+     *
+     * @return string 
+     */
+    public function getAltText() {
+        return $this->altText;
     }
 
     /**

@@ -50,7 +50,6 @@ class CategoryAdmin extends Admin {
                 ->add('name')
                 ->add('slug')
                 ->add('tags')
-                ->add('createdAt')
                 ->add('updatedAt')
                 ->add('_action', 'actions', array(
                     'actions' => array(
@@ -72,6 +71,7 @@ class CategoryAdmin extends Admin {
                 ->add('name')
                 ->add('title')
                 ->add('flashimage_files', 'file', array('label' => 'Flash Image Files:', 'mapped' => false, 'required' => false, 'attr' => array('multiple' => true)))
+                ->add('altText')
                 ->add('meadiagram_file', 'file', array('label' => 'Mea Diagram File:', 'mapped' => false, 'required' => false))
                 ->add('slug')
                 ->add('tags', 'entity', array(
@@ -106,7 +106,9 @@ class CategoryAdmin extends Admin {
         $showMapper
                 ->add('id')
                 ->add('name')
+                ->add('title')
                 ->add('slug')
+                ->add('altText')
                 ->add('description')
                 ->add('tags')
                 ->add('createdAt')

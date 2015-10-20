@@ -71,9 +71,9 @@ assetic:
             yui_js:
                 jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
         sass:   
-           bin: "/usr/bin/sass"
+           bin: "/usr/local/bin/sass"
         compass: 
-           bin: "/usr/bin/compass"
+           bin: "/usr/local/bin/compass"
 #        cssrewrite: 
 #            yui_js:
 #                jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"

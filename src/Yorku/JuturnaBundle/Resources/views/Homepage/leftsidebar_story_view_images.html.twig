@@ -1,5 +1,5 @@
 {% if images|length > 1 %}
-    {% include 'YorkuJuturnaBundle:Homepage:leftsidebar_story_view_multi_images.html.twig' with {'story':story,'images':images} %}
+    {% include 'YorkuJuturnaBundle:Homepage:leftsidebar_story_view_multi_images.html.twig' with {'story':story,'images':images,'index':1} %}
 {% elseif images|length > 0 %}
     <div style="border-radius: 5px;">
         {% autoescape 'html' %}

@@ -29,25 +29,3 @@
         {#                <a class="media" href="{{app.request.getSchemeAndHttpHost()}}/uploads/stories/{{story.id}}/pdf/{{story.storyFile}}">PDF File</a> #}
     </div>
 {% endif %}
-<script>
-    $(function () {
-        $('#leftsidebar_story_{{story.id}}').carousel({
-            interval: 4000
-        });
-
-        $('#leftsidebar_indicator_benefit_flash').carousel({
-            interval: 4000
-        });
-        $('#leftsidebar_story_{{story.id}} .carousel-control').unbind("click");
-        $('#leftsidebar_story_{{story.id}} .carousel-control').click(function (e) {
-            e.stopPropagation();
-            $('#leftsidebar_story_{{story.id}}').carousel($(this).data('slide'));
-        });
-
-        $('#leftsidebar_story_{{story.id}} .carousel-indicators li').unbind("click");
-        $('#leftsidebar_story_{{story.id}} .carousel-indicators li').click(function (e) {
-            e.stopPropagation();
-            $('#leftsidebar_story_{{story.id}}').carousel($(this).data('slide-to'));
-        });
-    });
-</script>

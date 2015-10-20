@@ -51,7 +51,13 @@ Yorku\JuturnaBundle\Entity\Category:
             length: 230
             fixed: false
             nullable: true
-            column: mea_diagram            
+            column: mea_diagram       
+        altText:
+            type: string
+            length: 512
+            fixed: false
+            nullable: true
+            column: alt_text                   
         tags:
             type: array
             nullable: true

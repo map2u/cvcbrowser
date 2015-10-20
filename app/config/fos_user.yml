@@ -11,7 +11,8 @@ fos_user:
     registration:
         form:  
             type: map2u_user_registration     
-
+    service:
+        mailer:                 fos_user.mailer.twig_swift
 # Enable Doctrine to map the provided entities
 doctrine:
     orm:

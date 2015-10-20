@@ -21,21 +21,3 @@
     <p><a href="{{path('homepage_benefit',{id:entities.id})}}" target="_blank">Learn more...</a></p>
 </div>
 
-<script>
-    $(function () {
-        $('#leftsidebar_indicator_benefit_flash').carousel({
-            interval: 4000
-        });
-        $('#leftsidebar_indicator_benefit_flash .carousel-control').unbind("click");
-        $('#leftsidebar_indicator_benefit_flash .carousel-control').click(function (e) {
-            e.stopPropagation();
-            $('#leftsidebar_indicator_benefit_flash').carousel($(this).data('slide'));
-        });
-
-        $('#leftsidebar_indicator_benefit_flash .carousel-indicators li').unbind("click");
-        $('#leftsidebar_indicator_benefit_flash .carousel-indicators li').click(function (e) {
-            e.stopPropagation();
-            $('#leftsidebar_indicator_benefit_flash').carousel($(this).data('slide-to'));
-        });
-    });
-</script>

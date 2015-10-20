@@ -1,11 +1,11 @@
-{# empty Twig template #}
+
 <div id="leaflet_content" class="overlay-sidebar">
-    
-        
-   
+
+
+
 
     <div id="sidebar-left" data-viewtype="{% if view is defined  %}{{view}}{% endif %}" {% if benefits is defined and benefits is not null %} data-viewlayers="{% for uploadfilelayer in benefits.uploadfilelayers %}{{uploadfilelayer.id}},{% endfor %}"  data-viewgeoserverlayers="{% for geoserverlayer in benefits.geoserverlayers %}{{geoserverlayer.id}},{% endfor %}" data-viewclusterlayers="{% for clusterlayer in benefits.clusterlayers %}{{clusterlayer.id}},{% endfor %}" {% endif %}>
- 
+
         <div id="flash">
         </div>
 
@@ -38,13 +38,14 @@
         </div>
     </div>        
     <div id="sidebar" >
-        <form accept-charset="UTF-8" action="/search" class="search_form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="WzUq33tXmIGkkIg0LB/2KBd91Dfveckr8QvNtZoo9Zo=" /></div>
-            <input name="commit" type="submit" value="Go" />
+        <form accept-charset="UTF-8" action="/search" class="search_form" method="post"><div style="margin:0;padding:0;display:inline;"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="WzUq33tXmIGkkIg0LB/2KBd91Dfveckr8QvNtZoo9Zo=" /></div>
+            <input name="commit" type="submit" value="Go"/>
             <div class='query_wrapper'>
-                <input autofocus="autofocus" id="query" name="query" placeholder="Search" type="text" />
+                <input autofocus="autofocus" id="query" name="query" placeholder="Search" type="text"/>
                 <a class="describe_location" href="#" title="Describe the current location using the search engine">Where am I?</a>
             </div>
         </form>
+        
     </div>
 
 
@@ -61,7 +62,7 @@
     </div> 
 </div>
 
-<script >
+<script>
     function initLeftsidebarPanel() {
         $.ajax({
             url: Routing.generate('homepage_leftsidebar_view', {_locale: "{{app.request.locale}}", id: "{{id}}", view: "{{view}}"}),

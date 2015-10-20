@@ -3,8 +3,9 @@
         {% set images=indicatorbenefitimage.getFileName()|unserialize %}
         {% if images|length > 0 %}
             {% for image in images %}
-                <li data-target="#leftsidebar_indicator_benefit_flash" data-slide-to="{{loop.index-1}}" {% if loop.index==1 %} class="active" {% endif %}>
+                <li data-target="#leftsidebar_indicator_benefit_flash" data-slide-to="{{index}}" {% if index==1 %} class="active" {% endif %}>
                 </li>
+                {% set index = index + 1 %}
             {% endfor %}
         {% endif %}
     {% endfor %}

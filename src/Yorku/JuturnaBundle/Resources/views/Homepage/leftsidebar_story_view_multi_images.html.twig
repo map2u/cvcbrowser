@@ -1,13 +1,13 @@
 <div id="leftsidebar_story_{{story.id}}" class="carousel slide" style=" border:1px solid background;border-radius: 5px;">
     <ol class="carousel-indicators">
         {% for image in images %}
-            <li data-target="#leftsidebar_story_{{story.id}}" data-slide-to="{{loop.index-1}}" {% if loop.index==1 %} class="active" {% endif %}>
+            <li data-target="#leftsidebar_story_{{story.id}}" data-slide-to="{{index+loop.index}}" {% if (index+loop.index)==1 %} class="active" {% endif %}>
             </li>
         {% endfor %}
     </ol>
     <div class="carousel-inner" style="border-radius: 5px;">
         {% for image in images %}
-            <div style="border-radius: 5px;" class="item {% if loop.index==1%} active {% endif %}" >
+            <div style="border-radius: 5px;" class="item {% if (index+loop.index)==1%} active {% endif %}" >
                 {% autoescape 'html' %}
                     <img style="border-radius: 5px;width:300px;height:200px;overflow: hidden;" src="{{ asset('uploads/stories/'~story.id~'/images/')}}{{image}}" width="100%"  alt="{{story.getAltText()}}">
                 {% endautoescape %}
@@ -19,3 +19,25 @@
     <a class="left carousel-control"  data-slide="prev">‹</a>
     <a class="right carousel-control"  data-slide="next">›</a>
 </div>
+<script>
+    $(function () {
+        $('#leftsidebar_story_{{story.id}}').carousel({
+            interval: 4000
+        });
+
+        $('#leftsidebar_indicator_benefit_flash').carousel({
+            interval: 4000
+        });
+        $('#leftsidebar_story_{{story.id}} .carousel-control').unbind("click");
+        $('#leftsidebar_story_{{story.id}} .carousel-control').click(function (e) {
+            e.stopPropagation();
+            $('#leftsidebar_story_{{story.id}}').carousel($(this).data('slide'));
+        });
+
+        $('#leftsidebar_story_{{story.id}} .carousel-indicators li').unbind("click");
+        $('#leftsidebar_story_{{story.id}} .carousel-indicators li').click(function (e) {
+            e.stopPropagation();
+            $('#leftsidebar_story_{{story.id}}').carousel($(this).data('slide-to'));
+        });
+    });
+</script>

@@ -109,7 +109,7 @@ class UserAccountController extends BaseController {
      * get feature extend.
      * params: ogc_fid and userboundary_id
      * @Route("/mapbookmarkedit", name="useraccount_mapbookmarkedit", options={"expose"=true})
-     * @Method("GET|POST")
+     * @Method("GET")
      * @Template()
      */
     public function mapbookmarkeditAction(Request $request) {

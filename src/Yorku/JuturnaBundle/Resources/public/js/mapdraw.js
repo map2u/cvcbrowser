@@ -48,14 +48,23 @@ function initMapDraw(map) {
     map.addControl(drawControl);
 
     map.on('draw:created', function (e) {
-        var type = e.layerType,
-                layer = e.layer;
+        var type = e.layerType, layer = e.layer;
 
         layer.id = 0;
         layer.type = type;
+        layer.saved = false;
         var radius = 0;
-        drawnItems.addLayer(layer);
-        layer.index = drawnItems.getLayers().length - 1;
+        var layers = this.drawnItems.getLayers();
+
+        for (var i = 0; i < layers.length; i++) {
+
+            if (layers[i].saved === false) {
+
+                this.drawnItems.removeLayer(layers[i]);
+            }
+        }
+        this.drawnItems.addLayer(layer);
+        layer.index = this.drawnItems.getLayers().length - 1;
         var viewtype = $("div.leaflet-control-container .leaflet-sidebar.left #sidebar-left").data("viewtype");
 
         if (viewtype)
@@ -251,6 +260,8 @@ function initMapDraw(map) {
                         if (results.success === false)
                             alert(results.message);
                         else {
+
+
                             //    alert("Geometry has been successfully updated!");
                         }
                     }
@@ -301,7 +312,8 @@ function createStoryDraw(map, e) {
     var radius = 0;
     var type = e.layerType;
     var layer = e.layer;
-    layer.typpe = "stories";
+    layer.type = "stories";
+    layer.saved = false;
     layer.id = 0;
 
     if (type === 'circle')
@@ -318,6 +330,7 @@ function createStoryDraw(map, e) {
             index: e.target.index
         },
         success: function (response) {
+
             $("div.leaflet-control-container .leaflet-sidebar.left #sidebar-left #sidebar_content").html("");
             $(response).appendTo($("div.leaflet-control-container .leaflet-sidebar.left #sidebar-left #sidebar_content"));
             if (layer._latlng) {
@@ -329,4 +342,301 @@ function createStoryDraw(map, e) {
             $("div.leaflet-control-container .leaflet-sidebar.left #sidebar-left #sidebar_content input[type='hidden'][name='type']").val(type);
         }
     });
+}
+function removeMapDraw(map) {
+    if (map.drawControl) {
+        map.drawControl.removeFrom(map);
+        map.drawControl = null;
+    }
+    if (map.drawnItems) {
+        map.removeLayer(map.drawnItems);
+        map.drawnItems = null;
+    }
+    map.off('draw:created');
+    map.off('draw:drawstop');
+    map.off('draw:editstop');
+    map.off('draw:deleted');
+}
+
+function MapMeasurement(button, map) {
+    if ($(button).hasClass("active")) {
+        $("div.leaflet-draw.leaflet-control").hide();
+        removeMapDraw(map);
+        $("div.leaflet-measurement.leaflet-control").show();
+        initMeasurement(map);
+    }
+    else {
+        $("div.leaflet-measurement.leaflet-control").hide();
+        removeMapMeasurement(map);
+        if ($("div#sidebar-left.leaflet-control").data("viewtype") === 'stories') {
+            $("div.leaflet-draw.leaflet-control").show();
+            initMapDraw(map);
+        }
+    }
+}
+
+function removeMapMeasurement(map) {
+    $("div.mapmeasurement-control.leaflet-control").hide();
+}
+
+function initMeasurement(map) {
+    $("div.mapmeasurement-control.leaflet-control").removeClass("hidden");
+    $("div.mapmeasurement-control.leaflet-control").show();
+}
+
+
+function measureArea(map, type) {
+    var stopclick = false; //to prevent more than one click listener
+
+    var tool;
+    if ($(".leaflet-sidebar #sidebar-left #sidebar_content div.measure_result").length === 0) {
+        $(".leaflet-sidebar #sidebar-left #sidebar_content").html("");
+        $('<div class="title"><h4>Measure ' + type + ':</h4></div>').appendTo($(".leaflet-sidebar #sidebar-left #sidebar_content"));
+
+        $('<div class="measure_result">').appendTo($(".leaflet-sidebar #sidebar-left #sidebar_content"));
+    }
+    else {
+        $(".leaflet-sidebar #sidebar-left #sidebar_content .title h4").html('Measure ' + type);
+    }
+    $(".leaflet-sidebar #sidebar-left #sidebar_content div.measure_result").html("");
+
+    if (map.tool) {
+        map.tool.disable();
+
+        delete map.tool;
+    }
+    if (type === 'polygon') {
+        tool = new L.Draw.Polygon(map, {
+            showArea: true,
+            allowIntersection: false,
+            shapeOptions: {
+                color: '#0000FF'
+            },
+            repeatMode: true
+        });
+
+
+    }
+    if (type === 'polyline') {
+        tool = new L.Draw.Polyline(map,
+                {
+                    shapeOptions: {
+                        color: '#0000FF',
+                        weight: 3
+                    },
+                    repeatMode: true
+                }
+
+        );
+
+    }
+    if (type === 'rectangle') {
+        tool = new L.Draw.Rectangle(map, {
+            shapeOptions: {
+                color: '#0000FF',
+                weight: 3
+            },
+            showArea: true,
+            repeatMode: true
+        });
+
+    }
+    if (type === 'circle') {
+        tool = new L.Draw.Circle(map, {
+            shapeOptions: {
+                color: '#0000FF',
+                weight: 3
+            },
+            showArea: true,
+            repeatMode: true
+        });
+
+    }
+
+    tool.enable();
+
+    tool.type = type;
+    map.tool = tool;
+    if (!map.drawnItems) {
+        var drawnItems = new L.FeatureGroup();
+        $(drawnItems).attr({"id": 'user_draw_features'});
+        map.addLayer(drawnItems);
+        map.drawnItems = drawnItems;
+    }
+    //user affordance
+    //      $("div.measure_result").html(messages.beginmeasure);
+    //listeners active during drawing
+    function measuremove(e) {
+
+        if (stopclick === false)
+            return;
+        var latlng = e.latlng;
+
+
+        if (map.tool) {
+            map.tool._onMouseMove(e);
+            switch (map.tool.type) {
+                case 'polygon':
+                    measurepolygon(map.tool, latlng);
+                    break;
+                case 'polyline':
+                    measurepolyline(map.tool, latlng);
+                    break;
+                case 'rectangle':
+                    measurerectangle(map.tool, latlng);
+                    break;
+                case 'circle':
+                    measurecircle(map.tool, latlng);
+                    break;
+            }
+        }
+    }
+    ;
+    function measurestart() {
+        if (stopclick === false) {
+            stopclick = true;
+
+            map.on('draw:created', function (e) {
+
+                //  var drawnItems = new L.FeatureGroup();
+                stopclick = false;
+                var type = e.layerType, layer = e.layer;
+
+                layer.id = "measure_layer";
+                layer.type = type;
+                var layers = this.drawnItems.getLayers();
+                for (var i = 0; i < layers.length; i++) {
+
+                    if (layers[i].id === "measure_layer") {
+
+                        this.drawnItems.removeLayer(layers[i]);
+                    }
+                }
+                this.drawnItems.addLayer(layer);
+            });
+        }
+        ;
+    }
+    function measureclick(e) {
+        if (stopclick === false) {
+            measurestart();
+        }
+        var latlng = e.latlng;
+
+        if (map.tool) {
+
+
+            switch (map.tool.type) {
+                case 'polygon':
+
+                    break;
+                case 'polyline':
+                    for (var i = 0; i < map.tool._poly.getLatLngs().length; i++) {
+                        // alert(latlng.distanceTo(currentTool._poly.getLatLngs()[i]));
+                    }
+
+                    if (map.tool._markers.length === 1) {
+                        $(".leaflet-sidebar #sidebar-left #sidebar_content div.measure_result").html("");
+
+                        $("div.leaflet-marker-icon.leaflet-div-icon.leaflet-editing-icon:first").css("background-color", 'green');
+                    }
+                    break;
+                case 'rectangle':
+
+                    break;
+                case 'circle':
+
+                    break;
+            }
+        }
+        measuremove(e);
+    }
+    function measurestop() {
+        stopclick = false;
+
+    }
+
+    map.off('draw:created');
+
+    map.off("draw:drawstart");
+    map.on("draw:drawstart", measurestart);
+    //     map.off("draw:drawstop");
+    //     map.on("draw:drawstop", measurestop);
+//            map.off('mousemove');
+    map.on('mousemove', measuremove);
+    map.off('click');
+    map.on('click', measureclick);
+    function   measurepolyline(currentTool, latlng) {
+        var tips = '';
+        var distance = 0;
+        if (currentTool._poly.getLatLngs().length > 0) {
+
+            var last_distance = latlng.distanceTo(currentTool._poly.getLatLngs()[currentTool._poly.getLatLngs().length - 1]).toFixed(3)
+            tips = tips + last_distance + "M<br><br>";
+            for (var i = 0; i < currentTool._poly.getLatLngs().length; i++) {
+                tips = tips + currentTool._poly.getLatLngs()[i].lat.toFixed(3) + "," + currentTool._poly.getLatLngs()[i].lng.toFixed(3);
+
+                if (i > 0 && i < currentTool._poly.getLatLngs().length) {
+                    distance = parseFloat(distance) + parseFloat(currentTool._poly.getLatLngs()[i - 1].distanceTo(currentTool._poly.getLatLngs()[i]));
+                    tips = tips + "," + currentTool._poly.getLatLngs()[i - 1].distanceTo(currentTool._poly.getLatLngs()[i]).toFixed(3) + "M," + distance.toFixed(3) + "M";
+                }
+                tips = tips + "<br>";
+            }
+
+        }
+        $(".leaflet-sidebar #sidebar-left #sidebar_content div.measure_result").html(tips);
+
+
+    }
+    function   measurepolygon(currentTool, latlng) {
+        if (currentTool._poly.getLatLngs().length > 2) {
+
+            var latLngs = [];
+            for (var i = 0; i < currentTool._poly.getLatLngs().length; i++) {
+                latLngs.push(currentTool._poly.getLatLngs()[i]);
+
+            }
+            var area1 = L.GeometryUtil.geodesicArea(latLngs);
+
+            area1 = L.GeometryUtil.readableArea(area1.toFixed(3), currentTool.options.metric);
+            latLngs.push(latlng);
+            var area2 = L.GeometryUtil.geodesicArea(latLngs);
+
+            area2 = L.GeometryUtil.readableArea(area2.toFixed(3), currentTool.options.metric);
+
+            $(".leaflet-sidebar #sidebar-left #sidebar_content div.measure_result").html("Current Area with moving point:" + area2 + "<br><br>Drawn Area:" + area1);
+        }
+
+    }
+    function   measurerectangle(currentTool, latlng) {
+
+        var showArea = currentTool.options.showArea,
+                useMetric = currentTool.options.metric,
+                width, height, latlngs;
+
+
+        currentTool._tooltip.updatePosition(latlng);
+        if (currentTool._isDrawing && showArea) {
+            currentTool._drawShape(latlng);
+
+            latlngs = currentTool._shape._latlngs;
+            currentTool._area = L.GeometryUtil.geodesicArea(latlngs);
+
+            currentTool._tooltip.updateContent({
+                text: currentTool._endLabelText,
+                subtext: '' + L.GeometryUtil.readableArea(currentTool._area, currentTool.options.metric)
+            });
+            var subtext = L.GeometryUtil.readableArea(currentTool._area, currentTool.options.metric);
+            $(".leaflet-sidebar #sidebar-left #sidebar_content div.measure_result").html("Area:" + subtext);
+        }
+//        var latLngs = currentTool._shape.getLatLngs();
+//        var area = L.GeometryUtil.geodesicArea(latLngs);
+
+    }
+    function   measurecircle(currentTool, latlng) {
+        var radius = currentTool._shape.getRadius();
+        currentTool._area = Math.PI * radius * radius;
+        var subtext = L.GeometryUtil.readableArea(currentTool._area, currentTool.options.metric);
+        $(".leaflet-sidebar #sidebar-left #sidebar_content div.measure_result").html("Radius:" + radius.toFixed(2) + "M<br>Area:" + subtext);
+    }
 }
