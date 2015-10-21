@@ -1,0 +1,47 @@
+<div class="title"><h4>Map Measurement {{type|title}}</h4></div>
+{% if app.user %}
+    <form id="save_measurement_to_account" action="{{ path('measure_save') }}" method="post">
+        <label>Name:</label><input type="text" name='name'>
+    {% endif %}
+    <div class="measure_result">
+
+    </div>
+
+    {% if app.user %}
+        <button type="button" value="Save" disabled>Save</button>
+    </form>
+    <script>
+        $(document).ready(function () {
+            $("form#save_measurement_to_account button").click(function () {
+                var formData = new FormData();
+                var name = $("form#save_measurement_to_account input[name='name']").val();
+                if (name.trim() === '') {
+                    alert("Measurement name can not be empty!");
+                    return;
+                }
+                formData.append("name", name);
+                var layers = window.map.drawnItems.getLayers();
+                for (var i = 0; i < layers.length; i++) {
+                    if (layers[i].id === "measure_layer") {
+                        formData.append("the_geom", JSON.stringify(layers[i].toGeoJSON()));
+                    }
+                }
+
+
+
+
+                $.ajax({
+                    url: Routing.generate('measure_save', {'_locale': window.locale}),
+                    data: formData,
+                    method: 'POST',
+                    success: function (response) {
+                        alert(response.message);
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+            });
+        });
+    </script>
+{% endif %}

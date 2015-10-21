@@ -30,7 +30,7 @@ use Map2u\WebgisBundle\Classes\Map2uPDF;
 Type::overrideType('datetime', 'Doctrine\DBAL\Types\VarDateTimeType');
 Type::overrideType('datetimetz', 'Doctrine\DBAL\Types\VarDateTimeType');
 Type::overrideType('time', 'Doctrine\DBAL\Types\VarDateTimeType');
-define('PDF_MARGIN_HEADER', 10);
+
 
 /**
  * Report controller.

@@ -21,45 +21,37 @@ use Sonata\UserBundle\Entity\BaseUser as BaseUser;
  *
  * @author <yourname> <youremail>
  */
-class User extends BaseUser
-{
+class User extends BaseUser {
+
     /**
      * @var integer $id
      */
     protected $id;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $useruploadfiles;
+
+    /**
      * Get id
      *
      * @return integer $id
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
-   
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
         $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
         $this->stations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->useruploadfiles = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
-  
 
-
-
-
-    
-
-
-
- 
-    
     /**
      * @var \Yorku\JuturnaBundle\Entity\MemberShip
      */
@@ -71,10 +63,9 @@ class User extends BaseUser
      * @param \Yorku\JuturnaBundle\Entity\MemberShip $membership
      * @return User
      */
-    public function setMembership(\Yorku\JuturnaBundle\Entity\MemberShip $membership = null)
-    {
+    public function setMembership(\Yorku\JuturnaBundle\Entity\MemberShip $membership = null) {
         $this->membership = $membership;
-    
+
         return $this;
     }
 
@@ -83,10 +74,38 @@ class User extends BaseUser
      *
      * @return \Yorku\JuturnaBundle\Entity\MemberShip 
      */
-    public function getMembership()
-    {
+    public function getMembership() {
         return $this->membership;
     }
 
-   
+    /**
+     * Add useruploadfiles
+     *
+     * @param \Map2u\CoreBundle\Entity\UserUploadfile $useruploadfiles
+     * @return User
+     */
+    public function addUseruploadfile(\Map2u\CoreBundle\Entity\UserUploadfile $useruploadfiles) {
+        $this->useruploadfiles[] = $useruploadfiles;
+
+        return $this;
+    }
+
+    /**
+     * Remove useruploadfiles
+     *
+     * @param \Map2u\CoreBundle\Entity\UserUploadfile $useruploadfiles
+     */
+    public function removeUseruploadfile(\Map2u\CoreBundle\Entity\UserUploadfile $useruploadfiles) {
+        $this->useruploadfiles->removeElement($useruploadfiles);
+    }
+
+    /**
+     * Get useruploadfiles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUseruploadfiles() {
+        return $this->useruploadfiles;
+    }
+
 }

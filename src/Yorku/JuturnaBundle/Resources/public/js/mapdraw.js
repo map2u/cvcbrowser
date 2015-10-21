@@ -389,6 +389,7 @@ function measureArea(map, type) {
     var stopclick = false; //to prevent more than one click listener
 
     var tool;
+    setNewMeasurement(type);
     if ($(".leaflet-sidebar #sidebar-left #sidebar_content div.measure_result").length === 0) {
         $(".leaflet-sidebar #sidebar-left #sidebar_content").html("");
         $('<div class="title"><h4>Measure ' + type + ':</h4></div>').appendTo($(".leaflet-sidebar #sidebar-left #sidebar_content"));
@@ -495,7 +496,7 @@ function measureArea(map, type) {
     function measurestart() {
         if (stopclick === false) {
             stopclick = true;
-
+        
             map.on('draw:created', function (e) {
 
                 //  var drawnItems = new L.FeatureGroup();
@@ -513,6 +514,7 @@ function measureArea(map, type) {
                     }
                 }
                 this.drawnItems.addLayer(layer);
+                $("form#save_measurement_to_account button").removeAttr('disabled');
             });
         }
         ;
@@ -531,14 +533,16 @@ function measureArea(map, type) {
 
                     break;
                 case 'polyline':
-                    for (var i = 0; i < map.tool._poly.getLatLngs().length; i++) {
-                        // alert(latlng.distanceTo(currentTool._poly.getLatLngs()[i]));
-                    }
+                    if (stopclick === true) {
+                        for (var i = 0; i < map.tool._poly.getLatLngs().length; i++) {
+                            // alert(latlng.distanceTo(currentTool._poly.getLatLngs()[i]));
+                        }
 
-                    if (map.tool._markers.length === 1) {
-                        $(".leaflet-sidebar #sidebar-left #sidebar_content div.measure_result").html("");
+                        if (map.tool._markers.length === 1) {
+                            $(".leaflet-sidebar #sidebar-left #sidebar_content div.measure_result").html("");
 
-                        $("div.leaflet-marker-icon.leaflet-div-icon.leaflet-editing-icon:first").css("background-color", 'green');
+                            $("div.leaflet-marker-icon.leaflet-div-icon.leaflet-editing-icon:first").css("background-color", 'green');
+                        }
                     }
                     break;
                 case 'rectangle':
@@ -569,22 +573,23 @@ function measureArea(map, type) {
     function   measurepolyline(currentTool, latlng) {
         var tips = '';
         var distance = 0;
-        if (currentTool._poly.getLatLngs().length > 0) {
+
+        if (currentTool._poly.getLatLngs().length > 0 && stopclick === true) {
 
             var last_distance = latlng.distanceTo(currentTool._poly.getLatLngs()[currentTool._poly.getLatLngs().length - 1]).toFixed(3)
             tips = tips + last_distance + "M<br><br>";
             for (var i = 0; i < currentTool._poly.getLatLngs().length; i++) {
-                tips = tips + currentTool._poly.getLatLngs()[i].lat.toFixed(3) + "," + currentTool._poly.getLatLngs()[i].lng.toFixed(3);
+                tips = tips + currentTool._poly.getLatLngs()[i].lat.toFixed(3) + ", " + currentTool._poly.getLatLngs()[i].lng.toFixed(3);
 
                 if (i > 0 && i < currentTool._poly.getLatLngs().length) {
                     distance = parseFloat(distance) + parseFloat(currentTool._poly.getLatLngs()[i - 1].distanceTo(currentTool._poly.getLatLngs()[i]));
-                    tips = tips + "," + currentTool._poly.getLatLngs()[i - 1].distanceTo(currentTool._poly.getLatLngs()[i]).toFixed(3) + "M," + distance.toFixed(3) + "M";
+                    tips = tips + ", " + currentTool._poly.getLatLngs()[i - 1].distanceTo(currentTool._poly.getLatLngs()[i]).toFixed(3) + "M, " + distance.toFixed(3) + "M";
                 }
                 tips = tips + "<br>";
             }
+            $(".leaflet-sidebar #sidebar-left #sidebar_content div.measure_result").html(tips);
 
         }
-        $(".leaflet-sidebar #sidebar-left #sidebar_content div.measure_result").html(tips);
 
 
     }
@@ -634,9 +639,38 @@ function measureArea(map, type) {
 
     }
     function   measurecircle(currentTool, latlng) {
-        var radius = currentTool._shape.getRadius();
-        currentTool._area = Math.PI * radius * radius;
-        var subtext = L.GeometryUtil.readableArea(currentTool._area, currentTool.options.metric);
-        $(".leaflet-sidebar #sidebar-left #sidebar_content div.measure_result").html("Radius:" + radius.toFixed(2) + "M<br>Area:" + subtext);
+        if (currentTool._shape) {
+            var radius = currentTool._shape.getRadius();
+            currentTool._area = Math.PI * radius * radius;
+            var subtext = L.GeometryUtil.readableArea(currentTool._area, currentTool.options.metric);
+            $(".leaflet-sidebar #sidebar-left #sidebar_content div.measure_result").html("Radius:" + radius.toFixed(2) + "M<br>Area:" + subtext);
+        }
     }
+
+
+}
+
+function showMeasureHistory() {
+
+    $.ajax({
+        url: Routing.generate('measure_index', {'_locale': window.locale}),
+        method: 'GET',
+        success: function (response) {
+
+            $(".leaflet-sidebar #sidebar-left #sidebar_content").html(response);
+        }
+    });
+}
+
+function setNewMeasurement(type) {
+
+    $.ajax({
+        url: Routing.generate('measure_new', {'_locale': window.locale}),
+        data: {'type': type},
+        method: 'GET',
+        success: function (response) {
+
+            $(".leaflet-sidebar #sidebar-left #sidebar_content").html(response);
+        }
+    });
 }

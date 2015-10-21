@@ -1,0 +1,20 @@
+<h4>Map Measurement List</h4>
+{% if mapmeasurements is null or mapmeasurements | length == 0 %}
+    No any measruement history info
+{% else %}
+    <table style="width:100%">
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <th>Updated At</th>
+            </tr>
+            {% for mapmeasurement in mapmeasurements %}
+                <tr>
+                    <td><i class=""></i>{{mapmeasurement.name}}</td>
+                    <td>{{mapmeasurement.updatedAt|date}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endif %}

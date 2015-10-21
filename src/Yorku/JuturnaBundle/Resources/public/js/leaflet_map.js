@@ -120,9 +120,23 @@ window.onload = function () {
                     .addListener(measureUI, 'click', function () {
                         if ($(this).hasClass("active")) {
                             $(this).removeClass("active");
+                            if (map.tool) {
+                                map.tool.disable();
+                                delete map.tool;
+                                map.tool = null;
+                                var layers = map.drawnItems.getLayers();
+                                for (var i = 0; i < layers.length; i++) {
+
+                                    if (layers[i].id === "measure_layer") {
+
+                                        map.drawnItems.removeLayer(layers[i]);
+                                    }
+                                }
+                            }
                         }
                         else {
                             $(this).addClass("active");
+                            showMeasureHistory();
                         }
                         MapMeasurement(this, map);
                     });
