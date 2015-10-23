@@ -13,8 +13,7 @@ set :group, "jzhao"
 set :use_set_permissions, false
 
 set :repository,  "https://github.com/josephzhao/cvcbrowser.git"
-#git@map2u.familyds.com:/volume1/homes/git/repositories/#{application}.git
-set :scm,         :git
+#set :scm,         :git
 set :deploy_via,    :remote_cache
 
 set :shared_files,      ["app/config/parameters.yml"]

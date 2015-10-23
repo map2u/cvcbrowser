@@ -256,13 +256,13 @@ window.onload = function () {
     });
     graphchart.addTo(map);
     this.graphchart = graphchart;
-//    var measure = L.MAP2U.measure({
-//        position: position,
-//        sidebar: rightSidebar,
-//        'short': true
-//    });
-//    measure.addTo(map);
-//    this.measure = measure;
+    var themeticmapCtrl = L.MAP2U.themeticmap({
+        position: position,
+        sidebar: rightSidebar,
+        'short': true
+    });
+    themeticmapCtrl.addTo(map);
+    this.themeticmapCtrl = themeticmapCtrl;
     L.MAP2U.query({
         position: position,
         sidebar: rightSidebar,

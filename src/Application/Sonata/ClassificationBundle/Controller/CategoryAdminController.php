@@ -79,7 +79,7 @@ class CategoryAdminController extends BaseController {
         }
 
         $rootCategories = $categoryManager->getRootCategories(false);
-        list($currentContext, $mainCategory) = $this->getCurrentContext();
+        list($currentContext, $mainCategory) = $this->getCurrentContext($currentContext,$rootCategories);
 
         $datagrid = $this->admin->getDatagrid();
 
