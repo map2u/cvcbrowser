@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b70c97b17946afd8fff47ee83a811de9",
-    "content-hash": "698b1cb9e09025b132a951e19e7575f6",
+    "hash": "c0bede36fff85801fc1eff7c588ec03c",
+    "content-hash": "664270f842f6980a49ecc0b23be597b6",
     "packages": [
         {
             "name": "a2lix/i18n-doctrine-bundle",
@@ -237,19 +237,22 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/creof/doctrine2-spatial.git",
-                "reference": "80d7599727b0a4622857276b94b116cf3c4fc5c8"
+                "reference": "b4b36a168e2eff8a6f9b8bf7469a44e7244b7916"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/creof/doctrine2-spatial/zipball/80d7599727b0a4622857276b94b116cf3c4fc5c8",
-                "reference": "80d7599727b0a4622857276b94b116cf3c4fc5c8",
+                "url": "https://api.github.com/repos/creof/doctrine2-spatial/zipball/b4b36a168e2eff8a6f9b8bf7469a44e7244b7916",
+                "reference": "b4b36a168e2eff8a6f9b8bf7469a44e7244b7916",
                 "shasum": ""
             },
             "require": {
+                "creof/geo-parser": "~1.0",
+                "creof/wkt-parser": "~1.0",
                 "doctrine/orm": ">=2.3"
             },
             "require-dev": {
-                "phpunit/phpunit": ">=4.8",
+                "phpunit/phpcov": "*",
+                "phpunit/phpunit": "<5.0",
                 "ramsey/array_column": "~1.1",
                 "satooshi/php-coveralls": "dev-master"
             },
@@ -283,7 +286,113 @@
                 "postgresql",
                 "spatial"
             ],
-            "time": "2015-11-04 19:32:54"
+            "time": "2015-11-12 01:34:38"
+        },
+        {
+            "name": "creof/geo-parser",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/creof/geo-parser.git",
+                "reference": "12084b92c8dd9839a5df4c815d53a51cf19af929"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/creof/geo-parser/zipball/12084b92c8dd9839a5df4c815d53a51cf19af929",
+                "reference": "12084b92c8dd9839a5df4c815d53a51cf19af929",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/lexer": ">=1.0",
+                "ext-spl": "*",
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "dev-master",
+                "phpunit/phpunit": ">=4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "CrEOF\\Geo": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Derek J. Lambert",
+                    "email": "dlambert@dereklambert.com"
+                }
+            ],
+            "description": "Parser for geography coordinate strings",
+            "keywords": [
+                "coordinate",
+                "geo",
+                "geography",
+                "geometry",
+                "lexer",
+                "parser",
+                "spatial",
+                "string",
+                "text"
+            ],
+            "time": "2015-11-11 16:36:17"
+        },
+        {
+            "name": "creof/wkt-parser",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/creof/wkt-parser.git",
+                "reference": "c0869433a894af87a316f3c59b37da52cfb40a05"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/creof/wkt-parser/zipball/c0869433a894af87a316f3c59b37da52cfb40a05",
+                "reference": "c0869433a894af87a316f3c59b37da52cfb40a05",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/lexer": ">=1.0",
+                "ext-spl": "*",
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "dev-master",
+                "phpunit/phpunit": ">=4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "CrEOF\\WKT": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Derek J. Lambert",
+                    "email": "dlambert@dereklambert.com"
+                }
+            ],
+            "description": "Parser for well-known text (WKT) object strings",
+            "keywords": [
+                "ewkt",
+                "geography",
+                "geometry",
+                "lexer",
+                "parser",
+                "spatial",
+                "string",
+                "text",
+                "wkt"
+            ],
+            "time": "2015-11-11 23:43:35"
         },
         {
             "name": "doctrine/annotations",
@@ -900,16 +1009,16 @@
         },
         {
             "name": "doctrine/inflector",
-            "version": "v1.0.1",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/inflector.git",
-                "reference": "0bcb2e79d8571787f18b7eb036ed3d004908e604"
+                "reference": "90b2128806bfde671b6952ab8bea493942c1fdae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/inflector/zipball/0bcb2e79d8571787f18b7eb036ed3d004908e604",
-                "reference": "0bcb2e79d8571787f18b7eb036ed3d004908e604",
+                "url": "https://api.github.com/repos/doctrine/inflector/zipball/90b2128806bfde671b6952ab8bea493942c1fdae",
+                "reference": "90b2128806bfde671b6952ab8bea493942c1fdae",
                 "shasum": ""
             },
             "require": {
@@ -921,7 +1030,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.1.x-dev"
                 }
             },
             "autoload": {
@@ -963,7 +1072,7 @@
                 "singularize",
                 "string"
             ],
-            "time": "2014-12-20 21:24:13"
+            "time": "2015-11-06 14:35:42"
         },
         {
             "name": "doctrine/lexer",
@@ -1838,21 +1947,21 @@
         },
         {
             "name": "incenteev/composer-parameter-handler",
-            "version": "v2.1.1",
+            "version": "v2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Incenteev/ParameterHandler.git",
-                "reference": "84a205fe80a46101607bafbc423019527893ddd0"
+                "reference": "d7ce7f06136109e81d1cb9d57066c4d4a99cf1cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Incenteev/ParameterHandler/zipball/84a205fe80a46101607bafbc423019527893ddd0",
-                "reference": "84a205fe80a46101607bafbc423019527893ddd0",
+                "url": "https://api.github.com/repos/Incenteev/ParameterHandler/zipball/d7ce7f06136109e81d1cb9d57066c4d4a99cf1cc",
+                "reference": "d7ce7f06136109e81d1cb9d57066c4d4a99cf1cc",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3",
-                "symfony/yaml": "~2.0"
+                "symfony/yaml": "~2.3|~3.0"
             },
             "require-dev": {
                 "composer/composer": "1.0.*@dev",
@@ -1885,7 +1994,7 @@
             "keywords": [
                 "parameters management"
             ],
-            "time": "2015-06-03 08:27:03"
+            "time": "2015-11-10 17:04:01"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -3009,29 +3118,26 @@
         },
         {
             "name": "lunetics/locale-bundle",
-            "version": "dev-master",
+            "version": "v2.2.5",
             "target-dir": "Lunetics/LocaleBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lunetics/LocaleBundle.git",
-                "reference": "6149a024be34afc7e7e9af362ad020037d0ab87f"
+                "reference": "717c526b96c8d6252bc82c18279e694ed53c16fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lunetics/LocaleBundle/zipball/6149a024be34afc7e7e9af362ad020037d0ab87f",
-                "reference": "6149a024be34afc7e7e9af362ad020037d0ab87f",
+                "url": "https://api.github.com/repos/lunetics/LocaleBundle/zipball/717c526b96c8d6252bc82c18279e694ed53c16fd",
+                "reference": "717c526b96c8d6252bc82c18279e694ed53c16fd",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
                 "psr/log": "~1.0",
-                "symfony/framework-bundle": ">=2.3.0",
+                "symfony/framework-bundle": ">=2.2.2",
                 "symfony/locale": "~2.2",
                 "symfony/validator": "~2.2",
                 "symfony/yaml": "~2.2"
-            },
-            "conflict": {
-                "symfony/intl": "2.4.*"
             },
             "require-dev": {
                 "ext-intl": "*",
@@ -3039,12 +3145,12 @@
                 "twig/twig": "1.*"
             },
             "suggest": {
-                "ext-intl": "Needed for displaying the country name in the locale language"
+                "ext-intl": "Needed for displaying the countryname in the locale language"
             },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4-dev"
+                    "dev-master": "2.2-dev"
                 }
             },
             "autoload": {
@@ -3076,7 +3182,7 @@
                 "multilanguage",
                 "router"
             ],
-            "time": "2015-09-17 21:30:38"
+            "time": "2014-04-22 06:37:29"
         },
         {
             "name": "map2u/core-bundle",
@@ -3085,12 +3191,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/josephzhao/map2ucore.git",
-                "reference": "bda444ce40a5c5419c6125b783991ba227d6d442"
+                "reference": "37e7ec21447d8d03b9e6f4dea92f1b0a5e66f345"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/josephzhao/map2ucore/zipball/bda444ce40a5c5419c6125b783991ba227d6d442",
-                "reference": "bda444ce40a5c5419c6125b783991ba227d6d442",
+                "url": "https://api.github.com/repos/josephzhao/map2ucore/zipball/37e7ec21447d8d03b9e6f4dea92f1b0a5e66f345",
+                "reference": "37e7ec21447d8d03b9e6f4dea92f1b0a5e66f345",
                 "shasum": ""
             },
             "type": "symfony-bundle",
@@ -3121,7 +3227,7 @@
                 "source": "https://github.com/josephzhao/map2ucore/tree/master",
                 "issues": "https://github.com/josephzhao/map2ucore/issues"
             },
-            "time": "2015-10-09 14:16:12"
+            "time": "2015-11-12 21:46:10"
         },
         {
             "name": "map2u/dashboard-bundle",
@@ -3220,12 +3326,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/josephzhao/map2uleaflet.git",
-                "reference": "c63a49cb906f75412bf88637c1d15db60bc2dfb1"
+                "reference": "2693f29a7a50ea47b2c21d8e245b52641723ccb0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/josephzhao/map2uleaflet/zipball/c63a49cb906f75412bf88637c1d15db60bc2dfb1",
-                "reference": "c63a49cb906f75412bf88637c1d15db60bc2dfb1",
+                "url": "https://api.github.com/repos/josephzhao/map2uleaflet/zipball/2693f29a7a50ea47b2c21d8e245b52641723ccb0",
+                "reference": "2693f29a7a50ea47b2c21d8e245b52641723ccb0",
                 "shasum": ""
             },
             "type": "symfony-bundle",
@@ -3256,7 +3362,7 @@
                 "source": "https://github.com/josephzhao/map2uleaflet/tree/master",
                 "issues": "https://github.com/josephzhao/map2uleaflet/issues"
             },
-            "time": "2015-11-04 22:03:50"
+            "time": "2015-11-06 16:37:25"
         },
         {
             "name": "map2u/web-bundle",
@@ -3309,12 +3415,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/IDCI-Consulting/Maxmind-GeoIp.git",
-                "reference": "c9f116beb21d1543d4e9f45f27d3d8f94b7724b4"
+                "reference": "b313a1cf731d1d77eb21332841b0626bdc44f8bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/IDCI-Consulting/Maxmind-GeoIp/zipball/c9f116beb21d1543d4e9f45f27d3d8f94b7724b4",
-                "reference": "c9f116beb21d1543d4e9f45f27d3d8f94b7724b4",
+                "url": "https://api.github.com/repos/IDCI-Consulting/Maxmind-GeoIp/zipball/b313a1cf731d1d77eb21332841b0626bdc44f8bc",
+                "reference": "b313a1cf731d1d77eb21332841b0626bdc44f8bc",
                 "shasum": ""
             },
             "require": {
@@ -3351,7 +3457,7 @@
             "keywords": [
                 "maxmind geoip"
             ],
-            "time": "2015-06-01 19:34:03"
+            "time": "2015-11-10 17:04:52"
         },
         {
             "name": "michelf/php-markdown",
@@ -3910,25 +4016,25 @@
         },
         {
             "name": "sensio/framework-extra-bundle",
-            "version": "v3.0.10",
+            "version": "v3.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
-                "reference": "18fc2063c4d6569cdca47a39fbac32342eb65f3c"
+                "reference": "a79e205737b58d557c05caef6dfa8f94d8084bca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/18fc2063c4d6569cdca47a39fbac32342eb65f3c",
-                "reference": "18fc2063c4d6569cdca47a39fbac32342eb65f3c",
+                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/a79e205737b58d557c05caef6dfa8f94d8084bca",
+                "reference": "a79e205737b58d557c05caef6dfa8f94d8084bca",
                 "shasum": ""
             },
             "require": {
                 "doctrine/common": "~2.2",
-                "symfony/framework-bundle": "~2.3"
+                "symfony/framework-bundle": "~2.3|~3.0"
             },
             "require-dev": {
-                "symfony/expression-language": "~2.4",
-                "symfony/security-bundle": "~2.4"
+                "symfony/expression-language": "~2.4|~3.0",
+                "symfony/security-bundle": "~2.4|~3.0"
             },
             "suggest": {
                 "symfony/expression-language": "",
@@ -3961,7 +4067,7 @@
                 "annotations",
                 "controllers"
             ],
-            "time": "2015-08-03 11:59:27"
+            "time": "2015-10-28 15:47:04"
         },
         {
             "name": "sensio/generator-bundle",
@@ -4013,20 +4119,20 @@
         },
         {
             "name": "sensiolabs/security-checker",
-            "version": "v3.0.1",
+            "version": "v3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/security-checker.git",
-                "reference": "7735fd97ff7303d9df776b8dbc970f949399abc9"
+                "reference": "21696b0daa731064c23cfb694c60a2584a7b6e93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/security-checker/zipball/7735fd97ff7303d9df776b8dbc970f949399abc9",
-                "reference": "7735fd97ff7303d9df776b8dbc970f949399abc9",
+                "url": "https://api.github.com/repos/sensiolabs/security-checker/zipball/21696b0daa731064c23cfb694c60a2584a7b6e93",
+                "reference": "21696b0daa731064c23cfb694c60a2584a7b6e93",
                 "shasum": ""
             },
             "require": {
-                "symfony/console": "~2.0"
+                "symfony/console": "~2.0|~3.0"
             },
             "bin": [
                 "security-checker"
@@ -4053,7 +4159,7 @@
                 }
             ],
             "description": "A security checker for your composer.lock",
-            "time": "2015-08-11 12:11:25"
+            "time": "2015-11-07 08:07:40"
         },
         {
             "name": "sonata-project/admin-bundle",
@@ -4061,12 +4167,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "54d4e2a5e3ad2c277b733f70aae4e5acdd2cc701"
+                "reference": "6d001c308358f8bd46c7a8311fb64e5d68616744"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/54d4e2a5e3ad2c277b733f70aae4e5acdd2cc701",
-                "reference": "54d4e2a5e3ad2c277b733f70aae4e5acdd2cc701",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/6d001c308358f8bd46c7a8311fb64e5d68616744",
+                "reference": "6d001c308358f8bd46c7a8311fb64e5d68616744",
                 "shasum": ""
             },
             "require": {
@@ -4141,7 +4247,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2015-11-04 10:13:47"
+            "time": "2015-11-12 16:14:59"
         },
         {
             "name": "sonata-project/block-bundle",
@@ -4481,12 +4587,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCoreBundle.git",
-                "reference": "f6fa55193826dd251b64397204fa7f7148cdb87e"
+                "reference": "3cd86bab2ad94f1a5ea07c66aa4da6a8e28aa873"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/f6fa55193826dd251b64397204fa7f7148cdb87e",
-                "reference": "f6fa55193826dd251b64397204fa7f7148cdb87e",
+                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/3cd86bab2ad94f1a5ea07c66aa4da6a8e28aa873",
+                "reference": "3cd86bab2ad94f1a5ea07c66aa4da6a8e28aa873",
                 "shasum": ""
             },
             "require": {
@@ -4542,7 +4648,7 @@
             "keywords": [
                 "sonata"
             ],
-            "time": "2015-11-02 09:26:39"
+            "time": "2015-11-12 10:28:05"
         },
         {
             "name": "sonata-project/datagrid-bundle",
@@ -4656,12 +4762,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataDoctrineORMAdminBundle.git",
-                "reference": "46848176976b222765e67d213feb433ebe85bb58"
+                "reference": "a4adbf30075a80b429dce0b1922f3db4607847c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataDoctrineORMAdminBundle/zipball/46848176976b222765e67d213feb433ebe85bb58",
-                "reference": "46848176976b222765e67d213feb433ebe85bb58",
+                "url": "https://api.github.com/repos/sonata-project/SonataDoctrineORMAdminBundle/zipball/a4adbf30075a80b429dce0b1922f3db4607847c7",
+                "reference": "a4adbf30075a80b429dce0b1922f3db4607847c7",
                 "shasum": ""
             },
             "require": {
@@ -4721,7 +4827,7 @@
                 "generator",
                 "sonata"
             ],
-            "time": "2015-11-05 08:58:09"
+            "time": "2015-11-08 07:16:03"
         },
         {
             "name": "sonata-project/easy-extends-bundle",
@@ -4942,12 +5048,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataFormatterBundle.git",
-                "reference": "fe001fad5b2b6b1a825ef5964943f03b2f1cade6"
+                "reference": "fea572b52fd6db6bc21d34729bff9c520a9823e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataFormatterBundle/zipball/fe001fad5b2b6b1a825ef5964943f03b2f1cade6",
-                "reference": "fe001fad5b2b6b1a825ef5964943f03b2f1cade6",
+                "url": "https://api.github.com/repos/sonata-project/SonataFormatterBundle/zipball/fea572b52fd6db6bc21d34729bff9c520a9823e7",
+                "reference": "fea572b52fd6db6bc21d34729bff9c520a9823e7",
                 "shasum": ""
             },
             "require": {
@@ -5000,7 +5106,7 @@
                 "markitup",
                 "sonata"
             ],
-            "time": "2015-11-02 06:54:44"
+            "time": "2015-11-12 09:05:07"
         },
         {
             "name": "sonata-project/google-authenticator",
@@ -5121,12 +5227,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataMediaBundle.git",
-                "reference": "1cc799eda0fa7dc0fb01045cb36747e89b4bffcf"
+                "reference": "fba0f8e593237568fac868342e66e67b4ba82c61"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataMediaBundle/zipball/1cc799eda0fa7dc0fb01045cb36747e89b4bffcf",
-                "reference": "1cc799eda0fa7dc0fb01045cb36747e89b4bffcf",
+                "url": "https://api.github.com/repos/sonata-project/SonataMediaBundle/zipball/fba0f8e593237568fac868342e66e67b4ba82c61",
+                "reference": "fba0f8e593237568fac868342e66e67b4ba82c61",
                 "shasum": ""
             },
             "require": {
@@ -5205,7 +5311,7 @@
                 "vimeo",
                 "youtube"
             ],
-            "time": "2015-11-05 09:02:23"
+            "time": "2015-11-10 13:05:46"
         },
         {
             "name": "sonata-project/news-bundle",
@@ -5213,12 +5319,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataNewsBundle.git",
-                "reference": "6a92da6d728e2ed6cb93efe7363bf3c8d5e8c462"
+                "reference": "3009176043f4ed9fd2074219fc3803f2c0f75032"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataNewsBundle/zipball/6a92da6d728e2ed6cb93efe7363bf3c8d5e8c462",
-                "reference": "6a92da6d728e2ed6cb93efe7363bf3c8d5e8c462",
+                "url": "https://api.github.com/repos/sonata-project/SonataNewsBundle/zipball/3009176043f4ed9fd2074219fc3803f2c0f75032",
+                "reference": "3009176043f4ed9fd2074219fc3803f2c0f75032",
                 "shasum": ""
             },
             "require": {
@@ -5283,7 +5389,7 @@
                 "post",
                 "sonata"
             ],
-            "time": "2015-11-02 15:18:57"
+            "time": "2015-11-10 09:06:19"
         },
         {
             "name": "sonata-project/notification-bundle",
@@ -5367,12 +5473,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataSeoBundle.git",
-                "reference": "020eec6580ee1ed0d5fb8b8e506f76b08aa8663d"
+                "reference": "17e9180635280d20848fee96d5d8d4afe6b31f02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataSeoBundle/zipball/020eec6580ee1ed0d5fb8b8e506f76b08aa8663d",
-                "reference": "020eec6580ee1ed0d5fb8b8e506f76b08aa8663d",
+                "url": "https://api.github.com/repos/sonata-project/SonataSeoBundle/zipball/17e9180635280d20848fee96d5d8d4afe6b31f02",
+                "reference": "17e9180635280d20848fee96d5d8d4afe6b31f02",
                 "shasum": ""
             },
             "require": {
@@ -5427,7 +5533,7 @@
                 "seo",
                 "sonata"
             ],
-            "time": "2015-10-21 07:52:17"
+            "time": "2015-11-12 13:44:40"
         },
         {
             "name": "sonata-project/user-bundle",
@@ -5435,12 +5541,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataUserBundle.git",
-                "reference": "ac8e19045be9fb4234eca8649126fb9826f32898"
+                "reference": "c686e08b37d9939e2959197a66cdd37259c743be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataUserBundle/zipball/ac8e19045be9fb4234eca8649126fb9826f32898",
-                "reference": "ac8e19045be9fb4234eca8649126fb9826f32898",
+                "url": "https://api.github.com/repos/sonata-project/SonataUserBundle/zipball/c686e08b37d9939e2959197a66cdd37259c743be",
+                "reference": "c686e08b37d9939e2959197a66cdd37259c743be",
                 "shasum": ""
             },
             "require": {
@@ -5505,7 +5611,7 @@
                 "sonata",
                 "user"
             ],
-            "time": "2015-11-05 13:05:26"
+            "time": "2015-11-08 07:28:11"
         },
         {
             "name": "stfalcon/tinymce-bundle",
@@ -5514,12 +5620,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stfalcon/TinymceBundle.git",
-                "reference": "758c19947b04d93d9d79e0ae8432beaccc0097f2"
+                "reference": "0a2bbac6ea6bcfdfb36eab5b471bb225a063b4c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stfalcon/TinymceBundle/zipball/758c19947b04d93d9d79e0ae8432beaccc0097f2",
-                "reference": "758c19947b04d93d9d79e0ae8432beaccc0097f2",
+                "url": "https://api.github.com/repos/stfalcon/TinymceBundle/zipball/0a2bbac6ea6bcfdfb36eab5b471bb225a063b4c5",
+                "reference": "0a2bbac6ea6bcfdfb36eab5b471bb225a063b4c5",
                 "shasum": ""
             },
             "require": {
@@ -5563,7 +5669,7 @@
                 "tinymce",
                 "wysiwyg"
             ],
-            "time": "2014-09-15 12:37:07"
+            "time": "2015-11-05 20:14:37"
         },
         {
             "name": "stof/doctrine-extensions-bundle",
@@ -6381,7 +6487,6 @@
         "stof/doctrine-extensions-bundle": 20,
         "creof/doctrine2-spatial": 20,
         "excelwebzone/recaptcha-bundle": 20,
-        "lunetics/locale-bundle": 20,
         "hwi/oauth-bundle": 20,
         "maxmind/geoip": 20,
         "liip/theme-bundle": 20,
