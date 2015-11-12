@@ -84,6 +84,10 @@ class MeasureController extends Controller {
         $em = $this->getDoctrine()->getManager();
         if ($user) {
             $name = $request->get("name");
+            $type = $request->get("type");
+            $layerType = $request->get("layerType");
+            $radius = $request->get("radius");
+
             $the_geom = $request->get("the_geom");
             if (gettype($the_geom) === 'string') {
                 $the_geom = json_decode(str_replace("'", '"', $the_geom));
@@ -93,18 +97,23 @@ class MeasureController extends Controller {
                 $mapmeasurement = new \Yorku\JuturnaBundle\Entity\MapMeasurement();
                 $mapmeasurement->setUser($user);
                 $mapmeasurement->setName($name);
-                $em->persist($mapmeasurement);
-                $em->flush();
             }
+            if (isset($radius) && $radius !== null) {
+                $mapmeasurement->setRadius($radius);
+            }
+            $mapmeasurement->setType($type);
+            $mapmeasurement->setLayerType($layerType);
+            $em->persist($mapmeasurement);
+            $em->flush();
             $id = $mapmeasurement->getId();
-
             //$feature_geojson = $the_geom->geometry;
-//        if ($type === 'circle' || $type === 'marker') {
-//            $lng = $feature->geometry->coordinates[0];
-//            $lat = $feature->geometry->coordinates[1];
-//
-//            $sql = "UPDATE map_measurements set the_geom = ST_GeomFromText('POINT($lng $lat)', 4326) where id=$id";
-//        }
+            if ($layerType === 'marker' || $layerType === 'circle' || $the_geom->geometry->type === 'Point') {
+                $lng = $the_geom->geometry->coordinates[0];
+                $lat = $the_geom->geometry->coordinates[1];
+
+                $sql = "UPDATE map_measurements set the_geom = ST_GeomFromText('POINT($lng $lat)', 4326) where id=$id";
+            }
+
             if ($the_geom->geometry->type === 'Polygon') {
                 $points = '';
 
@@ -133,9 +142,64 @@ class MeasureController extends Controller {
                 $sql = "UPDATE map_measurements set the_geom = ST_GeomFromText('LINESTRING($points)', 4326) where id=$id";
             }
             $stmt = $conn->query($sql);
-            return new JsonResponse(array('sucess' => true, 'message' => "The measurement saved!"));
+            return new JsonResponse(array('success' => true, 'message' => "The measurement saved!"));
         } else {
-            return new JsonResponse(array('sucess' => false, 'message' => "Sorry,only logged in user can save it!"));
+            return new JsonResponse(array('success' => false, 'message' => "Sorry,only logged in user can save it!"));
+        }
+    }
+
+    /**
+     * Lists all BenthicCollections entities.
+     *
+     * @Route("/deletemeasurement", name="measure_deletemeasurement", options={"expose"=true})
+     * @Method("POST")
+     * @Template()
+     */
+    public function deletemeasurementAction(Request $request) {
+        $id = $request->get("id");
+        $user = $this->getUser();
+        $conn = $this->get('database_connection');
+        $em = $this->getDoctrine()->getManager();
+        if ($user) {
+            if (isset($id) && intval($id) > 0) {
+                $mapmeasurement = $em->getRepository('YorkuJuturnaBundle:MapMeasurement')->findOneBy(array('user' => $user, 'id' => $id));
+                if ($mapmeasurement === null || count($mapmeasurement) === 0) {
+                    return new JsonResponse(array('sucess' => false, 'message' => "Sorry,Measurement not found by id:$id!"));
+                } else {
+                    $em->remove($mapmeasurement);
+                    //          $em->persist($mapmeasurement);
+                    $em->flush();
+                    return new JsonResponse(array('success' => true, 'message' => "Measurement has been successfully deleted!", "id" => $id));
+                }
+            } else {
+                return new JsonResponse(array('success' => false, 'message' => "Sorry,Invalide id:$id!"));
+            }
+        } else {
+            return new JsonResponse(array('success' => false, 'message' => "Sorry,only logged in user can delete it!"));
+        }
+    }
+
+    /**
+     * Lists all BenthicCollections entities.
+     *
+     * @Route("/showmeasurement", name="measure_showmeasurement_on_map", options={"expose"=true})
+     * @Method("GET")
+     * @Template()
+     */
+    public function showmeasurementAction(Request $request) {
+        $id = $request->get("id");
+        $conn = $this->get('database_connection');
+        $user = $this->getUser();
+        if (isset($id) && intval($id) > 0 && $user) {
+            $sql = "select id,name,type,layer_type,radius,st_asgeojson(the_geom) as geom from map_measurements where id=" . $id;
+            $result = $conn->fetchAll($sql);
+            if (count($result) === 1) {
+                return new JsonResponse(array('sucess' => true, 'message' => "successfully loaded!",'name'=>$result[0]['name'], 'type' => $result[0]['type'], 'layerType' => $result[0]['layer_type'], 'radius' => $result[0]['radius'], 'data' => array("id" => $id, "geom" => $result[0]['geom'])));
+            } else {
+                return new JsonResponse(array('sucess' => false, 'message' => "Sorry,this measurement id " . $id . " not found!"));
+            }
+        } else {
+            return new JsonResponse(array('sucess' => false, 'message' => "Sorry,only logged in user can load measurement!"));
         }
     }
 

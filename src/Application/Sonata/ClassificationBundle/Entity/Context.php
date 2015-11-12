@@ -29,7 +29,7 @@ class Context extends BaseContext {
     /**
      * @var string
      */
-    private $id;
+    protected $id;
 
     /**
      * Set id

@@ -14,12 +14,17 @@ Yorku\JuturnaBundle\Entity\MapMeasurement:
             type: string
             length: 255
             nullable: false
-            column: measurement_name
+            column: name
         type:
             type: string
             length: 255
             nullable: true
             column: type
+        layerType:
+            type: string
+            length: 255
+            nullable: true
+            column: layer_type            
         radius:
             type: float
             nullable: true

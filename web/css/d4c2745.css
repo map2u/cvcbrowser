@@ -8623,6 +8623,11 @@ div.leafmap_title_tooltip {
   position: absolute;
 }
 
+/* line 65, ../../Resources/assets/stylesheets/yorkujuturna/_header.scss */
+div#sidebar-left div#sidebar_content table.measurement_list td.showmeasurement_on_map i.delete {
+  margin-right: 10px;
+}
+
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -9061,7 +9066,7 @@ and open the template in the editor.
   margin: 2px auto;
 }
 
-/* line 28, assetic_compassX11ELE.scss */
+/* line 28, assetic_compassBd2kjw.scss */
 .sonata-bc .tooltip.left {
   margin-left: -12px;
 }

@@ -7,7 +7,7 @@ and open the template in the editor.
     Created on : 12-Mar-2015, 7:51:23 PM
     Author     : josephzhao
 */
-/* line 11, assetic_compassadv2AT.scss */
+/* line 11, assetic_compassXQuzKB.scss */
 .leaflet-control-minimap {
   border: solid white 4px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
@@ -16,7 +16,7 @@ and open the template in the editor.
   transition: all .2s;
 }
 
-/* line 19, assetic_compassadv2AT.scss */
+/* line 19, assetic_compassXQuzKB.scss */
 .leaflet-control-minimap a {
   background-color: white;
   background-repeat: no-repeat;
@@ -25,14 +25,14 @@ and open the template in the editor.
   border-radius: 3px 0px 0px 0px;
 }
 
-/* line 27, assetic_compassadv2AT.scss */
+/* line 27, assetic_compassXQuzKB.scss */
 .leaflet-control-minimap a.minimized {
   -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
   border-radius: 0px;
 }
 
-/* line 33, assetic_compassadv2AT.scss */
+/* line 33, assetic_compassXQuzKB.scss */
 .leaflet-control-minimap-toggle-display {
   background-image: url("/images/toggle.png");
   height: 19px;
@@ -43,17 +43,17 @@ and open the template in the editor.
 }
 
 /* Old IE */
-/* line 43, assetic_compassadv2AT.scss */
+/* line 43, assetic_compassXQuzKB.scss */
 .leaflet-oldie .leaflet-control-minimap {
   border: 1px solid #999;
 }
 
-/* line 47, assetic_compassadv2AT.scss */
+/* line 47, assetic_compassXQuzKB.scss */
 .leaflet-oldie .leaflet-control-minimap a {
   background-color: #fff;
 }
 
-/* line 51, assetic_compassadv2AT.scss */
+/* line 51, assetic_compassXQuzKB.scss */
 .leaflet-oldie .leaflet-control-minimap a.minimized {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
 }

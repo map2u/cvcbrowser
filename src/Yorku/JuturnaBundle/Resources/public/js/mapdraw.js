@@ -469,7 +469,7 @@ function measureArea(map, type) {
     //listeners active during drawing
     function measuremove(e) {
 
-        if (stopclick === false)
+        if (stopclick === false || $(".mapmeasurement-control .leaflet-measure-actions").hasClass("active") === false)
             return;
         var latlng = e.latlng;
 
@@ -496,30 +496,39 @@ function measureArea(map, type) {
     function measurestart() {
         if (stopclick === false) {
             stopclick = true;
-        
+
             map.on('draw:created', function (e) {
 
                 //  var drawnItems = new L.FeatureGroup();
                 stopclick = false;
                 var type = e.layerType, layer = e.layer;
+                if (type === 'circle') {
 
-                layer.id = "measure_layer";
-                layer.type = type;
+                }
+
+                layer.type = "measure_layer";
+                layer.layerType = type;
                 var layers = this.drawnItems.getLayers();
                 for (var i = 0; i < layers.length; i++) {
 
-                    if (layers[i].id === "measure_layer") {
+                    if (layers[i].type === "measure_layer") {
 
                         this.drawnItems.removeLayer(layers[i]);
                     }
                 }
                 this.drawnItems.addLayer(layer);
-                $("form#save_measurement_to_account button").removeAttr('disabled');
+                $("form#save_measurement_to_account button[value='Save']").removeAttr('disabled');
             });
         }
         ;
     }
     function measureclick(e) {
+        if ($(".leaflet-sidebar #sidebar-left #sidebar_content div.measure_result").length === 0) {
+            $(".leaflet-sidebar #sidebar-left #sidebar_content").html("");
+            $('<div class="title"><h4>Measure ' + map.tool.type + ':</h4></div>').appendTo($(".leaflet-sidebar #sidebar-left #sidebar_content"));
+            $('<div class="measure_result">').appendTo($(".leaflet-sidebar #sidebar-left #sidebar_content"));
+        }
+
         if (stopclick === false) {
             measurestart();
         }
@@ -651,7 +660,10 @@ function measureArea(map, type) {
 }
 
 function showMeasureHistory() {
-
+    $(".mapmeasurement-control .leaflet-measure-actions").removeClass("active");
+    if (window.map.tool) {
+        window.map.tool.disable();
+    }
     $.ajax({
         url: Routing.generate('measure_index', {'_locale': window.locale}),
         method: 'GET',

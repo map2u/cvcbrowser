@@ -61,3 +61,7 @@ div.leafmap_title_tooltip {
     z-index: 1002;
     position: absolute;
 }
+
+div#sidebar-left div#sidebar_content table.measurement_list td.showmeasurement_on_map i.delete {
+    margin-right: 10px;
+}

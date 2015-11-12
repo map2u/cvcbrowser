@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * MapMeasurement
  */
-class MapMeasurement
-{
+class MapMeasurement {
+
     /**
      * @var integer
      */
@@ -23,6 +23,11 @@ class MapMeasurement
      * @var string
      */
     private $type;
+
+    /**
+     * @var string
+     */
+    private $layerType;
 
     /**
      * @var float
@@ -49,14 +54,12 @@ class MapMeasurement
      */
     private $user;
 
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -66,8 +69,7 @@ class MapMeasurement
      * @param string $name
      * @return MapMeasurement
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -78,8 +80,7 @@ class MapMeasurement
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -89,8 +90,7 @@ class MapMeasurement
      * @param string $type
      * @return MapMeasurement
      */
-    public function setType($type)
-    {
+    public function setType($type) {
         $this->type = $type;
 
         return $this;
@@ -101,9 +101,29 @@ class MapMeasurement
      *
      * @return string 
      */
-    public function getType()
-    {
+    public function getType() {
         return $this->type;
+    }
+
+    /**
+     * Set layerType
+     *
+     * @param string $layerType
+     * @return MapMeasurement
+     */
+    public function setLayerType($layerType) {
+        $this->layerType = $layerType;
+
+        return $this;
+    }
+
+    /**
+     * Get layerType
+     *
+     * @return string 
+     */
+    public function getLayerType() {
+        return $this->layerType;
     }
 
     /**
@@ -112,8 +132,7 @@ class MapMeasurement
      * @param float $radius
      * @return MapMeasurement
      */
-    public function setRadius($radius)
-    {
+    public function setRadius($radius) {
         $this->radius = $radius;
 
         return $this;
@@ -124,8 +143,7 @@ class MapMeasurement
      *
      * @return float 
      */
-    public function getRadius()
-    {
+    public function getRadius() {
         return $this->radius;
     }
 
@@ -135,8 +153,7 @@ class MapMeasurement
      * @param geometry $theGeom
      * @return MapMeasurement
      */
-    public function setTheGeom($theGeom)
-    {
+    public function setTheGeom($theGeom) {
         $this->theGeom = $theGeom;
 
         return $this;
@@ -147,8 +164,7 @@ class MapMeasurement
      *
      * @return geometry 
      */
-    public function getTheGeom()
-    {
+    public function getTheGeom() {
         return $this->theGeom;
     }
 
@@ -158,8 +174,7 @@ class MapMeasurement
      * @param \DateTime $createdAt
      * @return MapMeasurement
      */
-    public function setCreatedAt($createdAt)
-    {
+    public function setCreatedAt($createdAt) {
         $this->createdAt = $createdAt;
 
         return $this;
@@ -170,8 +185,7 @@ class MapMeasurement
      *
      * @return \DateTime 
      */
-    public function getCreatedAt()
-    {
+    public function getCreatedAt() {
         return $this->createdAt;
     }
 
@@ -181,8 +195,7 @@ class MapMeasurement
      * @param \DateTime $updatedAt
      * @return MapMeasurement
      */
-    public function setUpdatedAt($updatedAt)
-    {
+    public function setUpdatedAt($updatedAt) {
         $this->updatedAt = $updatedAt;
 
         return $this;
@@ -193,8 +206,7 @@ class MapMeasurement
      *
      * @return \DateTime 
      */
-    public function getUpdatedAt()
-    {
+    public function getUpdatedAt() {
         return $this->updatedAt;
     }
 
@@ -204,8 +216,7 @@ class MapMeasurement
      * @param \Application\Sonata\UserBundle\Entity\User $user
      * @return MapMeasurement
      */
-    public function setUser(\Application\Sonata\UserBundle\Entity\User $user = null)
-    {
+    public function setUser(\Application\Sonata\UserBundle\Entity\User $user = null) {
         $this->user = $user;
 
         return $this;
@@ -216,8 +227,8 @@ class MapMeasurement
      *
      * @return \Application\Sonata\UserBundle\Entity\User 
      */
-    public function getUser()
-    {
+    public function getUser() {
         return $this->user;
     }
+
 }

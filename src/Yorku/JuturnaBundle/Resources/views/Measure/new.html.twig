@@ -8,11 +8,11 @@
     </div>
 
     {% if app.user %}
-        <button type="button" value="Save" disabled>Save</button>
+        <button type="button" value="Save" disabled>Save</button>  <button type="button" value="Cancel">Cancel</button>
     </form>
     <script>
         $(document).ready(function () {
-            $("form#save_measurement_to_account button").click(function () {
+            $("form#save_measurement_to_account button[value='Save']").click(function () {
                 var formData = new FormData();
                 var name = $("form#save_measurement_to_account input[name='name']").val();
                 if (name.trim() === '') {
@@ -22,8 +22,14 @@
                 formData.append("name", name);
                 var layers = window.map.drawnItems.getLayers();
                 for (var i = 0; i < layers.length; i++) {
-                    if (layers[i].id === "measure_layer") {
+                    if (layers[i].type === "measure_layer") {
+
+                        if (layers[i].layerType === 'circle') {
+                            formData.append("radius", layers[i]._mRadius);
+                        }
                         formData.append("the_geom", JSON.stringify(layers[i].toGeoJSON()));
+                        formData.append("type", layers[i].type);
+                        formData.append("layerType", layers[i].layerType);
                     }
                 }
 
@@ -41,6 +47,9 @@
                     contentType: false,
                     processData: false
                 });
+            });
+            $("form#save_measurement_to_account button[value='Cancel']").click(function () {
+                showMeasureHistory();
             });
         });
     </script>
