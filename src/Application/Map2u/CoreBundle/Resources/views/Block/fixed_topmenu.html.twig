@@ -6,7 +6,7 @@
         <div class="collapse navbar-collapse navbar-main-collapse">
             <div id="cms-block-8" class="cms-block cms-block-element environment_services">
                 <ul class="nav navbar-nav">
-                    <li {% if app.request.attributes.get('_route')=='welcome_home' %} class="active" {% endif %}><a href="{{path('welcome_home')}}" >Home</a>
+                    <li {% if app.request.attributes.get('_route')=='welcome_home' %} class="active" {% endif %}><a href="{{path('welcome_home',{_locale:'en'})}}" >Home</a>
                     </li>
                     {% if app.request.attributes.get('_route')=='homepage_map' %}
                         <li class="dropdown">
