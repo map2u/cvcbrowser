@@ -34,6 +34,16 @@ class User extends BaseUser {
     private $useruploadfiles;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $categories;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $maplayers;
+
+    /**
      * Get id
      *
      * @return integer $id
@@ -50,6 +60,8 @@ class User extends BaseUser {
         $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
         $this->stations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->useruploadfiles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->maplayers = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -106,6 +118,66 @@ class User extends BaseUser {
      */
     public function getUseruploadfiles() {
         return $this->useruploadfiles;
+    }
+
+    /**
+     * Add category
+     *
+     * @param \Map2u\CoreBundle\Model\CategoryInterface $category
+     * @return User
+     */
+    public function addCategory(\Map2u\CoreBundle\Model\CategoryInterface $category) {
+        $this->categories[] = $category;
+
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param \Map2u\CoreBundle\Model\CategoryInterface $category
+     */
+    public function removeCategory(\Map2u\CoreBundle\Model\CategoryInterface $category) {
+        $this->categories->removeElement($category);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCategories() {
+        return $this->categories;
+    }
+
+    /**
+     * Add maplayer
+     *
+     * @param \Map2u\CoreBundle\Model\MapLayerInterface $maplayer
+     * @return User
+     */
+    public function addMapLayer(\Map2u\CoreBundle\Model\MapLayerInterface $maplayer) {
+        $this->maplayers[] = $maplayer;
+
+        return $this;
+    }
+
+    /**
+     * Remove maplayer
+     *
+     * @param \Map2u\CoreBundle\Model\MapLayerInterface $maplayer
+     */
+    public function removeMapLayer(\Map2u\CoreBundle\Model\MapLayerInterface $maplayer) {
+        $this->maplayers->removeElement($maplayer);
+    }
+
+    /**
+     * Get maplayers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMapLayers() {
+        return $this->maplayers;
     }
 
 }

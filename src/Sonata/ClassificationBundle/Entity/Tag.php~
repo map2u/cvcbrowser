@@ -1,0 +1,76 @@
+<?php
+
+namespace Application\Sonata\ClassificationBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Sonata\ClassificationBundle\Entity\BaseTag;
+/**
+ * Tag
+ */
+class Tag extends BaseTag
+{
+    /**
+     * @var integer
+     */
+    protected $id;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $graphcharts;
+
+   
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->graphcharts = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Add graphcharts
+     *
+     * @param \Yorku\JuturnaBundle\Entity\GraphChart $graphcharts
+     * @return Tag
+     */
+    public function addGraphchart(\Yorku\JuturnaBundle\Entity\GraphChart $graphcharts)
+    {
+        $this->graphcharts[] = $graphcharts;
+
+        return $this;
+    }
+
+    /**
+     * Remove graphcharts
+     *
+     * @param \Yorku\JuturnaBundle\Entity\GraphChart $graphcharts
+     */
+    public function removeGraphchart(\Yorku\JuturnaBundle\Entity\GraphChart $graphcharts)
+    {
+        $this->graphcharts->removeElement($graphcharts);
+    }
+
+    /**
+     * Get graphcharts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getGraphcharts()
+    {
+        return $this->graphcharts;
+    }
+
+   
+}

@@ -16,5 +16,17 @@
                 <cascade-remove/>
             </cascade>
         </one-to-many>
+         <one-to-many field="categories" target-entity="Map2u\CoreBundle\Entity\Category" mapped-by="user">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+          <one-to-many field="maplayers" target-entity="Map2u\CoreBundle\Entity\MapLayer" mapped-by="user">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
     </entity>
 </doctrine-mapping>

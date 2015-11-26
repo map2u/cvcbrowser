@@ -21,6 +21,9 @@ imports:
     - { resource: forum.yml }
     - { resource: @ApplicationMap2uCoreBundle/Resources/config/services.yml }
     - { resource: ../../vendor/knplabs/doctrine-behaviors/config/orm-services.yml }
+
+parameters:
+    map2u.core.manager.category.class: Map2u\CoreBundle\Entity\CategoryManager
     
 framework:
     #esi:             ~
