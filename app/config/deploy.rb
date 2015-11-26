@@ -16,7 +16,7 @@ set :repository,  "https://github.com/josephzhao/cvcbrowser.git"
 #set :scm,         :git
 set :deploy_via,    :remote_cache
 
-set :shared_files,      ["app/config/parameters.yml"]
+set :shared_files,      ["app/config/parameters.yml","app/config/config.yml"]
 set :shared_children,     [app_path + "/../Data" ,app_path + "/cache",app_path + "/logs", web_path + "/uploads"]
 set :writable_dirs,     [app_path + "/cache", app_path + "/logs", web_path + "/uploads"]
 set :branch, "master"
