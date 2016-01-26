@@ -63,6 +63,9 @@ class UserAdmin extends Admin {
                 ->add('email')
                 ->add('membership')
                 ->add('groups')
+                
+              
+                
                 ->add('enabled', null, array('editable' => true))
                 ->add('locked', null, array('editable' => true))
                 ->add('createdAt')
@@ -85,7 +88,8 @@ class UserAdmin extends Admin {
                 ->add('locked')
                 ->add('email')
                 ->add('membership')
-                ->add('groups')
+                  ->add('groups')
+               
         ;
     }
 

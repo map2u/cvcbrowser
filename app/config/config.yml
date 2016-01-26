@@ -24,7 +24,9 @@ imports:
 
 parameters:
     map2u.core.manager.category.class: Map2u\CoreBundle\Entity\CategoryManager
-    
+    map2u.core.manager.sidebarmenu.class: Map2u\CoreBundle\Entity\SidebarMenuManager  
+    map2u.core.manager.layercategory.class: Map2u\CoreBundle\Entity\LayerCategoryManager  
+     
 framework:
     #esi:             ~
     translator:      { fallback: "%locale%" }

@@ -81,20 +81,20 @@ Yorku\JuturnaBundle\Entity\HomepageFlash:
             type: text
             nullable: true
     manyToOne:
-        category:
-            targetEntity: Yorku\JuturnaBundle\Entity\Category
+        contentCategory:
+            targetEntity: Yorku\JuturnaBundle\Entity\ContentCategory
             cascade: {  }
             mappedBy: null
             joinColumns:
-                category_id:
+                contentcategory_id:
                     referencedColumnName: id
             orphanRemoval: true                        
-        subcategory:
-            targetEntity: Yorku\JuturnaBundle\Entity\Category
+        contentSubcategory:
+            targetEntity: Yorku\JuturnaBundle\Entity\ContentCategory
             cascade: {  }
             mappedBy: null
             joinColumns:
-                subcategory_id:
+                contentsubcategory_id:
                     referencedColumnName: id
             orphanRemoval: true                                
     lifecycleCallbacks: {  }

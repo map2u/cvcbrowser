@@ -4,11 +4,11 @@ Yorku\JuturnaBundle\Entity\FeatureContents:
     fields:
         id:
             id: true
-            type: integer
+            type: guid
             unsigned: false
             nullable: false
             generator:
-                strategy: SEQUENCE
+                strategy: UUID
         name:
             type: string
             length: 230

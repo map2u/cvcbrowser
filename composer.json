@@ -9,7 +9,7 @@
         }
     },
     "require": {
-          "php": ">=5.3.9",
+        "php": ">=5.3.9",
         "symfony/symfony": "2.7.*",
         "doctrine/orm": "~2.2,>=2.2.3,<2.5",
         "doctrine/dbal": "<2.5",
@@ -26,7 +26,7 @@
         "sensio/distribution-bundle": "~4.0",
         "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
         "knplabs/knp-menu": ">=2.0,<3.0",
-        "knplabs/knp-menu-bundle": "~2",
+        "knplabs/knp-menu-bundle": "dev-master",
         "knplabs/knp-paginator-bundle": "2.4.*",
         "knplabs/doctrine-behaviors": "dev-master",
         "sonata-project/core-bundle": "dev-master",
@@ -49,7 +49,7 @@
         "stof/doctrine-extensions-bundle": "~1.1@dev",
         "creof/doctrine2-spatial": "dev-master",
         "tecnickcom/tcpdf": "*",
-        "excelwebzone/recaptcha-bundle": "dev-master",
+        "excelwebzone/recaptcha-bundle": "2.6.x-dev",
         "lunetics/locale-bundle": "2.2.*",
         "hwi/oauth-bundle": "0.4.*@dev",
         "maxmind/geoip": "dev-master",
@@ -67,7 +67,6 @@
         "map2u/web-bundle": "dev-master",
         "map2u/forum-bundle": "dev-master",
         "map2u/dashboard-bundle": "dev-master",
-      
         "stfalcon/tinymce-bundle": "0.3.*@dev",
         "ornicar/akismet-bundle": "dev-master",
         "ibrows/newsletter-bundle": "2.1.*",
@@ -77,23 +76,27 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/josephzhao/map2ucore.git"
+            "url": "git@map2u.familyds.com:/volume1/homes/git/repositories/Map2uCoreBundle.git"
         },
         {
             "type": "vcs",
-            "url": "https://github.com/josephzhao/map2uleaflet.git"
+            "url": "git@map2u.familyds.com:/volume1/homes/git/repositories/Map2uLeafletBundle.git"
         },
         {
             "type": "vcs",
-            "url": "https://github.com/josephzhao/map2uforum.git"
+            "url": "git@map2u.familyds.com:/volume1/homes/git/repositories/Map2uMapfishPrintBundle.git"
         },
         {
             "type": "vcs",
-            "url": "https://github.com/josephzhao/map2udashboard.git"
+            "url": "git@map2u.familyds.com:/volume1/homes/git/repositories/Map2uForumBundle.git"
         },
         {
             "type": "vcs",
-            "url": "https://github.com/josephzhao/map2uweb.git"
+            "url": "git@map2u.familyds.com:/volume1/homes/git/repositories/Map2uDashboardBundle.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@map2u.familyds.com:/volume1/homes/git/repositories/Map2uWebBundle.git"
         }],
     "scripts": {
         "post-install-cmd": [
@@ -113,7 +116,6 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ]
     },
-    
     "config": {
         "bin-dir": "bin",
         "discard-changes": true

@@ -76,14 +76,14 @@ class HomepageImage {
     private $description;
 
     /**
-     * @var \Yorku\JuturnaBundle\Entity\Category
+     * @var \Yorku\JuturnaBundle\Entity\ContentCategory
      */
-    private $category;
+    private $contentCategory;
 
     /**
-     * @var \Yorku\JuturnaBundle\Entity\Category
+     * @var \Yorku\JuturnaBundle\Entity\ContentCategory
      */
-    private $subcategory;
+    private $contentSubcategory;
 
     /**
      * Get id
@@ -294,45 +294,45 @@ class HomepageImage {
     }
 
     /**
-     * Set category
+     * Set contentCategory
      *
-     * @param \Yorku\JuturnaBundle\Entity\Category $category
+     * @param \Yorku\JuturnaBundle\Entity\ContentCategory $contentCategory
      * @return HomepageImage
      */
-    public function setCategory(\Yorku\JuturnaBundle\Entity\Category $category = null) {
-        $this->category = $category;
+    public function setContentCategory(\Yorku\JuturnaBundle\Entity\ContentCategory $contentCategory = null) {
+        $this->contentCategory = $contentCategory;
 
         return $this;
     }
 
     /**
-     * Get category
+     * Get contentCategory
      *
-     * @return \Yorku\JuturnaBundle\Entity\Category 
+     * @return \Yorku\JuturnaBundle\Entity\ContentCategory 
      */
-    public function getCategory() {
-        return $this->category;
+    public function getContentCategory() {
+        return $this->contentCategory;
     }
 
     /**
-     * Set subcategory
+     * Set contentSubcategory
      *
-     * @param \Yorku\JuturnaBundle\Entity\Category $subcategory
+     * @param \Yorku\JuturnaBundle\Entity\ContentCategory $contentSubcategory
      * @return HomepageImage
      */
-    public function setSubcategory(\Yorku\JuturnaBundle\Entity\Category $subcategory = null) {
-        $this->subcategory = $subcategory;
+    public function setContentSubcategory(\Yorku\JuturnaBundle\Entity\ContentCategory $contentSubcategory = null) {
+        $this->contentSubcategory = $contentSubcategory;
 
         return $this;
     }
 
     /**
-     * Get subcategory
+     * Get contentSubcategory
      *
-     * @return \Yorku\JuturnaBundle\Entity\Category 
+     * @return \Yorku\JuturnaBundle\Entity\ContentCategory 
      */
-    public function getSubcategory() {
-        return $this->subcategory;
+    public function getContentSubcategory() {
+        return $this->contentSubcategory;
     }
 
     public function __toString() {

@@ -7,74 +7,74 @@ and open the template in the editor.
     Created on : 12-Mar-2015, 7:54:52 PM
     Author     : josephzhao
 */
-/* line 11, assetic_compassyoLaoR.scss */
+/* line 11, assetic_compassrhiJIL.scss */
 .marker-cluster-small {
   background-color: rgba(181, 226, 140, 0.6);
 }
 
-/* line 14, assetic_compassyoLaoR.scss */
+/* line 14, assetic_compassrhiJIL.scss */
 .marker-cluster-small div {
   background-color: rgba(110, 204, 57, 0.6);
 }
 
-/* line 18, assetic_compassyoLaoR.scss */
+/* line 18, assetic_compassrhiJIL.scss */
 .marker-cluster-medium {
   background-color: rgba(241, 211, 87, 0.6);
 }
 
-/* line 21, assetic_compassyoLaoR.scss */
+/* line 21, assetic_compassrhiJIL.scss */
 .marker-cluster-medium div {
   background-color: rgba(240, 194, 12, 0.6);
 }
 
-/* line 25, assetic_compassyoLaoR.scss */
+/* line 25, assetic_compassrhiJIL.scss */
 .marker-cluster-large {
   background-color: rgba(253, 156, 115, 0.6);
 }
 
-/* line 28, assetic_compassyoLaoR.scss */
+/* line 28, assetic_compassrhiJIL.scss */
 .marker-cluster-large div {
   background-color: rgba(241, 128, 23, 0.6);
 }
 
 /* IE 6-8 fallback colors */
-/* line 33, assetic_compassyoLaoR.scss */
+/* line 33, assetic_compassrhiJIL.scss */
 .leaflet-oldie .marker-cluster-small {
   background-color: #b5e28c;
 }
 
-/* line 36, assetic_compassyoLaoR.scss */
+/* line 36, assetic_compassrhiJIL.scss */
 .leaflet-oldie .marker-cluster-small div {
   background-color: #6ecc39;
 }
 
-/* line 40, assetic_compassyoLaoR.scss */
+/* line 40, assetic_compassrhiJIL.scss */
 .leaflet-oldie .marker-cluster-medium {
   background-color: #f1d357;
 }
 
-/* line 43, assetic_compassyoLaoR.scss */
+/* line 43, assetic_compassrhiJIL.scss */
 .leaflet-oldie .marker-cluster-medium div {
   background-color: #f0c20c;
 }
 
-/* line 47, assetic_compassyoLaoR.scss */
+/* line 47, assetic_compassrhiJIL.scss */
 .leaflet-oldie .marker-cluster-large {
   background-color: #fd9c73;
 }
 
-/* line 50, assetic_compassyoLaoR.scss */
+/* line 50, assetic_compassrhiJIL.scss */
 .leaflet-oldie .marker-cluster-large div {
   background-color: #f18017;
 }
 
-/* line 54, assetic_compassyoLaoR.scss */
+/* line 54, assetic_compassrhiJIL.scss */
 .marker-cluster {
   background-clip: padding-box;
   border-radius: 20px;
 }
 
-/* line 58, assetic_compassyoLaoR.scss */
+/* line 58, assetic_compassrhiJIL.scss */
 .marker-cluster div {
   width: 30px;
   height: 30px;
@@ -85,7 +85,7 @@ and open the template in the editor.
   font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 
-/* line 68, assetic_compassyoLaoR.scss */
+/* line 68, assetic_compassrhiJIL.scss */
 .marker-cluster span {
   line-height: 30px;
 }

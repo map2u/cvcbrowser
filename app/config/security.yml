@@ -57,8 +57,8 @@ security:
                 use_forward:    false
                 login_path: fos_user_security_login
                 csrf_provider: form.csrf_provider
-                success_handler: map2u_webgis_core.authentication.success_handler
-                failure_handler: map2u_webgis_core.authentication.failure_handler
+                success_handler: map2u_core.authentication.success_handler
+                failure_handler: map2u_core.authentication.failure_handler
                 # no this item               csrf_protection:  false
             logout: 
                 path: fos_user_security_logout

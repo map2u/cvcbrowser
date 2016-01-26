@@ -54,7 +54,6 @@ class DefaultController extends BaseController {
      *
      * @Route("/storylayers", name="appleaflet_storylayer", options={"expose"=true})
      * @Method("GET")
-
      */
     public function storylayersAction(Request $request) {
         $conn = $this->get('database_connection');

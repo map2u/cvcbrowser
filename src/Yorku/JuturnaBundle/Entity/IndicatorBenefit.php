@@ -388,36 +388,36 @@ class IndicatorBenefit {
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $uploadfilelayers;
+    private $symbolizedLayers;
 
     /**
-     * Add uploadfilelayers
+     * Add symbolizedLayers
      *
-     * @param \Map2u\CoreBundle\Entity\UploadfileLayer $uploadfilelayers
+     * @param \Map2u\CoreBundle\Entity\SymbolizedLayer $symbolizedLayers
      * @return IndicatorBenefit
      */
-    public function addUploadfilelayer(\Map2u\CoreBundle\Entity\UploadfileLayer $uploadfilelayers) {
-        $this->uploadfilelayers[] = $uploadfilelayers;
+    public function addSymbolizedLayer(\Map2u\CoreBundle\Entity\SymbolizedLayer $symbolizedLayers) {
+        $this->symbolizedLayers[] = $symbolizedLayers;
 
         return $this;
     }
 
     /**
-     * Remove uploadfilelayers
+     * Remove symbolizedLayers
      *
-     * @param \Map2u\CoreBundle\Entity\UploadfileLayer $uploadfilelayers
+     * @param \Map2u\CoreBundle\Entity\SymbolizedLayer $symbolizedLayers
      */
-    public function removeUploadfilelayer(\Map2u\CoreBundle\Entity\UploadfileLayer $uploadfilelayers) {
-        $this->uploadfilelayers->removeElement($uploadfilelayers);
+    public function removeSymbolizedLayer(\Map2u\CoreBundle\Entity\SymbolizedLayer $symbolizedLayers) {
+        $this->symbolizedLayers->removeElement($symbolizedLayers);
     }
 
     /**
-     * Get uploadfilelayers
+     * Get symbolizedLayers
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getUploadfilelayers() {
-        return $this->uploadfilelayers;
+    public function getSymbolizedLayers() {
+        return $this->symbolizedLayers;
     }
 
     /**

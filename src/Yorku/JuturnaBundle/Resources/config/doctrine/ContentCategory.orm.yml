@@ -1,0 +1,85 @@
+Yorku\JuturnaBundle\Entity\ContentCategory:
+    type: entity
+    table: content_category
+    fields:
+        id:
+            id: true
+            type: guid
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: UUID
+        name:
+            type: string
+            length: 230
+            fixed: false
+            nullable: false
+            column: name
+        title:
+            type: string
+            length: 80
+            fixed: false
+            nullable: true
+            column: title            
+        slug:
+            type: string
+            length: 230
+            fixed: false
+            nullable: false
+            column: slug
+        description:
+            type: text
+            nullable: true
+            column: description
+        rightColumn:
+            type: text
+            nullable: true
+            column: right_column
+        rightColumnWidth:
+            type: integer
+            unsigned: false
+            nullable: true
+            column: right_column_width
+            options:
+                default: 5
+        flashImages:
+            type: text
+            nullable: true
+            column: flash_images            
+        meaDiagram:
+            type: string
+            length: 230
+            fixed: false
+            nullable: true
+            column: mea_diagram       
+        altText:
+            type: string
+            length: 512
+            fixed: false
+            nullable: true
+            column: alt_text                   
+        tags:
+            type: array
+            nullable: true
+            column: tags
+        createdAt:
+            type: datetime
+            nullable: true
+            column: created_at
+            gedmo:
+              timestampable:
+                on: create
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+            gedmo:
+              timestampable:
+                on: update     
+    oneToMany:            
+        contents:
+            targetEntity: Content
+            cascade: {  }
+            mappedBy: contentCategory
+              
+    lifecycleCallbacks: {  }

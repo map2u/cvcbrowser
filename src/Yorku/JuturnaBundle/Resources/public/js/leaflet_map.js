@@ -24,6 +24,21 @@ window.onload = function () {
     var leafletmap_tooltip;
     var layersControl;
     var leftSidebar;
+    var zoom = 10;
+    var center = [43.73737, -79.95987];
+    if (window.location.hash !== '') {
+        // try to restore center, zoom-level and rotation from the URL
+        var hash = window.location.hash.replace('#map=', '');
+        var parts = hash.split('/');
+        if (parts.length === 4) {
+            zoom = parseInt(parts[0], 10);
+            center = [
+                parseFloat(parts[1]),
+                parseFloat(parts[2])
+            ];
+
+        }
+    }
     $('#leafmap').height($(window).height() - $(".juturna-page-header").height() - $(".juturna-main_menu").height() - 2);
     $('.leaflet-sidebar #sidebar-left').height($(window).height() - $(".juturna-page-header").height() - $(".juturna-main_menu").height() - 60);
     $(window).resize(function () { /* do something */
@@ -33,7 +48,7 @@ window.onload = function () {
     });
     map = new L.MAP2U.Map('leafmap', {
         'zoomControl': false
-    }).setView([43.73737, -79.95987], 10);
+    }).setView(center, zoom);
     this.map = map;
     //add a tile layer to add to our map, in this case it's the 'standard' OpenStreetMap.org tile server
     var mapnik = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -246,10 +261,10 @@ window.onload = function () {
         sidebar: rightSidebar,
         'short': true
     }).addTo(map);
-    L.MAP2U.uploadfile_list({position: position,
-        sidebar: rightSidebar,
-        'short': true
-    }).addTo(map);
+//    L.MAP2U.uploadfile_list({position: position,
+//        sidebar: rightSidebar,
+//        'short': true
+//    }).addTo(map);
     var graphchart = L.MAP2U.graphchart({
         position: position,
         sidebar: rightSidebar
@@ -582,6 +597,46 @@ window.onload = function () {
     }
     $('.leaflet-control .control-button').tooltip({placement: 'left', container: 'body'});
     viewingscale(map);
+
+
+    var shouldUpdate = true;
+    // var view = map.getView();
+
+
+    var updatePermalink = function () {
+        if (!shouldUpdate) {
+            // do not update the URL when the view was changed in the 'popstate' handler
+            shouldUpdate = true;
+            return;
+        }
+
+        var center = map.getCenter();
+       
+        var hash = '#map=' +
+                map.getZoom() + '/' +
+                Math.round(center.lat * 1000) / 1000 + '/' +
+                Math.round(center.lng * 1000) / 1000 + '/';
+
+        var state = {
+            zoom: map.getZoom(),
+            center: map.getCenter()
+        };
+        window.history.pushState(state, 'map', hash);
+    };
+
+    map.on('moveend', updatePermalink);
+   // window.app.map = map;
+    // restore the view state when navigating through the history, see
+    // https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onpopstate
+    window.addEventListener('popstate', function (event) {
+        if (event.state === null) {
+            return;
+        }
+        map.setCenter(event.state.center);
+        map.setZoom(event.state.zoom);
+
+        shouldUpdate = false;
+    });
 };
 function saveuserdraw() {
     for (var i = 0; i < map.drawlayer._originalPoints.length; i++) {

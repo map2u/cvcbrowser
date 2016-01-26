@@ -5,11 +5,11 @@ Yorku\JuturnaBundle\Entity\IndicatorBenefit:
     fields:
         id:
             id: true
-            type: integer
+            type: guid
             unsigned: false
             nullable: false
             generator:
-                strategy: IDENTITY
+                strategy: UUID
         title:
             type: string
             length: 255
@@ -61,10 +61,10 @@ Yorku\JuturnaBundle\Entity\IndicatorBenefit:
          joinTable:
            name: ecosystemservice_indicatorbenefits
            joinColumns:
-             ecosystemservice_id:
+             indicatorbenefit_id:
                referencedColumnName: id
            inverseJoinColumns:
-             indicatorbenefit_id:
+             ecosystemservice_id:
                referencedColumnName: id                 
        humanwellbeingedomains:
          targetEntity: HumanWellBeingDomain
@@ -72,10 +72,10 @@ Yorku\JuturnaBundle\Entity\IndicatorBenefit:
          joinTable:
            name: humanwellbeingdomain_indicatorbenefits
            joinColumns:
-             humanwellbeingedomain_id:
+             indicatorbenefit_id:
                referencedColumnName: id
            inverseJoinColumns:
-             indicatorbenefit_id:
+             humanwellbeingedomain_id:
                referencedColumnName: id   
        indicatorreferences:
           targetEntity: IndicatorReference
@@ -83,10 +83,10 @@ Yorku\JuturnaBundle\Entity\IndicatorBenefit:
           joinTable:
            name: indicatorreference_indicatorbenefits
            joinColumns:
-             indicatorreference_id:
+             indicatorbenefit_id:
                referencedColumnName: id
            inverseJoinColumns:
-             indicatorbenefit_id:
+             indicatorreference_id:
                referencedColumnName: id   
        additionalreferences:
           targetEntity: IndicatorReference
@@ -94,10 +94,10 @@ Yorku\JuturnaBundle\Entity\IndicatorBenefit:
           joinTable:
            name: additionalreference_indicatorbenefits
            joinColumns:
-             additionalreference_id:
+             indicatorbenefit_id:
                referencedColumnName: id
            inverseJoinColumns:
-             indicatorbenefit_id:
+             additionalreference_id:
                referencedColumnName: id                  
        otherlinks:
           targetEntity: IndicatorReference
@@ -105,10 +105,10 @@ Yorku\JuturnaBundle\Entity\IndicatorBenefit:
           joinTable:
            name: otherlinks_indicatorbenefits
            joinColumns:
-             additionalreference_id:
+             otherlinks_id:
                referencedColumnName: id
            inverseJoinColumns:
-             indicatorbenefit_id:
+             indicatorreference_id:
                referencedColumnName: id                  
        indicatorbenefitimages:
           targetEntity: IndicatorBenefitImage
@@ -116,42 +116,42 @@ Yorku\JuturnaBundle\Entity\IndicatorBenefit:
           joinTable:
            name: indicatorbenefitimage_indicatorbenefits
            joinColumns:
+             indicatorbenefit_id:
+               referencedColumnName: id
+           inverseJoinColumns:
              indicatorbenefitimage_id:
-               referencedColumnName: id
-           inverseJoinColumns:
-             indicatorbenefit_id:
                referencedColumnName: id          
-       uploadfilelayers:
-          targetEntity: Map2u\CoreBundle\Entity\UploadfileLayer
+       symbolizedLayers:
+          targetEntity: Map2u\CoreBundle\Entity\SymbolizedLayer
           orderBy: { 'seq': 'ASC' }
           joinTable:
-           name: uploadfilelayers_indicatorbenefits
+           name: indicatorbenefits_symbolizedlayers
            joinColumns:
-             uploadfilelayer_id:
+             indicatorbenefit_id:
                referencedColumnName: id
            inverseJoinColumns:
-             indicatorbenefit_id:
+             maplayer_id:
                referencedColumnName: id                         
-       clusterlayers:
-          targetEntity: Map2u\CoreBundle\Entity\LeafletClusterLayer
-          orderBy: { 'seq': 'ASC' }
-          joinTable:
-           name: clusterlayers_indicatorbenefits
-           joinColumns:
-             clusterlayer_id:
-               referencedColumnName: id
-           inverseJoinColumns:
-             indicatorbenefit_id:
-               referencedColumnName: id       
-       geoserverlayers:
-          targetEntity: Map2u\CoreBundle\Entity\GeoServerLayer
-          orderBy: { 'seq': 'ASC' }
-          joinTable:
-           name: geoserverlayers_indicatorbenefits
-           joinColumns:
-             geoserverlayer_id:
-               referencedColumnName: id
-           inverseJoinColumns:
-             indicatorbenefit_id:
-               referencedColumnName: id                      
+#       clusterlayers:
+#          targetEntity: Map2u\CoreBundle\Entity\LeafletClusterLayer
+#          orderBy: { 'seq': 'ASC' }
+#          joinTable:
+#           name: indicatorbenefits_clusterlayers
+#           joinColumns:
+#             clusterlayer_id:
+#               referencedColumnName: id
+#           inverseJoinColumns:
+#             indicatorbenefit_id:
+#               referencedColumnName: id       
+#       geoserverlayers:
+#          targetEntity: Map2u\CoreBundle\Entity\GeoServerLayer
+#          orderBy: { 'seq': 'ASC' }
+#          joinTable:
+#           name: indicatorbenefits_geoserverlayers
+#           joinColumns:
+#             geoserverlayer_id:
+#               referencedColumnName: id
+#           inverseJoinColumns:
+#             indicatorbenefit_id:
+#               referencedColumnName: id                      
     lifecycleCallbacks: {  }

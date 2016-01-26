@@ -1,0 +1,44 @@
+Application\Map2u\CoreBundle\Entity\UserDrawGeometry:
+    type: entity
+    table: userdrawgeometries
+#    inheritanceType: SINGLE_TABLE
+#    discriminatorColumn:
+#        name: type
+#        type: string
+#        length: null
+#    discriminatorMap:
+#        1: Map2u\CoreBundle\Entity\UserDrawGeometries
+#        2: Application\Map2u\CoreBundle\Entity\UserDrawGeometries
+    fields:
+        id:
+            id: true
+            type: guid
+            unsigned: false
+            nullable: false
+            columnDefinition: uuid NOT NULL DEFAULT uuid_generate_v4()
+            generator: 
+                strategy: UUID          
+        images:
+            type: string
+            length: 2500
+            fixed: false
+            nullable: true
+            column: images       
+        video:     
+            type: string
+            length: 2500
+            fixed: false
+            nullable: true
+            column: video
+        audio:     
+            type: string
+            length: 2500
+            fixed: false
+            nullable: true
+            column: audio        
+        altText:
+            type: string
+            length: 100
+            fixed: false
+            nullable: true
+            column: alt_text                       

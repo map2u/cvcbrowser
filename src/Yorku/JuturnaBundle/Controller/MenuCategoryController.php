@@ -45,12 +45,12 @@ class MenuCategoryController extends Controller {
         $contentId = $request->get('content_id');
         $categorySlug = $request->get('category');
         $em = $this->getDoctrine()->getManager();
-        $category = $em->getRepository('YorkuJuturnaBundle:Category')->findOneBy(array('slug' => $categorySlug));
+        $category = $em->getRepository('YorkuJuturnaBundle:ContentCategory')->findOneBy(array('slug' => $categorySlug));
         if ($category) {
             if (intval($layerId) == 0) {
-                $categorycontents = $em->getRepository('YorkuJuturnaBundle:CategoryContents')->findBy(array('id' => $contentId, 'category' => $category), array('position' => 'ASC'));
+                $categorycontents = $em->getRepository('YorkuJuturnaBundle:Content')->findBy(array('id' => $contentId, 'contentCategory' => $category), array('position' => 'ASC'));
             } else {
-                $categorycontents = $em->getRepository('YorkuJuturnaBundle:CategoryContents')->findBy(array('layerId' => $layerId, 'category' => $category), array('position' => 'ASC'));
+                $categorycontents = $em->getRepository('YorkuJuturnaBundle:Content')->findBy(array('layerId' => $layerId, 'contentCategory' => $category), array('position' => 'ASC'));
             }
         }
 

@@ -29,6 +29,7 @@ sonata_block:
         map2ucorebundle.block.mapoverlayselection: ~
         yorku_juturna.block.indicator_column: ~  
         sonata.admin.block.search_result: ~
+        map2u_core.block.uploadspatialfile: ~
         # Some specific block from the SonataMediaBundle
         #sonata.media.block.media:
         #sonata.media.block.gallery:

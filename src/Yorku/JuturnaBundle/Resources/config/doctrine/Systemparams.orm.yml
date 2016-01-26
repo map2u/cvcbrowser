@@ -4,11 +4,11 @@ Yorku\JuturnaBundle\Entity\Systemparams:
     fields:
         id:
             id: true
-            type: integer
+            type: guid
             unsigned: false
             nullable: false
             generator:
-                strategy: SEQUENCE
+                strategy: UUID
         logo1Name:
             type: string
             length: 60

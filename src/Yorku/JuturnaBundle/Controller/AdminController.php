@@ -56,6 +56,30 @@ class AdminController extends Controller {
     }
 
     /**
+     * Lists all BenthicCollections entities.
+     *
+     * @Route("/storyimage", name="admin_storyimage")
+     * @Method("GET")
+     * @Template()
+     */
+    public function storyimageAction() {
+        $em = $this->getDoctrine()->getManager();
+        $source_dir = $this->get('kernel')->getRootDir() . '/../web/uploads/stories/';
+        $conn = $this->get("database_connection");
+        $entities = $conn->fetchAll("select * from stories"); // $em->getRepository('YorkuJuturnaBundle:Story')->findAll();
+        foreach ($entities as $entity) {
+            $uid = $entity['uid'];
+            $id = $entity['id'];
+            if (file_exists($source_dir . $uid)) {
+                rename($source_dir . $uid, $source_dir . $id);
+            }
+        }
+        return array(
+            'entities' => $entities,
+        );
+    }
+
+    /**
      * Lists all admin userprofile.
      *
      * @Route("/userprofile", name="admin_userprofile")
@@ -149,8 +173,6 @@ class AdminController extends Controller {
 
         return array("databaseform" => $databaseform->createView(), "systemform" => $systemform->createView());
     }
-
-   
 
     // check the uploaded shapefile and if the assigned content field name exist or not
     private function isColumnExist($conn, $tablename, $columnname) {

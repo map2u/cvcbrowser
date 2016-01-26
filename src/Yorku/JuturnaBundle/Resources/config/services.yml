@@ -103,22 +103,22 @@ services:
             - {name: sonata.admin, manager_type: orm, group: admin, label: GraphChart}
 
     yorku_juturna.admin.category_contents:
-        class: Yorku\JuturnaBundle\Admin\CategoryContentsAdmin
-        arguments: [~, Yorku\JuturnaBundle\Entity\CategoryContents, YorkuJuturnaBundle:CategoryContentsAdmin]
+        class: Yorku\JuturnaBundle\Admin\ContentAdmin
+        arguments: [~, Yorku\JuturnaBundle\Entity\Content, YorkuJuturnaBundle:ContentAdmin]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: CategoryContents}
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Category Contents}
 
     yorku_juturna.admin.category:
-        class: Yorku\JuturnaBundle\Admin\CategoryAdmin
-        arguments: [~, Yorku\JuturnaBundle\Entity\Category, YorkuJuturnaBundle:CategoryAdmin]
+        class: Yorku\JuturnaBundle\Admin\ContentCategoryAdmin
+        arguments: [~, Yorku\JuturnaBundle\Entity\ContentCategory, YorkuJuturnaBundle:ContentCategoryAdmin]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: Category}
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Content Categories}
 
     yorku_juturna.admin.category_content_details:
-        class: Yorku\JuturnaBundle\Admin\CategoryContentDetailsAdmin
-        arguments: [~, Yorku\JuturnaBundle\Entity\CategoryContentDetails, YorkuJuturnaBundle:CategoryContentDetailsAdmin]
+        class: Yorku\JuturnaBundle\Admin\ContentDetailAdmin
+        arguments: [~, Yorku\JuturnaBundle\Entity\ContentDetail, YorkuJuturnaBundle:ContentDetailAdmin]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: CategoryContentDetails}
+            - {name: sonata.admin, manager_type: orm, group: admin, label: ContentDetail}
     yorku_juturna.admin.homepage_flash:
         class: Yorku\JuturnaBundle\Admin\HomepageFlashAdmin
         arguments: [~, Yorku\JuturnaBundle\Entity\HomepageFlash, YorkuJuturnaBundle:HomepageFlashAdmin,@service_container]
@@ -142,6 +142,15 @@ services:
         arguments: [~, Yorku\JuturnaBundle\Entity\Story, YorkuJuturnaBundle:StoryAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, group: admin, label: Story}
+
+    map2ucorebundle.block.page_header_content:
+                class: Yorku\JuturnaBundle\Block\PageHeaderContentBlockService
+                arguments:
+                    - "map2ucorebundle.block.page_header_content"
+                    - "@templating"
+                    - @doctrine.orm.entity_manager
+                tags:
+                    -  { name: sonata.block, alias: map2ucorebundle.block.page_header_content}  
 
     yorku_juturna.admin.indicator:
         class: Yorku\JuturnaBundle\Admin\IndicatorAdmin

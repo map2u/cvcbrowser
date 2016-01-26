@@ -5,11 +5,11 @@ Yorku\JuturnaBundle\Entity\IndicatorBenefitImage:
     fields:
         id:
             id: true
-            type: integer
+            type: guid
             unsigned: false
             nullable: false
             generator:
-                strategy: IDENTITY
+                strategy: UUID
         imageName:
             type: string
             length: 255

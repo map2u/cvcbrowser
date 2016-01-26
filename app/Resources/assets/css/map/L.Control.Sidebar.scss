@@ -4,7 +4,7 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : 12-Mar-2015, 7:54:05 PM
+    Created on : 23-Dec-2015, 10:30:53 PM
     Author     : josephzhao
 */
 
@@ -40,7 +40,7 @@ and open the template in the editor.
     box-sizing: border-box;
     padding: 2px;
     background-color: rgba(255, 255, 255, 0.85);
-    z-index: 2000;
+    z-index: 1000;
 }
 
 .leaflet-sidebar.left {
@@ -52,7 +52,7 @@ and open the template in the editor.
 }
 
 .leaflet-sidebar.right {
-    right: -300px;
+    right: -430px;
     transition: right 0.5s, width 0.5s;
     background-color: rgba(255, 255, 255, 0.85);
     padding-left: 0;
@@ -156,14 +156,14 @@ and open the template in the editor.
         width: 280px;
     }
     .leaflet-sidebar.right {
-        width: 240px;
+        width: 340px;
     }
     .leaflet-sidebar.left.visible ~ .leaflet-left {
         left: 280px;
          z-index: inherit;
     }
     .leaflet-sidebar.right.visible ~ .leaflet-right {
-        right: 240px;
+        right: 390px;
     }
 }
 
@@ -172,7 +172,7 @@ and open the template in the editor.
         width: 300px;
     }
     .leaflet-sidebar.right {
-        width: 260px;
+        width: 410px;
     }
 
     .leaflet-sidebar.left.visible ~ .leaflet-left {
@@ -181,7 +181,7 @@ and open the template in the editor.
     }
 
     .leaflet-sidebar.right.visible ~ .leaflet-right {
-        right: 260px;
+        right: 410px;
     }
 }
 
@@ -191,7 +191,7 @@ and open the template in the editor.
         width: 350px;
     }
     .leaflet-sidebar.right {
-        width: 280px;
+        width: 430px;
     }
     .leaflet-sidebar.left.visible ~ .leaflet-left {
         left: 350px;
@@ -199,7 +199,7 @@ and open the template in the editor.
 
     }
     .leaflet-sidebar.right.visible ~ .leaflet-right {
-        right: 280px;
+        right: 430px;
 
     }
 }

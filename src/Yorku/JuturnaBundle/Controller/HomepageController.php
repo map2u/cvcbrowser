@@ -25,6 +25,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Yorku\JuturnaBundle\Form\ContactType;
+use Map2u\CoreBundle\Controller\DefaultMethods;
 
 /**
  * Homepage controller.
@@ -61,13 +62,15 @@ class HomepageController extends Controller {
      */
     public function imagesAction(Request $request) {
         $type = $request->get("type");
+
         $locale = $request->getLocale();
         if (!isset($type) || $type == null) {
             $type = "Well-Being";
         }
         $em = $this->getDoctrine()->getManager();
-        $category = $em->getRepository('YorkuJuturnaBundle:Category')->findOneByName($type);
-        $image = $em->getRepository('YorkuJuturnaBundle:HomepageImage')->findOneBy(array('category' => $category));
+        $category = $em->getRepository('YorkuJuturnaBundle:ContentCategory')->findOneByName($type);
+
+        $image = $em->getRepository('YorkuJuturnaBundle:HomepageImage')->findOneBy(array('contentCategory' => $category));
         return array('_locale' => $locale, 'image' => $image, 'type' => strtolower(str_replace("-", "_", $type)));
     }
 
@@ -98,16 +101,122 @@ class HomepageController extends Controller {
         $id = $request->get("id");
         $locale = $request->getLocale();
         $session->set('current_menu', "story");
-        $category = $em->getRepository('YorkuJuturnaBundle:Category')->findOneByName("Story");
+        $category = $em->getRepository('YorkuJuturnaBundle:ContentCategory')->findOneByName("Story");
         $stories = null;
         if (isset($id) && intval($id) > 0) {
             $stories = $em->getRepository('YorkuJuturnaBundle:Story')->find($id);
         }
-        $image = $em->getRepository('YorkuJuturnaBundle:HomepageImage')->findOneBy(array('category' => $category));
+        $image = $em->getRepository('YorkuJuturnaBundle:HomepageImage')->findOneBy(array('contentCategory' => $category));
 
         $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
 
         return array('_locale' => $locale, 'stories' => $stories, 'image' => $image, 'flashs' => $flashs, "category" => $category);
+    }
+
+    /**
+     * .
+     *
+     * @Route("/spatialfiletrans", name="homepage_spatialfiletrans")
+     * @Method("GET")
+
+     */
+    public function spatialfiletransAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $path = getenv('PATH');
+        putenv("PATH=$path:/opt/local/bin");
+        $conn = $this->get("database_connection");
+        $sql = "select * from useruploadfile";
+         $source_dir = $this->get('kernel')->getRootDir() . '/../Data/uploads';
+
+
+        $results = $conn->fetchAll($sql);
+        foreach ($results as $result) {
+            //  var_dump($result['id2']);
+            $spatialfiledir = $this->get('kernel')->getRootDir() . '/../Data/uploads/spatialfiles/spatial_' . str_replace('-', '_', $result['id2']);
+            shell_exec('rm '.$spatialfiledir.'/u'.$result['file_name2']);
+//            
+//            $sql = "select * from pg_tables where tablename='useruploadfile_geoms_" . $result['id'] . "' and schemaname='public'";
+//            $cresult = $conn->fetchAll($sql);
+//            if (count($cresult) > 0) {
+//                $sql = " drop table IF EXISTS spatial_" . str_replace('-', '_', $result['id2']);
+//                $conn->fetchAll($sql);
+//
+//                $sql = "select * into spatial_" . str_replace('-', '_', $result['id2']) . " from useruploadfile_geoms_" . $result['id'];
+//                $conn->fetchAll($sql);
+//                $sql = "alter table spatial_" . str_replace('-', '_', $result['id2']) . " add column id uuid default uuid_generate_v4()";
+//                $conn->fetchAll($sql);
+//
+//                $geo_type = DefaultMethods::getGeometryType($conn, 'spatial_' . str_replace('-', '_', $result['id2']), 'the_geom');
+//                var_dump($geo_type);
+//     //           $columns = unserialize($result['field_list']);
+// $columns = DefaultMethods::getTableColumns($this, "spatial_" . str_replace('-', '_', $result['id2']));
+//                var_dump($columns);
+//                $column_name_array = array();
+//                array_push($column_name_array, 'id');
+//                foreach ($columns as $column) {
+//                    array_push($column_name_array, $column["column_name"]);
+//                }
+//                var_dump($column_name_array);
+//                $filename = 'spatial_' . str_replace('-', '_', $result['id2']);
+//
+//                $column_names = implode(',', $column_name_array);
+//                var_dump($column_names);
+//                $geom_column = "the_geom";
+//                // delete existing geojson file, ogr2ogr not update or auto overwrite geojson file
+//                if (file_exists($spatialfiledir . '/' . $filename . '.geojson')) {
+//                    shell_exec("rm -rf " . $spatialfiledir . '/' . $filename . '.geojson');
+//                }
+//
+//
+//                $sql2shapefile = 'ogr2ogr -overwrite -unsetFieldWidth -f "GeoJSON" ' . $spatialfiledir . '/' . $filename . '.geojson PG:"host=127.0.0.1 user=jzhao dbname=cvcbrowser3 password=jzhao" -nlt ' . $geo_type . ' -sql "SELECT ' . $column_names . ',' . $geom_column . ' as the_geom FROM ' . $filename . '" 2>&1';
+//
+//
+//                $ogr2ogr_output = shell_exec($sql2shapefile);
+//
+//               
+//                $topojsonfile = 'topojson -p -o ' . $spatialfiledir . '/' . $filename . '.topojson  ' . $spatialfiledir . '/' . $filename . '.geojson  2>&1';
+//
+//
+//                $output = shell_exec($topojsonfile);
+//
+//                $zipfile = "zip -r " . $spatialfiledir . '/' . $filename . '.zip  ' . $spatialfiledir . '/' . $filename . '.topojson   2>&1';
+//
+//                $output = shell_exec($zipfile);
+//            }
+//            
+//            
+//            
+            
+            
+            
+            
+            
+            
+            
+//            if (!file_exists($spatialfiledir)) {
+//                shell_exec("mkdir -p " . $spatialfiledir);
+//            }
+            $filename = preg_replace('/\\.[^.\\s]{3,4}$/', '', $result['file_name2']);
+
+            $handler = opendir($source_dir . "/1/shapefile");
+          //  var_dump($source_dir . "/1/shapefile". "<br>");
+// open directory and walk through the filenames
+            while ($file = readdir($handler)) {
+             //   var_dump($file);
+                // if file isn't this directory or its parent, add it to the results
+                if ($file != "." && $file != "..") {
+
+                    // check with regex that the file format is what we're expecting and not something else
+                    if (preg_match('#^(u' . $result['id'] . '_' . $filename . ')#', $file)) {
+shell_exec("cp ".$source_dir . "/1/shapefile/".$file." ".$spatialfiledir.'/'.  str_replace('u'.$result['id'] . '_', '', $file));
+                       // var_dump($file) . "<br>";
+                    }
+                }
+            }
+            var_dump("<br>");
+            //   var_dump($filename) . "<br>" . "<br>" . "<br>";
+        }
+        return new \Symfony\Component\HttpFoundation\Response();
     }
 
     /**
@@ -143,13 +252,13 @@ class HomepageController extends Controller {
         $id = $request->get("id");
         $locale = $request->getLocale();
         $session->set('current_menu', "well_being");
-        $category = $em->getRepository('YorkuJuturnaBundle:Category')->findOneByName("Well-Being");
+        $category = $em->getRepository('YorkuJuturnaBundle:ContentCategory')->findOneByName("Well-Being");
         $wellbeing = null;
         if (isset($id) && intval($id) > 0) {
             $wellbeing = $em->getRepository('YorkuJuturnaBundle:HumanWellBeingDomain')->find($id);
         }
 
-        $image = $em->getRepository('YorkuJuturnaBundle:HomepageImage')->findOneBy(array('category' => $category));
+        $image = $em->getRepository('YorkuJuturnaBundle:HomepageImage')->findOneBy(array('contentCategory' => $category));
 
         $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
 
@@ -170,13 +279,13 @@ class HomepageController extends Controller {
         $id = $request->get("id");
         $locale = $request->getLocale();
         $session->set('current_menu', "ecosystems");
-        $category = $em->getRepository('YorkuJuturnaBundle:Category')->findOneByName("Ecosystems");
+        $category = $em->getRepository('YorkuJuturnaBundle:ContentCategory')->findOneByName("Ecosystems");
         $ecosystems = null;
         if (isset($id) && intval($id) > 0) {
             $ecosystems = $em->getRepository('YorkuJuturnaBundle:EcoSystemService')->find($id);
         }
 
-        $image = $em->getRepository('YorkuJuturnaBundle:HomepageImage')->findOneBy(array('category' => $category));
+        $image = $em->getRepository('YorkuJuturnaBundle:HomepageImage')->findOneBy(array('contentCategory' => $category));
 
 
         $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
@@ -219,7 +328,7 @@ class HomepageController extends Controller {
         $session->set('current_menu', "stories");
         $locale = $request->getLocale();
         $em = $this->getDoctrine()->getManager();
-        $category = $em->getRepository('YorkuJuturnaBundle:Category')->findOneByName("Ecosystems");
+        $category = $em->getRepository('YorkuJuturnaBundle:ContentCategory')->findOneByName("Ecosystems");
         $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
         return array('_locale' => $locale, 'flashs' => $flashs);
     }

@@ -4,11 +4,11 @@ Yorku\JuturnaBundle\Entity\MemberShip:
     fields:
         id:
             id: true
-            type: integer
+            type: guid
             unsigned: false
             nullable: false
             generator:
-                strategy: IDENTITY
+                strategy: UUID
         name:
             type: string
             length: 40

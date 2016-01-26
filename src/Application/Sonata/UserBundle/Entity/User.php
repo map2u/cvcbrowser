@@ -31,7 +31,7 @@ class User extends BaseUser {
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $useruploadfiles;
+    private $spatialfiles;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -41,7 +41,12 @@ class User extends BaseUser {
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $maplayers;
+    private $symbolizedLayers;
+
+    /**
+     * @var \Map2u\CoreBundle\Entity\UserGroup
+     */
+    private $usergroup;
 
     /**
      * Get id
@@ -57,11 +62,11 @@ class User extends BaseUser {
      */
     public function __construct() {
         parent::__construct();
-        $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
+        //   $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
         $this->stations = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->useruploadfiles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->spatialfiles = new \Doctrine\Common\Collections\ArrayCollection();
         $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->maplayers = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->symbolizedLayers = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -91,33 +96,33 @@ class User extends BaseUser {
     }
 
     /**
-     * Add useruploadfiles
+     * Add spatialfiles
      *
-     * @param \Map2u\CoreBundle\Entity\UserUploadfile $useruploadfiles
+     * @param \Map2u\CoreBundle\Entity\SpatialFile $spatialfiles
      * @return User
      */
-    public function addUseruploadfile(\Map2u\CoreBundle\Entity\UserUploadfile $useruploadfiles) {
-        $this->useruploadfiles[] = $useruploadfiles;
+    public function addSpatialFile(\Map2u\CoreBundle\Entity\SpatialFile $spatialfiles) {
+        $this->spatialfiles[] = $spatialfiles;
 
         return $this;
     }
 
     /**
-     * Remove useruploadfiles
+     * Remove spatialfiles
      *
-     * @param \Map2u\CoreBundle\Entity\UserUploadfile $useruploadfiles
+     * @param \Map2u\CoreBundle\Entity\SpatialFile $spatialfiles
      */
-    public function removeUseruploadfile(\Map2u\CoreBundle\Entity\UserUploadfile $useruploadfiles) {
-        $this->useruploadfiles->removeElement($useruploadfiles);
+    public function removeSpatialFile(\Map2u\CoreBundle\Entity\SpatialFile $spatialfiles) {
+        $this->spatialfiles->removeElement($spatialfiles);
     }
 
     /**
-     * Get useruploadfiles
+     * Get spatialfiles
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getUseruploadfiles() {
-        return $this->useruploadfiles;
+    public function getSpatialFiles() {
+        return $this->spatialfiles;
     }
 
     /**
@@ -151,33 +156,57 @@ class User extends BaseUser {
     }
 
     /**
-     * Add maplayer
+     * Add symbolizedLayer
      *
-     * @param \Map2u\CoreBundle\Model\MapLayerInterface $maplayer
+     * @param \Map2u\CoreBundle\Model\SymbolizedLayerInterface $symbolizedLayer
      * @return User
      */
-    public function addMapLayer(\Map2u\CoreBundle\Model\MapLayerInterface $maplayer) {
-        $this->maplayers[] = $maplayer;
+    public function addSymbolizedLayer(\Map2u\CoreBundle\Model\SymbolizedLayerInterface $symbolizedLayer) {
+        $this->symbolizedLayers[] = $symbolizedLayer;
 
         return $this;
     }
 
     /**
-     * Remove maplayer
+     * Remove symbolizedLayer
      *
-     * @param \Map2u\CoreBundle\Model\MapLayerInterface $maplayer
+     * @param \Map2u\CoreBundle\Model\SymbolizedLayerInterface $symbolizedLayer
      */
-    public function removeMapLayer(\Map2u\CoreBundle\Model\MapLayerInterface $maplayer) {
-        $this->maplayers->removeElement($maplayer);
+    public function removeSymbolizedLayer(\Map2u\CoreBundle\Model\SymbolizedLayerInterface $symbolizedLayer) {
+        $this->symbolizedLayers->removeElement($symbolizedLayer);
     }
 
     /**
-     * Get maplayers
+     * Get symbolizedLayers
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getMapLayers() {
-        return $this->maplayers;
+    public function getSymbolizedLayers() {
+        return $this->symbolizedLayers;
+    }
+
+    /**
+     * @var \Map2u\CoreBundle\Entity\UserGroup
+     */
+
+    /**
+     * Get usergroup
+     *
+     * @return \Map2u\CoreBundle\Entity\UserGroup
+     */
+    public function getUsergroup() {
+        return $this->usergroup;
+    }
+
+    /**
+     * set usergroup
+     *
+     * @param \Map2u\CoreBundle\Entity\UserGroup $usergroup
+     * @return User
+     */
+    public function setUsergroup($usergroup) {
+        $this->usergroup = $usergroup;
+        return $this;
     }
 
 }

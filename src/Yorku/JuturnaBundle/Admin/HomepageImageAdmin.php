@@ -88,7 +88,7 @@ class HomepageImageAdmin extends Admin {
                 ->add('category', 'entity', array('label' => 'Category',
                     'required' => true,
                     'expanded' => false,
-                    'class' => 'Yorku\JuturnaBundle\Entity\Category',
+                    'class' => 'Yorku\JuturnaBundle\Entity\ContentCategory',
                     'property' => 'name',
                     'multiple' => false
                 ))
