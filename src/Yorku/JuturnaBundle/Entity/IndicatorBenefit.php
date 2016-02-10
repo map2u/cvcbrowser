@@ -420,76 +420,9 @@ class IndicatorBenefit {
         return $this->symbolizedLayers;
     }
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $clusterlayers;
+    
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $geoserverlayers;
-
-    /**
-     * Add clusterlayers
-     *
-     * @param \Map2u\CoreBundle\Entity\LeafletClusterLayer $clusterlayers
-     * @return IndicatorBenefit
-     */
-    public function addClusterlayer(\Map2u\CoreBundle\Entity\LeafletClusterLayer $clusterlayers) {
-        $this->clusterlayers[] = $clusterlayers;
-
-        return $this;
-    }
-
-    /**
-     * Remove clusterlayers
-     *
-     * @param \Map2u\CoreBundle\Entity\LeafletClusterLayer $clusterlayers
-     */
-    public function removeClusterlayer(\Map2u\CoreBundle\Entity\LeafletClusterLayer $clusterlayers) {
-        $this->clusterlayers->removeElement($clusterlayers);
-    }
-
-    /**
-     * Get clusterlayers
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getClusterlayers() {
-        return $this->clusterlayers;
-    }
-
-    /**
-     * Add geoserverlayers
-     *
-     * @param \Map2u\CoreBundle\Entity\GeoServerLayer $geoserverlayers
-     * @return IndicatorBenefit
-     */
-    public function addGeoserverlayer(\Map2u\CoreBundle\Entity\GeoServerLayer $geoserverlayers) {
-        $this->geoserverlayers[] = $geoserverlayers;
-
-        return $this;
-    }
-
-    /**
-     * Remove geoserverlayers
-     *
-     * @param \Map2u\CoreBundle\Entity\GeoServerLayer $geoserverlayers
-     */
-    public function removeGeoserverlayer(\Map2u\CoreBundle\Entity\GeoServerLayer $geoserverlayers) {
-        $this->geoserverlayers->removeElement($geoserverlayers);
-    }
-
-    /**
-     * Get geoserverlayers
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getGeoserverlayers() {
-        return $this->geoserverlayers;
-    }
-
+   
     /**
      * @var \Doctrine\Common\Collections\Collection
      */

@@ -19,14 +19,16 @@ imports:
     - { resource: sonata/sonata_news.yml }
     - { resource: map2u.yml }
     - { resource: forum.yml }
+#    - { resource: @Map2uCoreBundle/Resources/config/config.yml } 
     - { resource: @ApplicationMap2uCoreBundle/Resources/config/services.yml }
+    - { resource: @Map2uCoreBundle/Resources/config/services.yml }
     - { resource: ../../vendor/knplabs/doctrine-behaviors/config/orm-services.yml }
 
 parameters:
     map2u.core.manager.category.class: Map2u\CoreBundle\Entity\CategoryManager
     map2u.core.manager.sidebarmenu.class: Map2u\CoreBundle\Entity\SidebarMenuManager  
     map2u.core.manager.layercategory.class: Map2u\CoreBundle\Entity\LayerCategoryManager  
-     
+    map2u.core.spatialfile.class: Map2u\CoreBundle\Entity\SpatialFile   
 framework:
     #esi:             ~
     translator:      { fallback: "%locale%" }
@@ -319,9 +321,9 @@ stof_doctrine_extensions:
       
 a2lix_translation_form:
     locale_provider: default       # [1]
-    locales: [en,zh]          # [1-a]
+    locales: [en]          # [1-a]
     default_locale: en             # [1-b]
-    required_locales: [en,zh]         # [1-c]
+    required_locales: [en]         # [1-c]
     manager_registry: doctrine      # [2]
     templating: "A2lixTranslationFormBundle::default.html.twig"      # [3]     
                 

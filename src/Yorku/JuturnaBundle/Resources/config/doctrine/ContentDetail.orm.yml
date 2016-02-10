@@ -53,7 +53,7 @@ Yorku\JuturnaBundle\Entity\ContentDetail:
               timestampable:
                 on: update     
     manyToOne:
-        content:
+        categorycontent:
             targetEntity: Yorku\JuturnaBundle\Entity\Content 
             cascade: {  }
             mappedBy: null

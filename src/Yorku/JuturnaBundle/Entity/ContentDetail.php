@@ -73,7 +73,7 @@ class ContentDetail {
     /**
      * @var \Yorku\JuturnaBundle\Entity\Content
      */
-    private $content;
+    private $categorycontent;
 
     /**
      * Get id
@@ -263,24 +263,24 @@ class ContentDetail {
     }
 
     /**
-     * Set content
+     * Set categorycontent
      *
-     * @param \Yorku\JuturnaBundle\Entity\Content $content
+     * @param \Yorku\JuturnaBundle\Entity\Content $categorycontent
      * @return ContentDetail
      */
-    public function setContent(\Yorku\JuturnaBundle\Entity\Content $content = null) {
-        $this->content = $content;
+    public function setCategorycontent(\Yorku\JuturnaBundle\Entity\Content $categorycontent = null) {
+        $this->categorycontent = $categorycontent;
 
         return $this;
     }
 
     /**
-     * Get content
+     * Get categorycontent
      *
      * @return \Yorku\JuturnaBundle\Entity\Content
      */
-    public function getContent() {
-        return $this->content;
+    public function getCategorycontent() {
+        return $this->categorycontent;
     }
 
 }

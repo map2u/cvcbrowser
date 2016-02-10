@@ -20,6 +20,7 @@
         "a2lix/i18n-doctrine-bundle": "dev-master",
         "a2lix/translation-form-bundle": "2.*@dev",
         "jms/serializer-bundle": "*",
+        "paradigmate/image-bundle": "1.0.*",
         "friendsofsymfony/user-bundle": "1.3.x-dev as dev-master",
         "friendsofsymfony/jsrouting-bundle": "@stable",
         "sensio/distribution-bundle": "~4.0",
@@ -73,32 +74,30 @@
 
     },
     "repositories": [
+        
         {
-           "packagist": true  
+            "type": "vcs",
+            "url": "git@map2u.com:/opt/repositories/Map2uCoreBundle.git"
         },
         {
             "type": "vcs",
-            "url": "git@map2u.familyds.com:/volume1/homes/git/repositories/Map2uCoreBundle.git"
+            "url": "git@map2u.com:/opt/repositories/Map2uLeafletBundle.git"
         },
         {
             "type": "vcs",
-            "url": "git@map2u.familyds.com:/volume1/homes/git/repositories/Map2uLeafletBundle.git"
+            "url": "git@map2u.com:/opt/repositories/Map2uMapfishPrintBundle.git"
         },
         {
             "type": "vcs",
-            "url": "git@map2u.familyds.com:/volume1/homes/git/repositories/Map2uMapfishPrintBundle.git"
+            "url": "git@map2u.com:/opt/repositories/Map2uForumBundle.git"
         },
         {
             "type": "vcs",
-            "url": "git@map2u.familyds.com:/volume1/homes/git/repositories/Map2uForumBundle.git"
+            "url": "git@map2u.com:/opt/repositories/Map2uDashboardBundle.git"
         },
         {
             "type": "vcs",
-            "url": "git@map2u.familyds.com:/volume1/homes/git/repositories/Map2uDashboardBundle.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@map2u.familyds.com:/volume1/homes/git/repositories/Map2uWebBundle.git"
+            "url": "git@map2u.com:/opt/repositories/Map2uWebBundle.git"
         }],
     "scripts": {
         "post-install-cmd": [

@@ -22,19 +22,19 @@
                 <cascade-remove/>
             </cascade>
         </one-to-many>
-          <one-to-many field="symbolizedLayers" target-entity="Map2u\CoreBundle\Entity\SymbolizedLayer" mapped-by="user">
+        <one-to-many field="symbolizedLayers" target-entity="Map2u\CoreBundle\Entity\SymbolizedLayer" mapped-by="user">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>
             </cascade>
         </one-to-many>
-        <one-to-one field="usergroup" target-entity="Map2u\CoreBundle\Entity\UserGroup">
+<!--        <one-to-one field="usergroup" target-entity="Map2u\CoreBundle\Entity\UserGroup">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>
             </cascade>
-        </one-to-one>
-        <!--        <one-to-many field="groups" target-entity="Map2u\CoreBundle\Entity\UserGroup" mapped-by="user">
+        </one-to-one>-->
+        <one-to-many field="usergroups" target-entity="Map2u\CoreBundle\Entity\UserGroup" mapped-by="user">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>
@@ -42,6 +42,6 @@
             <order-by>
                 <order-by-field name="createdAt" direction="ASC" />
             </order-by>
-        </one-to-many>-->
+        </one-to-many>
     </entity>
 </doctrine-mapping>

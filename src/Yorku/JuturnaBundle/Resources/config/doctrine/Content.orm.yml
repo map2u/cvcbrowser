@@ -1,6 +1,6 @@
 Yorku\JuturnaBundle\Entity\Content:
     type: entity
-    table: content
+    table: category_contents
     fields:
         id:
             id: true
@@ -87,10 +87,10 @@ Yorku\JuturnaBundle\Entity\Content:
             cascade: {  }
             inversedBy: contents
             joinColumns:
-              ccontentcategory_id:
+              contentcategory_id:
                 referencedColumnName: id
-        symbolizedLayer:
-            targetEntity: Map2u\CoreBundle\Entity\SymbolizedLayer 
+        layer:
+            targetEntity: Map2u\CoreBundle\Entity\Layer 
             cascade: {  }
             mappedBy: null
             inversedBy: null
@@ -98,13 +98,13 @@ Yorku\JuturnaBundle\Entity\Content:
               layer_id:
                 referencedColumnName: id
     manyToMany:                 
-       displaySymbolizedLayers:
-         targetEntity: Map2u\CoreBundle\Entity\SymbolizedLayer
+       layers:
+         targetEntity: Map2u\CoreBundle\Entity\Layer
          inversedBy: {}
          orderBy:
-             layerName: ASC
+             name: ASC
          joinTable:
-           name: content_symbolizedlayers
+           name: categorycontent_layers
            joinColumns:
              categorycontent_id:
                referencedColumnName: id

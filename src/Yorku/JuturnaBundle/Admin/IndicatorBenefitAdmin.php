@@ -77,25 +77,12 @@ class IndicatorBenefitAdmin extends Admin {
                 )
                 ->add('uploadfilelayers', 'entity', array('required' => false,
                     'expanded' => false,
-                    'class' => 'Map2u\CoreBundle\Entity\UploadfileLayer',
+                    'class' => 'Map2u\CoreBundle\Entity\Layer',
                     'property' => 'layerTitle',
                     'multiple' => true
                         )
                 )
-                ->add('clusterlayers', 'entity', array('required' => false,
-                    'expanded' => false,
-                    'class' => 'Map2u\CoreBundle\Entity\LeafletClusterLayer',
-                    'property' => 'layerTitle',
-                    'multiple' => true
-                        )
-                )
-                ->add('geoserverlayers', 'entity', array('required' => false,
-                    'expanded' => false,
-                    'class' => 'Map2u\CoreBundle\Entity\GeoServerLayer',
-                    'property' => 'layerTitle',
-                    'multiple' => true
-                        )
-                )
+               
                 ->add('ecosystemservices', 'entity', array('required' => true,
                     'expanded' => false,
                     'class' => 'Yorku\JuturnaBundle\Entity\EcoSystemService',

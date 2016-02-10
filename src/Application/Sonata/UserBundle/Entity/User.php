@@ -46,7 +46,7 @@ class User extends BaseUser {
     /**
      * @var \Map2u\CoreBundle\Entity\UserGroup
      */
-    private $usergroup;
+    private $usergroups;
 
     /**
      * Get id
@@ -64,6 +64,7 @@ class User extends BaseUser {
         parent::__construct();
         //   $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
         $this->stations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->usergroups = new \Doctrine\Common\Collections\ArrayCollection();
         $this->spatialfiles = new \Doctrine\Common\Collections\ArrayCollection();
         $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
         $this->symbolizedLayers = new \Doctrine\Common\Collections\ArrayCollection();
@@ -190,22 +191,33 @@ class User extends BaseUser {
      */
 
     /**
-     * Get usergroup
+     * Get usergroups
      *
      * @return \Map2u\CoreBundle\Entity\UserGroup
      */
-    public function getUsergroup() {
-        return $this->usergroup;
+    public function getUsergroups() {
+        return $this->usergroups;
     }
 
     /**
-     * set usergroup
+     * add usergroups
      *
-     * @param \Map2u\CoreBundle\Entity\UserGroup $usergroup
+     * @param \Map2u\CoreBundle\Entity\UserGroup $usergroups
      * @return User
      */
-    public function setUsergroup($usergroup) {
-        $this->usergroup = $usergroup;
+    public function addUsergroup($usergroups) {
+        $this->usergroups[] = $usergroups;
+        return $this;
+    }
+
+    /**
+     * remove usergroups
+     *
+     * @param \Map2u\CoreBundle\Entity\UserGroup $usergroups
+     * @return User
+     */
+    public function removeUsergroup($usergroups) {
+        $this->usergroups->remove($usergroups);
         return $this;
     }
 

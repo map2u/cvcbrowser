@@ -88,7 +88,7 @@ class Content {
     /**
      * @var \Map2u\CoreBundle\Entity\SymbolizedLayer
      */
-    private $symbolizedLayer;
+    private $layer;
 
     /**
      * Get id
@@ -341,24 +341,24 @@ class Content {
     }
 
     /**
-     * Set symbolizedLayer
+     * Set layer
      *
-     * @param \Map2u\CoreBundle\Entity\SymbolizedLayer $symbolizedLayer
+     * @param \Map2u\CoreBundle\Entity\Layer $layer
      * @return Content
      */
-    public function setSymbolizedLayer(\Map2u\CoreBundle\Entity\SymbolizedLayer $symbolizedLayer = null) {
-        $this->symbolizedLayer = $symbolizedLayer;
+    public function setLayer(\Map2u\CoreBundle\Entity\Layer $layer = null) {
+        $this->layer = $layer;
 
         return $this;
     }
 
     /**
-     * Get symbolizedLayer
+     * Get layer
      *
-     * @return \Map2u\CoreBundle\Entity\SymbolizedLayer 
+     * @return \Map2u\CoreBundle\Entity\layer 
      */
-    public function getSymbolizedLayer() {
-        return $this->symbolizedLayer;
+    public function getLayer() {
+        return $this->layer;
     }
 
     /**
@@ -458,36 +458,36 @@ class Content {
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $displaySymbolizedLayers;
+    private $layers;
 
     /**
-     * Add displayLayers
+     * Add layers
      *
-     * @param \Map2u\CoreBundle\Entity\SymbolizedLayer $displaySymbolizedLayers
+     * @param \Map2u\CoreBundle\Entity\Layer $layers
      * @return Content
      */
-    public function addDisplaySymbolizedLayer(\Map2u\CoreBundle\Entity\SymbolizedLayer $displaySymbolizedLayers) {
-        $this->displaySymbolizedLayers[] = $displaySymbolizedLayers;
+    public function addLayer(\Map2u\CoreBundle\Entity\Layer $layers) {
+        $this->layers[] = $layers;
 
         return $this;
     }
 
     /**
-     * Remove displaySymbolizedLayers
+     * Remove layers
      *
-     * @param \Map2u\CoreBundle\Entity\SymbolizedLayer $displaySymbolizedLayers
+     * @param \Map2u\CoreBundle\Entity\Layer $layers
      */
-    public function removeDisplaySymbolizedLayer(\Map2u\CoreBundle\Entity\SymbolizedLayer $displaySymbolizedLayers) {
-        $this->displaySymbolizedLayers->removeElement($displaySymbolizedLayers);
+    public function removeDisplaySymbolizedLayer(\Map2u\CoreBundle\Entity\Layer $layers) {
+        $this->layers->removeElement($layers);
     }
 
     /**
-     * Get displaySymbolizedLayers
+     * Get layers
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getDisplaySymbolizedLayers() {
-        return $this->displaySymbolizedLayers;
+    public function getLayers() {
+        return $this->layers;
     }
 
 }
