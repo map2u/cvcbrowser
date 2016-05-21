@@ -13,12 +13,10 @@
 
     <div class="container-fluid" style="margin:0;padding:0;">
         <div class="row-fluid story_flash">
-
-
-            {% set images=story.getImageFile()|unserialize %}
-            {% include 'YorkuJuturnaBundle:Homepage:storydetails_images.html.twig' with {'images':images, 'story':story} %}
-
-
+            {% if story is defined and story is not null %}
+                {% set images=story.getImageFile()|unserialize %}
+                {% include 'YorkuJuturnaBundle:Homepage:storydetails_images.html.twig' with {'images':images, 'story':story} %}
+            {% endif %}
         </div>
     </div>
     <div class="container-fluid" style="margin: 15px auto;max-width: 1200px;">
@@ -28,11 +26,11 @@
             </div>
         </div>
         <div class="row-fluid" style="height:700px;overflow:auto;border: 1px solid gainsboro;">
-            {% if story.storyFile and story.storyFileType == 'application/pdf' %}
+            {% if story is not null and story.storyFile and story.storyFileType == 'application/pdf' %}
                 <div id="pdf_display">
                 </div>
             {% endif %}
-            {% if story.storyFile and story.storyFileType == 'text/html' %}
+            {% if story is not null and story.storyFile and story.storyFileType == 'text/html' %}
                 <div id="html_display" style="padding:10px;width:100%;height:100%;">
                     <iframe  style="border: none; width:100%; height:100%;" src="{{app.request.getSchemeAndHttpHost()}}/uploads/stories/{{story.id}}/pdf/{{story.storyFile}}">
 

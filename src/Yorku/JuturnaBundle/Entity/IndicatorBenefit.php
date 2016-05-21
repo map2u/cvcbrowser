@@ -73,6 +73,11 @@ class IndicatorBenefit {
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
+    private $layers;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
     private $humanwellbeingedomains;
 
     /**
@@ -87,6 +92,7 @@ class IndicatorBenefit {
         $this->ecosystemservices = new \Doctrine\Common\Collections\ArrayCollection();
         $this->humanwellbeingedomains = new \Doctrine\Common\Collections\ArrayCollection();
         $this->indicatorreferences = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->layers = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -420,9 +426,36 @@ class IndicatorBenefit {
         return $this->symbolizedLayers;
     }
 
-    
+    /**
+     * Add layers
+     *
+     * @param \Map2u\CoreBundle\Entity\Layer $layers
+     * @return IndicatorBenefit
+     */
+    public function addLayer(\Map2u\CoreBundle\Entity\SymbolizedLayer $layers) {
+        $this->layers[] = $layers;
 
-   
+        return $this;
+    }
+
+    /**
+     * Remove lLayers
+     *
+     * @param \Map2u\CoreBundle\Entity\Layer $layers
+     */
+    public function removeLayer(\Map2u\CoreBundle\Entity\Layer $layers) {
+        $this->layers->removeElement($layers);
+    }
+
+    /**
+     * Get layers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLayers() {
+        return $this->layers;
+    }
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */

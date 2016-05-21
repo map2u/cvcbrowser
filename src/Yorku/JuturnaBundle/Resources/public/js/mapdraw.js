@@ -71,6 +71,16 @@ function initMapDraw(map) {
         {
             switch (viewtype) {
                 case 'stories':
+                    layer.bindPopup("Longitude:" + layer._latlng.lng.toFixed(3) + ", Latitude:" + layer._latlng.lat.toFixed(3));
+                    layer.dragging.enable();
+                    layer.on('dragend', function (event) {
+                        //var marker = event.target;  // you could also simply access the marker through the closure
+                        //var result = marker.getLatLng();  // but using the passed event is cleaner
+                        layer.bindPopup("Longitude:" + layer._latlng.lng.toFixed(3) + ", Latitude:" + layer._latlng.lat.toFixed(3));
+                        $("div.leaflet-control-container .leaflet-sidebar.left #sidebar-left #sidebar_content input[type='hidden'][name='lat']").val(layer._latlng.lat);
+                        $("div.leaflet-control-container .leaflet-sidebar.left #sidebar-left #sidebar_content input[type='hidden'][name='lng']").val(layer._latlng.lng);
+
+                    });
                     createStoryDraw(map, e);
                     return;
                 default:

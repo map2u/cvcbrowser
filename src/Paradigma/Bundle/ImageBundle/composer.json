@@ -1,0 +1,26 @@
+{
+    "name": "paradigmate/image-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony2 bundle for image resizing.",
+    "keywords": ["image", "resize"],
+    "homepage": "https://github.com/paradigmate/ImageBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ariel Ferrandini Price",
+            "email": "aferrandini@paradigmatecnologico.com"
+        }
+    ],
+    "require": {
+        "php":                      ">=5.3.2",
+        "ext-gd":                   "*",
+        "symfony/framework-bundle": ">=2.0.0"
+    },
+    "suggest": {
+        "ext-exif": "to speed up some functions instead of using GD library"
+    },
+    "autoload": {
+        "psr-0": { "Paradigma\\Bundle\\ImageBundle": "" }
+    },
+    "target-dir": "Paradigma/Bundle/ImageBundle"
+}

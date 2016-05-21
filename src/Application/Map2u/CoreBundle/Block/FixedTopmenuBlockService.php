@@ -48,13 +48,25 @@ class FixedTopmenuBlockService extends baseFixedTopmenuBlockService {
         parent::__construct($name, $templating, $entityManager);
     }
 
+    function getDefaultSettings() {
+        return array(
+            'mode' => 'public',
+            'title' => 'Header Block',
+            'template' => 'ApplicationMap2uCoreBundle:Block:fixed_topmenu.html.twig'
+        );
+    }
+
     /**
      * {@inheritdoc}
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null) {
+        $settings = array_merge($this->getDefaultSettings(), $blockContext->getSettings());
+        $blockContext->setSetting('mode', 'public');
         $criteria = array(
             'mode' => $blockContext->getSetting('mode')
         );
+
+
         $userManager = $this->container->get('fos_user.user_manager');
         $user = $userManager->findUserByUsername($this->container->get('security.context')
                         ->getToken()->getUser());
@@ -69,7 +81,7 @@ class FixedTopmenuBlockService extends baseFixedTopmenuBlockService {
 
         $parameters = array(
             'context' => $blockContext,
-            'settings' => $blockContext->getSettings(),
+            'settings' => $settings,
             'ecosystems' => $ecosystems,
             'wellbeingdomains' => $wellbeingdomains,
             'mapbookmarks' => $mapbookmarks,
@@ -88,6 +100,15 @@ class FixedTopmenuBlockService extends baseFixedTopmenuBlockService {
      */
     public function setDefaultSettings(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
+            'mode' => 'public',
+            'title' => 'Latest News',
+            'template' => 'ApplicationMap2uCoreBundle:Block:fixed_topmenu.html.twig'
+        ));
+    }
+
+    public function configureSettings(\Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver) {
+
+        $optionsResolver->setDefaults(array(
             'mode' => 'public',
             'title' => 'Latest News',
             'template' => 'ApplicationMap2uCoreBundle:Block:fixed_topmenu.html.twig'

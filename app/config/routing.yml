@@ -95,12 +95,12 @@ fos_js_routing:
      
 admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
-    prefix: /admin
+    prefix: /{_locale}/admin
 
 _sonata_admin:
     resource: .
     type: sonata_admin
-    prefix: /admin
+    prefix: /{_locale}/admin
     
 soanata_user:
      resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'

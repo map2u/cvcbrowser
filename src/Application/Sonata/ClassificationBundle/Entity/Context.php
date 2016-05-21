@@ -24,7 +24,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Context
  */
-class Context extends BaseContext {
+class Context  {
 
     /**
      * @var string

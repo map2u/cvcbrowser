@@ -75,10 +75,10 @@ class IndicatorBenefitAdmin extends Admin {
                     'multiple' => false
                         )
                 )
-                ->add('uploadfilelayers', 'entity', array('required' => false,
+                ->add('layers', 'entity', array('required' => false,
                     'expanded' => false,
                     'class' => 'Map2u\CoreBundle\Entity\Layer',
-                    'property' => 'layerTitle',
+                    'property' => 'name',
                     'multiple' => true
                         )
                 )

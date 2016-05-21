@@ -16,8 +16,7 @@ Yorku\JuturnaBundle\Entity\Story:
             nullable: false
             column: story_name
         summary:
-            type: string
-            length: 255
+            type: text
             nullable: true
             column: summary
         type:

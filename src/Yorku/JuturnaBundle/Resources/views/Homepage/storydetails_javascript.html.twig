@@ -20,7 +20,7 @@
                 $("#story_flash .item.carousel-item.active div.carousel-caption").css({"margin-top": ($("#story_flash .item.carousel-item.active img").height() - $("#story_flash .carousel-inner").height()) / 2 + "px"});
             }
         };
-    {% if story.storyFile and story.storyFileType == 'application/pdf' %}
+    {% if story is not null and story.storyFile and story.storyFileType == 'application/pdf' %}
 
 
             function loadPDFJS(pageUrl) {

@@ -1,0 +1,840 @@
+
+{% if layerCategories is defined and layerCategories | length > 0 %}
+    {% for layerCategory in layerCategories %}
+        {% if layerCategory.hasChildren() or  layerCategory.getLayers() | length >0 %}
+            <li class="layercategory" data-id="{{layerCategory.id}}" 
+                data-multiple="{{layerCategory.multiple}}">
+                <input type="checkbox" data-level='1'/>
+                <div class="layer_legend_icon">
+
+                    <i class="fa fa-minus blue"></i>
+                </div><label>{{layerCategory.name|upper}}</label>
+                <ul class="layercategory_ul">
+                    {% if layerCategory.hasChildren() %}
+                        {% for childLayerCategory in layerCategory.getChildren() %}
+
+                            {% if  childLayerCategory.getLayers()|length > 0 %}
+                                <li style="border-bottom: 1px dotted grey;" 
+                                    class="layercategory" data-category="true" data-id=
+                                    "{{childLayerCategory.id}}" data-layertype=""
+                                    data-multiple="{{childLayerCategory.multiple}}">
+                                    {% if layerCategory.multiple == true %}
+                                        <input data-id="{{childLayerCategory.id}}" data-level='2' data-multiple="{{childLayerCategory.multiple}}"
+                                               name="{{childLayerCategory.name}}" type="checkbox" />
+                                    {% else %}
+                                        <input data-id="{{childLayerCategory.id}}" data-level='2' data-multiple="{{childLayerCategory.multiple}}"
+                                               name="{{layerCategory.name}}" type="radio" />
+                                    {% endif %}
+                                    <div class="layer_legend_icon">
+                                        <i class="fa fa-minus blue"></i>
+                                    </div>
+                                    <div style="display: inline-block;" class="group_layername_label">
+                                        <label>{{childLayerCategory.name|upper}}</label>
+                                    </div>
+                                    {% if  childLayerCategory.getLayers()|length > 0 %}
+                                        <ul  class="group_overlay_lilayersubcategory_ul">
+
+                                            {% for layer in childLayerCategory.getLayers() %}
+                                                <li style="border-bottom: 1px dotted grey;"
+                                                    class="overlay_li" data-category="true" data-id=
+                                                    "{{layer.id}}" data-position="{{layer.position}}" data-layertype="{{layer.layerType}}"
+                                                    data-layer-id="">
+                                                    {% if childLayerCategory.multiple == true %}
+                                                        <input data-id="{{layer.id}}"  data-level='3' data-multiple="true"
+                                                               name="{{layer.name}}" {% if layer.defaultShowOnMap %} data-show="on" {% endif %} type="checkbox" />
+                                                    {% else %}
+                                                        <input data-id="{{layer.id}}"  data-level='3' data-multiple="true"
+                                                               name="{{childLayerCategory.name}}" {% if layer.defaultShowOnMap %} data-show="on" {% endif %} type="radio" />
+                                                    {% endif %}
+                                                    <div class="layer_legend_icon">
+                                                        <i class="fa fa-plus blue"></i>
+
+                                                    </div>
+
+                                                    <div style="display: inline-block;" class="subgroup_layername_label">
+                                                        <label>{{layer.name|title}}</label>
+                                                    </div>
+                                                    <div class="layer_legend">
+                                                    </div>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    {% if  layerCategory.getLayers()|length > 0 %}
+                        {% for layer in layerCategory.getLayers() %}
+                            <li style="border-bottom: 1px dotted grey;" 
+                                class="overlay_li" data-category="true" data-id=
+                                "{{layer.id}}" data-position="{{layer.position}}" data-layertype="{{layer.layerType}}"
+                                data-layer-id="">
+
+                                {% if layerCategory.multiple == true %}
+                                    <input data-id="{{layer.id}}" data-level='2' data-multiple="true"
+                                           name="{{layer.name}}" {% if layer.defaultShowOnMap %} data-show="on" {% endif %} type="checkbox" />
+                                {% else %}
+                                    <input data-id="{{layer.id}}" data-level='2' data-multiple="false"
+                                           name="{{layerCategory.name}}" {% if layer.defaultShowOnMap %} data-show="on" {% endif %} type="radio" />
+                                {% endif %}
+                                <div class="layer_legend_icon">
+                                    <i class="fa fa-plus blue"></i>
+                                </div>
+
+                                <div style="display: inline-block;" class="group_layername_label">
+                                    <label>{{layer.name|title}}</label>
+                                </div>
+                                <div class="layer_legend">
+                                </div>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </li>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+{% if layers is defined and layers|length > 0 %}
+    {% for layer in layers %}
+        <li style="border-bottom: 1px dotted grey;" 
+            class="overlay_li" data-category="true" data-id=
+            "{{layer.id}}" data-position="{{layer.position}}" data-layertype="{{layer.layerType}}" {% if layer.layerType == 'geoserver' and layer.layerProperty %} data-hostname="{{(layer.layerProperty|json_decode).wmsHostName}}" data-layername="{{ (layer.layerProperty|json_decode).wmsLayerName}}"  {% endif %}
+            data-layer-id="">
+
+            <input data-id="{{layer.id}}" data-level='1' data-multiple="true"
+                   name="{{layer.name}}" {% if layer.defaultShowOnMap %} data-show="on" {% endif %} type="checkbox" />
+            <div class="layer_legend_icon">
+                <i class="fa fa-plus blue"></i>
+            </div>
+
+            <div style="display: inline-block;" class="layername_label">
+                <label>{{layer.name|title}}</label>
+            </div>
+            <div class="layer_legend">
+            </div>
+        </li>
+    {% endfor %}
+{% endif %}
+<script>
+    $(function () {
+        $("li.layercategory div.layer_legend_icon").unbind("click");
+        $("li.layercategory div.layer_legend_icon").click(function () {
+
+            if ($(this).find("i").hasClass('fa-plus')) {
+                $(this).find("i").removeClass('fa-plus').addClass('fa-minus');
+                $(this).parent("li").find("ul:first").show();
+            } else {
+                $(this).find("i").removeClass('fa-minus').addClass('fa-plus');
+                $(this).parent("li").find("ul:first").hide();
+            }
+        });
+        $("li.layercategory input[type='checkbox'],li.layercategory input[type='radio']").unbind("click");
+        $("li.layercategory input[type='checkbox'],li.layercategory input[type='radio']").click(function () {
+
+            layerCategoryClickEvent(this);
+        });
+        $("li.overlay_li div.layer_legend_icon").unbind("click");
+        $("li.overlay_li div.layer_legend_icon").click(function () {
+
+            var id = $(this).parent("li").data("id");
+            var layerType = $(this).parent("li").data("layertype");
+            //  alert($(this).find("i").hasClass("fa-minus"));
+            //    alert("li.overlay_li div.layer_legend_icon=" + id);
+            if ($(this).find("i").hasClass("fa-plus"))
+            {
+                //   alert($(this).parent("li").find('div.layer_legend').length);
+                //   alert($(this).parent("li").find('div.layer_legend').html() === '');
+                if ($(this).parent("li").find('div.layer_legend').length !== 0) {
+                    if ($(this).parent("li").find('div.layer_legend').html().trim() === '') {
+                        if (layerType === 'geoserver') {
+                            var hostName = $(this).parent("li").data("hostname");
+                            var layerName = $(this).parent("li").data("layername");
+                            if (hostName.length > 1 && layerName.length > 1) {
+                                //      alert(hostName + " " + layerName);
+                                createWMSLegend($(this).parent("li").find('div.layer_legend'), hostName, layerName);
+                            }
+                        } else {
+                            loadLayerLegend($(this).parent("li").find('div.layer_legend'), id);
+                        }
+                    } else {
+                        $(this).parent("li").find('div.layer_legend').show();
+                    }
+                }
+                $(this).find("i").removeClass("fa-plus").addClass("fa-minus");
+            } else {
+                $(this).parent("li").find('div.layer_legend').hide();
+                $(this).find("i").removeClass("fa-minus").addClass("fa-plus");
+            }
+            //      var layers = window.map._layers;
+            //      $.map(layers, function (layer) {
+            //          if (layer.id === id) {
+            //           //   loadLayerLegend($(this).parent("li").find('div.layer_legend'), id);
+            //           
+            //          }
+            //      })
+        });
+        $("li.overlay_li input[type='checkbox'],li.overlay_li input[type='radio']").unbind("click");
+        $("li.overlay_li input[type='checkbox'],li.overlay_li input[type='radio']").click(function () {
+            var id = $(this).parent("li").data("id");
+            var type = $(this).attr('type');
+            var checked = $(this).is(":checked");
+            var layertype = $(this).parent("li").data("layertype");
+            var level = $(this).data("level");
+            var layers = [];
+
+            var off_layers = [];
+            if (parseInt(level) > 1 && $(this).parent('li').parent('ul').parent("li").find("input[data-level='" + (level - 1) + "']").is(":checked") === false) {
+                $(this).parent('li').parent('ul').parent("li").find("input[data-level='" + (level - 1) + "']").prop("checked", true);
+                if (parseInt($(this).parent('li').parent('ul').parent("li").find("input[data-level='" + (level - 1) + "']").data('level')) > 1) {
+                    var levelItem = $(this).parent('li').parent('ul').parent("li").find("input[data-level='" + (level - 1) + "']");
+                    if ($(levelItem).parent('li').parent('ul').parent("li").find("input[data-level='" + (level - 2) + "']").is(":checked") === false) {
+                        $(levelItem).parent('li').parent('ul').parent("li").find("input[data-level='" + (level - 2) + "']").prop("checked", true);
+                    }
+                }
+
+                if ($(this).parent('li').parent('ul').parent("li").find("input[data-level='" + (level - 1) + "']").attr('type') === 'radio') {
+                    var name = $(this).parent('li').parent('ul').parent("li").find("input[data-level='" + (level - 1) + "']").attr('name');
+                    var layer = $(this).parent('li').parent('ul').parent("li").find("input[data-level='" + (level - 1) + "']");
+                    $(this).parent('li').parent('ul').parent('li').parent('ul').find("li input[name='" + name + "']").map(function () {
+
+                        if ($(layer).data("id") !== $(this).data("id")) {
+                            //if not selected layer, uncheck and remove layer from map
+                            $(this).prop("checked", false);
+                            if ($(this).parent("li").hasClass('overlay_li')) {
+                                off_layers.push($(this).data("id"));
+                            } else {
+                                $(this).parent("li").find("ul li.overlay_li input").map(function () {
+                                    $(this).prop("checked", false);
+                                    off_layers.push($(this).data("id"));
+                                });
+                            }
+                        }
+                    });
+                }
+            }
+            if (type === 'radio' && parseInt(level) > 1) {
+                var name = $(this).attr('name');
+                var layer = this;
+                $(this).parent('li').parent('ul').find("li input[name='" + name + "']").map(function () {
+
+                    if ($(layer).data("id") !== $(this).data("id")) {
+
+                        $(this).prop("checked", false);
+                        if ($(this).parent("li").hasClass('overlay_li')) {
+                            off_layers.push($(this).data("id"));
+                        } else {
+                            $(this).parent("li").find("ul li.overlay_li input").map(function () {
+                                $(this).prop("checked", false);
+                                off_layers.push($(this).data("id"));
+                            });
+                        }
+                    }
+                });
+            }
+            var mapLayers = window.map._layers;
+            $.map(off_layers, function (layer) {
+                $.map(mapLayers, function (maplayer) {
+                    if (layer === maplayer.id) {
+                        window.map.removeLayer(maplayer);
+                    }
+                });
+            });
+            if (checked === true) {
+                if ($(this).parent("li").hasClass('overlay_li') === true) {
+                    var exist_in_map = false;
+                    $.map(mapLayers, function (maplayer) {
+                        if (id === maplayer.id) {
+                            exist_in_map = true;
+                        }
+                    });
+                    if (exist_in_map === false) {
+                        $.map(window.map.dataLayers, function (datalayer) {
+                            if (id === datalayer.id) {
+                                exist_in_map = true;
+                                window.map.addLayer(datalayer);
+                            }
+                        });
+                    }
+                    if (exist_in_map === false) {
+                        if (layertype === 'geoserver') {
+                            var hostName = $(this).parent("li").data("hostname");
+                            var layerName = $(this).parent("li").data("layername");
+                            if (hostName.length > 1 && layerName.length > 1) {
+
+                                var option = {
+                                    layers: layerName,
+                                    format: 'image/png',
+                                    transparent: true,
+                                    attribution: ""
+                                };
+
+                                var layer = new L.TileLayer.WMS("http://" + hostName, option);
+                                layer.id = id;
+                                layer.name = $(this).attr('name');
+                                alert(layer.id + "   " + layer.name);
+                                window.map.dataLayers[window.map.dataLayers.length] = layer;
+                                window.map.addLayer(layer);
+                            }
+                        } else {
+                            displayLayerFeatures(id, layertype);
+                        }
+                    }
+                }
+            } else {
+                if ($(this).parent("li").hasClass('overlay_li') === true) {
+                    var layerid = $(this).data('id');
+                    //  alert($(this).data('id'));
+                    $.map(mapLayers, function (maplayer) {
+                        if (layerid === maplayer.id) {
+                            window.map.removeLayer(maplayer);
+                        }
+                    });
+                }
+            }
+
+        });
+    {#  $("li.group_overlay_li input[type='checkbox']").unbind("click");
+      $("li.group_overlay_li input[type='checkbox']").click(function () {
+          var id = $(this).parents("li").data("id");
+          var multiple = $(this).parents("li").data("multiple");
+          alert("id=" + id + "  multiple=" + multiple);
+      });#}
+
+    {#  $("li.group_overlay_li div.layer_legend_icon").unbind("click");
+      $("li.group_overlay_li div.layer_legend_icon").click(function () {
+          var id = $(this).parents("li").data("id");
+          var multiple = $(this).parents("li").data("multiple");
+          alert("id=" + id + "  multiple=" + multiple);
+      });#}
+              $("div.section.overlay-layers ul.overlay_ul li label").css('cursor', 'pointer');
+              $("div.section.overlay-layers ul.overlay_ul li label").unbind("click");
+              $("div.section.overlay-layers ul.overlay_ul li label").click(function () {
+                  $("div.section.overlay-layers ul.overlay_ul li label").removeClass("selected");
+                  $(this).addClass("selected");
+                  if ($(this).closest("li").hasClass('layercategory')) {
+                      //       alert("category" + $(this).closest("li").data("id"));
+                      $('div.sidebar_content div.section.overlay-layers div#overlayers_zoom_to_layer').addClass('disabled');
+                  } else {
+                      $('div.sidebar_content div.section.overlay-layers div#overlayers_zoom_to_layer').removeClass('disabled');
+                      //      alert("overlay_li" + $(this).closest("li").hasClass("overlay_li") + "  " + $(this).closest("li").data("id"));
+                  }
+                  $('div.sidebar_content div.section.overlay-layers div#move_overlayer_up').removeClass('disabled');
+                  $('div.sidebar_content div.section.overlay-layers div#move_overlayer_down').removeClass('disabled');
+                  //  alert($(this).html());
+              });
+              $("div.section.overlay-layers ul.overlay_ul li label").unbind("hover");
+              $("div.section.overlay-layers ul.overlay_ul li label").hover(function () {
+                  $(this).addClass("mouse_selected");
+              }, function () {
+                  $(this).removeClass("mouse_selected");
+              });
+              $('div.sidebar_content div.section.overlay-layers div#move_overlayer_up').unbind('click');
+              $('div.sidebar_content div.section.overlay-layers div#move_overlayer_up').on('click', function () {
+                  var selected = $('div.sidebar_content div.section.overlay-layers ul.overlay_ul > li label.selected');
+                  var ids = [];
+                  var layers = window.map._layers;
+                  if ($(selected).closest("li").hasClass("layercategory") === true) {
+
+                      $(selected).closest("li").find("li.overlay_li").map(function () {
+                          $(this).data("position", parseInt($(this).data("position")) + 1);
+                          ids.push({id: $(this).data("id"), position: $(this).data("position")});
+                          //  ids.push({id:$(this).data("id"),position:(this).data("position")});
+                      });
+                  } else {
+                      $(selected).closest("li").data("position", parseInt($(selected).closest("li").data("position")) + 1);
+                      //   ids.push({id:$(this).data("id"),position:(this).data("position")});
+                      ids.push({id: $(selected).closest("li").data("id"), position: $(selected).closest("li").data("position")});
+                  }
+                  alert(JSON.stringify(ids));
+              });
+              $('div.sidebar_content div.section.overlay-layers div#move_overlayer_down').unbind('click');
+              $('div.sidebar_content div.section.overlay-layers div#move_overlayer_down').on('click', function () {
+
+
+                  var selected = $('div.sidebar_content div.section.overlay-layers ul.overlay_ul > li label.selected');
+                  var ids = [];
+                  if ($(selected).closest("li").hasClass("layercategory") === true) {
+                      $(selected).closest("li").find("li.overlay_li").map(function () {
+                          $(this).data("position", parseInt($(this).data("position")) - 1);
+                          ids.push({id: $(this).data("id"), position: $(this).data("position")});
+                      });
+                  } else {
+                      $(selected).closest("li").data("position", parseInt($(selected).closest("li").data("position")) - 1);
+                      //     ids.push({id:$(this).data("id"),position:(this).data("position")});
+                      ids.push({id: $(selected).closest("li").data("id"), position: $(selected).closest("li").data("position")});
+                  }
+                  alert(JSON.stringify(ids));
+              });
+              $('div.sidebar_content div.section.overlay-layers div#overlayers_index_save').unbind('click');
+              $('div.sidebar_content div.section.overlay-layers div#overlayers_index_save').on('click', function () {
+                  var ids = [];
+                  $('div.sidebar_content div.section.overlay-layers li.overlay_li').map(function () {
+                      ids.push({id: $(this).data("id"), position: $(this).data("position")});
+                  });
+                  alert(JSON.stringify(ids));
+              });
+              function createWMSLegend(item, hostName, layerName) {
+                  var legend = $("<div class='layer_legend hidden'>");
+                  var ul = $("<ul>").appendTo(legend);
+                  ul.append('<li><img src="' + "http://" + hostName + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&LAYER=" + layerName + '"></li>');
+
+                  $(legend).removeClass("hidden");
+                  $(legend).show();
+                  $(legend).appendTo($(item));
+
+              }
+              function displayLayerFeatures(id, layertype) {
+                  $.ajax({
+                      url: Routing.generate('layer_geom', {id: id, layertype: layertype, _locale: window.locale}),
+                      type: 'GET',
+                      //    data: formData,
+                      complete: function () {
+                      },
+                      success: function (response) {
+                          if (response.success === true) {
+                              if (response.layerType === 'geoserver') {
+                                  if (typeof response.layer_property === 'string') {
+                                      response.layer_property = JSON.parse(response.layer_property);
+                                  }
+                                  window.map.dataLayers[window.map.dataLayers.length] = {name: response.layer_name, hostName: response.layer_property.wmsHostName, layerName: response.layer_property.wmsLayerName};
+
+                              }
+                              if (response.data !== null && response.data.spatial !== null && response.data.datatype === 'topojson') {
+                                  if (typeof response.data.spatial === 'string') {
+                                      response.data.spatial = JSON.parse(response.data.spatial);
+                                  }
+                                  if (typeof response.sld === 'string') {
+                                      response.sld = JSON.parse(response.sld);
+                                  }
+                                  var key = Object.keys(response.data.spatial.objects).map(function (k) {
+                                      return  k;
+                                  });
+                                  var collection = topojson.feature(response.data.spatial, response.data.spatial.objects[key]);
+                                  var geojson_shapefile = new L.D3(collection, {
+                                      id: 'svg-leaflet-d3',
+                                      layerId: response.layer_id,
+                                      //       zIndex: (300 - layer.index_id),
+                                      //       minZoom: layer.minZoom,
+                                      //       maxZoom: layer.maxZoom,
+                                      //       layerType: layer.layerType,
+                                      sld: response.sld,
+                                      //       filename: result.layer['fileName'] ? result.layer['fileName'].toLowerCase() : '',
+                                      //       filetype: result.layer['fileType'] ? result.layer['fileType'].toLowerCase() : '',
+                                      //       showLabels: (result.layer['label_field'] !== '' && result.layer['label_field'] !== null),
+                                      type: response.data.datatype
+                                              //       tip_field: result.layer['tip_field'],
+                                              //       label_field: result.layer['label_field']
+                                  });
+                              }
+                              if (geojson_shapefile !== null && geojson_shapefile !== undefined) {
+                                  geojson_shapefile.id = response.layer_id;
+                                  geojson_shapefile.name = response.layer_name;
+                                  window.map.dataLayers[window.map.dataLayers.length] = geojson_shapefile;
+                                  window.map.addLayer(geojson_shapefile);
+                              }
+                              //  alert(JSON.stringify(response.data.spatial));
+                          }
+                      },
+                      cache: false,
+                      contentType: false,
+                      processData: true
+                  });
+              }
+              function hideLayerFeatures(id) {
+
+              }
+              function loadLayerLegend(item, id) {
+                  $.ajax({
+                      url: Routing.generate('layer_legend', {id: id, _locale: window.locale}),
+                      type: 'GET',
+                      //    data: formData,
+                      complete: function () {
+                      },
+                      success: function (response) {
+
+
+
+                          if (response.success === true && response.sld !== null && response.sld !== undefined) {
+                              var legend = createLegend(response.sld);
+                              $(legend).removeClass("hidden");
+                              $(legend).show();
+                              $(legend).appendTo($(item));
+                          }
+                      }
+                  });
+              }
+              function filterArray(src, filt) {
+                  var temp = {}, i, result = [];
+                  // load contents of filt into object keys for faster lookup
+                  for (i = 0; i < filt.length; i++) {
+                      temp[filt[i]] = true;
+                  }
+
+                  // go through src
+                  for (i = 0; i < src.length; i++) {
+                      if (!(src[i] in temp)) {
+                          result.push(src[i]);
+                      }
+                  }
+                  return(result);
+              }
+              function layerCategoryClickEvent(item) {
+
+                  var checked = $(item).is(":checked");
+                  var layers = [];
+                  var off_layers = [];
+                  var type = $(item).attr('type');
+                  var multiple = $(item).parent("li").data("multiple");
+                  var level = $(item).data("level");
+                  if (parseInt(level) > 1 && $(item).parent("li").parent("ul").parent("li").find("input[data-level='" + (level - 1) + "']").is(":checked") === false) {
+                      $(item).parent("li").parent("ul").parent("li").find("input[data-level='" + (level - 1) + "']").prop("checked", true);
+                  }
+                  if (checked) {
+                      // if this button is radio, first uncheck all layers under this button's parent
+                      if (type === 'radio') {
+
+                          var name = $(item).attr('name');
+                          var layer = item;
+                          $(item).parent("li").parent("ul").find("li input[name='" + name + "']").map(function () {
+                              // if this button is clicked button
+                              if (($(layer).data('id') === $(this).data('id'))) {
+                                  // if this button is a layer, set layer to display
+                                  if ($(this).parent("li").hasClass('overlay_li')) {
+                                      layers.push($(this).data('id'));
+                                  } else {
+
+                                      // if this button is not a layer, unckeck all layers under this category
+                                      $(this).parent("li").find("ul li.overlay_li input").map(function () {
+                                          off_layers.push($(this).data('id'));
+                                          $(this).prop("checked", false);
+                                      });
+                                  }
+                              } else {
+                                  // if this is a layer
+                                  if ($(this).parent("li").hasClass('overlay_li')) {
+                                      off_layers.push($(this).data('id'));
+                                      $(this).prop("checked", false);
+                                  } else {
+                                      $(this).parent("li").find("ul li.overlay_li input").map(function () {
+                                          off_layers.push($(this).data('id'));
+                                          $(this).prop("checked", false);
+                                      });
+                                  }
+                              }
+                          });
+                      }
+
+                      if ($(item).parent("li").find("ul li input[data-level='" + (level + 1) + "']").length > 0 && $(item).parent("li").find("ul li input[data-level='" + (level + 1) + "']:checked").length === 0) {
+                          var enableInput = $(item).parent("li").find("ul li input[data-level='" + (level + 1) + "']:first");
+                          if ($(enableInput).parent('li').hasClass('overlay_li') === false) {
+                              $(enableInput).prop("checked", true);
+                          } else {
+                              layers.push($(enableInput).data('id'));
+                          }
+
+                          $(enableInput).trigger('click');
+                      }
+
+
+                  } else {
+                      $(item).parent("li").find("ul li input").map(function () {
+                          if ($(this).parent("li").hasClass('overlay_li')) {
+                              off_layers.push($(this).data('id'));
+                          }
+                          $(this).prop("checked", false);
+                      });
+                      if (type === 'radio') {
+
+                      } else {
+
+                      }
+                  }
+                  off_layers = filterArray(off_layers, layers);
+                  $.map(off_layers, function (layerid) {
+                      var maplayers = window.map._layers;
+                      $.map(maplayers, function (layer) {
+                          if (layer.id === layerid) {
+                              window.map.removeLayer(layer);
+                          }
+
+                      });
+                  });
+                  $.map(layers, function (layerid) {
+                      var maplayers = window.map._layers;
+                      var layer_exist = false;
+                      $.map(maplayers, function (layer) {
+                          if (layer.id === layerid) {
+                              layer_exist = true;
+                          }
+
+                      });
+                      if (layer_exist === false) {
+                          var maplayers = window.map.dataLayers;
+                          $.map(maplayers, function (layer) {
+                              if (layer.id === layerid) {
+                                  window.map.addLayer(layer);
+                              }
+                          });
+                      }
+                  });
+                  //  alert("li.layercategory input[type='checkbox']");
+              }
+              createLegend = function (sld) {
+
+                  if (sld === undefined || sld === null || sld === '')
+                      return null;
+                  if (typeof sld !== 'object')
+                      sld = JSON.parse(sld);
+                  if (sld.FeatureTypeStyle === undefined || sld.FeatureTypeStyle === null)
+                      return null;
+                  var legend = $("<div class='layer_legend_items hidden'>");
+                  var ul = $("<ul>").appendTo(legend);
+                  var keys = Object.keys(sld.FeatureTypeStyle);
+                  for (var key in keys) {
+
+                      var varFeatureTypeStyle = sld.FeatureTypeStyle[key];
+                      if (typeof varFeatureTypeStyle !== 'object' && varFeatureTypeStyle !== undefined)
+                          varFeatureTypeStyle = JSON.parse(varFeatureTypeStyle);
+                      if (typeof varFeatureTypeStyle === 'object' && varFeatureTypeStyle !== undefined && varFeatureTypeStyle.Rule !== undefined) {
+                          var rule = varFeatureTypeStyle.Rule;
+                          var legendCanvas = document.createElement('canvas');
+                          legendCanvas.width = 20;
+                          legendCanvas.height = 15;
+                          var centerX = legendCanvas.width / 2;
+                          var centerY = legendCanvas.height / 2;
+                          var legendCtx = legendCanvas.getContext('2d');
+                          var rule_name = '';
+                          var literal_name = false;
+                          if (rule.Filter !== undefined) {
+                              rule_name = rule.Name;
+                              if (rule.Filter.And) {
+
+                                  if (rule.PolygonSymbolizer && rule.PolygonSymbolizer.Fill && rule.PolygonSymbolizer.Fill.fill) {
+                                      legendCtx.beginPath();
+                                      legendCtx.rect(0, 0, 20, 15);
+                                      legendCtx.fillStyle = rule.PolygonSymbolizer.Fill['fill'];
+                                      legendCtx.fill();
+                                      legendCtx.strokeStyle = rule.PolygonSymbolizer.Stroke['stroke'];
+                                      legendCtx.lineWidth = rule.PolygonSymbolizer.Stroke['stroke-width'];
+                                      legendCtx.closePath();
+                                      legendCtx.stroke();
+                                  }
+                              } else if (rule.Filter.PropertyIsEqualTo) {
+                                  if ((rule_name === undefined || rule_name === null || rule_name.trim() === '') && (rule.Filter.PropertyIsEqualTo.Literal)) {
+                                      rule_name = rule.Filter.PropertyIsEqualTo.Literal;
+                                      literal_name = true;
+                                  }
+                                  if (rule.PointSymbolizer && rule.PointSymbolizer.Graphic && rule.PointSymbolizer.Graphic.Mark && rule.PointSymbolizer.Graphic.Mark.WellKnownName) {
+
+                                      switch (rule.PointSymbolizer.Graphic.Mark.WellKnownName) {
+                                          case 'square':
+                                              legendCtx.beginPath();
+                                              legendCtx.rect((legendCanvas.width - rule.PointSymbolizer.Graphic.Size) / 2, (legendCanvas.height - rule.PointSymbolizer.Graphic.Size) / 2, rule.PointSymbolizer.Graphic.Size, rule.PointSymbolizer.Graphic.Size);
+                                              break;
+                                          case 'star':
+                                              legendCtx.moveTo(centerX, centerY - rule.PointSymbolizer.Graphic.Size / 1.6);
+                                              legendCtx.lineTo(centerX + rule.PointSymbolizer.Graphic.Size / 2.0, centerY);
+                                              legendCtx.lineTo(centerX, centerY + rule.PointSymbolizer.Graphic.Size / 1.6);
+                                              legendCtx.lineTo(centerX - rule.PointSymbolizer.Graphic.Size / 2.0, centerY);
+                                              legendCtx.closePath();
+                                              break;
+                                          case 'circle':
+                                              var radius = rule.PointSymbolizer.Graphic.Size / 2.0;
+                                              legendCtx.beginPath();
+                                              legendCtx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+                                              break;
+                                          case 'triangle':
+                                              legendCtx.beginPath();
+                                              legendCtx.moveTo(centerX, centerY - rule.PointSymbolizer.Graphic.Size / 2.0);
+                                              legendCtx.lineTo(centerX + rule.PointSymbolizer.Graphic.Size / 2.0, centerY + rule.PointSymbolizer.Graphic.Size / 2.0);
+                                              legendCtx.lineTo(centerX - rule.PointSymbolizer.Graphic.Size / 2.0, centerY + rule.PointSymbolizer.Graphic.Size / 2.0);
+                                              legendCtx.closePath();
+                                              break;
+                                          default:
+                                              var centerX = legendCanvas.width / 2;
+                                              var centerY = legendCanvas.height / 2;
+                                              var radius = rule.PointSymbolizer.Graphic.Size / 2.0;
+                                              legendCtx.beginPath();
+                                              legendCtx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+                                              break;
+                                      }
+                                      if (rule.PointSymbolizer.Graphic.Mark.Fill && rule.PointSymbolizer.Graphic.Mark.Fill.fill)
+                                          legendCtx.fillStyle = rule.PointSymbolizer.Graphic.Mark.Fill.fill.trim();
+                                      else
+                                          legendCtx.fillStyle = "#ccc";
+                                      legendCtx.fill();
+                                      if (rule.PointSymbolizer.Graphic.Mark && rule.PointSymbolizer.Graphic.Mark.Stroke && rule.PointSymbolizer.Graphic.Mark.Stroke['stroke-width'])
+                                          legendCtx.lineWidth = rule.PointSymbolizer.Graphic.Mark.Stroke['stroke-width'].trim();
+                                      else
+                                          legendCtx.lineWidth = 0.5;
+                                      legendCtx.strokeStyle = '#003300';
+                                      legendCtx.stroke();
+                                  }
+                                  if (rule.LineSymbolizer) {
+
+                                      legendCtx.beginPath();
+                                      legendCtx.moveTo(centerX - legendCanvas.width / 3, centerY);
+                                      legendCtx.lineTo(centerX + legendCanvas.width / 3, centerY);
+                                      if (rule.LineSymbolizer.Fill && rule.LineSymbolizer.Fill.fill)
+                                          legendCtx.fillStyle = rule.LineSymbolizer.Fill.fill.trim();
+                                      else
+                                          legendCtx.fillStyle = '#ccc';
+                                      legendCtx.fill();
+                                      if (rule.LineSymbolizer.Stroke && rule.LineSymbolizer.Stroke['stroke-width'])
+                                          legendCtx.lineWidth = rule.LineSymbolizer.Stroke['stroke-width'].trim();
+                                      else
+                                          legendCtx.lineWidth = 1;
+                                      if (rule.LineSymbolizer.Stroke && rule.LineSymbolizer.Stroke.stroke)
+                                          legendCtx.strokeStyle = rule.LineSymbolizer.Stroke.stroke.trim();
+                                      else
+                                          legendCtx.strokeStyle = 'black';
+                                      legendCtx.stroke();
+                                  }
+                                  if (rule.PolygonSymbolizer) {
+                                      legendCtx.beginPath();
+                                      legendCtx.rect(0, 0, 20, 15);
+                                      if (rule.PolygonSymbolizer.Fill && rule.PolygonSymbolizer.Fill.fill)
+                                          legendCtx.fillStyle = rule.PolygonSymbolizer.Fill.fill.trim();
+                                      else
+                                          legendCtx.fillStyle = '#ccc';
+                                      legendCtx.fill();
+                                      if (rule.PolygonSymbolizer.Stroke && rule.PolygonSymbolizer.Stroke['stroke-width'])
+                                          legendCtx.lineWidth = rule.PolygonSymbolizer.Stroke['stroke-width'].trim();
+                                      else
+                                          legendCtx.lineWidth = 0.5;
+                                      if (rule.PolygonSymbolizer.Stroke && rule.PolygonSymbolizer.Stroke.stroke)
+                                          legendCtx.strokeStyle = rule.PolygonSymbolizer.Stroke.stroke.trim();
+                                      else
+                                          legendCtx.strokeStyle = 'black';
+                                      legendCtx.stroke();
+                                  }
+                              } else if (varFeatureTypeStyle.Rule.Filter.PropertyIsBetween) {
+
+                                  if (varFeatureTypeStyle.Rule.Filter.PropertyIsBetween.LowerBoundary && varFeatureTypeStyle.Rule.Filter.PropertyIsBetween.LowerBoundary.Literal && literal_name === true)
+                                      rule_name = Math.round(varFeatureTypeStyle.Rule.Filter.PropertyIsBetween.LowerBoundary.Literal);
+                                  if (varFeatureTypeStyle.Rule.Filter.PropertyIsBetween.UpperBoundary && varFeatureTypeStyle.Rule.Filter.PropertyIsBetween.UpperBoundary.Literal && literal_name === true)
+                                      rule_name = rule_name + " - " + Math.round(varFeatureTypeStyle.Rule.Filter.PropertyIsBetween.UpperBoundary.Literal);
+                                  legendCtx.beginPath();
+                                  legendCtx.rect(0, 0, 20, 15);
+                                  if (rule.PolygonSymbolizer.Fill && rule.PolygonSymbolizer.Fill.fill)
+                                      legendCtx.fillStyle = rule.PolygonSymbolizer.Fill.fill.trim();
+                                  else
+                                      legendCtx.fillStyle = '#ccc';
+                                  legendCtx.fill();
+                                  if (rule.PolygonSymbolizer.Stroke && rule.PolygonSymbolizer.Stroke['stroke-width'])
+                                      legendCtx.lineWidth = rule.PolygonSymbolizer.Stroke['stroke-width'].trim();
+                                  else
+                                      legendCtx.lineWidth = 0.5;
+                                  if (rule.PolygonSymbolizer.Stroke && rule.PolygonSymbolizer.Stroke.stroke)
+                                      legendCtx.strokeStyle = rule.PolygonSymbolizer.Stroke.stroke.trim();
+                                  else
+                                      legendCtx.strokeStyle = 'black';
+                                  legendCtx.stroke();
+                              }
+
+                          } else
+                          {
+                              if (rule.PointSymbolizer) {
+
+                                  if (rule.PointSymbolizer && rule.PointSymbolizer.Graphic && rule.PointSymbolizer.Graphic.Mark && rule.PointSymbolizer.Graphic.Mark.WellKnownName) {
+
+                                      switch (rule.PointSymbolizer.Graphic.Mark.WellKnownName) {
+                                          case 'square':
+                                              legendCtx.beginPath();
+                                              legendCtx.rect((legendCanvas.width - rule.PointSymbolizer.Graphic.Size) / 2, (legendCanvas.height - rule.PointSymbolizer.Graphic.Size) / 2, rule.PointSymbolizer.Graphic.Size, rule.PointSymbolizer.Graphic.Size);
+                                              break;
+                                          case 'star':
+                                              legendCtx.moveTo(centerX, centerY - rule.PointSymbolizer.Graphic.Size / 1.6);
+                                              legendCtx.lineTo(centerX + rule.PointSymbolizer.Graphic.Size / 2.0, centerY);
+                                              legendCtx.lineTo(centerX, centerY + rule.PointSymbolizer.Graphic.Size / 1.6);
+                                              legendCtx.lineTo(centerX - rule.PointSymbolizer.Graphic.Size / 2.0, centerY);
+                                              legendCtx.closePath();
+                                              break;
+                                          case 'circle':
+                                              var radius = rule.PointSymbolizer.Graphic.Size / 2.0;
+                                              legendCtx.beginPath();
+                                              legendCtx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+                                              break;
+                                          case 'triangle':
+                                              legendCtx.beginPath();
+                                              legendCtx.moveTo(centerX, centerY - rule.PointSymbolizer.Graphic.Size / 2.0);
+                                              legendCtx.lineTo(centerX + rule.PointSymbolizer.Graphic.Size / 2.0, centerY + rule.PointSymbolizer.Graphic.Size / 2.0);
+                                              legendCtx.lineTo(centerX - rule.PointSymbolizer.Graphic.Size / 2.0, centerY + rule.PointSymbolizer.Graphic.Size / 2.0);
+                                              legendCtx.closePath();
+                                              break;
+                                          default:
+                                              var centerX = legendCanvas.width / 2;
+                                              var centerY = legendCanvas.height / 2;
+                                              var radius = rule.PointSymbolizer.Graphic.Size / 2.0;
+                                              legendCtx.beginPath();
+                                              legendCtx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+                                              break;
+                                      }
+                                      if (rule.PointSymbolizer.Graphic.Mark.Fill && rule.PointSymbolizer.Graphic.Mark.Fill.fill)
+                                          legendCtx.fillStyle = rule.PointSymbolizer.Graphic.Mark.Fill.fill.trim();
+                                      else
+                                          legendCtx.fillStyle = "#ccc";
+                                      legendCtx.fill();
+                                      if (rule.PointSymbolizer.Graphic.Mark && rule.PointSymbolizer.Graphic.Mark.Stroke && rule.PointSymbolizer.Graphic.Mark.Stroke['stroke-width'])
+                                          legendCtx.lineWidth = rule.PointSymbolizer.Graphic.Mark.Stroke['stroke-width'].trim();
+                                      else
+                                          legendCtx.lineWidth = 0.5;
+                                      legendCtx.strokeStyle = '#003300';
+                                      legendCtx.stroke();
+                                  }
+
+                              }
+                              if (rule.LineSymbolizer) {
+                                  legendCtx.beginPath();
+                                  legendCtx.moveTo(centerX - legendCanvas.width / 3, centerY);
+                                  legendCtx.lineTo(centerX + legendCanvas.width / 3, centerY);
+                                  if (rule.LineSymbolizer.Fill && rule.LineSymbolizer.Fill.fill)
+                                      legendCtx.fillStyle = rule.LineSymbolizer.Fill.fill.trim();
+                                  else
+                                      legendCtx.fillStyle = '#ccc';
+                                  legendCtx.fill();
+                                  if (rule.LineSymbolizer.Stroke && rule.LineSymbolizer.Stroke['stroke-width'])
+                                      legendCtx.lineWidth = rule.LineSymbolizer.Stroke['stroke-width'].trim();
+                                  else
+                                      legendCtx.lineWidth = 0.5;
+                                  if (rule.LineSymbolizer.Stroke && rule.LineSymbolizer.Stroke.stroke)
+                                      legendCtx.strokeStyle = rule.LineSymbolizer.Stroke.stroke.trim();
+                                  else
+                                      legendCtx.strokeStyle = 'black';
+                                  legendCtx.stroke();
+                              }
+                              if (rule.PolygonSymbolizer) {
+                                  legendCtx.beginPath();
+                                  if (rule.PolygonSymbolizer.Stroke && rule.PolygonSymbolizer.Stroke['stroke-width'])
+                                  {
+                                      legendCtx.lineWidth = rule.PolygonSymbolizer.Stroke['stroke-width'].trim();
+//                            legendCtx.lineWidth = legendCtx.lineWidth + 0.1;
+//                            alert("legendCtx.lineWidth="+legendCtx.lineWidth);
+                                  } else
+                                      legendCtx.lineWidth = 0.5;
+                                  legendCtx.rect(legendCtx.lineWidth / 2.0, legendCtx.lineWidth / 2.0, 20 - legendCtx.lineWidth, 15 - legendCtx.lineWidth);
+                                  if (rule.PolygonSymbolizer.Fill && rule.PolygonSymbolizer.Fill.fill)
+                                      legendCtx.fillStyle = rule.PolygonSymbolizer.Fill.fill.trim();
+                                  else
+                                      legendCtx.fillStyle = '#ccc';
+                                  legendCtx.fill();
+                                  if (rule.PolygonSymbolizer.Stroke && rule.PolygonSymbolizer.Stroke.stroke)
+                                      legendCtx.strokeStyle = rule.PolygonSymbolizer.Stroke.stroke.trim();
+                                  else
+                                      legendCtx.strokeStyle = 'black';
+                                  legendCtx.stroke();
+                              }
+
+                          }
+                          var li = $("<li><img src='" + legendCanvas.toDataURL() + "'/>" + rule_name + "</li>");
+                          li.appendTo(ul);
+                      }
+                  }
+                  return legend;
+              };
+              $(".leaflet-control-container .section.overlay-layers li.overlay_li input[data-show='on']").map(function () {
+                  $(this).trigger('click');
+              });
+          });
+</script>

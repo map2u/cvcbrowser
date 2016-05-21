@@ -22,12 +22,12 @@
                     <div class="container-fluid">
                         <div class="row-fluid juturna-page-header">
                             {% block page_header_content %}
-                                {{ sonata_block_render({ 'type': 'map2ucorebundle.block.page_header_content' }, { 'mode': 'public'}) }}
+                                {{ sonata_block_render({ 'type': 'map2ucorebundle.block.page_header_content' },{'mode':'public'}) }}
                             {% endblock %} 
                         </div>
                         <div class="row-fluid juturna-main_menu">
                             {% block fixed_top_menu %}
-                                {{ sonata_block_render({ 'type': 'applicationmap2ucorebundle.block.fixed_topmenu' }, { 'mode': 'public'}) }}
+                                {{ sonata_block_render({ 'type': 'applicationmap2ucorebundle.block.fixed_topmenu'},{'mode':'public'}) }}
                             {% endblock %}
                         </div>
                     </div>

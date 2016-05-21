@@ -87,4 +87,13 @@ class IndicatorColumnBlockService extends BaseBlockService {
         ));
     }
 
+    public function configureSettings(\Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver) {
+
+        $optionsResolver->setDefaults(array(
+            'mode' => 'public',
+            'title' => 'Indicators',
+            'template' => 'YorkuJuturnaBundle:Block:indicator_column.html.twig'
+        ));
+    }
+
 }

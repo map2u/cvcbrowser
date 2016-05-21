@@ -208,7 +208,7 @@ class HomepageController extends Controller {
 
                     // check with regex that the file format is what we're expecting and not something else
                     if (preg_match('#^(u' . $result['id'] . '_' . $filename . ')#', $file)) {
-shell_exec("cp ".$source_dir . "/1/shapefile/".$file." ".$spatialfiledir.'/'.  str_replace('u'.$result['id'] . '_', '', $file));
+                        shell_exec("cp ".$source_dir . "/1/shapefile/".$file." ".$spatialfiledir.'/'.  str_replace('u'.$result['id'] . '_', '', $file));
                        // var_dump($file) . "<br>";
                     }
                 }
@@ -222,7 +222,7 @@ shell_exec("cp ".$source_dir . "/1/shapefile/".$file." ".$spatialfiledir.'/'.  s
     /**
      * .
      *
-     * @Route("/storydetail", name="homepage_storydetail")
+     * @Route("/storydetail", name="homepage_storydetail", options={"expose"=true})
      * @Method("GET")
      * @Template()
      */
@@ -427,12 +427,12 @@ shell_exec("cp ".$source_dir . "/1/shapefile/".$file." ".$spatialfiledir.'/'.  s
 
         $entities = null;
         $story = null;
-        if (isset($view) && isset($id) && intval($id) > 0) {
+        if (isset($view) && isset($id) && strlen($id) ===36) {
             if ($view === 'benefit') {
-                $entities = $em->getRepository('YorkuJuturnaBundle:IndicatorBenefit')->find(intval($id));
+                $entities = $em->getRepository('YorkuJuturnaBundle:IndicatorBenefit')->find($id);
             }
             if ($view === 'stories' || $view === 'story') {
-                $story = $em->getRepository('YorkuJuturnaBundle:Story')->find(intval($id));
+                $story = $em->getRepository('YorkuJuturnaBundle:Story')->find($id);
             }
         }
         return array('_locale' => $locale, 'view' => $view, 'entities' => $entities, 'story' => $story);

@@ -18,12 +18,12 @@
                 {% block page_header %}
                     <div class="row page-header">
                         {% block page_header_content %}
-                            {{ sonata_block_render({ 'type': 'map2ucorebundle.block.page_header_content' }, { 'mode': 'public'}) }}
+                            {{ sonata_block_render({ 'type': 'map2ucorebundle.block.page_header_content' }) }}
                         {% endblock %} 
                     </div>
                     <div class="row" style="position:relative;top:50px;">
                         {% block fixed_top_menu %}
-                            {{ sonata_block_render({ 'type': 'applicationmap2ucorebundle.block.fixed_topmenu' }, { 'mode': 'public'}) }}
+                            {{ sonata_block_render({ 'type': 'applicationmap2ucorebundle.block.fixed_topmenu' }) }}
                         {% endblock %}
                     </div>
                 {% endblock %}

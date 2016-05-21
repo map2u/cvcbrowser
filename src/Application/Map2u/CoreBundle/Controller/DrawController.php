@@ -232,7 +232,7 @@ class DrawController extends BaseController {
             $lng = $feature->geometry->coordinates[0];
             $lat = $feature->geometry->coordinates[1];
 
-            $sql = "UPDATE stories set the_geom = ST_GeomFromText('POINT($lng $lat)', 4326) where id=$story_id";
+            $sql = "UPDATE stories set the_geom = ST_GeomFromText('POINT($lng $lat)', 4326) where id='".$story_id."'";
         }
         if ($type === 'rectangle' || $type === 'polygon') {
             $points = '';
@@ -245,7 +245,7 @@ class DrawController extends BaseController {
                     $points = $points . ",$point[0]  $point[1]";
                 }
             }
-            $sql = "UPDATE stories set the_geom = ST_GeomFromText('POLYGON(($points))', 4326) where id=$story_id";
+            $sql = "UPDATE stories set the_geom = ST_GeomFromText('POLYGON(($points))', 4326) where id='".$story_id."'";
         }
         if ($type === 'polyline') {
             $points = '';
@@ -259,7 +259,7 @@ class DrawController extends BaseController {
                 }
             }
 
-            $sql = "UPDATE stories set the_geom = ST_GeomFromText('LINESTRING($points)', 4326) where id=$story_id";
+            $sql = "UPDATE stories set the_geom = ST_GeomFromText('LINESTRING($points)', 4326) where id='".$story_id."'";
         }
         $stmt = $conn->query($sql);
     }
@@ -355,7 +355,7 @@ class DrawController extends BaseController {
             $lng = $req_params['feature']->geometry->coordinates[0];
             $lat = $req_params['feature']->geometry->coordinates[1];
             if ($update_geom === true) {
-                $sql = "UPDATE userdrawgeometries_geom set the_geom = ST_GeomFromText('POINT($lng $lat)', 4326) where userdrawgeometries_id=$usergeometries_id";
+                $sql = "UPDATE userdrawgeometries_geom set the_geom = ST_GeomFromText('POINT($lng $lat)', 4326) where userdrawgeometries_id='".$usergeometries_id."'";
             } else {
 
                 //     $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, st_geomfromgeojson('$feature_geojson'))";
@@ -375,7 +375,7 @@ class DrawController extends BaseController {
                 }
             }
             if ($update_geom === true) {
-                $sql = "UPDATE userdrawgeometries_geom set the_geom = ST_GeomFromText('POLYGON(($points))', 4326) where userdrawgeometries_id=$usergeometries_id";
+                $sql = "UPDATE userdrawgeometries_geom set the_geom = ST_GeomFromText('POLYGON(($points))', 4326) where userdrawgeometries_id='".$usergeometries_id."'";
             } else {
                 //     $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, st_geomfromgeojson('$feature_geojson'))";
                 $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, ST_GeomFromText('POLYGON(($points))', 4326))";
@@ -394,7 +394,7 @@ class DrawController extends BaseController {
                 }
             }
             if ($update_geom === true) {
-                $sql = "UPDATE userdrawgeometries_geom set the_geom = ST_GeomFromText('LINESTRING($points)', 4326) where userdrawgeometries_id=$usergeometries_id";
+                $sql = "UPDATE userdrawgeometries_geom set the_geom = ST_GeomFromText('LINESTRING($points)', 4326) where userdrawgeometries_id='".$usergeometries_id."'";
             } else {
 
                 //     $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, st_geomfromgeojson('$feature_geojson'))";

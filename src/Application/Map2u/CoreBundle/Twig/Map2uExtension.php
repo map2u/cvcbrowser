@@ -27,8 +27,13 @@ class Map2uExtension extends \Twig_Extension {
             'bcmod' => new \Twig_Filter_Method($this, 'bcmodFilter'),
             'bcdiv' => new \Twig_Filter_Method($this, 'bcdivFilter'),
             'price' => new \Twig_Filter_Method($this, 'priceFilter'),
+            'json_decode' => new \Twig_Filter_Method($this, 'jsonDecode'),
             'unserialize' => new \Twig_Filter_Method($this, 'unserializeFilter'),
         );
+    }
+
+    public function jsonDecode($str) {
+        return json_decode($str);
     }
 
     public function priceFilter($number, $decimals = 0, $decPoint = '.', $thousandsSep = ',') {

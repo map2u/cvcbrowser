@@ -525,7 +525,41 @@ and open the template in the editor.
   margin: 2px auto;
 }
 
-/* line 27, assetic_compassAxFoNO.scss */
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 8-Apr-2016, 2:41:51 PM
+    Author     : josephzhao
+*/
+/* line 11, ../../Resources/assets/stylesheets/yorkujuturna/map.scss */
+div.layer_legend_items ul li {
+  border-bottom: 1px dotted gainsboro;
+}
+
+/* line 15, ../../Resources/assets/stylesheets/yorkujuturna/map.scss */
+div.layer_legend_items ul li:last-child {
+  border-bottom: none;
+}
+
+/* line 19, ../../Resources/assets/stylesheets/yorkujuturna/map.scss */
+div.layer_legend_items ul li img {
+  margin-right: 5px;
+}
+
+/* line 23, ../../Resources/assets/stylesheets/yorkujuturna/map.scss */
+div.section.overlay-layers ul.overlay_ul li label.selected {
+  background-color: lightseagreen;
+}
+
+/* line 27, ../../Resources/assets/stylesheets/yorkujuturna/map.scss */
+div.section.overlay-layers ul.overlay_ul li label.mouse_selected {
+  background-color: lightskyblue;
+}
+
+/* line 28, assetic_compassBSHhSa.scss */
 .sonata-bc .tooltip.left {
   margin-left: -12px;
 }

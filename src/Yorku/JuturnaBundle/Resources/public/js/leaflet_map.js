@@ -446,7 +446,9 @@ window.onload = function () {
                             }
                         }
                     }
-                    map.dataLayers[map.dataLayers.length] = {'map': map, 'layerType': layer.layerType, 'clusterLayer': layer.clusterLayer, 'defaultShowOnMap': layer.defaultShowOnMap, 'layer': null, 'minZoom': layer.minZoom, 'maxZoom': layer.maxZoom, 'index_id': k, 'layerId': layer.id, layerTitle: layer.layerTitle, 'datasource': layer.datasource, 'sld': layer.sld, 'filename': layer.filename, 'layerName': layer.layerName, 'hostName': layer.hostName};
+                    map.dataLayers[map.dataLayers.length] = {'map': map, 'layerCategoryId': layer.layerCategoryId, 'layerCategoryMultiple': layer.layerCategoryMultiple, 'layerCategoryName': layer.layerCategoryName, 'layerType': layer.layerType, 'clusterLayer': layer.clusterLayer, 'defaultShowOnMap': layer.defaultShowOnMap, 'layer': null, 'minZoom': layer.minZoom, 'maxZoom': layer.maxZoom, 'index_id': k, 'srs': layer.srs, 'layerId': layer.id, layerTitle: layer.layerTitle, 'datasource': layer.datasource, 'sld': layer.sld, 'filename': layer.filename, 'layerName': layer.layerName, 'hostName': layer.hostName};
+
+//                    map.dataLayers[map.dataLayers.length] = {'map': map, 'layerType': layer.layerType, 'layerCategoryId':layer.layerCategoryId, 'layerCategoryName':layer.layerCategoryName,  'defaultShowOnMap': layer.defaultShowOnMap, 'layer': null, 'minZoom': layer.minZoom, 'maxZoom': layer.maxZoom, 'index_id': k, 'layerId': layer.id, 'layerProperty':layer.layerProperty,  'sld': layer.sld,  'layerName': layer.layerName};
                 }
                 //    map.dataLayers[map.dataLayers.length] = {'map': map, 'layerType': 'userdraw', 'layer': null, 'index_id': -1, 'layerId': -1, layerTitle: "My draw geometries", 'layerName': 'My draw geometries', type: 'geojson'};
                 //    layersControl.refreshOverlays();
@@ -611,7 +613,7 @@ window.onload = function () {
         }
 
         var center = map.getCenter();
-       
+
         var hash = '#map=' +
                 map.getZoom() + '/' +
                 Math.round(center.lat * 1000) / 1000 + '/' +
@@ -625,7 +627,7 @@ window.onload = function () {
     };
 
     map.on('moveend', updatePermalink);
-   // window.app.map = map;
+    // window.app.map = map;
     // restore the view state when navigating through the history, see
     // https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onpopstate
     window.addEventListener('popstate', function (event) {
@@ -675,11 +677,14 @@ function PrevMapExtent(map) {
     map.setView([33.5363, -117.044], 6);
     // history.goBack();
 }
-function showStoryOnLeftsisebar(id) {
-
+function showStoryOnLeftsidebar(id) {
+    $('div#leafmap').spin();
     $.ajax({
         url: Routing.generate('homepage_leftsidebar_view', {_locale: window.locale, id: id, view: "story"}),
         method: 'GET',
+        complete: function () {
+            $('div#leafmap').spin(false);
+        },
         success: function (response) {
             $("div#leaflet_content.overlay-sidebar #sidebar_content").html(response);
             if (window.leftSidebar.isVisible() === false) {
@@ -760,7 +765,14 @@ function loadStoriesLayer(map, layersControl) {
                                 }
                             }
                         });
-                        var html = '<a href="#" onclick="showStoryOnLeftsisebar(' + photo.id + '); return false;"><h4>' + photo.story_name + '</h4></a>';
+                        photo_marker.id = photo.id;
+                        photo_marker.on("click", function () {
+
+                            showStoryOnLeftsidebar(this.id);
+                        });
+
+                        var path = Routing.generate('homepage_storydetail', {_locale: window.locale, id: photo.id});
+                        var html = '<a href="' + path + '"  target="_blank"><h4>' + photo.story_name + '</h4></a>';
                         if (medium_image === '') {
                             if (images.length > 1) {
 
@@ -774,7 +786,7 @@ function loadStoriesLayer(map, layersControl) {
                             html = html + '<img src="' + medium_image + '" style="width:300px;"/>';
                         }
 
-                        photo_marker.bindPopup('<a href="#" onclick="showStoryOnLeftsisebar(' + photo.id + '); return false;"><h4>' + photo.story_name + '</h4></a><img src="' + medium_image + '" style="width:300px;"/>');
+                        photo_marker.bindPopup('<a href="' + path + '"  target="_blank"><h4>' + photo.story_name + '</h4></a><img src="' + medium_image + '" style="width:300px;"/>');
                         $("<img>").attr("src", medium_image).load(function () {
                             photo_markers.addLayer(photo_marker);
                         });

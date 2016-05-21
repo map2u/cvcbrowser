@@ -25,11 +25,8 @@
                         <h1>{{category.title|title}}</h1>
                         <div style="text-justify:  auto;" id="ecosystem_image">
                             <img src="/uploads/images/categories/{{category.id}}/{{images[0]}}"  style="width:100%;" alt="{{category.altText}}">
-
                         </div>
-
                     {% endif %}
-
                 </div>
                 <div class="row-fluid">
                     {% if (category.rightColumn == null or category.rightColumn|length == 0) and (category.description and category.description | length > 0) %}

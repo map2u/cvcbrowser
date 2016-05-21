@@ -132,6 +132,18 @@ Yorku\JuturnaBundle\Entity\IndicatorBenefit:
            inverseJoinColumns:
              maplayer_id:
                referencedColumnName: id                         
+       layers:
+          targetEntity: Map2u\CoreBundle\Entity\Layer
+          orderBy: { 'position': 'ASC' }
+          joinTable:
+           name: indicatorbenefits_layers
+           joinColumns:
+             indicatorbenefit_id:
+               referencedColumnName: id
+           inverseJoinColumns:
+             layer_id:
+               referencedColumnName: id                         
+
 #       clusterlayers:
 #          targetEntity: Map2u\CoreBundle\Entity\LeafletClusterLayer
 #          orderBy: { 'seq': 'ASC' }

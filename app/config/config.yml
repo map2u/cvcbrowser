@@ -29,6 +29,9 @@ parameters:
     map2u.core.manager.sidebarmenu.class: Map2u\CoreBundle\Entity\SidebarMenuManager  
     map2u.core.manager.layercategory.class: Map2u\CoreBundle\Entity\LayerCategoryManager  
     map2u.core.spatialfile.class: Map2u\CoreBundle\Entity\SpatialFile   
+    map2u.core.layer.class: Map2u\CoreBundle\Entity\Layer
+    map2u.core.category.class: Map2u\CoreBundle\Entity\Category
+    map2u.core.layercategory.class: Map2u\CoreBundle\Entity\LayerCategory
 framework:
     #esi:             ~
     translator:      { fallback: "%locale%" }
