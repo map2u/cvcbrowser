@@ -161,7 +161,7 @@ class MeasureController extends Controller {
         $conn = $this->get('database_connection');
         $em = $this->getDoctrine()->getManager();
         if ($user) {
-            if (isset($id) && intval($id) > 0) {
+            if (isset($id) && strlen($id) == 36 ) {
                 $mapmeasurement = $em->getRepository('YorkuJuturnaBundle:MapMeasurement')->findOneBy(array('user' => $user, 'id' => $id));
                 if ($mapmeasurement === null || count($mapmeasurement) === 0) {
                     return new JsonResponse(array('sucess' => false, 'message' => "Sorry,Measurement not found by id:$id!"));
@@ -190,7 +190,7 @@ class MeasureController extends Controller {
         $id = $request->get("id");
         $conn = $this->get('database_connection');
         $user = $this->getUser();
-        if (isset($id) && intval($id) > 0 && $user) {
+        if (isset($id) && strlen($id) == 36 && $user) {
             $sql = "select id,name,type,layer_type,radius,st_asgeojson(the_geom) as geom from map_measurements where id=" . $id;
             $result = $conn->fetchAll($sql);
             if (count($result) === 1) {

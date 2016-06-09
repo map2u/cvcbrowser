@@ -1,0 +1,38 @@
+Yorku\JuturnaBundle\Entity\PaneInfoType:
+    type: entity
+    table: yorku_juturna__paneinfo_type
+    fields:
+        id:
+            id: true
+            type: guid
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: UUID
+        name:
+            type: string
+            length: 100
+            fixed: false
+            nullable: false
+            column: name
+        description:
+            type: string
+            length: 1000
+            fixed: false
+            nullable: true
+            column: description            
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+            gedmo:
+              timestampable:
+                on: create
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at            
+            gedmo:
+                timestampable:
+                    on: update
+    lifecycleCallbacks: {  }

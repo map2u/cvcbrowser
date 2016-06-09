@@ -226,7 +226,7 @@ class StoryAdminController extends CRUDController {
                 $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $imageFile->getClientOriginalName()), $dir . '/icon_' . str_replace(" ", "_", $imageFile->getClientOriginalName()), new ImageSize(50, 40), ImageResizer::RESIZE_TYPE_CROP);
                 $this->get('image_resizer')->resize($dir . "/" . str_replace(" ", "_", $imageFile->getClientOriginalName()), $dir . '/medium_' . str_replace(" ", "_", $imageFile->getClientOriginalName()), new ImageSize(500, 400), ImageResizer::RESIZE_TYPE_AUTO);
             }
-            $object->setImageFile(serialize($images_array));
+            $object->setImageFile(json_encode($images_array));
         }
         $storyFile = $form['story_file']->getData();
 

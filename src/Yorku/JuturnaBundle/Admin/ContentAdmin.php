@@ -49,13 +49,8 @@ class ContentAdmin extends Admin {
      */
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
-                ->add('id')
+               
                 ->add('title')
-                ->add('detail')
-                ->add('layerId')
-                ->add('citation')
-                ->add('citationLink')
-                ->add('description')
                 ->add('tags')
                 ->add('createdAt')
                 ->add('updatedAt')
@@ -77,7 +72,7 @@ class ContentAdmin extends Admin {
                 ->with('Category Content', array('class' => 'col-md-6'))
                 ->add('id', 'hidden')
                 ->add('title')
-                ->add('category', 'entity', array('label' => 'Content Category',
+                ->add('contentCategory', 'entity', array('label' => 'Content Category',
                     'required' => true,
                     'expanded' => false,
                     'class' => 'Yorku\JuturnaBundle\Entity\ContentCategory',
@@ -88,14 +83,14 @@ class ContentAdmin extends Admin {
                     'required' => true,
                     'expanded' => false,
                     'class' => 'Map2u\CoreBundle\Entity\Layer',
-                    'property' => 'layerName',
+                    'property' => 'name',
                     'multiple' => false
                 ))
-                ->add('displayLayers', 'entity', array('label' => 'Display Map Layers',
+                ->add('layers', 'entity', array('label' => 'Display Map Layers',
                     'required' => false,
                     'expanded' => false,
                     'class' => 'Map2u\CoreBundle\Entity\Layer',
-                    'property' => 'layerName',
+                    'property' => 'name',
                     'multiple' => true
                 ))
                 ->add('tags', 'entity', array(

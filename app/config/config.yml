@@ -32,6 +32,9 @@ parameters:
     map2u.core.layer.class: Map2u\CoreBundle\Entity\Layer
     map2u.core.category.class: Map2u\CoreBundle\Entity\Category
     map2u.core.layercategory.class: Map2u\CoreBundle\Entity\LayerCategory
+    map2u.core.story.class: Yorku\JuturnaBundle\Entity\Story  
+    map2u.core.storytranslation.class: Yorku\JuturnaBundle\Entity\StoryTranslation  
+
 framework:
     #esi:             ~
     translator:      { fallback: "%locale%" }

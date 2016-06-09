@@ -86,7 +86,7 @@ class Content {
     private $contentCategory;
 
     /**
-     * @var \Map2u\CoreBundle\Entity\SymbolizedLayer
+     * @var \Map2u\CoreBundle\Entity\Layer
      */
     private $layer;
 
@@ -397,6 +397,7 @@ class Content {
      */
     public function __construct() {
         $this->contentdetails = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->layers = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -477,7 +478,7 @@ class Content {
      *
      * @param \Map2u\CoreBundle\Entity\Layer $layers
      */
-    public function removeDisplaySymbolizedLayer(\Map2u\CoreBundle\Entity\Layer $layers) {
+    public function removeLayer(\Map2u\CoreBundle\Entity\Layer $layers) {
         $this->layers->removeElement($layers);
     }
 

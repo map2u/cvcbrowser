@@ -5,6 +5,13 @@
         {% include 'YorkuJuturnaBundle:Homepage:leftsidebar_entity_view.html.twig' with {'entities':entities} %}
     {% elseif  story is defined and story  != null %}
         {% include 'YorkuJuturnaBundle:Homepage:leftsidebar_story_view.html.twig' with {'story':story} %}
+
+       
+    {% elseif paneinfo is defined and paneinfo is not null  %}
+        <h4>{{paneinfo.title}}</h4>
+        <div id="story_guideline" style="padding:10px;">
+            {{paneinfo.content|raw}}
+        </div>
     {% elseif view=='story' or view=='stories' %}
         <h4>Share your story</h4>
         <div id="story_guideline" style="padding:10px;">

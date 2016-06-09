@@ -199,7 +199,7 @@ class ContentCategoryAdminController extends CRUDController {
                 $imageFile->move($dir, str_replace(" ", "_", $imageFile->getClientOriginalName()));
             }
             if (count($images_array) > 0) {
-                $object->setFlashImages(serialize($images_array));
+                $object->setFlashImages(json_encode($images_array));
             }
         }
 

@@ -103,7 +103,7 @@ class HomepageController extends Controller {
         $session->set('current_menu', "story");
         $category = $em->getRepository('YorkuJuturnaBundle:ContentCategory')->findOneByName("Story");
         $stories = null;
-        if (isset($id) && intval($id) > 0) {
+        if (isset($id) && strlen($id) == 36) {
             $stories = $em->getRepository('YorkuJuturnaBundle:Story')->find($id);
         }
         $image = $em->getRepository('YorkuJuturnaBundle:HomepageImage')->findOneBy(array('contentCategory' => $category));
@@ -126,14 +126,14 @@ class HomepageController extends Controller {
         putenv("PATH=$path:/opt/local/bin");
         $conn = $this->get("database_connection");
         $sql = "select * from useruploadfile";
-         $source_dir = $this->get('kernel')->getRootDir() . '/../Data/uploads';
+        $source_dir = $this->get('kernel')->getRootDir() . '/../Data/uploads';
 
 
         $results = $conn->fetchAll($sql);
         foreach ($results as $result) {
             //  var_dump($result['id2']);
             $spatialfiledir = $this->get('kernel')->getRootDir() . '/../Data/uploads/spatialfiles/spatial_' . str_replace('-', '_', $result['id2']);
-            shell_exec('rm '.$spatialfiledir.'/u'.$result['file_name2']);
+            shell_exec('rm ' . $spatialfiledir . '/u' . $result['file_name2']);
 //            
 //            $sql = "select * from pg_tables where tablename='useruploadfile_geoms_" . $result['id'] . "' and schemaname='public'";
 //            $cresult = $conn->fetchAll($sql);
@@ -186,30 +186,23 @@ class HomepageController extends Controller {
 //            
 //            
 //            
-            
-            
-            
-            
-            
-            
-            
 //            if (!file_exists($spatialfiledir)) {
 //                shell_exec("mkdir -p " . $spatialfiledir);
 //            }
             $filename = preg_replace('/\\.[^.\\s]{3,4}$/', '', $result['file_name2']);
 
             $handler = opendir($source_dir . "/1/shapefile");
-          //  var_dump($source_dir . "/1/shapefile". "<br>");
+            //  var_dump($source_dir . "/1/shapefile". "<br>");
 // open directory and walk through the filenames
             while ($file = readdir($handler)) {
-             //   var_dump($file);
+                //   var_dump($file);
                 // if file isn't this directory or its parent, add it to the results
                 if ($file != "." && $file != "..") {
 
                     // check with regex that the file format is what we're expecting and not something else
                     if (preg_match('#^(u' . $result['id'] . '_' . $filename . ')#', $file)) {
-                        shell_exec("cp ".$source_dir . "/1/shapefile/".$file." ".$spatialfiledir.'/'.  str_replace('u'.$result['id'] . '_', '', $file));
-                       // var_dump($file) . "<br>";
+                        shell_exec("cp " . $source_dir . "/1/shapefile/" . $file . " " . $spatialfiledir . '/' . str_replace('u' . $result['id'] . '_', '', $file));
+                        // var_dump($file) . "<br>";
                     }
                 }
             }
@@ -233,7 +226,7 @@ class HomepageController extends Controller {
         $locale = $request->getLocale();
         $session->set('current_menu', "story");
         $story = null;
-        if (isset($id) && intval($id) > 0) {
+        if (isset($id) && strlen($id) == 36) {
             $story = $em->getRepository('YorkuJuturnaBundle:Story')->find($id);
         }
         return array('_locale' => $locale, 'story' => $story);
@@ -254,7 +247,7 @@ class HomepageController extends Controller {
         $session->set('current_menu', "well_being");
         $category = $em->getRepository('YorkuJuturnaBundle:ContentCategory')->findOneByName("Well-Being");
         $wellbeing = null;
-        if (isset($id) && intval($id) > 0) {
+        if (isset($id) && strlen($id) == 36) {
             $wellbeing = $em->getRepository('YorkuJuturnaBundle:HumanWellBeingDomain')->find($id);
         }
 
@@ -281,7 +274,7 @@ class HomepageController extends Controller {
         $session->set('current_menu', "ecosystems");
         $category = $em->getRepository('YorkuJuturnaBundle:ContentCategory')->findOneByName("Ecosystems");
         $ecosystems = null;
-        if (isset($id) && intval($id) > 0) {
+        if (isset($id) && strlen($id) == 36) {
             $ecosystems = $em->getRepository('YorkuJuturnaBundle:EcoSystemService')->find($id);
         }
 
@@ -309,7 +302,7 @@ class HomepageController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $flashs = $em->getRepository('YorkuJuturnaBundle:HomepageFlash')->findAll();
         $benefits = null;
-        if ($view === 'benefit' && isset($id) && intval($id) > 0) {
+        if ($view === 'benefit' && isset($id) && strlen($id) == 36) {
             $benefits = $em->getRepository('YorkuJuturnaBundle:IndicatorBenefit')->find($id);
         }
 
@@ -424,10 +417,39 @@ class HomepageController extends Controller {
         $view = $request->get("view");
         $id = $request->get("id");
         $em = $this->getDoctrine()->getManager();
+        $paneinfo = null;
+        $paneinfo_type = $em->getRepository('YorkuJuturnaBundle:PaneInfoType')->createQueryBuilder('a')
+                ->where('upper(a.name) = upper(:name)')
+                ->setParameter('name', $view ? $view : 'Map')
+                ->getQuery()
+                ->execute();
+        if ($paneinfo_type) {
+            $paneinfo = $em->getRepository('YorkuJuturnaBundle:PaneInfo')->findOneBy(array("paneInfoType" => $paneinfo_type));
 
+            if ($paneinfo) {
+                $doc = new \DOMDocument();
+
+// load the HTML string we want to strip
+                $doc->loadHTML($paneinfo->getContent());
+
+// get all the script tags
+                $script_tags = $doc->getElementsByTagName('script');
+
+                $length = $script_tags->length;
+
+// for each tag, remove it from the DOM
+                for ($i = 0; $i < $length; $i++) {
+                    $script_tags->item($i)->parentNode->removeChild($script_tags->item($i));
+                }
+
+// get the HTML string back
+                $no_script_html_string = $doc->saveHTML();
+                $paneinfo->setContent($no_script_html_string);
+            }
+        }
         $entities = null;
         $story = null;
-        if (isset($view) && isset($id) && strlen($id) ===36) {
+        if (isset($view) && isset($id) && strlen($id) === 36) {
             if ($view === 'benefit') {
                 $entities = $em->getRepository('YorkuJuturnaBundle:IndicatorBenefit')->find($id);
             }
@@ -435,7 +457,7 @@ class HomepageController extends Controller {
                 $story = $em->getRepository('YorkuJuturnaBundle:Story')->find($id);
             }
         }
-        return array('_locale' => $locale, 'view' => $view, 'entities' => $entities, 'story' => $story);
+        return array('_locale' => $locale, 'view' => $view, 'entities' => $entities, 'story' => $story, "paneinfo" => $paneinfo);
     }
 
     /**
@@ -449,8 +471,8 @@ class HomepageController extends Controller {
         $id = $request->get("id");
         $benefit = null;
         $em = $this->getDoctrine()->getManager();
-        if (isset($id) && intval($id) > 0) {
-            $benefit = $em->getRepository('YorkuJuturnaBundle:IndicatorBenefit')->find(intval($id));
+        if (isset($id) && strlen($id) == 36) {
+            $benefit = $em->getRepository('YorkuJuturnaBundle:IndicatorBenefit')->find($id);
         }
         return array('benefit' => $benefit);
     }

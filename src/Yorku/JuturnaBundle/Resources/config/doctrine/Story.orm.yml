@@ -1,7 +1,11 @@
 Yorku\JuturnaBundle\Entity\Story:
     type: entity
-    table: stories
-
+    table: yorku_juturna__stories
+    gedmo:
+        translation:
+            locale: locale
+            # using specific personal translation class:
+            entity: Yorku\JuturnaBundle\Entity\StoryTranslation     
     fields:
         id:
             id: true
@@ -10,73 +14,7 @@ Yorku\JuturnaBundle\Entity\Story:
             nullable: false
             generator:
                 strategy: UUID
-        storyName:
-            type: string
-            length: 255
-            nullable: false
-            column: story_name
-        summary:
-            type: text
-            nullable: true
-            column: summary
-        type:
-            type: string
-            length: 255
-            nullable: true
-            column: type
-        radius:
-            type: float
-            nullable: true
-            column: radius
-        imageFile:
-            type: string
-            length: 250
-            nullable: true
-            column: image_file
-        altText:
-            type: string
-            length: 500
-            fixed: false
-            nullable: true
-            column: alt_text                 
-        storyFile:
-            type: string
-            length: 255
-            nullable: true
-            column: story_file
-        storyFileType:
-            type: string
-            length: 255
-            nullable: true
-            column: story_filetype     
-        storyText:
-            type: text
-            nullable: true
-            column: story_text                 
-        email:
-            type: string
-            length: 255
-            nullable: true
-            column: email
-        theGeom:
-            type: geometry
-            nullable: true
-            requireSQLConversion: true
-            column: the_geom
-        createdAt:
-            type: datetime
-            nullable: true
-            column: created_at
-            gedmo:
-              timestampable:
-                on: create
-        updatedAt:
-            type: datetime
-            nullable: true
-            column: updated_at
-            gedmo:
-              timestampable:
-                on: update
+
     manyToOne:
         user:
             targetEntity: Application\Sonata\UserBundle\Entity\User
@@ -86,5 +24,12 @@ Yorku\JuturnaBundle\Entity\Story:
                 user_id:
                     referencedColumnName: id
             orphanRemoval: false
- 
+        storyType:
+            targetEntity: Map2u\CoreBundle\Entity\StoryType
+            cascade: {  }
+            inversedBy: {}
+            joinColumns:
+                storytype_id:
+                    referencedColumnName: id
+            orphanRemoval: false  
     lifecycleCallbacks: {  }

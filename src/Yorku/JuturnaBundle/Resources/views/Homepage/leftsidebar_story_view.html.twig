@@ -1,6 +1,6 @@
 
 
-{% set images=story.getImageFile()|unserialize %}
+{% set images=story.getImageFile()|json_decode %}
 <h4>
     <a href="{{path('homepage_storydetail',{id:story.id})}}" target="_blank">{{story.storyName|title}}</a>
 </h4>

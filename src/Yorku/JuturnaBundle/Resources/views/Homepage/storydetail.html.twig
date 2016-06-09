@@ -14,7 +14,7 @@
     <div class="container-fluid" style="margin:0;padding:0;">
         <div class="row-fluid story_flash">
             {% if story is defined and story is not null %}
-                {% set images=story.getImageFile()|unserialize %}
+                {% set images=story.getImageFile()|json_decode %}
                 {% include 'YorkuJuturnaBundle:Homepage:storydetails_images.html.twig' with {'images':images, 'story':story} %}
             {% endif %}
         </div>

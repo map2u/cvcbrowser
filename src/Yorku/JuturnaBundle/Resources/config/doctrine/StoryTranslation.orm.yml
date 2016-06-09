@@ -1,0 +1,6 @@
+Yorku\JuturnaBundle\Entity\StoryTranslation:
+    type: entity
+    table: yorku_juturna__story_translation
+    fields:
+ 
+    lifecycleCallbacks: {  }

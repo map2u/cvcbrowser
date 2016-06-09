@@ -45,7 +45,7 @@ class IndicatorBenefitImageAdmin extends Admin {
      */
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
-                ->add('id')
+               
                 ->add('imageName')
                 ->add('imageTitle')
                 ->add('indicator')

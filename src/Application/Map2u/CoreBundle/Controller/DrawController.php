@@ -28,6 +28,7 @@ use Paradigma\Bundle\ImageBundle\Libs\ImageSize;
 use Paradigma\Bundle\ImageBundle\Libs\ImageResizer;
 use Yorku\JuturnaBundle\Entity\Story;
 use Application\Map2u\CoreBundle\Entity\UserDrawGeometries;
+use Application\Map2u\CoreBundle\Form\Type\StoryFormType;
 use Map2u\CoreBundle\Controller\DrawController as BaseController;
 use Gaufrette\Exception;
 use Application\Sonata\UserBundle\Entity\User;
@@ -102,47 +103,77 @@ class DrawController extends BaseController {
      * @Template()
      */
     public function createstoryAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = new Story();
+        $form = $this->createForm(new StoryFormType('Yorku\JuturnaBundle\Entity\Story'), $entity);
+
+
+
+        $story_types = $em->getRepository("Map2uCoreBundle:StoryType")->findAll();
+//        $form = $this->createFormBuilder()
+//                ->add('storyName')
+//                ->add('storyType', 'entity', array('label' => 'Story Type',
+//                    'required' => true,
+//                    'expanded' => false,
+//                    'class' => 'Map2u\CoreBundle\Entity\StoryType',
+//                    'property' => 'name',
+//                    'multiple' => false,'attr'=>array("style"=>"width:250px")
+//                ))
+//                ->add('summary', 'textarea',array('attr'=>array("style"=>"width:250px")))
+//                ->add('storyText', 'ckeditor', array('label' => 'Story Content',
+//                    'required' => false,
+//                    'config_name' => 'basic',
+//                    'config' => array('uiColor' => '#ffffff'),'attr'=>array("style"=>"width:250px")
+//                ))
+//                ->add('image_file', 'file', array('required' => false, 'mapped' => false, 'label' => 'Image File','attr'=>array("style"=>"width:250px")))
+//                ->add('story_file', 'file', array('required' => false, 'mapped' => false, 'label' => 'Story File(current support pdf and html file)','attr'=>array("style"=>"width:250px")))
+//                ->add('email')
+//                ->getForm();
+
+
 
         if ($request->getMethod() === "POST") {
             try {
-                $id = $request->get("id");
-                $storyName = $request->get("name");
-                $summary = $request->get("summary");
-                $email = $request->get("email");
-                $lat = $request->get("lat");
-                $lng = $request->get("lng");
-                $type = $request->get("type");
-                $radius = $request->get("radius");
-                $the_geom = $request->get("the_geom");
+                $form->bind($request);
 
-                $em = $this->getDoctrine()->getManager();
+                if ($form->isSubmitted()) {
 
-                $story = null;
-                if (isset($id) && intval($id) > 0) {
-                    $story = $em->getRepository("YorkuJuturnaBundle:Story")->find($id);
+                    $em->persist($entity);
+                    $em->flush();
+
+
+                    $id = $request->get("id");
+//                $storyName = $request->get("name");
+//                $storyType_id = $request->get("story_type");
+//                $summary = $request->get("summary");
+//                $email = $request->get("email");
+                    $lat = $request->get("lat");
+                    $lng = $request->get("lng");
+                    $type = $request->get("type");
+                    $radius = $request->get("radius");
+                    $the_geom = $request->get("the_geom");
+
+
+
+
+                    $entity->setUser($this->getUser());
+                    $entity->setRadius($radius);
+                    $entity->setType($type);
+                    $em->persist($entity);
+                    $em->flush();
+                    $this->saveUploadedFiles($form, $entity);
+                    $em->persist($entity);
+                    $em->flush();
+
+                    $this->saveStoryGeom($entity, $lat, $lng, $type, $the_geom);
+
+                    return new JsonResponse(array(
+                        'success' => true,
+                        'message' => "Save the story success!",
+                        'id' => $entity->getId()
+                    ));
                 }
-                if ($story === null) {
-                    $story = new Story();
-                }
-                $story->setStoryName($storyName);
-                $story->setUser($this->getUser());
-                $story->setSummary($summary);
-                $story->setRadius($radius);
-                $story->setType($type);
-                $story->setEmail($email);
-                $em->persist($story);
-                $em->flush();
-                $this->saveUploadedFiles($request, $story);
-                $em->persist($story);
-                $em->flush();
-
-                $this->saveStoryGeom($story, $lat, $lng, $type, $the_geom);
-
-                return new JsonResponse(array(
-                    'success' => true,
-                    'message' => "Save the story success!",
-                    'id' => $story->getId()
-                ));
             } catch (Exception $e) {
                 return new JsonResponse(array(
                     'success' => true,
@@ -151,11 +182,11 @@ class DrawController extends BaseController {
             }
         }
 
-        return array();
+        return array("story_types" => $story_types, "form" => $form->createView());
     }
 
-    private function saveUploadedFiles($request, $story) {
-        $imageFile = $request->files->get('image_files');
+    private function saveUploadedFiles($form, $story) {
+        $imageFile = $form['image_file']->getData();
 
         $dir = './uploads/stories/' . $story->getId() . '/images';
         if (file_exists($dir) === false) {
@@ -165,9 +196,9 @@ class DrawController extends BaseController {
 
         $images_array = $this->resizeUploadedImageFiles($imageFile, $dir);
 
-        $story->setImageFile(serialize($images_array));
+        $story->setImageFile(json_encode($images_array));
 
-        $storyFile = $request->files->get('story_file');
+        $storyFile = $form['story_file']->getData();
 
         $dir = './uploads/stories/' . $story->getId() . '/pdf';
         if (file_exists($dir) === false) {
@@ -225,14 +256,16 @@ class DrawController extends BaseController {
         if ($feature->geometry === null) {
             return;
         }
+        $em = $this->getDoctrine()->getManager();
+        $stories_class = $em->getRepository($this->getParameter("map2u.core.story.class"));
 
-
-        //$feature_geojson = $the_geom->geometry;
+        $stories_tablename = $em->getClassMetadata($stories_class->getClassName())->getTableName();
+//$feature_geojson = $the_geom->geometry;
         if ($type === 'circle' || $type === 'marker') {
             $lng = $feature->geometry->coordinates[0];
             $lat = $feature->geometry->coordinates[1];
 
-            $sql = "UPDATE stories set the_geom = ST_GeomFromText('POINT($lng $lat)', 4326) where id='".$story_id."'";
+            $sql = "UPDATE " . $stories_tablename . " set  geom_type='point', the_geom = ST_GeomFromText('POINT($lng $lat)', 4326) where id='" . $story_id . "'";
         }
         if ($type === 'rectangle' || $type === 'polygon') {
             $points = '';
@@ -245,7 +278,7 @@ class DrawController extends BaseController {
                     $points = $points . ",$point[0]  $point[1]";
                 }
             }
-            $sql = "UPDATE stories set the_geom = ST_GeomFromText('POLYGON(($points))', 4326) where id='".$story_id."'";
+            $sql = "UPDATE " . $stories_tablename . " set geom_type='polygon',the_geom = ST_GeomFromText('POLYGON(($points))', 4326) where id='" . $story_id . "'";
         }
         if ($type === 'polyline') {
             $points = '';
@@ -259,7 +292,7 @@ class DrawController extends BaseController {
                 }
             }
 
-            $sql = "UPDATE stories set the_geom = ST_GeomFromText('LINESTRING($points)', 4326) where id='".$story_id."'";
+            $sql = "UPDATE " . $stories_tablename . " set geom_type='polyline', the_geom = ST_GeomFromText('LINESTRING($points)', 4326) where id='" . $story_id . "'";
         }
         $stmt = $conn->query($sql);
     }
@@ -299,7 +332,7 @@ class DrawController extends BaseController {
      * @param string $icon_path
      * @return UserDrawGeometries
      */
-    //private function setSaveActionUserGeometry(Application\Map2u\CoreBundle\Entity\UserDrawGeometries $usergeometries, \Doctrine\ORM\EntityManager $em, Application\Sonata\UserBundle\Entity\User $user, array $req_params, string $icon_path) {
+//private function setSaveActionUserGeometry(Application\Map2u\CoreBundle\Entity\UserDrawGeometries $usergeometries, \Doctrine\ORM\EntityManager $em, Application\Sonata\UserBundle\Entity\User $user, array $req_params, string $icon_path) {
     private function setSaveActionUserGeometry($usergeometries, $em, $user, $req_params, $icon_path) {
         $usergeometries->setUserId($user->getId());
         $usergeometries->setUser($user);
@@ -355,16 +388,16 @@ class DrawController extends BaseController {
             $lng = $req_params['feature']->geometry->coordinates[0];
             $lat = $req_params['feature']->geometry->coordinates[1];
             if ($update_geom === true) {
-                $sql = "UPDATE userdrawgeometries_geom set the_geom = ST_GeomFromText('POINT($lng $lat)', 4326) where userdrawgeometries_id='".$usergeometries_id."'";
+                $sql = "UPDATE userdrawgeometries_geom set the_geom = ST_GeomFromText('POINT($lng $lat)', 4326) where userdrawgeometries_id='" . $usergeometries_id . "'";
             } else {
 
-                //     $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, st_geomfromgeojson('$feature_geojson'))";
+//     $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, st_geomfromgeojson('$feature_geojson'))";
                 $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, ST_GeomFromText('POINT($lng $lat)', 4326))";
             }
         }
         if ($req_params['drawtype'] === 'rectangle' || $req_params['drawtype'] === 'polygon') {
             $points = '';
-            // var_dump(count($feature['geometry']['coordinates'][0]));
+// var_dump(count($feature['geometry']['coordinates'][0]));
 
             foreach ($req_params['feature']->geometry->coordinates[0] as $point) {
 
@@ -375,16 +408,16 @@ class DrawController extends BaseController {
                 }
             }
             if ($update_geom === true) {
-                $sql = "UPDATE userdrawgeometries_geom set the_geom = ST_GeomFromText('POLYGON(($points))', 4326) where userdrawgeometries_id='".$usergeometries_id."'";
+                $sql = "UPDATE userdrawgeometries_geom set the_geom = ST_GeomFromText('POLYGON(($points))', 4326) where userdrawgeometries_id='" . $usergeometries_id . "'";
             } else {
-                //     $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, st_geomfromgeojson('$feature_geojson'))";
+//     $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, st_geomfromgeojson('$feature_geojson'))";
                 $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, ST_GeomFromText('POLYGON(($points))', 4326))";
             }
         }
         if ($req_params['drawtype'] === 'polyline') {
             $points = '';
-            //    var_dump(count($feature['geometry']['coordinates']));
-            //        var_dump($feature['geometry']['coordinates']);
+//    var_dump(count($feature['geometry']['coordinates']));
+//        var_dump($feature['geometry']['coordinates']);
             foreach ($req_params['feature']->geometry->coordinates as $point) {
 
                 if ($points === '') {
@@ -394,10 +427,10 @@ class DrawController extends BaseController {
                 }
             }
             if ($update_geom === true) {
-                $sql = "UPDATE userdrawgeometries_geom set the_geom = ST_GeomFromText('LINESTRING($points)', 4326) where userdrawgeometries_id='".$usergeometries_id."'";
+                $sql = "UPDATE userdrawgeometries_geom set the_geom = ST_GeomFromText('LINESTRING($points)', 4326) where userdrawgeometries_id='" . $usergeometries_id . "'";
             } else {
 
-                //     $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, st_geomfromgeojson('$feature_geojson'))";
+//     $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, st_geomfromgeojson('$feature_geojson'))";
                 $sql = "INSERT INTO userdrawgeometries_geom (userdrawgeometries_id,the_geom) VALUES($usergeometries_id, ST_GeomFromText('LINESTRING($points)', 4326))";
             }
         }

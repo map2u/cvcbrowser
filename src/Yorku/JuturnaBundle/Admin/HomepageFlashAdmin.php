@@ -40,7 +40,7 @@ class HomepageFlashAdmin extends Admin {
         $datagridMapper
                 ->add('id')
                 ->add('title')
-                ->add('introduce')
+             
                 ->add('image')
                 ->add('url')
                 ->add('published')
@@ -58,13 +58,13 @@ class HomepageFlashAdmin extends Admin {
         $listMapper
                 ->add('id')
                 ->add('title')
-                ->add('introduce')
+             
                 ->add('image')
                 ->add('altText')
                 ->add('url')
                 ->add('published')
                 ->add('active')
-                ->add('createdAt')
+             
                 ->add('updatedAt')
                 ->add('_action', 'actions', array(
                     'actions' => array(
@@ -84,7 +84,7 @@ class HomepageFlashAdmin extends Admin {
                 ->with('Homepage Flash', array('class' => 'col-md-6'))
                 ->add('id', 'hidden')
                 ->add('title')
-                ->add('category', 'entity', array('label' => 'Category',
+                ->add('contentCategory', 'entity', array('label' => 'Category',
                     'required' => true,
                     'expanded' => false,
                     'class' => 'Yorku\JuturnaBundle\Entity\ContentCategory',

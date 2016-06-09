@@ -1,0 +1,53 @@
+Yorku\JuturnaBundle\Entity\PaneInfo:
+    type: entity
+    table: yorku_juturna__paneinfo
+    fields:
+        id:
+            id: true
+            type: guid
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: UUID
+        title:
+            type: string
+            length: 100
+            fixed: false
+            nullable: false
+            column: title                
+        content:
+            type: text
+            nullable: false
+            column: content
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+            gedmo:
+              timestampable:
+                on: create
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at            
+            gedmo:
+                timestampable:
+                    on: update
+    manyToOne:
+        user:
+            targetEntity: Application\Sonata\UserBundle\Entity\User
+            cascade: {  }
+            mappedBy: null
+            joinColumns:
+                user_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        paneInfoType:
+            targetEntity: Yorku\JuturnaBundle\Entity\PaneInfoType
+            cascade: {  }
+            inversedBy: {}
+            joinColumns:
+                paneinfotype_id:
+                    referencedColumnName: id
+            orphanRemoval: false  
+    lifecycleCallbacks: {  }

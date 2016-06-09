@@ -452,7 +452,7 @@ window.onload = function () {
                 }
                 //    map.dataLayers[map.dataLayers.length] = {'map': map, 'layerType': 'userdraw', 'layer': null, 'index_id': -1, 'layerId': -1, layerTitle: "My draw geometries", 'layerName': 'My draw geometries', type: 'geojson'};
                 //    layersControl.refreshOverlays();
-                loadStoriesLayer(map, layersControl);
+             //   loadStoriesLayer(map, layersControl);
                 setTimeout(function () {
 
 

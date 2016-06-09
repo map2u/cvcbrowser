@@ -58,10 +58,10 @@ class HomepageImageAdmin extends Admin {
         $listMapper
                 ->add('id')
                 ->add('title')
-                ->add('category')
+              
                 ->add('image')
                 ->add('altText')
-                ->add('introduce')
+              
                 ->add('url')
                 ->add('published')
                 ->add('active')
@@ -85,7 +85,7 @@ class HomepageImageAdmin extends Admin {
                 ->with('Homepage Image', array('class' => 'col-md-6'))
                 ->add('id', 'hidden')
                 ->add('title')
-                ->add('category', 'entity', array('label' => 'Category',
+                ->add('contentCategory', 'entity', array('label' => 'Category',
                     'required' => true,
                     'expanded' => false,
                     'class' => 'Yorku\JuturnaBundle\Entity\ContentCategory',
@@ -119,7 +119,7 @@ class HomepageImageAdmin extends Admin {
         $showMapper
                 ->add('id')
                 ->add('title')
-                ->add('category')
+                ->add('contentCategory')
                 ->add('image')
                 ->add('altText')
                 ->add('introduce')

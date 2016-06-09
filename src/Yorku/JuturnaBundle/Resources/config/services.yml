@@ -141,7 +141,7 @@ services:
         class: Yorku\JuturnaBundle\Admin\StoryAdmin
         arguments: [~, Yorku\JuturnaBundle\Entity\Story, YorkuJuturnaBundle:StoryAdmin]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: Story}
+            - {name: sonata.admin, manager_type: orm, group: Story, label: Story}
 
     map2ucorebundle.block.page_header_content:
                 class: Yorku\JuturnaBundle\Block\PageHeaderContentBlockService
@@ -195,3 +195,15 @@ services:
                     - "@doctrine.orm.entity_manager"
                 tags:
                     -  { name: sonata.block, alias: yorku_juturna.block.indicator_column}
+
+    yorku_juturna.admin.pane_info:
+        class: Yorku\JuturnaBundle\Admin\PaneInfoAdmin
+        arguments: [~, Yorku\JuturnaBundle\Entity\PaneInfo, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Pane Info}
+
+    yorku_juturna.admin.pane_info_type:
+        class: Yorku\JuturnaBundle\Admin\PaneInfoTypeAdmin
+        arguments: [~, Yorku\JuturnaBundle\Entity\PaneInfoType, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: PaneInfoType}

@@ -56,7 +56,7 @@ class GraphChartAdminController extends CRUDController {
                         $upload_file->move('images/graphchart/' . $this->getUser()->getId(), $upload_file->getClientOriginalName());
                         array_push($image_names, '/images/graphchart/' . $this->getUser()->getId() . "/" . $upload_file->getClientOriginalName());
                     }
-                    $object->setGraphchartImages(serialize($image_names));
+                    $object->setGraphchartImages(json_encode($image_names));
                 }
 
                 $object->setUser($this->getUser());
@@ -135,7 +135,7 @@ class GraphChartAdminController extends CRUDController {
                         $upload_file->move('images/graphchart/' . $this->getUser()->getId(), $upload_file->getClientOriginalName());
                         array_push($image_names, '/images/graphchart/' . $this->getUser()->getId() . "/" . $upload_file->getClientOriginalName());
                     }
-                    $object->setGraphchartImages(serialize($image_names));
+                    $object->setGraphchartImages(json_encode($image_names));
                 }
 
                 $this->admin->update($object);

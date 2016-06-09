@@ -31,7 +31,7 @@ class IndicatorBenefitAdmin extends Admin {
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
-                ->add('id')
+               
                 ->add('benefitName')
                 ->add('title')
                 ->add('createdAt')
@@ -44,7 +44,7 @@ class IndicatorBenefitAdmin extends Admin {
      */
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
-                ->add('id')
+               
                 ->add('benefitName')
                 ->add('title')
                 ->add('createdAt')

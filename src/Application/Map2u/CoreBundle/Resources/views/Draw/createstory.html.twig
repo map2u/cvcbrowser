@@ -3,7 +3,8 @@
 <div id="share_story_form">
     <div style="padding:10px; margin-top:30px; width:280px;">
         <h4>Share Your Story:</h4>
-        <form id="story_form" action="{{path('draw_createstory') }}" method="post" enctype="multipart/form-data">
+        <form id="story_form" action="{{path('draw_createstory') }}" method="post" enctype="multipart/form-data" onsubmit="return false;">
+
             <div style="display:table;width:100%">
                 <div style="width: 100%; display: table-row;">
 
@@ -14,9 +15,29 @@
                 <div style="width: 100%; display: table-row;margin-bottom: 10px; margin-top: 3px;">
 
                     <div style="display: table-cell; ">
-                        <input id="story_name"  name="name"  style="width: 250px;" value="{% if name is defined %}{{name}}{% endif %}" />
+                        {{ form_widget(form.storyName,{'attr':{"style":"width:250px"}})}}
+                        {#                        <input id="story_name"  name="name"  style="width: 250px;" value="{% if name is defined %}{{name}}{% endif %}" />#}
                     </div>
                 </div>
+                <div style="width: 100%; display: table-row;">
+                    <div style="display: table-cell;">
+                        Story Class*:
+                    </div>
+                </div>
+                <div style="width: 100%; display: table-row;margin-bottom: 10px; margin-top: 3px;">
+
+                    <div style="display: table-cell; ">
+                        {{ form_widget(form.storyType,{'attr':{'style':'width:250px'}})}}
+                        {#
+                                                <select id="story_type"  name="story_type"  style="width: 250px;">
+                                                    {% for story_type in story_types %}
+                                                        <option value="{{story_type.id}}">{{story_type.name}}</option>
+                                                    {% endfor %}
+                                                </select>#}
+                    </div>
+                </div>
+
+
                 <div style="width: 100%; display: table-row;">
                     <div style="display: table-cell; ">
                         Summary*:
@@ -24,9 +45,11 @@
                 </div>
                 <div style="width: 100%; display: table-row;margin-bottom: 10px; margin-top: 3px;">
                     <div style="display: table-cell; ">
-                        <textarea  id="summary" row="10" style="width: 250px;"  name="summary" value="{% if summary is defined %}{{summary}}{% endif %}" />
+                        {{ form_widget(form.summary,{'attr':{'row':2,"style":"width:250px"}})}}
+                        {#                        <textarea  id="summary" row="10" style="width: 250px;"  name="summary" value="{% if summary is defined %}{{summary}}{% endif %}" />#}
                     </div>    
                 </div>
+
                 <div style="width: 100%; display: table-row;">
                     <div style="display: table-cell;">
                         Image File:
@@ -34,7 +57,8 @@
                 </div>
                 <div style="width: 100%; display: table-row;margin-bottom: 10px; margin-top: 3px;">   
                     <div style="display: table-cell; ">
-                        <input type="file" name="image_files[]" multiple="true" accept='image/*'>
+                        {{ form_widget(form.image_file,{'attr':{"style":"width:250px"}})}}
+                        {#                        <input type="file" name="image_files[]" multiple="true" accept='image/*'>#}
                     </div>    
                 </div>               
                 <div style="width: 100%; display: table-row;">
@@ -45,19 +69,31 @@
 
                 <div style="width: 100%; display: table-row;margin-bottom: 10px; margin-top: 3px;">
                     <div style="display: table-cell; ">
-                        <input type="file" name="story_file">
+                        {{ form_widget(form.story_file,{'attr':{"style":"width:250px"}})}}
+                        {#   <input type="file" name="story_file">#}
                     </div>
                 </div>
                 <div style="width: 100%; display: table-row;">
                     <div style="display: table-cell;">
-                        Email:
+                        Email*:
                     </div>
                 </div>
 
                 <div style="width: 100%; display: table-row;margin-bottom: 10px; margin-top: 3px;">
                     <div style="display: table-cell; ">
-                        <input type="text" name="email" style="width: 250px;" >
+                        {{ form_widget(form.email,{'attr':{"style":"width:250px"}})}}
+                        {#                        <input type="text" name="email" style="width: 250px;" >#}
                     </div>
+                </div>
+                <div style="width: 100%; display: table-row;">
+                    <div style="display: table-cell; ">
+                        Additional Info:
+                    </div>
+                </div>
+                <div style="width: 100%; display: table-row;margin-bottom: 10px; margin-top: 3px;">
+                    <div style="display: table-cell; ">
+                        {{ form_widget(form.storyText,{ 'attr':{'row':5,"style":"width:250px"}})}}
+                    </div>    
                 </div>
                 <input type="hidden" name="id">
                 <input type="hidden" name="lat">
@@ -65,14 +101,14 @@
                 <input type="hidden" name="the_geom">
                 <input type="hidden" name="radius">
                 <input type="hidden" name="type">
-
+                <div style="padding: 0 15px;">
+                    <button type="button" class="pull-left btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="pull-right btn btn-primary save_story" >Save</button>
+                </div>
             </div>
         </form>
     </div>
-    <div style="padding: 0 15px;">
-        <button type="button" class="pull-left btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="pull-right btn btn-primary save_story" >Save</button>
-    </div>
+
 </div>
 </div>
 <script  type="text/javascript">
@@ -80,23 +116,33 @@
     $(function () {
         $("div#share_story_form button.save_story").unbind("click");
         $("div#share_story_form button.save_story").click(function () {
+            for (instance in CKEDITOR.instances)
+                CKEDITOR.instances[instance].updateElement();
 
-            var name = $("div#share_story_form form#story_form input[name='name']").val();
+            var name = $("div#share_story_form form#story_form input[name='map2u_story[storyName]']").val();
             if (name === undefined || name.trim() === '')
             {
                 alert("Story name can not be empty!");
                 return;
             }
-            var summary = $("div#share_story_form form#story_form textarea[name='summary']").val();
+            var summary = $("div#share_story_form form#story_form textarea[name='map2u_story[summary]']").val();
             if (summary === undefined || summary.trim() === '')
             {
-                alert("Summary name can not be empty!");
+                alert("Summary can not be empty!");
                 return;
             }
+            var email = $("div#share_story_form form#story_form input[name='map2u_story[email]']").val();
+            if (email === undefined || email.trim() === '')
+            {
+                alert("Email can not be empty!");
+                return;
+            }
+
+
             var oData = new FormData(document.forms.namedItem("story_form"));
 
             $.ajax({
-                url: Routing.generate('draw_createstory',{_locale:window.locale}),
+                url: Routing.generate('draw_createstory', {_locale: window.locale}),
                 method: 'POST',
                 data: oData,
                 processData: false,

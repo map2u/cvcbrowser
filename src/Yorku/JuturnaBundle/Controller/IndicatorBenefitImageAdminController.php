@@ -220,7 +220,7 @@ class IndicatorBenefitImageAdminController extends CRUDController {
                 array_push($images_array, str_replace(" ", "_", $imageFile->getClientOriginalName()));
                 $imageFile->move($dir, str_replace(" ", "_", $imageFile->getClientOriginalName()));
             }
-            $object->setFileName(serialize($images_array));
+            $object->setFileName(json_encode($images_array));
         }
 
 

@@ -48,13 +48,8 @@ class StoryAdmin extends Admin {
      */
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
-                ->add('id')
                 ->add('storyName')
-                ->add('summary')
-                ->add('imageFile')
-                ->add('storyFile')
                 ->add('email')
-                ->add('theGeom')
                 ->add('createdAt')
                 ->add('updatedAt')
                 ->add('_action', 'actions', array(
@@ -75,6 +70,13 @@ class StoryAdmin extends Admin {
                 ->with('Story', array('class' => 'col-md-6'))
                 ->add('id', 'hidden')
                 ->add('storyName')
+                ->add('storyType', 'entity', array('label' => 'Story Type',
+                    'required' => true,
+                    'expanded' => false,
+                    'class' => 'Map2u\CoreBundle\Entity\StoryType',
+                    'property' => 'name',
+                    'multiple' => false
+                ))
                 ->add('summary', 'textarea')
                 //      ->add('imageFile', 'text', array('read_only' => true))
                 ->add('image_file', 'file', array('required' => false, 'mapped' => false, 'label' => 'Image File'))
