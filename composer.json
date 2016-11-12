@@ -28,7 +28,6 @@
         "knplabs/knp-menu-bundle": "^1.1.0 || ^2.0",
         "knplabs/knp-paginator-bundle": "^2.4",
         "knplabs/doctrine-behaviors": "dev-master",
-
         "sonata-project/block-bundle": "^3.0",
         "sonata-project/classification-bundle": "^3.0",
         "sonata-project/comment-bundle": "^3.0",
