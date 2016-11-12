@@ -48,6 +48,7 @@ window.onload = function () {
     });
     map = new L.MAP2U.Map('leafmap', {
         'zoomControl': false
+        
     }).setView(center, zoom);
     this.map = map;
     //add a tile layer to add to our map, in this case it's the 'standard' OpenStreetMap.org tile server
@@ -94,6 +95,50 @@ window.onload = function () {
 
     ];
     map.noteLayer = new L.FeatureGroup();
+
+    map._fireDOMEvent = function (e, type, targets) {
+       
+        if (e._stopped) {
+            return false;
+        }
+
+        // Find the layer the event is propagating from and its parents.
+        targets = (targets || []).concat(this._findEventTargets(e, type));
+     
+        if (!targets.length) {
+            return;
+        }
+
+        var target = targets[0];
+        if (type === 'contextmenu' && target.listens(type, true)) {
+            L.DomEvent.preventDefault(e);
+        }
+      
+        if ((e.type === 'click' || e.type === 'preclick') && !e._simulated && this._draggableMoved(target)) {
+            console.log("let's exit");
+            return;
+        }
+        var data = {
+            originalEvent: e
+        };
+
+        if (e.type !== 'keypress') {
+            var isMarker = target instanceof L.Marker;
+            data.containerPoint = isMarker ?
+                    this.latLngToContainerPoint(target.getLatLng()) : this.mouseEventToContainerPoint(e);
+            data.layerPoint = this.containerPointToLayerPoint(data.containerPoint);
+            data.latlng = isMarker ? target.getLatLng() : this.layerPointToLatLng(data.layerPoint);
+        }
+
+        for (var i = 0; i < targets.length; i++) {
+            targets[i].fire(type, data, true);
+            if (data.originalEvent._stopped ||
+                    (targets[i].options.nonBubblingEvents && L.Util.indexOf(targets[i].options.nonBubblingEvents, type) !== -1)) {
+                return;
+            }
+        }
+    };
+
     map.noteLayer.options = {code: 'N'};
     map.dataLayers = [];
     var index;
@@ -148,8 +193,7 @@ window.onload = function () {
                                     }
                                 }
                             }
-                        }
-                        else {
+                        } else {
                             $(this).addClass("active");
                             showMeasureHistory();
                         }
@@ -286,6 +330,7 @@ window.onload = function () {
     setTimeout(function () {
         leftSidebar.toggle();
     }, 500);
+    
     map.on("click", function (e) {
         if ($("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form td.get_address input.get_address_from_map").length > 0 && $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form td.get_address input.get_address_from_map").is(":checked"))
         {
@@ -355,8 +400,7 @@ window.onload = function () {
                         });
                     });
                     map.drawnItems.addLayer(feature);
-                }
-                else {
+                } else {
                     alert("The given address is not able geocoding!");
                 }
             });
@@ -372,6 +416,7 @@ window.onload = function () {
             $(".sonata-bc .leftsidebar-close-control").hide();
         }
     });
+
     $.ajax({
         url: Routing.generate('leaflet_userlayers', {_locale: window.locale}),
         method: 'GET',
@@ -384,6 +429,8 @@ window.onload = function () {
                 result = JSON.parse(response);
             else
                 result = response;
+
+
             if (result.success === true && result.layers) {
 
                 result.layers = sortByKey(result.layers, 'seq');
@@ -394,6 +441,7 @@ window.onload = function () {
                 // alert(keys.length + "," + keys[0]);
                 // div style="height: 305px;" class="leaflet-control" id="sidebar-left" data-viewtype="benefit" data-viewlayers="8,7,"
                 var default_layers = $("div#sidebar-left.leaflet-control").data("viewlayers"); //.toString();
+
                 var default_datatype = $("div#sidebar-left.leaflet-control").data("viewtype");
                 var default_layers_array = [];
                 if (default_layers !== undefined && default_layers.trim().length > 0) {
@@ -401,58 +449,31 @@ window.onload = function () {
                     default_layers_array = default_layers.split(",");
                 }
 
-                var cluster_layers = $("div#sidebar-left.leaflet-control").data("viewclusterlayers"); //.toString();
-                var cluster_layers_array = [];
-                if (cluster_layers !== undefined && cluster_layers.trim().length > 0) {
-                    cluster_layers = cluster_layers.substr(0, cluster_layers.length - 1);
-                    cluster_layers_array = cluster_layers.split(",");
-                }
-                var geoserver_layers = $("div#sidebar-left.leaflet-control").data("viewgeoserverlayers"); //.toString();
-                var geoserver_layers_array = [];
-                if (geoserver_layers !== undefined && geoserver_layers.trim().length > 0) {
-                    geoserver_layers = geoserver_layers.substr(0, geoserver_layers.length - 1);
-                    geoserver_layers_array = geoserver_layers.split(",");
-                }
+
 
                 for (var k = 0; k < keys.length; k++)
                 {
                     var layer = result.layers[keys[k]];
                     if ((default_datatype === 'benefit') && default_layers_array.length > 0) {
+
                         if (layer.layerType === 'uploadfilelayer') {
                             if (default_layers_array.indexOf(layer.id.toString()) !== -1) {
                                 layer.defaultShowOnMap = '1';
-                            }
-                            else
+                            } else
                             {
                                 layer.defaultShowOnMap = '0';
                             }
                         }
-                        if (layer.layerType === 'clustermap') {
-                            if (cluster_layers_array.indexOf(layer.id.toString()) !== -1) {
-                                layer.defaultShowOnMap = '1';
-                            }
-                            else
-                            {
-                                layer.defaultShowOnMap = '0';
-                            }
-                        }
-                        if (layer.layerType === 'wms' || layer.layerType === 'wfs') {
-                            if (geoserver_layers_array.indexOf(layer.id.toString()) !== -1) {
-                                layer.defaultShowOnMap = '1';
-                            }
-                            else
-                            {
-                                layer.defaultShowOnMap = '0';
-                            }
-                        }
+
                     }
                     map.dataLayers[map.dataLayers.length] = {'map': map, 'layerCategoryId': layer.layerCategoryId, 'layerCategoryMultiple': layer.layerCategoryMultiple, 'layerCategoryName': layer.layerCategoryName, 'layerType': layer.layerType, 'clusterLayer': layer.clusterLayer, 'defaultShowOnMap': layer.defaultShowOnMap, 'layer': null, 'minZoom': layer.minZoom, 'maxZoom': layer.maxZoom, 'index_id': k, 'srs': layer.srs, 'layerId': layer.id, layerTitle: layer.layerTitle, 'datasource': layer.datasource, 'sld': layer.sld, 'filename': layer.filename, 'layerName': layer.layerName, 'hostName': layer.hostName};
 
-//                    map.dataLayers[map.dataLayers.length] = {'map': map, 'layerType': layer.layerType, 'layerCategoryId':layer.layerCategoryId, 'layerCategoryName':layer.layerCategoryName,  'defaultShowOnMap': layer.defaultShowOnMap, 'layer': null, 'minZoom': layer.minZoom, 'maxZoom': layer.maxZoom, 'index_id': k, 'layerId': layer.id, 'layerProperty':layer.layerProperty,  'sld': layer.sld,  'layerName': layer.layerName};
                 }
                 //    map.dataLayers[map.dataLayers.length] = {'map': map, 'layerType': 'userdraw', 'layer': null, 'index_id': -1, 'layerId': -1, layerTitle: "My draw geometries", 'layerName': 'My draw geometries', type: 'geojson'};
                 //    layersControl.refreshOverlays();
-             //   loadStoriesLayer(map, layersControl);
+                //   loadStoriesLayer(map, layersControl);
+                $(".section.overlay-layers .overlay_ul .overlay_li input[type='checkbox']").prop("ckecked", false);
+
                 setTimeout(function () {
 
 
@@ -480,8 +501,7 @@ window.onload = function () {
     initMapDraw(map);
     if ($("div#sidebar-left.leaflet-control").data("viewtype") === 'story' || $("div#sidebar-left.leaflet-control").data("viewtype") === 'stories') {
         $(".leaflet-draw.leaflet-control").show();
-    }
-    else
+    } else
     {
         $(".leaflet-draw.leaflet-control").hide();
     }
@@ -527,8 +547,7 @@ window.onload = function () {
 
 
 
-                        }
-                        else if (map.drawControl._toolbars.edit._activeMode && map.drawControl._toolbars.edit._activeMode.handler.type === 'edit') {
+                        } else if (map.drawControl._toolbars.edit._activeMode && map.drawControl._toolbars.edit._activeMode.handler.type === 'edit') {
 
                             var radius = 0;
                             $.ajax({
@@ -739,8 +758,7 @@ function loadStoriesLayer(map, layersControl) {
                             //  images[0] = '/bundles/map2uleaflet/images/photo_unavailable_t.png';
                             icon_image = '/bundles/map2uleaflet/images/photo_unavailable_t.png';
                             medium_image = '/bundles/map2uleaflet/images/photo_unavailable.png';
-                        }
-                        else {
+                        } else {
                             icon_image = '/uploads/stories/' + photo.id + "/images/icon_" + images[0];
                             medium_image = '/uploads/stories/' + photo.id + "/images/medium_" + images[0];
                         }
@@ -754,12 +772,10 @@ function loadStoriesLayer(map, layersControl) {
                                 var zoom = e._zoom;
                                 if (zoom <= 11) {
                                     photo_marker.scale(0.5);
-                                }
-                                else if (zoom <= 13) {
+                                } else if (zoom <= 13) {
                                     // Half of the size option
                                     photo_marker.scale(0.75);
-                                }
-                                else {
+                                } else {
                                     // Scale 1 is 100% as defined in the size option
                                     photo_marker.scale(1);
                                 }
@@ -776,12 +792,10 @@ function loadStoriesLayer(map, layersControl) {
                         if (medium_image === '') {
                             if (images.length > 1) {
 
-                            }
-                            else {
+                            } else {
                                 html = html + '<img src="' + medium_image + '" style="width:300px;"/>';
                             }
-                        }
-                        else
+                        } else
                         {
                             html = html + '<img src="' + medium_image + '" style="width:300px;"/>';
                         }

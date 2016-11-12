@@ -74,6 +74,7 @@ class FixedTopmenuBlockService extends baseFixedTopmenuBlockService {
 
 
         $ecosystems = $this->em->getRepository('YorkuJuturnaBundle:EcoSystemService')->findBy(array(), array("id" => "ASC"));
+        $helptypes = $this->em->getRepository('YorkuJuturnaBundle:HelpType')->findBy(array('enabled'=>true), array("seq" => "ASC"));
         if ($user && $user != 'anon.') {
             $mapbookmarks = $this->em->getRepository('Map2uCoreBundle:MapBookmark')->findBy(array("userId" => $user->getId()), array("seq" => "ASC"));
         }
@@ -83,6 +84,7 @@ class FixedTopmenuBlockService extends baseFixedTopmenuBlockService {
             'context' => $blockContext,
             'settings' => $settings,
             'ecosystems' => $ecosystems,
+            'helptypes'=>$helptypes,
             'wellbeingdomains' => $wellbeingdomains,
             'mapbookmarks' => $mapbookmarks,
             'block' => $blockContext->getBlock()

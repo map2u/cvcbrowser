@@ -72,19 +72,29 @@ class LayerController extends BaseController {
      * get layer geom as geojson.
      * params: ogc_fid and userboundary_id
      * @Route("/loadsequence", name="layer_loadsequence", options={"expose"=true})
-     * @Method("POST")
+     * @Method("GET")
+     * @Template()
      */
     public function loadsequenceAction(Request $request) {
         $user = $this->getUser();
         if ($user) {
-
-            $sequence = array();
             $em = $this->getDoctrine()->getManager();
-            $sequence_entities = $em->getRepository("Map2uCoreBundle:LayerDisplaySequence")->findBy(array("user" => $user));
-            foreach ($sequence_entities as $sequence_entity) {
-                array_push($sequence, array("id" => $sequence_entity->getId(), "name" => $sequence_entity->getName()));
+            $id = $request->get("id");
+            $sequence = array();
+            if (strlen($id) === 36) {
+                $sequence_entity = $em->getRepository("Map2uCoreBundle:LayerDisplaySequence")->find($id);
+                if ($sequence_entity) {
+                    $sequence = json_decode($sequence_entity->getSequence());
+                    return new JsonResponse(array('success' => true, 'message' => 'Layer display sequence has been successfully loaded!', 'data' => $sequence));
+                } else {
+                    return new JsonResponse(array('success' => false, 'message' => 'Layer display sequence id:' . $id . ' has not been found!'));
+                }
+            } else {
+
+                $sequence_entities = $em->getRepository("Map2uCoreBundle:LayerDisplaySequence")->findBy(array("user" => $user));
+
+                return array('sequence' => $sequence_entities);
             }
-            return new JsonResponse(array('success' => true, 'message' => 'Layer display sequence has been successfully loaded!', 'data' => $sequence));
         } else {
             return new JsonResponse(array('success' => false, 'message' => 'Please Login First'));
         }
@@ -112,7 +122,7 @@ class LayerController extends BaseController {
         $layer = $em->getRepository($this->getParameter("map2u.core.layer.class"))->find($id);
         $stories_class = $em->getRepository($this->getParameter("map2u.core.story.class"));
         if ($layer) {
-            if ($layer->getLayerType() === 'spatialfile') {
+            if ($layer->getLayerType() === 'spatialfile'||$layer->getLayerType() === 'cluster') {
                 $spatial = $this->getLayerSpatialfile($layer);
             }
             if ($layer->getLayerType() === 'geoserver') {

@@ -1,0 +1,61 @@
+Yorku\JuturnaBundle\Entity\Help:
+    type: entity
+    table: yorku_juturna__helps
+
+    fields:
+        id:
+            id: true
+            type: guid
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: UUID
+        fileName:
+            type: string
+            length: 255
+            fixed: false
+            nullable: true
+            column: file_name
+        active:
+            type: boolean
+            nullable: true
+            column: active
+        fileType:
+            type: string
+            length: 255
+            fixed: false
+            nullable: true
+            column: file_type  
+        helptypeId:
+            type: guid
+            unsigned: false
+            nullable: false
+            column: helptype_id
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+            gedmo:
+              timestampable:
+                on: create
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at            
+            gedmo:
+                timestampable:
+                    on: update            
+        content:
+            type: text
+            nullable: true 
+            column: content
+    manyToOne:
+        helpType:
+            targetEntity: Yorku\JuturnaBundle\Entity\HelpType
+            cascade: {  }
+            inversedBy: {}
+            joinColumns:
+                helptype_id:
+                    referencedColumnName: id
+            orphanRemoval: false 
+    lifecycleCallbacks: {  }

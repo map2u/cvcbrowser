@@ -1,0 +1,5 @@
+<select id="layers-display-sequence" size="10" style="width:315px;">
+    {% for each_sequence in sequence %}
+        <option data-sequence={{each_sequence.sequence|json_decode}} value="{{each_sequence.id}}">{{each_sequence.name}}</option>
+    {% endfor %}
+</select>

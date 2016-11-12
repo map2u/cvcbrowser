@@ -1,0 +1,429 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">  
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="keywords" content="Juturna, web-GIS, community-based environmental modelling, CBEM, volunteer monitoring, toronto watershed">
+	<meta name="description" content="Online help system and system information for the Juturna web-distibuted geographic information system. The system is designed to support upload, analysis and reporting of community and volunteer collected water quality data in streams.">
+	<meta name="csrf-param" content="authenticity_token">
+	<meta name="csrf-token" content="7eIFKjnS2+jqMpdMQiObeE58jRn8Z8NcZ5ZPnY4ZgiA=">
+	<title>Credit Valley Watershed and Well-Being Browser</title>
+	<link href="application.css" media="screen" rel="stylesheet" type="text/css">
+	<link href="example.css" media="screen" rel="stylesheet" type="text/css"> 
+	<link href="scaffold.css" media="screen" rel="stylesheet" type="text/css">
+	<style type="text/css">
+	img
+	{
+	border: 0;
+	}
+	.lower_roman /*makes ordered list show roman numerals in lowercase*/
+	{
+	list-style-type:lower-roman; 
+	}
+	.bold
+	{
+	font-weight:bold;
+	}
+	.user_notice /*text at top of helpfile*/
+	{
+	font: "Times New Roman";
+	color:green; 
+	}
+	.s_toc /*section headers in table of contents*/
+	{
+	margin:0cm 0cm 0cm 0cm;
+	}
+	.ss_toc /*subsections in table of contents*/
+	{
+	margin:0cm 0cm 0cm 1cm;
+	}
+	.disclaimer /*disclaimer styles*/
+	{
+	font-size:large;
+	}
+
+	.interface {
+		width: 1100px;
+		height: 700px;
+		overflow: hidden;
+		background-image: url("images/InterfaceCVC.png");
+		background-size: cover;
+		background-position: center center;
+		margin: 0 auto;
+	}
+
+	.mapviewer {
+		width: 1100px;
+		height: 700px;
+		overflow: hidden;
+		background-image: url("images/mapviewer.png");	
+		background-size: cover;
+		background-position: center center;
+		margin: 0 auto;
+	}
+	.thematic {
+		width: 1100px;
+		height: 700px;
+		overflow: hidden;
+		background-image: url("images/thematicmap.jpg");	
+		background-size: cover;
+		background-position: center center;
+		margin: 0 auto;
+	}
+	.story {
+		width: 1100px;
+		height: 700px;
+		overflow: hidden;
+		background-image: url("images/story.png");	
+		background-size: cover;
+		background-position: center center;
+		margin: 0 auto;
+	}
+	/**/
+	</Style>
+</head>
+ <body> 
+	<div id="user_Notice" >
+	<h2 class="user_notice">Note to users: We are continually trying to improve this system, and its help file documentation. Please report any problems, bugs or suggestions to Professor
+	<a class="user_notice" href="mailto:bunchmj@yorku.ca?subject=CVCWatershed%20bug%20report,%20comment%20or%20suggestion">Martin Bunch</a>, Faculty of Environmental Studies, York University.</h2>
+	<!--<h3>Note: For System Administrators, please see the "System Administrator Help" button.</h3>-->
+	</div>
+	<!--***************************Table of Contents ******************************************** -->
+	<div id="toc">
+	<h1>Table of Contents</h1>
+	<p class="s_toc"><a href="#sh_1.0">1.0 Overview of Credit Valley Watershed and Well-Being Browser 1.0</a></p>
+	<p class="ss_toc"><a href="#sh_1.1">1.1 Purpose</a></p>
+	<p class="ss_toc"><a href="#sh_1.2">1.2 Partners</a></p>
+	<!-- <p class="ss_toc"><a href="#sh_1.3">1.3 History</a></p> -->
+	<p class="ss_toc"><a href="#sh_1.3">1.3 Software and System Design</a></p>
+	<p class="ss_toc"><a href="#sh_1.4">1.4 Copyright, distribution and adaptation of Credit Valley Watershed and Well-Being Browser</a></p>
+	<p class="s_toc"><a href="#sh_2.0">2.0 The Credit Valley Watershed and Well-Being Browser Interface</a></p>
+	<p class="ss_toc"><a href="#sh_2.1">2.1 Header Bar</a> </p>
+	<p class="ss_toc"><a href="#sh_2.2">2.2 Login Tab</a></p>
+	<p class="ss_toc"><a href="#sh_2.3">2.3 Information Tabs</a></p>
+	<p class="ss_toc"><a href="#sh_2.4">2.4 Map Viewer</a></p>
+	<p class="s_toc"><a href="#sh_3.0">3.0 Accessing Credit Valley Watershed and Well-Being Browser</a></p>
+	<p class="ss_toc"><a href="#sh_3.1">3.1 Types of accounts</a></p>
+	<p class="ss_toc"><a href="#sh_3.2">3.2 Logging in to the system</a></p>
+	<p class="ss_toc"><a href="#sh_3.3">3.3 Logging out of the system</a></p>
+	<p class="s_toc"><a href="#sh_4.0">4.0 Using Primary Browser Components</a></p>
+	<p class="ss_toc"><a href="#sh_4.1">4.1 Using Location Search</a></p>
+	<p class="ss_toc"><a href="#sh_4.2">4.2 Using the Map Viewer</a></p>
+	<p class="ss_toc"><a href="#sh_4.3">4.3 Using the Overlays List</a></p>
+	<p class="s_toc"><a href="#sh_5.0">5.0 Credit Valley Watershed and Well-Being Browser Core Functions</a></p>
+	<p class="ss_toc"><a href="#sh_5.1">5.1 Creating a Map Layer</a></p>
+	<p class="ss_toc"><a href="#sh_5.2">5.2 Editing data</a></p>
+	<p class="ss_toc"><a href="#sh_5.3">5.3 Geometric Features</a></p>
+	<p class="s_toc"><a href="#sh_6.0">6.0 Help, Support and Contact Information</a></p>
+	</div>
+	<!--***************************Section 1 ******************************************** -->
+	<div id="sh_1.0">
+	<h1>1.0 Overview of Credit Valley Watershed and Well-Being Browser 1.0</h1>
+	<div id="sh_1.1">
+	<h2>1.1 Purpose</h2>
+	<p>This project aims to show how improving the health of the natural environment also improves the well-being of local residents of and visitors to the watershed. With input from the local residents we will develop a set of indicators and a map tool to effectively communicate these relationships. This map-based tool will be made available to the public to explore. Ultimately, it will be used in conducting scenario analyses to see how different management decisions affect the well-being of residents.This project addresses requirements of data sharing and monitoring specified in Annex 4 of the Canada-Ontario Agreement (COA). It provides a collaborative 
+	mechanism among researchers at York University, and the <a href="http://www.creditvalleyca.ca/" target="_blank">Credit Valley Conservation Authority</a> (CVC) to monitor environmental management decisions in relation to the human well-being.</p>
+	</div>
+	<div id="sh_1.2">
+	<h2>1.2 Partners</h2>
+	<p>Development and maintenance of the Credit Valley Watershed and Well-Being system is led by <a href="http://www.yorku.ca/bunchmj" target="_blank">Professor Martin Bunch</a> 
+	out of the SpEAR lab at the <a href="http://www.fes.yorku.ca/" target="_blank">Faculty of Environmental Studies</a> at <a href="http://www.yorku.ca/">
+	York University</a>. This phase of the project is sponsered by <a href="http://www.creditvalleyca.ca/" target="_blank">Credit Valley Conservation Authority</a>, <a href="http://www.brocku.ca/social-sciences/research/water-economics-policy-governance-network" target="_blank">Water, Economics, Policy and Governance Network</a>, and <a href="http://www.cwn-rce.ca/" target="_blank">Canadian Water Network</a>. 
+	</p>
+	<p>
+    </div>
+    <div id="sh_1.3">
+	<h2>1.3 Software and System Design</h2>
+	<p>Credit Valley Watershed and Well-Being Browser is a web-distributed geographic information system (web-GIS). It is composed of: (i) Free and Open Source System (FOSS) 
+	code written for the Credit Valley Watershed and Well-Being project, (ii) FOSS software modules developed by others and linked together to form the overall Credit Valley Watershed and Well-Being Browser
+	system and (iii) a Googlemaps mashup. Credit Valley Watershed and Well-Being Browser was developed using FOSS development tools. (The only component that may potentially 
+	be propriety is the spatial data required to delineate watershed and subwatershed boundaries).</p>
+	<!-- <p>Primary Development Languages:</p>
+	<ul>
+	<li>Ruby 1.8.7: based on rubyonrails</li>
+	<li>Rails 3.0.9: based on rubyonrails</li>
+	<li>Javascript</li>
+	<li>Ajax</li>
+	<li>OpenLayers 2.11</li>
+	<li>Ext javascript framework 4.1.0</li>
+	<li>GeoExt 2</li>
+	</ul> -->
+	<p>Principle Open Source Software Components:</p>
+	<ul>
+	<li>Postgresql 9.3</li>
+	<li>pHp 5.4+</li>
+	<li>pgAdmin3</li>
+	<li>Ubuntu 14.04</li>
+	<li>Apache 2</li>
+	<li>GeoServer 2.5</li>
+	<li>symfony 2.3</li>
+	<li>Bundles</li>
+	<li>Leaflet 0.7.3</li>
+	<li>Juqery</li>
+	<li>d3.js</li>
+	<li>Bootstrap 3</li>
+	<li>ogr2ogr</li>
+	<li>topojson</li>
+	</ul>
+	</div>
+	<div id="sh_1.4">
+	<h2>1.4 Copyright, distribution and adaptation of Credit Valley Watershed and Well-Being Browser 1.0</h2>
+	<p>This program is free open source software (FOSS) released under the <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GNU General Public License</a>
+	version 3: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, 
+	either version 3 of the License, or (at your option) any later version.</p>
+	<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more Details.</p>
+	<p>You should have received a copy of the GNU General Public License along with this program. If not, see <a href="http://www.gnu.org/licenses" target="_blank">http://www.gnu.org/licenses</a></p>
+	<p>Several components of Credit Valley Watershed and Well-Being Browser are themselves Free Open Source Software (FOSS) programs and have their own licensing arrangements. When available, 
+	Credit Valley Watershed and well-Being Browser FOSS licensing information will be posted, but in general the Credit Valley Watershed and Well-Being code will 
+	be available for download, modification, distribution, etc, on the condition that neither it or its derivations are sold or distributed for profit, 
+	and that any derivatives are also made available under a similar FOSS licence. Until the Credit Valley Watershed and Well-Being code is available for download please direct 
+	questions and queries to <a href="mailto:bunchmj@yorku.ca?subject=Query%20about%20the%20Juturna%20web-GIS" target="_blank">Professor Martin Bunch</a> at the Faculty 
+	of Environmental Studies at York University. Click here for further information about 
+	<a href="http://en.wikipedia.org/wiki/Free_and_open_source_software" target="_blank">Free and Open Source Software</a>.</p>
+	<p>Disclaimer:</p> 
+	<p class="disclaimer">IN NO EVENT SHALL THE SPEAR LAB AT THE FACULTY OF ENVIRONMENTAL STUDIES AT YORK UNIVERSITY BE LIABLE TO ANY PARTY FOR DIRECT, 
+	INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN 
+	IF THE SPEAR LAB AT YORK UNIVERSITY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.THE SPEAR LAB AT THE FACULTY OF ENVIRONMENTAL STUDIES AT YORK 
+	UNIVERSITY SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
+	PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS" BASIS, AND THE SPEAR LAB AT THE FACULTY OF ENVIRONMENTAL STUDIES AT YORK UNIVERSITY HAS NO 
+	OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.</p>
+	</div>
+	</div>
+	<!--***************************Section 2 ******************************************** -->
+	<div id="sh_2.0">
+	<h1>2.0 The Credit Valley Watershed and Well-being Browser Interface</h1>
+	<p>The CVC Watershed and Well-being Browser interface consists of four main sections (<a href="#sh_fig_1">Figure 1</a> below): 1) the Header Bar, 2) the Login tab, 3) Visual header tabs, and 4) the Map Viewer tab. A brief description of these components is provided below, and instructions on how to use the various functions accessible via these interface components can be found in <a href="#sh_3.0">Section 3 (Accessing Credit Valley Watershed and Well-being Browser)</a>, <a href="#sh_4.0">Section 4 
+	(Using Primary CVC Watershed and Well-being Browser Interface Components)</a>, and <a href="#sh_5.0">Section 5 (Credit Valley Watershed and Well-being Browser Core Functions)</a>.</p>
+
+    <div class="interface" img id="sh_fig_1">
+		<!-- <img id="sh_fig_1" src="images/CVCinterface.jpg" alt="CVC Interface" /> -->
+    </div>
+
+	<p><span class="bold">Figure 1</span>: Four main sections of the CVC Watershed and Well-being Browser interface: 1) the Header Bar, 2) the Login Tab, 3) Information Tabs, and 4) the Map Viewer Tab.</p>
+	<div id="sh_2.1">
+	<h2>2.1 Header Bar</h2>
+	<p>The Header Bar runs across the top of the Credit Valley Watershed and Well-Being Browser interface (#1 in <a href="#sh_fig_1">Figure 1</a>). Above the Header Bar are the logos of the principle project partners. Clicking on these will open a browser window that loads the home page of these partners. Below the Sponsors is the Project Banner displaying the project name, clicking this banner at anytime will return the user to the home page. The Header Bar extends across the Credit Valley Watershed and Well-Being interface.</p>
+	<p> The left side of this strip contains drop down menus for Well-Being, Ecosystem Services, and Your Stories tabs. Selecting one of these tabs will bring the user to a map viewer that contains relevant open source information about the subject ranging from written, visual, and geographic information. </p>
+	</div>
+	<div id="sh_2.2">
+	<h2>2.2 Login Tab </h2>
+	<p>Located on the right side of the header bar, the user will find the "Login" and "about" tab. This is where the user will register for or log into their account, retrieving a lost password, or find information about the project itself.</p>
+	<p>Overall, the Header Bar is a stable component, but when a user is logged in the information at the right of the bar changes to display the 
+	username of the currently logged-in user, a logout button and a function to change the user's password.</p>
+	</div>
+	<!-- <h2>2.2 Search Bar</h2> -->
+	<!-- <p>Immediately below the Header Bar on the left of the Credit Valley Watershed and Well-Being browser is the Search Bar (#2 in <a href="#sh_fig_1">Figure 1</a>) where users are able to type in an address within the Credit Valley Conservaton watershed boundaries. This allows users to zoom in on a particular location where they can then use map layers in the <a href="#sh_2.3">Watersheds Info panel </a> to select different overlays to find information on watershed and well-being.</p>  -->
+	<div id="sh_2.3">
+	<h2>2.3 Information Tabs </h2>
+	<p>These tabs are a visual representation of the tabs within the header bar. Clicking one of these tabs will bring the user to written information about the particular topic and where the user is able to find many more resources related to the topic of choice.</P> 
+	<p><span class="bold">My Stories:</span>
+		<ul>Selecting the "My Stories" tab will bring the user to an informative page explaining to the user how to upload a brief story about an experience with a particular ecosystem that they want to share publicly. This feature allows a registered user to write a story ranging from 100-200 words and the option to include photos depicting the ecosystem. Guidelines to writting a story can be found <a href="http://cvc.juturna.ca/uploads/stories/Guidelines_to_writting_your_story.pdf" target="_blank">Here</a>.</ul></P>
+	<!-- <h2>2.3 Watersheds Info Panel</h2>
+	<p>Immediately below the Header Bar on the right of the Credit Valley Watershed and Well-Being browser is the Watersheds Info panel (#3 in <a href="#sh_fig_1">Figure 1</a>) with Map Layers represnting "BaseLayers" and "OverLays". 
+	Select the  to change between panels that access the "Map Layers", the "Stations List" and the "Watersheds List" functions.</p> 
+	<p><span class="bold">BaseLayers:</span> Select different Base Layers to change the display of the background data in the Map Viewer, users can
+	choose between Google Streets, Thunderforest Transport, Hybrid, Satellite and Terrain options. The default base map option for the Credit Valley Watershed and Well-Being Browser Map Viewer is Google street.</p> 
+	<p><span class="bold">OverLays:</span>The user can also select which overlay option (Play Ground Canopy, CVC Subwatershed, Study Areas, CVC City, Municipalities, CVC Watershed Boundary, Trail, Play Ground Cluster) he or she wishes to see displayed atop the background options</p> -->
+	</div>
+	<div id="sh_2.4">
+	<h2>2.4 Map Viewer</h2>
+	<p>The Map Viewer (#4 in <a href="#sh_fig_1">Figure 1</a>) is located immediately below the header bar in the middle of the interface, 
+	between the Watersheds 
+	Info panel and the Search Bar. This is a <a href="http://en.wikipedia.org/wiki/Mashup_(web_application_hybrid)" target="_blank">googlemaps mashup</a> 
+	that combines spatial data from <a href="http://maps.google.com/" target="_blank">maps.google.com</a> (Google Streets, Hybrid, Satellite and Terrain, 
+	etc.) with data provided by the Cedit Valley Watershed and Well-Being system (e.g., watershed polygons, subwatershed polygons) and data entered by users (Addresses, overlays in the database). The Map Viewer provides basic geographic information system (GIS) capability to pan, zoom in, zoom out, select an entity, 
+	add data, turn on (view) or turn off various data layers, and access data management. On the left side of the map viewer there are functions to draw lines and shapes and to edit layers. In the strip ranging across the top of the map viewer, you will find buttons to reset the Map Viewer window and previous and next map options. On the right hand side of this strip, there is a dropdown menu in which you can select Map Layers where you will find the OverLays you wish to make active. (Some of this functionality operates in conjunction with other interface elements of the Credit Valley Watershed and Well-Being Bowser system). See 
+	<a href="#sh_4.2">"Using the Map Viewer"</a> below, for more information.</p>
+	</div>
+	</div>
+	<!--***************************Section 3 ******************************************** -->
+	<div id="sh_3.0">
+	<h1>3.0 Accessing Credit Valley Watershed and Well-Being Browser</h1>
+	<div id="sh_3.1">
+	<h2>3.1 Types of accounts</h2>
+	<p>Many functions of the Credit Valley Watershed and Well-Being system can be accessed by the general public without needing a user account to log in to the system. Only My Story upload, data upload, data editing, and data deleting functions and account management require a user account.</p> 
+	<p>There are two types of accounts in the Watershed and Well-Being Web-GIS system: Volunteer accounts and Administrator accounts. Volunteer accounts are 
+	intended for users of the system who participate in providing information about the benefits of local watershed and human health well-being by contributing to open source data and stories about their own experiences. Administrator accounts are intended for personal that need to administer the data generated, assign new accounts, remove and add data, etc.</p>
+	<div id="sh_3.2">
+	<h2>3.2 Logging in to the system</h2>
+	<p>To log into the Credit Valley Watershed and Well-Being Browser system a user must have a valid user name and password. Valid users can log into the Credit Valley Watershed and Well-Being system by clicking on the "Login" button in the upper right corner of the Watershed and Well-Being interface. In the dialog box that appears, users must enter their username 
+	into the "Login Name" field and their password into the "Password" field, then click the "OK" button. Please note that the system will take 
+	a couple of seconds to refresh itself after a user logs in.</p>
+	<p>If you have forgotten your password, you can request a password by clicking the "Forgot Password" button, and entering your Login Name 
+	and email address in the dialog box that appears.</p>
+	</div>
+	<div id="sh_3.3">
+	<h2>3.3 Logging out of the system</h2>
+	<p>Users can log out of the Credit Valley Watershed and Well-Being Browser system by clicking on the "Logout" button at the upper right of the Watershed and Well-Being  interface. Please note that the system will take a couple of seconds to refresh itself after a user logs out.</p>
+	</div>
+	</div>
+	<!--***************************Section 4 ******************************************** -->
+	<div id="sh_4.0">
+	<h1>4.0 Using Primary Credit Valley Watershed and Well-Being Interface Components</h1>
+	<div id="sh_4.1">
+	<h2>4.1 Using Location Search</h2>
+	<p>To find a location in the Credit Valley Watershed and Well-Being system: On the strip located on the left side of the Map Viewer, type an address or other location information in the general area of your monitoring station in the "Address / Postal Code" search box. Then click the "Search" button.</p>
+	<p>Note that you can type in postal codes, street addresses, geographic coordinates, street intersections, etc. Here are some examples that will find York University in Toronto, Ontario, Canada:</p> 
+	<ol class="lower_roman">
+	<li>M3J 1P3</li>
+	<li>4700 Keele Street, Toronto, ON</li>
+	<li>Keele and Finch, Toronto, ON</li>
+	<li>43.76N, 79.51W</li>
+	</ol>
+	<p>Once you submit your address, the system will pan and zoom to that location and place a temporary blue icon there. Allowing the user to then use map layers in <a href="#sh_fig_2_2">Figure 2.2</a> to select different overlays to find information on their watershed and well-being.</p>
+	</div>
+	<div id="sh_4.2">
+	<h2>4.2 Using the Map Viewer</h2>
+	<div class="mapviewer" img id="sh_fig_2">
+	<!-- 	<img src="images/mapviewer.jpg" width="1100" height="800"/> -->
+	</div>
+	<p><span class="bold">Figure 2:</span> A screen capture of the Credit Valley Watershed and Well-Being Map Viewer (a googlemaps mashup) showing: (1) Address Search Bar, 
+	(2) Information Window, (3) Geographic Coordinates and Scale, (4) Interactive Map,(5) Map Tools, (6) Zooming Functions and Map Reset option, (7) and the displayed Map Layers. </p>
+	<p><span class="bold">Accessing Map information:</span>
+		<ul> By clicking on a option from the header bar (above #1 in <a href="#sh_fig_2">Figure 2</a>) and selecting a characteristic from the drop down menu, the user will be able to view relevant information about that topic. This information will be displayed in the information window (#2 in <a href="#sh_fig_2"> Figure 2</a>), the interactive map (#4 in <a href="#sh_fig_2"> Figure 2 </a>), and in the Map layers selected (#7 in <a href="#sh_fig_2"> Figure 2 </a>).</ul></p>
+	<p><span class="bold">Panning (moving around the Map Viewer display):</span> 
+	<ul>
+	<li>A user can pan around the Map Viewer by simply clicking on the map and hold down the mouse's left button in order to drag the map
+	(the icon will be in the shape of a clinching fist).</li></ul></p>
+	<p><span class="bold">Zooming in or out (changing the scale):</span> 
+	Zoom in or out by clicking on the + (zoom in) or - (zoom out) button in 
+	the upper right corner of the Map Viewer window (#6 in <a href="#sh_fig_2">Figure 2</a>). Selecting a watershed or 
+	subwatershed in the Detail Info Panel to the right of the Map Viewer will cause the selected watershed/subwatershed to be highlighted. Double-clicking will 
+	centre and zoom the Map Viewer window on the selected feature (#7 in <a href="#sh_fig_2">Figure 2</a>). #1 in <a href="#sh_fig_2_1">Figure 2.1</a> shows the selected watershed name and #2 in <a href="#sh_fig_2_1">Figure 2.1</a> shows the subwatersheds belonging to the selected watershed.</p>
+	<div class="watershedtab" <img id="sh_fig_2_1"> 
+		<img src="images/Layersubwatershedtab.jpg" width="844" height="534" alt="" />
+	</div>
+	<p><span class="bold">Figure 2.1:</span> A screen capture of Credit Valley Watershed and Well-Being Map Viewer with selected watershed and its detail info.</p>
+	
+	
+	<p><span class="bold">Viewing (turning on or off) data layers:</span> 
+	<ul>
+	<li>For the display of background data in the Map Viewer, users can choose among 
+	general purpose Google Streets, Hybrid, Satellite and Terrain options using the radio buttons in the Map Layers tab Panel (#1 in 
+	<a href="#sh_fig_2_2">Figure 2.2</a>).</li> </P>
+	<li> Watershed polygons and Subwatershed polygons can be turned on or off by selecting the "Watersheds" or "Subwatersheds" check boxes in the Map Layers tab Panel (#2 in <a href="#sh_fig_2_2">Figure 2.2</a>).
+	</li>
+	<li> The map can also be reset to its original state (as it was displayed upon logging 
+	into or loading the system in your browser) by selecting the "Reset Extent" button in the upper right corner of the Map Viewer window (#6 in 
+	<a href="#sh_fig_2">Figure 2</a>).</p></li> </ul>
+	
+	<img id="sh_fig_2_2" src="images/Layertab.jpg" width="844" height="534" alt="" />
+	<p><span class="bold">Figure 2.2:</span> A screen capture of Map Layers Tab.</p>
+	
+	<div id="sh_4.3">
+	<h2>4.3 Using the Overlays List</h2>
+	<ul>
+	<li>The Overlay List is located on the right side of the Credit Valley Watershed and Well-Being interface, below the Header Bar in the Watersheds Map layer Panel under "Map Layers". 
+	</li>
+	<li>Under the overlays list, the user is presented with an expandable/collapsible list of map layers within the Credit Valley Watershed. </li>
+	<li>The sub watersheds List panel is interactive with both the <a href="#sh_2.4">Map Viewer</a> and the Information Window (#2 in <a href="#sh_fig_2">Figure 2</a>)
+	For Example, selecting the subwatershed map layer from the list will select and display it in the Map Viewer and bring up its details in the Information Window.</li>
+</ul>
+	</div>
+	</div>
+	<!--***************************Section 5 ******************************************** -->
+	<div id="sh_5.0">
+	<h1>5.0 Credit Valley Watershed and Well-Being Core Functions</h1>
+	<p>The Credit Valley Watershed and Well-Being system is intended to be an open source information system for the purpose of sharing information related to watershed connectivity and human well-being.
+	To support this the Credit Valley Watershed and Well-Being system allows a user to:</p>
+	<ul>
+	<li>create a record for watershed connectivity composed of (a) a point location represented by an icon in the map viewer and (b) data records in the database,
+	</li>
+	<li>upload data to the records associated with their locations(s),
+	</li>
+	<li>edit/modify layer data that has previously been entered ,
+	</li>
+	<li>Download data that includes layer information and perosnal analysis of human health and well-being. <!-- produce a report that includes a copy of monitoring data and an analysis of the benthic macroinvertebrate data that assesses the stream 
+	health at the site of users' monitoring station. -->
+	</li>
+	</ul> 
+	<div id="sh_5.1">
+	<h2>5.1 Creating a map Layer</h2>
+	<p class="bold">How to create and upload a new Layer:</p>
+	<p>Create a new layer when:</p>
+	<ul>
+	<li>There is relevant information that can contribute to the knowledge and benefit of the general public.</li>
+	<li>There is a unique and/or major feature and/or condition. <!-- described and/or drawn on a data collection sheet, although the 
+	site may be very close to an existing station nearby. For example, volunteers may routinely sample and re-sample a stream 
+	segment immediately downstream of a storm water culvert or pipe. --></li> 
+	</ul>
+	<p>To create a map layer:</p>
+	<ul>
+	<li>Log into the Credit Valley Watershed and Well-Being system.</li>
+	<li>Select “Add Spatial File” on the panel options on the right side of the map.</li>
+</ul>
+	<!-- <li>In the <a href="#sh_2.4">Map Viewer</a>, find the location where you established the water quality monitoring station (e.g., pan 
+	and zoom using the map functions, or use the <a href="#sh_4.1">Location Search</a> function on the toolbar above the 
+	<a href="#sh_2.4">Map Viewer</a>).
+	</li>  -->
+	<p>To upload data:</p>
+	<ul>
+	<li>Once selected, the user can upload the new layer by clicking on the "browse" button and uploading the required shapefiles (.shp, .shx, .dbf, .prj) #1(<a href="#sh_fig_3">Figure 3</a>) </li>
+	<li>Once the shapefiles have been uploaded, the projection must be selected for proper spatial representation. </li>
+	<li>Once the user is satisfied that they have completed their data entry task they will click on the "upload" button in the bottom-left of the window #2(<a href="#sh_fig_3">Figure 3</a>). Alternatively, they may use the "exit" or "Cancel" button to either set the window to its original condition or exit from the data upload window.</li>
+</ul>
+	<div class="upload" img id="sh_fig_3">
+		<img src="images/uploadinglayer.jpg" width="944" height="644"/>
+	</div>
+	<p><span class="bold">Figure 3:</span> Creating and uploading a map layer.</p>
+	<div id="sh_5.2">
+	<h2>5.2 Editing Data</h2>
+	<p class="bold">How to edit a new Layer:</p>
+	<ul>
+	<li>When uploading data, the user may want to set visual characteristics to the map in order to display information.</li>
+	<li>Select the "Upload File List" located on the option panel on the right side of the map interface.</li>
+	<li>Once selected the user must click on their uploaded shapefile and select the option "Set Upload File Settings" #1.(<a href="#sh_fig_3.1">Figure 3.1</a>)</li>
+	<li>With the "set Upload File Settings" selected, the user can input the thematic features and the boundary demension for defining the dataset layer. The user must first select the correct data source and data field name before making changes to the data set #2.(<a href="#sh_fig_3.1">Figure 3.1</a>)</li>
+	<li>Once the user is satisfied with the results, select "Apply" to submit the changes to the dataset #3.(<a href="#sh_fig_3.1">Figure 3.1</a>) CAUTION: submitting edited data will overwrite the original dataset</li>
+</ul>
+	<div class="thematic" img id="sh_fig_3.1">
+		<!-- <img src="images/thematicmap.jpg" width="944" height="644"/> -->
+		</div>
+	<p><span class="bold">Figure 3.1:</span> Changing the thematic display characteristics.</p>
+	<div id="sh_5.3">
+		<h2>5.3 Geometric Features </h2>
+	<p class="bold">How to add geometric features:</p>
+	<p> Users can access geometric features through the "Your Story" tab option displayed in (<a href="#sh_fig_3.2">Figure 3.2</a>)
+	<div class="story" img id="sh_fig_3.2"> </div>
+	<p><span class="bold">Figure 3.2:</span> Displaying geometric features in the Your Stories window.</p>
+	<ul>
+	<li>Users can add geometric features (lines, polygons, squares, circles, and markers) to a map layer in order to outline particular characteristics of a map.</li>
+	<li>located on the left side of the "your story" map interface, users can select the geometric features by clicking on the edit map tool icons the represents the desired shape as shown in <a href="#sh_fig_3.2">Figure 3.2</a>)</li>
+	<li>Once the feature is selected, the user can manually draw or place the feature in the desired location, where the "Share Your Storey" panel will appear, as shown in (<a href="#sh_fig_3.3">Figure 3.3</a>)</li>
+	<li>Within this panel, users will be able to provide information concerning a feature name and summary. The user can also include an image, video, and a pdf or html story file within the defined feature for further discription and information.
+</ul>
+	<!-- <div class="geometry" img id="sh_fig_3.3">
+		<img src="images/polygon.jpg" width="944" height="644"/>
+	</div>
+	<p><span class="bold">Figure 3.3:</span> Adding a geometric polygon feature.</p> -->
+	<p class="bold">How to add a visual marker to a map layer:</p>
+	<ul>
+	<li>Users can add a visual marker feature to highlight a specific area or interesting feature on a map.</li>
+	<li>located on the left side of the map interface below the geometric features in <a href="#sh_fig_3.2">Figure 3.2</a>, users can select the "draw a marker" icon by clicking on it and placing the marker in the desired location on the map.</li>
+	<li>Once the marker has been placed, the "Share your Story" panel will appear (as shown in <a href="#sh_fig_3.3">Figure 3.3</a>). The user can then add the Story information pertaining to that marker (Name, Summary, Images, etc). </li> 
+	<li>Clicking "save" will add the marker to the map layer.</li>
+</ul>
+	<div class="marker" img id="sh_fig_3.3">
+		<img src="images/geometry.jpg" width="844" height="644"/>
+	</div>
+	<p><span class="bold">Figure 3.3:</span> Adding geometry to a story within a map layer.</p>
+<!-- <div id="sh_5.3"> -->
+	<!-- <h2>5.3 Downloading Data</h2>
+	<ul><li>Located on the bottom right side of the interface sidebar options, the user can select the "share" tab to either share or download data that they wish to distribute or circulate #1<a href="#sh_fig_3.5">Figure 3.5.</a></li>
+	<li>Users have the option to share data through a link, short link, or HTML. They can also include images under PNG, JPEG, SVG, PDF formats #2<a href="#sh_fig_3.5">Figure 3.5.</a></li>
+	<li>Once satisfied with their selected options, the user can select download to extract the open source data.</li>
+</ul>
+	<d <! ->iv class="download" img id="sh_fig_3.5">
+	<img src="images/downloadingdata.jpg" width="944" height="644"/> --> <!--  --> 
+	<!-- <p><span class="bold">Figure 3.5:</span> Downloading data window.</p> -->
+</div>
+	<!--***************************Section 6 ******************************************** -->
+	<div id="sh_6.0">
+	<h1>6.0 Help, Support and Contact Information</h1>
+	<p>Click on the System Help button above the Map Viewer to access system help and system documentation. This action will add a tab to the Map Viewer window, 
+	and load this help file.</p>
+	<p>We are continually trying to improve this system, and its help files/system documentation. Please report any problems, bugs or suggestions to 
+	<a href="mailto:bunchmj@yorku.ca?subject=Juturna%20bug%20report,%20comment%20or%20suggestion" target="_blank">Professor Martin Bunch</a>, Faculty of Environmental Studies, 
+	York University.</p>
+ </body>
+<html>

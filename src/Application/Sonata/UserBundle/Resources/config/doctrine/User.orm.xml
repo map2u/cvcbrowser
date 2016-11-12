@@ -9,6 +9,19 @@
         <id name="id" column="id" type="guid">
             <generator strategy="UUID" />
         </id>
+        <field name="lastLoginIp" type="string" length="30"   fixed='false' nullable='true' column='last_visit_ip' />
+        <field name="lastSecondLoginIp" type="string" length="50"   fixed='false' nullable='true' column='last_second_login_ip' />
+        <field name="maxSessionIdeTime" type="integer" nullable="true" column='max_session_ide_time'>
+            <options>
+                <option name="comment">The max session ide time for user who has logged in.</option>
+                <option name="default">7200</option>
+            </options>
+        </field>   
+        <field name="loginSession" type="string" length="30"   fixed='false' nullable='true' column='login_session_id' />
+        <field name="lastActivity" type="datetime" nullable="true" />
+        <field name="lastLoginDate" type="date"  nullable='true' column='last_login_date' />
+        <field name="lastSecondLoginDate" type="datetime" nullable="true" column='last_second_login_date' />
+ 
         <many-to-one field="membership" target-entity="Yorku\JuturnaBundle\Entity\MemberShip" inversed-by="users"/>
         <one-to-many field="spatialfiles" target-entity="Map2u\CoreBundle\Entity\SpatialFile" mapped-by="user">
             <cascade>
@@ -28,7 +41,7 @@
                 <cascade-remove/>
             </cascade>
         </one-to-many>
-<!--        <one-to-one field="usergroup" target-entity="Map2u\CoreBundle\Entity\UserGroup">
+        <!--        <one-to-one field="usergroup" target-entity="Map2u\CoreBundle\Entity\UserGroup">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>

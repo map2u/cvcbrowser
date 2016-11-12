@@ -29,6 +29,41 @@ class User extends BaseUser {
     protected $id;
 
     /**
+     * @var integer
+     */
+    protected $maxSessionIdeTime;
+
+    /**
+     * @var string $lastLoginIp
+     */
+    protected $lastLoginIp;
+
+    /**
+     * @var string $lastSecondLoginIp
+     */
+    protected $lastSecondLoginIp;
+
+    /**
+     * @var string $loginSession
+     */
+    protected $loginSession;
+
+    /**
+     * @var \DateTime $lastActivity
+     */
+    protected $lastActivity;
+
+    /**
+     * @var \DateTime $lastLoginDate
+     */
+    protected $lastLoginDate;
+
+    /**
+     * @var \DateTime
+     */
+    private $lastSecondLoginDate;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $spatialfiles;
@@ -219,6 +254,156 @@ class User extends BaseUser {
     public function removeUsergroup($usergroups) {
         $this->usergroups->remove($usergroups);
         return $this;
+    }
+
+    /**
+     * Get $lastLoginIp
+     *
+     * @return string
+     */
+    public function getLastLoginIp() {
+        return $this->lastLoginIp;
+    }
+
+    /**
+     * set $lastLoginIp
+     *
+     * @param string $lastLoginIp
+     * @return User
+     */
+    public function setLastLoginIp($lastLoginIp) {
+        $this->lastLoginIp = $lastLoginIp;
+        return $this;
+    }
+
+    /**
+     * Get $lastSecondLoginIp
+     *
+     * @return string
+     */
+    public function getLastSecondLoginIp() {
+        return $this->lastSecondLoginIp;
+    }
+
+    /**
+     * set $lastLoginIp
+     *
+     * @param string $lastSecondLoginIp
+     * @return User
+     */
+    public function setLastSecondLoginIp($lastSecondLoginIp) {
+        $this->lastSecondLoginIp = $lastSecondLoginIp;
+        return $this;
+    }
+
+    /**
+     * Get $loginSession
+     *
+     * @return string
+     */
+    public function getLoginSession() {
+        return $this->loginSession;
+    }
+
+    /**
+     * set $loginSession
+     *
+     * @param string $loginSession
+     * @return User
+     */
+    public function setLoginSession($loginSession) {
+        $this->loginSession = $loginSession;
+        return $this;
+    }
+
+    /**
+     * Get $lastActivity
+     *
+     * @return \DateTime
+     */
+    public function getLastActivity() {
+        return $this->lastActivity;
+    }
+
+    /**
+     * set $lastActivity
+     *
+     * @param \DateTime $lastActivity
+     * @return User
+     */
+    public function setLastActivity($lastActivity) {
+        $this->lastActivity = $lastActivity;
+        return $this;
+    }
+
+    /**
+     * Get $lastLoginDate
+     *
+     * @return \DateTime
+     */
+    public function getLastLoginDate() {
+        return $this->lastLoginDate;
+    }
+
+    /**
+     * set $lastLoginDate
+     *
+     * @param \DateTime $lastLoginDate
+     * @return User
+     */
+    public function setLastLoginDate($lastLoginDate) {
+        $this->lastLoginDate = $lastLoginDate;
+        return $this;
+    }
+
+    /**
+     * Get $lastSecondLoginDate
+     *
+     * @return \DateTime
+     */
+    public function getLastSecondLoginDate() {
+        return $this->lastSecondLoginDate;
+    }
+
+    /**
+     * set $lastSecondLoginDate
+     *
+     * @param \DateTime $lastSecondLoginDate
+     * @return User
+     */
+    public function setLastSecondLoginDate($lastSecondLoginDate) {
+        $this->lastSecondLoginDate = $lastSecondLoginDate;
+        return $this;
+    }
+
+    /**
+     * Get $maxSessionIdeTime
+     *
+     * @return integer
+     */
+    public function getMaxSessionIdeTime() {
+        return $this->maxSessionIdeTime;
+    }
+
+    /**
+     * set $maxSessionIdeTime
+     *
+     * @param integer $maxSessionIdeTime
+     * @return User
+     */
+    public function setMaxSessionIdeTime($maxSessionIdeTime) {
+        $this->maxSessionIdeTime = $maxSessionIdeTime;
+        return $this;
+    }
+
+    /**
+     * @return bool whether the user is active or not
+     */
+    public function isActiveNow() {
+
+        $delay = new\DateTime('2 minutes ago');
+
+        return($this->getLastActivity() > $delay);
     }
 
 }

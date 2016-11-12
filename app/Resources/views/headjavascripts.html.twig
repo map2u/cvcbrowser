@@ -26,5 +26,8 @@
 <script src="/bundles/sonataadmin/jquery/jquery.confirmExit.js" type="text/javascript"></script>
 <script src="{{ asset('bundles/map2ucore/js/jquery.validationEngine-en.js') }}"></script>
 <script src="{{ asset('bundles/map2ucore/js/jquery.validationEngine.js') }}"></script>
+<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>            
+
 <script src="{{ asset('bundles/yorkujuturna/js/menuaction.js') }}"></script>
 {{ render(controller("Map2uCoreBundle:Welcome:loginformjs")) }}

@@ -6,14 +6,21 @@
 
 
 $(document).ready(function () {
+    $("nav.navbar-custom li.dropdown ul.helper-dropdown-menu li").unbind("click");
+    $("nav.navbar-custom li.dropdown ul.helper-dropdown-menu li").click(function (e) {
+        var id = $(this).data("id");
+       window.open(Routing.generate('help_showcontent',{'id':id,_locale: window.locale}));
+    });
 
+
+    $("nav.navbar-custom li button.well_being_indicators").unbind("click");
     $("nav.navbar-custom li button.well_being_indicators").click(function (e) {
         $(".navbar-custom div.well_being_indicators").hide();
         $(".navbar-custom div.environment_services").fadeIn();
         e.preventDefault();
 
         $.ajax({
-            url: Routing.generate('menucategory_index'),
+            url: Routing.generate('menucategory_index',{_locale: window.locale}),
             method: 'GET',
             data: {'layerid': 0, 'category': 'well_being_indicators'},
             processData: true,
@@ -41,7 +48,7 @@ $(document).ready(function () {
         $(".navbar-custom div.well_being_indicators").fadeIn();
         e.preventDefault();
         $.ajax({
-            url: Routing.generate('menucategory_index'),
+            url: Routing.generate('menucategory_index',{_locale: window.locale}),
             method: 'GET',
             data: {'layerid': 0, 'category': 'environment_services'},
             processData: true,
@@ -73,7 +80,7 @@ $(document).ready(function () {
         e.preventDefault();
 
         $.ajax({
-            url: Routing.generate('menucategory_index'),
+            url: Routing.generate('menucategory_index',{_locale: window.locale}),
             method: 'GET',
             data: {'layerid': 0, 'category': 'health_well_being', 'content_id': $(this).data("id")},
             processData: true,
@@ -119,7 +126,7 @@ $(document).ready(function () {
     function category_update(category) {
 
         $.ajax({
-            url: Routing.generate('menucategory_index'),
+            url: Routing.generate('menucategory_index',{_locale: window.locale}),
             method: 'GET',
             data: {'layerid': 14, 'category': category},
             processData: true,

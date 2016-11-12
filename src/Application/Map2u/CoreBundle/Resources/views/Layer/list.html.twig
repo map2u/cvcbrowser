@@ -118,6 +118,7 @@
 {% endif %}
 <script>
     $(function () {
+
         $("li.layercategory div.layer_legend_icon").unbind("click");
         $("li.layercategory div.layer_legend_icon").click(function () {
 
@@ -166,13 +167,6 @@
                 $(this).parent("li").find('div.layer_legend').hide();
                 $(this).find("i").removeClass("fa-minus").addClass("fa-plus");
             }
-            //      var layers = window.map._layers;
-            //      $.map(layers, function (layer) {
-            //          if (layer.id === id) {
-            //           //   loadLayerLegend($(this).parent("li").find('div.layer_legend'), id);
-            //           
-            //          }
-            //      })
         });
         $("li.overlay_li input[type='checkbox'],li.overlay_li input[type='radio']").unbind("click");
         $("li.overlay_li input[type='checkbox'],li.overlay_li input[type='radio']").click(function () {
@@ -181,10 +175,8 @@
             var checked = $(this).is(":checked");
             var layertype = $(this).parent("li").data("layertype");
             var position = $(this).parent("li").data("position");
-
             var level = $(this).data("level");
             var layers = [];
-
             var off_layers = [];
             if (parseInt(level) > 1 && $(this).parent('li').parent('ul').parent("li").find("input[data-level='" + (level - 1) + "']").is(":checked") === false) {
                 $(this).parent('li').parent('ul').parent("li").find("input[data-level='" + (level - 1) + "']").prop("checked", true);
@@ -274,12 +266,10 @@
                                     transparent: true,
                                     attribution: ""
                                 };
-
                                 var layer = new L.TileLayer.WMS("http://" + hostName, option);
                                 layer.id = id;
                                 layer.zIndex = 300 - position;
                                 layer.name = $(this).attr('name');
-
                                 window.map.dataLayers[window.map.dataLayers.length] = layer;
                                 window.map.addLayer(layer);
                             }
@@ -301,7 +291,6 @@
             }
 
         });
-
         $("div.section.overlay-layers ul.overlay_ul li label").css('cursor', 'pointer');
         $("div.section.overlay-layers ul.overlay_ul li label").unbind("click");
         $("div.section.overlay-layers ul.overlay_ul li label").click(function () {
@@ -378,21 +367,16 @@
         $('div.sidebar_content div.section.overlay-layers div#overlayers_index_save').unbind('click');
         $('div.sidebar_content div.section.overlay-layers div#overlayers_index_save').on('click', function () {
             var ids = [];
-            $('div.sidebar_content div.section.overlay-layers li.overlay_li').map(function () {
-                ids.push({id: $(this).data("id"), position: $(this).data("position"),display:$(this).find("input").is(":checked")});
+            $('div.sidebar_content div.section.overlay-layers ul.overlay_ul  li.overlay_li').map(function () {
+                ids.push({id: $(this).data("id"), position: $(this).data("position"), display: $(this).find("input").is(":checked")});
             });
-
-
             var setting_name = prompt("Please enter sequence name?\nsame name will be overwritten! ", "");
-
             if (setting_name === null || $.trim(setting_name) === '') {
                 return;
             }
             var formData = new FormData();
-          
             formData.append('sequence', JSON.stringify(ids));
             formData.append('name', setting_name);
-          
             $.ajax({
                 url: Routing.generate('layer_savesequence', {_locale: window.locale}),
                 type: 'POST',
@@ -409,54 +393,86 @@
                 contentType: false,
                 processData: false
             });
-
             //  alert(JSON.stringify(ids));
         });
         $('div.sidebar_content div.section.overlay-layers div#overlayers_index_load').unbind('click');
         $('div.sidebar_content div.section.overlay-layers div#overlayers_index_load').on('click', function () {
-            var ids = [];
-            $('div.sidebar_content div.section.overlay-layers li.overlay_li').map(function () {
-                ids.push({id: $(this).data("id"), position: $(this).data("position")});
-            });
 
-
-            var setting_name = prompt("Please enter sequence name?\nsame name will be overwritten! ", "");
-
-            if (setting_name === null || $.trim(setting_name) === '') {
-                return;
-            }
-            var formData = new FormData();
-            formData.append('sequence', JSON.stringify(ids));
-            formData.append('name', setting_name);
             $.ajax({
-                url: Routing.generate('layer_savesequence', {_locale: window.locale}),
-                type: 'POST',
-                data: formData,
+                url: Routing.generate('layer_loadsequence', {_locale: window.locale}),
+                type: 'GET',
                 complete: function () {
                 },
                 success: function (response) {
-                    if (response.success === true) {
+                    if (typeof response === 'string') {
 
+                        $('div#main_modal_dialogpanel').find('.modal-dialog').css({
+                            'margin-top': '150px', width: '350px'
+                        });
+                        $('div#main_modal_dialogpanel').find('.modal-title').text('Select Display Sequence');
+                        $('div#main_modal_dialogpanel').find('.modal-footer button.btn.btn-primary').text("Load Sequence");
+                        $('div#main_modal_dialogpanel').find('.modal-footer button.btn.btn-primary').unbind('click');
+                        $('div#main_modal_dialogpanel').find('.modal-footer button.btn.btn-primary').click(function () {
+
+                            var sequence = $('div#main_modal_dialogpanel').find('.modal-body select#layers-display-sequence option:selected').data('sequence');
+                            if (typeof sequence === 'string') {
+                                sequence = JSON.parse(sequence);
+                            }
+                            var layers = window.map._layers;
+                            $("div.sidebar_content div.section.overlay-layers ul.overlay_ul  li.overlay_li input").prop("checked", false);
+                            $.map(sequence, function (each_sequence) {
+
+                                $("div.sidebar_content div.section.overlay-layers ul.overlay_ul  li.overlay_li[data-id='" + each_sequence.id + "']").data("position", each_sequence.position);
+                                var layerExist = false;
+                                $.map(layers, function (layer) {
+                                    if (each_sequence.id === layer.id) {
+                                        layer.zIndex = 300 - each_sequence.position;
+                                        layerExist = true;
+                                        if (each_sequence.display === false) {
+                                            window.map.removeLayer(layer);
+                                        }
+                                    }
+                                });
+                                if (each_sequence.display === true && layerExist === false) {
+
+                                    $.map(window.map.dataLayers, function (layer) {
+                                        if (each_sequence.id === layer.id) {
+                                            layerExist = true;
+                                            layer.zIndex = 300 - each_sequence.position;
+                                        }
+                                    });
+                                    $("div.sidebar_content div.section.overlay-layers ul.overlay_ul  li.overlay_li[data-id='" + each_sequence.id + "']").find("input[type]").trigger('click');
+                                }
+
+                            });
+                            reorderLayer();
+                            $('div#main_modal_dialogpanel').hide();
+                            alert("Sequence " + $('div#main_modal_dialogpanel').find('.modal-body select#layers-display-sequence option:selected').text() + " has been loaded.");
+                        });
+                        $('div#main_modal_dialogpanel').find('.modal-body').html(response);
+                        $('div#main_modal_dialogpanel').show();
+                        $('div#main_modal_dialogpanel').modal({show: true});
+                    } else {
+                        if (response.success === true) {
+                            alert(JSON.stringify(response.sequence));
+                        } else {
+                            alert(response.message);
+                        }
                     }
-                    
                 },
                 cache: false,
                 contentType: false,
                 processData: false
             });
-
             //  alert(JSON.stringify(ids));
         });
-
         function createWMSLegend(item, hostName, layerName) {
             var legend = $("<div class='layer_legend hidden'>");
             var ul = $("<ul>").appendTo(legend);
             ul.append('<li><img src="' + "http://" + hostName + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&LAYER=" + layerName + '"></li>');
-
             $(legend).removeClass("hidden");
             $(legend).show();
             $(legend).appendTo($(item));
-
         }
 
         function displayLayerFeatures(id, layertype, position) {
@@ -468,532 +484,618 @@
                 },
                 success: function (response) {
                     if (response.success === true) {
-    
-                             if (response.layerType === 'story' && response.data !== null) {
-                                 var photo_markers = new L.MarkerClusterGroup({
-                                     id:response.layer_id,
-                                     showCoverageOnHover: false,
-                                     spiderfyDistanceMultiplier: 5,
-                                     maxClusterRadius: 40
-                                 });
-                                 photo_markers.name = response.layer_name;
-                                 photo_markers.id = response.layer_id;
-                                 photo_markers.zIndex = 300 - position;
-                                 var default_showonmap = false;
-                                 if ($("div#sidebar-left.leaflet-control").data("viewtype")) {
-                                     var default_layers = $("div#sidebar-left.leaflet-control").data("viewtype").toString();
-                                     if (default_layers === 'stories')
-                                     {
-                                         default_showonmap = true;
-                                     }
-                                 }
-                                 window.map.dataLayers[window.map.dataLayers.length] = photo_markers;
-
-                                 if ($("li.overlay_li input[type='checkbox'][data-id='" + response.layer_id + "'],li.overlay_li input[type='radio'][data-id='" + response.layer_id + "']").is(":checked")) {
-
-                                     window.map.addLayer(photo_markers);
-                                 }
-                                 //{name: response.layer_name,'map': window.map, 'layerType': 'story', 'clusterLayer': true, 'defaultShowOnMap': default_showonmap, 'layer': photo_markers, 'minZoom': null, 'maxZoom': null, 'index_id': 0, 'layerId': 0, layerTitle: 'Stories', 'datasource': -2, 'sld': null, 'filename': null, 'layerName': 'Stories', 'hostName': null};
-                                 $.each(response.data, function (k, photo) {
-
-                                     if (photo.lat && photo.lng) {
-                                         var images;
-                                         var icon_image = '';
-                                         var medium_image = '';
-                                         if (typeof photo.image_file === 'string')
-                                         {
-                                             images = JSON.parse(photo.image_file);
-                                         } else
-                                             images = photo.image_file;
-                                         if (images.length === 0) {
-                                             //  images[0] = '/bundles/map2uleaflet/images/photo_unavailable_t.png';
-                                             icon_image = '/bundles/map2uleaflet/images/photo_unavailable_t.png';
-                                             medium_image = '/bundles/map2uleaflet/images/photo_unavailable.png';
-                                         } else {
-                                             icon_image = '/uploads/stories/' + photo.id + "/images/icon_" + images[0];
-                                             medium_image = '/uploads/stories/' + photo.id + "/images/medium_" + images[0];
-                                         }
-
-                                         var photo_marker = new L.PhotoMarker(new L.LatLng(photo.lat, photo.lng), {
-                                             src: icon_image,
-                                             size: [50, 40],
-                                             resize: function (e) {
 
 
-                                                 var zoom = e._zoom;
-                                                 if (zoom <= 11) {
-                                                     photo_marker.scale(0.5);
-                                                 } else if (zoom <= 13) {
-                                                     // Half of the size option
-                                                     photo_marker.scale(0.75);
-                                                 } else {
-                                                     // Scale 1 is 100% as defined in the size option
-                                                     photo_marker.scale(1);
-                                                 }
-                                             }
-                                         });
-                                         photo_marker.id = photo.id;
-                                         photo_marker.on("click", function () {
+                        if (response.layerType === 'story' && response.data !== null) {
+                            var photo_markers = new L.MarkerClusterGroup({
+                                id: response.layer_id,
+                                showCoverageOnHover: false,
+                                spiderfyDistanceMultiplier: 5,
+                                maxClusterRadius: 40
+                            });
+                            photo_markers.name = response.layer_name;
+                            photo_markers.id = response.layer_id;
+                            photo_markers.zIndex = 300 - position;
+                            var default_showonmap = false;
+                            if ($("div#sidebar-left.leaflet-control").data("viewtype")) {
+                                var default_layers = $("div#sidebar-left.leaflet-control").data("viewtype").toString();
+                                if (default_layers === 'stories')
+                                {
+                                    default_showonmap = true;
+                                }
+                            }
+                            window.map.dataLayers[window.map.dataLayers.length] = photo_markers;
+                            if ($("li.overlay_li input[type='checkbox'][data-id='" + response.layer_id + "'],li.overlay_li input[type='radio'][data-id='" + response.layer_id + "']").is(":checked")) {
 
-                                             showStoryOnLeftsidebar(this.id);
-                                         });
+                                window.map.addLayer(photo_markers);
+                            }
+                            //{name: response.layer_name,'map': window.map, 'layerType': 'story', 'clusterLayer': true, 'defaultShowOnMap': default_showonmap, 'layer': photo_markers, 'minZoom': null, 'maxZoom': null, 'index_id': 0, 'layerId': 0, layerTitle: 'Stories', 'datasource': -2, 'sld': null, 'filename': null, 'layerName': 'Stories', 'hostName': null};
+                            $.each(response.data, function (k, photo) {
 
-                                         var path = Routing.generate('homepage_storydetail', {_locale: window.locale, id: photo.id});
-                                         var html = '<a href="' + path + '"  target="_blank"><h4>' + photo.story_name + '</h4></a>';
-                                         if (medium_image === '') {
-                                             if (images.length > 1) {
+                                if (photo.lat && photo.lng) {
+                                    var images;
+                                    var icon_image = '';
+                                    var medium_image = '';
+                                    if (typeof photo.image_file === 'string')
+                                    {
+                                        images = JSON.parse(photo.image_file);
+                                    } else
+                                        images = photo.image_file;
+                                    if (images.length === 0) {
+                                        //  images[0] = '/bundles/map2uleaflet/images/photo_unavailable_t.png';
+                                        icon_image = '/bundles/map2uleaflet/images/photo_unavailable_t.png';
+                                        medium_image = '/bundles/map2uleaflet/images/photo_unavailable.png';
+                                    } else {
+                                        icon_image = '/uploads/stories/' + photo.id + "/images/icon_" + images[0];
+                                        medium_image = '/uploads/stories/' + photo.id + "/images/medium_" + images[0];
+                                    }
 
-                                             } else {
-                                                 html = html + '<img src="' + medium_image + '" style="width:300px;"/>';
-                                             }
-                                         } else
-                                         {
-                                             html = html + '<img src="' + medium_image + '" style="width:300px;"/>';
-                                         }
-
-                                         photo_marker.bindPopup('<a href="' + path + '"  target="_blank"><h4>' + photo.story_name + '</h4></a><img src="' + medium_image + '" style="width:300px;"/>');
-                                         $("<img>").attr("src", medium_image).load(function () {
-                                             photo_markers.addLayer(photo_marker);
-                                         });
-                                     }
-                                     ;
-                                 });
-
-
-                             }
-                             if (response.data !== null && response.data.spatial !== null && response.data.datatype === 'topojson') {
-                                 if (typeof response.data.spatial === 'string') {
-                                     response.data.spatial = JSON.parse(response.data.spatial);
-                                 }
-                                 if (typeof response.sld === 'string') {
-                                     response.sld = JSON.parse(response.sld);
-                                 }
-                                 var key = Object.keys(response.data.spatial.objects).map(function (k) {
-                                     return  k;
-                                 });
-                                 var collection = topojson.feature(response.data.spatial, response.data.spatial.objects[key]);
-                                 var geojson_shapefile = new L.D3(collection, {
-                                     id: response.layer_id,
-                                     layerId: response.layer_id,
-                                     zIndex: (300 - position),
-                                     //       minZoom: layer.minZoom,
-                                     //       maxZoom: layer.maxZoom,
-                                     //       layerType: layer.layerType,
-                                     sld: response.sld,
-                                     //       filename: result.layer['fileName'] ? result.layer['fileName'].toLowerCase() : '',
-                                     //       filetype: result.layer['fileType'] ? result.layer['fileType'].toLowerCase() : '',
-                                     //       showLabels: (result.layer['label_field'] !== '' && result.layer['label_field'] !== null),
-                                     type: response.data.datatype
-                                             //       tip_field: result.layer['tip_field'],
-                                             //       label_field: result.layer['label_field']
-                                 });
-                             }
-                             if (geojson_shapefile !== null && geojson_shapefile !== undefined) {
-                                 geojson_shapefile.id = response.layer_id;
-                                 geojson_shapefile.zIndex = 300 - position;
-                                 geojson_shapefile.name = response.layer_name;
-                                 window.map.dataLayers[window.map.dataLayers.length] = geojson_shapefile;
-                                 window.map.addLayer(geojson_shapefile);
-                             }
-                             //  alert(JSON.stringify(response.data.spatial));
-                         }
-                     },
-                     cache: false,
-                     contentType: false,
-                     processData: true
-                 });
-             }
-             function hideLayerFeatures(id) {
-
-             }
-             function loadLayerLegend(item, id) {
-                 $.ajax({
-                     url: Routing.generate('layer_legend', {id: id, _locale: window.locale}),
-                     type: 'GET',
-                     //    data: formData,
-                     complete: function () {
-                     },
-                     success: function (response) {
-                         if (response.success === true && response.sld !== null && response.sld !== undefined) {
-                             var legend = createLegend(response.sld);
-                             $(legend).removeClass("hidden");
-                             $(legend).show();
-                             $(legend).appendTo($(item));
-                         }
-                     }
-                 });
-             }
-             function filterArray(src, filt) {
-                 var temp = {}, i, result = [];
-                 // load contents of filt into object keys for faster lookup
-                 for (i = 0; i < filt.length; i++) {
-                     temp[filt[i]] = true;
-                 }
-
-                 // go through src
-                 for (i = 0; i < src.length; i++) {
-                     if (!(src[i] in temp)) {
-                         result.push(src[i]);
-                     }
-                 }
-                 return(result);
-             }
-             function layerCategoryClickEvent(item) {
-
-                 var checked = $(item).is(":checked");
-                 var layers = [];
-                 var off_layers = [];
-                 var type = $(item).attr('type');
-                 var multiple = $(item).parent("li").data("multiple");
-                 var level = $(item).data("level");
-                 if (parseInt(level) > 1 && $(item).parent("li").parent("ul").parent("li").find("input[data-level='" + (level - 1) + "']").is(":checked") === false) {
-                     $(item).parent("li").parent("ul").parent("li").find("input[data-level='" + (level - 1) + "']").prop("checked", true);
-                 }
-                 if (checked) {
-                     // if this button is radio, first uncheck all layers under this button's parent
-                     if (type === 'radio') {
-
-                         var name = $(item).attr('name');
-                         var layer = item;
-                         $(item).parent("li").parent("ul").find("li input[name='" + name + "']").map(function () {
-                             // if this button is clicked button
-                             if (($(layer).data('id') === $(this).data('id'))) {
-                                 // if this button is a layer, set layer to display
-                                 if ($(this).parent("li").hasClass('overlay_li')) {
-                                     layers.push($(this).data('id'));
-                                 } else {
-
-                                     // if this button is not a layer, unckeck all layers under this category
-                                     $(this).parent("li").find("ul li.overlay_li input").map(function () {
-                                         off_layers.push($(this).data('id'));
-                                         $(this).prop("checked", false);
-                                     });
-                                 }
-                             } else {
-                                 // if this is a layer
-                                 if ($(this).parent("li").hasClass('overlay_li')) {
-                                     off_layers.push($(this).data('id'));
-                                     $(this).prop("checked", false);
-                                 } else {
-                                     $(this).parent("li").find("ul li.overlay_li input").map(function () {
-                                         off_layers.push($(this).data('id'));
-                                         $(this).prop("checked", false);
-                                     });
-                                 }
-                             }
-                         });
-                     }
-
-                     if ($(item).parent("li").find("ul li input[data-level='" + (level + 1) + "']").length > 0 && $(item).parent("li").find("ul li input[data-level='" + (level + 1) + "']:checked").length === 0) {
-                         var enableInput = $(item).parent("li").find("ul li input[data-level='" + (level + 1) + "']:first");
-                         if ($(enableInput).parent('li').hasClass('overlay_li') === false) {
-                             $(enableInput).prop("checked", true);
-                         } else {
-                             layers.push($(enableInput).data('id'));
-                         }
-
-                         $(enableInput).trigger('click');
-                     }
+                                    var photo_marker = new L.PhotoMarker(new L.LatLng(photo.lat, photo.lng), {
+                                        src: icon_image,
+                                        size: [50, 40],
+                                        resize: function (e) {
 
 
-                 } else {
-                     $(item).parent("li").find("ul li input").map(function () {
-                         if ($(this).parent("li").hasClass('overlay_li')) {
-                             off_layers.push($(this).data('id'));
-                         }
-                         $(this).prop("checked", false);
-                     });
-                     if (type === 'radio') {
+                                            var zoom = e._zoom;
+                                            if (zoom <= 11) {
+                                                photo_marker.scale(0.5);
+                                            } else if (zoom <= 13) {
+                                                // Half of the size option
+                                                photo_marker.scale(0.75);
+                                            } else {
+                                                // Scale 1 is 100% as defined in the size option
+                                                photo_marker.scale(1);
+                                            }
+                                        }
+                                    });
+                                    photo_marker.id = photo.id;
+                                    photo_marker.on("click", function () {
 
-                     } else {
+                                        showStoryOnLeftsidebar(this.id);
+                                    });
+                                    var path = Routing.generate('homepage_storydetail', {_locale: window.locale, id: photo.id});
+                                    var html = '<a href="' + path + '"  target="_blank"><h4>' + photo.story_name + '</h4></a>';
+                                    if (medium_image === '') {
+                                        if (images.length > 1) {
 
-                     }
-                 }
-                 off_layers = filterArray(off_layers, layers);
-                 $.map(off_layers, function (layerid) {
-                     var maplayers = window.map._layers;
-                     $.map(maplayers, function (layer) {
-                         if (layer.id === layerid) {
-                             window.map.removeLayer(layer);
-                         }
+                                        } else {
+                                            html = html + '<img src="' + medium_image + '" style="width:300px;"/>';
+                                        }
+                                    } else
+                                    {
+                                        html = html + '<img src="' + medium_image + '" style="width:300px;"/>';
+                                    }
 
-                     });
-                 });
-                 $.map(layers, function (layerid) {
-                     var maplayers = window.map._layers;
-                     var layer_exist = false;
-                     $.map(maplayers, function (layer) {
-                         if (layer.id === layerid) {
-                             layer_exist = true;
-                         }
+                                    photo_marker.bindPopup('<a href="' + path + '"  target="_blank"><h4>' + photo.story_name + '</h4></a><img src="' + medium_image + '" style="width:300px;"/>');
+                                    $("<img>").attr("src", medium_image).load(function () {
+                                        photo_markers.addLayer(photo_marker);
+                                    });
+                                }
+                                ;
+                            });
+                        } else if (response.data !== null && response.data.spatial !== null && response.data.datatype === 'topojson') {
+                            if (typeof response.data.spatial === 'string') {
+                                response.data.spatial = JSON.parse(response.data.spatial);
+                            }
+                            if (typeof response.sld === 'string') {
+                                response.sld = JSON.parse(response.sld);
+                            }
+                            var key = Object.keys(response.data.spatial.objects).map(function (k) {
+                                return  k;
+                            });
+                            var collection = topojson.feature(response.data.spatial, response.data.spatial.objects[key]);
 
-                     });
-                     if (layer_exist === false) {
-                         var maplayers = window.map.dataLayers;
-                         $.map(maplayers, function (layer) {
-                             if (layer.id === layerid) {
-                                 window.map.addLayer(layer);
-                             }
-                         });
-                     }
-                 });
+                            var geojson_shapefile = new L.D3(collection, {
+                                id: response.layer_id,
+                                layerId: response.layer_id,
+                                zIndex: (300 - position),
+                                //       minZoom: layer.minZoom,
+                                //       maxZoom: layer.maxZoom,
+                                //       layerType: layer.layerType,
+                                sld: response.sld,
+                                //       filename: result.layer['fileName'] ? result.layer['fileName'].toLowerCase() : '',
+                                //       filetype: result.layer['fileType'] ? result.layer['fileType'].toLowerCase() : '',
+                                //       showLabels: (result.layer['label_field'] !== '' && result.layer['label_field'] !== null),
+                                type: response.data.datatype
+                                        //       tip_field: result.layer['tip_field'],
+                                        //       label_field: result.layer['label_field']
+                            });
+                            if (geojson_shapefile !== null && geojson_shapefile !== undefined) {
+                                geojson_shapefile.id = response.layer_id;
+                                geojson_shapefile.zIndex = 300 - position;
+                                geojson_shapefile.name = response.layer_name;
+                                if (response.layerType === 'cluster') {
 
-             }
-             createLegend = function (sld) {
+                                    var clusterLayer = new L.MarkerClusterGroup({
+                                        id: response.layer_id,
+                                        spiderfyDistanceMultiplier: 5,
+                                        maxClusterRadius: 40,
+                                        spiderfyOnMaxZoom: true,
+                                        showCoverageOnHover: true,
+                                        zoomToBoundsOnClick: true
+                                    });
+                                    //  spiderfyOnMaxZoom: true, showCoverageOnHover: true, zoomToBoundsOnClick: true
+                                    clusterLayer.name = response.layer_name;
+                                    clusterLayer.id = response.layer_id;
+                                    clusterLayer.zIndex = 300 - position;
+                                    var default_showonmap = false;
 
-                 if (sld === undefined || sld === null || sld === '')
-                     return null;
-                 if (typeof sld !== 'object')
-                     sld = JSON.parse(sld);
-                 if (sld.FeatureTypeStyle === undefined || sld.FeatureTypeStyle === null)
-                     return null;
-                 var legend = $("<div class='layer_legend_items hidden'>");
-                 var ul = $("<ul>").appendTo(legend);
-                 var keys = Object.keys(sld.FeatureTypeStyle);
-                 for (var key in keys) {
+                                    window.map.dataLayers[window.map.dataLayers.length] = clusterLayer;
 
-                     var varFeatureTypeStyle = sld.FeatureTypeStyle[key];
-                     if (typeof varFeatureTypeStyle !== 'object' && varFeatureTypeStyle !== undefined)
-                         varFeatureTypeStyle = JSON.parse(varFeatureTypeStyle);
-                     if (typeof varFeatureTypeStyle === 'object' && varFeatureTypeStyle !== undefined && varFeatureTypeStyle.Rule !== undefined) {
-                         var rule = varFeatureTypeStyle.Rule;
-                         var legendCanvas = document.createElement('canvas');
-                         legendCanvas.width = 20;
-                         legendCanvas.height = 15;
-                         var centerX = legendCanvas.width / 2;
-                         var centerY = legendCanvas.height / 2;
-                         var legendCtx = legendCanvas.getContext('2d');
-                         var rule_name = '';
-                         var literal_name = false;
-                         if (rule.Filter !== undefined) {
-                             rule_name = rule.Name;
-                             if (rule.Filter.And) {
+                                    window.map.addLayer(clusterLayer);
 
-                                 if (rule.PolygonSymbolizer && rule.PolygonSymbolizer.Fill && rule.PolygonSymbolizer.Fill.fill) {
-                                     legendCtx.beginPath();
-                                     legendCtx.rect(0, 0, 20, 15);
-                                     legendCtx.fillStyle = rule.PolygonSymbolizer.Fill['fill'];
-                                     legendCtx.fill();
-                                     legendCtx.strokeStyle = rule.PolygonSymbolizer.Stroke['stroke'];
-                                     legendCtx.lineWidth = rule.PolygonSymbolizer.Stroke['stroke-width'];
-                                     legendCtx.closePath();
-                                     legendCtx.stroke();
-                                 }
-                             } else if (rule.Filter.PropertyIsEqualTo) {
-                                 if ((rule_name === undefined || rule_name === null || rule_name.trim() === '') && (rule.Filter.PropertyIsEqualTo.Literal)) {
-                                     rule_name = rule.Filter.PropertyIsEqualTo.Literal;
-                                     literal_name = true;
-                                 }
-                                 if (rule.PointSymbolizer && rule.PointSymbolizer.Graphic && rule.PointSymbolizer.Graphic.Mark && rule.PointSymbolizer.Graphic.Mark.WellKnownName) {
 
-                                     switch (rule.PointSymbolizer.Graphic.Mark.WellKnownName) {
-                                         case 'square':
-                                             legendCtx.beginPath();
-                                             legendCtx.rect((legendCanvas.width - rule.PointSymbolizer.Graphic.Size) / 2, (legendCanvas.height - rule.PointSymbolizer.Graphic.Size) / 2, rule.PointSymbolizer.Graphic.Size, rule.PointSymbolizer.Graphic.Size);
-                                             break;
-                                         case 'star':
-                                             legendCtx.moveTo(centerX, centerY - rule.PointSymbolizer.Graphic.Size / 1.6);
-                                             legendCtx.lineTo(centerX + rule.PointSymbolizer.Graphic.Size / 2.0, centerY);
-                                             legendCtx.lineTo(centerX, centerY + rule.PointSymbolizer.Graphic.Size / 1.6);
-                                             legendCtx.lineTo(centerX - rule.PointSymbolizer.Graphic.Size / 2.0, centerY);
-                                             legendCtx.closePath();
-                                             break;
-                                         case 'circle':
-                                             var radius = rule.PointSymbolizer.Graphic.Size / 2.0;
-                                             legendCtx.beginPath();
-                                             legendCtx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-                                             break;
-                                         case 'triangle':
-                                             legendCtx.beginPath();
-                                             legendCtx.moveTo(centerX, centerY - rule.PointSymbolizer.Graphic.Size / 2.0);
-                                             legendCtx.lineTo(centerX + rule.PointSymbolizer.Graphic.Size / 2.0, centerY + rule.PointSymbolizer.Graphic.Size / 2.0);
-                                             legendCtx.lineTo(centerX - rule.PointSymbolizer.Graphic.Size / 2.0, centerY + rule.PointSymbolizer.Graphic.Size / 2.0);
-                                             legendCtx.closePath();
-                                             break;
-                                         default:
-                                             var centerX = legendCanvas.width / 2;
-                                             var centerY = legendCanvas.height / 2;
-                                             var radius = rule.PointSymbolizer.Graphic.Size / 2.0;
-                                             legendCtx.beginPath();
-                                             legendCtx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-                                             break;
-                                     }
-                                     if (rule.PointSymbolizer.Graphic.Mark.Fill && rule.PointSymbolizer.Graphic.Mark.Fill.fill)
-                                         legendCtx.fillStyle = rule.PointSymbolizer.Graphic.Mark.Fill.fill.trim();
-                                     else
-                                         legendCtx.fillStyle = "#ccc";
-                                     legendCtx.fill();
-                                     if (rule.PointSymbolizer.Graphic.Mark && rule.PointSymbolizer.Graphic.Mark.Stroke && rule.PointSymbolizer.Graphic.Mark.Stroke['stroke-width'])
-                                         legendCtx.lineWidth = rule.PointSymbolizer.Graphic.Mark.Stroke['stroke-width'].trim();
-                                     else
-                                         legendCtx.lineWidth = 0.5;
-                                     legendCtx.strokeStyle = '#003300';
-                                     legendCtx.stroke();
-                                 }
-                                 if (rule.LineSymbolizer) {
 
-                                     legendCtx.beginPath();
-                                     legendCtx.moveTo(centerX - legendCanvas.width / 3, centerY);
-                                     legendCtx.lineTo(centerX + legendCanvas.width / 3, centerY);
-                                     if (rule.LineSymbolizer.Fill && rule.LineSymbolizer.Fill.fill)
-                                         legendCtx.fillStyle = rule.LineSymbolizer.Fill.fill.trim();
-                                     else
-                                         legendCtx.fillStyle = '#ccc';
-                                     legendCtx.fill();
-                                     if (rule.LineSymbolizer.Stroke && rule.LineSymbolizer.Stroke['stroke-width'])
-                                         legendCtx.lineWidth = rule.LineSymbolizer.Stroke['stroke-width'].trim();
-                                     else
-                                         legendCtx.lineWidth = 1;
-                                     if (rule.LineSymbolizer.Stroke && rule.LineSymbolizer.Stroke.stroke)
-                                         legendCtx.strokeStyle = rule.LineSymbolizer.Stroke.stroke.trim();
-                                     else
-                                         legendCtx.strokeStyle = 'black';
-                                     legendCtx.stroke();
-                                 }
-                                 if (rule.PolygonSymbolizer) {
-                                     legendCtx.beginPath();
-                                     legendCtx.rect(0, 0, 20, 15);
-                                     if (rule.PolygonSymbolizer.Fill && rule.PolygonSymbolizer.Fill.fill)
-                                         legendCtx.fillStyle = rule.PolygonSymbolizer.Fill.fill.trim();
-                                     else
-                                         legendCtx.fillStyle = '#ccc';
-                                     legendCtx.fill();
-                                     if (rule.PolygonSymbolizer.Stroke && rule.PolygonSymbolizer.Stroke['stroke-width'])
-                                         legendCtx.lineWidth = rule.PolygonSymbolizer.Stroke['stroke-width'].trim();
-                                     else
-                                         legendCtx.lineWidth = 0.5;
-                                     if (rule.PolygonSymbolizer.Stroke && rule.PolygonSymbolizer.Stroke.stroke)
-                                         legendCtx.strokeStyle = rule.PolygonSymbolizer.Stroke.stroke.trim();
-                                     else
-                                         legendCtx.strokeStyle = 'black';
-                                     legendCtx.stroke();
-                                 }
-                             } else if (varFeatureTypeStyle.Rule.Filter.PropertyIsBetween) {
 
-                                 if (varFeatureTypeStyle.Rule.Filter.PropertyIsBetween.LowerBoundary && varFeatureTypeStyle.Rule.Filter.PropertyIsBetween.LowerBoundary.Literal && literal_name === true)
-                                     rule_name = Math.round(varFeatureTypeStyle.Rule.Filter.PropertyIsBetween.LowerBoundary.Literal);
-                                 if (varFeatureTypeStyle.Rule.Filter.PropertyIsBetween.UpperBoundary && varFeatureTypeStyle.Rule.Filter.PropertyIsBetween.UpperBoundary.Literal && literal_name === true)
-                                     rule_name = rule_name + " - " + Math.round(varFeatureTypeStyle.Rule.Filter.PropertyIsBetween.UpperBoundary.Literal);
-                                 legendCtx.beginPath();
-                                 legendCtx.rect(0, 0, 20, 15);
-                                 if (rule.PolygonSymbolizer.Fill && rule.PolygonSymbolizer.Fill.fill)
-                                     legendCtx.fillStyle = rule.PolygonSymbolizer.Fill.fill.trim();
-                                 else
-                                     legendCtx.fillStyle = '#ccc';
-                                 legendCtx.fill();
-                                 if (rule.PolygonSymbolizer.Stroke && rule.PolygonSymbolizer.Stroke['stroke-width'])
-                                     legendCtx.lineWidth = rule.PolygonSymbolizer.Stroke['stroke-width'].trim();
-                                 else
-                                     legendCtx.lineWidth = 0.5;
-                                 if (rule.PolygonSymbolizer.Stroke && rule.PolygonSymbolizer.Stroke.stroke)
-                                     legendCtx.strokeStyle = rule.PolygonSymbolizer.Stroke.stroke.trim();
-                                 else
-                                     legendCtx.strokeStyle = 'black';
-                                 legendCtx.stroke();
-                             }
 
-                         } else
-                         {
-                             if (rule.PointSymbolizer) {
 
-                                 if (rule.PointSymbolizer && rule.PointSymbolizer.Graphic && rule.PointSymbolizer.Graphic.Mark && rule.PointSymbolizer.Graphic.Mark.WellKnownName) {
 
-                                     switch (rule.PointSymbolizer.Graphic.Mark.WellKnownName) {
-                                         case 'square':
-                                             legendCtx.beginPath();
-                                             legendCtx.rect((legendCanvas.width - rule.PointSymbolizer.Graphic.Size) / 2, (legendCanvas.height - rule.PointSymbolizer.Graphic.Size) / 2, rule.PointSymbolizer.Graphic.Size, rule.PointSymbolizer.Graphic.Size);
-                                             break;
-                                         case 'star':
-                                             legendCtx.moveTo(centerX, centerY - rule.PointSymbolizer.Graphic.Size / 1.6);
-                                             legendCtx.lineTo(centerX + rule.PointSymbolizer.Graphic.Size / 2.0, centerY);
-                                             legendCtx.lineTo(centerX, centerY + rule.PointSymbolizer.Graphic.Size / 1.6);
-                                             legendCtx.lineTo(centerX - rule.PointSymbolizer.Graphic.Size / 2.0, centerY);
-                                             legendCtx.closePath();
-                                             break;
-                                         case 'circle':
-                                             var radius = rule.PointSymbolizer.Graphic.Size / 2.0;
-                                             legendCtx.beginPath();
-                                             legendCtx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-                                             break;
-                                         case 'triangle':
-                                             legendCtx.beginPath();
-                                             legendCtx.moveTo(centerX, centerY - rule.PointSymbolizer.Graphic.Size / 2.0);
-                                             legendCtx.lineTo(centerX + rule.PointSymbolizer.Graphic.Size / 2.0, centerY + rule.PointSymbolizer.Graphic.Size / 2.0);
-                                             legendCtx.lineTo(centerX - rule.PointSymbolizer.Graphic.Size / 2.0, centerY + rule.PointSymbolizer.Graphic.Size / 2.0);
-                                             legendCtx.closePath();
-                                             break;
-                                         default:
-                                             var centerX = legendCanvas.width / 2;
-                                             var centerY = legendCanvas.height / 2;
-                                             var radius = rule.PointSymbolizer.Graphic.Size / 2.0;
-                                             legendCtx.beginPath();
-                                             legendCtx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-                                             break;
-                                     }
-                                     if (rule.PointSymbolizer.Graphic.Mark.Fill && rule.PointSymbolizer.Graphic.Mark.Fill.fill)
-                                         legendCtx.fillStyle = rule.PointSymbolizer.Graphic.Mark.Fill.fill.trim();
-                                     else
-                                         legendCtx.fillStyle = "#ccc";
-                                     legendCtx.fill();
-                                     if (rule.PointSymbolizer.Graphic.Mark && rule.PointSymbolizer.Graphic.Mark.Stroke && rule.PointSymbolizer.Graphic.Mark.Stroke['stroke-width'])
-                                         legendCtx.lineWidth = rule.PointSymbolizer.Graphic.Mark.Stroke['stroke-width'].trim();
-                                     else
-                                         legendCtx.lineWidth = 0.5;
-                                     legendCtx.strokeStyle = '#003300';
-                                     legendCtx.stroke();
-                                 }
 
-                             }
-                             if (rule.LineSymbolizer) {
-                                 legendCtx.beginPath();
-                                 legendCtx.moveTo(centerX - legendCanvas.width / 3, centerY);
-                                 legendCtx.lineTo(centerX + legendCanvas.width / 3, centerY);
-                                 if (rule.LineSymbolizer.Fill && rule.LineSymbolizer.Fill.fill)
-                                     legendCtx.fillStyle = rule.LineSymbolizer.Fill.fill.trim();
-                                 else
-                                     legendCtx.fillStyle = '#ccc';
-                                 legendCtx.fill();
-                                 if (rule.LineSymbolizer.Stroke && rule.LineSymbolizer.Stroke['stroke-width'])
-                                     legendCtx.lineWidth = rule.LineSymbolizer.Stroke['stroke-width'].trim();
-                                 else
-                                     legendCtx.lineWidth = 0.5;
-                                 if (rule.LineSymbolizer.Stroke && rule.LineSymbolizer.Stroke.stroke)
-                                     legendCtx.strokeStyle = rule.LineSymbolizer.Stroke.stroke.trim();
-                                 else
-                                     legendCtx.strokeStyle = 'black';
-                                 legendCtx.stroke();
-                             }
-                             if (rule.PolygonSymbolizer) {
-                                 legendCtx.beginPath();
-                                 if (rule.PolygonSymbolizer.Stroke && rule.PolygonSymbolizer.Stroke['stroke-width'])
-                                 {
-                                     legendCtx.lineWidth = rule.PolygonSymbolizer.Stroke['stroke-width'].trim();
+
+                                    var geoJsonLayer = L.geoJson(collection,
+                                            {
+                                                style: function (feature) {
+                                                    //   alert("3=" + JSON.stringify(feature.properties));
+                                                    return {
+                                                        radius: 5,
+                                                        fillColor: "#A3C990",
+                                                        color: "#f00",
+                                                        weight: 2,
+                                                        opacity: 1,
+                                                        fillOpacity: 1
+                                                    };
+                                                },
+                                                pointToLayer: function (feature, latlng) {
+
+                                                    //  alert("2=" + JSON.stringify(feature.properties));
+                                                    var layer = new L.CircleMarker(latlng, {
+                                                        radius: 15,
+                                                        fillColor: "#A3C990",
+                                                        color: "#FF0",
+                                                        weight: 1,
+                                                        opacity: 1,
+                                                        clickable: true,
+                                                        pointerEvents: 'click,mouseover',
+                                                        fillOpacity: 1
+                                                    }).on('mouseover', function () {
+                                                        alert(JSON.stringify(feature.properties));
+                                                    }).on('click', function (e) {
+                                                        alert("1");
+                                                        alert(JSON.stringify(feature.properties));
+                                                    });
+
+                                                    clusterLayer.addLayer(layer);
+                                                    
+                                                    return layer;
+                                                }
+                                            });
+
+                                    //     window.map.dataLayers[window.map.dataLayers.length] = clusterLayer;
+                                    //   clusterLayer.addLayer(geoJsonLayer, false);
+                                    //   if ($("li.overlay_li input[type='checkbox'][data-id='" + response.layer_id + "'],li.overlay_li input[type='radio'][data-id='" + response.layer_id + "']").is(":checked")) {
+
+                                    //     window.map.addLayer(clusterLayer);
+                                    //   }
+
+                                } else {
+                                    window.map.dataLayers[window.map.dataLayers.length] = geojson_shapefile;
+                                    window.map.addLayer(geojson_shapefile);
+                                    //  if ($("li.overlay_li input[type='checkbox'][data-id='" + response.layer_id + "'],li.overlay_li input[type='radio'][data-id='" + response.layer_id + "']").is(":checked")) {
+
+                                    window.map.addLayer(geojson_shapefile);
+                                    //  }
+
+                                }
+                            }
+
+                        }
+
+
+
+
+
+
+
+
+
+                        //  alert(JSON.stringify(response.data.spatial));
+                    }
+                },
+                cache: false,
+                contentType: false,
+                processData: true
+            }
+            );
+        }
+        function hideLayerFeatures(id) {
+
+        }
+        function loadLayerLegend(item, id) {
+            $.ajax({
+                url: Routing.generate('layer_legend', {id: id, _locale: window.locale}),
+                type: 'GET',
+                //    data: formData,
+                complete: function () {
+                },
+                success: function (response) {
+                    if (response.success === true && response.sld !== null && response.sld !== undefined) {
+                        var legend = createLegend(response.sld);
+                        $(legend).removeClass("hidden");
+                        $(legend).show();
+                        $(legend).appendTo($(item));
+                    }
+                }
+            });
+        }
+        function filterArray(src, filt) {
+            var temp = {}, i, result = [];
+            // load contents of filt into object keys for faster lookup
+            for (i = 0; i < filt.length; i++) {
+                temp[filt[i]] = true;
+            }
+
+            // go through src
+            for (i = 0; i < src.length; i++) {
+                if (!(src[i] in temp)) {
+                    result.push(src[i]);
+                }
+            }
+            return(result);
+        }
+        function layerCategoryClickEvent(item) {
+
+            var checked = $(item).is(":checked");
+            var layers = [];
+            var off_layers = [];
+            var type = $(item).attr('type');
+            var multiple = $(item).parent("li").data("multiple");
+            var level = $(item).data("level");
+            if (parseInt(level) > 1 && $(item).parent("li").parent("ul").parent("li").find("input[data-level='" + (level - 1) + "']").is(":checked") === false) {
+                $(item).parent("li").parent("ul").parent("li").find("input[data-level='" + (level - 1) + "']").prop("checked", true);
+            }
+            if (checked) {
+                // if this button is radio, first uncheck all layers under this button's parent
+                if (type === 'radio') {
+
+                    var name = $(item).attr('name');
+                    var layer = item;
+                    $(item).parent("li").parent("ul").find("li input[name='" + name + "']").map(function () {
+                        // if this button is clicked button
+                        if (($(layer).data('id') === $(this).data('id'))) {
+                            // if this button is a layer, set layer to display
+                            if ($(this).parent("li").hasClass('overlay_li')) {
+                                layers.push($(this).data('id'));
+                            } else {
+
+                                // if this button is not a layer, unckeck all layers under this category
+                                $(this).parent("li").find("ul li.overlay_li input").map(function () {
+                                    off_layers.push($(this).data('id'));
+                                    $(this).prop("checked", false);
+                                });
+                            }
+                        } else {
+                            // if this is a layer
+                            if ($(this).parent("li").hasClass('overlay_li')) {
+                                off_layers.push($(this).data('id'));
+                                $(this).prop("checked", false);
+                            } else {
+                                $(this).parent("li").find("ul li.overlay_li input").map(function () {
+                                    off_layers.push($(this).data('id'));
+                                    $(this).prop("checked", false);
+                                });
+                            }
+                        }
+                    });
+                }
+
+                if ($(item).parent("li").find("ul li input[data-level='" + (level + 1) + "']").length > 0 && $(item).parent("li").find("ul li input[data-level='" + (level + 1) + "']:checked").length === 0) {
+                    var enableInput = $(item).parent("li").find("ul li input[data-level='" + (level + 1) + "']:first");
+                    if ($(enableInput).parent('li').hasClass('overlay_li') === false) {
+                        $(enableInput).prop("checked", true);
+                    } else {
+                        layers.push($(enableInput).data('id'));
+                    }
+
+                    $(enableInput).trigger('click');
+                }
+
+
+            } else {
+                $(item).parent("li").find("ul li input").map(function () {
+                    if ($(this).parent("li").hasClass('overlay_li')) {
+                        off_layers.push($(this).data('id'));
+                    }
+                    $(this).prop("checked", false);
+                });
+                if (type === 'radio') {
+
+                } else {
+
+                }
+            }
+            off_layers = filterArray(off_layers, layers);
+            $.map(off_layers, function (layerid) {
+                var maplayers = window.map._layers;
+                $.map(maplayers, function (layer) {
+                    if (layer.id === layerid) {
+                        window.map.removeLayer(layer);
+                    }
+
+                });
+            });
+            $.map(layers, function (layerid) {
+                var maplayers = window.map._layers;
+                var layer_exist = false;
+                $.map(maplayers, function (layer) {
+                    if (layer.id === layerid) {
+                        layer_exist = true;
+                    }
+
+                });
+                if (layer_exist === false) {
+                    var maplayers = window.map.dataLayers;
+                    $.map(maplayers, function (layer) {
+                        if (layer.id === layerid) {
+                            window.map.addLayer(layer);
+                        }
+                    });
+                }
+            });
+        }
+        createLegend = function (sld) {
+
+            if (sld === undefined || sld === null || sld === '')
+                return null;
+            if (typeof sld !== 'object')
+                sld = JSON.parse(sld);
+            if (sld.FeatureTypeStyle === undefined || sld.FeatureTypeStyle === null)
+                return null;
+            var legend = $("<div class='layer_legend_items hidden'>");
+            var ul = $("<ul>").appendTo(legend);
+            var keys = Object.keys(sld.FeatureTypeStyle);
+            for (var key in keys) {
+
+                var varFeatureTypeStyle = sld.FeatureTypeStyle[key];
+                if (typeof varFeatureTypeStyle !== 'object' && varFeatureTypeStyle !== undefined)
+                    varFeatureTypeStyle = JSON.parse(varFeatureTypeStyle);
+                if (typeof varFeatureTypeStyle === 'object' && varFeatureTypeStyle !== undefined && varFeatureTypeStyle.Rule !== undefined) {
+                    var rule = varFeatureTypeStyle.Rule;
+                    var legendCanvas = document.createElement('canvas');
+                    legendCanvas.width = 20;
+                    legendCanvas.height = 15;
+                    var centerX = legendCanvas.width / 2;
+                    var centerY = legendCanvas.height / 2;
+                    var legendCtx = legendCanvas.getContext('2d');
+                    var rule_name = '';
+                    var literal_name = false;
+                    if (rule.Filter !== undefined) {
+                        rule_name = rule.Name;
+                        if (rule.Filter.And) {
+
+                            if (rule.PolygonSymbolizer && rule.PolygonSymbolizer.Fill && rule.PolygonSymbolizer.Fill.fill) {
+                                legendCtx.beginPath();
+                                legendCtx.rect(0, 0, 20, 15);
+                                legendCtx.fillStyle = rule.PolygonSymbolizer.Fill['fill'];
+                                legendCtx.fill();
+                                legendCtx.strokeStyle = rule.PolygonSymbolizer.Stroke['stroke'];
+                                legendCtx.lineWidth = rule.PolygonSymbolizer.Stroke['stroke-width'];
+                                legendCtx.closePath();
+                                legendCtx.stroke();
+                            }
+                        } else if (rule.Filter.PropertyIsEqualTo) {
+                            if ((rule_name === undefined || rule_name === null || rule_name.trim() === '') && (rule.Filter.PropertyIsEqualTo.Literal)) {
+                                rule_name = rule.Filter.PropertyIsEqualTo.Literal;
+                                literal_name = true;
+                            }
+                            if (rule.PointSymbolizer && rule.PointSymbolizer.Graphic && rule.PointSymbolizer.Graphic.Mark && rule.PointSymbolizer.Graphic.Mark.WellKnownName) {
+
+                                switch (rule.PointSymbolizer.Graphic.Mark.WellKnownName) {
+                                    case 'square':
+                                        legendCtx.beginPath();
+                                        legendCtx.rect((legendCanvas.width - rule.PointSymbolizer.Graphic.Size) / 2, (legendCanvas.height - rule.PointSymbolizer.Graphic.Size) / 2, rule.PointSymbolizer.Graphic.Size, rule.PointSymbolizer.Graphic.Size);
+                                        break;
+                                    case 'star':
+                                        legendCtx.moveTo(centerX, centerY - rule.PointSymbolizer.Graphic.Size / 1.6);
+                                        legendCtx.lineTo(centerX + rule.PointSymbolizer.Graphic.Size / 2.0, centerY);
+                                        legendCtx.lineTo(centerX, centerY + rule.PointSymbolizer.Graphic.Size / 1.6);
+                                        legendCtx.lineTo(centerX - rule.PointSymbolizer.Graphic.Size / 2.0, centerY);
+                                        legendCtx.closePath();
+                                        break;
+                                    case 'circle':
+                                        var radius = rule.PointSymbolizer.Graphic.Size / 2.0;
+                                        legendCtx.beginPath();
+                                        legendCtx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+                                        break;
+                                    case 'triangle':
+                                        legendCtx.beginPath();
+                                        legendCtx.moveTo(centerX, centerY - rule.PointSymbolizer.Graphic.Size / 2.0);
+                                        legendCtx.lineTo(centerX + rule.PointSymbolizer.Graphic.Size / 2.0, centerY + rule.PointSymbolizer.Graphic.Size / 2.0);
+                                        legendCtx.lineTo(centerX - rule.PointSymbolizer.Graphic.Size / 2.0, centerY + rule.PointSymbolizer.Graphic.Size / 2.0);
+                                        legendCtx.closePath();
+                                        break;
+                                    default:
+                                        var centerX = legendCanvas.width / 2;
+                                        var centerY = legendCanvas.height / 2;
+                                        var radius = rule.PointSymbolizer.Graphic.Size / 2.0;
+                                        legendCtx.beginPath();
+                                        legendCtx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+                                        break;
+                                }
+                                if (rule.PointSymbolizer.Graphic.Mark.Fill && rule.PointSymbolizer.Graphic.Mark.Fill.fill)
+                                    legendCtx.fillStyle = rule.PointSymbolizer.Graphic.Mark.Fill.fill.trim();
+                                else
+                                    legendCtx.fillStyle = "#ccc";
+                                legendCtx.fill();
+                                if (rule.PointSymbolizer.Graphic.Mark && rule.PointSymbolizer.Graphic.Mark.Stroke && rule.PointSymbolizer.Graphic.Mark.Stroke['stroke-width'])
+                                    legendCtx.lineWidth = rule.PointSymbolizer.Graphic.Mark.Stroke['stroke-width'].trim();
+                                else
+                                    legendCtx.lineWidth = 0.5;
+                                legendCtx.strokeStyle = '#003300';
+                                legendCtx.stroke();
+                            }
+                            if (rule.LineSymbolizer) {
+
+                                legendCtx.beginPath();
+                                legendCtx.moveTo(centerX - legendCanvas.width / 3, centerY);
+                                legendCtx.lineTo(centerX + legendCanvas.width / 3, centerY);
+                                if (rule.LineSymbolizer.Fill && rule.LineSymbolizer.Fill.fill)
+                                    legendCtx.fillStyle = rule.LineSymbolizer.Fill.fill.trim();
+                                else
+                                    legendCtx.fillStyle = '#ccc';
+                                legendCtx.fill();
+                                if (rule.LineSymbolizer.Stroke && rule.LineSymbolizer.Stroke['stroke-width'])
+                                    legendCtx.lineWidth = rule.LineSymbolizer.Stroke['stroke-width'].trim();
+                                else
+                                    legendCtx.lineWidth = 1;
+                                if (rule.LineSymbolizer.Stroke && rule.LineSymbolizer.Stroke.stroke)
+                                    legendCtx.strokeStyle = rule.LineSymbolizer.Stroke.stroke.trim();
+                                else
+                                    legendCtx.strokeStyle = 'black';
+                                legendCtx.stroke();
+                            }
+                            if (rule.PolygonSymbolizer) {
+                                legendCtx.beginPath();
+                                legendCtx.rect(0, 0, 20, 15);
+                                if (rule.PolygonSymbolizer.Fill && rule.PolygonSymbolizer.Fill.fill)
+                                    legendCtx.fillStyle = rule.PolygonSymbolizer.Fill.fill.trim();
+                                else
+                                    legendCtx.fillStyle = '#ccc';
+                                legendCtx.fill();
+                                if (rule.PolygonSymbolizer.Stroke && rule.PolygonSymbolizer.Stroke['stroke-width'])
+                                    legendCtx.lineWidth = rule.PolygonSymbolizer.Stroke['stroke-width'].trim();
+                                else
+                                    legendCtx.lineWidth = 0.5;
+                                if (rule.PolygonSymbolizer.Stroke && rule.PolygonSymbolizer.Stroke.stroke)
+                                    legendCtx.strokeStyle = rule.PolygonSymbolizer.Stroke.stroke.trim();
+                                else
+                                    legendCtx.strokeStyle = 'black';
+                                legendCtx.stroke();
+                            }
+                        } else if (varFeatureTypeStyle.Rule.Filter.PropertyIsBetween) {
+
+                            if (varFeatureTypeStyle.Rule.Filter.PropertyIsBetween.LowerBoundary && varFeatureTypeStyle.Rule.Filter.PropertyIsBetween.LowerBoundary.Literal && literal_name === true)
+                                rule_name = Math.round(varFeatureTypeStyle.Rule.Filter.PropertyIsBetween.LowerBoundary.Literal);
+                            if (varFeatureTypeStyle.Rule.Filter.PropertyIsBetween.UpperBoundary && varFeatureTypeStyle.Rule.Filter.PropertyIsBetween.UpperBoundary.Literal && literal_name === true)
+                                rule_name = rule_name + " - " + Math.round(varFeatureTypeStyle.Rule.Filter.PropertyIsBetween.UpperBoundary.Literal);
+                            legendCtx.beginPath();
+                            legendCtx.rect(0, 0, 20, 15);
+                            if (rule.PolygonSymbolizer.Fill && rule.PolygonSymbolizer.Fill.fill)
+                                legendCtx.fillStyle = rule.PolygonSymbolizer.Fill.fill.trim();
+                            else
+                                legendCtx.fillStyle = '#ccc';
+                            legendCtx.fill();
+                            if (rule.PolygonSymbolizer.Stroke && rule.PolygonSymbolizer.Stroke['stroke-width'])
+                                legendCtx.lineWidth = rule.PolygonSymbolizer.Stroke['stroke-width'].trim();
+                            else
+                                legendCtx.lineWidth = 0.5;
+                            if (rule.PolygonSymbolizer.Stroke && rule.PolygonSymbolizer.Stroke.stroke)
+                                legendCtx.strokeStyle = rule.PolygonSymbolizer.Stroke.stroke.trim();
+                            else
+                                legendCtx.strokeStyle = 'black';
+                            legendCtx.stroke();
+                        }
+
+                    } else
+                    {
+                        if (rule.PointSymbolizer) {
+
+                            if (rule.PointSymbolizer && rule.PointSymbolizer.Graphic && rule.PointSymbolizer.Graphic.Mark && rule.PointSymbolizer.Graphic.Mark.WellKnownName) {
+
+                                switch (rule.PointSymbolizer.Graphic.Mark.WellKnownName) {
+                                    case 'square':
+                                        legendCtx.beginPath();
+                                        legendCtx.rect((legendCanvas.width - rule.PointSymbolizer.Graphic.Size) / 2, (legendCanvas.height - rule.PointSymbolizer.Graphic.Size) / 2, rule.PointSymbolizer.Graphic.Size, rule.PointSymbolizer.Graphic.Size);
+                                        break;
+                                    case 'star':
+                                        legendCtx.moveTo(centerX, centerY - rule.PointSymbolizer.Graphic.Size / 1.6);
+                                        legendCtx.lineTo(centerX + rule.PointSymbolizer.Graphic.Size / 2.0, centerY);
+                                        legendCtx.lineTo(centerX, centerY + rule.PointSymbolizer.Graphic.Size / 1.6);
+                                        legendCtx.lineTo(centerX - rule.PointSymbolizer.Graphic.Size / 2.0, centerY);
+                                        legendCtx.closePath();
+                                        break;
+                                    case 'circle':
+                                        var radius = rule.PointSymbolizer.Graphic.Size / 2.0;
+                                        legendCtx.beginPath();
+                                        legendCtx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+                                        break;
+                                    case 'triangle':
+                                        legendCtx.beginPath();
+                                        legendCtx.moveTo(centerX, centerY - rule.PointSymbolizer.Graphic.Size / 2.0);
+                                        legendCtx.lineTo(centerX + rule.PointSymbolizer.Graphic.Size / 2.0, centerY + rule.PointSymbolizer.Graphic.Size / 2.0);
+                                        legendCtx.lineTo(centerX - rule.PointSymbolizer.Graphic.Size / 2.0, centerY + rule.PointSymbolizer.Graphic.Size / 2.0);
+                                        legendCtx.closePath();
+                                        break;
+                                    default:
+                                        var centerX = legendCanvas.width / 2;
+                                        var centerY = legendCanvas.height / 2;
+                                        var radius = rule.PointSymbolizer.Graphic.Size / 2.0;
+                                        legendCtx.beginPath();
+                                        legendCtx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+                                        break;
+                                }
+                                if (rule.PointSymbolizer.Graphic.Mark.Fill && rule.PointSymbolizer.Graphic.Mark.Fill.fill)
+                                    legendCtx.fillStyle = rule.PointSymbolizer.Graphic.Mark.Fill.fill.trim();
+                                else
+                                    legendCtx.fillStyle = "#ccc";
+                                legendCtx.fill();
+                                if (rule.PointSymbolizer.Graphic.Mark && rule.PointSymbolizer.Graphic.Mark.Stroke && rule.PointSymbolizer.Graphic.Mark.Stroke['stroke-width'])
+                                    legendCtx.lineWidth = rule.PointSymbolizer.Graphic.Mark.Stroke['stroke-width'].trim();
+                                else
+                                    legendCtx.lineWidth = 0.5;
+                                legendCtx.strokeStyle = '#003300';
+                                legendCtx.stroke();
+                            }
+
+                        }
+                        if (rule.LineSymbolizer) {
+                            legendCtx.beginPath();
+                            legendCtx.moveTo(centerX - legendCanvas.width / 3, centerY);
+                            legendCtx.lineTo(centerX + legendCanvas.width / 3, centerY);
+                            if (rule.LineSymbolizer.Fill && rule.LineSymbolizer.Fill.fill)
+                                legendCtx.fillStyle = rule.LineSymbolizer.Fill.fill.trim();
+                            else
+                                legendCtx.fillStyle = '#ccc';
+                            legendCtx.fill();
+                            if (rule.LineSymbolizer.Stroke && rule.LineSymbolizer.Stroke['stroke-width'])
+                                legendCtx.lineWidth = rule.LineSymbolizer.Stroke['stroke-width'].trim();
+                            else
+                                legendCtx.lineWidth = 0.5;
+                            if (rule.LineSymbolizer.Stroke && rule.LineSymbolizer.Stroke.stroke)
+                                legendCtx.strokeStyle = rule.LineSymbolizer.Stroke.stroke.trim();
+                            else
+                                legendCtx.strokeStyle = 'black';
+                            legendCtx.stroke();
+                        }
+                        if (rule.PolygonSymbolizer) {
+                            legendCtx.beginPath();
+                            if (rule.PolygonSymbolizer.Stroke && rule.PolygonSymbolizer.Stroke['stroke-width'])
+                            {
+                                legendCtx.lineWidth = rule.PolygonSymbolizer.Stroke['stroke-width'].trim();
 //                          
-                                 } else
-                                     legendCtx.lineWidth = 0.5;
-                                 legendCtx.rect(legendCtx.lineWidth / 2.0, legendCtx.lineWidth / 2.0, 20 - legendCtx.lineWidth, 15 - legendCtx.lineWidth);
-                                 if (rule.PolygonSymbolizer.Fill && rule.PolygonSymbolizer.Fill.fill)
-                                     legendCtx.fillStyle = rule.PolygonSymbolizer.Fill.fill.trim();
-                                 else
-                                     legendCtx.fillStyle = '#ccc';
-                                 legendCtx.fill();
-                                 if (rule.PolygonSymbolizer.Stroke && rule.PolygonSymbolizer.Stroke.stroke)
-                                     legendCtx.strokeStyle = rule.PolygonSymbolizer.Stroke.stroke.trim();
-                                 else
-                                     legendCtx.strokeStyle = 'black';
-                                 legendCtx.stroke();
-                             }
+                            } else
+                                legendCtx.lineWidth = 0.5;
+                            legendCtx.rect(legendCtx.lineWidth / 2.0, legendCtx.lineWidth / 2.0, 20 - legendCtx.lineWidth, 15 - legendCtx.lineWidth);
+                            if (rule.PolygonSymbolizer.Fill && rule.PolygonSymbolizer.Fill.fill)
+                                legendCtx.fillStyle = rule.PolygonSymbolizer.Fill.fill.trim();
+                            else
+                                legendCtx.fillStyle = '#ccc';
+                            legendCtx.fill();
+                            if (rule.PolygonSymbolizer.Stroke && rule.PolygonSymbolizer.Stroke.stroke)
+                                legendCtx.strokeStyle = rule.PolygonSymbolizer.Stroke.stroke.trim();
+                            else
+                                legendCtx.strokeStyle = 'black';
+                            legendCtx.stroke();
+                        }
 
-                         }
-                         var li = $("<li><img src='" + legendCanvas.toDataURL() + "'/>" + rule_name + "</li>");
-                         li.appendTo(ul);
-                     }
-                 }
-                 return legend;
-             };
-
-             function reorderLayer() {
-                 var layers = window.map.dataLayers;
+                    }
+                    var li = $("<li><img src='" + legendCanvas.toDataURL() + "'/>" + rule_name + "</li>");
+                    li.appendTo(ul);
+                }
+            }
+            return legend;
+        };
+        function reorderLayer() {
+            var layers = window.map.dataLayers;
     {#  // sort by zIndex ASC
       window.map.dataLayers.sort(function (a, b) {
           if (a.id !== undefined && b.id !== undefined) {
@@ -1026,20 +1128,45 @@
                           } else {
                               if (layer && layer._container) {
                                   $(layer._container).css("z-index", layer.zIndex);
-                              }
-                              else {
-                                  
+                              } else {
+
                               }
                           }
 
                       }
                   });
-
               }
 
-              $(".leaflet-control-container .section.overlay-layers li.overlay_li input[data-show='on']").map(function () {
+              var default_layers = $("div#sidebar-left.leaflet-control").data("viewlayers"); //.toString();
 
-                  $(this).trigger('click');
-              });
+              var default_datatype = $("div#sidebar-left.leaflet-control").data("viewtype");
+              var default_layers_array = [];
+              if (default_layers !== undefined && default_layers.trim().length > 0) {
+                  default_layers = default_layers.substr(0, default_layers.length - 1);
+                  default_layers_array = default_layers.split(",");
+              }
+
+
+
+              if ((default_datatype === 'benefit') && default_layers_array.length > 0) {
+                  //    alert( $(".leaflet-control-container .section.overlay-layers li.overlay_li input:checked").length + "   " + $(".leaflet-control-container .section.overlay-layers li.overlay_li input").length);
+                  $(".leaflet-control-container .section.overlay-layers li.overlay_li input").map(function () {
+
+                      $(this).prop("checked", false);
+                  });
+                  $(".leaflet-control-container .section.overlay-layers li.overlay_li input").prop("checked", false);
+                  $(".leaflet-control-container .section.overlay-layers li.overlay_li input").data("show", null);
+                  $.map(default_layers_array, function (layer_id) {
+                      $(".leaflet-control-container .section.overlay-layers li.overlay_li[data-id='" + layer_id + "']").find("input").data("show", 'on');
+                      //  $(".leaflet-control-container .section.overlay-layers li.overlay_li[data-id='" + layer_id + "']").find("input").prop("checked", true);
+                      $(".leaflet-control-container .section.overlay-layers li.overlay_li[data-id='" + layer_id + "']").find("input").trigger('click')
+
+                  });
+              } else {
+                  $(".leaflet-control-container .section.overlay-layers li.overlay_li input[data-show='on']").map(function () {
+
+                      $(this).trigger('click');
+                  });
+              }
           });
 </script>

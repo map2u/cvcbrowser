@@ -1,0 +1,36 @@
+Yorku\JuturnaBundle\Entity\HelpType:
+    type: entity
+    table: yorku_juturna__helptypes
+    fields:
+        id:
+            id: true
+            type: guid
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: UUID
+        name:
+            type: string
+            length: 255
+            nullable: false
+            column: name
+        seq: 
+            type: integer
+            unsigned: false
+            nullable: true  
+            column: seq 
+            options:
+                default: 1
+        enabled:
+            type: boolean
+            nullable: true
+            column: enabled
+            options:
+                default: true
+            
+        description:
+            type: text
+            nullable: true
+            column: description  
+    
+    lifecycleCallbacks: {  }

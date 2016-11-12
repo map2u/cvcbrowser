@@ -19,21 +19,54 @@ L.MAP2U.query = function (options) {
     var control = L.control(options);
 
     control.onAdd = function (map) {
+
         var $container = $('<div>')
-                .attr('class', 'control-query');
+                .attr('class', 'leaflet-control control-query');
 
         var link = $('<a>')
                 .attr('class', 'control-button')
                 .attr('href', '#')
                 .html('<span class="icon query"></span>')
-                .appendTo($container);
+                .on('click', toggle)
+                .appendTo($container)
+                ;
+        //    this.button = link;
+        var $ui = $('<div>')
+                .attr('class', 'query-ui');
+        $('<div>')
+                .attr('class', 'sidebar_heading')
+                .appendTo($ui)
+                .append(
+                        $('<h4>')
+                        .text(I18n.t('javascripts.query.title')));
+        var barContent = $('<div>')
+                .attr('class', 'sidebar_content')
+                .appendTo($ui);
+
+        var $section = $('<div>')
+                .attr('class', 'section')
+                .appendTo(barContent);
+        var printMapButton = $("<button>")
+                .attr('value', 'Output PDF')
+                .attr('class', 'btn btn-default btn-sm')
+                .html("Output PDF")
+                .on('click', app.OutputPDF)
+                .appendTo($section);
+//        $('<div id="map_printimage_id" style="width:300px;height:250px;border:1px solid black;border-radius:5px;">')
+//                
+//                .appendTo($section);
+        options.sidebar.addPane($ui);
+//        jQuery(window).resize(function () {
+//            barContent.height($('.leaflet-sidebar.right').height() - 70);
+//        });
+
 
         map.on('zoomend', update);
 
-        update();
+
 
         function update() {
-            var disabled = map.getZoom() < 12;
+            var disabled = map.getZoom() <= 5;
             link
                     .toggleClass('disabled', disabled)
                     .attr('data-original-title', I18n.t(disabled ?
@@ -41,6 +74,34 @@ L.MAP2U.query = function (options) {
                             'javascripts.site.query_tooltip'));
         }
 
+        update();
+        function toggle(e) {
+
+            if (e) {
+                e.stopPropagation();
+                e.preventDefault();
+            }
+            if (!link.hasClass('disabled')) {
+                options.sidebar.togglePane($ui, link);
+                if (link.hasClass('active')) {
+                    //  RefreshContent();
+                   // alert("active 2222");
+                }
+            }
+
+
+            $('.leaflet-control .control-button').tooltip('hide');
+        }
+        control.toggle = toggle;
+        control.activate = function (e) {
+
+            alert("active 2");
+            var $ui = $('.query-ui');
+            if (options.sidebar.isVisible() === false || options.sidebar._currentButton !== this.button) {
+                control.toggle(e);
+
+            }
+        };
         return $container[0];
     };
 

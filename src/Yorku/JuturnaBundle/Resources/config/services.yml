@@ -207,3 +207,15 @@ services:
         arguments: [~, Yorku\JuturnaBundle\Entity\PaneInfoType, SonataAdminBundle:CRUD]
         tags:
             - {name: sonata.admin, manager_type: orm, group: admin, label: PaneInfoType}
+
+    yorku_juturna.admin.help:
+        class: Yorku\JuturnaBundle\Admin\HelpAdmin
+        arguments: [~, Yorku\JuturnaBundle\Entity\Help, YorkuJuturnaBundle:HelpAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Help}
+
+    yorku_juturna.admin.help_type:
+        class: Yorku\JuturnaBundle\Admin\HelpTypeAdmin
+        arguments: [~, Yorku\JuturnaBundle\Entity\HelpType, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: HelpType}

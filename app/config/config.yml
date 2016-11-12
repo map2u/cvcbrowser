@@ -34,7 +34,7 @@ parameters:
     map2u.core.layercategory.class: Map2u\CoreBundle\Entity\LayerCategory
     map2u.core.story.class: Yorku\JuturnaBundle\Entity\Story  
     map2u.core.storytranslation.class: Yorku\JuturnaBundle\Entity\StoryTranslation  
-
+    session_max_idle_time: 7200
 framework:
     #esi:             ~
     translator:      { fallback: "%locale%" }

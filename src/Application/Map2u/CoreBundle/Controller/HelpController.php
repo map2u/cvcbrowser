@@ -30,6 +30,40 @@ use Map2u\CoreBundle\Entity\UserUploadfile;
 use Map2u\CoreBundle\Entity\UserUploadfileGeom;
 use Map2u\CoreBundle\Controller\HelpController as BaseController;
 
+/**
+ * Help controller.
+ *
+ * @Route("/help")
+ */
 class HelpController extends BaseController {
-    
+
+    /**
+     * show show help content page.
+     *
+     * @Route("/showcontent", name="help_showcontent", options={"expose"=true})
+     * @Method("GET")
+     */
+    public function showcontentAction(Request $request) {
+        $helpid = $request->get("id");
+        $em = $this->getDoctrine()->getManager();
+        $helpcontent = '';
+        $helpfiletype = '';
+
+        $help = $em->getRepository('YorkuJuturnaBundle:Help')->findOneBy(array('helptypeId' => $helpid,'active'=>true), array("updatedAt" => 'DESC'));
+        if ($help === null) {
+            
+        } else {
+            if ($help->getContent() !== null && trim($help->getContent()) !== '') {
+                $helpcontent = $help->getContent();
+            } else if ($help->getFileName() !== null && trim($help->getFileName()) !== '') {
+
+                return $this->redirect($request->getBasePath().'/uploads/help/' . $help->getId() . "/" . $help->getFileName());
+                //  $helpcontent = file_get_contents('./uploads/help/' . $help->getFileName());
+                //   $helpfiletype = $help->getFileType();
+            }
+        }
+
+        return new Response($helpcontent);
+    }
+
 }

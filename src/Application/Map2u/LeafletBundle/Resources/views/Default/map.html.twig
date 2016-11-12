@@ -1,10 +1,7 @@
 
 <div id="leaflet_content" class="overlay-sidebar">
 
-
-
-
-    <div id="sidebar-left" data-viewtype="{% if view is defined  %}{{view}}{% endif %}" {% if benefits is defined and benefits is not null %} data-viewlayers="{% for uploadfilelayer in benefits.layers %}{{uploadfilelayer.id}},{% endfor %}"  data-viewgeoserverlayers="" data-viewclusterlayers="" {% endif %}>
+    <div id="sidebar-left" data-html2canvas-ignore="true" data-viewtype="{% if view is defined  %}{{view}}{% endif %}" {% if benefits is defined and benefits is not null %} data-viewlayers="{% for layer in benefits.layers %}{{layer.id}},{% endfor %}"  {% endif %}>
 
         <div id="flash">
         </div>
@@ -33,11 +30,11 @@
         </div>
 
     </div>
-    <div id="sidebar-right">
+    <div id="sidebar-right" data-html2canvas-ignore="true">
         <div id="map-ui">
         </div>
     </div>        
-    <div id="sidebar" >
+    <div id="sidebar" data-html2canvas-ignore="true">
         <form accept-charset="UTF-8" action="/search" class="search_form" method="post"><div style="margin:0;padding:0;display:inline;"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="WzUq33tXmIGkkIg0LB/2KBd91Dfveckr8QvNtZoo9Zo=" /></div>
             <input name="commit" type="submit" value="Go"/>
             <div class='query_wrapper'>

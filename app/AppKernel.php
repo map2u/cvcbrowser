@@ -61,6 +61,7 @@ class AppKernel extends Kernel {
             new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
+            new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(),
 //            new Ibrows\Bundle\NewsletterBundle\IbrowsNewsletterBundle(),
 //            new Ibrows\Map2uBundle\IbrowsMap2uBundle(),
             new Application\Map2u\CoreBundle\ApplicationMap2uCoreBundle(),
