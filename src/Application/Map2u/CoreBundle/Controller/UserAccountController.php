@@ -102,7 +102,7 @@ class UserAccountController extends BaseController {
         if ($this->getUser()) {
             $bookmarks = $em->getRepository('Map2uCoreBundle:MapBookmark')->findBy(array('userId' => $this->getUser()->getId()), array("seq" => 'ASC'));
         }
-        return array("form1"=>$form1->createView(),"form2"=>$form2->createView(),"form3"=>$form3->createView(),'bookmarks'=>$bookmarks);//$this->redirect($this->generateUrl('useraccount_mapbookmarkedit'));
+        return array("form1"=>$form1->createView(),"form2"=>$form2->createView(),"form3"=>$form3->createView(),'bookmarks'=>$bookmarks,"scaleText"=>$scaleText);//$this->redirect($this->generateUrl('useraccount_mapbookmarkedit'));
     }
 
     /**

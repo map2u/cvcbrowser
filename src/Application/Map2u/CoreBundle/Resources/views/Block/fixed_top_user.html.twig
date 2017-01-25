@@ -6,7 +6,9 @@
                 <li style="display: block;"><a href="{{ path('sonata_admin_dashboard',{locale:app.request.getLocale()}) }}" style="padding:5px;border: none;">Admin Dashboard</a>
                 </li>
             {% endif %}
-{#            <li style="display: block;"><a href="{{ path('useraccount_profile',{locale:app.request.getLocale()}) }}" style="padding:5px;border: none;">User Profile</a></li>#}
+            <li><a href="{{url('spatialfile_export')}}"><i class="fa fa-download fa-fw"></i>&nbsp;&nbsp;{{'Data Export'|trans}}</a>
+
+                {#            <li style="display: block;"><a href="{{ path('useraccount_profile',{locale:app.request.getLocale()}) }}" style="padding:5px;border: none;">User Profile</a></li>#}
             <li class="divider" style="display: block;"></li>
             <li style="display: block;"><a href="{{ path('fos_user_security_logout',{locale:app.request.getLocale()}) }}" style="padding:5px;border: none;"><i class="fa fa-sign-out fa-lg" style="display: inline-block;"></i>Logout</a></li>
         </ul>

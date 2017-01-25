@@ -22,6 +22,11 @@ class Help {
     /**
      * @var string
      */
+    private $zipFileName;
+
+    /**
+     * @var string
+     */
     private $active;
 
     /**
@@ -91,6 +96,27 @@ class Help {
      */
     public function getFileName() {
         return $this->fileName;
+    }
+
+    /**
+     * Set zipFileName
+     *
+     * @param string $zipFileName
+     * @return Help
+     */
+    public function setZipFileName($zipFileName) {
+        $this->zipFileName = $zipFileName;
+
+        return $this;
+    }
+
+    /**
+     * Get zipFileName
+     *
+     * @return string 
+     */
+    public function getZipFileName() {
+        return $this->zipFileName;
     }
 
     /**

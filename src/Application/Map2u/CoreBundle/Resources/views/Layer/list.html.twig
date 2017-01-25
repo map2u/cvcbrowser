@@ -484,8 +484,7 @@
                 },
                 success: function (response) {
                     if (response.success === true) {
-
-
+                        var collection = null;
                         if (response.layerType === 'story' && response.data !== null) {
                             var photo_markers = new L.MarkerClusterGroup({
                                 id: response.layer_id,
@@ -573,19 +572,29 @@
                                 }
                                 ;
                             });
-                        } else if (response.data !== null && response.data.spatial !== null && response.data.datatype === 'topojson') {
+                        } else if (response.data !== null && response.data.spatial !== null) {
+                            var key = null;
+                            var geojson_shapefile = null;
                             if (typeof response.data.spatial === 'string') {
                                 response.data.spatial = JSON.parse(response.data.spatial);
                             }
                             if (typeof response.sld === 'string') {
                                 response.sld = JSON.parse(response.sld);
                             }
-                            var key = Object.keys(response.data.spatial.objects).map(function (k) {
-                                return  k;
-                            });
-                            var collection = topojson.feature(response.data.spatial, response.data.spatial.objects[key]);
+                            if (response.data.datatype === 'topojson') {
 
-                            var geojson_shapefile = new L.D3(collection, {
+                                key = Object.keys(response.data.spatial.objects).map(function (k) {
+                                    return  k;
+                                });
+                                collection = topojson.feature(response.data.spatial, response.data.spatial.objects[key]);
+                            } else if (response.data.datatype === 'geojson' && response.data.spatial && response.data.spatial[0].geom) {
+                                collection = response.data.spatial[0].geom;
+                                if (typeof collection === 'string') {
+                                    collection = JSON.parse(collection);
+                                }
+                            }
+                       
+                            geojson_shapefile = new L.D3(collection, {
                                 id: response.layer_id,
                                 layerId: response.layer_id,
                                 zIndex: (300 - position),
@@ -600,6 +609,7 @@
                                         //       tip_field: result.layer['tip_field'],
                                         //       label_field: result.layer['label_field']
                             });
+
                             if (geojson_shapefile !== null && geojson_shapefile !== undefined) {
                                 geojson_shapefile.id = response.layer_id;
                                 geojson_shapefile.zIndex = 300 - position;
@@ -619,86 +629,15 @@
                                     clusterLayer.id = response.layer_id;
                                     clusterLayer.zIndex = 300 - position;
                                     var default_showonmap = false;
-
                                     window.map.dataLayers[window.map.dataLayers.length] = clusterLayer;
-
                                     window.map.addLayer(clusterLayer);
-
-
-
-
-
-
-
-
-
-                                    var geoJsonLayer = L.geoJson(collection,
-                                            {
-                                                style: function (feature) {
-                                                    //   alert("3=" + JSON.stringify(feature.properties));
-                                                    return {
-                                                        radius: 5,
-                                                        fillColor: "#A3C990",
-                                                        color: "#f00",
-                                                        weight: 2,
-                                                        opacity: 1,
-                                                        fillOpacity: 1
-                                                    };
-                                                },
-                                                pointToLayer: function (feature, latlng) {
-
-                                                    //  alert("2=" + JSON.stringify(feature.properties));
-                                                    var layer = new L.CircleMarker(latlng, {
-                                                        radius: 15,
-                                                        fillColor: "#A3C990",
-                                                        color: "#FF0",
-                                                        weight: 1,
-                                                        opacity: 1,
-                                                        clickable: true,
-                                                        pointerEvents: 'click,mouseover',
-                                                        fillOpacity: 1
-                                                    }).on('mouseover', function () {
-                                                        alert(JSON.stringify(feature.properties));
-                                                    }).on('click', function (e) {
-                                                        alert("1");
-                                                        alert(JSON.stringify(feature.properties));
-                                                    });
-
-                                                    clusterLayer.addLayer(layer);
-                                                    
-                                                    return layer;
-                                                }
-                                            });
-
-                                    //     window.map.dataLayers[window.map.dataLayers.length] = clusterLayer;
-                                    //   clusterLayer.addLayer(geoJsonLayer, false);
-                                    //   if ($("li.overlay_li input[type='checkbox'][data-id='" + response.layer_id + "'],li.overlay_li input[type='radio'][data-id='" + response.layer_id + "']").is(":checked")) {
-
-                                    //     window.map.addLayer(clusterLayer);
-                                    //   }
-
-                                } else {
-                                    window.map.dataLayers[window.map.dataLayers.length] = geojson_shapefile;
-                                    window.map.addLayer(geojson_shapefile);
-                                    //  if ($("li.overlay_li input[type='checkbox'][data-id='" + response.layer_id + "'],li.overlay_li input[type='radio'][data-id='" + response.layer_id + "']").is(":checked")) {
-
-                                    window.map.addLayer(geojson_shapefile);
-                                    //  }
-
                                 }
                             }
-
+                            if (geojson_shapefile !== null) {
+                                window.map.dataLayers[window.map.dataLayers.length] = geojson_shapefile;
+                                window.map.addLayer(geojson_shapefile);
+                            }
                         }
-
-
-
-
-
-
-
-
-
-                        //  alert(JSON.stringify(response.data.spatial));
                     }
                 },
                 cache: false,

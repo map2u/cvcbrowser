@@ -1,0 +1,58 @@
+{% extends '::baseLayout.html.twig' %}
+{% block page_stylesheets %}
+    {{ parent() }}
+    {% include "::mapstylesheets.html.twig" %}
+    <style>
+
+    </style>
+{% endblock %}
+{% block body %}
+    {% block page_header %}
+        {{ parent() }}
+    {% endblock %}
+    {% block page_container %}
+        <div id="spatialfile_download" style="padding-top:30px;">
+            {% if spatialfiles is defined and spatialfiles |length > 0 %}
+                <table id="spatialfile_download_table" style="width:600px;margin:0px auto;">
+                    <tbody>
+                        <tr>
+                            <th>File Name</th><th>Created At</th><th>Action</th>
+                        </tr>
+                        {% for spatialfile in spatialfiles %}
+                            <tr>
+                                <td><div style="display:inline-block;"> {{spatialfile.fileName }}</div></td><td><div style="display:inline-block;"> {{spatialfile.createdAt|date('Y/M/d') }}</div></td><td><div style="display:inline-block;"><button  href="{{url('spatialfile_export_file')}}?id={{spatialfile.id}}" class="download">Download</button></div></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+        {% block footer %}
+            {{ parent() }}
+        {% endblock %}
+    {% endblock %}
+    {% block page_javascripts %}
+        {{ parent() }}
+        <script src="/bundles/map2ucore/js/jquery.fileDownload.js" charset="utf-8" type="text/javascript" id="select-2-js" ></script>
+
+        <script>
+            $(function () {
+                $("div#spatialfile_download #spatialfile_download_table button.download").unbind("click");
+                $("div#spatialfile_download #spatialfile_download_table button.download").click(function () {
+
+
+                    $.fileDownload($(this).attr("href"))
+                            .done(function () {
+                                alert('File download a success!');
+                            })
+                            .fail(function () {
+                                alert('File download failed!');
+                            });
+
+                });
+           
+
+            });
+        </script>
+    {% endblock %}
+{% endblock %}

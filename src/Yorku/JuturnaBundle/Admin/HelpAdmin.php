@@ -49,7 +49,7 @@ class HelpAdmin extends Admin {
      */
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
-                ->with('Help System Content')
+                ->with('Help System Content', array('class' => 'col-md-6'))
                 ->add('id', 'hidden')
                 ->add('fileName', 'text', array('read_only' => true))
                 ->add('help_file', 'file', array('label' => 'Help File:', 'mapped' => false, 'required' => false,'attr'=>array("onchange"=>"app.updateHelpFileContent(this);")))

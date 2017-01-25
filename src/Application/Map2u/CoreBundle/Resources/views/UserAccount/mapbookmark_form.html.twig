@@ -1,33 +1,37 @@
 <form id="mapbookmark_form_{{index}}" class="useraccount_mapbookmark_form" action="{{path('useraccount_mapbookmark')}}" method="post" {{ form_enctype(form) }} onsubmit="return false;">
 
     <table  style="width:100%;">
-        {% set name,level,lat,lng,address= null,null,null,null,null %}
+        {% set name,zoomlevel,lat,lng,address= null,null,null,null,null %}
         {% for bookmark in bookmarks %}
             {% if bookmark.seq == index %}
-                {% set name,level,lat,lng,address= bookmark.name,bookmark.zoomLevel|number_format(0),bookmark.lat,bookmark.lng, bookmark.address%}
+                {% set name,zoomlevel,lat,lng,address= bookmark.name,bookmark.zoomLevel|number_format(0),bookmark.lat,bookmark.lng, bookmark.address%}
             {% endif %}
         {% endfor %}
         <tbody>
-        <input type="hidden" name="seq" value="3">
+            {% if zoomlevel is null %}
+                {% set zoomlevel = level %}
+            {% endif %}
+            {% set names=['Watershed','Subwatershed','Local'] %}
+        <input type="hidden" name="seq" value="{{index}}">
         <input type="hidden" name="lat" value="{{lat}}">
         <input type="hidden" name="lng"  value="{{lng}}">
         <tr>
             <td>{{ form_label(form.name) }}</td>
         </tr>
         <tr>
-            <td>{{ form_widget(form.name,{value: name ? name:'Watershed'}) }}</td>
+            <td>{{ form_widget(form.name,{'value': name ? name:names[index-1]}) }}</td>
         </tr>
         <tr>
-            <td>{{ form_label(form.zoomLevel) }}</td>
+            <td>{{ form_label(form.zoomLevel)}}</td>
         </tr>
         <tr>
-            <td>{{ form_widget(form.zoomLevel,{value: level ? level:level}) }}</td>
+            <td>{{ form_widget(form.zoomLevel,{'value': zoomlevel~ "" }) }}</td>
         </tr>
         <tr>
             <td>{{ form_label(form.address) }}</td>
         </tr>
         <tr>
-            <td class="address">{{ form_widget(form.address,{value: address ? address:''}) }}</td>
+            <td class="address">{{ form_widget(form.address,{'value': address ? address:''}) }}</td>
         </tr>
         <tr>
             <td>

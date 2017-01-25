@@ -16,6 +16,12 @@ Yorku\JuturnaBundle\Entity\Help:
             fixed: false
             nullable: true
             column: file_name
+        zipFileName:
+            type: string
+            length: 255
+            fixed: false
+            nullable: true
+            column: zip_file_name
         active:
             type: boolean
             nullable: true

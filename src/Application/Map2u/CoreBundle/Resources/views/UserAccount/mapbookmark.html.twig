@@ -3,16 +3,16 @@
 *if map center address is empty, current map center will be saved as viewing scale center.
 <div id="useraccount_mapbookmark" style="margin:20px 10px;">
     <div style="border: 1px solid gainsboro; border-radius: 3px;margin:3px;padding:10px;">
-        {% include 'ApplicationMap2uCoreBundle:UserAccount:mapbookmark_form.html.twig' with {'form':form1,'index':1,'level':17} %}
+        {% include 'ApplicationMap2uCoreBundle:UserAccount:mapbookmark_form.html.twig' with {'form':form1,'index':1,'level':11,'scaleText':scaleText,'bookmarks':bookmarks} %}
 
     </div>
     <div style="border: 1px solid gainsboro; border-radius: 3px;margin:3px;padding:10px;">
-        {% include 'ApplicationMap2uCoreBundle:UserAccount:mapbookmark_form.html.twig' with {'form':form2,'index':2,'level':14} %}
+        {% include 'ApplicationMap2uCoreBundle:UserAccount:mapbookmark_form.html.twig' with {'form':form2,'index':2,'level':14,'scaleText':scaleText,'bookmarks':bookmarks} %}
 
     </div>          
 
     <div style="border: 1px solid gainsboro; border-radius: 3px;margin:3px;padding:10px;">
-        {% include 'ApplicationMap2uCoreBundle:UserAccount:mapbookmark_form.html.twig' with {'form':form3,'index':3,'level':11} %}
+        {% include 'ApplicationMap2uCoreBundle:UserAccount:mapbookmark_form.html.twig' with {'form':form3,'index':3,'level':17,'scaleText':scaleText,'bookmarks':bookmarks} %}
     </div>
 </div>
 
@@ -128,12 +128,21 @@
                         response = JSON.parse(response);
                     }
                     if (response.success === true) {
-
-                        $("nav.juturna-main_menu li#viewingscale ul.dropdown-menu li a[data-id='" + response.seq + "']").data("zoom", response.zoom);
-                        $("nav.juturna-main_menu li#viewingscale ul.dropdown-menu li a[data-id='" + response.seq + "']").data("center", response.lat + "," + response.lng);
-                        $("nav.juturna-main_menu li#viewingscale ul.dropdown-menu li a[data-id='" + response.seq + "']").data("address", response.address);
-                        $("nav.juturna-main_menu li#viewingscale ul.dropdown-menu li a[data-id='" + response.seq + "']").html(response.title);
-
+                        if ($("nav.juturna-main_menu li#viewingscale ul.dropdown-menu li a[data-id='" + response.seq + "']").length === 1) {
+                            $("nav.juturna-main_menu li#viewingscale ul.dropdown-menu li a[data-id='" + response.seq + "']").data("zoom", response.zoom);
+                            $("nav.juturna-main_menu li#viewingscale ul.dropdown-menu li a[data-id='" + response.seq + "']").data("center", response.lat + "," + response.lng);
+                            $("nav.juturna-main_menu li#viewingscale ul.dropdown-menu li a[data-id='" + response.seq + "']").data("address", response.address);
+                            $("nav.juturna-main_menu li#viewingscale ul.dropdown-menu li a[data-id='" + response.seq + "']").html(response.title);
+                        } else {
+                            if (response.seq === 1) {
+                                $("li a[data-id='" + response.seq + "']").prependTo($("nav.juturna-main_menu li#viewingscale ul.dropdown-menu"));
+                            } else {
+                                if ($("nav.juturna-main_menu li#viewingscale ul.dropdown-menu li a[data-id='" + (response.seq - 1) + "']").length === 1) {
+                                    $('<li><a data-center="' + response.lat + "," + response.lng + '" data-address="' + response.address + '" data-id="' + response.seq + '" data-zoom="' + response.zoom + '" href="#">' + response.title + '</a></li>').insertAfter($("nav.juturna-main_menu li#viewingscale ul.dropdown-menu li a[data-id='" + (response.seq - 1) + "']").parent("li"));
+                                    viewingscale(window.map);
+                                }
+                            }
+                        }
                     }
                     alert(response.message);
                 },
