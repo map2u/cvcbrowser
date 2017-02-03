@@ -32,7 +32,6 @@ class GraphChartAdmin extends Admin {
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
                 ->add('id')
-                ->add('category')
                 ->add('citation')
                 ->add('citationLink')
                 ->add('graphchartName')
@@ -51,7 +50,6 @@ class GraphChartAdmin extends Admin {
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
                 ->add('id')
-                ->add('category')
                 ->add('citation')
                 ->add('citationLink')
                 ->add('graphchartName')
@@ -106,7 +104,6 @@ class GraphChartAdmin extends Admin {
     protected function configureShowFields(ShowMapper $showMapper) {
         $showMapper
                 ->add('id')
-                ->add('category')
                 ->add('citation')
                 ->add('citationLink')
                 ->add('graphchartName')

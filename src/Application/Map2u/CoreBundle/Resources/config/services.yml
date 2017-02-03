@@ -1,9 +1,9 @@
 services:
-    application_map2u_core.admin.user_draw_layer:
-        class: Application\Map2u\CoreBundle\Admin\UserDrawLayerAdmin
-        arguments: [~, Application\Map2u\CoreBundle\Entity\UserDrawLayer, SonataAdminBundle:CRUD]
-        tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: UserDrawLayer}
+#    application_map2u_core.admin.user_draw_layer:
+#        class: Application\Map2u\CoreBundle\Admin\UserDrawLayerAdmin
+#        arguments: [~, Application\Map2u\CoreBundle\Entity\UserDrawLayer, SonataAdminBundle:CRUD]
+#        tags:
+#            - {name: sonata.admin, manager_type: orm, group: admin, label: UserDrawLayer}
     applicationmap2ucorebundle.block.fixed_topmenu:
                 class: Application\Map2u\CoreBundle\Block\FixedTopmenuBlockService
                 arguments:

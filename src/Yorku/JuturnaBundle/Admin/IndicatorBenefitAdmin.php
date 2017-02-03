@@ -47,6 +47,8 @@ class IndicatorBenefitAdmin extends Admin {
                
                 ->add('benefitName')
                 ->add('title')
+                ->add('layers')
+                
                 ->add('createdAt')
                 ->add('updatedAt')
                 ->add('_action', 'actions', array(

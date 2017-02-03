@@ -49,9 +49,9 @@ class ContentAdmin extends Admin {
      */
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
-               
                 ->add('title')
                 ->add('tags')
+                ->add('layers')
                 ->add('createdAt')
                 ->add('updatedAt')
                 ->add('_action', 'actions', array(
