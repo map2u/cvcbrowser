@@ -205,6 +205,7 @@ doctrine:
                         dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Entity"
                   dql:
                       numeric_functions:
+                          map2u_func_checklayergroup: Map2u\CoreBundle\Functions\PostgreSql\checkLayerSharedGroups
                           st_contains:        CrEOF\Spatial\ORM\Query\AST\Functions\PostgreSql\STContains
                           st_distance:        CrEOF\Spatial\ORM\Query\AST\Functions\PostgreSql\STDistance
                           st_area:            CrEOF\Spatial\ORM\Query\AST\Functions\PostgreSql\STArea

@@ -1,0 +1,201 @@
+/* line 1, assetic_compassmexkdt.scss */
+.sidebar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+  z-index: 2000;
+}
+
+/* line 1, assetic_compassmexkdt.scss */
+.sidebar.collapsed {
+  width: 40px;
+}
+
+@media (min-width: 768px) {
+  /* line 1, assetic_compassmexkdt.scss */
+  .sidebar {
+    left: 6px;
+    top: 6px;
+    bottom: 6px;
+    transition: width 500ms;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  /* line 1, assetic_compassmexkdt.scss */
+  .sidebar {
+    width: 305px;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  /* line 1, assetic_compassmexkdt.scss */
+  .sidebar {
+    width: 390px;
+  }
+}
+@media (min-width: 1200px) {
+  /* line 1, assetic_compassmexkdt.scss */
+  .sidebar {
+    width: 460px;
+  }
+}
+/* line 1, assetic_compassmexkdt.scss */
+.sidebar-tabs {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: rgba(0, 60, 136, 0.5);
+}
+
+/* line 1, assetic_compassmexkdt.scss */
+.sidebar-tabs > li {
+  width: 100%;
+  height: 40px;
+  color: #fff;
+  font-size: 12pt;
+  overflow: hidden;
+  transition: all 80ms;
+}
+
+/* line 1, assetic_compassmexkdt.scss */
+.sidebar-tabs > li:hover {
+  color: #fff;
+  background-color: rgba(0, 60, 136, 0.6);
+}
+
+/* line 1, assetic_compassmexkdt.scss */
+.sidebar-tabs > li.active {
+  color: #fff;
+  background-color: #0074d9;
+}
+
+/* line 1, assetic_compassmexkdt.scss */
+.sidebar-tabs > li > a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  line-height: 40px;
+  color: inherit;
+  text-decoration: none;
+  text-align: center;
+}
+
+/* line 1, assetic_compassmexkdt.scss */
+.sidebar-content {
+  position: absolute;
+  left: 40px;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.95);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* line 1, assetic_compassmexkdt.scss */
+.sidebar-pane {
+  display: none;
+  right: 0;
+  box-sizing: border-box;
+  padding: 10px 20px;
+}
+
+/* line 1, assetic_compassmexkdt.scss */
+.sidebar-pane.active {
+  display: block;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  /* line 1, assetic_compassmexkdt.scss */
+  .sidebar-pane {
+    width: 265px;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  /* line 1, assetic_compassmexkdt.scss */
+  .sidebar-pane {
+    width: 350px;
+  }
+}
+@media (min-width: 1200px) {
+  /* line 1, assetic_compassmexkdt.scss */
+  .sidebar-pane {
+    width: 420px;
+  }
+}
+/* line 1, assetic_compassmexkdt.scss */
+.sidebar {
+  background-color: rgba(255, 255, 255, 0.4);
+  border-right: 3px solid transparent;
+}
+
+@media (min-width: 768px) {
+  /* line 1, assetic_compassmexkdt.scss */
+  .sidebar {
+    border: 3px solid transparent;
+    border-radius: 4px;
+  }
+}
+/* line 1, assetic_compassmexkdt.scss */
+.sidebar-tabs {
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  /* line 1, assetic_compassmexkdt.scss */
+  .sidebar-tabs {
+    border-radius: 2px 0 0 2px;
+  }
+
+  /* line 1, assetic_compassmexkdt.scss */
+  .collapsed .sidebar-tabs {
+    border-radius: 2px;
+  }
+}
+@media (min-width: 768px) {
+  /* line 1, assetic_compassmexkdt.scss */
+  .sidebar-content {
+    border-radius: 0 2px 2px 0;
+  }
+}
+@media (min-width: 768px) {
+  /* line 1, assetic_compassmexkdt.scss */
+  .sidebar.collapsed ~ .sidebar-map .ol-zoom {
+    margin-left: 52px;
+  }
+}
+/* line 1, assetic_compassmexkdt.scss */
+.sidebar-map .ol-zoom {
+  margin-left: 46px;
+}
+
+@media (min-width: 768px) {
+  /* line 1, assetic_compassmexkdt.scss */
+  .sidebar-map .ol-zoom {
+    transition: margin-left 500ms;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  /* line 1, assetic_compassmexkdt.scss */
+  .sidebar-map .ol-zoom {
+    margin-left: 317px;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  /* line 1, assetic_compassmexkdt.scss */
+  .sidebar-map .ol-zoom {
+    margin-left: 402px;
+  }
+}
+@media (min-width: 1200px) {
+  /* line 1, assetic_compassmexkdt.scss */
+  .sidebar-map .ol-zoom {
+    margin-left: 472px;
+  }
+}

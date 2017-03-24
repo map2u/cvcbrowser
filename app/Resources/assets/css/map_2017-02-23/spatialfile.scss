@@ -1,0 +1,64 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2-Dec-2015, 9:41:44 PM
+    Author     : josephzhao
+*/
+
+div.uploadspatialfile_block {
+    width: 380px;
+}
+
+div.uploadspatialfile_block select,form#uploadspatialfile_form tr td {
+    width:185px;
+}
+
+form#uploadspatialfile_form tr.optional {
+    display:none;
+}
+
+form#uploadspatialfile_form tr input[type='radio'] {
+
+    margin-right:6px;
+
+}
+form#uploadspatialfile_form tr label[for='form_categories'],
+form#uploadspatialfile_form tr label[for='form_tags']
+{
+    width:80px;
+    display: inline-block;
+    text-align: right;
+}
+
+form#uploadspatialfile_form tr a {
+    color: blue;
+}
+
+form#uploadspatialfile_form tr td.file_format_select,
+form#uploadspatialfile_form tr td.file_format_select ul
+{
+    padding-left: 0px;
+}
+form#uploadspatialfile_form tr td.file_format_select ul li 
+{
+    margin-left: 5px;
+}
+form#uploadspatialfile_form tr td.file_format_select ul li div
+{
+    margin-left: 15px;
+}
+
+div#spatialfile_listitems .dataTables_scrollBody {
+    height: 490px;
+}
+
+div#spatialfile_listitems thead {
+    border-top: 1px solid gainsboro;
+}
+
+div#spatialfile_listitems #spatialfile_listitems_table_info {
+    padding-left:15px;
+}

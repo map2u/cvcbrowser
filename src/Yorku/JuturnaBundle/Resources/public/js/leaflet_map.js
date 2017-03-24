@@ -837,9 +837,10 @@ function viewingscale(map) {
         var center = $(this).data("center");
         var address = $(this).data("address");
         if ((center === null || center === undefined) && (parseInt(scale) !== 0)) {
-            center = map.getCenter();
-            map.setView(center, scale);
-            createSearchFeatureIcon(map, center.lat, center.lng, address);
+            center = ol3.map2u.map.getView().getCenter();
+            ol3.map2u.map.getView().setCenter(center);
+            ol3.map2u.map.getView().setZoom(5);
+            createSearchFeatureIcon(ol3.map2u.map, center.lat, center.lng, address);
             return;
         }
         if (parseInt(scale) === 0) {

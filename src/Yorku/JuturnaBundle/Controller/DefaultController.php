@@ -46,6 +46,19 @@ class DefaultController extends Controller {
         return $this->render('YorkuJuturnaBundle:Default:index.html.twig', array('_locale' => $_locale));
     }
 
+     /**
+     * display about page
+     *
+     * @Route("/feature_information", name="feature_information", options={"expose"=true})
+     * @Method("GET")
+     * @Template()
+     */
+    public function feature_informationAction(Request $request) {
+
+      
+
+        return array();
+    }
     /**
      * display about page
      *

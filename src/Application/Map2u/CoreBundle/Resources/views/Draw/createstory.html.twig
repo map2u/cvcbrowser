@@ -1,7 +1,7 @@
 {# empty Twig template #}
 
 <div id="share_story_form">
-    <div style="padding:10px; margin-top:30px; width:280px;">
+    <div style="padding:10px;  width:360px;">
         <h4>Share Your Story:</h4>
         <form id="story_form" action="{{path('draw_createstory') }}" method="post" enctype="multipart/form-data" onsubmit="return false;">
 
@@ -15,7 +15,7 @@
                 <div style="width: 100%; display: table-row;margin-bottom: 10px; margin-top: 3px;">
 
                     <div style="display: table-cell; ">
-                        {{ form_widget(form.storyName,{'attr':{"style":"width:250px"}})}}
+                        {{ form_widget(form.storyName,{'attr':{"style":"width:320px"}})}}
                         {#                        <input id="story_name"  name="name"  style="width: 250px;" value="{% if name is defined %}{{name}}{% endif %}" />#}
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                 <div style="width: 100%; display: table-row;margin-bottom: 10px; margin-top: 3px;">
 
                     <div style="display: table-cell; ">
-                        {{ form_widget(form.storyType,{'attr':{'style':'width:250px'}})}}
+                        {{ form_widget(form.storyType,{'attr':{'style':'width:320px'}})}}
                         {#
                                                 <select id="story_type"  name="story_type"  style="width: 250px;">
                                                     {% for story_type in story_types %}
@@ -45,7 +45,7 @@
                 </div>
                 <div style="width: 100%; display: table-row;margin-bottom: 10px; margin-top: 3px;">
                     <div style="display: table-cell; ">
-                        {{ form_widget(form.summary,{'attr':{'row':2,"style":"width:250px"}})}}
+                        {{ form_widget(form.summary,{'attr':{'row':2,"style":"width:320px"}})}}
                         {#                        <textarea  id="summary" row="10" style="width: 250px;"  name="summary" value="{% if summary is defined %}{{summary}}{% endif %}" />#}
                     </div>    
                 </div>
@@ -57,7 +57,7 @@
                 </div>
                 <div style="width: 100%; display: table-row;margin-bottom: 10px; margin-top: 3px;">   
                     <div style="display: table-cell; ">
-                        {{ form_widget(form.image_file,{'attr':{"style":"width:250px"}})}}
+                        {{ form_widget(form.image_file,{'attr':{"style":"width:320px"}})}}
                         {#                        <input type="file" name="image_files[]" multiple="true" accept='image/*'>#}
                     </div>    
                 </div>               
@@ -69,7 +69,7 @@
 
                 <div style="width: 100%; display: table-row;margin-bottom: 10px; margin-top: 3px;">
                     <div style="display: table-cell; ">
-                        {{ form_widget(form.story_file,{'attr':{"style":"width:250px"}})}}
+                        {{ form_widget(form.story_file,{'attr':{"style":"width:320px"}})}}
                         {#   <input type="file" name="story_file">#}
                     </div>
                 </div>
@@ -81,7 +81,7 @@
 
                 <div style="width: 100%; display: table-row;margin-bottom: 10px; margin-top: 3px;">
                     <div style="display: table-cell; ">
-                        {{ form_widget(form.email,{'attr':{"style":"width:250px"}})}}
+                        {{ form_widget(form.email,{'attr':{"style":"width:320px"}})}}
                         {#                        <input type="text" name="email" style="width: 250px;" >#}
                     </div>
                 </div>
@@ -92,16 +92,16 @@
                 </div>
                 <div style="width: 100%; display: table-row;margin-bottom: 10px; margin-top: 3px;">
                     <div style="display: table-cell; ">
-                        {{ form_widget(form.storyText,{ 'attr':{'row':5,"style":"width:250px"}})}}
+                        {{ form_widget(form.storyText,{ 'attr':{'row':3,"style":"width:320px"}})}}
                     </div>    
                 </div>
                 <input type="hidden" name="id">
-                <input type="hidden" name="lat">
-                <input type="hidden" name="lng">
+                <input type="hidden" name="lat" value="{{lat}}">
+                <input type="hidden" name="lng" value="{{lng}}">
                 <input type="hidden" name="the_geom">
                 <input type="hidden" name="radius">
                 <input type="hidden" name="type">
-                <div style="padding: 0 15px;">
+                <div style="padding: 10px 15px;">
                     <button type="button" class="pull-left btn btn-default" data-dismiss="modal">Cancel</button>
                     <button type="button" class="pull-right btn btn-primary save_story" >Save</button>
                 </div>
@@ -142,7 +142,7 @@
             var oData = new FormData(document.forms.namedItem("story_form"));
 
             $.ajax({
-                url: Routing.generate('draw_createstory', {_locale: window.locale}),
+                url: Routing.generate('draw_createstory', {_locale: window.locale, 'create': true}),
                 method: 'POST',
                 data: oData,
                 processData: false,

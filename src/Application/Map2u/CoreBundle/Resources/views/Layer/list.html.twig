@@ -1,132 +1,261 @@
+<div id="ol3-map-layers-list">
 
-{% if layerCategories is defined and layerCategories | length > 0 %}
-    {% for layerCategory in layerCategories %}
-        {% if layerCategory.hasChildren() or  layerCategory.getLayers() | length >0 %}
-            <li class="layercategory" data-id="{{layerCategory.id}}" 
-                data-multiple="{{layerCategory.multiple}}">
-                <input type="checkbox" data-level='1'/>
-                <div class="layer_legend_icon">
+    <div id="ol3-map-layers-basemap-list-title" style='border-bottom: 1px dotted gainsboro;'><h4><i class="ol3-map-layers-list-icon fa fa-minus blue basemap"></i>Base Map<div class="basemap-name" style="display:inline-block;margin-left: 20px;font-size: 16px;">--  Open Street Map</div></h4></div>
+    <div id="ol3-map-layers-basemap-list">
+        <ul style="list-style: none;padding-left: 10px;">
+            <li class="active">
+                <input type="radio" name="basemap" checked layer-name="openstreetmap" ><label>Open Street Map</label>
+            </li>
+            <li>
+                <input type="radio"  name="basemap" layer-name="opentransportmap"><label>Open Transport Map</label>
+            </li>
+            <li>
+                <input type="radio"  name="basemap" layer-name="opencyclemap"><label>Open Cycle Map</label>
+            </li>
+            <li>
+                <input type="radio"  name="basemap" layer-name="openseamap"><label>Open Sea Map</label>
+            </li>
+            <li><input type="radio"  name="basemap" layer-name="gmap_road"><label>Google Road Map</label>
+            </li>
+            <li><input type="radio"  name="basemap" layer-name="gmap_satellite"><label>Google Satellite</label>
+            </li>
+            <li><input type="radio"  name="basemap" layer-name="gmap_hybrid"><label>Google Hybrid</label>
+            </li>
+            <li><input type="radio"  name="basemap" layer-name="gmap_terrain"><label>Google Terrain</label>
+            </li>
+        </ul>
+    </div>
+    <div id="ol3-map-layers-overlays-list-title" style='border-bottom: 1px dotted gainsboro;'>
+        <h4><i class="ol3-map-layers-list-icon fa fa-minus blue overlays" ></i>Overlays
+            {% if app.user %}
+                <div class="overlayers_btn pull-right" title="Save Layers Sequence" id="overlayers_index_save"><i class="fa fa-save"></i>
+                </div>
+                <div class="overlayers_btn pull-right" title="Load Saved Layers Sequence" id="overlayers_index_load"><i class="fa fa-cog"></i>
+                </div>
+            {% endif %}
+        </h4>
+    </div>
+    <div  id="ol3-map-layers-overlays-list">
 
-                    <i class="fa fa-minus blue"></i>
-                </div><label>{{layerCategory.name|upper}}</label>
-                <ul class="layercategory_ul">
-                    {% if layerCategory.hasChildren() %}
-                        {% for childLayerCategory in layerCategory.getChildren() %}
+        {% if layerCategories is defined and layerCategories | length > 0 %}
+            {% for layerCategory in layerCategories %}
+                {% if layerCategory.hasChildren() or  layerCategory.getLayers() | length >0 %}
+                    <li class="layercategory" data-id="{{layerCategory.id}}" 
+                        data-multiple="{{layerCategory.multiple}}">
+                        <input type="checkbox" data-level='1'/>
+                        <div class="layer_legend_icon">
 
-                            {% if  childLayerCategory.getLayers()|length > 0 %}
-                                <li style="border-bottom: 1px dotted grey;" 
-                                    class="layercategory" data-category="true" data-id=
-                                    "{{childLayerCategory.id}}" data-layertype=""
-                                    data-multiple="{{childLayerCategory.multiple}}">
-                                    {% if layerCategory.multiple == true %}
-                                        <input data-id="{{childLayerCategory.id}}" data-level='2' data-multiple="{{childLayerCategory.multiple}}"
-                                               name="{{childLayerCategory.name}}" type="checkbox" />
-                                    {% else %}
-                                        <input data-id="{{childLayerCategory.id}}" data-level='2' data-multiple="{{childLayerCategory.multiple}}"
-                                               name="{{layerCategory.name}}" type="radio" />
-                                    {% endif %}
-                                    <div class="layer_legend_icon">
-                                        <i class="fa fa-minus blue"></i>
-                                    </div>
-                                    <div style="display: inline-block;" class="group_layername_label">
-                                        <label>{{childLayerCategory.name|upper}}</label>
-                                    </div>
+                            <i class="fa fa-minus blue"></i>
+                        </div>
+                        <label>{{layerCategory.name|upper}}
+                            <span data-id="{{layerCategory.id}}" class="layercategory-action pull-right">
+
+                                <div class="layer_action_icon">
+                                    <i class="fa fa-arrow-down lightBlue"  title="Move this group down"></i>
+                                    <i class="fa fa-arrow-up lightBlue"   title="Move this group up"></i>
+                                </div>
+                            </span>
+                        </label>
+                        <ul class="layercategory_ul">
+                            {% if layerCategory.hasChildren() %}
+                                {% for childLayerCategory in layerCategory.getChildren() %}
+
                                     {% if  childLayerCategory.getLayers()|length > 0 %}
-                                        <ul  class="group_overlay_lilayersubcategory_ul">
+                                        <li style="border-bottom: 1px dotted grey;" 
+                                            class="layercategory" data-category="true" data-id=
+                                            "{{childLayerCategory.id}}" data-layertype=""
+                                            data-multiple="{{childLayerCategory.multiple}}">
+                                            {% if layerCategory.multiple == true %}
+                                                <input data-id="{{childLayerCategory.id}}" data-level='2' data-multiple="{{childLayerCategory.multiple}}"
+                                                       name="{{childLayerCategory.name}}" type="checkbox" />
+                                            {% else %}
+                                                <input data-id="{{childLayerCategory.id}}" data-level='2' data-multiple="{{childLayerCategory.multiple}}"
+                                                       name="{{layerCategory.name}}" type="radio" />
+                                            {% endif %}
+                                            <div class="layer_legend_icon">
+                                                <i class="fa fa-minus blue"></i>
+                                            </div>
+                                            <div style="display: inline-block;" class="group_layername_label">
+                                                <label>{{childLayerCategory.name|upper}}
+                                                    <span data-id="{{childLayerCategory.id}}" class="layercategory-action pull-right">
 
-                                            {% for layer in childLayerCategory.getLayers() %}
-                                                {% if layer.enabled == true %}
-                                                    <li style="border-bottom: 1px dotted grey;"
-                                                        class="overlay_li" data-category="true" data-id=
-                                                        "{{layer.id}}" data-position="{{layer.position}}" data-layertype="{{layer.layerType}}"
-                                                        data-layer-id="{{layer.id}}">
-                                                        {% if childLayerCategory.multiple == true %}
-                                                            <input data-id="{{layer.id}}"  data-level='3' data-multiple="true"
-                                                                   name="{{layer.name}}" {% if layer.defaultShowOnMap %} data-show="on" {% endif %} type="checkbox" />
-                                                        {% else %}
-                                                            <input data-id="{{layer.id}}"  data-level='3' data-multiple="true"
-                                                                   name="{{childLayerCategory.name}}" {% if layer.defaultShowOnMap %} data-show="on" {% endif %} type="radio" />
+                                                        <div class="layer_action_icon">
+                                                            <i class="fa fa-arrow-down lightBlue"  title="Move this group down"></i>
+                                                            <i class="fa fa-arrow-up lightBlue"   title="Move this group up"></i>
+                                                        </div>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            {% if  childLayerCategory.getLayers()|length > 0 %}
+                                                <ul  class="group_overlay_lilayersubcategory_ul">
+
+                                                    {% for layer in childLayerCategory.getLayers() %}
+                                                        {% if layer.enabled == true %}
+                                                            <li style="border-bottom: 1px dotted grey;"
+                                                                class="overlay_li" data-category="true" data-id=
+                                                                "{{layer.id}}" data-position="{{layer.position}}"  data-show-label="{{layer.showLabel}}"  data-label-field="{{layer.labelField}}" data-layertype="{{layer.layerType}}"
+                                                                data-layer-id="{{layer.id}}">
+                                                                {% if childLayerCategory.multiple == true %}
+                                                                    <input data-id="{{layer.id}}"  data-level='3' data-multiple="true"
+                                                                           name="{{layer.name}}" {% if layer.defaultShowOnMap %} data-show="on" {% endif %} type="checkbox" />
+                                                                {% else %}
+                                                                    <input data-id="{{layer.id}}"  data-level='3' data-multiple="true"
+                                                                           name="{{childLayerCategory.name}}" {% if layer.defaultShowOnMap %} data-show="on" {% endif %} type="radio" />
+                                                                {% endif %}
+                                                                <div class="layer_legend_icon">
+                                                                    <i class="fa fa-plus blue"></i>
+
+                                                                </div>
+
+                                                                <div style="display: inline-block;" class="subgroup_layername_label layername_label">
+                                                                    <label>{{layer.name|title}}</label>
+                                                                    <span data-id="{{layer.id}}" class="layer-action pull-right">
+                                                                        <div class="layer_action_icon">
+                                                                            <i class="fa fa-map-marker lightBlue"  title="Zoom to this layer's extent"></i>
+                                                                            <i class="fa fa-pencil lightBlue"  title="Edit this layer feature style"></i>
+                                                                            <i class="fa fa-arrow-down lightBlue"  title="Move this layer down"></i>
+                                                                            <i class="fa fa-arrow-up lightBlue"   title="Move this layer up"></i>
+                                                                            <i class="fa fa-list lightBlue"   title="View this layer detail info"></i>
+                                                                            <i class="fa fa-tag lightBlue"   title="Show/Hide feature label"></i>
+                                                                            <i class="fa fa-trash red pull-right"   title="Delete this layer from map"></i>
+                                                                        </div>
+                                                                    </span>
+                                                                </div>
+                                                                <div class="layer_legend">
+                                                                </div>
+                                                            </li>
                                                         {% endif %}
-                                                        <div class="layer_legend_icon">
-                                                            <i class="fa fa-plus blue"></i>
-
-                                                        </div>
-
-                                                        <div style="display: inline-block;" class="subgroup_layername_label">
-                                                            <label>{{layer.name|title}}</label>
-                                                        </div>
-                                                        <div class="layer_legend">
-                                                        </div>
-                                                    </li>
-                                                {% endif %}
-                                            {% endfor %}
-                                        </ul>
+                                                    {% endfor %}
+                                                </ul>
+                                            {% endif %}
+                                        </li>
                                     {% endif %}
-                                </li>
+                                {% endfor %}
                             {% endif %}
-                        {% endfor %}
-                    {% endif %}
-                    {% if  layerCategory.getLayers()|length > 0 %}
-                        {% for layer in layerCategory.getLayers() %}
-                            {% if layer.enabled == true %}
+                            {% if  layerCategory.getLayers()|length > 0 %}
+                                {% for layer in layerCategory.getLayers() %}
+                                    {% if layer.enabled == true %}
 
-                                <li style="border-bottom: 1px dotted grey;" 
-                                    class="overlay_li" data-category="true" data-id=
-                                    "{{layer.id}}" data-position="{{layer.position}}" data-layertype="{{layer.layerType}}"
-                                    data-layer-id="{{layer.id}}">
+                                        <li style="border-bottom: 1px dotted grey;" 
+                                            class="overlay_li" data-category="true" data-id=
+                                            "{{layer.id}}" data-position="{{layer.position}}" data-show-label="{{layer.showLabel}}"  data-label-field="{{layer.labelField}}" data-layertype="{{layer.layerType}}"
+                                            data-layer-id="{{layer.id}}">
 
-                                    {% if layerCategory.multiple == true %}
-                                        <input data-id="{{layer.id}}" data-level='2' data-multiple="true"
-                                               name="{{layer.name}}" {% if layer.defaultShowOnMap %} data-show="on" {% endif %} type="checkbox" />
-                                    {% else %}
-                                        <input data-id="{{layer.id}}" data-level='2' data-multiple="false"
-                                               name="{{layerCategory.name}}" {% if layer.defaultShowOnMap %} data-show="on" {% endif %} type="radio" />
+                                            {% if layerCategory.multiple == true %}
+                                                <input data-id="{{layer.id}}" data-level='2' data-multiple="true"
+                                                       name="{{layer.name}}" {% if layer.defaultShowOnMap %} data-show="on" {% endif %} type="checkbox" />
+                                            {% else %}
+                                                <input data-id="{{layer.id}}" data-level='2' data-multiple="false"
+                                                       name="{{layerCategory.name}}" {% if layer.defaultShowOnMap %} data-show="on" {% endif %} type="radio" />
+                                            {% endif %}
+                                            <div class="layer_legend_icon">
+                                                <i class="fa fa-plus blue"></i>
+                                            </div>
+
+                                            <div style="display: inline-block;" class="group_layername_label layername_label">
+                                                <label>{{layer.name|title}}</label>
+                                                <span data-id="{{layer.id}}" class="layer-action pull-right">
+                                                    <div class="layer_action_icon">
+                                                        <i class="fa fa-map-marker lightBlue"  title="Zoom to this layer's extent"></i>
+                                                        <i class="fa fa-pencil lightBlue"  title="Edit this layer feature style"></i>
+                                                        <i class="fa fa-arrow-down lightBlue"  title="Move this layer down"></i>
+                                                        <i class="fa fa-arrow-up lightBlue"   title="Move this layer up"></i>
+                                                        <i class="fa fa-list lightBlue"   title="View this layer detail info"></i>
+                                                        <i class="fa fa-tag lightBlue"   title="Show/Hide feature label"></i>
+                                                        <i class="fa fa-trash red pull-right"   title="Delete this layer from map"></i>
+                                                    </div>
+                                                </span>
+                                            </div>
+                                            <div class="layer_legend">
+                                            </div>
+                                        </li>
                                     {% endif %}
-                                    <div class="layer_legend_icon">
-                                        <i class="fa fa-plus blue"></i>
-                                    </div>
-
-                                    <div style="display: inline-block;" class="group_layername_label">
-                                        <label>{{layer.name|title}}</label>
-                                    </div>
-                                    <div class="layer_legend">
-                                    </div>
-                                </li>
+                                {% endfor %}
                             {% endif %}
-                        {% endfor %}
-                    {% endif %}
-                </ul>
-            </li>
+                        </ul>
+                    </li>
+                {% endif %}
+            {% endfor %}
         {% endif %}
-    {% endfor %}
-{% endif %}
-{% if layers is defined and layers|length > 0 %}
-    {% for layer in layers %}
-        {% if layer.enabled == true %}
+        {% if layers is defined and layers|length > 0 %}
+            {% for layer in layers %}
+                {% if layer.enabled == true %}
 
-            <li style="border-bottom: 1px dotted grey;" 
-                class="overlay_li" data-category="true" data-id=
-                "{{layer.id}}" data-position="{{layer.position}}" data-layertype="{{layer.layerType}}" {% if layer.layerType == 'geoserver' and layer.layerProperty %} data-hostname="{{(layer.layerProperty|json_decode).wmsHostName}}" data-layername="{{ (layer.layerProperty|json_decode).wmsLayerName}}"  {% endif %}
-                data-layer-id="{{layer.id}}">
+                    <li style="border-bottom: 1px dotted grey;" 
+                        class="overlay_li" data-category="true" data-id=
+                        "{{layer.id}}" data-position="{{layer.position}}"  data-show-label="{{layer.showLabel}}"  data-label-field="{{layer.labelField}}"  data-layertype="{{layer.layerType}}" {% if layer.layerType == 'geoserver' and layer.layerProperty %} data-hostname="{{(layer.layerProperty|json_decode).wmsHostName}}" data-layername="{{ (layer.layerProperty|json_decode).wmsLayerName}}"  {% endif %}
+                        data-layer-id="{{layer.id}}">
 
-                <input data-id="{{layer.id}}" data-level='1' data-multiple="true"
-                       name="{{layer.name}}" {% if layer.defaultShowOnMap %} data-show="on" {% endif %} type="checkbox" />
-                <div class="layer_legend_icon">
-                    <i class="fa fa-plus blue"></i>
-                </div>
+                        <input data-id="{{layer.id}}" data-level='1' data-multiple="true"
+                               name="{{layer.name}}" {% if layer.defaultShowOnMap %} data-show="on" {% endif %} type="checkbox" />
+                        <div class="layer_legend_icon">
+                            <i class="fa fa-plus blue"></i>
+                        </div>
 
-                <div style="display: inline-block;" class="layername_label">
-                    <label>{{layer.name|title}}</label>
-                </div>
-                <div class="layer_legend">
-                </div>
-            </li>
+                        <div style="display: inline-block;" class="layername_label">
+                            <label>{{layer.name|title}}</label>
+                            <span data-id="{{layer.id}}" class="layer-action pull-right">
+                                <div class="layer_action_icon">
+                                    <i class="fa fa-map-marker lightBlue"  title="Zoom to this layer's extent"></i>
+                                    <i class="fa fa-pencil lightBlue"  title="Edit this layer feature style"></i>
+                                    <i class="fa fa-arrow-down lightBlue"  title="Move this layer down"></i>
+                                    <i class="fa fa-arrow-up lightBlue"   title="Move this layer up"></i>
+                                    <i class="fa fa-list lightBlue"   title="View this layer detail info"></i>
+                                    <i class="fa fa-tag lightBlue"   title="Show/Hide feature label"></i>
+                                    <i class="fa fa-trash red pull-right"   title="Delete this layer from map"></i>
+                                </div>
+                            </span>
+                        </div>
+                        <div class="layer_legend">
+                        </div>
+                    </li>
+                {% endif %}
+            {% endfor %}
         {% endif %}
-    {% endfor %}
-{% endif %}
+    </div>
+</div>
+
 <script>
     $(function () {
+        $("#ol3-map-layers-list #ol3-map-layers-basemap-list input[type='radio']").unbind("click");
+        $("#ol3-map-layers-list #ol3-map-layers-basemap-list input[type='radio']").click(function () {
+            if (ol3.map2u.basemapLayers.length === 0) {
+                ol3.map2u.createBasemapLayers();
+            }
+            var exist = false;
+            if (typeof $(this).attr("layer-name") !== 'undefined' && $(this).attr("layer-name").trim() !== '' && typeof ol3.map2u.basemapLayers[$(this).attr("layer-name")] !== 'undefined') {
+                var layers = ol3.map2u.map.getLayers();
+                layers.forEach(function (layer) {
+                    if (layer.get("type") === 'base') {
+                        if (layer !== ol3.map2u.basemapLayers[$(this).attr("layer-name")]) {
+                            layer.setVisible(false);
+                        } else {
+                            layer.setVisible(true);
+                        }
+                        if (layer === ol3.map2u.basemapLayers[$(this).attr("layer-name")]) {
+                            exist = true;
+                            alert("exist end=" + $(this).attr("layer-name"));
+                        }
+                    }
+                });
+                if (exist === false) {
+                    //  ol3.map2u.map.addLayer(ol3.map2u.basemapLayers[$(this).attr("layer-name")]);
+                    //    alert("no exist end="+$(this).attr("layer-name"));
+                    //  var s = ol3.map2u.basemapLayers[$(this).attr("layer-name")].getSource();
 
+                    ol3.map2u.map.getLayers().insertAt(0, ol3.map2u.basemapLayers[$(this).attr("layer-name")]);
+                    //ol3.map2u.map.getLayers().getArray()[0].setSource(s);
+                    //  ol3.map2u.map.addLayer();
+                }
+
+                //     ol3.map2u.map.setBaseLayer(ol3.map2u.basemapLayers[$(this).attr("layer-name")]);
+
+                //  layers.insetAt(0,ol3.map2u.basemapLayers[$(this).attr("layer-name")]);
+            }
+
+
+            $("#ol3-map-layers-list h4 .basemap-name").html("--   " + $(this).closest("li").find("label").html());
+        });
         $("li.layercategory div.layer_legend_icon").unbind("click");
         $("li.layercategory div.layer_legend_icon").click(function () {
 
@@ -138,10 +267,67 @@
                 $(this).parent("li").find("ul:first").hide();
             }
         });
+        $("li.overlay_li div.layer_action_icon i").unbind("click");
+        $("li.overlay_li div.layer_action_icon i").click(function () {
+            var id = $(this).closest("li").data("id");
+            if ($(this).hasClass("fa-map-marker")) {
+                var layers = ol3.map2u.map.getLayers();
+                layers.forEach(function (layer) {
+                    if (layer.id === id || layer.get('id') === id) {
+
+                        ol3.map2u.map.getView().fit(layer.getSource().getExtent(), ol3.map2u.map.getSize());
+                    }
+                });
+            }
+        });
         $("li.layercategory input[type='checkbox'],li.layercategory input[type='radio']").unbind("click");
         $("li.layercategory input[type='checkbox'],li.layercategory input[type='radio']").click(function () {
 
             layerCategoryClickEvent(this);
+        });
+
+        $('#ol3-map-layers-overlays-list li.overlay_li .layer_action_icon i.fa-arrow-up').unbind('click');
+        $('#ol3-map-layers-overlays-list li.overlay_li .layer_action_icon i.fa-arrow-up').on('click', function () {
+            var selected = $(this).closest("li.overlay_li");
+            if ($(selected).prev().length === 1)
+            {
+                $(selected).insertBefore($(selected).prev());
+            }
+            reorderLayer();
+            layerActionButtonsCheck();
+        });
+        $('#ol3-map-layers-overlays-list li.overlay_li .layer_action_icon i.fa-arrow-down').unbind('click');
+        $('#ol3-map-layers-overlays-list li.overlay_li .layer_action_icon i.fa-arrow-down').on('click', function () {
+            var selected = $(this).closest("li.overlay_li");
+            if ($(selected).next().length === 1)
+            {
+                $(selected).insertAfter($(selected).next());
+            }
+            reorderLayer();
+            layerActionButtonsCheck();
+        });
+
+        $("#ol3-map-layers-list i.ol3-map-layers-list-icon").unbind("click");
+        $("#ol3-map-layers-list i.ol3-map-layers-list-icon").click(function () {
+            if ($(this).hasClass("fa-plus")) {
+                $(this).removeClass("fa-plus");
+                $(this).addClass("fa-minus");
+                if ($(this).hasClass("basemap")) {
+                    $("#ol3-map-layers-list #ol3-map-layers-basemap-list").show();
+                }
+                if ($(this).hasClass("overlays")) {
+                    $("#ol3-map-layers-list #ol3-map-layers-overlays-list").show();
+                }
+            } else {
+                $(this).removeClass("fa-minus");
+                $(this).addClass("fa-plus");
+                if ($(this).hasClass("basemap")) {
+                    $("#ol3-map-layers-list #ol3-map-layers-basemap-list").hide();
+                }
+                if ($(this).hasClass("overlays")) {
+                    $("#ol3-map-layers-list #ol3-map-layers-overlays-list").hide();
+                }
+            }
         });
         $("li.overlay_li div.layer_legend_icon").unbind("click");
         $("li.overlay_li div.layer_legend_icon").click(function () {
@@ -238,30 +424,35 @@
 
                 });
             }
-            var mapLayers = window.map._layers;
+
+            // hide layers from off_layers array for layer id
+            //  var mapLayers = window.map._layers;
+            var mapLayers = ol3.map2u.map.getLayers();
             $.map(off_layers, function (layer) {
-                $.map(mapLayers, function (maplayer) {
-                    if (layer === maplayer.id) {
-                        window.map.removeLayer(maplayer);
+                mapLayers.forEach(function (maplayer) {
+                    if (typeof maplayer.id !== 'undefined' && layer === maplayer.id) {
+                        ol3.map2u.map.removeLayer(maplayer);
                     }
                 });
             });
             if (checked === true) {
+
                 if ($(this).parent("li").hasClass('overlay_li') === true) {
                     var exist_in_map = false;
-                    $.map(mapLayers, function (maplayer) {
+                    mapLayers.forEach(function (maplayer) {
                         if (id === maplayer.id) {
                             exist_in_map = true;
                         }
                     });
                     if (exist_in_map === false) {
-                        $.map(window.map.dataLayers, function (datalayer) {
+                        $.map(ol3.map2u.overlays, function (datalayer) {
                             if (id === datalayer.id) {
                                 exist_in_map = true;
-                                window.map.addLayer(datalayer);
+                                ol3.map2u.map.addLayer(datalayer);
                             }
                         });
                     }
+
                     if (exist_in_map === false) {
                         if (layertype === 'geoserver') {
                             var hostName = $(this).parent("li").data("hostname");
@@ -278,10 +469,11 @@
                                 layer.id = id;
                                 layer.zIndex = 300 - position;
                                 layer.name = $(this).attr('name');
-                                window.map.dataLayers[window.map.dataLayers.length] = layer;
-                                window.map.addLayer(layer);
+                                //  ol3.map2u.map.addOverlay(layer);
+                                ol3.map2u.map.addLayer(layer);
                             }
                         } else {
+
                             displayLayerFeatures(id, layertype, position);
                         }
                     }
@@ -289,10 +481,12 @@
             } else {
                 if ($(this).parent("li").hasClass('overlay_li') === true) {
                     var layerid = $(this).data('id');
-                    //  alert($(this).data('id'));
-                    $.map(mapLayers, function (maplayer) {
+                    //alert($(this).data('id'));
+                    mapLayers.forEach(function (maplayer, opt) {
+
                         if (layerid === maplayer.id) {
-                            window.map.removeLayer(maplayer);
+
+                            ol3.map2u.map.removeLayer(maplayer);
                         }
                     });
                 }
@@ -320,6 +514,26 @@
             $(this).addClass("mouse_selected");
         }, function () {
             $(this).removeClass("mouse_selected");
+        });
+        $('#ol3-map-layers-overlays-list li.overlay_li .layer_action_icon i.fa-arrow-up').unbind('click');
+        $('#ol3-map-layers-overlays-list li.overlay_li .layer_action_icon i.fa-arrow-up').on('click', function () {
+            var selected = $(this).closest("li.overlay_li");
+            if ($(selected).prev().length === 1)
+            {
+                $(selected).insertBefore($(selected).prev());
+            }
+            reorderLayer();
+            layerActionButtonsCheck();
+        });
+        $('#ol3-map-layers-overlays-list li.overlay_li .layer_action_icon i.fa-arrow-down').unbind('click');
+        $('#ol3-map-layers-overlays-list li.overlay_li .layer_action_icon i.fa-arrow-down').on('click', function () {
+            var selected = $(this).closest("li.overlay_li");
+            if ($(selected).next().length === 1)
+            {
+                $(selected).insertAfter($(selected).next());
+            }
+            reorderLayer();
+            layerActionButtonsCheck();
         });
         $('div.sidebar_content div.section.overlay-layers div#move_overlayer_up').unbind('click');
         $('div.sidebar_content div.section.overlay-layers div#move_overlayer_up').on('click', function () {
@@ -484,8 +698,22 @@
         }
 
         function displayLayerFeatures(id, layertype, position) {
+            var layers = ol3.map2u.map.getLayers();
+            var layerExist = false;
+            layers.forEach(function (layer) {
+                if (layer.id === id) {
+                    layerExist = true;
+                }
+            });
+            if (layerExist === true) {
+                return;
+            }
+            if (typeof ol3.map2u.overlays[id] !== 'undefined') {
+                ol3.map2u.map.addLayer(ol3.map2u.overlays[id]);
+                return;
+            }
             $.ajax({
-                url: Routing.generate('layer_geom', {id: id, layertype: layertype, _locale: window.locale}),
+                url: Routing.generate('layer_geom', {id: id, layertype: layertype, _locale: app.locale}),
                 type: 'GET',
                 //    data: formData,
                 complete: function () {
@@ -494,40 +722,25 @@
                     if (response.success === true) {
                         var collection = null;
                         if (response.layerType === 'story' && response.data !== null) {
-                            var photo_markers = new L.MarkerClusterGroup({
-                                id: response.layer_id,
-                                showCoverageOnHover: false,
-                                spiderfyDistanceMultiplier: 5,
-                                maxClusterRadius: 40
-                            });
-                            photo_markers.name = response.layer_name;
-                            photo_markers.id = response.layer_id;
-                            photo_markers.zIndex = 300 - position;
-                            var default_showonmap = false;
-                            if ($("div#sidebar-left.leaflet-control").data("viewtype")) {
-                                var default_layers = $("div#sidebar-left.leaflet-control").data("viewtype").toString();
-                                if (default_layers === 'stories')
-                                {
-                                    default_showonmap = true;
-                                }
-                            }
-                            window.map.dataLayers[window.map.dataLayers.length] = photo_markers;
-                            if ($("li.overlay_li input[type='checkbox'][data-id='" + response.layer_id + "'],li.overlay_li input[type='radio'][data-id='" + response.layer_id + "']").is(":checked")) {
+                            var features = new Array();
+                            var vectorSource = new ol.source.Vector({});
 
-                                window.map.addLayer(photo_markers);
-                            }
-                            //{name: response.layer_name,'map': window.map, 'layerType': 'story', 'clusterLayer': true, 'defaultShowOnMap': default_showonmap, 'layer': photo_markers, 'minZoom': null, 'maxZoom': null, 'index_id': 0, 'layerId': 0, layerTitle: 'Stories', 'datasource': -2, 'sld': null, 'filename': null, 'layerName': 'Stories', 'hostName': null};
                             $.each(response.data, function (k, photo) {
 
-                                if (photo.lat && photo.lng) {
+                                if (typeof photo === 'string') {
+                                    photo = JSON.parse(photo);
+                                }
+                                if (photo.lng && photo.lat) {
+
                                     var images;
                                     var icon_image = '';
                                     var medium_image = '';
                                     if (typeof photo.image_file === 'string')
                                     {
                                         images = JSON.parse(photo.image_file);
-                                    } else
+                                    } else {
                                         images = photo.image_file;
+                                    }
                                     if (images.length === 0) {
                                         //  images[0] = '/bundles/map2uleaflet/images/photo_unavailable_t.png';
                                         icon_image = '/bundles/map2uleaflet/images/photo_unavailable_t.png';
@@ -536,65 +749,92 @@
                                         icon_image = '/uploads/stories/' + photo.id + "/images/icon_" + images[0];
                                         medium_image = '/uploads/stories/' + photo.id + "/images/medium_" + images[0];
                                     }
+                                    //     alert(typeof photo.lng+","+typeof photo.lat);
 
-                                    var photo_marker = new L.PhotoMarker(new L.LatLng(photo.lat, photo.lng), {
-                                        src: icon_image,
-                                        size: [50, 40],
-                                        resize: function (e) {
-
-
-                                            var zoom = e._zoom;
-                                            if (zoom <= 11) {
-                                                photo_marker.scale(0.5);
-                                            } else if (zoom <= 13) {
-                                                // Half of the size option
-                                                photo_marker.scale(0.75);
-                                            } else {
-                                                // Scale 1 is 100% as defined in the size option
-                                                photo_marker.scale(1);
-                                            }
-                                        }
+                                    var storyFeature = new ol.Feature({
+                                        geometry: new ol.geom.Point(ol.proj.transform([parseFloat(photo.lng), parseFloat(photo.lat)], 'EPSG:4326', 'EPSG:3857')),
+                                        id: photo.id,
+                                        name: photo.story_name,
+                                        image_file: photo.image_file,
+                                        url: medium_image,
+                                        img: icon_image,
+                                        story_file: photo.story_file,
+                                        lng: photo.lng,
+                                        lat: photo.lat
                                     });
-                                    photo_marker.id = photo.id;
-                                    photo_marker.on("click", function () {
+                                    vectorSource.addFeature(storyFeature);
 
-                                        showStoryOnLeftsidebar(this.id);
-                                    });
-                                    var path = Routing.generate('homepage_storydetail', {_locale: window.locale, id: photo.id});
-                                    var html = '<a href="' + path + '"  target="_blank"><h4>' + photo.story_name + '</h4></a>';
-                                    if (medium_image === '') {
-                                        if (images.length > 1) {
 
-                                        } else {
-                                            html = html + '<img src="' + medium_image + '" style="width:300px;"/>';
-                                        }
-                                    } else
-                                    {
-                                        html = html + '<img src="' + medium_image + '" style="width:300px;"/>';
-                                    }
-
-                                    photo_marker.bindPopup('<a href="' + path + '"  target="_blank"><h4>' + photo.story_name + '</h4></a><img src="' + medium_image + '" style="width:300px;"/>');
-                                    $("<img>").attr("src", medium_image).load(function () {
-                                        photo_markers.addLayer(photo_marker);
-                                    });
                                 }
-                                ;
+
+                                //  alert("k=" + k + "    " + JSON.stringify(photo));
                             });
+                            var hotpointLayer;
+                            var clusterSource = new ol.source.Cluster({
+                                distance: parseInt(50, 10),
+                                source: vectorSource
+                            });
+                            hotpointLayer = new ol.layer.Vector({id: id, name: response.layer_name, source: clusterSource, label_field: response.label_field, sld: response.sld, type: 'story'});
+                            hotpointLayer.id = id;
+
+                            ol3.map2u.map.addLayer(hotpointLayer);
+
+                            hotpointLayer.setStyle(app.map2u.setFeatureStyle);
+
+                            ol3.map2u.overlays[id] = hotpointLayer;
+
                         } else if (response.data !== null && response.data.spatial !== null) {
+
                             var key = null;
                             var geojson_shapefile = null;
                             if (typeof response.data.spatial === 'string') {
                                 response.data.spatial = JSON.parse(response.data.spatial);
                             }
-                            if (typeof response.sld === 'string') {
-                                response.sld = JSON.parse(response.sld);
-                            }
+                            //  var style = app.map2u.setFeatureStyle(response.sld,'polygon');
+                            //  alert(JSON.stringify(style));
+                            // alert(response.data.datatype);
+
                             if (response.data.datatype === 'topojson') {
 
                                 key = Object.keys(response.data.spatial.objects).map(function (k) {
                                     return  k;
                                 });
+                                var features = new ol.format.TopoJSON().readFeatures(response.data.spatial, {dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857'});
+
+                               
+                                var vectorSource = new ol.source.Vector({});
+                                vectorSource.addFeatures(features);
+                                var hotpointLayer;
+                                if (features.length > 100 && features[0].getGeometry() instanceof ol.geom.Point) {
+                                    var clusterSource = new ol.source.Cluster({
+                                        distance: parseInt(50, 10),
+                                        source: vectorSource
+                                    });
+                                    hotpointLayer = new ol.layer.Vector({source: clusterSource, name: response.layer_name,style: app.map2u.setFeatureStyle});
+
+                                    hotpointLayer.id = id;
+                                    hotpointLayer.sld = response.sld;
+                                } else {
+
+
+                                    //   alert(JSON.stringify(response.sld));
+
+
+                                    hotpointLayer = new ol.layer.Vector({source: vectorSource,name: response.layer_name, sld: response.sld});
+                                    hotpointLayer.id = id;
+                                    hotpointLayer.sld = response.sld;
+                                }
+
+                                hotpointLayer.setStyle(app.map2u.setFeatureStyle);
+                                ol3.map2u.map.addLayer(hotpointLayer);
+                                //   ol3.map2u.map.addOverlay(hotpointLayer);
+                                ol3.map2u.overlays[id] = hotpointLayer;
+                                //    alert("length=" + features.length);
                                 collection = topojson.feature(response.data.spatial, response.data.spatial.objects[key]);
+                                // this time, we'll load vector tiles from openstreetmap
+                                // in the topojson format
+
+
                             } else if (response.data.datatype === 'geojson' && response.data.spatial && response.data.spatial[0].geom) {
                                 collection = response.data.spatial[0].geom;
                                 if (typeof collection === 'string') {
@@ -602,50 +842,9 @@
                                 }
                             }
 
-                            geojson_shapefile = new L.D3(collection, {
-                                id: response.layer_id,
-                                layerId: response.layer_id,
-                                zIndex: (300 - position),
-                                //       minZoom: layer.minZoom,
-                                //       maxZoom: layer.maxZoom,
-                                //       layerType: layer.layerType,
-                                sld: response.sld,
-                                //       filename: result.layer['fileName'] ? result.layer['fileName'].toLowerCase() : '',
-                                //       filetype: result.layer['fileType'] ? result.layer['fileType'].toLowerCase() : '',
-                                //       showLabels: (result.layer['label_field'] !== '' && result.layer['label_field'] !== null),
-                                type: response.data.datatype
-                                        //       tip_field: result.layer['tip_field'],
-                                        //       label_field: result.layer['label_field']
-                            });
-
-                            if (geojson_shapefile !== null && geojson_shapefile !== undefined) {
-                                geojson_shapefile.id = response.layer_id;
-                                geojson_shapefile.zIndex = 300 - position;
-                                geojson_shapefile.name = response.layer_name;
-                                if (response.layerType === 'cluster') {
-
-                                    var clusterLayer = new L.MarkerClusterGroup({
-                                        id: response.layer_id,
-                                        spiderfyDistanceMultiplier: 5,
-                                        maxClusterRadius: 40,
-                                        spiderfyOnMaxZoom: true,
-                                        showCoverageOnHover: true,
-                                        zoomToBoundsOnClick: true
-                                    });
-                                    //  spiderfyOnMaxZoom: true, showCoverageOnHover: true, zoomToBoundsOnClick: true
-                                    clusterLayer.name = response.layer_name;
-                                    clusterLayer.id = response.layer_id;
-                                    clusterLayer.zIndex = 300 - position;
-                                    var default_showonmap = false;
-                                    window.map.dataLayers[window.map.dataLayers.length] = clusterLayer;
-                                    window.map.addLayer(clusterLayer);
-                                }
-                            }
-                            if (geojson_shapefile !== null) {
-                                window.map.dataLayers[window.map.dataLayers.length] = geojson_shapefile;
-                                window.map.addLayer(geojson_shapefile);
-                            }
                         }
+                        reorderLayer();
+
                     }
                 },
                 cache: false,
@@ -783,13 +982,13 @@
                     var maplayers = window.map.dataLayers;
                     $.map(maplayers, function (layer) {
                         if (layer.id === layerid) {
-                            window.map.addLayer(layer);
+                            ol3.map2u.map.addLayer(layer);
                         }
                     });
                 }
             });
         }
-        createLegend = function (sld) {
+    {#    createLegend = function (sld) {
 
             if (sld === undefined || sld === null || sld === '')
                 return null;
@@ -1041,79 +1240,218 @@
             }
             return legend;
         };
+        
+    #}    
+        createLegend = function (sld) {
+
+            if (sld === undefined || sld === null || sld === '')
+                return null;
+            if (typeof sld !== 'object') {
+                sld = JSON.parse(sld);
+            }
+            var legend = $("<div class='layer_legend_items hidden'>");
+            var ul = $("<ul>").appendTo(legend);
+            if ($.isArray(sld)) {
+                $.map(sld, function (each_sld) {
+                    if (typeof each_sld.rule !== 'undefined') {
+                        if ($.isArray(each_sld.rule)) {
+                            $.map(each_sld.rule, function (each_rule) {
+                                var legendCanvas = document.createElement('canvas');
+                                legendCanvas.width = 20;
+                                legendCanvas.height = 15;
+                                var centerX = legendCanvas.width / 2;
+                                var centerY = legendCanvas.height / 2;
+                                var legendCtx = legendCanvas.getContext('2d');
+                                var rule_name = each_rule.name;
+                                if (each_rule.type === 'Polygon') {
+
+
+                                    var literal_name = false;
+                                    if (typeof each_rule.filter !== 'undefined') {
+
+                                    }
+                                    if (typeof each_rule.symbolizers !== 'undefined') {
+                                        legendCtx.beginPath();
+                                        legendCtx.rect(0, 0, 20, 15);
+                                        if (typeof each_rule.symbolizers.fillColor !== 'undefined') {
+                                            legendCtx.fillStyle = each_rule.symbolizers.fillColor;
+                                            legendCtx.fill();
+                                        }
+                                        if (typeof each_rule.symbolizers.stroke !== 'undefined' && each_rule.symbolizers.stroke === true) {
+                                            legendCtx.strokeStyle = each_rule.symbolizers.color;
+                                            legendCtx.lineWidth = each_rule.symbolizers.weight;
+                                            legendCtx.stroke();
+                                        }
+                                        legendCtx.closePath();
+                                    }
+
+
+                                    if (rule_name !== null && rule_name.trim() === '') {
+                                        rule_name = "No Name";
+                                    }
+
+                                }
+
+                                if (each_rule.type === 'Point') {
+
+                                    //   var style = app.map2u.getSymbolizers(each_rule.symbolizers);
+
+                                    if (typeof each_rule.symbolizers !== 'undefined' && (each_rule.symbolizers.Graphic === 'true' || each_rule.symbolizers.Graphic === true) && each_rule.symbolizers.WellKnownName !== '') {
+                                        {
+                                            legendCtx.beginPath();
+                                            switch (each_rule.symbolizers.WellKnownName) {
+
+                                                case 'diamond' :
+
+                                                    legendCtx.moveTo(centerX, centerY - each_rule.symbolizers.Size / 2.0);
+                                                    legendCtx.lineTo(centerX + each_rule.symbolizers.Size / 2.0, centerY);
+                                                    legendCtx.lineTo(centerX, centerY + each_rule.symbolizers.Size / 2.0);
+                                                    legendCtx.lineTo(centerX - each_rule.symbolizers.Size / 2.0, centerY);
+                                                    legendCtx.lineTo(centerX, centerY - each_rule.symbolizers.Size / 2.0);
+                                                    break;
+                                                case 'square':
+                                                    legendCtx.moveTo(centerX - each_rule.symbolizers.Size / 2.0, centerY - each_rule.symbolizers.Size / 2.0);
+                                                    legendCtx.lineTo(centerX + each_rule.symbolizers.Size / 2.0, centerY - each_rule.symbolizers.Size / 2.0);
+                                                    legendCtx.lineTo(centerX + each_rule.symbolizers.Size / 2.0, centerY + each_rule.symbolizers.Size / 2.0);
+                                                    legendCtx.lineTo(centerX, centerY + each_rule.symbolizers.Size / 2.0);
+                                                    legendCtx.lineTo(centerX - each_rule.symbolizers.Size / 2.0, centerY - each_rule.symbolizers.Size / 2.0);
+                                                    break;
+                                                case 'star':
+                                                    legendCtx.moveTo(centerX, centerY - each_rule.symbolizers.Size / 1.6);
+                                                    legendCtx.lineTo(centerX + each_rule.symbolizers.Size / 2.0, centerY);
+                                                    legendCtx.lineTo(centerX, centerY + each_rule.symbolizers.Size / 1.6);
+                                                    legendCtx.lineTo(centerX - each_rule.symbolizers.Size / 2.0, centerY);
+                                                    break;
+                                                case 'circle':
+                                                    var radius = each_rule.symbolizers.Size / 2.0;
+                                                    legendCtx.beginPath();
+                                                    legendCtx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+                                                    break;
+                                                case 'triangle':
+
+                                                    legendCtx.moveTo(centerX, centerY - each_rule.symbolizers.Size / 2.0);
+                                                    legendCtx.lineTo(centerX + each_rule.symbolizers.Size / 2.0, centerY + each_rule.symbolizers.Size / 2.0);
+                                                    legendCtx.lineTo(centerX - each_rule.symbolizers.Size / 2.0, centerY + each_rule.symbolizers.Size / 2.0);
+                                                    break;
+                                                default:
+                                                    var centerX = legendCanvas.width / 2;
+                                                    var centerY = legendCanvas.height / 2;
+                                                    var radius = each_rule.symbolizers.Size / 2.0;
+                                                    legendCtx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+                                                    break;
+                                            }
+                                            if (typeof each_rule.symbolizers.fillColor !== 'undefined')
+                                                legendCtx.fillStyle = each_rule.symbolizers.fillColor;
+                                            else
+                                                legendCtx.fillStyle = "#ccc";
+                                            legendCtx.fill();
+                                            if (typeof each_rule.symbolizers.stroke !== 'undefined' && each_rule.symbolizers.stroke === true) {
+
+                                                if (typeof each_rule.symbolizers.strokeWidth !== 'undefined') {
+
+                                                    legendCtx.lineWidth = each_rule.symbolizers.strokeWidth;
+                                                } else {
+                                                    legendCtx.lineWidth = 0.5;
+                                                }
+                                                if (typeof each_rule.symbolizers.color !== 'undefined') {
+                                                    legendCtx.strokeStyle = each_rule.symbolizers.color;
+                                                } else {
+                                                    legendCtx.strokeStyle = '#003300';
+                                                }
+                                                legendCtx.stroke();
+                                            }
+                                            legendCtx.closePath();
+                                        }
+                                    }
+                                }
+                                if (each_rule.type === 'Line') {
+                                    if (typeof each_rule.symbolizers !== 'undefined') {
+
+                                        legendCtx.beginPath();
+                                        legendCtx.moveTo(centerX - legendCanvas.width / 3, centerY);
+                                        legendCtx.lineTo(centerX + legendCanvas.width / 3, centerY);
+                                        if (typeof each_rule.symbolizers.fillColor !== 'undefined') {
+                                            legendCtx.fillStyle = each_rule.symbolizers.fillColor;
+                                            legendCtx.fill();
+                                        }
+
+                                        if (typeof each_rule.symbolizers.stroke !== 'undefined' && each_rule.symbolizers.stroke === true) {
+                                            legendCtx.lineWidth = 1;
+                                            if (typeof each_rule.symbolizers.strokeWidth !== 'undefined') {
+                                                legendCtx.lineWidth = each_rule.symbolizers.strokeWidth;
+                                            }
+
+                                            legendCtx.strokeStyle = 'black';
+                                            if (typeof each_rule.symbolizers.color !== 'undefined') {
+                                                legendCtx.strokeStyle = each_rule.symbolizers.color;
+                                            }
+                                            legendCtx.stroke();
+                                        }
+
+
+                                    }
+
+                                }
+                                var li = $("<li><img src='" + legendCanvas.toDataURL() + "'/>" + rule_name + "</li>");
+                                li.appendTo(ul);
+                            });
+                        }
+                    }
+                });
+            }
+            return legend;
+        };
+        function layerActionButtonsCheck() {
+            $('#ol3-map-layers-overlays-list li.overlay_li').find("layer-action-icon i.fa-arrow-up").enabled();
+            $('#ol3-map-layers-overlays-list li.overlay_li').find("layer-action-icon i.fa-arrow-down").enabled();
+            $('#ol3-map-layers-overlays-list li.overlay_li:first').find("layer-action-icon i.fa-arrow-up").disabled();
+            $('#ol3-map-layers-overlays-list li.overlay_li:last').find("layer-action-icon i.fa-arrow-down").disabled();
+        }
         function reorderLayer() {
-            var layers = window.map.dataLayers;
-    {#  // sort by zIndex ASC
-      window.map.dataLayers.sort(function (a, b) {
-          if (a.id !== undefined && b.id !== undefined) {
-              return a.zIndex - b.zIndex;
-          } else {
-              return 0;
-          }
-      });
-      window.map.dataLayers.forEach(function (layer) {
-          if (layer.id !== undefined && parseInt(layer.zIndex) > 0) {
-              window.map.removeLayer(layer);
-          }
-      });
-      // re-add overlays to map and layers control
-      $.map(window.map.dataLayers, function (layer) {
-          if (layer.id !== undefined) {
-              window.map.addLayer(layer);
-          }
-      });#}
+            var layers = ol3.map2u.map.getLayers();
+            $('#ol3-map-layers-overlays-list li.overlay_li').map(function (index) {
+                //   alert(index);
+                var id = $(this).data("id");
+                //  alert("id="+id);
+                layers.forEach(function (layer) {
+                    if (layer.id === id) {
+                        layer.setZIndex(300 - index);
+                        //    ol3.map2u.map.setLayerIndex(layer,index);
+                    }
+                });
+            });
+        }
 
-                  $.map(window.map.dataLayers, function (layer) {
-                      if (layer.id !== undefined && layer.zIndex !== undefined) {
-                          if ((layer instanceof  L.MarkerClusterGroup) === true) {
-                              var clusterlayers = layer._featureGroup._layers;
-                              var keys = Object.keys(clusterlayers).map(function (k) {
-                                  return  k;
-                              });
-                              if (clusterlayers[keys[0]] && clusterlayers[keys[0]]._container)
-                                  $(clusterlayers[keys[0]]._container).parent().css("z-index", 300 - i);
-                          } else {
-                              if (layer && layer._container) {
-                                  $(layer._container).css("z-index", layer.zIndex);
-                              } else {
+        var default_layers = $("div#sidebar-left.leaflet-control").data("viewlayers"); //.toString();
 
-                              }
-                          }
-
-                      }
-                  });
-              }
-
-              var default_layers = $("div#sidebar-left.leaflet-control").data("viewlayers"); //.toString();
-
-              var default_datatype = $("div#sidebar-left.leaflet-control").data("viewtype");
-              var default_layers_array = [];
-              if (default_layers !== undefined && default_layers.trim().length > 0) {
-                  default_layers = default_layers.substr(0, default_layers.length - 1);
-                  default_layers_array = default_layers.split(",");
-              }
+        var default_datatype = $("div#sidebar-left.leaflet-control").data("viewtype");
+        var default_layers_array = [];
+        if (default_layers !== undefined && default_layers.trim().length > 0) {
+            default_layers = default_layers.substr(0, default_layers.length - 1);
+            default_layers_array = default_layers.split(",");
+        }
 
 
 
-              if ((default_datatype === 'benefit') && default_layers_array.length > 0) {
-                  //    alert( $(".leaflet-control-container .section.overlay-layers li.overlay_li input:checked").length + "   " + $(".leaflet-control-container .section.overlay-layers li.overlay_li input").length);
-                  $(".leaflet-control-container .section.overlay-layers li.overlay_li input").map(function () {
+        if ((default_datatype === 'benefit') && default_layers_array.length > 0) {
+            //    alert( $(".leaflet-control-container .section.overlay-layers li.overlay_li input:checked").length + "   " + $(".leaflet-control-container .section.overlay-layers li.overlay_li input").length);
+            $(".leaflet-control-container .section.overlay-layers li.overlay_li input").map(function () {
 
-                      $(this).prop("checked", false);
-                  });
-                  $(".leaflet-control-container .section.overlay-layers li.overlay_li input").prop("checked", false);
-                  $(".leaflet-control-container .section.overlay-layers li.overlay_li input").data("show", null);
-                  $.map(default_layers_array, function (layer_id) {
-                      $(".leaflet-control-container .section.overlay-layers li.overlay_li[data-id='" + layer_id + "']").find("input").data("show", 'on');
-                      //  $(".leaflet-control-container .section.overlay-layers li.overlay_li[data-id='" + layer_id + "']").find("input").prop("checked", true);
-                      $(".leaflet-control-container .section.overlay-layers li.overlay_li[data-id='" + layer_id + "']").find("input").trigger('click')
+                $(this).prop("checked", false);
+            });
+            $(".leaflet-control-container .section.overlay-layers li.overlay_li input").prop("checked", false);
+            $(".leaflet-control-container .section.overlay-layers li.overlay_li input").data("show", null);
+            $.map(default_layers_array, function (layer_id) {
+                $(".leaflet-control-container .section.overlay-layers li.overlay_li[data-id='" + layer_id + "']").find("input").data("show", 'on');
+                //  $(".leaflet-control-container .section.overlay-layers li.overlay_li[data-id='" + layer_id + "']").find("input").prop("checked", true);
+                $(".leaflet-control-container .section.overlay-layers li.overlay_li[data-id='" + layer_id + "']").find("input").trigger('click')
 
-                  });
-              } else {
-                  $(".leaflet-control-container .section.overlay-layers li.overlay_li input[data-show='on']").map(function () {
+            });
+        } else {
+            $(".leaflet-control-container .section.overlay-layers li.overlay_li input[data-show='on']").map(function () {
 
-                      $(this).trigger('click');
-                  });
-              }
-          });
+                $(this).trigger('click');
+            });
+        }
+    });
 </script>

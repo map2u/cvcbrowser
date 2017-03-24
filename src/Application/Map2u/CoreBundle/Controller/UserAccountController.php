@@ -73,8 +73,9 @@ class UserAccountController extends BaseController {
         $form1 = $this->get('form.factory')->create(new MapBookmarkFormType("Map2u\CoreBundle\Entity\MapBookmark"));
         $form2 = $this->get('form.factory')->create(new MapBookmarkFormType("Map2u\CoreBundle\Entity\MapBookmark"));
         $form3 = $this->get('form.factory')->create(new MapBookmarkFormType("Map2u\CoreBundle\Entity\MapBookmark"));
-        if ($request->getMethod() === "POST") {
-            $seq = $request->get('seq');
+        $seq = $request->get('seq');
+        if ($request->getMethod() === "POST"&&isset($seq)&&$seq!==null) {
+            
 
             if ($this->getUser()) {
                 $bookmark = $em->getRepository('Map2uCoreBundle:MapBookmark')->findOneBy(array('userId' => $this->getUser()->getId(), 'seq' => $seq));

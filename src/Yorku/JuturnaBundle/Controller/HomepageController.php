@@ -409,7 +409,7 @@ class HomepageController extends Controller {
      * .
      *
      * @Route("/leftsidebar_view", name="homepage_leftsidebar_view", options={"expose"=true})
-     * @Method("GET")
+     * @Method("GET|POST")
      * @Template()
      */
     public function leftsidebar_viewAction(Request $request) {

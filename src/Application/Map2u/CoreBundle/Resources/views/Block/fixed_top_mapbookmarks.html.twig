@@ -1,4 +1,5 @@
 {% if app.request.attributes.get('_route')=='homepage_map' %}
+    {#  all action implement code in file map.html.twig and application.js as function app.viewingscale and useraccount_mapbookmark.html.twig #}
     <li id="viewingscale" class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Viewing Scale
             <b class="caret"></b></a>
         <ul class="dropdown-menu">
@@ -15,7 +16,7 @@
             {% else %}
                 {% for mapbookmark in mapbookmarks %}
                     <li  style="">
-                        <a data-center="{{mapbookmark.lat}},{{mapbookmark.lng}}" data-address="{{mapbookmark.address}}" data-id="{{loop.index}}"  data-zoom="{{mapbookmark.zoomLevel}}" href="#">{{mapbookmark.name}}  {{mapbookmark.scaleText}}</a>
+                        <a data-center="{{mapbookmark.lng}},{{mapbookmark.lat}}" data-address="{{mapbookmark.address}}" data-id="{{loop.index}}"  data-zoom="{{mapbookmark.zoomLevel}}" href="#">{{mapbookmark.name}}  {{mapbookmark.scaleText}}</a>
                     </li>
                 {% endfor %}
             {% endif %}

@@ -2,12 +2,102 @@
 {% block page_stylesheets %}
 
     {{ parent() }}
-    {% include "::mapstylesheets.html.twig" %}
+    {#    {% include "::mapstylesheets.html.twig" %}#}
+    <link rel="stylesheet" href="{{ asset('bundles/map2ucore/css/ol.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('bundles/map2ucore/css/ol3-contextmenu.min.css')}}" type="text/css">
+    <link rel="stylesheet" href="/css/sidebar/ol3-sidebar.css" />
+
+
     <style>
         body.sonata-bc {
             margin: 0 auto;
             padding-top: 0px;
             width:100%;
+        }
+        #ol3map_map {
+            position: relative;
+        }
+        .ol3map-sidebar-panel-content {
+            width:380px;
+        }
+        .ol3map-sidebar-panel-content ul {
+            list-style: none;
+        }
+        .layer_legend_icon {
+            display: inline-block;
+            margin: 0 3px 0 1px;
+            color: lightblue;
+            cursor: pointer;
+        }
+        .layer_btn {
+            display: inline-block;
+            /*padding: 0px 0px;*/
+            padding-bottom: 4px;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-image: none;
+            border: 1px solid transparent;
+            border-radius: 3px;
+        }
+
+        li.layercategory label span.layercategory-action {
+
+            visibility: hidden;
+            width: 105px;
+            right: 25px;
+            height: 24px;
+            background-color: lightgray;
+            border-radius: 4px;
+            padding: 0px 8px;
+            border:1px solid blue;
+            /* Position the tooltip */
+            position: absolute;
+            z-index: 1;
+        }
+
+
+        li.overlay_li .layername_label span.layer-action {
+
+            visibility: hidden;
+            width: 185px;
+            right: 25px;
+            height: 24px;
+            background-color: lightgray;
+            border-radius: 4px;
+            padding: 0px 8px;
+            border:1px solid blue;
+            /* Position the tooltip */
+            position: absolute;
+            z-index: 1;
+        }
+
+        li.layercategory label:hover span.layercategory-action{
+
+            visibility: visible;
+        }
+        li.overlay_li:hover .layername_label span.layer-action{
+
+            visibility: visible;
+        }
+        li.layercategory label span.layercategory-action .layer_action_icon {
+            width:100%;
+        }
+        li.overlay_li .layername_label span.layer-action .layer_action_icon{
+            width:100%;
+        }
+        li.layercategory label span.layercategory-action .layer_action_icon i,
+        li.overlay_li .layername_label span.layer-action .layer_action_icon i{
+
+            padding: 4px;
         }
     </style>
 
@@ -19,7 +109,106 @@
     {% endblock %}
     {% block page_container %}
         {% block map2u_map %}
-            {{render(controller("ApplicationMap2uLeafletBundle:Default:map",{'view':view,'id':id,'benefits':benefits}))}}
+            <div id="ol3map-sidebar" class="ol3map-sidebar pull-right ol3map-sidebar-right collapsed">
+                <div class="ol3map-sidebar-tabs">
+                    <ul role="tablist">
+                        <li><a href="#layer_list" role="tab" title='Layer List' data-toggle="tooltip" data-container="body" data-placement="left"><i class="fa fa-map-o"></i></a></li>
+                        <li><a href="#feature_information" title="Feature information details" role="tab" data-toggle="tooltip" data-container="body" data-placement="left"><i class="fa fa-info"></i></a></li>
+{#                        <li class="disabled"><a href="#messages" role="tab" data-toggle="tooltip" data-container="body" data-placement="left"><i class="fa fa-envelope"></i></a></li>#}
+                        <li><a href="#mapping_createthematicmap" title="Create thematic map" role="tab" data-toggle="tooltip" data-container="body" data-placement="left"><i class="fa fa-pencil-square-o"></i></a></li>
+                        <li><a href="#mapping_createheatmap" role="tab" title='Create heat map' data-container="body" data-toggle="tooltip" data-placement="left"><i class="fa fa-pencil-square-o"></i></a></li>
+                        <li><a href="#mapping_userdraw" role="tab" title='User Draw' data-toggle="tooltip" data-container="body" data-placement="left"><i class="fa fa-pencil"></i></a></li>
+                        <li><a href="#mapping_featurestyle" role="tab" title='Layer Feature Style' data-container="body" data-toggle="tooltip" data-placement="left"><i class="fa fa-pencil"></i></a></li>
+
+                        <li><a href="#mapping_spatialfile_upload" role="tab" data-container="body" title='Upload Spatial Data to Sever' data-toggle="tooltip" data-placement="left"><i class="fa fa-upload"></i></a></li>
+                    </ul>
+
+                    <ul role="tablist">
+                        <li><a href="#mapping_osm_legend" role="tab" data-container="body" title='Open Street Map Legend' data-toggle="tooltip" data-placement="left"><i class="fa fa-info"></i></a></li>
+                        <li><a href="#mapping-settings" role="tab" data-container="body" title='System Settings' data-toggle="tooltip" data-placement="left"><i class="fa fa-gear"></i></a></li>
+                    </ul>
+                </div>
+
+                <!-- Tab panes -->
+                <div class="ol3map-sidebar-content">
+                    <div class="ol3map-sidebar-pane" id="layer_list">
+                        <h1 class="ol3map-sidebar-header">
+                            <div class="title"> Layers </div>
+                            <div class="ol3map-sidebar-close"><i class="fa fa-caret-right"></i></div>
+                        </h1>
+                        <div class="ol3map-sidebar-panel-content">
+                        </div>
+                    </div>
+                    <div class="ol3map-sidebar-pane" id="feature_information">
+                        <h1 class="ol3map-sidebar-header"><div class="title">Feature Information</div><div class="ol3map-sidebar-close"><i class="fa fa-caret-right"></i></div></h1>
+                        <div class="ol3map-sidebar-panel-content">
+                        </div>
+                    </div>
+
+                    <div class="ol3map-sidebar-pane" id="messages">
+                        <h1 class="ol3map-sidebar-header"><div class="title">Messages</div><div class="ol3map-sidebar-close"><i class="fa fa-caret-right"></i></div></h1>
+                        <div class="ol3map-sidebar-panel-content">
+                        </div>
+                    </div>
+                    <div class="ol3map-sidebar-pane" id="mapping_spatialdataset">
+                        <h1 class="ol3map-sidebar-header"><div class="title">{{'Set dataset spatial info'|trans({},'Map2uCoreBundle')}}</div><div class="ol3map-sidebar-close"><i class="fa fa-caret-right"></i></div></h1>
+                        <div class="ol3map-sidebar-panel-content">
+                        </div>
+                    </div>
+                    <div class="ol3map-sidebar-pane" id="mapping_createheatmap">
+                        <h1 class="ol3map-sidebar-header"><div class="title">{{'Create Heatmap'|trans({},'Map2uCoreBundle')}}</div><div class="ol3map-sidebar-close"><i class="fa fa-caret-right"></i></div></h1>
+                        <div class="ol3map-sidebar-panel-content">
+                        </div>
+                    </div>
+                    <div class="ol3map-sidebar-pane" id="mapping_userdraw">
+                        <h1 class="ol3map-sidebar-header"><div class="title">{{'User Draw Geometry Feature'|trans({},'Map2uCoreBundle')}}</div><div class="ol3map-sidebar-close"><i class="fa fa-caret-right"></i></div></h1>
+                        <div class="ol3map-sidebar-panel-content">
+                        </div>
+                    </div>
+                    <div class="ol3map-sidebar-pane" id="mapping_featurestyle">
+                        <h1 class="ol3map-sidebar-header"><div class="title">{{'Layer Feature Style'|trans({},'Map2uCoreBundle')}}</div><div class="ol3map-sidebar-close"><i class="fa fa-caret-right"></i></div></h1>
+                        <div class="ol3map-sidebar-panel-content">
+                        </div>
+                    </div>
+                    <div class="ol3map-sidebar-pane" id="mapping_spatialfile_upload">
+                        <h1 class="ol3map-sidebar-header"><div class="title">{{'Spatial File Upload'|trans({},'Map2uCoreBundle')}}</div><div class="ol3map-sidebar-close"><i class="fa fa-caret-right"></i></div></h1>
+                        <div class="ol3map-sidebar-panel-content">
+                        </div>
+                    </div>
+                    <div class="ol3map-sidebar-pane" id="mapping_osm_legend">
+                        <h1 class="ol3map-sidebar-header"><div class="title">{{'Legend'|trans({},'Map2uCoreBundle')}}</div><div class="ol3map-sidebar-close"><i class="fa fa-caret-right"></i></div></h1>
+                        <div class="ol3map-sidebar-panel-content">
+
+                        </div>
+                    </div>
+                    <div class="ol3map-sidebar-pane" id="mapping-settings">
+                        <h1 class="ol3map-sidebar-header"><div class="title">{{'Settings'|trans({},'Map2uCoreBundle')}}</div><div class="ol3map-sidebar-close"><i class="fa fa-caret-right"></i></div></h1>
+                        <div class="ol3map-sidebar-panel-content">
+
+                        </div>
+                    </div>
+                </div>     
+            </div>
+            <div id="ol3map_map" style="margin-top: 5px;margin-bottom: 5px;width:100%;border-radius:5px;border: 1px solid darkgreen;">
+            </div>
+            <div id="mapstatus" class="row">
+                <div class="pull-left">
+                    <div id="current_view" data-view="{{view}}" style="display:inline-block;margin-left: 10px;">Current View: {{view}}</div>
+                    <div id="current_view_tip" data-view="{{view}}" style="display:inline-block;margin-left: 10px;">{% if view=='stories' %} right click mouse on map to add new story.{% endif %}</div>
+                    <div id="mapping_current_position" style="display:inline-block;margin-left: 10px;margin-top:3px;"></div>
+                </div>
+                <div class="pull-right">
+                    <div  class='hidden'><img id='ol3-export_image' src='' crossOrigin="Anonymous"></div>
+                    <div id="map2u_mapping-mouse-position" style="display:inline-block;margin-right: 10px;"></div>
+                    <select id="projection" style="display:inline-block;margin-top: 4px;margin-right: 5px;">
+                        <option value="EPSG:4326">EPSG:4326</option>
+                        <option value="EPSG:3857">EPSG:3857</option>
+                        <option value="EPSG:26717">EPSG:26717</option>
+                    </select>
+                </div>
+            </div>
+
+            {#            {{render(controller("ApplicationMap2uLeafletBundle:Default:map",{'view':view,'id':id,'benefits':benefits}))}}#}
         {% endblock %}
         <div class="modal fade" data-backdrop="static" data-keyboard="false" id="main_modal_dialogpanel" tabindex="-1" role="dialog" aria-labelledby="mainModalDialogLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -38,10 +227,54 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div>
-     {% endblock %}
+        <div id="ol3map_map_tooltip" class="tooltip"></div>
+    {% endblock %}
     {% block page_javascripts %}
         {{ parent() }}
         {% include "::mapjavascripts.html.twig" %}
-        
+        <script src="/js/sidebar/jquery-sidebar.js"></script>
+        <script src="/bundles/yorkujuturna/js/photostyle.js"></script>
+        <script src="/bundles/yorkujuturna/js/ol.ordering.js"></script>
+
+        <script>
+            $(function () {
+
+                ol3.map2u.createMap('ol3map_map');
+                app.viewingscale(ol3.map2u.map);
+
+                var sidebar = $('#ol3map-sidebar').sidebar({'position': 'right'});
+                $("#ol3map-sidebar .ol3map-sidebar-tabs li a").on("click", function () {
+                    //  alert($(this).attr("href"));
+                    var sidebar_href = $(this).attr("href");
+                    var htmlContent = $(sidebar_href + ".ol3map-sidebar-pane").find(".ol3map-sidebar-panel-content").html();
+                    if (htmlContent && htmlContent.toString().trim() === '') {
+
+
+                        //  alert($(sidebar_href + ".ol3map-sidebar-pane").find(".ol3map-sidebar-panel-content").html());
+
+                        $.ajax({
+                            url: Routing.generate(sidebar_href.replace("#", ''), {_locale: app.locale}),
+                            type: 'GET',
+                            complete: function () {
+
+                            },
+                            success: function (data) {
+
+                                $(sidebar_href + ".ol3map-sidebar-pane").find(".ol3map-sidebar-panel-content").html(data);
+                            },
+                            cache: false,
+                            contentType: false,
+                            processData: false
+                        });
+                    }
+                });
+                $('.ol3map-sidebar-tabs [data-toggle="tooltip"]').tooltip({
+                    animated: 'fade',
+                    placement: 'left',
+                    container: 'body'
+                });
+
+            });
+        </script>
     {% endblock %}
 {% endblock %}

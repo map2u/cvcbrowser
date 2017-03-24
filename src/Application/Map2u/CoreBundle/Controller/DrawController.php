@@ -130,10 +130,12 @@ class DrawController extends BaseController {
 //                ->add('story_file', 'file', array('required' => false, 'mapped' => false, 'label' => 'Story File(current support pdf and html file)','attr'=>array("style"=>"width:250px")))
 //                ->add('email')
 //                ->getForm();
+        $lat = $request->get("lat");
+        $lng = $request->get("lng");
 
 
 
-        if ($request->getMethod() === "POST") {
+        if ($request->getMethod() === "POST" && $request->get("create")) {
             try {
                 $form->bind($request);
 
@@ -158,7 +160,15 @@ class DrawController extends BaseController {
 
 
                     $entity->setUser($this->getUser());
-                    $entity->setRadius($radius);
+                    if ($lat) {
+                        $entity->setRadius($lat);
+                    }
+                    if ($lng) {
+                        $entity->setRadius($lng);
+                    }
+                    if ($radius) {
+                        $entity->setRadius($radius);
+                    }
                     $entity->setType($type);
                     $em->persist($entity);
                     $em->flush();
@@ -182,7 +192,7 @@ class DrawController extends BaseController {
             }
         }
 
-        return array("story_types" => $story_types, "form" => $form->createView());
+        return array("story_types" => $story_types, 'lng' => $lng, 'lat' => $lat, "form" => $form->createView());
     }
 
     private function saveUploadedFiles($form, $story) {
@@ -252,8 +262,7 @@ class DrawController extends BaseController {
 
             $feature = json_decode(str_replace("'", '"', $the_geom));
         }
-
-        if ($feature->geometry === null) {
+        if ($feature===null||$feature->geometry === null) {
             return;
         }
         $em = $this->getDoctrine()->getManager();

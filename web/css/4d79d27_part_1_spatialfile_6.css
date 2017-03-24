@@ -1,0 +1,72 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2-Dec-2015, 9:41:44 PM
+    Author     : josephzhao
+*/
+/* line 11, assetic_compassxaMqfs.scss */
+div.uploadspatialfile_block {
+  width: 380px;
+}
+
+/* line 15, assetic_compassxaMqfs.scss */
+div.uploadspatialfile_block select, form#uploadspatialfile_form tr td {
+  width: 185px;
+}
+
+/* line 19, assetic_compassxaMqfs.scss */
+form#uploadspatialfile_form tr.optional {
+  display: none;
+}
+
+/* line 23, assetic_compassxaMqfs.scss */
+form#uploadspatialfile_form tr input[type='radio'] {
+  margin-right: 6px;
+}
+
+/* line 28, assetic_compassxaMqfs.scss */
+form#uploadspatialfile_form tr label[for='form_categories'],
+form#uploadspatialfile_form tr label[for='form_tags'] {
+  width: 80px;
+  display: inline-block;
+  text-align: right;
+}
+
+/* line 36, assetic_compassxaMqfs.scss */
+form#uploadspatialfile_form tr a {
+  color: blue;
+}
+
+/* line 40, assetic_compassxaMqfs.scss */
+form#uploadspatialfile_form tr td.file_format_select,
+form#uploadspatialfile_form tr td.file_format_select ul {
+  padding-left: 0px;
+}
+
+/* line 45, assetic_compassxaMqfs.scss */
+form#uploadspatialfile_form tr td.file_format_select ul li {
+  margin-left: 5px;
+}
+
+/* line 49, assetic_compassxaMqfs.scss */
+form#uploadspatialfile_form tr td.file_format_select ul li div {
+  margin-left: 15px;
+}
+
+/* line 54, assetic_compassxaMqfs.scss */
+div#spatialfile_listitems .dataTables_scrollBody {
+  height: 490px;
+}
+
+/* line 58, assetic_compassxaMqfs.scss */
+div#spatialfile_listitems thead {
+  border-top: 1px solid gainsboro;
+}
+
+/* line 62, assetic_compassxaMqfs.scss */
+div#spatialfile_listitems #spatialfile_listitems_table_info {
+  padding-left: 15px;
+}

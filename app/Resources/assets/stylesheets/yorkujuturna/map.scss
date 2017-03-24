@@ -27,3 +27,91 @@ div.section.overlay-layers ul.overlay_ul li label.selected {
 div.section.overlay-layers ul.overlay_ul li label.mouse_selected {
     background-color: lightskyblue;
 }
+.uploadspatialfile_block select {
+    width: 370px;
+}
+
+/* for map layers */
+div.layer_legend_items ul li , li.overlay_li{
+    border-bottom: 1px dotted gainsboro;
+}
+
+div.layer_legend_items ul li:last-child ,  li.overlay_li:last-child{
+    border-bottom: none;
+    margin-bottom: 5px;
+}
+
+div.layer_legend_items ul li img {
+    margin-right: 5px;
+}
+
+li.overlay_li div.layer_legend {
+    border-top: 1px dotted gainsboro;
+}
+
+
+.layer_legend .layer_legend_items ul {
+    list-style: none;
+    padding-left: 15px;
+}
+
+#ol3-map-layers-list i.ol3-map-layers-list-icon {
+    display:inline-block;
+    color: lightblue;
+    cursor: pointer;
+    margin-right: 10px;
+}
+#ol3-map-layers-basemap-list li input[type='radio'] {
+    margin-right: 8px;
+}
+
+
+.ol3map-sidebar-panel-content ul {
+    list-style: none;
+    padding-left: 18px;
+}
+
+#ol3-map-layers-overlays-list-title .overlayers_btn {
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.ol-bottom-feature-list {
+    bottom: 6px;
+    left: 8.2em;
+    width:100%;
+    height:50px;
+    border: 1px solid green;
+    border-radius: 4px;
+}
+
+.ol-bottom-feature-list .feature-list-item {
+    display: inline-block;
+    height:38px;
+    margin:4px;
+    cursor: pointer;
+    border: 1px solid lightseagreen;
+    border-radius: 5px;
+}
+
+
+li.overlay_li .layername_label span.layer-action .layer_action_icon {
+    width:100%;
+}
+li.overlay_li .layername_label span.layer-action .layer_action_icon i{
+
+    padding: 4px;
+    cursor: pointer;
+}
+
+
+#ol3map_map_tooltip.tooltip {
+    position: relative;
+    padding: 5px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    opacity: 0.7;
+    white-space: nowrap;
+    font: 10pt sans-serif;
+    border-radius: 5px;
+}

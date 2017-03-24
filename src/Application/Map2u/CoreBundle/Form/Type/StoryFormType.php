@@ -53,7 +53,7 @@ class StoryFormType extends AbstractType {
                 ->add('storyText', 'ckeditor', array('label' => 'Story Content',
                     'required' => false,
                     'config_name' => 'basic',
-                    'config' => array('uiColor' => '#ffffff')
+                    'config' => array('height'=>130, 'uiColor' => '#ffffff')
                 ))
                 ->add('image_file', 'file', array('required' => false, 'mapped' => false, 'label' => 'Image File'))
                 ->add('story_file', 'file', array('required' => false, 'mapped' => false, 'label' => 'Story File(current support pdf and html file)'))

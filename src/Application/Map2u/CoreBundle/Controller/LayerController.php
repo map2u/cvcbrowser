@@ -71,6 +71,20 @@ class LayerController extends BaseController {
     /**
      * get layer geom as geojson.
      * params: ogc_fid and userboundary_id
+     * @Route("/editstyle", name="layer_editstyle", options={"expose"=true})
+     * @Method("GET|POST")
+     * @Template()
+     */
+    public function editstyleAction(Request $request) {
+        $layer = $request->get("layer");
+        $features = $request->get("features");
+        var_dump($layer);
+        var_dump($features);
+    }
+
+    /**
+     * get layer geom as geojson.
+     * params: ogc_fid and userboundary_id
      * @Route("/loadsequence", name="layer_loadsequence", options={"expose"=true})
      * @Method("GET")
      * @Template()
@@ -119,10 +133,11 @@ class LayerController extends BaseController {
         $sld = null;
         $hostname = null;
         $layername = null;
+        $label_field = '';
         $layer = $em->getRepository($this->getParameter("map2u.core.layer.class"))->find($id);
         $stories_class = $em->getRepository($this->getParameter("map2u.core.story.class"));
         if ($layer) {
-            if ($layer->getLayerType() === 'spatialfile'||$layer->getLayerType() === 'cluster') {
+            if ($layer->getLayerType() === 'spatialfile' || $layer->getLayerType() === 'cluster') {
                 $spatial = $this->getLayerSpatialfile($layer);
             }
             if ($layer->getLayerType() === 'geoserver') {
@@ -132,7 +147,7 @@ class LayerController extends BaseController {
                     $layername = $layerproperty->wmsLayerName;
                 }
             }
-
+            $label_field = $layer->getLabelField();
             if ($layer->getLayerType() === 'story' && $stories_class !== null) {
 
                 $conn = $this->get('database_connection');
@@ -142,22 +157,37 @@ class LayerController extends BaseController {
                     $story_type = $layerproperty->story_type;
                 }
                 if ($story_type) {
+
+//                     $sql = "SELECT  row_to_json(fc) as geom FROM ( SELECT 'FeatureCollection' As type, array_to_json(array_agg(f)) As features FROM (SELECT 'Feature' As type, ST_AsGeoJSON(lg.the_geom::geography)::json As geometry
+//    , row_to_json(lp) As properties
+//   FROM " . $em->getClassMetadata($stories_class->getClassName())->getTableName(). " As lg 
+//         INNER JOIN (SELECT id, story_name, image_file,story_file  FROM ".$em->getClassMetadata($stories_class->getClassName())->getTableName()." where storytype_id='" . $story_type . "') As lp 
+//       ON lg.id = lp.id  and lg.the_geom is not null) As f )  As fc";
+//
+//            $datatype = 'geojson';
+////        $features = $conn->fetchAll("select id, " . implode(',', $column_names) . ", st_asgeojson(the_geom::geography) as the_geom from spatial_" . str_replace("-", "_", $layer->getSpatialfile()->getId()));
+//            $topojson = $conn->fetchAll($sql);
+//            $spatial['spatial']=$topojson;
+//            $spatial['datatype']=$datatype;
+
                     $spatial = $conn->fetchAll("select id, story_name, image_file,story_file , st_x(ST_Centroid(the_geom)) as lng,st_y(ST_Centroid(the_geom)) as lat  from " . $em->getClassMetadata($stories_class->getClassName())->getTableName() . " where storytype_id='" . $story_type . "'");
                 } else {
                     $spatial = $conn->fetchAll("select id, story_name, image_file,story_file , st_x(ST_Centroid(the_geom)) as lng,st_y(ST_Centroid(the_geom)) as lat  from " . $em->getClassMetadata($stories_class->getClassName())->getTableName());
                 }
                 // convert serialzed image names to json type
-                foreach ($spatial as $ee) {
-                    if ($ee['image_file'] !== null && $ee['image_file'][0] !== '[') {
-                        $conn->fetchAll("update " . $em->getClassMetadata($stories_class->getClassName())->getTableName() . " set image_file='" . json_encode(unserialize($ee['image_file'])) . "' where  id='" . $ee['id'] . "'");
-                    }
-                }
+//                foreach ($spatial as $ee) {
+//                    if ($ee['image_file'] !== null && $ee['image_file'][0] !== '[') {
+//                        $conn->fetchAll("update " . $em->getClassMetadata($stories_class->getClassName())->getTableName() . " set image_file='" . json_encode(unserialize($ee['image_file'])) . "' where  id='" . $ee['id'] . "'");
+//                    }
+//                }
             }
-            if ($layer->getSldFileName() !== '' && $layer->getSldFileName() !== null) {
+            $sld = $layer->getSld();
+
+            if (($sld === null || $sld === '') && $layer->getSldFileName() !== '' && $layer->getSldFileName() !== null) {
                 $sld = DefaultMethods::getSldContent($this, $layer->getSldFileName());
             }
 
-            return new JsonResponse(array('success' => true, 'layerType' => $layer->getLayerType(), 'layerPosition' => $layer->getPosition(), 'sld' => $sld, 'layer_id' => $layer->getId(), 'layer_name' => $layer->getName(), 'layer_property' => json_decode($layer->getLayerProperty()), 'data' => $spatial));
+            return new JsonResponse(array('success' => true, 'layerType' => $layer->getLayerType(), 'layerPosition' => $layer->getPosition(), 'sld' => $sld, 'layer_id' => $layer->getId(), 'label_field' => $label_field, 'layer_name' => $layer->getName(), 'layer_property' => json_decode($layer->getLayerProperty()), 'data' => $spatial));
         }
         return new JsonResponse(array('success' => true, 'layer_id' => null, 'sld' => $sld, 'layerType' => null, 'layer_name' => null, 'data' => $spatial));
     }

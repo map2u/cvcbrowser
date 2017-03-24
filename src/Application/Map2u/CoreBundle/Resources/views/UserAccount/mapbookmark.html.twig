@@ -22,101 +22,74 @@
         $("div#useraccount_mapbookmark form.useraccount_mapbookmark_form .address input[type='text']").blur(function () {
 
             var address = $(this).val();
-            if (address === '') {
-                return;
-            }
-            var _this = this;
+
             var geocoder = new google.maps.Geocoder();
-            geocoder.geocode({'address': address}, function (results, status) {
-                if (status === google.maps.GeocoderStatus.OK)
-                {
-                    var pt = results[0].geometry.location;
+            if (address === '') {
 
-                    var lng = pt.lng();
-                    var lat = pt.lat();
+                var latlngStr = ol.proj.transform(ol3.map2u.map.getView().getCenter(), 'EPSG:3857', 'EPSG:4326');
+              
+                var latlng = {lat: parseFloat(latlngStr[1]), lng: parseFloat(latlngStr[0])};
 
-                    $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form input[type='hidden'][name='lat']").map(function () {
-                        $(this).val(lat);
-                    });
-                    $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form input[type='hidden'][name='lng']").map(function () {
-                        $(this).val(lng);
-                    });
-                    $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form .address input[type='text']").map(function () {
-                        $(this).val(results[0].formatted_address);
-                    });
+                geocoder.geocode({'location': latlng}, function (results, status) {
 
-                    var layers = window.map.drawnItems.getLayers();
-                    for (var i = layers.length - 1; i >= 0; i--) {
-                        if (layers[i].source !== undefined && layers[i].source === 'searchbox_query') {
-                            window.map.drawnItems.removeLayer(layers[i]);
-                        }
-                    }
+                    if (status === google.maps.GeocoderStatus.OK)
+                    {
+                        var pt = results[0].geometry.location;
 
-                    var feature = L.marker([pt.lat(), pt.lng()], {draggable: 'true'});
-                    feature.bindLabel(results[0].formatted_address);
-                    feature.id = 0;
-                    feature.name = results[0].formatted_address;
-                    feature.index = window.map.drawnItems.getLayers().length;
-                    feature.type = 'marker';
-                    feature.source = 'searchbox_query';
-                    feature.on("dragend", function (e) {
+                        var lng = pt.lng();
+                        var lat = pt.lat();
+                        latlng = ol.proj.transform([lng, lat], 'EPSG:4326', 'EPSG:3857');
 
-                        geocoder.geocode({'latLng': e.target.getLatLng()}, function (results, status) {
-                            if (status === google.maps.GeocoderStatus.OK)
-                            {
-                                var pt = results[0].geometry.location;
-
-                                var lng = pt.lng();
-                                var lat = pt.lat();
-                                window.map.removeLayer(feature.label);
-                                feature.bindLabel(results[0].formatted_address);
-                                $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form input[type='hidden'][name='lat']").map(function () {
-                                    $(this).val(lat);
-                                });
-                                $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form input[type='hidden'][name='lng']").map(function () {
-                                    $(this).val(lng);
-                                });
-                                $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form .address input[type='text']").map(function () {
-                                    $(this).val(results[0].formatted_address);
-                                });
-                            }
+                        $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form input[type='hidden'][name='lat']").map(function () {
+                            $(this).val(lat);
                         });
-                    });
-                    window.map.drawnItems.addLayer(feature);
-                    window.map.setView(pt);
-                } else {
-                    alert("The given address is not able geocoding!");
+                        $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form input[type='hidden'][name='lng']").map(function () {
+                            $(this).val(lng);
+                        });
+                        $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form .address input[type='text']").map(function () {
+                            $(this).val(results[0].formatted_address);
+                        });
+                        createSearchFeatureIcon(ol3.map2u.map, latlng[0], latlng[1], results[0].formatted_address);
 
-                }
-            });
+                        ol3.map2u.map.getView().setCenter([latlng[0], latlng[1]]);
+                    } else {
+                        alert("The given address is not able geocoding!");
 
-        });
-
-        $("div#useraccount_mapbookmark form.useraccount_mapbookmark_form button").unbind("click");
-        $("div#useraccount_mapbookmark form.useraccount_mapbookmark_form button").click(function (e) {
-            var address = $(this).parents("form").find("td.address input").val();
-            var lng = null;
-            var lat = null;
-            if (address !== '' && address !== undefined && address !== null) {
-                var geocoder = new google.maps.Geocoder();
+                    }
+                });
+            } else {
+                var _this = this;
                 geocoder.geocode({'address': address}, function (results, status) {
                     if (status === google.maps.GeocoderStatus.OK)
                     {
                         var pt = results[0].geometry.location;
-                        lng = pt.lng();
-                        lat = pt.lat();
+
+                        var lng = pt.lng();
+                        var lat = pt.lat();
+
+                        $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form input[type='hidden'][name='lat']").map(function () {
+                            $(this).val(lat);
+                        });
+                        $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form input[type='hidden'][name='lng']").map(function () {
+                            $(this).val(lng);
+                        });
+                        $("div#useraccount_mapbookmark  form.useraccount_mapbookmark_form .address input[type='text']").map(function () {
+                            $(this).val(results[0].formatted_address);
+                        });
+                        createSearchFeatureIcon(ol3.map2u.map, lng, lat, results[0].formatted_address);
+
+                        ol3.map2u.map.getView().setCenter([lng, lat]);
                     } else {
                         alert("The given address is not able geocoding!");
+
                     }
                 });
             }
-            if (lat === null || lng === null) {
-                var pt = window.map.getCenter();
-                lat = pt.lat;
-                lng = pt.lng;
-            }
-            $(this).parents("form").find("input[type='hidden'][name='lat']").val(lat);
-            $(this).parents("form").find("input[type='hidden'][name='lng']").val(lng);
+        });
+
+        $("div#useraccount_mapbookmark form.useraccount_mapbookmark_form button").unbind("click");
+        $("div#useraccount_mapbookmark form.useraccount_mapbookmark_form button").click(function (e) {
+
             var formData = new FormData($(this).parents("form")[0]);
 
             $.ajax({
@@ -139,7 +112,7 @@
                             } else {
                                 if ($("nav.juturna-main_menu li#viewingscale ul.dropdown-menu li a[data-id='" + (response.seq - 1) + "']").length === 1) {
                                     $('<li><a data-center="' + response.lat + "," + response.lng + '" data-address="' + response.address + '" data-id="' + response.seq + '" data-zoom="' + response.zoom + '" href="#">' + response.title + '</a></li>').insertAfter($("nav.juturna-main_menu li#viewingscale ul.dropdown-menu li a[data-id='" + (response.seq - 1) + "']").parent("li"));
-                                    viewingscale(window.map);
+                                    viewingscale(ol3.map2u.map);
                                 }
                             }
                         }
