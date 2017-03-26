@@ -169,16 +169,16 @@
         },
         {
             "name": "cocur/slugify",
-            "version": "v2.4",
+            "version": "v2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cocur/slugify.git",
-                "reference": "f11f22d4e60c408187c3efd8ac201c022a93cc3f"
+                "reference": "e8167e9a3236044afebd6e8ab13ebeb3ec9ca145"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cocur/slugify/zipball/f11f22d4e60c408187c3efd8ac201c022a93cc3f",
-                "reference": "f11f22d4e60c408187c3efd8ac201c022a93cc3f",
+                "url": "https://api.github.com/repos/cocur/slugify/zipball/e8167e9a3236044afebd6e8ab13ebeb3ec9ca145",
+                "reference": "e8167e9a3236044afebd6e8ab13ebeb3ec9ca145",
                 "shasum": ""
             },
             "require": {
@@ -198,7 +198,7 @@
                 "symfony/config": "~2.4|~3.0",
                 "symfony/dependency-injection": "~2.4|~3.0",
                 "symfony/http-kernel": "~2.4|~3.0",
-                "twig/twig": "~1.12",
+                "twig/twig": "~1.26|~2.0",
                 "zendframework/zend-modulemanager": "~2.2",
                 "zendframework/zend-servicemanager": "~2.2",
                 "zendframework/zend-view": "~2.2"
@@ -229,7 +229,7 @@
                 "slug",
                 "slugify"
             ],
-            "time": "2017-02-09T19:27:52+00:00"
+            "time": "2017-03-23T21:52:55+00:00"
         },
         {
             "name": "creof/doctrine2-spatial",
@@ -2497,16 +2497,16 @@
         },
         {
             "name": "jms/serializer",
-            "version": "1.5.0",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/serializer.git",
-                "reference": "9dc44f2924a90bf526a2e1c4bb1ce9d772a00a45"
+                "reference": "5e9008cbb0bac2986979d905a87ae48efcf578c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/serializer/zipball/9dc44f2924a90bf526a2e1c4bb1ce9d772a00a45",
-                "reference": "9dc44f2924a90bf526a2e1c4bb1ce9d772a00a45",
+                "url": "https://api.github.com/repos/schmittjoh/serializer/zipball/5e9008cbb0bac2986979d905a87ae48efcf578c4",
+                "reference": "5e9008cbb0bac2986979d905a87ae48efcf578c4",
                 "shasum": ""
             },
             "require": {
@@ -2519,6 +2519,7 @@
                 "phpoption/phpoption": "^1.1"
             },
             "conflict": {
+                "jms/serializer-bundle": "<1.2.1",
                 "twig/twig": "<1.12"
             },
             "require-dev": {
@@ -2537,12 +2538,14 @@
                 "twig/twig": "~1.12|~2.0"
             },
             "suggest": {
+                "doctrine/cache": "Required if you like to use cache functionality.",
+                "doctrine/collections": "Required if you like to use doctrine collection types as ArrayCollection.",
                 "symfony/yaml": "Required if you'd like to serialize data to YAML format."
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.5-dev"
+                    "dev-master": "1.6-dev"
                 }
             },
             "autoload": {
@@ -2569,7 +2572,7 @@
                 "serialization",
                 "xml"
             ],
-            "time": "2017-02-14T14:35:22+00:00"
+            "time": "2017-03-24T13:11:23+00:00"
         },
         {
             "name": "jms/serializer-bundle",
@@ -3375,7 +3378,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.map2u.com/git/Map2uCoreBundle.git",
-                "reference": "da945bc94356dcd51f4b65356094b43026172a96"
+                "reference": "f7fece301835a87d04eebe3290de0841d711308a"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -3401,7 +3404,7 @@
             "keywords": [
                 "Map2u CoreBundle,Symfony 2"
             ],
-            "time": "2017-03-23 16:34:52"
+            "time": "2017-03-24 19:08:24"
         },
         {
             "name": "map2u/dashboard-bundle",
@@ -5116,12 +5119,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/ecommerce.git",
-                "reference": "6f72589bcf6a3737ccd5c7a9e457305ca81e1dcd"
+                "reference": "9d799abd51dadab61e7fda8d18f1d9df41b3d234"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/ecommerce/zipball/6f72589bcf6a3737ccd5c7a9e457305ca81e1dcd",
-                "reference": "6f72589bcf6a3737ccd5c7a9e457305ca81e1dcd",
+                "url": "https://api.github.com/repos/sonata-project/ecommerce/zipball/9d799abd51dadab61e7fda8d18f1d9df41b3d234",
+                "reference": "9d799abd51dadab61e7fda8d18f1d9df41b3d234",
                 "shasum": ""
             },
             "require": {
@@ -5196,7 +5199,7 @@
                 }
             ],
             "description": "E-Commerce solution provided by Sonata",
-            "time": "2017-03-23 01:00:12"
+            "time": "2017-03-24 01:00:11"
         },
         {
             "name": "sonata-project/exporter",

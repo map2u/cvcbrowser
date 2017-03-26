@@ -139,6 +139,7 @@ class LayerController extends BaseController {
         if ($layer) {
             if ($layer->getLayerType() === 'spatialfile' || $layer->getLayerType() === 'cluster') {
                 $spatial = $this->getLayerSpatialfile($layer);
+            // var_dump(  mb_convert_encoding($spatial['spatial'], 'UTF-8'));
             }
             if ($layer->getLayerType() === 'geoserver') {
                 $layerproperty = json_decode($layer->getLayerProperty());

@@ -779,7 +779,9 @@
 
                             ol3.map2u.map.addLayer(hotpointLayer);
 
-                            hotpointLayer.setStyle(app.map2u.setFeatureStyle);
+                            hotpointLayer.setStyle(function (feature, resolution) {
+                               return app.map2u.setFeatureStyle(feature, resolution, hotpointLayer);
+                            });
 
                             ol3.map2u.overlays[id] = hotpointLayer;
 
@@ -801,7 +803,7 @@
                                 });
                                 var features = new ol.format.TopoJSON().readFeatures(response.data.spatial, {dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857'});
 
-                               
+
                                 var vectorSource = new ol.source.Vector({});
                                 vectorSource.addFeatures(features);
                                 var hotpointLayer;
@@ -810,7 +812,7 @@
                                         distance: parseInt(50, 10),
                                         source: vectorSource
                                     });
-                                    hotpointLayer = new ol.layer.Vector({source: clusterSource, name: response.layer_name,style: app.map2u.setFeatureStyle});
+                                    hotpointLayer = new ol.layer.Vector({id: id,source: clusterSource, name: response.layer_name, style: app.map2u.setFeatureStyle});
 
                                     hotpointLayer.id = id;
                                     hotpointLayer.sld = response.sld;
@@ -820,17 +822,19 @@
                                     //   alert(JSON.stringify(response.sld));
 
 
-                                    hotpointLayer = new ol.layer.Vector({source: vectorSource,name: response.layer_name, sld: response.sld});
+                                    hotpointLayer = new ol.layer.Vector({id: id,source: vectorSource, name: response.layer_name, sld: response.sld});
                                     hotpointLayer.id = id;
                                     hotpointLayer.sld = response.sld;
                                 }
 
-                                hotpointLayer.setStyle(app.map2u.setFeatureStyle);
+                                hotpointLayer.setStyle(function (feature, resolution) {
+                                   return app.map2u.setFeatureStyle(feature, resolution, hotpointLayer);
+                                });
                                 ol3.map2u.map.addLayer(hotpointLayer);
                                 //   ol3.map2u.map.addOverlay(hotpointLayer);
                                 ol3.map2u.overlays[id] = hotpointLayer;
                                 //    alert("length=" + features.length);
-                                collection = topojson.feature(response.data.spatial, response.data.spatial.objects[key]);
+                           //     collection = topojson.feature(response.data.spatial, response.data.spatial.objects[key]);
                                 // this time, we'll load vector tiles from openstreetmap
                                 // in the topojson format
 
