@@ -6,5 +6,10 @@ app/logs/*
 vendor/
 app/config/parameters.yml
 output/*
+Data/uploads/spatialfiles/spatial_f70f04f2_2c66_40ee_9634_b9fad997a37e/spatial_f70f04f2_2c66_40ee_9634_b9fad997a37e.geojson
+Data/uploads/1/shapefile/u22_Impervious_Surfaces_20140924.shp
+Data/uploads/spatialfiles/spatial_9fc67982_5af4_4ee3_9dad_fff8b6e6f742/spatial_9fc67982_5af4_4ee3_9dad_fff8b6e6f742.geojson
+Data/uploads/spatialfiles/spatial_d2488114_ffac_4810_992a_120351cbcd80/spatial_d2488114_ffac_4810_992a_120351cbcd80.geojson
+cvcbrowser3.sql
 Data
 nbproject/*
