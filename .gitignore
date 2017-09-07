@@ -6,4 +6,5 @@ app/logs/*
 vendor/
 app/config/parameters.yml
 output/*
+Data/*
 nbproject/*
