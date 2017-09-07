@@ -6,212 +6,219 @@
             <li class="active">
                 <input type="radio" name="basemap" checked layer-name="openstreetmap" ><label>Open Street Map</label>
             </li>
-            <li>
-                <input type="radio"  name="basemap" layer-name="opentransportmap"><label>Open Transport Map</label>
-            </li>
-            <li>
-                <input type="radio"  name="basemap" layer-name="opencyclemap"><label>Open Cycle Map</label>
-            </li>
-            <li>
-                <input type="radio"  name="basemap" layer-name="openseamap"><label>Open Sea Map</label>
-            </li>
-            <li><input type="radio"  name="basemap" layer-name="gmap_road"><label>Google Road Map</label>
-            </li>
-            <li><input type="radio"  name="basemap" layer-name="gmap_satellite"><label>Google Satellite</label>
-            </li>
-            <li><input type="radio"  name="basemap" layer-name="gmap_hybrid"><label>Google Hybrid</label>
-            </li>
-            <li><input type="radio"  name="basemap" layer-name="gmap_terrain"><label>Google Terrain</label>
-            </li>
+            {# <li>
+                 <input type="radio"  name="basemap" layer-name="opentransportmap"><label>Open Transport Map</label>
+             </li>
+             <li>
+                 <input type="radio"  name="basemap" layer-name="opencyclemap"><label>Open Cycle Map</label>
+             </li>
+             <li>
+                 <input type="radio"  name="basemap" layer-name="openseamap"><label>Open Sea Map</label>
+             </li>
+             <li><input type="radio"  name="basemap" layer-name="gmap_road"><label>Google Road Map</label>
+             </li>
+             <li><input type="radio"  name="basemap" layer-name="gmap_satellite"><label>Google Satellite</label>
+             </li>
+             <li><input type="radio"  name="basemap" layer-name="gmap_hybrid"><label>Google Hybrid</label>
+             </li>
+             <li><input type="radio"  name="basemap" layer-name="gmap_terrain"><label>Google Terrain</label>
+             </li>#}
         </ul>
     </div>
     <div id="ol3-map-layers-overlays-list-title" style='border-bottom: 1px dotted gainsboro;'>
         <h4><i class="ol3-map-layers-list-icon fa fa-minus blue overlays" ></i>Overlays
             {% if app.user %}
-                <div class="overlayers_btn pull-right" title="Save Layers Sequence" id="overlayers_index_save"><i class="fa fa-save"></i>
-                </div>
-                <div class="overlayers_btn pull-right" title="Load Saved Layers Sequence" id="overlayers_index_load"><i class="fa fa-cog"></i>
+                <div class="overlayers_btn pull-right">
+                    <div style="display: inline-block;" title="Save Layers Sequence" id="overlayers_index_save"><i class="fa fa-save"></i>
+                    </div>
+                    <div  style="display: inline-block;" title="Load Saved Layers Sequence" id="overlayers_index_load"><i class="fa fa-cog"></i>
+                    </div>
                 </div>
             {% endif %}
         </h4>
     </div>
     <div  id="ol3-map-layers-overlays-list">
+        <ul class="overlay_ul" style="list-style: none;padding-left: 10px;">
+            {% if layerCategories is defined and layerCategories | length > 0 %}
+                {% for layerCategory in layerCategories %}
+                    {% if layerCategory.hasChildren() or  layerCategory.getLayers() | length >0 %}
+                        <li class="layercategory" data-type="category" data-level="1" data-id="{{layerCategory.id}}" 
+                            data-multiple="{{layerCategory.multiple}}">
+                            <input type="checkbox" data-level='1'/>
+                            <div class="layer_legend_icon">
 
-        {% if layerCategories is defined and layerCategories | length > 0 %}
-            {% for layerCategory in layerCategories %}
-                {% if layerCategory.hasChildren() or  layerCategory.getLayers() | length >0 %}
-                    <li class="layercategory" data-id="{{layerCategory.id}}" 
-                        data-multiple="{{layerCategory.multiple}}">
-                        <input type="checkbox" data-level='1'/>
-                        <div class="layer_legend_icon">
+                                <i class="fa fa-minus blue"></i>
+                            </div>
+                            <div style="display: inline-block;" class="layername_label group_layername_label">
+                                <label class="layercategory" data-level="1">{{layerCategory.name|upper}}
+                                    <span data-id="{{layerCategory.id}}" class="layercategory-action pull-right">
 
-                            <i class="fa fa-minus blue"></i>
-                        </div>
-                        <label>{{layerCategory.name|upper}}
-                            <span data-id="{{layerCategory.id}}" class="layercategory-action pull-right">
+                                        <div class="layer_action_icon">
+                                            <i class="fa fa-arrow-down lightBlue"  title="Move this group down"></i>
+                                            <i class="fa fa-arrow-up lightBlue"   title="Move this group up"></i>
+                                            <i class="fa fa-times red "   title="Remove this group from map"></i>
+                                        </div>
+                                    </span>
+                                </label>
+                            </div>
+                            <ul class="layercategory_ul"  data-type="category" data-id="{{layerCategory.id}}">
+                                {% if layerCategory.hasChildren() %}
+                                    {% for childLayerCategory in layerCategory.getChildren() %}
 
-                                <div class="layer_action_icon">
-                                    <i class="fa fa-arrow-down lightBlue"  title="Move this group down"></i>
-                                    <i class="fa fa-arrow-up lightBlue"   title="Move this group up"></i>
-                                </div>
-                            </span>
-                        </label>
-                        <ul class="layercategory_ul">
-                            {% if layerCategory.hasChildren() %}
-                                {% for childLayerCategory in layerCategory.getChildren() %}
+                                        {% if  childLayerCategory.getLayers()|length > 0 %}
+                                            <li style="border-bottom: 1px dotted grey;"  data-type="category"  data-level="2" 
+                                                class="layercategory" data-category="true" data-id=
+                                                "{{childLayerCategory.id}}" data-layertype=""
+                                                data-multiple="{{childLayerCategory.multiple}}">
+                                                {% if layerCategory.multiple == true %}
+                                                    <input data-id="{{childLayerCategory.id}}" data-level='2' data-multiple="{{childLayerCategory.multiple}}"
+                                                           name="{{childLayerCategory.name}}" type="checkbox" />
+                                                {% else %}
+                                                    <input data-id="{{childLayerCategory.id}}" data-level='2' data-multiple="{{childLayerCategory.multiple}}"
+                                                           name="{{layerCategory.name}}" type="radio" />
+                                                {% endif %}
+                                                <div class="layer_legend_icon">
+                                                    <i class="fa fa-minus blue"></i>
+                                                </div>
+                                                <div style="display: inline-block;" class="layername_label group_layername_label">
+                                                    <label  class="layercategory" data-level="2">{{childLayerCategory.name|upper}}
+                                                        <span data-id="{{childLayerCategory.id}}" class="layercategory-action pull-right">
 
-                                    {% if  childLayerCategory.getLayers()|length > 0 %}
-                                        <li style="border-bottom: 1px dotted grey;" 
-                                            class="layercategory" data-category="true" data-id=
-                                            "{{childLayerCategory.id}}" data-layertype=""
-                                            data-multiple="{{childLayerCategory.multiple}}">
-                                            {% if layerCategory.multiple == true %}
-                                                <input data-id="{{childLayerCategory.id}}" data-level='2' data-multiple="{{childLayerCategory.multiple}}"
-                                                       name="{{childLayerCategory.name}}" type="checkbox" />
-                                            {% else %}
-                                                <input data-id="{{childLayerCategory.id}}" data-level='2' data-multiple="{{childLayerCategory.multiple}}"
-                                                       name="{{layerCategory.name}}" type="radio" />
-                                            {% endif %}
-                                            <div class="layer_legend_icon">
-                                                <i class="fa fa-minus blue"></i>
-                                            </div>
-                                            <div style="display: inline-block;" class="group_layername_label">
-                                                <label>{{childLayerCategory.name|upper}}
-                                                    <span data-id="{{childLayerCategory.id}}" class="layercategory-action pull-right">
+                                                            <div class="layer_action_icon">
+                                                                <i class="fa fa-arrow-down lightBlue"  title="Move this group down"></i>
+                                                                <i class="fa fa-arrow-up lightBlue"   title="Move this group up"></i>
+                                                                <i class="fa fa-times red "   title="Remove this group from map"></i>
+                                                            </div>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                {% if  childLayerCategory.getLayers()|length > 0 %}
+                                                    <ul  class="group_overlay_lilayersubcategory_ul"  data-type="layer"  data-id="{{childLayerCategory.id}}">
 
+                                                        {% for layer in childLayerCategory.getLayers() %}
+                                                            {% if layer.enabled == true %}
+                                                                <li style="border-bottom: 1px dotted grey;"  data-type="layer"  data-level="3" 
+                                                                    class="overlay_li" data-category="true" data-id=
+                                                                    "{{layer.id}}" data-position="{{layer.position}}" data-image_layer="{{layer.imageLayer}}" data-show_label="{{layer.showLabel}}"  data-label_field="{{layer.labelField}}" data-layertype="{{layer.layerType}}"
+                                                                    data-layer-id="{{layer.id}}">
+                                                                    {% if childLayerCategory.multiple == true %}
+                                                                        <input data-id="{{layer.id}}"  data-level='3' data-multiple="true"
+                                                                               name="{{layer.name}}" {% if layer.defaultShowOnMap %} data-show="on" {% endif %} type="checkbox" />
+                                                                    {% else %}
+                                                                        <input data-id="{{layer.id}}"  data-level='3' data-multiple="true"
+                                                                               name="{{childLayerCategory.name}}" {% if layer.defaultShowOnMap %} data-show="on" {% endif %} type="radio" />
+                                                                    {% endif %}
+                                                                    <div class="layer_legend_icon">
+                                                                        <i class="fa fa-plus blue"></i>
+
+                                                                    </div>
+
+                                                                    <div style="display: inline-block;" class="subgroup_layername_label layername_label">
+                                                                        <label>{{layer.name|title}}</label>
+                                                                        <span data-id="{{layer.id}}" class="layer-action pull-right">
+                                                                            <div class="layer_action_icon">
+                                                                                <i class="fa fa-map-marker lightBlue"  title="Zoom to this layer's extent"></i>
+                                                                                <i class="fa fa-pencil lightBlue"  title="Edit this layer feature style"></i>
+                                                                                <i class="fa fa-list lightBlue"   title="View this layer detail info"></i>
+                                                                                <i class="fa fa-tag lightBlue"   title="Show/Hide feature label"></i>
+                                                                                <i class="fa fa-times red "   title="Remove this layer from map"></i>
+                                                                                <i class="fa fa-arrow-down lightBlue"  title="Move this layer down"></i>
+                                                                                <i class="fa fa-arrow-up lightBlue"   title="Move this layer up"></i>
+                                                                            </div>
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="layer_legend">
+                                                                    </div>
+                                                                </li>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </ul>
+                                                {% endif %}
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                                {% if  layerCategory.getLayers()|length > 0 %}
+                                    {% for layer in layerCategory.getLayers() %}
+                                        {% if layer.enabled == true %}
+
+                                            <li style="border-bottom: 1px dotted grey;"  data-type="layer" data-level="2" 
+                                                class="overlay_li" data-category="true" data-id=
+                                                "{{layer.id}}" data-position="{{layer.position}}"  data-image_layer="{{layer.imageLayer}}" data-show_label="{{layer.showLabel}}"  data-label_field="{{layer.labelField}}" data-layertype="{{layer.layerType}}"
+                                                data-layer_id="{{layer.id}}">
+
+                                                {% if layerCategory.multiple == true %}
+                                                    <input data-id="{{layer.id}}" data-level='2' data-multiple="true"
+                                                           name="{{layer.name}}" {% if layer.defaultShowOnMap %} data-show="on" {% endif %} type="checkbox" />
+                                                {% else %}
+                                                    <input data-id="{{layer.id}}" data-level='2' data-multiple="false"
+                                                           name="{{layerCategory.name}}" {% if layer.defaultShowOnMap %} data-show="on" {% endif %} type="radio" />
+                                                {% endif %}
+                                                <div class="layer_legend_icon">
+                                                    <i class="fa fa-plus blue"></i>
+                                                </div>
+
+                                                <div style="display: inline-block;" class="group_layername_label layername_label">
+                                                    <label>{{layer.name|title}}</label>
+                                                    <span data-id="{{layer.id}}" class="layer-action pull-right">
                                                         <div class="layer_action_icon">
-                                                            <i class="fa fa-arrow-down lightBlue"  title="Move this group down"></i>
-                                                            <i class="fa fa-arrow-up lightBlue"   title="Move this group up"></i>
+                                                            <i class="fa fa-map-marker lightBlue"  title="Zoom to this layer's extent"></i>
+                                                            <i class="fa fa-pencil lightBlue"  title="Edit this layer feature style"></i>
+                                                            <i class="fa fa-list lightBlue"   title="View this layer detail info"></i>
+                                                            <i class="fa fa-tag lightBlue"   title="Show/Hide feature label"></i>
+                                                            <i class="fa fa-times red "   title="Remove this layer from map"></i>
+                                                            <i class="fa fa-arrow-down lightBlue"  title="Move this layer down"></i>
+                                                            <i class="fa fa-arrow-up lightBlue"   title="Move this layer up"></i>
                                                         </div>
                                                     </span>
-                                                </label>
-                                            </div>
-                                            {% if  childLayerCategory.getLayers()|length > 0 %}
-                                                <ul  class="group_overlay_lilayersubcategory_ul">
+                                                </div>
+                                                <div class="layer_legend">
+                                                </div>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            {% if layers is defined and layers|length > 0 %}
+                {% for layer in layers %}
+                    {% if layer.enabled == true %}
 
-                                                    {% for layer in childLayerCategory.getLayers() %}
-                                                        {% if layer.enabled == true %}
-                                                            <li style="border-bottom: 1px dotted grey;"
-                                                                class="overlay_li" data-category="true" data-id=
-                                                                "{{layer.id}}" data-position="{{layer.position}}"  data-show-label="{{layer.showLabel}}"  data-label-field="{{layer.labelField}}" data-layertype="{{layer.layerType}}"
-                                                                data-layer-id="{{layer.id}}">
-                                                                {% if childLayerCategory.multiple == true %}
-                                                                    <input data-id="{{layer.id}}"  data-level='3' data-multiple="true"
-                                                                           name="{{layer.name}}" {% if layer.defaultShowOnMap %} data-show="on" {% endif %} type="checkbox" />
-                                                                {% else %}
-                                                                    <input data-id="{{layer.id}}"  data-level='3' data-multiple="true"
-                                                                           name="{{childLayerCategory.name}}" {% if layer.defaultShowOnMap %} data-show="on" {% endif %} type="radio" />
-                                                                {% endif %}
-                                                                <div class="layer_legend_icon">
-                                                                    <i class="fa fa-plus blue"></i>
+                        <li style="border-bottom: 1px dotted grey;"  data-type="layer" data-level="1" 
+                            class="overlay_li" data-category="true" data-id=
+                            "{{layer.id}}" data-position="{{layer.position}}"  data-image_layer="{{layer.imageLayer}}"  data-show_label="{{layer.showLabel}}"  data-label_field="{{layer.labelField}}"  data-layertype="{{layer.layerType}}" {% if layer.layerType == 'geoserver' and layer.layerProperty %} data-hostname="{{(layer.layerProperty|json_decode).wmsHostName}}" data-layername="{{ (layer.layerProperty|json_decode).wmsLayerName}}"  {% endif %}
+                            data-layer_id="{{layer.id}}">
 
-                                                                </div>
+                            <input data-id="{{layer.id}}" data-level='1' data-multiple="true"
+                                   name="{{layer.name}}" {% if layer.defaultShowOnMap %} data-show="on" {% endif %} type="checkbox" />
+                            <div class="layer_legend_icon">
+                                <i class="fa fa-plus blue"></i>
+                            </div>
 
-                                                                <div style="display: inline-block;" class="subgroup_layername_label layername_label">
-                                                                    <label>{{layer.name|title}}</label>
-                                                                    <span data-id="{{layer.id}}" class="layer-action pull-right">
-                                                                        <div class="layer_action_icon">
-                                                                            <i class="fa fa-map-marker lightBlue"  title="Zoom to this layer's extent"></i>
-                                                                            <i class="fa fa-pencil lightBlue"  title="Edit this layer feature style"></i>
-                                                                            <i class="fa fa-arrow-down lightBlue"  title="Move this layer down"></i>
-                                                                            <i class="fa fa-arrow-up lightBlue"   title="Move this layer up"></i>
-                                                                            <i class="fa fa-list lightBlue"   title="View this layer detail info"></i>
-                                                                            <i class="fa fa-tag lightBlue"   title="Show/Hide feature label"></i>
-                                                                            <i class="fa fa-trash red pull-right"   title="Delete this layer from map"></i>
-                                                                        </div>
-                                                                    </span>
-                                                                </div>
-                                                                <div class="layer_legend">
-                                                                </div>
-                                                            </li>
-                                                        {% endif %}
-                                                    {% endfor %}
-                                                </ul>
-                                            {% endif %}
-                                        </li>
-                                    {% endif %}
-                                {% endfor %}
-                            {% endif %}
-                            {% if  layerCategory.getLayers()|length > 0 %}
-                                {% for layer in layerCategory.getLayers() %}
-                                    {% if layer.enabled == true %}
-
-                                        <li style="border-bottom: 1px dotted grey;" 
-                                            class="overlay_li" data-category="true" data-id=
-                                            "{{layer.id}}" data-position="{{layer.position}}" data-show-label="{{layer.showLabel}}"  data-label-field="{{layer.labelField}}" data-layertype="{{layer.layerType}}"
-                                            data-layer-id="{{layer.id}}">
-
-                                            {% if layerCategory.multiple == true %}
-                                                <input data-id="{{layer.id}}" data-level='2' data-multiple="true"
-                                                       name="{{layer.name}}" {% if layer.defaultShowOnMap %} data-show="on" {% endif %} type="checkbox" />
-                                            {% else %}
-                                                <input data-id="{{layer.id}}" data-level='2' data-multiple="false"
-                                                       name="{{layerCategory.name}}" {% if layer.defaultShowOnMap %} data-show="on" {% endif %} type="radio" />
-                                            {% endif %}
-                                            <div class="layer_legend_icon">
-                                                <i class="fa fa-plus blue"></i>
-                                            </div>
-
-                                            <div style="display: inline-block;" class="group_layername_label layername_label">
-                                                <label>{{layer.name|title}}</label>
-                                                <span data-id="{{layer.id}}" class="layer-action pull-right">
-                                                    <div class="layer_action_icon">
-                                                        <i class="fa fa-map-marker lightBlue"  title="Zoom to this layer's extent"></i>
-                                                        <i class="fa fa-pencil lightBlue"  title="Edit this layer feature style"></i>
-                                                        <i class="fa fa-arrow-down lightBlue"  title="Move this layer down"></i>
-                                                        <i class="fa fa-arrow-up lightBlue"   title="Move this layer up"></i>
-                                                        <i class="fa fa-list lightBlue"   title="View this layer detail info"></i>
-                                                        <i class="fa fa-tag lightBlue"   title="Show/Hide feature label"></i>
-                                                        <i class="fa fa-trash red pull-right"   title="Delete this layer from map"></i>
-                                                    </div>
-                                                </span>
-                                            </div>
-                                            <div class="layer_legend">
-                                            </div>
-                                        </li>
-                                    {% endif %}
-                                {% endfor %}
-                            {% endif %}
-                        </ul>
-                    </li>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-        {% if layers is defined and layers|length > 0 %}
-            {% for layer in layers %}
-                {% if layer.enabled == true %}
-
-                    <li style="border-bottom: 1px dotted grey;" 
-                        class="overlay_li" data-category="true" data-id=
-                        "{{layer.id}}" data-position="{{layer.position}}"  data-show-label="{{layer.showLabel}}"  data-label-field="{{layer.labelField}}"  data-layertype="{{layer.layerType}}" {% if layer.layerType == 'geoserver' and layer.layerProperty %} data-hostname="{{(layer.layerProperty|json_decode).wmsHostName}}" data-layername="{{ (layer.layerProperty|json_decode).wmsLayerName}}"  {% endif %}
-                        data-layer-id="{{layer.id}}">
-
-                        <input data-id="{{layer.id}}" data-level='1' data-multiple="true"
-                               name="{{layer.name}}" {% if layer.defaultShowOnMap %} data-show="on" {% endif %} type="checkbox" />
-                        <div class="layer_legend_icon">
-                            <i class="fa fa-plus blue"></i>
-                        </div>
-
-                        <div style="display: inline-block;" class="layername_label">
-                            <label>{{layer.name|title}}</label>
-                            <span data-id="{{layer.id}}" class="layer-action pull-right">
-                                <div class="layer_action_icon">
-                                    <i class="fa fa-map-marker lightBlue"  title="Zoom to this layer's extent"></i>
-                                    <i class="fa fa-pencil lightBlue"  title="Edit this layer feature style"></i>
-                                    <i class="fa fa-arrow-down lightBlue"  title="Move this layer down"></i>
-                                    <i class="fa fa-arrow-up lightBlue"   title="Move this layer up"></i>
-                                    <i class="fa fa-list lightBlue"   title="View this layer detail info"></i>
-                                    <i class="fa fa-tag lightBlue"   title="Show/Hide feature label"></i>
-                                    <i class="fa fa-trash red pull-right"   title="Delete this layer from map"></i>
-                                </div>
-                            </span>
-                        </div>
-                        <div class="layer_legend">
-                        </div>
-                    </li>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
+                            <div style="display: inline-block;" class="layername_label">
+                                <label>{{layer.name|title}}</label>
+                                <span data-id="{{layer.id}}" class="layer-action pull-right">
+                                    <div class="layer_action_icon">
+                                        <i class="fa fa-map-marker lightBlue"  title="Zoom to this layer's extent"></i>
+                                        <i class="fa fa-pencil lightBlue"  title="Edit this layer feature style"></i>
+                                        <i class="fa fa-list lightBlue"   title="View this layer detail info"></i>
+                                        <i class="fa fa-tag lightBlue"   title="Show/Hide feature label"></i>
+                                        <i class="fa fa-times red "   title="Remove this layer from map"></i>
+                                        <i class="fa fa-arrow-down lightBlue"  title="Move this layer down"></i>
+                                        <i class="fa fa-arrow-up lightBlue"   title="Move this layer up"></i>
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="layer_legend">
+                            </div>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </ul>
     </div>
 </div>
 
@@ -256,56 +263,7 @@
 
             $("#ol3-map-layers-list h4 .basemap-name").html("--   " + $(this).closest("li").find("label").html());
         });
-        $("li.layercategory div.layer_legend_icon").unbind("click");
-        $("li.layercategory div.layer_legend_icon").click(function () {
 
-            if ($(this).find("i").hasClass('fa-plus')) {
-                $(this).find("i").removeClass('fa-plus').addClass('fa-minus');
-                $(this).parent("li").find("ul:first").show();
-            } else {
-                $(this).find("i").removeClass('fa-minus').addClass('fa-plus');
-                $(this).parent("li").find("ul:first").hide();
-            }
-        });
-        $("li.overlay_li div.layer_action_icon i").unbind("click");
-        $("li.overlay_li div.layer_action_icon i").click(function () {
-            var id = $(this).closest("li").data("id");
-            if ($(this).hasClass("fa-map-marker")) {
-                var layers = ol3.map2u.map.getLayers();
-                layers.forEach(function (layer) {
-                    if (layer.id === id || layer.get('id') === id) {
-
-                        ol3.map2u.map.getView().fit(layer.getSource().getExtent(), ol3.map2u.map.getSize());
-                    }
-                });
-            }
-        });
-        $("li.layercategory input[type='checkbox'],li.layercategory input[type='radio']").unbind("click");
-        $("li.layercategory input[type='checkbox'],li.layercategory input[type='radio']").click(function () {
-
-            layerCategoryClickEvent(this);
-        });
-
-        $('#ol3-map-layers-overlays-list li.overlay_li .layer_action_icon i.fa-arrow-up').unbind('click');
-        $('#ol3-map-layers-overlays-list li.overlay_li .layer_action_icon i.fa-arrow-up').on('click', function () {
-            var selected = $(this).closest("li.overlay_li");
-            if ($(selected).prev().length === 1)
-            {
-                $(selected).insertBefore($(selected).prev());
-            }
-            reorderLayer();
-            layerActionButtonsCheck();
-        });
-        $('#ol3-map-layers-overlays-list li.overlay_li .layer_action_icon i.fa-arrow-down').unbind('click');
-        $('#ol3-map-layers-overlays-list li.overlay_li .layer_action_icon i.fa-arrow-down').on('click', function () {
-            var selected = $(this).closest("li.overlay_li");
-            if ($(selected).next().length === 1)
-            {
-                $(selected).insertAfter($(selected).next());
-            }
-            reorderLayer();
-            layerActionButtonsCheck();
-        });
 
         $("#ol3-map-layers-list i.ol3-map-layers-list-icon").unbind("click");
         $("#ol3-map-layers-list i.ol3-map-layers-list-icon").click(function () {
@@ -329,65 +287,59 @@
                 }
             }
         });
-        $("li.overlay_li div.layer_legend_icon").unbind("click");
-        $("li.overlay_li div.layer_legend_icon").click(function () {
 
-            var id = $(this).parent("li").data("id");
-            var layerType = $(this).parent("li").data("layertype");
-            //  alert($(this).find("i").hasClass("fa-minus"));
-            //    alert("li.overlay_li div.layer_legend_icon=" + id);
-            if ($(this).find("i").hasClass("fa-plus"))
-            {
-                //   alert($(this).parent("li").find('div.layer_legend').length);
-                //   alert($(this).parent("li").find('div.layer_legend').html() === '');
-                if ($(this).parent("li").find('div.layer_legend').length !== 0) {
-                    if ($(this).parent("li").find('div.layer_legend').html().trim() === '') {
-                        if (layerType === 'geoserver') {
-                            var hostName = $(this).parent("li").data("hostname");
-                            var layerName = $(this).parent("li").data("layername");
-                            if (hostName.length > 1 && layerName.length > 1) {
-                                //      alert(hostName + " " + layerName);
-                                createWMSLegend($(this).parent("li").find('div.layer_legend'), hostName, layerName);
-                            }
-                        } else {
-                            loadLayerLegend($(this).parent("li").find('div.layer_legend'), id);
+
+
+        function layerListInputButtonActions() {
+
+            $("li.overlay_li > input[type='checkbox'],li.overlay_li > input[type='radio']").unbind("click");
+            $("li.overlay_li > input[type='checkbox'],li.overlay_li > input[type='radio']").click(function () {
+                var id = $(this).parent("li").data("id");
+                var type = $(this).attr('type');
+                var checked = $(this).is(":checked");
+                var layertype = $(this).parent("li").data("layertype");
+                var position = $(this).parent("li").data("position");
+                var level = $(this).data("level");
+                var layers = [];
+                var off_layers = [];
+                if (parseInt(level) > 1 && $(this).parent('li').parent('ul').parent("li").find("input[data-level='" + (level - 1) + "']").is(":checked") === false) {
+                    $(this).parent('li').parent('ul').parent("li").find("input[data-level='" + (level - 1) + "']").prop("checked", true);
+                    if (parseInt($(this).parent('li').parent('ul').parent("li").find("input[data-level='" + (level - 1) + "']").data('level')) > 1) {
+                        var levelItem = $(this).parent('li').parent('ul').parent("li").find("input[data-level='" + (level - 1) + "']");
+                        if ($(levelItem).parent('li').parent('ul').parent("li").find("input[data-level='" + (level - 2) + "']").is(":checked") === false) {
+                            $(levelItem).parent('li').parent('ul').parent("li").find("input[data-level='" + (level - 2) + "']").prop("checked", true);
                         }
-                    } else {
-                        $(this).parent("li").find('div.layer_legend').show();
                     }
-                }
-                $(this).find("i").removeClass("fa-plus").addClass("fa-minus");
-            } else {
-                $(this).parent("li").find('div.layer_legend').hide();
-                $(this).find("i").removeClass("fa-minus").addClass("fa-plus");
-            }
-        });
-        $("li.overlay_li input[type='checkbox'],li.overlay_li input[type='radio']").unbind("click");
-        $("li.overlay_li input[type='checkbox'],li.overlay_li input[type='radio']").click(function () {
-            var id = $(this).parent("li").data("id");
-            var type = $(this).attr('type');
-            var checked = $(this).is(":checked");
-            var layertype = $(this).parent("li").data("layertype");
-            var position = $(this).parent("li").data("position");
-            var level = $(this).data("level");
-            var layers = [];
-            var off_layers = [];
-            if (parseInt(level) > 1 && $(this).parent('li').parent('ul').parent("li").find("input[data-level='" + (level - 1) + "']").is(":checked") === false) {
-                $(this).parent('li').parent('ul').parent("li").find("input[data-level='" + (level - 1) + "']").prop("checked", true);
-                if (parseInt($(this).parent('li').parent('ul').parent("li").find("input[data-level='" + (level - 1) + "']").data('level')) > 1) {
-                    var levelItem = $(this).parent('li').parent('ul').parent("li").find("input[data-level='" + (level - 1) + "']");
-                    if ($(levelItem).parent('li').parent('ul').parent("li").find("input[data-level='" + (level - 2) + "']").is(":checked") === false) {
-                        $(levelItem).parent('li').parent('ul').parent("li").find("input[data-level='" + (level - 2) + "']").prop("checked", true);
+
+                    if ($(this).parent('li').parent('ul').parent("li").find("input[data-level='" + (level - 1) + "']").attr('type') === 'radio') {
+                        var name = $(this).parent('li').parent('ul').parent("li").find("input[data-level='" + (level - 1) + "']").attr('name');
+                        var layer = $(this).parent('li').parent('ul').parent("li").find("input[data-level='" + (level - 1) + "']");
+                        $(this).parent('li').parent('ul').parent('li').parent('ul').find("li input[name='" + name + "']").map(function () {
+
+                            if ($(layer).data("id") !== $(this).data("id")) {
+                                //if not selected layer, uncheck and remove layer from map
+                                $(this).prop("checked", false);
+                                if ($(this).parent("li").hasClass('overlay_li')) {
+                                    off_layers.push($(this).data("id"));
+                                } else {
+                                    $(this).parent("li").find("ul li.overlay_li input").map(function () {
+                                        $(this).prop("checked", false);
+                                        off_layers.push($(this).data("id"));
+                                    });
+                                }
+                            }
+                        });
                     }
                 }
 
-                if ($(this).parent('li').parent('ul').parent("li").find("input[data-level='" + (level - 1) + "']").attr('type') === 'radio') {
-                    var name = $(this).parent('li').parent('ul').parent("li").find("input[data-level='" + (level - 1) + "']").attr('name');
-                    var layer = $(this).parent('li').parent('ul').parent("li").find("input[data-level='" + (level - 1) + "']");
-                    $(this).parent('li').parent('ul').parent('li').parent('ul').find("li input[name='" + name + "']").map(function () {
+                if (type === 'radio' && parseInt(level) > 1) {
+
+                    var name = $(this).attr('name');
+                    var layer = this;
+                    $(this).parent('li').parent('ul').find("li input[name='" + name + "']").map(function () {
 
                         if ($(layer).data("id") !== $(this).data("id")) {
-                            //if not selected layer, uncheck and remove layer from map
+
                             $(this).prop("checked", false);
                             if ($(this).parent("li").hasClass('overlay_li')) {
                                 off_layers.push($(this).data("id"));
@@ -397,207 +349,189 @@
                                     off_layers.push($(this).data("id"));
                                 });
                             }
-                        }
-                    });
-                }
-            }
-            if (type === 'radio' && parseInt(level) > 1) {
-
-                var name = $(this).attr('name');
-                var layer = this;
-                $(this).parent('li').parent('ul').find("li input[name='" + name + "']").map(function () {
-
-                    if ($(layer).data("id") !== $(this).data("id")) {
-
-                        $(this).prop("checked", false);
-                        if ($(this).parent("li").hasClass('overlay_li')) {
-                            off_layers.push($(this).data("id"));
                         } else {
-                            $(this).parent("li").find("ul li.overlay_li input").map(function () {
-                                $(this).prop("checked", false);
-                                off_layers.push($(this).data("id"));
-                            });
+                            checked = true;
                         }
-                    } else {
-                        checked = true;
-                    }
 
-                });
-            }
-
-            // hide layers from off_layers array for layer id
-            //  var mapLayers = window.map._layers;
-            var mapLayers = ol3.map2u.map.getLayers();
-            $.map(off_layers, function (layer) {
-                mapLayers.forEach(function (maplayer) {
-                    if (typeof maplayer.id !== 'undefined' && layer === maplayer.id) {
-                        ol3.map2u.map.removeLayer(maplayer);
-                    }
-                });
-            });
-            if (checked === true) {
-
-                if ($(this).parent("li").hasClass('overlay_li') === true) {
-                    var exist_in_map = false;
-                    mapLayers.forEach(function (maplayer) {
-                        if (id === maplayer.id) {
-                            exist_in_map = true;
-                        }
-                    });
-                    if (exist_in_map === false) {
-                        $.map(ol3.map2u.overlays, function (datalayer) {
-                            if (id === datalayer.id) {
-                                exist_in_map = true;
-                                ol3.map2u.map.addLayer(datalayer);
-                            }
-                        });
-                    }
-
-                    if (exist_in_map === false) {
-                        if (layertype === 'geoserver') {
-                            var hostName = $(this).parent("li").data("hostname");
-                            var layerName = $(this).parent("li").data("layername");
-                            if (hostName.length > 1 && layerName.length > 1) {
-
-                                var option = {
-                                    layers: layerName,
-                                    format: 'image/png',
-                                    transparent: true,
-                                    attribution: ""
-                                };
-                                var layer = new L.TileLayer.WMS("http://" + hostName, option);
-                                layer.id = id;
-                                layer.zIndex = 300 - position;
-                                layer.name = $(this).attr('name');
-                                //  ol3.map2u.map.addOverlay(layer);
-                                ol3.map2u.map.addLayer(layer);
-                            }
-                        } else {
-
-                            displayLayerFeatures(id, layertype, position);
-                        }
-                    }
-                }
-            } else {
-                if ($(this).parent("li").hasClass('overlay_li') === true) {
-                    var layerid = $(this).data('id');
-                    //alert($(this).data('id'));
-                    mapLayers.forEach(function (maplayer, opt) {
-
-                        if (layerid === maplayer.id) {
-
-                            ol3.map2u.map.removeLayer(maplayer);
-                        }
                     });
                 }
-            }
 
-        });
-        $("div.section.overlay-layers ul.overlay_ul li label").css('cursor', 'pointer');
-        $("div.section.overlay-layers ul.overlay_ul li label").unbind("click");
-        $("div.section.overlay-layers ul.overlay_ul li label").click(function () {
-            $("div.section.overlay-layers ul.overlay_ul li label").removeClass("selected");
-            $(this).addClass("selected");
-            if ($(this).closest("li").hasClass('layercategory')) {
-                //       alert("category" + $(this).closest("li").data("id"));
-                $('div.sidebar_content div.section.overlay-layers div#overlayers_zoom_to_layer').addClass('disabled');
-            } else {
-                $('div.sidebar_content div.section.overlay-layers div#overlayers_zoom_to_layer').removeClass('disabled');
-                //      alert("overlay_li" + $(this).closest("li").hasClass("overlay_li") + "  " + $(this).closest("li").data("id"));
-            }
-            $('div.sidebar_content div.section.overlay-layers div#move_overlayer_up').removeClass('disabled');
-            $('div.sidebar_content div.section.overlay-layers div#move_overlayer_down').removeClass('disabled');
-            //  alert($(this).html());
-        });
-        $("div.section.overlay-layers ul.overlay_ul li label").unbind("hover");
-        $("div.section.overlay-layers ul.overlay_ul li label").hover(function () {
-            $(this).addClass("mouse_selected");
-        }, function () {
-            $(this).removeClass("mouse_selected");
-        });
-        $('#ol3-map-layers-overlays-list li.overlay_li .layer_action_icon i.fa-arrow-up').unbind('click');
-        $('#ol3-map-layers-overlays-list li.overlay_li .layer_action_icon i.fa-arrow-up').on('click', function () {
-            var selected = $(this).closest("li.overlay_li");
-            if ($(selected).prev().length === 1)
-            {
-                $(selected).insertBefore($(selected).prev());
-            }
-            reorderLayer();
-            layerActionButtonsCheck();
-        });
-        $('#ol3-map-layers-overlays-list li.overlay_li .layer_action_icon i.fa-arrow-down').unbind('click');
-        $('#ol3-map-layers-overlays-list li.overlay_li .layer_action_icon i.fa-arrow-down').on('click', function () {
-            var selected = $(this).closest("li.overlay_li");
-            if ($(selected).next().length === 1)
-            {
-                $(selected).insertAfter($(selected).next());
-            }
-            reorderLayer();
-            layerActionButtonsCheck();
-        });
-        $('div.sidebar_content div.section.overlay-layers div#move_overlayer_up').unbind('click');
-        $('div.sidebar_content div.section.overlay-layers div#move_overlayer_up').on('click', function () {
-            var selected = $('div.sidebar_content div.section.overlay-layers ul.overlay_ul > li label.selected');
-            var ids = [];
-            var layers = window.map._layers;
-            if ($(selected).closest("li").hasClass("layercategory") === true) {
-                $(selected).closest("li").find("li.overlay_li").map(function () {
-                    $(this).data("position", parseInt($(this).data("position")) - 1);
-                    ids.push({id: $(this).data("id"), position: $(this).data("position")});
+                // hide layers from off_layers array for layer id
+                //  var mapLayers = window.map._layers;
+                var mapLayers = ol3.map2u.map.getLayers();
+                $.map(off_layers, function (layerid) {
+
+                    app.map2u.setLayerVisible(false, layerid);
+
                 });
-            } else {
-                $(selected).closest("li").data("position", parseInt($(selected).closest("li").data("position")) - 1);
-                ids.push({id: $(selected).closest("li").data("id"), position: $(selected).closest("li").data("position")});
-            }
+                if (checked === true) {
 
-            $.map(ids, function (selectedlayer) {
-                $.map(layers, function (layer) {
-                    if (selectedlayer.id === layer.id) {
+                    if ($(this).parent("li").hasClass('overlay_li') === true) {
+                        var exist_in_map = false;
 
-                        layer.zIndex = 300 - selectedlayer.position;
+                        app.map2u.setLayerVisible(true, id);
+
+
+                        if (exist_in_map === false) {
+                            if (layertype === 'geoserver') {
+                                var hostName = $(this).parent("li").data("hostname");
+                                var layerName = $(this).parent("li").data("layername");
+                                if (hostName.length > 1 && layerName.length > 1) {
+
+                                    var option = {
+                                        layers: layerName,
+                                        format: 'image/png',
+                                        transparent: true,
+                                        attribution: ""
+                                    };
+                                    var layer = new L.TileLayer.WMS("http://" + hostName, option);
+                                    layer.id = id;
+                                    layer.zIndex = 300 - position;
+                                    layer.name = $(this).attr('name');
+                                    //  ol3.map2u.map.addOverlay(layer);
+                                    ol3.map2u.map.addLayer(layer);
+                                }
+                            } else {
+
+                                displayLayerFeatures(id, layertype, position);
+                            }
+                        }
                     }
-                });
-            });
-            reorderLayer();
-        });
-        $('div.sidebar_content div.section.overlay-layers div#move_overlayer_down').unbind('click');
-        $('div.sidebar_content div.section.overlay-layers div#move_overlayer_down').on('click', function () {
+                } else {
 
 
-            var selected = $('div.sidebar_content div.section.overlay-layers ul.overlay_ul > li label.selected');
-            var ids = [];
-            var layers = window.map._layers;
-            if ($(selected).closest("li").hasClass("layercategory") === true) {
-                $(selected).closest("li").find("li.overlay_li").map(function () {
-                    $(this).data("position", parseInt($(this).data("position")) + 1);
-                    ids.push({id: $(this).data("id"), position: $(this).data("position")});
-                });
-            } else {
-                $(selected).closest("li").data("position", parseInt($(selected).closest("li").data("position")) + 1);
-                //     ids.push({id:$(this).data("id"),position:(this).data("position")});
-                ids.push({id: $(selected).closest("li").data("id"), position: $(selected).closest("li").data("position")});
-            }
-            $.map(ids, function (selectedlayer) {
-                $.map(layers, function (layer) {
-                    if (selectedlayer.id === layer.id) {
-                        layer.zIndex = 300 - selectedlayer.position;
-                        reorderLayer();
+                    if ($(this).parent("li").hasClass('overlay_li') === true) {
+                        var layerid = $(this).data('id');
+
+                        app.map2u.setLayerVisible(false, layerid);
+
                     }
-                });
+                }
+
             });
-        });
-        $('div.sidebar_content div.section.overlay-layers div#overlayers_index_save').unbind('click');
-        $('div.sidebar_content div.section.overlay-layers div#overlayers_index_save').on('click', function () {
-            var ids = [];
-            $('div.sidebar_content div.section.overlay-layers ul.overlay_ul  li.overlay_li').map(function () {
-                ids.push({id: $(this).data("id"), position: $(this).data("position"), display: $(this).find("input").is(":checked")});
+            $("#ol3-map-layers-overlays-list ul.overlay_ul li.overlay_li input[data-show='on']").map(function () {
+//alert($(this).parents("li").html());
+                if ($(this).is(":checked") === false) {
+                    $(this).prop("checked", true);
+                }
+                var id = $(this).data("id");
+                var layertype = $(this).parents("li.overlay_li").data('layertype');
+
+                displayLayerFeatures(id, layertype);
+                // $(this).trigger('click');
             });
+        }
+    {#   $("div.section.overlay-layers ul.overlay_ul li label").css('cursor', 'pointer');
+       $("div.section.overlay-layers ul.overlay_ul li label").unbind("click");
+       $("div.section.overlay-layers ul.overlay_ul li label").click(function () {
+           $("div.section.overlay-layers ul.overlay_ul li label").removeClass("selected");
+           $(this).addClass("selected");
+           if ($(this).closest("li").hasClass('layercategory')) {
+               //       alert("category" + $(this).closest("li").data("id"));
+               $('div.sidebar_content div.section.overlay-layers div#overlayers_zoom_to_layer').addClass('disabled');
+           } else {
+               $('div.sidebar_content div.section.overlay-layers div#overlayers_zoom_to_layer').removeClass('disabled');
+               //      alert("overlay_li" + $(this).closest("li").hasClass("overlay_li") + "  " + $(this).closest("li").data("id"));
+           }
+           $('div.sidebar_content div.section.overlay-layers div#move_overlayer_up').removeClass('disabled');
+           $('div.sidebar_content div.section.overlay-layers div#move_overlayer_down').removeClass('disabled');
+           //  alert($(this).html());
+       });
+       $("div.section.overlay-layers ul.overlay_ul li label").unbind("hover");
+       $("div.section.overlay-layers ul.overlay_ul li label").hover(function () {
+           $(this).addClass("mouse_selected");
+       }, function () {
+           $(this).removeClass("mouse_selected");
+       });
+
+       $('div.sidebar_content div.section.overlay-layers div#move_overlayer_up').unbind('click');
+       $('div.sidebar_content div.section.overlay-layers div#move_overlayer_up').on('click', function () {
+           var selected = $('div.sidebar_content div.section.overlay-layers ul.overlay_ul > li label.selected');
+           var ids = [];
+           var layers = window.map._layers;
+           if ($(selected).closest("li").hasClass("layercategory") === true) {
+               $(selected).closest("li").find("li.overlay_li").map(function () {
+                   $(this).data("position", parseInt($(this).data("position")) - 1);
+                   ids.push({id: $(this).data("id"), position: $(this).data("position")});
+               });
+           } else {
+               $(selected).closest("li").data("position", parseInt($(selected).closest("li").data("position")) - 1);
+               ids.push({id: $(selected).closest("li").data("id"), position: $(selected).closest("li").data("position")});
+           }
+
+           $.map(ids, function (selectedlayer) {
+               $.map(layers, function (layer) {
+                   if (selectedlayer.id === layer.id) {
+
+                       layer.zIndex = 300 - selectedlayer.position;
+                   }
+               });
+           });
+           reorderLayer();
+       });
+       $('div.sidebar_content div.section.overlay-layers div#move_overlayer_down').unbind('click');
+       $('div.sidebar_content div.section.overlay-layers div#move_overlayer_down').on('click', function () {
+
+
+           var selected = $('div.sidebar_content div.section.overlay-layers ul.overlay_ul > li label.selected');
+           var ids = [];
+           var layers = window.map._layers;
+           if ($(selected).closest("li").hasClass("layercategory") === true) {
+               $(selected).closest("li").find("li.overlay_li").map(function () {
+                   $(this).data("position", parseInt($(this).data("position")) + 1);
+                   ids.push({id: $(this).data("id"), position: $(this).data("position")});
+               });
+           } else {
+               $(selected).closest("li").data("position", parseInt($(selected).closest("li").data("position")) + 1);
+               //     ids.push({id:$(this).data("id"),position:(this).data("position")});
+               ids.push({id: $(selected).closest("li").data("id"), position: $(selected).closest("li").data("position")});
+           }
+           $.map(ids, function (selectedlayer) {
+               $.map(layers, function (layer) {
+                   if (selectedlayer.id === layer.id) {
+                       layer.zIndex = 300 - selectedlayer.position;
+                       reorderLayer();
+                   }
+               });
+           });
+       });#}
+               $('.ol3map-sidebar-panel-content #ol3-map-layers-overlays-list-title .overlayers_btn div#overlayers_index_save').unbind('click');
+               $('.ol3map-sidebar-panel-content #ol3-map-layers-overlays-list-title .overlayers_btn div#overlayers_index_save').on('click', function () {
+                   var ids = [];
+                   var ulids = [];
+                   ulids = getLayerListJson($('#ol3-map-layers-overlays-list>ul.overlay_ul'));
+
+    {# $('#ol3-map-layers-overlays-list>ul.overlay_ul').children().map(function () {
+         var subids = [];
+         var category_children = $(this).children("ul");
+         if (category_children && category_children.length > 0) {
+             $.map(category_children, function (sub_category, index) {
+                 subids[index] = [];
+                 var category_children_lis = $(sub_category).children("li");
+                 $.map(category_children_lis, function (category_children_li) {
+                     subids[index].push({id: $(category_children_li).data("id"), multiple: $(category_children_li).data("multiple"), level: $(category_children_li).data("level"), type: $(category_children_li).data("type"), position: $(category_children_li).data("position"), name: $(category_children_li).children("div.layername_label").find("label").text().trim(), display: $(category_children_li).find("input").is(":checked")});
+                 });
+             });
+         }
+
+         ulids.push({id: $(this).data("id"), children: subids, multiple: $(this).data("multiple"), level: $(this).data("level"), type: $(this).data("type"), position: $(this).data("position"), name: $(this).children("div.layername_label").find("label").text().trim(), display: $(this).find("input").is(":checked")});
+     });
+#}
+            $('#ol3-map-layers-overlays-list ul.overlay_ul  li.overlay_li input:checked').map(function () {
+                ids.push($(this).data("id"));
+            });
+
             var setting_name = prompt("Please enter sequence name?\nsame name will be overwritten! ", "");
             if (setting_name === null || $.trim(setting_name) === '') {
                 return;
             }
+
+
+            alert(JSON.stringify(ids));
             var formData = new FormData();
-            formData.append('sequence', JSON.stringify(ids));
+
+            formData.append('sequence', escape($('#ol3-map-layers-overlays-list>ul.overlay_ul').html()));
+            formData.append('selected_action', JSON.stringify(ids));
             formData.append('name', setting_name);
             $.ajax({
                 url: Routing.generate('layer_savesequence', {_locale: window.locale}),
@@ -617,8 +551,8 @@
             });
             //  alert(JSON.stringify(ids));
         });
-        $('div.sidebar_content div.section.overlay-layers div#overlayers_index_load').unbind('click');
-        $('div.sidebar_content div.section.overlay-layers div#overlayers_index_load').on('click', function () {
+        $('.ol3map-sidebar-panel-content #ol3-map-layers-overlays-list-title div#overlayers_index_load').unbind('click');
+        $('.ol3map-sidebar-panel-content #ol3-map-layers-overlays-list-title div#overlayers_index_load').on('click', function () {
 
             $.ajax({
                 url: Routing.generate('layer_loadsequence', {_locale: window.locale}),
@@ -637,825 +571,850 @@
                         $('div#main_modal_dialogpanel').find('.modal-footer button.btn.btn-primary').click(function () {
 
                             var sequence = $('div#main_modal_dialogpanel').find('.modal-body select#layers-display-sequence option:selected').data('sequence');
-                            if (typeof sequence === 'string') {
-                                sequence = JSON.parse(sequence);
+                            var selected_actions = $('div#main_modal_dialogpanel').find('.modal-body select#layers-display-sequence option:selected').data('selected_actions');
+
+                            if (typeof selected_actions === 'string') {
+                                selected_actions = JSON.parse(selected_actions);
                             }
-                            var layers = window.map._layers;
-                            $("div.sidebar_content div.section.overlay-layers ul.overlay_ul  li.overlay_li input").prop("checked", false);
-                            $.map(sequence, function (each_sequence) {
-
-                                $("div.sidebar_content div.section.overlay-layers ul.overlay_ul  li.overlay_li[data-id='" + each_sequence.id + "']").data("position", each_sequence.position);
-                                var layerExist = false;
-                                $.map(layers, function (layer) {
-                                    if (each_sequence.id === layer.id) {
-                                        layer.zIndex = 300 - each_sequence.position;
-                                        layerExist = true;
-                                        if (each_sequence.display === false) {
-                                            window.map.removeLayer(layer);
-                                        }
-                                    }
-                                });
-                                if (each_sequence.display === true && layerExist === false) {
-
-                                    $.map(window.map.dataLayers, function (layer) {
-                                        if (each_sequence.id === layer.id) {
-                                            layerExist = true;
-                                            layer.zIndex = 300 - each_sequence.position;
-                                        }
-                                    });
-                                    $("div.sidebar_content div.section.overlay-layers ul.overlay_ul  li.overlay_li[data-id='" + each_sequence.id + "']").find("input[type]").trigger('click');
+                            if (typeof selected_actions === 'string') {
+                                selected_actions = JSON.parse(selected_actions);
+                            }
+                            var layers = ol3.map2u.map.getLayers();
+                            $('#ol3-map-layers-overlays-list>ul.overlay_ul').html(unescape(sequence));
+                            layers.forEach(function (layer) {
+                                if (typeof layer.get("id") !== 'undefined' && layer.get("id").length === 36) {
+                                    layer.setVisible(false);
                                 }
-
                             });
-                            reorderLayer();
-                            $('div#main_modal_dialogpanel').hide();
-                            alert("Sequence " + $('div#main_modal_dialogpanel').find('.modal-body select#layers-display-sequence option:selected').text() + " has been loaded.");
-                        });
-                        $('div#main_modal_dialogpanel').find('.modal-body').html(response);
-                        $('div#main_modal_dialogpanel').show();
-                        $('div#main_modal_dialogpanel').modal({show: true});
-                    } else {
-                        if (response.success === true) {
-                            alert(JSON.stringify(response.sequence));
-                        } else {
-                            alert(response.message);
-                        }
-                    }
-                },
-                cache: false,
-                contentType: false,
-                processData: false
-            });
-            //  alert(JSON.stringify(ids));
-        });
-        function createWMSLegend(item, hostName, layerName) {
-            var legend = $("<div class='layer_legend hidden'>");
-            var ul = $("<ul>").appendTo(legend);
-            ul.append('<li><img src="' + "http://" + hostName + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&LAYER=" + layerName + '"></li>');
-            $(legend).removeClass("hidden");
-            $(legend).show();
-            $(legend).appendTo($(item));
+                            $('#ol3-map-layers-overlays-list ul.overlay_ul  li.overlay_li input').attr("data-show", "");
+                            $.map(selected_actions, function (selected_action) {
+                                $('#ol3-map-layers-overlays-list ul.overlay_ul  li.overlay_li input[data-id="' + selected_action + '"]').attr("data-show", "on");
+                                $('#ol3-map-layers-overlays-list ul.overlay_ul  li.overlay_li input[data-id="' + selected_action + '"]').prop("checked", true);
+                            });
+
+                            //        $("#ol3-map-layers-overlays-list ul.overlay_ul  li.overlay_li input").prop("checked", false);
+    {#$.map(sequence, function (each_sequence) {
+        var li_content = '';
+        if (each_sequence.type === 'category') {
+            li_content = createCategoryItem(each_sequence);
+        } else {
+            li_content = createLayerItem(each_sequence);
         }
-
-        function displayLayerFeatures(id, layertype, position) {
-            var layers = ol3.map2u.map.getLayers();
-            var layerExist = false;
-            layers.forEach(function (layer) {
-                if (layer.id === id) {
-                    layerExist = true;
-                }
-            });
-            if (layerExist === true) {
-                return;
-            }
-            if (typeof ol3.map2u.overlays[id] !== 'undefined') {
-                ol3.map2u.map.addLayer(ol3.map2u.overlays[id]);
-                return;
-            }
-            $.ajax({
-                url: Routing.generate('layer_geom', {id: id, layertype: layertype, _locale: app.locale}),
-                type: 'GET',
-                //    data: formData,
-                complete: function () {
-                },
-                success: function (response) {
-                    if (response.success === true) {
-                        var collection = null;
-                        if (response.layerType === 'story' && response.data !== null) {
-                            var features = new Array();
-                            var vectorSource = new ol.source.Vector({});
-
-                            $.each(response.data, function (k, photo) {
-
-                                if (typeof photo === 'string') {
-                                    photo = JSON.parse(photo);
-                                }
-                                if (photo.lng && photo.lat) {
-
-                                    var images;
-                                    var icon_image = '';
-                                    var medium_image = '';
-                                    if (typeof photo.image_file === 'string')
-                                    {
-                                        images = JSON.parse(photo.image_file);
-                                    } else {
-                                        images = photo.image_file;
-                                    }
-                                    if (images.length === 0) {
-                                        //  images[0] = '/bundles/map2uleaflet/images/photo_unavailable_t.png';
-                                        icon_image = '/bundles/map2uleaflet/images/photo_unavailable_t.png';
-                                        medium_image = '/bundles/map2uleaflet/images/photo_unavailable.png';
-                                    } else {
-                                        icon_image = '/uploads/stories/' + photo.id + "/images/icon_" + images[0];
-                                        medium_image = '/uploads/stories/' + photo.id + "/images/medium_" + images[0];
-                                    }
-                                    //     alert(typeof photo.lng+","+typeof photo.lat);
-
-                                    var storyFeature = new ol.Feature({
-                                        geometry: new ol.geom.Point(ol.proj.transform([parseFloat(photo.lng), parseFloat(photo.lat)], 'EPSG:4326', 'EPSG:3857')),
-                                        id: photo.id,
-                                        name: photo.story_name,
-                                        image_file: photo.image_file,
-                                        url: medium_image,
-                                        img: icon_image,
-                                        story_file: photo.story_file,
-                                        lng: photo.lng,
-                                        lat: photo.lat
-                                    });
-                                    vectorSource.addFeature(storyFeature);
+        $('#ol3-map-layers-overlays-list>ul.overlay_ul').append(li_content);
 
 
-                                }
-
-                                //  alert("k=" + k + "    " + JSON.stringify(photo));
-                            });
-                            var hotpointLayer;
-                            var clusterSource = new ol.source.Cluster({
-                                distance: parseInt(50, 10),
-                                source: vectorSource
-                            });
-                            hotpointLayer = new ol.layer.Vector({id: id, name: response.layer_name, source: clusterSource, label_field: response.label_field, sld: response.sld, type: 'story'});
-                            hotpointLayer.id = id;
-
-                            ol3.map2u.map.addLayer(hotpointLayer);
-
-                            hotpointLayer.setStyle(function (feature, resolution) {
-                               return app.map2u.setFeatureStyle(feature, resolution, hotpointLayer);
-                            });
-
-                            ol3.map2u.overlays[id] = hotpointLayer;
-
-                        } else if (response.data !== null && response.data.spatial !== null) {
-
-                            var key = null;
-                            var geojson_shapefile = null;
-                            if (typeof response.data.spatial === 'string') {
-                                response.data.spatial = JSON.parse(response.data.spatial);
+    });#}
+                                layerlistActions();
+                                layerListInputButtonActions();
+                                reorderLayer();
+                                $('div#main_modal_dialogpanel').hide();
+                                alert("Sequence " + $('div#main_modal_dialogpanel').find('.modal-body select#layers-display-sequence option:selected').text() + " has been loaded.");
                             }
-                            //  var style = app.map2u.setFeatureStyle(response.sld,'polygon');
-                            //  alert(JSON.stringify(style));
-                            // alert(response.data.datatype);
+                            );
+                            $('div#main_modal_dialogpanel').find('.modal-body').html(response);
+                            $('div#main_modal_dialogpanel').show();
+                            $('div#main_modal_dialogpanel').modal({show: true});
+                        } else {
+                            if (response.success === true) {
+                                alert(JSON.stringify(response.sequence));
+                            } else {
+                                alert(response.message);
+                            }
+                        }
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+                //  alert(JSON.stringify(ids));
+            });
+            function createWMSLegend(item, hostName, layerName) {
+                var legend = $("<div class='layer_legend hidden'>");
+                var ul = $("<ul>").appendTo(legend);
+                ul.append('<li><img src="' + "http://" + hostName + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&LAYER=" + layerName + '"></li>');
+                $(legend).removeClass("hidden");
+                $(legend).show();
+                $(legend).appendTo($(item));
+            }
 
-                            if (response.data.datatype === 'topojson') {
+            function getLayerListJson(ul_element) {
 
-                                key = Object.keys(response.data.spatial.objects).map(function (k) {
-                                    return  k;
-                                });
-                                var features = new ol.format.TopoJSON().readFeatures(response.data.spatial, {dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857'});
+                var ids = [];
+                ul_element.children("li").map(function () {
+                    var subids = [];
+                    var category_children = $(this).children("ul");
+                    if (category_children && category_children.length > 0) {
+                        subids = getLayerListJson(category_children);
+                    }
+
+                    ids.push({id: $(this).data("id"), children: subids, multiple: $(this).data("multiple"), level: $(this).data("level"), image_layer: $(this).data("image_layer"), show_label: $(this).data("show_label"), label_field: $(this).data("label_field"), type: $(this).data("type"), position: $(this).data("position"), name: escape($(this).children("div.layername_label").find("label").text().trim()), display: $(this).find("input").is(":checked")});
+                });
+                return ids;
+            }
+            function createCategoryItem(each_sequence, multiple) {
+                var li_content = '';
+                li_content = li_content + '<li class="layercategory" data-type="' + each_sequence.type + '" data-level="' + each_sequence.level + '" data-id="' + each_sequence.id + '" data-multiple="' + each_sequence.multiple + '">';
+                if (typeof multiple !== 'undefined' && multiple === "1") {
+                    li_content = li_content + '<input data-level="' + each_sequence.multiple + '" type="checkbox">';
+                } else {
+                    li_content = li_content + '<input data-level="' + each_sequence.multiple + '" type="radio">';
+                }
+                li_content = li_content + '<div class="layer_legend_icon">';
+
+                li_content = li_content + '<i class="fa fa-minus blue"></i>';
+                li_content = li_content + '</div>';
+                li_content = li_content + '<div style="display: inline-block;" class="layername_label group_layername_label">';
+                li_content = li_content + '<label class="layercategory" data-level="1">' + unescape(each_sequence.name.trim());
+                li_content = li_content + '<span data-id="' + each_sequence.id + '" class="layercategory-action pull-right">';
+
+                li_content = li_content + '<div class="layer_action_icon">';
+                li_content = li_content + '<i class="fa fa-arrow-down lightBlue" title="Move this group down"></i>';
+                li_content = li_content + '<i class="fa fa-arrow-up lightBlue" title="Move this group up"></i>';
+                li_content = li_content + '<i class="fa fa-times red " title="Remove this group from map"></i>';
+                li_content = li_content + '</div>';
+                li_content = li_content + '</span>';
+                li_content = li_content + '</label>';
+                li_content = li_content + '</div>';
+
+                if (typeof each_sequence.children !== 'undefined' && each_sequence.children.length > 0) {
+                    var sub_content = '<ul data-level="' + each_sequence.level + '  data-type="' + each_sequence.type + ' data-id="' + each_sequence.id + '>';
+                    $.map(each_sequence.children, function (child) {
+                        if (child.type === 'category') {
+                            sub_content = sub_content + createCategoryItem(child, each_sequence.multiple);
+                        } else {
+                            sub_content = sub_content + createLayerItem(child);
+                        }
+                    });
+                    sub_content = sub_content + '</ul>';
+                    li_content = li_content + sub_content;
+                }
+
+                li_content = li_content + '</li>';
+                return li_content;
+            }
+
+            function createLayerItem(sequence) {
+                var li_content = '';
+
+                li_content = li_content + '<li style="border-bottom: 1px dotted grey;" data-type="layer" data-level="' + sequence.level + '" class="overlay_li" data-category="true" data-id="' + sequence.id + '" data-position="' + sequence.position + '" data-image_layer="' + sequence.image_layer + '" data-show_label="' + sequence.show_label + '" data-label_field="' + sequence.label_field + '" data-layertype="spatialfile">';
+
+                li_content = li_content + '<input data-id="' + sequence.id + '" data-level="' + sequence.level + '" data-multiple="' + sequence.multiple + '" name="' + unescape(sequence.name.trim()) + '" type="checkbox">';
+                li_content = li_content + '<div class="layer_legend_icon">';
+                li_content = li_content + '<i class="fa fa-plus blue"></i>';
+                li_content = li_content + '</div>';
+
+                li_content = li_content + '<div style="display: inline-block;" class="group_layername_label layername_label">';
+                li_content = li_content + '<label>' + unescape(sequence.name.trim()) + '</label>';
+                li_content = li_content + '<span data-id="' + sequence.id + '" class="layer-action pull-right">';
+                li_content = li_content + '<div class="layer_action_icon">';
+                li_content = li_content + '<i class="fa fa-map-marker lightBlue" title="Zoom to this layer extent"></i>';
+                li_content = li_content + '<i class="fa fa-pencil lightBlue" title="Edit this layer feature style"></i>';
+                li_content = li_content + '<i class="fa fa-list lightBlue" title="View this layer detail info"></i>';
+                li_content = li_content + '<i class="fa fa-tag lightBlue" title="Show/Hide feature label"></i>';
+                li_content = li_content + '<i class="fa fa-times red " title="Remove this layer from map"></i>';
+                li_content = li_content + '<i class="fa fa-arrow-down lightBlue" title="Move this layer down"></i>';
+                li_content = li_content + '<i class="fa fa-arrow-up lightBlue" title="Move this layer up"></i>';
+                li_content = li_content + '</div>';
+                li_content = li_content + '</span>';
+                li_content = li_content + '</div>';
+                li_content = li_content + '<div class="layer_legend">';
+                li_content = li_content + '</div>';
+                li_content = li_content + '</li>';
+                return li_content;
+            }
 
 
-                                var vectorSource = new ol.source.Vector({});
-                                vectorSource.addFeatures(features);
-                                var hotpointLayer;
-                                if (features.length > 100 && features[0].getGeometry() instanceof ol.geom.Point) {
+            function displayLayerFeatures(id, layertype, position) {
+                var layers = ol3.map2u.map.getLayers();
+                var layerExist = false;
+                layers.forEach(function (layer) {
+                    if (layer.get('id') === id) {
+                        layer.setVisible(true);
+                        layerExist = true;
+                    }
+                });
+                if (typeof ol3.map2u.cachedOverlays[id] !== 'undefined') {
+
+                    return;
+                }
+
+                if (layerExist === true) {
+                    return;
+                }
+                if (typeof ol3.map2u.overlays[id] !== 'undefined') {
+                    ol3.map2u.map.addLayer(ol3.map2u.overlays[id]);
+                    return;
+                }
+                $.ajax({
+                    url: Routing.generate('layer_geom', {id: id, layertype: layertype, _locale: app.locale}),
+                    type: 'GET',
+                    //    data: formData,
+                    complete: function () {
+                    },
+                    success: function (response) {
+                        if (response.success === true) {
+                            var collection = null;
+
+                            if (response.layerFormat === 'mvt_vector_tile') {
+                                ol3.map2u.addMvtTileLayer(response.layer_id, '7200', 'my_access_token');
+                            } else {
+                                if (response.layerType === 'story' && response.data !== null) {
+                                    var features = new Array();
+                                    var vectorSource = new ol.source.Vector({});
+
+                                    $.each(response.data, function (k, photo) {
+
+                                        if (typeof photo === 'string') {
+                                            photo = JSON.parse(photo);
+                                        }
+                                        if (photo.lng && photo.lat) {
+
+                                            var images;
+                                            var icon_image = '';
+                                            var medium_image = '';
+                                            if (typeof photo.image_file === 'string')
+                                            {
+                                                images = JSON.parse(photo.image_file);
+                                            } else {
+                                                images = photo.image_file;
+                                            }
+                                            if (images.length === 0) {
+                                                //  images[0] = '/bundles/map2uleaflet/images/photo_unavailable_t.png';
+                                                icon_image = '/bundles/map2uleaflet/images/photo_unavailable_t.png';
+                                                medium_image = '/bundles/map2uleaflet/images/photo_unavailable.png';
+                                            } else {
+                                                icon_image = '/uploads/stories/' + photo.id + "/images/icon_" + images[0];
+                                                medium_image = '/uploads/stories/' + photo.id + "/images/medium_" + images[0];
+                                            }
+                                            //     alert(typeof photo.lng+","+typeof photo.lat);
+
+                                            var storyFeature = new ol.Feature({
+                                                geometry: new ol.geom.Point(ol.proj.transform([parseFloat(photo.lng), parseFloat(photo.lat)], 'EPSG:4326', 'EPSG:3857')),
+                                                id: photo.id,
+                                                name: photo.story_name,
+                                                image_file: photo.image_file,
+                                                url: medium_image,
+                                                img: icon_image,
+                                                story_file: photo.story_file,
+                                                lng: photo.lng,
+                                                lat: photo.lat
+                                            });
+                                            vectorSource.addFeature(storyFeature);
+
+
+                                        }
+
+                                        //  alert("k=" + k + "    " + JSON.stringify(photo));
+                                    });
+                                    var hotpointLayer;
                                     var clusterSource = new ol.source.Cluster({
                                         distance: parseInt(50, 10),
                                         source: vectorSource
                                     });
-                                    hotpointLayer = new ol.layer.Vector({id: id,source: clusterSource, name: response.layer_name, style: app.map2u.setFeatureStyle});
-
+                                    hotpointLayer = new ol.layer.Vector({id: id, name: response.layer_name, source: clusterSource, label_field: response.label_field, sld: response.sld, type: 'story'});
                                     hotpointLayer.id = id;
-                                    hotpointLayer.sld = response.sld;
+
+                                    ol3.map2u.map.addLayer(hotpointLayer);
+
+                                    hotpointLayer.setStyle(function (feature, resolution) {
+                                        return app.map2u.setFeatureStyle(feature, resolution, hotpointLayer);
+                                    });
+                                    ol3.map2u.cachedOverlays[id] = [];
+                                    ol3.map2u.cachedOverlays[id][0] = hotpointLayer;
+                                    ol3.map2u.overlays[id] = hotpointLayer;
+
+                                } else if (response.data !== null && response.data.spatial !== null) {
+
+                                    var key = null;
+                                    var geojson_shapefile = null;
+                                    if (typeof response.data.spatial === 'string') {
+                                        response.data.spatial = JSON.parse(response.data.spatial);
+                                    }
+                                    //  var style = app.map2u.setFeatureStyle(response.sld,'polygon');
+                                    //  alert(JSON.stringify(style));
+                                    // alert(response.data.datatype);
+
+                                    if (response.data.datatype === 'topojson') {
+
+                                        key = Object.keys(response.data.spatial.objects).map(function (k) {
+                                            return  k;
+                                        });
+                                        features = new ol.format.TopoJSON().readFeatures(response.data.spatial, {dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857'});
+                                        var image_layer = $('#ol3-map-layers-overlays-list li.overlay_li[data-id="' + id + '"]').data("image_layer");
+                                        var show_label = $('#ol3-map-layers-overlays-list li.overlay_li[data-id="' + id + '"]').data("show_label");
+                                        var label_field = $('#ol3-map-layers-overlays-list li.overlay_li[data-id="' + id + '"]').data("label_field");
+
+                                        app.map2u.createLayerDataSource(id, features, response.sld, response.layer_name, {label_field: label_field, image_layer: image_layer, show_label: show_label});
+
+
+
+                                    } else if (response.data.datatype === 'geojson' && response.data.spatial && response.data.spatial[0].geom) {
+                                        collection = response.data.spatial[0].geom;
+                                        if (typeof collection === 'string') {
+                                            collection = JSON.parse(collection);
+                                        }
+                                    }
+
+                                }
+                            }
+                            reorderLayer();
+                        }
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: true
+                }
+                );
+            }
+            function hideLayerFeatures(id) {
+
+            }
+            function loadLayerLegend(item, id) {
+                $.ajax({
+                    url: Routing.generate('layer_legend', {id: id, _locale: window.locale}),
+                    type: 'GET',
+                    //    data: formData,
+                    complete: function () {
+                    },
+                    success: function (response) {
+                        if (response.success === true && response.sld !== null && response.sld !== undefined) {
+                            var legend = createLegend(response.sld);
+                            $(legend).removeClass("hidden");
+                            $(legend).show();
+                            $(legend).appendTo($(item));
+                        }
+                    }
+                });
+            }
+            function filterArray(src, filt) {
+                var temp = {}, i, result = [];
+                // load contents of filt into object keys for faster lookup
+                for (i = 0; i < filt.length; i++) {
+                    temp[filt[i]] = true;
+                }
+
+                // go through src
+                for (i = 0; i < src.length; i++) {
+                    if (!(src[i] in temp)) {
+                        result.push(src[i]);
+                    }
+                }
+                return(result);
+            }
+            function layerCategoryClickEvent(item) {
+
+                var checked = $(item).is(":checked");
+                var layers = [];
+                var off_layers = [];
+                var type = $(item).attr('type');
+                var multiple = $(item).parent("li").data("multiple");
+                var level = $(item).data("level");
+                if (parseInt(level) > 1 && $(item).parent("li").parent("ul").parent("li").find("input[data-level='" + (level - 1) + "']").is(":checked") === false) {
+                    $(item).parent("li").parent("ul").parent("li").find("input[data-level='" + (level - 1) + "']").prop("checked", true);
+                }
+                if (checked) {
+                    // if this button is radio, first uncheck all layers under this button's parent
+                    if (type === 'radio') {
+
+                        var name = $(item).attr('name');
+                        var layer = item;
+                        $(item).parent("li").parent("ul").find("li input[name='" + name + "']").map(function () {
+                            // if this button is clicked button
+                            if (($(layer).data('id') === $(this).data('id'))) {
+                                // if this button is a layer, set layer to display
+                                if ($(this).parent("li").hasClass('overlay_li')) {
+                                    layers.push($(this).data('id'));
                                 } else {
 
-
-                                    //   alert(JSON.stringify(response.sld));
-
-
-                                    hotpointLayer = new ol.layer.Vector({id: id,source: vectorSource, name: response.layer_name, sld: response.sld});
-                                    hotpointLayer.id = id;
-                                    hotpointLayer.sld = response.sld;
+                                    // if this button is not a layer, unckeck all layers under this category
+                                    $(this).parent("li").find("ul li.overlay_li input").map(function () {
+                                        off_layers.push($(this).data('id'));
+                                        $(this).prop("checked", false);
+                                    });
                                 }
-
-                                hotpointLayer.setStyle(function (feature, resolution) {
-                                   return app.map2u.setFeatureStyle(feature, resolution, hotpointLayer);
-                                });
-                                ol3.map2u.map.addLayer(hotpointLayer);
-                                //   ol3.map2u.map.addOverlay(hotpointLayer);
-                                ol3.map2u.overlays[id] = hotpointLayer;
-                                //    alert("length=" + features.length);
-                           //     collection = topojson.feature(response.data.spatial, response.data.spatial.objects[key]);
-                                // this time, we'll load vector tiles from openstreetmap
-                                // in the topojson format
-
-
-                            } else if (response.data.datatype === 'geojson' && response.data.spatial && response.data.spatial[0].geom) {
-                                collection = response.data.spatial[0].geom;
-                                if (typeof collection === 'string') {
-                                    collection = JSON.parse(collection);
-                                }
-                            }
-
-                        }
-                        reorderLayer();
-
-                    }
-                },
-                cache: false,
-                contentType: false,
-                processData: true
-            }
-            );
-        }
-        function hideLayerFeatures(id) {
-
-        }
-        function loadLayerLegend(item, id) {
-            $.ajax({
-                url: Routing.generate('layer_legend', {id: id, _locale: window.locale}),
-                type: 'GET',
-                //    data: formData,
-                complete: function () {
-                },
-                success: function (response) {
-                    if (response.success === true && response.sld !== null && response.sld !== undefined) {
-                        var legend = createLegend(response.sld);
-                        $(legend).removeClass("hidden");
-                        $(legend).show();
-                        $(legend).appendTo($(item));
-                    }
-                }
-            });
-        }
-        function filterArray(src, filt) {
-            var temp = {}, i, result = [];
-            // load contents of filt into object keys for faster lookup
-            for (i = 0; i < filt.length; i++) {
-                temp[filt[i]] = true;
-            }
-
-            // go through src
-            for (i = 0; i < src.length; i++) {
-                if (!(src[i] in temp)) {
-                    result.push(src[i]);
-                }
-            }
-            return(result);
-        }
-        function layerCategoryClickEvent(item) {
-
-            var checked = $(item).is(":checked");
-            var layers = [];
-            var off_layers = [];
-            var type = $(item).attr('type');
-            var multiple = $(item).parent("li").data("multiple");
-            var level = $(item).data("level");
-            if (parseInt(level) > 1 && $(item).parent("li").parent("ul").parent("li").find("input[data-level='" + (level - 1) + "']").is(":checked") === false) {
-                $(item).parent("li").parent("ul").parent("li").find("input[data-level='" + (level - 1) + "']").prop("checked", true);
-            }
-            if (checked) {
-                // if this button is radio, first uncheck all layers under this button's parent
-                if (type === 'radio') {
-
-                    var name = $(item).attr('name');
-                    var layer = item;
-                    $(item).parent("li").parent("ul").find("li input[name='" + name + "']").map(function () {
-                        // if this button is clicked button
-                        if (($(layer).data('id') === $(this).data('id'))) {
-                            // if this button is a layer, set layer to display
-                            if ($(this).parent("li").hasClass('overlay_li')) {
-                                layers.push($(this).data('id'));
                             } else {
-
-                                // if this button is not a layer, unckeck all layers under this category
-                                $(this).parent("li").find("ul li.overlay_li input").map(function () {
+                                // if this is a layer
+                                if ($(this).parent("li").hasClass('overlay_li')) {
                                     off_layers.push($(this).data('id'));
                                     $(this).prop("checked", false);
-                                });
+                                } else {
+                                    $(this).parent("li").find("ul li.overlay_li input").map(function () {
+                                        off_layers.push($(this).data('id'));
+                                        $(this).prop("checked", false);
+                                    });
+                                }
                             }
+                        });
+                    }
+
+                    if ($(item).parent("li").find("ul li input[data-level='" + (level + 1) + "']").length > 0 && $(item).parent("li").find("ul li input[data-level='" + (level + 1) + "']:checked").length === 0) {
+                        var enableInput = $(item).parent("li").find("ul li input[data-level='" + (level + 1) + "']:first");
+                        if ($(enableInput).parent('li').hasClass('overlay_li') === false) {
+                            $(enableInput).prop("checked", true);
                         } else {
-                            // if this is a layer
-                            if ($(this).parent("li").hasClass('overlay_li')) {
-                                off_layers.push($(this).data('id'));
-                                $(this).prop("checked", false);
-                            } else {
-                                $(this).parent("li").find("ul li.overlay_li input").map(function () {
-                                    off_layers.push($(this).data('id'));
-                                    $(this).prop("checked", false);
-                                });
-                            }
+                            layers.push($(enableInput).data('id'));
                         }
-                    });
-                }
 
-                if ($(item).parent("li").find("ul li input[data-level='" + (level + 1) + "']").length > 0 && $(item).parent("li").find("ul li input[data-level='" + (level + 1) + "']:checked").length === 0) {
-                    var enableInput = $(item).parent("li").find("ul li input[data-level='" + (level + 1) + "']:first");
-                    if ($(enableInput).parent('li').hasClass('overlay_li') === false) {
-                        $(enableInput).prop("checked", true);
-                    } else {
-                        layers.push($(enableInput).data('id'));
+                        $(enableInput).trigger('click');
                     }
 
-                    $(enableInput).trigger('click');
-                }
-
-
-            } else {
-                $(item).parent("li").find("ul li input").map(function () {
-                    if ($(this).parent("li").hasClass('overlay_li')) {
-                        off_layers.push($(this).data('id'));
-                    }
-                    $(this).prop("checked", false);
-                });
-                if (type === 'radio') {
 
                 } else {
-
-                }
-            }
-            off_layers = filterArray(off_layers, layers);
-            $.map(off_layers, function (layerid) {
-                var maplayers = window.map._layers;
-                $.map(maplayers, function (layer) {
-                    if (layer.id === layerid) {
-                        window.map.removeLayer(layer);
-                    }
-
-                });
-            });
-            $.map(layers, function (layerid) {
-                var maplayers = window.map._layers;
-                var layer_exist = false;
-                $.map(maplayers, function (layer) {
-                    if (layer.id === layerid) {
-                        layer_exist = true;
-                    }
-
-                });
-                if (layer_exist === false) {
-                    var maplayers = window.map.dataLayers;
-                    $.map(maplayers, function (layer) {
-                        if (layer.id === layerid) {
-                            ol3.map2u.map.addLayer(layer);
+                    $(item).parent("li").find("ul li input").map(function () {
+                        if ($(this).parent("li").hasClass('overlay_li')) {
+                            //   alert($(this).data('id'));
+                            off_layers.push($(this).data('id'));
                         }
+                        $(this).prop("checked", false);
                     });
-                }
-            });
-        }
-    {#    createLegend = function (sld) {
+                    if (type === 'radio') {
 
-            if (sld === undefined || sld === null || sld === '')
-                return null;
-            if (typeof sld !== 'object')
-                sld = JSON.parse(sld);
-            if (sld.FeatureTypeStyle === undefined || sld.FeatureTypeStyle === null)
-                return null;
-            var legend = $("<div class='layer_legend_items hidden'>");
-            var ul = $("<ul>").appendTo(legend);
-            var keys = Object.keys(sld.FeatureTypeStyle);
-            for (var key in keys) {
-
-                var varFeatureTypeStyle = sld.FeatureTypeStyle[key];
-                if (typeof varFeatureTypeStyle !== 'object' && varFeatureTypeStyle !== undefined)
-                    varFeatureTypeStyle = JSON.parse(varFeatureTypeStyle);
-                if (typeof varFeatureTypeStyle === 'object' && varFeatureTypeStyle !== undefined && varFeatureTypeStyle.Rule !== undefined) {
-                    var rule = varFeatureTypeStyle.Rule;
-                    var legendCanvas = document.createElement('canvas');
-                    legendCanvas.width = 20;
-                    legendCanvas.height = 15;
-                    var centerX = legendCanvas.width / 2;
-                    var centerY = legendCanvas.height / 2;
-                    var legendCtx = legendCanvas.getContext('2d');
-                    var rule_name = '';
-                    var literal_name = false;
-                    if (rule.Filter !== undefined) {
-                        rule_name = rule.Name;
-                        if (rule.Filter.And) {
-
-                            if (rule.PolygonSymbolizer && rule.PolygonSymbolizer.Fill && rule.PolygonSymbolizer.Fill.fill) {
-                                legendCtx.beginPath();
-                                legendCtx.rect(0, 0, 20, 15);
-                                legendCtx.fillStyle = rule.PolygonSymbolizer.Fill['fill'];
-                                legendCtx.fill();
-                                legendCtx.strokeStyle = rule.PolygonSymbolizer.Stroke['stroke'];
-                                legendCtx.lineWidth = rule.PolygonSymbolizer.Stroke['stroke-width'];
-                                legendCtx.closePath();
-                                legendCtx.stroke();
-                            }
-                        } else if (rule.Filter.PropertyIsEqualTo) {
-                            if ((rule_name === undefined || rule_name === null || rule_name.trim() === '') && (rule.Filter.PropertyIsEqualTo.Literal)) {
-                                rule_name = rule.Filter.PropertyIsEqualTo.Literal;
-                                literal_name = true;
-                            }
-                            if (rule.PointSymbolizer && rule.PointSymbolizer.Graphic && rule.PointSymbolizer.Graphic.Mark && rule.PointSymbolizer.Graphic.Mark.WellKnownName) {
-
-                                switch (rule.PointSymbolizer.Graphic.Mark.WellKnownName) {
-                                    case 'square':
-                                        legendCtx.beginPath();
-                                        legendCtx.rect((legendCanvas.width - rule.PointSymbolizer.Graphic.Size) / 2, (legendCanvas.height - rule.PointSymbolizer.Graphic.Size) / 2, rule.PointSymbolizer.Graphic.Size, rule.PointSymbolizer.Graphic.Size);
-                                        break;
-                                    case 'star':
-                                        legendCtx.moveTo(centerX, centerY - rule.PointSymbolizer.Graphic.Size / 1.6);
-                                        legendCtx.lineTo(centerX + rule.PointSymbolizer.Graphic.Size / 2.0, centerY);
-                                        legendCtx.lineTo(centerX, centerY + rule.PointSymbolizer.Graphic.Size / 1.6);
-                                        legendCtx.lineTo(centerX - rule.PointSymbolizer.Graphic.Size / 2.0, centerY);
-                                        legendCtx.closePath();
-                                        break;
-                                    case 'circle':
-                                        var radius = rule.PointSymbolizer.Graphic.Size / 2.0;
-                                        legendCtx.beginPath();
-                                        legendCtx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-                                        break;
-                                    case 'triangle':
-                                        legendCtx.beginPath();
-                                        legendCtx.moveTo(centerX, centerY - rule.PointSymbolizer.Graphic.Size / 2.0);
-                                        legendCtx.lineTo(centerX + rule.PointSymbolizer.Graphic.Size / 2.0, centerY + rule.PointSymbolizer.Graphic.Size / 2.0);
-                                        legendCtx.lineTo(centerX - rule.PointSymbolizer.Graphic.Size / 2.0, centerY + rule.PointSymbolizer.Graphic.Size / 2.0);
-                                        legendCtx.closePath();
-                                        break;
-                                    default:
-                                        var centerX = legendCanvas.width / 2;
-                                        var centerY = legendCanvas.height / 2;
-                                        var radius = rule.PointSymbolizer.Graphic.Size / 2.0;
-                                        legendCtx.beginPath();
-                                        legendCtx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-                                        break;
-                                }
-                                if (rule.PointSymbolizer.Graphic.Mark.Fill && rule.PointSymbolizer.Graphic.Mark.Fill.fill)
-                                    legendCtx.fillStyle = rule.PointSymbolizer.Graphic.Mark.Fill.fill.trim();
-                                else
-                                    legendCtx.fillStyle = "#ccc";
-                                legendCtx.fill();
-                                if (rule.PointSymbolizer.Graphic.Mark && rule.PointSymbolizer.Graphic.Mark.Stroke && rule.PointSymbolizer.Graphic.Mark.Stroke['stroke-width'])
-                                    legendCtx.lineWidth = rule.PointSymbolizer.Graphic.Mark.Stroke['stroke-width'].trim();
-                                else
-                                    legendCtx.lineWidth = 0.5;
-                                legendCtx.strokeStyle = '#003300';
-                                legendCtx.stroke();
-                            }
-                            if (rule.LineSymbolizer) {
-
-                                legendCtx.beginPath();
-                                legendCtx.moveTo(centerX - legendCanvas.width / 3, centerY);
-                                legendCtx.lineTo(centerX + legendCanvas.width / 3, centerY);
-                                if (rule.LineSymbolizer.Fill && rule.LineSymbolizer.Fill.fill)
-                                    legendCtx.fillStyle = rule.LineSymbolizer.Fill.fill.trim();
-                                else
-                                    legendCtx.fillStyle = '#ccc';
-                                legendCtx.fill();
-                                if (rule.LineSymbolizer.Stroke && rule.LineSymbolizer.Stroke['stroke-width'])
-                                    legendCtx.lineWidth = rule.LineSymbolizer.Stroke['stroke-width'].trim();
-                                else
-                                    legendCtx.lineWidth = 1;
-                                if (rule.LineSymbolizer.Stroke && rule.LineSymbolizer.Stroke.stroke)
-                                    legendCtx.strokeStyle = rule.LineSymbolizer.Stroke.stroke.trim();
-                                else
-                                    legendCtx.strokeStyle = 'black';
-                                legendCtx.stroke();
-                            }
-                            if (rule.PolygonSymbolizer) {
-                                legendCtx.beginPath();
-                                legendCtx.rect(0, 0, 20, 15);
-                                if (rule.PolygonSymbolizer.Fill && rule.PolygonSymbolizer.Fill.fill)
-                                    legendCtx.fillStyle = rule.PolygonSymbolizer.Fill.fill.trim();
-                                else
-                                    legendCtx.fillStyle = '#ccc';
-                                legendCtx.fill();
-                                if (rule.PolygonSymbolizer.Stroke && rule.PolygonSymbolizer.Stroke['stroke-width'])
-                                    legendCtx.lineWidth = rule.PolygonSymbolizer.Stroke['stroke-width'].trim();
-                                else
-                                    legendCtx.lineWidth = 0.5;
-                                if (rule.PolygonSymbolizer.Stroke && rule.PolygonSymbolizer.Stroke.stroke)
-                                    legendCtx.strokeStyle = rule.PolygonSymbolizer.Stroke.stroke.trim();
-                                else
-                                    legendCtx.strokeStyle = 'black';
-                                legendCtx.stroke();
-                            }
-                        } else if (varFeatureTypeStyle.Rule.Filter.PropertyIsBetween) {
-
-                            if (varFeatureTypeStyle.Rule.Filter.PropertyIsBetween.LowerBoundary && varFeatureTypeStyle.Rule.Filter.PropertyIsBetween.LowerBoundary.Literal && literal_name === true)
-                                rule_name = Math.round(varFeatureTypeStyle.Rule.Filter.PropertyIsBetween.LowerBoundary.Literal);
-                            if (varFeatureTypeStyle.Rule.Filter.PropertyIsBetween.UpperBoundary && varFeatureTypeStyle.Rule.Filter.PropertyIsBetween.UpperBoundary.Literal && literal_name === true)
-                                rule_name = rule_name + " - " + Math.round(varFeatureTypeStyle.Rule.Filter.PropertyIsBetween.UpperBoundary.Literal);
-                            legendCtx.beginPath();
-                            legendCtx.rect(0, 0, 20, 15);
-                            if (rule.PolygonSymbolizer.Fill && rule.PolygonSymbolizer.Fill.fill)
-                                legendCtx.fillStyle = rule.PolygonSymbolizer.Fill.fill.trim();
-                            else
-                                legendCtx.fillStyle = '#ccc';
-                            legendCtx.fill();
-                            if (rule.PolygonSymbolizer.Stroke && rule.PolygonSymbolizer.Stroke['stroke-width'])
-                                legendCtx.lineWidth = rule.PolygonSymbolizer.Stroke['stroke-width'].trim();
-                            else
-                                legendCtx.lineWidth = 0.5;
-                            if (rule.PolygonSymbolizer.Stroke && rule.PolygonSymbolizer.Stroke.stroke)
-                                legendCtx.strokeStyle = rule.PolygonSymbolizer.Stroke.stroke.trim();
-                            else
-                                legendCtx.strokeStyle = 'black';
-                            legendCtx.stroke();
-                        }
-
-                    } else
-                    {
-                        if (rule.PointSymbolizer) {
-
-                            if (rule.PointSymbolizer && rule.PointSymbolizer.Graphic && rule.PointSymbolizer.Graphic.Mark && rule.PointSymbolizer.Graphic.Mark.WellKnownName) {
-
-                                switch (rule.PointSymbolizer.Graphic.Mark.WellKnownName) {
-                                    case 'square':
-                                        legendCtx.beginPath();
-                                        legendCtx.rect((legendCanvas.width - rule.PointSymbolizer.Graphic.Size) / 2, (legendCanvas.height - rule.PointSymbolizer.Graphic.Size) / 2, rule.PointSymbolizer.Graphic.Size, rule.PointSymbolizer.Graphic.Size);
-                                        break;
-                                    case 'star':
-                                        legendCtx.moveTo(centerX, centerY - rule.PointSymbolizer.Graphic.Size / 1.6);
-                                        legendCtx.lineTo(centerX + rule.PointSymbolizer.Graphic.Size / 2.0, centerY);
-                                        legendCtx.lineTo(centerX, centerY + rule.PointSymbolizer.Graphic.Size / 1.6);
-                                        legendCtx.lineTo(centerX - rule.PointSymbolizer.Graphic.Size / 2.0, centerY);
-                                        legendCtx.closePath();
-                                        break;
-                                    case 'circle':
-                                        var radius = rule.PointSymbolizer.Graphic.Size / 2.0;
-                                        legendCtx.beginPath();
-                                        legendCtx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-                                        break;
-                                    case 'triangle':
-                                        legendCtx.beginPath();
-                                        legendCtx.moveTo(centerX, centerY - rule.PointSymbolizer.Graphic.Size / 2.0);
-                                        legendCtx.lineTo(centerX + rule.PointSymbolizer.Graphic.Size / 2.0, centerY + rule.PointSymbolizer.Graphic.Size / 2.0);
-                                        legendCtx.lineTo(centerX - rule.PointSymbolizer.Graphic.Size / 2.0, centerY + rule.PointSymbolizer.Graphic.Size / 2.0);
-                                        legendCtx.closePath();
-                                        break;
-                                    default:
-                                        var centerX = legendCanvas.width / 2;
-                                        var centerY = legendCanvas.height / 2;
-                                        var radius = rule.PointSymbolizer.Graphic.Size / 2.0;
-                                        legendCtx.beginPath();
-                                        legendCtx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-                                        break;
-                                }
-                                if (rule.PointSymbolizer.Graphic.Mark.Fill && rule.PointSymbolizer.Graphic.Mark.Fill.fill)
-                                    legendCtx.fillStyle = rule.PointSymbolizer.Graphic.Mark.Fill.fill.trim();
-                                else
-                                    legendCtx.fillStyle = "#ccc";
-                                legendCtx.fill();
-                                if (rule.PointSymbolizer.Graphic.Mark && rule.PointSymbolizer.Graphic.Mark.Stroke && rule.PointSymbolizer.Graphic.Mark.Stroke['stroke-width'])
-                                    legendCtx.lineWidth = rule.PointSymbolizer.Graphic.Mark.Stroke['stroke-width'].trim();
-                                else
-                                    legendCtx.lineWidth = 0.5;
-                                legendCtx.strokeStyle = '#003300';
-                                legendCtx.stroke();
-                            }
-
-                        }
-                        if (rule.LineSymbolizer) {
-                            legendCtx.beginPath();
-                            legendCtx.moveTo(centerX - legendCanvas.width / 3, centerY);
-                            legendCtx.lineTo(centerX + legendCanvas.width / 3, centerY);
-                            if (rule.LineSymbolizer.Fill && rule.LineSymbolizer.Fill.fill)
-                                legendCtx.fillStyle = rule.LineSymbolizer.Fill.fill.trim();
-                            else
-                                legendCtx.fillStyle = '#ccc';
-                            legendCtx.fill();
-                            if (rule.LineSymbolizer.Stroke && rule.LineSymbolizer.Stroke['stroke-width'])
-                                legendCtx.lineWidth = rule.LineSymbolizer.Stroke['stroke-width'].trim();
-                            else
-                                legendCtx.lineWidth = 0.5;
-                            if (rule.LineSymbolizer.Stroke && rule.LineSymbolizer.Stroke.stroke)
-                                legendCtx.strokeStyle = rule.LineSymbolizer.Stroke.stroke.trim();
-                            else
-                                legendCtx.strokeStyle = 'black';
-                            legendCtx.stroke();
-                        }
-                        if (rule.PolygonSymbolizer) {
-                            legendCtx.beginPath();
-                            if (rule.PolygonSymbolizer.Stroke && rule.PolygonSymbolizer.Stroke['stroke-width'])
-                            {
-                                legendCtx.lineWidth = rule.PolygonSymbolizer.Stroke['stroke-width'].trim();
-//                          
-                            } else
-                                legendCtx.lineWidth = 0.5;
-                            legendCtx.rect(legendCtx.lineWidth / 2.0, legendCtx.lineWidth / 2.0, 20 - legendCtx.lineWidth, 15 - legendCtx.lineWidth);
-                            if (rule.PolygonSymbolizer.Fill && rule.PolygonSymbolizer.Fill.fill)
-                                legendCtx.fillStyle = rule.PolygonSymbolizer.Fill.fill.trim();
-                            else
-                                legendCtx.fillStyle = '#ccc';
-                            legendCtx.fill();
-                            if (rule.PolygonSymbolizer.Stroke && rule.PolygonSymbolizer.Stroke.stroke)
-                                legendCtx.strokeStyle = rule.PolygonSymbolizer.Stroke.stroke.trim();
-                            else
-                                legendCtx.strokeStyle = 'black';
-                            legendCtx.stroke();
-                        }
+                    } else {
 
                     }
-                    var li = $("<li><img src='" + legendCanvas.toDataURL() + "'/>" + rule_name + "</li>");
-                    li.appendTo(ul);
                 }
+                off_layers = filterArray(off_layers, layers);
+                $.map(off_layers, function (layerid) {
+                    app.map2u.setLayerVisible(false, layerid);
+
+                });
+                $.map(layers, function (layerid) {
+                    app.map2u.setLayerVisible(true, layerid);
+
+                });
             }
-            return legend;
-        };
-        
-    #}    
-        createLegend = function (sld) {
 
-            if (sld === undefined || sld === null || sld === '')
-                return null;
-            if (typeof sld !== 'object') {
-                sld = JSON.parse(sld);
-            }
-            var legend = $("<div class='layer_legend_items hidden'>");
-            var ul = $("<ul>").appendTo(legend);
-            if ($.isArray(sld)) {
-                $.map(sld, function (each_sld) {
-                    if (typeof each_sld.rule !== 'undefined') {
-                        if ($.isArray(each_sld.rule)) {
-                            $.map(each_sld.rule, function (each_rule) {
-                                var legendCanvas = document.createElement('canvas');
-                                legendCanvas.width = 20;
-                                legendCanvas.height = 15;
-                                var centerX = legendCanvas.width / 2;
-                                var centerY = legendCanvas.height / 2;
-                                var legendCtx = legendCanvas.getContext('2d');
-                                var rule_name = each_rule.name;
-                                if (each_rule.type === 'Polygon') {
+            createLegend = function (sld) {
+
+                if (sld === undefined || sld === null || sld === '')
+                    return null;
+                if (typeof sld !== 'object') {
+                    sld = JSON.parse(sld);
+                }
+                var legend = $("<div class='layer_legend_items hidden'>");
+                var ul = $("<ul>").appendTo(legend);
+                if ($.isArray(sld)) {
+                    $.map(sld, function (each_sld) {
+                        if (typeof each_sld.rule !== 'undefined') {
+                            if ($.isArray(each_sld.rule)) {
+                                $.map(each_sld.rule, function (each_rule) {
+                                    var legendCanvas = document.createElement('canvas');
+                                    legendCanvas.width = 20;
+                                    legendCanvas.height = 15;
+                                    var centerX = legendCanvas.width / 2;
+                                    var centerY = legendCanvas.height / 2;
+                                    var legendCtx = legendCanvas.getContext('2d');
+                                    var rule_name = each_rule.name;
+                                    if (each_rule.type === 'Polygon') {
 
 
-                                    var literal_name = false;
-                                    if (typeof each_rule.filter !== 'undefined') {
+                                        var literal_name = false;
+                                        if (typeof each_rule.filter !== 'undefined') {
 
-                                    }
-                                    if (typeof each_rule.symbolizers !== 'undefined') {
-                                        legendCtx.beginPath();
-                                        legendCtx.rect(0, 0, 20, 15);
-                                        if (typeof each_rule.symbolizers.fillColor !== 'undefined') {
-                                            legendCtx.fillStyle = each_rule.symbolizers.fillColor;
-                                            legendCtx.fill();
                                         }
-                                        if (typeof each_rule.symbolizers.stroke !== 'undefined' && each_rule.symbolizers.stroke === true) {
-                                            legendCtx.strokeStyle = each_rule.symbolizers.color;
-                                            legendCtx.lineWidth = each_rule.symbolizers.weight;
-                                            legendCtx.stroke();
-                                        }
-                                        legendCtx.closePath();
-                                    }
-
-
-                                    if (rule_name !== null && rule_name.trim() === '') {
-                                        rule_name = "No Name";
-                                    }
-
-                                }
-
-                                if (each_rule.type === 'Point') {
-
-                                    //   var style = app.map2u.getSymbolizers(each_rule.symbolizers);
-
-                                    if (typeof each_rule.symbolizers !== 'undefined' && (each_rule.symbolizers.Graphic === 'true' || each_rule.symbolizers.Graphic === true) && each_rule.symbolizers.WellKnownName !== '') {
-                                        {
+                                        if (typeof each_rule.symbolizers !== 'undefined') {
                                             legendCtx.beginPath();
-                                            switch (each_rule.symbolizers.WellKnownName) {
-
-                                                case 'diamond' :
-
-                                                    legendCtx.moveTo(centerX, centerY - each_rule.symbolizers.Size / 2.0);
-                                                    legendCtx.lineTo(centerX + each_rule.symbolizers.Size / 2.0, centerY);
-                                                    legendCtx.lineTo(centerX, centerY + each_rule.symbolizers.Size / 2.0);
-                                                    legendCtx.lineTo(centerX - each_rule.symbolizers.Size / 2.0, centerY);
-                                                    legendCtx.lineTo(centerX, centerY - each_rule.symbolizers.Size / 2.0);
-                                                    break;
-                                                case 'square':
-                                                    legendCtx.moveTo(centerX - each_rule.symbolizers.Size / 2.0, centerY - each_rule.symbolizers.Size / 2.0);
-                                                    legendCtx.lineTo(centerX + each_rule.symbolizers.Size / 2.0, centerY - each_rule.symbolizers.Size / 2.0);
-                                                    legendCtx.lineTo(centerX + each_rule.symbolizers.Size / 2.0, centerY + each_rule.symbolizers.Size / 2.0);
-                                                    legendCtx.lineTo(centerX, centerY + each_rule.symbolizers.Size / 2.0);
-                                                    legendCtx.lineTo(centerX - each_rule.symbolizers.Size / 2.0, centerY - each_rule.symbolizers.Size / 2.0);
-                                                    break;
-                                                case 'star':
-                                                    legendCtx.moveTo(centerX, centerY - each_rule.symbolizers.Size / 1.6);
-                                                    legendCtx.lineTo(centerX + each_rule.symbolizers.Size / 2.0, centerY);
-                                                    legendCtx.lineTo(centerX, centerY + each_rule.symbolizers.Size / 1.6);
-                                                    legendCtx.lineTo(centerX - each_rule.symbolizers.Size / 2.0, centerY);
-                                                    break;
-                                                case 'circle':
-                                                    var radius = each_rule.symbolizers.Size / 2.0;
-                                                    legendCtx.beginPath();
-                                                    legendCtx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-                                                    break;
-                                                case 'triangle':
-
-                                                    legendCtx.moveTo(centerX, centerY - each_rule.symbolizers.Size / 2.0);
-                                                    legendCtx.lineTo(centerX + each_rule.symbolizers.Size / 2.0, centerY + each_rule.symbolizers.Size / 2.0);
-                                                    legendCtx.lineTo(centerX - each_rule.symbolizers.Size / 2.0, centerY + each_rule.symbolizers.Size / 2.0);
-                                                    break;
-                                                default:
-                                                    var centerX = legendCanvas.width / 2;
-                                                    var centerY = legendCanvas.height / 2;
-                                                    var radius = each_rule.symbolizers.Size / 2.0;
-                                                    legendCtx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-                                                    break;
-                                            }
-                                            if (typeof each_rule.symbolizers.fillColor !== 'undefined')
+                                            legendCtx.rect(0, 0, 20, 15);
+                                            if (typeof each_rule.symbolizers.fillColor !== 'undefined') {
                                                 legendCtx.fillStyle = each_rule.symbolizers.fillColor;
-                                            else
-                                                legendCtx.fillStyle = "#ccc";
-                                            legendCtx.fill();
+                                                legendCtx.fill();
+                                            }
                                             if (typeof each_rule.symbolizers.stroke !== 'undefined' && each_rule.symbolizers.stroke === true) {
-
-                                                if (typeof each_rule.symbolizers.strokeWidth !== 'undefined') {
-
-                                                    legendCtx.lineWidth = each_rule.symbolizers.strokeWidth;
-                                                } else {
-                                                    legendCtx.lineWidth = 0.5;
-                                                }
-                                                if (typeof each_rule.symbolizers.color !== 'undefined') {
-                                                    legendCtx.strokeStyle = each_rule.symbolizers.color;
-                                                } else {
-                                                    legendCtx.strokeStyle = '#003300';
-                                                }
+                                                legendCtx.strokeStyle = each_rule.symbolizers.color;
+                                                legendCtx.lineWidth = each_rule.symbolizers.weight;
                                                 legendCtx.stroke();
                                             }
                                             legendCtx.closePath();
                                         }
-                                    }
-                                }
-                                if (each_rule.type === 'Line') {
-                                    if (typeof each_rule.symbolizers !== 'undefined') {
 
-                                        legendCtx.beginPath();
-                                        legendCtx.moveTo(centerX - legendCanvas.width / 3, centerY);
-                                        legendCtx.lineTo(centerX + legendCanvas.width / 3, centerY);
-                                        if (typeof each_rule.symbolizers.fillColor !== 'undefined') {
-                                            legendCtx.fillStyle = each_rule.symbolizers.fillColor;
-                                            legendCtx.fill();
+
+                                        if (rule_name !== null && rule_name.trim() === '') {
+                                            rule_name = "No Name";
                                         }
-
-                                        if (typeof each_rule.symbolizers.stroke !== 'undefined' && each_rule.symbolizers.stroke === true) {
-                                            legendCtx.lineWidth = 1;
-                                            if (typeof each_rule.symbolizers.strokeWidth !== 'undefined') {
-                                                legendCtx.lineWidth = each_rule.symbolizers.strokeWidth;
-                                            }
-
-                                            legendCtx.strokeStyle = 'black';
-                                            if (typeof each_rule.symbolizers.color !== 'undefined') {
-                                                legendCtx.strokeStyle = each_rule.symbolizers.color;
-                                            }
-                                            legendCtx.stroke();
-                                        }
-
 
                                     }
 
-                                }
-                                var li = $("<li><img src='" + legendCanvas.toDataURL() + "'/>" + rule_name + "</li>");
-                                li.appendTo(ul);
-                            });
+                                    if (each_rule.type === 'Point') {
+
+                                        //   var style = app.map2u.getSymbolizers(each_rule.symbolizers);
+
+                                        if (typeof each_rule.symbolizers !== 'undefined' && (each_rule.symbolizers.Graphic === 'true' || each_rule.symbolizers.Graphic === true) && each_rule.symbolizers.WellKnownName !== '') {
+                                            {
+                                                legendCtx.beginPath();
+                                                switch (each_rule.symbolizers.WellKnownName) {
+
+                                                    case 'diamond' :
+
+                                                        legendCtx.moveTo(centerX, centerY - each_rule.symbolizers.Size / 2.0);
+                                                        legendCtx.lineTo(centerX + each_rule.symbolizers.Size / 2.0, centerY);
+                                                        legendCtx.lineTo(centerX, centerY + each_rule.symbolizers.Size / 2.0);
+                                                        legendCtx.lineTo(centerX - each_rule.symbolizers.Size / 2.0, centerY);
+                                                        legendCtx.lineTo(centerX, centerY - each_rule.symbolizers.Size / 2.0);
+                                                        break;
+                                                    case 'square':
+                                                        legendCtx.moveTo(centerX - each_rule.symbolizers.Size / 2.0, centerY - each_rule.symbolizers.Size / 2.0);
+                                                        legendCtx.lineTo(centerX + each_rule.symbolizers.Size / 2.0, centerY - each_rule.symbolizers.Size / 2.0);
+                                                        legendCtx.lineTo(centerX + each_rule.symbolizers.Size / 2.0, centerY + each_rule.symbolizers.Size / 2.0);
+                                                        legendCtx.lineTo(centerX, centerY + each_rule.symbolizers.Size / 2.0);
+                                                        legendCtx.lineTo(centerX - each_rule.symbolizers.Size / 2.0, centerY - each_rule.symbolizers.Size / 2.0);
+                                                        break;
+                                                    case 'star':
+                                                        legendCtx.moveTo(centerX, centerY - each_rule.symbolizers.Size / 1.6);
+                                                        legendCtx.lineTo(centerX + each_rule.symbolizers.Size / 2.0, centerY);
+                                                        legendCtx.lineTo(centerX, centerY + each_rule.symbolizers.Size / 1.6);
+                                                        legendCtx.lineTo(centerX - each_rule.symbolizers.Size / 2.0, centerY);
+                                                        break;
+                                                    case 'circle':
+                                                        var radius = each_rule.symbolizers.Size / 2.0;
+                                                        legendCtx.beginPath();
+                                                        legendCtx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+                                                        break;
+                                                    case 'triangle':
+
+                                                        legendCtx.moveTo(centerX, centerY - each_rule.symbolizers.Size / 2.0);
+                                                        legendCtx.lineTo(centerX + each_rule.symbolizers.Size / 2.0, centerY + each_rule.symbolizers.Size / 2.0);
+                                                        legendCtx.lineTo(centerX - each_rule.symbolizers.Size / 2.0, centerY + each_rule.symbolizers.Size / 2.0);
+                                                        break;
+                                                    default:
+                                                        var centerX = legendCanvas.width / 2;
+                                                        var centerY = legendCanvas.height / 2;
+                                                        var radius = each_rule.symbolizers.Size / 2.0;
+                                                        legendCtx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+                                                        break;
+                                                }
+                                                if (typeof each_rule.symbolizers.fillColor !== 'undefined')
+                                                    legendCtx.fillStyle = each_rule.symbolizers.fillColor;
+                                                else
+                                                    legendCtx.fillStyle = "#ccc";
+                                                legendCtx.fill();
+                                                if (typeof each_rule.symbolizers.stroke !== 'undefined' && each_rule.symbolizers.stroke === true) {
+
+                                                    if (typeof each_rule.symbolizers.strokeWidth !== 'undefined') {
+
+                                                        legendCtx.lineWidth = each_rule.symbolizers.strokeWidth;
+                                                    } else {
+                                                        legendCtx.lineWidth = 0.5;
+                                                    }
+                                                    if (typeof each_rule.symbolizers.color !== 'undefined') {
+                                                        legendCtx.strokeStyle = each_rule.symbolizers.color;
+                                                    } else {
+                                                        legendCtx.strokeStyle = '#003300';
+                                                    }
+                                                    legendCtx.stroke();
+                                                }
+                                                legendCtx.closePath();
+                                            }
+                                        }
+                                    }
+                                    if (each_rule.type === 'Line') {
+                                        if (typeof each_rule.symbolizers !== 'undefined') {
+
+                                            legendCtx.beginPath();
+                                            legendCtx.moveTo(centerX - legendCanvas.width / 3, centerY);
+                                            legendCtx.lineTo(centerX + legendCanvas.width / 3, centerY);
+                                            if (typeof each_rule.symbolizers.fillColor !== 'undefined') {
+                                                legendCtx.fillStyle = each_rule.symbolizers.fillColor;
+                                                legendCtx.fill();
+                                            }
+
+                                            if (typeof each_rule.symbolizers.stroke !== 'undefined' && each_rule.symbolizers.stroke === true) {
+                                                legendCtx.lineWidth = 1;
+                                                if (typeof each_rule.symbolizers.strokeWidth !== 'undefined') {
+                                                    legendCtx.lineWidth = each_rule.symbolizers.strokeWidth;
+                                                }
+
+                                                legendCtx.strokeStyle = 'black';
+                                                if (typeof each_rule.symbolizers.color !== 'undefined') {
+                                                    legendCtx.strokeStyle = each_rule.symbolizers.color;
+                                                }
+                                                legendCtx.stroke();
+                                            }
+
+
+                                        }
+
+                                    }
+                                    var li = $("<li><img src='" + legendCanvas.toDataURL() + "'/>" + rule_name + "</li>");
+                                    li.appendTo(ul);
+                                });
+                            }
                         }
+                    });
+                }
+                return legend;
+            };
+
+            function layerlistActions() {
+                $('#ol3-map-layers-overlays-list li.overlay_li .layername_label span.layer-action i.fa-arrow-down').unbind("click");
+                $('#ol3-map-layers-overlays-list li.overlay_li .layername_label span.layer-action i.fa-arrow-down').click(function () {
+                    var selected = $(this).closest("li.overlay_li");
+
+                    if ($(selected).next().length === 1)
+                    {
+                        $(selected).insertAfter($(selected).next());
+                        reorderLayer();
                     }
                 });
+                $('#ol3-map-layers-overlays-list li.overlay_li .layername_label span.layer-action i.fa-arrow-up').unbind("click");
+                $('#ol3-map-layers-overlays-list li.overlay_li .layername_label span.layer-action i.fa-arrow-up').click(function () {
+                    var selected = $(this).closest("li.overlay_li");
+
+                    if ($(selected).prev().length === 1)
+                    {
+                        $(selected).insertBefore($(selected).prev());
+                        reorderLayer();
+                    }
+                });
+                $('#ol3-map-layers-overlays-list li.overlay_li  span.layer-action i.fa-times').unbind("click");
+                $('#ol3-map-layers-overlays-list li.overlay_li  span.layer-action i.fa-times').click(function () {
+                    var id = $(this).closest("li.overlay_li").data("id");
+
+                    var name = $(this).closest("li.overlay_li").children("div.layername_label").find("label").text().trim();
+                    if (confirm("Do you want to remove the layer '" + name.trim() + "' from map?")) {
+                        var layers = ol3.map2u.map.getLayers();
+                        layers.forEach(function (layer) {
+                            if (layer.get("id") === id) {
+                                layer.setVisible(false);
+                                //  ol3.map2u.map.removeLayer(layer);
+                            }
+                        });
+                        $(this).closest("li.overlay_li").remove();
+                    }
+                });
+                $('#ol3-map-layers-overlays-list li.layercategory  span.layercategory-action i.fa-times').unbind("click");
+                $('#ol3-map-layers-overlays-list li.layercategory  span.layercategory-action i.fa-times').click(function () {
+                    var id = $(this).closest("li.layercategory").data("id");
+                    var name = $(this).closest("li.layercategory").children("div.layername_label").find("label").text().trim();
+                    if (confirm("Do you want to remove the group '" + name.trim() + "' from map?")) {
+                        var category = $(this).closest("li.layercategory");
+                        var selected_layers = category.find("li.overlay_li");
+                        var layers = ol3.map2u.map.getLayers();
+                        layers.forEach(function (layer) {
+                            $.map(selected_layers, function (selected_layer) {
+                                var layer_id = $(selected_layer).data("id");
+                                if (layer.get("id") === layer_id) {
+                                    layer.setVisible(false);
+                                    //  ol3.map2u.map.removeLayer(layer);
+                                }
+                            });
+                        });
+                        $(this).closest("li.layercategory").remove();
+                    }
+                });
+
+                $('#ol3-map-layers-overlays-list li.layercategory label.layercategory span.layercategory-action i.fa-arrow-down').unbind("click");
+                $('#ol3-map-layers-overlays-list li.layercategory label.layercategory span.layercategory-action i.fa-arrow-down').click(function () {
+                    var selected = $(this).closest("li.layercategory");
+                    if ($(selected).next().length === 1)
+                    {
+                        $(selected).insertAfter($(selected).next());
+                        reorderLayer();
+                    }
+                });
+                $('#ol3-map-layers-overlays-list li.layercategory label.layercategory span.layercategory-action i.fa-arrow-up').unbind("click");
+                $('#ol3-map-layers-overlays-list li.layercategory label.layercategory span.layercategory-action i.fa-arrow-up').click(function () {
+                    var selected = $(this).closest("li.layercategory");
+                    if ($(selected).prev().length === 1)
+                    {
+                        $(selected).insertBefore($(selected).prev());
+                        reorderLayer();
+                    }
+                });
+                $("li.overlay_li > div.layer_legend_icon").unbind("click");
+                $("li.overlay_li > div.layer_legend_icon").click(function () {
+
+                    var id = $(this).parent("li").data("id");
+
+                    var layerType = $(this).parent("li").data("layertype");
+                    if ($(this).find("i").hasClass("fa-plus"))
+                    {
+                        //   alert($(this).parent("li").find('div.layer_legend').length);
+                        //   alert($(this).parent("li").find('div.layer_legend').html() === '');
+                        if ($(this).parent("li").find('div.layer_legend').length !== 0) {
+                            if ($(this).parent("li").find('div.layer_legend').html().trim() === '') {
+                                if (layerType === 'geoserver') {
+                                    var hostName = $(this).parent("li").data("hostname");
+                                    var layerName = $(this).parent("li").data("layername");
+                                    if (hostName.length > 1 && layerName.length > 1) {
+                                        //      alert(hostName + " " + layerName);
+                                        createWMSLegend($(this).parent("li").find('div.layer_legend'), hostName, layerName);
+                                    }
+                                } else {
+                                    loadLayerLegend($(this).parent("li").find('div.layer_legend'), id);
+                                }
+                            } else {
+                                $(this).parent("li").find('div.layer_legend').show();
+                            }
+                        }
+                        $(this).find("i").removeClass("fa-plus").addClass("fa-minus");
+                    } else {
+                        $(this).parent("li").find('div.layer_legend').hide();
+                        $(this).find("i").removeClass("fa-minus").addClass("fa-plus");
+                    }
+                });
+                $("li.layercategory > div.layer_legend_icon").unbind("click");
+                $("li.layercategory > div.layer_legend_icon").click(function () {
+
+                    if ($(this).find("i").hasClass('fa-plus')) {
+                        $(this).find("i").removeClass('fa-plus').addClass('fa-minus');
+                        $(this).parent("li").find("ul:first").show();
+                    } else {
+                        $(this).find("i").removeClass('fa-minus').addClass('fa-plus');
+                        $(this).parent("li").find("ul:first").hide();
+                    }
+                });
+                $("li.overlay_li div.layer_action_icon i.fa-map-marker").unbind("click");
+                $("li.overlay_li div.layer_action_icon i.fa-map-marker").click(function () {
+                    var id = $(this).closest("li").data("id");
+                    if ($(this).hasClass("fa-map-marker")) {
+                        var layers = ol3.map2u.map.getLayers();
+                        layers.forEach(function (layer) {
+                            if (layer.id === id || layer.get('id') === id) {
+
+                                ol3.map2u.map.getView().fit(layer.getSource().getExtent(), ol3.map2u.map.getSize());
+                            }
+                        });
+                    }
+                });
+                $("li.layercategory > input[type='checkbox'],li.layercategory > input[type='radio']").unbind("click");
+                $("li.layercategory > input[type='checkbox'],li.layercategory > input[type='radio']").click(function () {
+
+                    layerCategoryClickEvent(this);
+                });
+
+                $('#ol3-map-layers-overlays-list li.overlay_li .layer_action_icon i.fa-arrow-up').unbind('click');
+                $('#ol3-map-layers-overlays-list li.overlay_li .layer_action_icon i.fa-arrow-up').on('click', function () {
+                    var selected = $(this).closest("li.overlay_li");
+                    if ($(selected).prev().length === 1)
+                    {
+                        $(selected).insertBefore($(selected).prev());
+                    }
+                    reorderLayer();
+                    layerActionButtonsCheck();
+                });
+                $('#ol3-map-layers-overlays-list li.overlay_li .layer_action_icon i.fa-arrow-down').unbind('click');
+                $('#ol3-map-layers-overlays-list li.overlay_li .layer_action_icon i.fa-arrow-down').on('click', function () {
+                    var selected = $(this).closest("li.overlay_li");
+                    if ($(selected).next().length === 1)
+                    {
+                        $(selected).insertAfter($(selected).next());
+                    }
+                    reorderLayer();
+                    layerActionButtonsCheck();
+                });
+
+                $('#ol3-map-layers-overlays-list li.overlay_li .layer_action_icon i.fa-tag').unbind('click');
+                $('#ol3-map-layers-overlays-list li.overlay_li .layer_action_icon i.fa-tag').on('click', function () {
+                    var id = $(this).closest("li.overlay_li").data("id");
+
+                    var checked = $(this).hasClass("checked");
+
+                    if (checked) {
+                        $(this).removeClass("checked");
+                        app.map2u.setLayerLabelVisible(false, id);
+                    } else {
+                        $(this).addClass("checked");
+                        app.map2u.setLayerLabelVisible(true, id);
+                    }
+
+                });
+
+
             }
-            return legend;
-        };
-        function layerActionButtonsCheck() {
-            $('#ol3-map-layers-overlays-list li.overlay_li').find("layer-action-icon i.fa-arrow-up").enabled();
-            $('#ol3-map-layers-overlays-list li.overlay_li').find("layer-action-icon i.fa-arrow-down").enabled();
-            $('#ol3-map-layers-overlays-list li.overlay_li:first').find("layer-action-icon i.fa-arrow-up").disabled();
-            $('#ol3-map-layers-overlays-list li.overlay_li:last').find("layer-action-icon i.fa-arrow-down").disabled();
-        }
-        function reorderLayer() {
-            var layers = ol3.map2u.map.getLayers();
-            $('#ol3-map-layers-overlays-list li.overlay_li').map(function (index) {
-                //   alert(index);
-                var id = $(this).data("id");
-                //  alert("id="+id);
-                layers.forEach(function (layer) {
-                    if (layer.id === id) {
-                        layer.setZIndex(300 - index);
-                        //    ol3.map2u.map.setLayerIndex(layer,index);
-                    }
-                });
+
+            function layerActionButtonsCheck() {
+    {#     $('#ol3-map-layers-overlays-list li.overlay_li').find("layer-action-icon i.fa-arrow-up").enabled();
+         $('#ol3-map-layers-overlays-list li.overlay_li').find("layer-action-icon i.fa-arrow-down").enabled();
+         $('#ol3-map-layers-overlays-list li.overlay_li:first').find("layer-action-icon i.fa-arrow-up").disabled();
+         $('#ol3-map-layers-overlays-list li.overlay_li:last').find("layer-action-icon i.fa-arrow-down").disabled();#}
+                 }
+                 function reorderLayer() {
+                     var layers = ol3.map2u.map.getLayers();
+                     var layerIndex = [];
+                     layerIndex['label'] = 800;
+                     layerIndex['point'] = 600;
+                     layerIndex['line'] = 400;
+                     layerIndex['linestring'] = 400;
+
+                     layerIndex['polygon'] = 200;
+
+
+
+                     $('#ol3-map-layers-overlays-list li.overlay_li').map(function (index) {
+                         //   alert(index);
+                         var id = $(this).data("id");
+                         //  alert("id="+id);
+                         layers.forEach(function (layer) {
+                             if (layer.get('id') === id) {
+                                 if (layer.get("type") !== 'undefined' && layer.get("type") === 'label') {
+                                     layer.setZIndex(layerIndex['label'] - index);
+                                 } else {
+                                     var source = layer.getSource();
+                                     if (typeof source.getFeatures === 'function') {
+                                         var features = source.getFeatures();
+                                         if (typeof features !== 'undefined' && features.length > 0 && typeof features[0] !== 'undefined') {
+                                             var geom_type = features[0].getGeometry().getType();
+                                             if (typeof layerIndex[geom_type.toString().toLowerCase()] !== 'undefined') {
+                                                 layer.setZIndex(layerIndex[geom_type.toString().toLowerCase()] - index);
+                                             }
+                                         } else if (typeof source.getSource === 'function' && source.getSource() !== null && typeof source.getSource().getFeatures === 'function') {
+                                             features = source.getSource().getFeatures();
+                                             if (typeof features !== 'undefined' && features.length > 0 && typeof features[0] !== 'undefined') {
+                                                 var geom_type = features[0].getGeometry().getType();
+                                                 if (typeof layerIndex[geom_type.toString().toLowerCase()] !== 'undefined') {
+                                                     layer.setZIndex(layerIndex[geom_type.toString().toLowerCase()] - index);
+                                                 }
+                                             }
+
+                                         } else {
+                                             layer.setZIndex(layerIndex['polygon'] - index);
+                                         }
+                                     } else {
+                                         layer.setZIndex(layerIndex['polygon'] - index);
+                                     }
+                                 }
+                             }
+                         });
+                     });
+                 }
+
+                 var default_layers = $("div#ol3map-sidebar.ol3map-sidebar").data("viewlayers"); //.toString();
+//alert(default_layers);
+                 var default_datatype = $("div#ol3map-sidebar.ol3map-sidebar").data("viewtype");
+                 //alert(default_datatype);                 
+                 var default_layers_array = [];
+                 if (default_layers !== undefined && default_layers.trim().length > 0) {
+                     default_layers = default_layers.substr(0, default_layers.length - 1);
+                     default_layers_array = default_layers.split(",");
+                 }
+
+
+
+                 if ((default_datatype === 'benefit') && default_layers_array.length > 0) {
+                     //    alert( $("#ol3-map-layers-overlays-list ul.overlay_ul li.overlay_li input:checked").length + "   " + $("#ol3-map-layers-overlays-list ul.overlay_ul li.overlay_li input").length);
+
+                     $("#ol3-map-layers-overlays-list ul.overlay_ul li.overlay_li input").map(function () {
+
+                         $(this).prop("checked", false);
+                     });
+                     $("#ol3-map-layers-overlays-list ul.overlay_ul li.overlay_li input").prop("checked", false);
+                     $("#ol3-map-layers-overlays-list ul.overlay_ul li.overlay_li input").data("show", null);
+                     $.map(default_layers_array, function (layer_id) {
+                         //          alert(layer_id  + "   " + $("#ol3-map-layers-overlays-list ul.overlay_ul li.overlay_li[data-id='" + layer_id + "']").length);
+                         $("#ol3-map-layers-overlays-list ul.overlay_ul li.overlay_li[data-id='" + layer_id + "']").find("input").attr("show", 'on');
+                         //  $(".leaflet-control-container .section.overlay-layers li.overlay_li[data-id='" + layer_id + "']").find("input").prop("checked", true);
+                         $("#ol3-map-layers-overlays-list ul.overlay_ul li.overlay_li[data-id='" + layer_id + "']").find("input").trigger('click')
+
+                     });
+                 } else {
+
+    {#    $("#ol3-map-layers-overlays-list ul.overlay_ul li.overlay_li input[data-show='on']").map(function () {
+//alert($(this).parents("li").html());
+            $(this).trigger('click');
+        });#}
+                }
+                layerlistActions();
+                layerListInputButtonActions();
+                //       alert($("#ol3-map-layers-overlays-list ul.overlay_ul li.overlay_li input[data-show='on']").length);
             });
-        }
-
-        var default_layers = $("div#sidebar-left.leaflet-control").data("viewlayers"); //.toString();
-
-        var default_datatype = $("div#sidebar-left.leaflet-control").data("viewtype");
-        var default_layers_array = [];
-        if (default_layers !== undefined && default_layers.trim().length > 0) {
-            default_layers = default_layers.substr(0, default_layers.length - 1);
-            default_layers_array = default_layers.split(",");
-        }
-
-
-
-        if ((default_datatype === 'benefit') && default_layers_array.length > 0) {
-            //    alert( $(".leaflet-control-container .section.overlay-layers li.overlay_li input:checked").length + "   " + $(".leaflet-control-container .section.overlay-layers li.overlay_li input").length);
-            $(".leaflet-control-container .section.overlay-layers li.overlay_li input").map(function () {
-
-                $(this).prop("checked", false);
-            });
-            $(".leaflet-control-container .section.overlay-layers li.overlay_li input").prop("checked", false);
-            $(".leaflet-control-container .section.overlay-layers li.overlay_li input").data("show", null);
-            $.map(default_layers_array, function (layer_id) {
-                $(".leaflet-control-container .section.overlay-layers li.overlay_li[data-id='" + layer_id + "']").find("input").data("show", 'on');
-                //  $(".leaflet-control-container .section.overlay-layers li.overlay_li[data-id='" + layer_id + "']").find("input").prop("checked", true);
-                $(".leaflet-control-container .section.overlay-layers li.overlay_li[data-id='" + layer_id + "']").find("input").trigger('click')
-
-            });
-        } else {
-            $(".leaflet-control-container .section.overlay-layers li.overlay_li input[data-show='on']").map(function () {
-
-                $(this).trigger('click');
-            });
-        }
-    });
 </script>

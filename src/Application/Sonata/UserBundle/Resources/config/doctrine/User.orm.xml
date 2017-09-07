@@ -17,7 +17,7 @@
                 <option name="default">7200</option>
             </options>
         </field>   
-        <field name="loginSession" type="string" length="30"   fixed='false' nullable='true' column='login_session_id' />
+        <field name="loginSession" type="string" length="80"   fixed='false' nullable='true' column='login_session_id' />
         <field name="lastActivity" type="datetime" nullable="true" />
         <field name="lastLoginDate" type="date"  nullable='true' column='last_login_date' />
         <field name="lastSecondLoginDate" type="datetime" nullable="true" column='last_second_login_date' />

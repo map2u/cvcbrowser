@@ -51,6 +51,7 @@ class LayerController extends BaseController {
         if ($user) {
             $name = $request->get("name");
             $sequence = $request->get("sequence");
+            $selected_action = $request->get("selected_action");
             $em = $this->getDoctrine()->getManager();
             $sequence_entity = $em->getRepository("Map2uCoreBundle:LayerDisplaySequence")->findOneBy(array("user" => $user, "name" => $name));
             if ($sequence_entity === null) {
@@ -60,6 +61,7 @@ class LayerController extends BaseController {
                 $sequence_entity->setDefault(false);
             }
             $sequence_entity->setSequence(json_encode($sequence));
+            $sequence_entity->setSelectedAction(json_encode($selected_action));
             $em->persist($sequence_entity);
             $em->flush();
             return new JsonResponse(array('success' => true, 'message' => 'Layer display sequence has been successfully saved!', 'data' => array('id' => $sequence_entity->getId(), 'name' => $sequence_entity->getName(), 'sequence' => json_decode($sequence_entity->getSequence()))));
@@ -99,7 +101,9 @@ class LayerController extends BaseController {
                 $sequence_entity = $em->getRepository("Map2uCoreBundle:LayerDisplaySequence")->find($id);
                 if ($sequence_entity) {
                     $sequence = json_decode($sequence_entity->getSequence());
-                    return new JsonResponse(array('success' => true, 'message' => 'Layer display sequence has been successfully loaded!', 'data' => $sequence));
+                    $selected_action->getSelectedAction();
+
+                    return new JsonResponse(array('success' => true, 'message' => 'Layer display sequence has been successfully loaded!', 'data' => $sequence, 'selected_action' => $selected_action));
                 } else {
                     return new JsonResponse(array('success' => false, 'message' => 'Layer display sequence id:' . $id . ' has not been found!'));
                 }
@@ -138,8 +142,10 @@ class LayerController extends BaseController {
         $stories_class = $em->getRepository($this->getParameter("map2u.core.story.class"));
         if ($layer) {
             if ($layer->getLayerType() === 'spatialfile' || $layer->getLayerType() === 'cluster') {
-                $spatial = $this->getLayerSpatialfile($layer);
-            // var_dump(  mb_convert_encoding($spatial['spatial'], 'UTF-8'));
+                if ($layer->getLayerFormat() !== 'mvt_vector_tile') {
+                    $spatial = $this->getLayerSpatialfile($layer);
+                }
+                // var_dump(  mb_convert_encoding($spatial['spatial'], 'UTF-8'));
             }
             if ($layer->getLayerType() === 'geoserver') {
                 $layerproperty = json_decode($layer->getLayerProperty());
@@ -171,9 +177,13 @@ class LayerController extends BaseController {
 //            $spatial['spatial']=$topojson;
 //            $spatial['datatype']=$datatype;
 
-                    $spatial = $conn->fetchAll("select id, story_name, image_file,story_file , st_x(ST_Centroid(the_geom)) as lng,st_y(ST_Centroid(the_geom)) as lat  from " . $em->getClassMetadata($stories_class->getClassName())->getTableName() . " where storytype_id='" . $story_type . "'");
+                    if ($layer->getLayerFormat() !== 'mvt_vector_tile') {
+                        $spatial = $conn->fetchAll("select id, story_name, image_file,story_file , st_x(ST_Centroid(the_geom)) as lng,st_y(ST_Centroid(the_geom)) as lat  from " . $em->getClassMetadata($stories_class->getClassName())->getTableName() . " where storytype_id='" . $story_type . "'");
+                    }
                 } else {
-                    $spatial = $conn->fetchAll("select id, story_name, image_file,story_file , st_x(ST_Centroid(the_geom)) as lng,st_y(ST_Centroid(the_geom)) as lat  from " . $em->getClassMetadata($stories_class->getClassName())->getTableName());
+                    if ($layer->getLayerFormat() !== 'mvt_vector_tile') {
+                        $spatial = $conn->fetchAll("select id, story_name, image_file,story_file , st_x(ST_Centroid(the_geom)) as lng,st_y(ST_Centroid(the_geom)) as lat  from " . $em->getClassMetadata($stories_class->getClassName())->getTableName());
+                    }
                 }
                 // convert serialzed image names to json type
 //                foreach ($spatial as $ee) {
@@ -188,7 +198,7 @@ class LayerController extends BaseController {
                 $sld = DefaultMethods::getSldContent($this, $layer->getSldFileName());
             }
 
-            return new JsonResponse(array('success' => true, 'layerType' => $layer->getLayerType(), 'layerPosition' => $layer->getPosition(), 'sld' => $sld, 'layer_id' => $layer->getId(), 'label_field' => $label_field, 'layer_name' => $layer->getName(), 'layer_property' => json_decode($layer->getLayerProperty()), 'data' => $spatial));
+            return new JsonResponse(array('success' => true, 'layerType' => $layer->getLayerType(), 'layerFormat' => $layer->getLayerFormat(), 'layerPosition' => $layer->getPosition(), 'sld' => $sld, 'layer_id' => $layer->getId(), 'label_field' => $label_field, 'layer_name' => $layer->getName(), 'layer_property' => json_decode($layer->getLayerProperty()), 'data' => $spatial));
         }
         return new JsonResponse(array('success' => true, 'layer_id' => null, 'sld' => $sld, 'layerType' => null, 'layer_name' => null, 'data' => $spatial));
     }

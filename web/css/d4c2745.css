@@ -9146,19 +9146,71 @@ li.overlay_li div.layer_legend {
   margin-right: 8px;
 }
 
-/* line 69, ../../Resources/assets/stylesheets/yorkujuturna/map.scss */
+/* line 68, ../../Resources/assets/stylesheets/yorkujuturna/map.scss */
+li.layercategory label span.layercategory-action {
+  visibility: hidden;
+  width: 90px;
+  right: 5px;
+  height: 24px;
+  background-color: lightgray;
+  border-radius: 4px;
+  padding: 0px 8px;
+  border: 1px solid blue;
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+/* line 84, ../../Resources/assets/stylesheets/yorkujuturna/map.scss */
+li.overlay_li .layername_label span.layer-action {
+  visibility: hidden;
+  width: 185px;
+  right: 5px;
+  height: 24px;
+  background-color: lightgray;
+  border-radius: 4px;
+  padding: 0px 8px;
+  border: 1px solid blue;
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+/* line 98, ../../Resources/assets/stylesheets/yorkujuturna/map.scss */
+li.layercategory label span.layercategory-action i,
+li.overlay_li .layername_label span.layer-action i {
+  cursor: pointer;
+}
+
+/* line 103, ../../Resources/assets/stylesheets/yorkujuturna/map.scss */
+li.layercategory label span.layercategory-action i:hover,
+li.overlay_li .layername_label span.layer-action i:hover {
+  color: greenyellow;
+}
+
+/* line 108, ../../Resources/assets/stylesheets/yorkujuturna/map.scss */
+label.layercategory[data-level='1'] {
+  width: 315px;
+}
+
+/* line 111, ../../Resources/assets/stylesheets/yorkujuturna/map.scss */
+label.layercategory[data-level='2'] {
+  width: 295px;
+}
+
+/* line 115, ../../Resources/assets/stylesheets/yorkujuturna/map.scss */
 .ol3map-sidebar-panel-content ul {
   list-style: none;
   padding-left: 18px;
 }
 
-/* line 74, ../../Resources/assets/stylesheets/yorkujuturna/map.scss */
+/* line 120, ../../Resources/assets/stylesheets/yorkujuturna/map.scss */
 #ol3-map-layers-overlays-list-title .overlayers_btn {
   margin-right: 5px;
   cursor: pointer;
 }
 
-/* line 79, ../../Resources/assets/stylesheets/yorkujuturna/map.scss */
+/* line 125, ../../Resources/assets/stylesheets/yorkujuturna/map.scss */
 .ol-bottom-feature-list {
   bottom: 6px;
   left: 8.2em;
@@ -9168,7 +9220,7 @@ li.overlay_li div.layer_legend {
   border-radius: 4px;
 }
 
-/* line 88, ../../Resources/assets/stylesheets/yorkujuturna/map.scss */
+/* line 134, ../../Resources/assets/stylesheets/yorkujuturna/map.scss */
 .ol-bottom-feature-list .feature-list-item {
   display: inline-block;
   height: 38px;
@@ -9178,18 +9230,18 @@ li.overlay_li div.layer_legend {
   border-radius: 5px;
 }
 
-/* line 98, ../../Resources/assets/stylesheets/yorkujuturna/map.scss */
+/* line 144, ../../Resources/assets/stylesheets/yorkujuturna/map.scss */
 li.overlay_li .layername_label span.layer-action .layer_action_icon {
   width: 100%;
 }
 
-/* line 101, ../../Resources/assets/stylesheets/yorkujuturna/map.scss */
+/* line 147, ../../Resources/assets/stylesheets/yorkujuturna/map.scss */
 li.overlay_li .layername_label span.layer-action .layer_action_icon i {
   padding: 4px;
   cursor: pointer;
 }
 
-/* line 108, ../../Resources/assets/stylesheets/yorkujuturna/map.scss */
+/* line 154, ../../Resources/assets/stylesheets/yorkujuturna/map.scss */
 #ol3map_map_tooltip.tooltip {
   position: relative;
   padding: 5px;
@@ -9201,7 +9253,13 @@ li.overlay_li .layername_label span.layer-action .layer_action_icon i {
   border-radius: 5px;
 }
 
-/* line 28, assetic_compassEQBXit.scss */
+/* line 166, ../../Resources/assets/stylesheets/yorkujuturna/map.scss */
+#ol3-map-layers-overlays-list li.overlay_li .layer_action_icon i.fa-tag.checked {
+  color: blue;
+  font-weight: 500;
+}
+
+/* line 28, assetic_compassLUd9wJ.scss */
 .sonata-bc .tooltip.left {
   margin-left: -12px;
 }

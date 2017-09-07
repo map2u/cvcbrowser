@@ -65,6 +65,52 @@ li.overlay_li div.layer_legend {
     margin-right: 8px;
 }
 
+li.layercategory label span.layercategory-action {
+
+    visibility: hidden;
+    width: 90px;
+    right: 5px;
+    height: 24px;
+    background-color: lightgray;
+    border-radius: 4px;
+    padding: 0px 8px;
+    border:1px solid blue;
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+
+li.overlay_li .layername_label span.layer-action {
+
+    visibility: hidden;
+    width: 185px;
+    right: 5px;
+    height: 24px;
+    background-color: lightgray;
+    border-radius: 4px;
+    padding: 0px 8px;
+    border:1px solid blue;
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+li.layercategory label span.layercategory-action i,
+li.overlay_li .layername_label span.layer-action i
+{
+    cursor: pointer;
+}
+li.layercategory label span.layercategory-action i:hover,
+li.overlay_li .layername_label span.layer-action i:hover
+{
+    color: greenyellow;
+}
+label.layercategory[data-level='1'] {
+    width:315px;
+}
+label.layercategory[data-level='2'] {
+    width:295px;
+}
 
 .ol3map-sidebar-panel-content ul {
     list-style: none;
@@ -114,4 +160,10 @@ li.overlay_li .layername_label span.layer-action .layer_action_icon i{
     white-space: nowrap;
     font: 10pt sans-serif;
     border-radius: 5px;
+}
+
+
+#ol3-map-layers-overlays-list li.overlay_li .layer_action_icon i.fa-tag.checked {
+     color: blue;
+     font-weight: 500;
 }

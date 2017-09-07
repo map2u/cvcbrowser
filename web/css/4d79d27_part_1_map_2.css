@@ -1,0 +1,144 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 8-Apr-2016, 2:41:51 PM
+    Author     : josephzhao
+*/
+/* line 11, assetic_compasskNqq71.scss */
+div.layer_legend_items ul li {
+  border-bottom: 1px dotted gainsboro;
+}
+
+/* line 15, assetic_compasskNqq71.scss */
+div.layer_legend_items ul li:last-child {
+  border-bottom: none;
+}
+
+/* line 19, assetic_compasskNqq71.scss */
+div.layer_legend_items ul li img {
+  margin-right: 5px;
+}
+
+/* line 23, assetic_compasskNqq71.scss */
+div.section.overlay-layers ul.overlay_ul li label.selected {
+  background-color: lightseagreen;
+}
+
+/* line 27, assetic_compasskNqq71.scss */
+div.section.overlay-layers ul.overlay_ul li label.mouse_selected {
+  background-color: lightskyblue;
+}
+
+/* line 30, assetic_compasskNqq71.scss */
+.uploadspatialfile_block select {
+  width: 370px;
+}
+
+/* for map layers */
+/* line 35, assetic_compasskNqq71.scss */
+div.layer_legend_items ul li, li.overlay_li {
+  border-bottom: 1px dotted gainsboro;
+}
+
+/* line 39, assetic_compasskNqq71.scss */
+div.layer_legend_items ul li:last-child, li.overlay_li:last-child {
+  border-bottom: none;
+  margin-bottom: 5px;
+}
+
+/* line 44, assetic_compasskNqq71.scss */
+div.layer_legend_items ul li img {
+  margin-right: 5px;
+}
+
+/* line 48, assetic_compasskNqq71.scss */
+li.overlay_li div.layer_legend {
+  border-top: 1px dotted gainsboro;
+}
+
+/* line 53, assetic_compasskNqq71.scss */
+.layer_legend .layer_legend_items ul {
+  list-style: none;
+  padding-left: 15px;
+}
+
+/* line 58, assetic_compasskNqq71.scss */
+#ol3-map-layers-list i.ol3-map-layers-list-icon {
+  display: inline-block;
+  color: lightblue;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+/* line 64, assetic_compasskNqq71.scss */
+#ol3-map-layers-basemap-list li input[type='radio'] {
+  margin-right: 8px;
+}
+
+/* line 69, assetic_compasskNqq71.scss */
+.ol3map-sidebar-panel-content ul {
+  list-style: none;
+  padding-left: 18px;
+}
+
+/* line 74, assetic_compasskNqq71.scss */
+#ol3-map-layers-overlays-list-title .overlayers_btn {
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+/* line 79, assetic_compasskNqq71.scss */
+.ol-bottom-feature-list {
+  bottom: 6px;
+  left: 8.2em;
+  width: 100%;
+  height: 50px;
+  border: 1px solid green;
+  border-radius: 4px;
+}
+
+/* line 88, assetic_compasskNqq71.scss */
+.ol-bottom-feature-list .feature-list-item {
+  display: inline-block;
+  height: 38px;
+  margin: 4px;
+  cursor: pointer;
+  border: 1px solid lightseagreen;
+  border-radius: 5px;
+}
+
+/* line 98, assetic_compasskNqq71.scss */
+li.overlay_li .layername_label span.layer-action .layer_action_icon {
+  width: 100%;
+}
+
+/* line 101, assetic_compasskNqq71.scss */
+li.overlay_li .layername_label span.layer-action .layer_action_icon i {
+  padding: 4px;
+  cursor: pointer;
+}
+
+/* line 107, assetic_compasskNqq71.scss */
+li.layercategory[data-level="1"] label {
+  width: 325px;
+}
+
+/* line 110, assetic_compasskNqq71.scss */
+li.layercategory[data-level="2"] label {
+  width: 300px;
+}
+
+/* line 114, assetic_compasskNqq71.scss */
+#ol3map_map_tooltip.tooltip {
+  position: relative;
+  padding: 5px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  opacity: 0.7;
+  white-space: nowrap;
+  font: 10pt sans-serif;
+  border-radius: 5px;
+}

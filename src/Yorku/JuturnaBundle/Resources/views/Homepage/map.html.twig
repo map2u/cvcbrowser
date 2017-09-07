@@ -3,6 +3,7 @@
 
     {{ parent() }}
     {#    {% include "::mapstylesheets.html.twig" %}#}
+    <link rel="stylesheet" href="{{ asset('bundles/yorkujuturna/css/ol3gm.css')}}" type="text/css">
     <link rel="stylesheet" href="{{ asset('bundles/map2ucore/css/ol.css')}}" type="text/css">
     <link rel="stylesheet" href="{{ asset('bundles/map2ucore/css/ol3-contextmenu.min.css')}}" type="text/css">
     <link rel="stylesheet" href="/css/sidebar/ol3-sidebar.css" />
@@ -49,36 +50,6 @@
             border-radius: 3px;
         }
 
-        li.layercategory label span.layercategory-action {
-
-            visibility: hidden;
-            width: 105px;
-            right: 25px;
-            height: 24px;
-            background-color: lightgray;
-            border-radius: 4px;
-            padding: 0px 8px;
-            border:1px solid blue;
-            /* Position the tooltip */
-            position: absolute;
-            z-index: 1;
-        }
-
-
-        li.overlay_li .layername_label span.layer-action {
-
-            visibility: hidden;
-            width: 185px;
-            right: 25px;
-            height: 24px;
-            background-color: lightgray;
-            border-radius: 4px;
-            padding: 0px 8px;
-            border:1px solid blue;
-            /* Position the tooltip */
-            position: absolute;
-            z-index: 1;
-        }
 
         li.layercategory label:hover span.layercategory-action{
 
@@ -109,7 +80,7 @@
     {% endblock %}
     {% block page_container %}
         {% block map2u_map %}
-            <div id="ol3map-sidebar" class="ol3map-sidebar pull-right ol3map-sidebar-right collapsed">
+            <div id="ol3map-sidebar" class="ol3map-sidebar pull-right ol3map-sidebar-right collapsed"  data-viewtype="{% if view is defined  %}{{view}}{% endif %}" {% if benefits is defined and benefits is not null %} data-viewlayers="{% for layer in benefits.layers %}{{layer.id}},{% endfor %}"  {% endif %}>
                 <div class="ol3map-sidebar-tabs">
                     <ul role="tablist">
                         <li><a href="#layer_list" role="tab" title='Layer List' data-toggle="tooltip" data-container="body" data-placement="left"><i class="fa fa-map-o"></i></a></li>
@@ -120,12 +91,12 @@
                         <li><a href="#mapping_userdraw" role="tab" title='User Draw' data-toggle="tooltip" data-container="body" data-placement="left"><i class="fa fa-pencil"></i></a></li>
                         <li><a href="#mapping_featurestyle" role="tab" title='Layer Feature Style' data-container="body" data-toggle="tooltip" data-placement="left"><i class="fa fa-pencil"></i></a></li>
 
-                        <li><a href="#mapping_spatialfile_upload" role="tab" data-container="body" title='Upload Spatial Data to Sever' data-toggle="tooltip" data-placement="left"><i class="fa fa-upload"></i></a></li>
+                        <li><a href="#mapping_spatialfile_upload" role="tab" data-container="body" title='Upload Spatial Data to Server' data-toggle="tooltip" data-placement="left"><i class="fa fa-upload"></i></a></li>
                     </ul>
 
                     <ul role="tablist">
                         <li><a href="#mapping_osm_legend" role="tab" data-container="body" title='Open Street Map Legend' data-toggle="tooltip" data-placement="left"><i class="fa fa-info"></i></a></li>
-                        <li><a href="#mapping-settings" role="tab" data-container="body" title='System Settings' data-toggle="tooltip" data-placement="left"><i class="fa fa-gear"></i></a></li>
+                                {#                        <li><a href="#mapping-settings" role="tab" data-container="body" title='System Settings' data-toggle="tooltip" data-placement="left"><i class="fa fa-gear"></i></a></li>#}
                     </ul>
                 </div>
 
@@ -181,16 +152,19 @@
 
                         </div>
                     </div>
-                    <div class="ol3map-sidebar-pane" id="mapping-settings">
-                        <h1 class="ol3map-sidebar-header"><div class="title">{{'Settings'|trans({},'Map2uCoreBundle')}}</div><div class="ol3map-sidebar-close"><i class="fa fa-caret-right"></i></div></h1>
-                        <div class="ol3map-sidebar-panel-content">
-
-                        </div>
-                    </div>
+                    {# <div class="ol3map-sidebar-pane" id="mapping-settings">
+                         <h1 class="ol3map-sidebar-header"><div class="title">{{'Settings'|trans({},'Map2uCoreBundle')}}</div><div class="ol3map-sidebar-close"><i class="fa fa-caret-right"></i></div></h1>
+                         <div class="ol3map-sidebar-panel-content">
+ 
+                         </div>
+                     </div>#}
                 </div>     
             </div>
-            <div id="ol3map_map" style="margin-top: 5px;margin-bottom: 5px;width:100%;border-radius:5px;border: 1px solid darkgreen;">
+
+
+            <div id="ol3map_map" style="margin-top: 5px;margin-bottom: 5px;min-height: 598px;width:100%;border-radius:5px;border: 1px solid darkgreen;">
             </div>
+
             <div id="mapstatus" class="row">
                 <div class="pull-left">
                     <div id="current_view" data-view="{{view}}" style="display:inline-block;margin-left: 10px;">Current View: {{view}}</div>
@@ -203,7 +177,7 @@
                     <select id="projection" style="display:inline-block;margin-top: 4px;margin-right: 5px;">
                         <option value="EPSG:4326">EPSG:4326</option>
                         <option value="EPSG:3857">EPSG:3857</option>
-                        <option value="EPSG:26717">EPSG:26717</option>
+{#                        <option value="EPSG:26717">EPSG:26717</option>#}
                     </select>
                 </div>
             </div>
@@ -230,6 +204,7 @@
         <div id="ol3map_map_tooltip" class="tooltip"></div>
     {% endblock %}
     {% block page_javascripts %}
+
         {{ parent() }}
         {% include "::mapjavascripts.html.twig" %}
         <script src="/js/sidebar/jquery-sidebar.js"></script>
@@ -237,45 +212,50 @@
         <script src="/bundles/yorkujuturna/js/ol.ordering.js"></script>
         <script src="/bundles/yorkujuturna/js/js-md5.js"></script>
 
+        {#        <script src="/bundles/yorkujuturna/js/ol3gm.js"></script>#}
+
         <script>
             $(function () {
-
-                ol3.map2u.createMap('ol3map_map');
-                app.viewingscale(ol3.map2u.map);
-
-                var sidebar = $('#ol3map-sidebar').sidebar({'position': 'right'});
-                $("#ol3map-sidebar .ol3map-sidebar-tabs li a").on("click", function () {
-                    //  alert($(this).attr("href"));
-                    var sidebar_href = $(this).attr("href");
-                    var htmlContent = $(sidebar_href + ".ol3map-sidebar-pane").find(".ol3map-sidebar-panel-content").html();
-                    if (htmlContent && htmlContent.toString().trim() === '') {
+           
+                     ol3.map2u.createMap('ol3map_map');
+                     app.viewingscale(ol3.map2u.map);
 
 
-                        //  alert($(sidebar_href + ".ol3map-sidebar-pane").find(".ol3map-sidebar-panel-content").html());
+                     var sidebar = $('#ol3map-sidebar').sidebar({'position': 'right'});
+                     $("#ol3map-sidebar .ol3map-sidebar-tabs li a").on("click", function () {
+                         //  alert($(this).attr("href"));
+                         var sidebar_href = $(this).attr("href");
+                         var htmlContent = $(sidebar_href + ".ol3map-sidebar-pane").find(".ol3map-sidebar-panel-content").html();
+                         if (htmlContent && htmlContent.toString().trim() === '') {
 
-                        $.ajax({
-                            url: Routing.generate(sidebar_href.replace("#", ''), {_locale: app.locale}),
-                            type: 'GET',
-                            complete: function () {
 
-                            },
-                            success: function (data) {
+                             //  alert($(sidebar_href + ".ol3map-sidebar-pane").find(".ol3map-sidebar-panel-content").html());
 
-                                $(sidebar_href + ".ol3map-sidebar-pane").find(".ol3map-sidebar-panel-content").html(data);
-                            },
-                            cache: false,
-                            contentType: false,
-                            processData: false
-                        });
-                    }
-                });
-                $('.ol3map-sidebar-tabs [data-toggle="tooltip"]').tooltip({
-                    animated: 'fade',
-                    placement: 'left',
-                    container: 'body'
-                });
+                             $.ajax({
+                                 url: Routing.generate(sidebar_href.replace("#", ''), {_locale: app.locale}),
+                                 type: 'GET',
+                                 complete: function () {
 
-            });
+                                 },
+                                 success: function (data) {
+
+                                     $(sidebar_href + ".ol3map-sidebar-pane").find(".ol3map-sidebar-panel-content").html(data);
+                                 },
+                                 cache: false,
+                                 contentType: false,
+                                 processData: false
+                             });
+                         }
+                     });
+                     $('.ol3map-sidebar-tabs [data-toggle="tooltip"]').tooltip({
+                         animated: 'fade',
+                         placement: 'left',
+                         container: 'body'
+                     });
+                   
+                     // default is display layer list for map right sidebar
+                     $("#ol3map-sidebar .ol3map-sidebar-tabs ul[role='tablist'] li a:first").trigger("click");
+                 });
         </script>
     {% endblock %}
 {% endblock %}

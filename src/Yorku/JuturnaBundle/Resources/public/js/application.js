@@ -21,12 +21,26 @@ if (typeof ol3.map2u === 'undefined') {
 if (typeof ol3.map2u.overlays === 'undefined') {
     ol3.map2u.overlays = [];
 }
+
+
+if (typeof ol3.map2u.cachedOverlays === 'undefined') {
+    ol3.map2u.cachedOverlays = [];
+}
+if (typeof ol3.map2u.cachedLabelLayers === 'undefined') {
+    ol3.map2u.cachedLabelLayers = [];
+}
 if (typeof ol3.map2u.slds === 'undefined') {
     ol3.map2u.slds = [];
 }
+
+if (typeof ol3.map2u.cachedDataSources === 'undefined') {
+    ol3.map2u.cachedDataSources = [];
+}
+
 if (typeof ol3.map2u.cachedMarkers === 'undefined') {
     ol3.map2u.cachedMarkers = [];
 }
+
 if (typeof ol3.map2u.cachedLayerStyles === 'undefined') {
     ol3.map2u.cachedLayerStyles = [];
 }
@@ -34,6 +48,7 @@ if (typeof ol3.map2u.cachedLayerStyles === 'undefined') {
 if (typeof ol3.map2u.basemapLayers === 'undefined') {
     ol3.map2u.basemapLayers = [];
 }
+
 if (typeof ol3.contextmenu === 'undefined') {
     ol3.contextmenu = {};
 }
@@ -45,8 +60,9 @@ ol3.map2u.createMap = function (mapId) {
     var geolocation;
     var map;
     // default zoom, center and rotation
-    var zoom = 12;
-    var center = [-79.4000, 43.7000];
+    var zoom = 10;
+  
+    var center = [-79.786, 43.709];
     var rotation = 0;
     if (window.location.hash !== '') {
         // try to restore center, zoom-level and rotation from the URL
@@ -182,6 +198,23 @@ ol3.map2u.createMap = function (mapId) {
             url: 'https://www.map2u.com/tiles/{z}/{x}/{y}.png'
         })
     });
+    
+    
+//    var canopylayer = new ol.layer.Tile({
+//        source: new ol.source.OSM({
+//            attributions: [
+//                new ol.Attribution({
+//                    html: 'All maps &copy; ' +
+//                            '<a href="http://www.openstreetmap.org/">OpenStreetMap</a>'
+//                }),
+//                ol.source.OSM.ATTRIBUTION
+//            ],
+//             projection: 'EPSG:3857',
+//            crossOrigin: null,
+//            url: 'http://192.168.5.180:8080/test/{z}/{x}/{y}.mvt'
+//        })
+//    });
+    
     var osmSource = new ol.source.OSM({projection: 'EPSG:3857'});
     var view;
 
@@ -204,6 +237,47 @@ ol3.map2u.createMap = function (mapId) {
             minZoom: 4
         });
     }
+
+    //   var googleLayer = new olgm.layer.Google();
+    var osmLayer = new ol.layer.Tile({
+        source: new ol.source.OSM(),
+        visible: true
+    });
+
+
+var layer = 'Urban%20Canopy';
+//var layer = 'juturna3.0:Urban%20Canopy';
+  var projection_epsg_no = '3857';
+ var style_simple = new ol.style.Style({
+    fill: new ol.style.Fill({
+      color: '#ADD8E6'
+    }),
+    stroke: new ol.style.Stroke({
+      color: '#880000',
+      width: 1
+    })
+  });
+
+  function simpleStyle(feature) {
+    return style_simple;
+  }
+ //alert( 'cvc.juturna.ca:8080/geoserver/gwc/service/tms/1.0.0/'+layer+'@EPSG%3A'+projection_epsg_no+'@pbf/{z}/{x}/{-y}.pbf');
+var vlayer=
+  new ol.layer.VectorTile({
+      style:simpleStyle,
+  //    "source-layer": 'Urban Canopy',
+      source: new ol.source.VectorTile({
+            projection: 'EPSG:3857',
+        tilePixelRatio: 16, // oversampling when > 1
+        tileGrid: ol.tilegrid.createXYZ({maxZoom: 19}),
+        format: new ol.format.MVT(),
+        url: 'http://cvc.juturna.ca:8080/geoserver/slippymap/' + layer + '/{z}/{x}/{-y}.pbf'
+ //       url: 'http://cvc.juturna.ca:8080/geoserver/gwc/service/tms/1.0.0/' + layer + '@EPSG%3A'+projection_epsg_no+'@pbf/{z}/{x}/{-y}.pbf'
+      })
+    });
+
+  
+    
     map = new ol.Map({
         controls: ol.control.defaults({
             attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
@@ -212,16 +286,42 @@ ol3.map2u.createMap = function (mapId) {
         }).extend([
             mousePositionControl, new app.RotateNorthControl(), new ol.control.ScaleLine(), new app.BottomFeatureListControl()//, new app.MeasurementControl()
         ]),
-        interactions: ol.interaction.defaults({mouseWheelZoom: false}),
+        interactions: ol.interaction.defaults({mouseWheelZoom: true}),
         target: mapId,
         layers: [
-
-            new ol.layer.Tile({
-                source: osmSource
-            }),
+            //                    googleLayer,
+            osmLayer
+         //   vlayer,
+  //          canopylayer
+//            new ol.layer.Tile({
+//                source: osmSource
+//            }),
         ],
         view: view
     });
+    //  googleLayer.setVisible(true);
+
+    ol3.map2u.map = map;
+
+//    var gmap = new google.maps.Map(document.getElementById('gmap_map'), {
+//        disableDefaultUI: true,
+//        keyboardShortcuts: false,
+//        draggable: false,
+//        disableDoubleClickZoom: true,
+//        scrollwheel: false,
+//        streetViewControl: false
+//    });
+//    ol3.map2u.map.getView().on('change:center', function () {
+//        var center = ol.proj.transform(view.getCenter(), 'EPSG:3857', 'EPSG:4326');
+//        olGM.map.setCenter(new google.maps.LatLng(center[1], center[0]));
+//    });
+//    ol3.map2u.map.getView().on('change:resolution', function () {
+//       
+//        olGM.map.setZoom(ol3.map2u.map.getView().getZoom());
+//    });
+//    var olMapDiv = document.getElementById('ol3map_map');
+//    olMapDiv.parentNode.removeChild(olMapDiv);
+//    gmap.controls[google.maps.ControlPosition.TOP_LEFT].push(olMapDiv);
 
     var userdrawItems = new ol.source.Vector({});
     ol3.map2u.userdrawItems = userdrawItems;
@@ -254,7 +354,47 @@ ol3.map2u.createMap = function (mapId) {
     };
 
     map.on('moveend', updatePermalink);
-    ol3.map2u.map = map;
+
+//
+//var caps = new ol.format.WMTSCapabilities().read(data);
+//var wmts = new ol.source.WMTS(
+// ol.source.WMTS.optionsFromCapabilities(caps, {
+// layer: 'juturna3.0:Urban Canopy',
+// matrixSet: 'EPSG:3857',
+// format: 'application/x-protobuf;type=mapbox-vector'
+// })
+//);
+//
+//var layer = new ol.layer.VectorTile({
+// source: new ol.source.VectorTile({
+// format: new ol.format.MVT(),
+// tileUrlFunction: wmts.getTileUrlFunction(),
+// tileGrid: wmts.getTileGrid()
+// }),
+// style: function(feature, resolution) { /* ... */ }
+//});
+//
+//[
+// new ol.style.Style({
+// zIndex: 1,
+// stroke: new ol.style.Stroke({color: '#fff', width: 4})
+// }),
+// new ol.style.Style({
+// zIndex: 2,
+// stroke: new ol.style.Stroke({color: '#ddd', width: 3})
+// })
+//]
+//var info = document.createElement('div');
+//var overlay = new ol.Overlay({element: info});
+//map.addOverlay(overlay);
+//map.on('pointermove', function(e) {
+// var name = map.forEachFeatureAtPixel(e.pixel, function(feature) {
+// return feature.get('name');
+// });
+// info.style.display = name ? '' : 'none';
+// info.innerHTML = name;
+// overlay.setPosition(e.coordinate);
+//});
 
 
     // restore the view state when navigating through the history, see
@@ -291,7 +431,20 @@ ol3.map2u.createMap = function (mapId) {
 //            '-' // this is a separator
         ]
     });
+    map.getViewport().addEventListener('contextmenu', function (evt) {
+        evt.preventDefault();
+        console.log(map.getEventCoordinate(evt));
+
+    });
     map.addControl(contextmenu);
+//    var olGM = new olgm.OLGoogleMaps({
+//        map: map,
+//        mapIconOptions: {
+//            useCanvas: true
+//        }}); // map is the ol.Map instance
+//    olGM.activate();
+
+
     contextmenu.on('beforeopen', function (evt) {
         var layer;
         var feature = map.forEachFeatureAtPixel(evt.pixel, function (ft, l) {
@@ -304,7 +457,7 @@ ol3.map2u.createMap = function (mapId) {
                 text: 'Edit layer style',
                 icon: '/images/contextmenu/marker.png',
                 callback: ol3.contextmenu.editLayerStyle
-            }
+            };
             editStyleItem.data = {feature: feature, layer: layer};
             var contextMenuEntries = [editStyleItem];
 
@@ -333,6 +486,7 @@ ol3.map2u.createMap = function (mapId) {
             }
         }
     });
+
     contextmenu.on('open', function (evt) {
 
 
@@ -344,9 +498,11 @@ ol3.map2u.createMap = function (mapId) {
             // add some other items to the menu
         }
     });
+
     contextmenu.on('close', function (evt) {
         // it's upon you
     });
+
     $(window).resize(function () { /* do something */
         $('#' + mapId).height($(window).height() - $(".juturna-page-header").height() - $(".juturna-main_menu").height() - 50);
         $("#ol3map-sidebar").height($('#' + mapId).height() - 70);
@@ -455,8 +611,8 @@ ol3.map2u.createMap = function (mapId) {
                         });
 
                     } else {
-                        var zoom_level = app.map2u.map.getView().getZoom();
-                        app.map2u.map.getView().setZoom(zoom_level + 1);
+                        var zoom_level = ol3.map2u.map.getView().getZoom();
+                        ol3.map2u.map.getView().setZoom(zoom_level + 1);
                     }
                 }
             } else {
@@ -482,6 +638,7 @@ ol3.map2u.createMap = function (mapId) {
             $('div#' + app.mapId + " .ol-bottom-feature-list").hide();
         }
     });
+
     $(window).trigger("resize");
 };
 ol3.map2u.displayTooltip = function (evt) {
@@ -530,6 +687,58 @@ ol3.map2u.displayTooltip = function (evt) {
         }
 
     }
+};
+ol3.map2u.addMvtTileLayer = function (name, cache = 86400, access_token = '') {
+    if (typeof name === 'undefined' || name === null || name === '') {
+        return null;
+    }
+    var vectortiles_rt = Routing.generate('default_vtiles');
+
+    var stroke = new ol.style.Stroke({
+        color: 'rgba(5,255,255,0.8)',
+        width: 1
+    });
+
+    var vectorStyle = new ol.style.Style({
+        stroke: stroke
+    });
+    var tlayer = new ol.layer.VectorTile({
+        source: new ol.source.VectorTile({
+            format: new ol.format.MVT(),
+            tileGrid: ol.tilegrid.createXYZ({maxZoom: 22}),
+            tilePixelRatio: 16,
+            url: vectortiles_rt + '/' + name + '/{z}/{x}/{y}.pbf?access_token=' + access_token + '&cache=' + cache
+        }),
+        style: vectorStyle
+    });
+    ol3.map2u.map.addLayer(tlayer);
+    return tlayer;
+};
+ol3.map2u.addMvtLayer = function (name, cache = 86400, access_token = '') {
+    if (typeof name === 'undefined' || name === null || name === '') {
+        return null;
+    }
+    var vectortiles_rt = Routing.generate('vectortiles');
+
+    var stroke = new ol.style.Stroke({
+        color: 'rgba(5,255,255,0.8)',
+        width: 1
+    });
+
+    var vectorStyle = new ol.style.Style({
+        stroke: stroke
+    });
+    var tlayer = new ol.layer.VectorTile({
+        source: new ol.source.VectorTile({
+            format: new ol.format.MVT(),
+            tileGrid: ol.tilegrid.createXYZ({maxZoom: 22}),
+            tilePixelRatio: 16,
+            url: vectortiles_rt + '/' + name + '/{z}/{x}/{y}.pbf?access_token=' + access_token + '&cache=' + cache
+        }),
+        style: vectorStyle
+    });
+    ol3.map2u.map.addLayer(tlayer);
+    return tlayer;
 };
 
 ol3.map2u.updateBottomFeatureListPosition = function (width, height) {
@@ -1099,10 +1308,10 @@ ol3.map2u.getMarkerStyle = function (type, fill, stroke, size) {
 };
 
 
-app.map2u.getSldStyleForFeature = function (sld, feature, layer) {
+app.map2u.getSldStyleForFeature = function (sld, feature, layer, bLayerStyle) {
     var geom_type = feature.getGeometry().getType();
     var cachedStyles = [];
-    var styles = [];
+    var style = new ol.style.Style();
     var layerid = layer.get("id");
     if (typeof layerid !== 'undefined') {
         if (typeof ol3.map2u.cachedLayerStyles[layerid] !== 'undefined') {
@@ -1127,7 +1336,7 @@ app.map2u.getSldStyleForFeature = function (sld, feature, layer) {
                 if (typeof sld_style.rule !== 'undefined') {
                     var bRuleExist = false;
                     $.map(sld_style.rule, function (rule) {
-                        var style = new ol.style.Style();
+                        style = new ol.style.Style();
 
 
                         if (typeof rule === 'string') {
@@ -1229,7 +1438,18 @@ app.map2u.getSldStyleForFeature = function (sld, feature, layer) {
                             style = app.map2u.getSymbolizers(rule.symbolizers);
                             cachedStyles['single'] = style;
                             ol3.map2u.cachedLayerStyles[layerid] = cachedStyles;
+                            if (bLayerStyle) {
+                                layer.setStyle(style);
+                                var source = layer.getSource();
+                                var allfeatures = source.getFeatures();
+                                for (var i = 0; i < allfeatures.length; i++) {
+                                    alert(allfeatures[i].getStyle());
+                                }
+                            }
                             return style;
+                        }
+                        if (bRuleExist === false) {
+                            return app.map2u.getDefaultStyle(geom_type.toString().toLowerCase());
                         }
                         if (geom_type === 'Polygon' && typeof feature.get('name') !== 'undefined') {
                             var text = new ol.style.Text({
@@ -1239,23 +1459,49 @@ app.map2u.getSldStyleForFeature = function (sld, feature, layer) {
                         }
 
                     });
-                    if (bRuleExist === false) {
-                        return app.map2u.getDefaultStyle(geom_type.toString().toLowerCase());
-                    }
+
                 }
             });
-            return styles;
+            return style;
         }
     }
-};
+    return app.map2u.getDefaultStyle(geom_type.toString().toLowerCase());
 
+};
+app.map2u.setLabelFeatureStyle = function (feature, resolution) {
+    var features = feature.get('features');
+    var fill = new ol.style.Fill({color: '#f04'});
+    var stroke = new ol.style.Stroke({color: '#fff', width: 3});
+    var gname = 'No name';
+
+    if (typeof features !== 'undefined' && typeof features[0] !== 'undefined' && typeof features[0].get === 'function' && typeof features[0].get("name") !== 'undefined' && features[0].get("name") !== null && features[0].get("name") !== '') {
+
+        if (typeof features[0].get("name") !== 'undefined') {
+            gname = features[0].get("name").toString();
+        }
+        var text = new ol.style.Style({text: new ol.style.Text({
+                text: gname, fill: fill, stroke: stroke
+            })});
+        return [text];
+    } else {
+
+//        if (typeof feature.get("name") !== 'undefined') {
+//            gname = feature.get("name").toString();
+//        }
+//        var text = new ol.style.Style({text: new ol.style.Text({
+//                text: gname, fill: fill, stroke: stroke
+//            })});
+        //      return [text];
+    }
+
+};
 app.map2u.setFeatureStyle = function (feature, resolution, layer) {
     //  alert(this instanceof ol.style.Style);
 //alert(sld);
     var style;
     var cachedStyles = [];
     var fill = new ol.style.Fill({color: '#f04'});
-    var stroke = new ol.style.Stroke({color: '', width: 1});
+    var stroke = new ol.style.Stroke({color: '#fff', width: 1});
     var polygon = new ol.style.Style({fill: fill});
     var strokedPolygon = new ol.style.Style({fill: fill, stroke: stroke});
     var line = new ol.style.Style({stroke: stroke});
@@ -1263,6 +1509,9 @@ app.map2u.setFeatureStyle = function (feature, resolution, layer) {
             text: '', fill: fill, stroke: stroke
         })});
     var features = feature.get('features');
+    if (typeof layer === 'undefined') {
+        return strokedPolygon;
+    }
     var layerid = layer.get("id");
 
     if (typeof layerid !== 'undefined') {
@@ -1339,7 +1588,7 @@ app.map2u.setFeatureStyle = function (feature, resolution, layer) {
         }
     } else {
 
-        return app.map2u.getSldStyleForFeature(sld, feature, layer);
+        //   return app.map2u.getSldStyleForFeature(sld, feature, layer);
 
 
 
@@ -1530,10 +1779,13 @@ app.map2u.setFeatureStyle = function (feature, resolution, layer) {
                             }
                         } else {
                             style = app.map2u.getSymbolizers(rule.symbolizers);
-                            feature.set("featurestyle_class", 'single');
+
+                            feature.set("featurestyle_class", 'single_' + feature.get('name').toString());
                             layer.setStyle(style);
-                            cachedStyles['single'] = style;
+                            cachedStyles['single_' + feature.get('name').toString()] = style;
+
                             ol3.map2u.cachedLayerStyles[layerid] = cachedStyles;
+
 
                             styles[length++] = style;// app.map2u.getSymbolizers(rule.symbolizers);
                         }
@@ -1551,17 +1803,601 @@ app.map2u.setFeatureStyle = function (feature, resolution, layer) {
             //  styles.length = length;
             return style;
         } else {
-            layer.setStyle(app.map2u.getDefaultStyle(geom_type.toString().toLowerCase()));
+            return  layer.setStyle(app.map2u.getDefaultStyle(geom_type.toString().toLowerCase()));
 
-            return;
+
         }
 
     }
 
 };
+
+ol3.map2u.addMvtTileLayer = function (name, cache = 86400, access_token = '') {
+    if (typeof name === 'undefined' || name === null || name === '') {
+        return null;
+    }
+    var vectortiles_rt = Routing.generate('default_vtiles');
+
+    var stroke = new ol.style.Stroke({
+        color: 'rgba(5,255,255,0.8)',
+        width: 1
+    });
+
+    var vectorStyle = new ol.style.Style({
+        stroke: stroke
+    });
+    var tlayer = new ol.layer.VectorTile({
+        source: new ol.source.VectorTile({
+            format: new ol.format.MVT(),
+            tileGrid: ol.tilegrid.createXYZ({maxZoom: 22}),
+            tilePixelRatio: 16,
+            url: vectortiles_rt + '/' + name + '/{z}/{x}/{y}.pbf?access_token=' + access_token + '&cache=' + cache
+        }),
+        style: vectorStyle
+    });
+    ol3.map2u.map.addLayer(tlayer);
+    return tlayer;
+};
+ol3.map2u.addMvtLayer = function (name, cache = 86400, access_token = '') {
+    if (typeof name === 'undefined' || name === null || name === '') {
+        return null;
+    }
+    var vectortiles_rt = Routing.generate('vectortiles');
+
+    var stroke = new ol.style.Stroke({
+        color: 'rgba(5,255,255,0.8)',
+        width: 1
+    });
+
+    var vectorStyle = new ol.style.Style({
+        stroke: stroke
+    });
+    var tlayer = new ol.layer.VectorTile({
+        source: new ol.source.VectorTile({
+            format: new ol.format.MVT(),
+            tileGrid: ol.tilegrid.createXYZ({maxZoom: 22}),
+            tilePixelRatio: 16,
+            url: vectortiles_rt + '/' + name + '/{z}/{x}/{y}.pbf?access_token=' + access_token + '&cache=' + cache
+        }),
+        style: vectorStyle
+    });
+    ol3.map2u.map.addLayer(tlayer);
+    return tlayer;
+};
+app.map2u.getGroupedLayer = function (layergroup, featurestyle_class) {
+    if (layergroup === null || layergroup === '' || typeof layergroup !== 'object') {
+
+        return null;
+    }
+    if (featurestyle_class === null || featurestyle_class === '' || typeof featurestyle_class === 'undefined')
+    {
+        layergroup.forEachLayer(function (layer) {
+            if (layer.get('featurestyle_class') === 'featurestyle_class') {
+                return layer;
+            }
+        });
+    }
+    return null;
+};
+app.map2u.createLayerGroup = function (layerid, name, sld, options) {
+    var layergroup = new ol.layer.Group({id: layerid, name: name});
+    var layers = [];
+    var color = ol.color.asArray('#3399CC');
+    color = color.slice();
+    color[3] = 0.7;
+    var clusterSource;
+    var fill = new ol.style.Fill({color: '#f04'});
+    var stroke = new ol.style.Stroke({color: '#00f', width: 1});
+    var polygon = new ol.style.Style({fill: fill});
+    var strokedPolygon = new ol.style.Style({fill: fill, stroke: stroke});
+
+    var cachedDataSources = [];
+    if (typeof ol3.map2u.cachedDataSources[layerid] !== 'undefined') {
+        cachedDataSources = ol3.map2u.cachedDataSources[layerid];
+    }
+    //  alert(cachedDataSources.length);
+    //   alert(ol3.map2u.cachedDataSources[layerid].length + "   " + layerid);
+
+    var cachedStyles = [];
+    if (typeof layerid !== 'undefined') {
+        if (typeof ol3.map2u.cachedLayerStyles[layerid] !== 'undefined') {
+            cachedStyles = ol3.map2u.cachedLayerStyles[layerid];
+        }
+    }
+    var cachedLabelLayers = [];
+
+    if (typeof ol3.map2u.cachedLabelLayers[layerid] !== 'undefined') {
+        cachedLabelLayers = ol3.map2u.cachedLabelLayers[layerid];
+    }
+    var cachedOverlays = [];
+
+    if (typeof ol3.map2u.cachedOverlays[layerid] !== 'undefined') {
+        cachedOverlays = ol3.map2u.cachedOverlays[layerid];
+    }
+
+
+
+    var keys = Object.keys(cachedDataSources);
+    // alert(JSON.stringify(keys));
+    //  alert('keys.length=' + keys.length);
+    for (var i = 0; i < keys.length; i++) {
+
+        //    alert('keys[i]=' + keys[i] + "   " + typeof cachedDataSources[keys[i]] + "   " + typeof cachedStyles[keys[i]]);
+
+        if (typeof cachedDataSources[keys[i]] === 'object' && typeof cachedStyles[keys[i]] === 'object') {
+
+//alert("1");
+//                var vectorSource = new ol.source.Vector({});
+//vectorSource.addFeatures(cachedDataSources[keys[i]].getFeatures());
+//var hotpointLayer = new ol.layer.Vector({id: layerid, source: vectorSource, name: name, sld: sld});
+//hotpointLayer.setStyle(strokedPolygon);
+// ol3.map2u.map.addLayer(hotpointLayer);
+//  ol3.map2u.overlays[layerid] = hotpointLayer;
+
+            //  alert(cachedDataSources[keys[i]].getFeatures().length);
+            if (cachedDataSources[keys[i]].getFeatures().length > 100 && cachedDataSources[keys[i]].getFeatures()[0].getGeometry() instanceof ol.geom.Point) {
+                clusterSource = new ol.source.Cluster({
+                    distance: parseInt(50, 10),
+                    source: cachedDataSources[keys[i]]
+                });
+                cachedOverlays[keys[i]] = new ol.layer.Vector({id: layerid, sld: sld, source: clusterSource, name: name});
+                var cachedLayer = cachedOverlays[keys[i]];
+                cachedOverlays[keys[i]].setStyle(function (feature, resolution) {
+                    return app.map2u.setFeatureStyle(feature, resolution, cachedLayer);
+                });
+            } else {
+                //   alert(keys[i]);
+                cachedOverlays[keys[i]] = new ol.layer.Vector({id: layerid, source: cachedDataSources[keys[i]], sld: sld, name: name, style: cachedStyles[keys[i]]});
+//            layers[i].setStyle(function (feature, resolution) {
+//                return app.map2u.setFeatureStyle(feature, resolution, layers[i]);
+//            });
+            }
+            ol3.map2u.map.addLayer(cachedOverlays[keys[i]]);
+//alert("2");
+
+            var features = cachedDataSources[keys[i]].getFeatures();
+            //      alert('features.length=' + features.length);
+            var cachedLabelDataSource = new ol.source.Vector({featurestyle_class: keys[i]});
+            for (var j = 0; j < features.length; j++) {
+                if (features[j].getGeometry().getType() !== 'Point') {
+                    //     alert(features[i].getGeometry().getInteriorPoint().getCoordinates());
+                    var fname = '';
+                    if (features[j].get('name') !== 'undefined') {
+                        fname = features[j].get('name');
+                    }
+                    if (features[j].getGeometry() && typeof features[j].getGeometry().getInteriorPoint === 'function') {
+                        var f = new ol.Feature({geometry: features[j].getGeometry().getInteriorPoint(), name: fname});
+                        cachedLabelDataSource.addFeature(f);
+                    }
+
+                } else {
+                    cachedLabelDataSource.addFeature(features[j]);
+                }
+            }
+            //    alert("3");
+            clusterSource = new ol.source.Cluster({
+                distance: parseInt(30, 12),
+                source: cachedLabelDataSource
+            });
+
+            cachedLabelLayers[keys[i]] = new ol.layer.Vector({
+                id: layerid,
+                type: 'label',
+                source: clusterSource,
+                name: name,
+                style: app.map2u.setLabelFeatureStyle,
+                visible: app.isTrue(options.show_label)
+
+            });
+            if (app.isTrue(options.show_label)) {
+                $("#ol3-map-layers-overlays-list li.overlay_li[data-id='" + layerid + "'] .layer_action_icon i.fa-tag").addClass("checked");
+            } else {
+                $("#ol3-map-layers-overlays-list li.overlay_li[data-id='" + layerid + "'] .layer_action_icon i.fa-tag").removeClass("checked");
+
+            }
+//alert("5");
+            ol3.map2u.map.addLayer(cachedLabelLayers[keys[i]]);
+//alert("6");
+
+        }
+
+    }
+    ol3.map2u.cachedLabelLayers[layerid] = cachedLabelLayers;
+    ol3.map2u.cachedOverlays[layerid] = cachedOverlays;
+    //  layergroup.setLayers(layers);
+    return layergroup;
+
+};
+app.isTrue = function (value) {
+    if (typeof (value) === 'string') {
+        value = value.toLowerCase();
+    }
+    switch (value) {
+        case true:
+        case "true":
+        case 1:
+        case "1":
+        case "on":
+        case "yes":
+            return true;
+        default:
+            return false;
+    }
+};
+app.map2u.setLayerVisible = function (visible, layerid, hash) {
+    if (typeof layerid === 'undefined') {
+        return;
+    }
+
+    var layers = ol3.map2u.map.getLayers();
+
+    layers.forEach(function (layer) {
+        if (layer.get('id') === layerid) {
+            layer.setVisible(visible);
+
+        }
+    });
+
+    if (typeof ol3.map2u.cachedOverlays[layerid] === 'undefined') {
+        return;
+    }
+    var keys;
+    var cachedOverlays = ol3.map2u.cachedOverlays[layerid];
+    var cachedLabelLayers = ol3.map2u.cachedLabelLayers[layerid];
+    if (visible === true) {
+        if (typeof cachedOverlays !== 'undefined') {
+            if (typeof hash !== 'undefined' && typeof cachedOverlays[hash] !== 'undefined') {
+                cachedOverlays[hash].setVisible(true);
+            } else {
+                keys = Object.keys(cachedOverlays);
+                for (var i = 0; i < keys.length; i++) {
+                    cachedOverlays[keys[i]].setVisible(true);
+                }
+            }
+        }
+        if (typeof cachedLabelLayers !== 'undefined') {
+            if (typeof hash !== 'undefined' && typeof cachedLabelLayers[hash] !== 'undefined') {
+                cachedLabelLayers[hash].setVisible(true);
+            } else {
+                keys = Object.keys(cachedLabelLayers);
+                for (var i = 0; i < keys.length; i++) {
+                    cachedLabelLayers[keys[i]].setVisible(true);
+                }
+            }
+        }
+    } else {
+        if (typeof cachedOverlays !== 'undefined') {
+            if (typeof hash !== 'undefined' && typeof cachedOverlays[hash] !== 'undefined') {
+                cachedOverlays[hash].setVisible(false);
+            } else {
+                keys = Object.keys(cachedOverlays);
+
+                for (var i = 0; i < keys.length; i++) {
+                    cachedOverlays[keys[i]].setVisible(false);
+                }
+            }
+        }
+        if (typeof cachedLabelLayers !== 'undefined') {
+
+            if (typeof hash !== 'undefined' && typeof cachedLabelLayers[hash] !== 'undefined') {
+                cachedLabelLayers[hash].setVisible(false);
+            } else {
+                keys = Object.keys(cachedLabelLayers);
+                for (var i = 0; i < keys.length; i++) {
+                    cachedLabelLayers[keys[i]].setVisible(false);
+                }
+            }
+        }
+    }
+};
+app.map2u.setLayerLabelVisible = function (visible, layerid, hash) {
+    if (typeof layerid === 'undefined') {
+        return;
+    }
+    if (typeof ol3.map2u.cachedLabelLayers[layerid] === 'undefined') {
+        return;
+    }
+    var keys;
+    var cachedLabelLayers = ol3.map2u.cachedLabelLayers[layerid];
+    if (typeof hash !=='undefined' && typeof cachedLabelLayers[hash] === 'undefined') {
+        return;
+    }
+    if (visible === true) {
+
+        if (typeof hash !== 'undefined' && typeof cachedLabelLayers[hash] !== 'undefined') {
+            cachedLabelLayers[hash].setVisible(true);
+        } else {
+            keys = Object.keys(cachedLabelLayers);
+            for (var i = 0; i < keys.length; i++) {
+                cachedLabelLayers[keys[i]].setVisible(true);
+            }
+        }
+    } else {
+        if (typeof hash !== 'undefined' && typeof cachedLabelLayers[hash] !== 'undefined') {
+            cachedLabelLayers[hash].setVisible(false);
+        } else {
+            keys = Object.keys(cachedLabelLayers);
+            for (var i = 0; i < keys.length; i++) {
+                cachedLabelLayers[keys[i]].setVisible(false);
+            }
+        }
+    }
+};
+
+app.map2u.createLayerDataSource = function (layerid, features, sld, name, options) {
+
+    if (layerid === null || layerid === '' || typeof layerid === 'undefined' || features === null || features === '' || typeof features === 'undefined' || sld === null || sld === '' || typeof sld === 'undefined') {
+        return null;
+    }
+    if (typeof layerid === 'undefined') {
+        layerid = app.map2u.guid();
+    }
+    var cachedDataSources = [];
+    if (typeof ol3.map2u.cachedDataSources[layerid] !== 'undefined') {
+        cachedDataSources = ol3.map2u.cachedDataSources[layerid];
+    } else {
+        ol3.map2u.cachedDataSources[layerid] = [];
+    }
+
+    var cachedStyles = [];
+
+    if (typeof ol3.map2u.cachedLayerStyles[layerid] !== 'undefined') {
+        cachedStyles = ol3.map2u.cachedLayerStyles[layerid];
+    } else {
+
+        ol3.map2u.cachedLayerStyles[layerid] = [];
+    }
+
+
+    for (var i = 0; i < features.length; i++) {
+        var geom_type = features[i].getGeometry().getType();
+
+        var style = new ol.style.Style();
+
+        if (typeof sld === 'string') {
+            sld = JSON.parse(sld);
+        }
+
+        if (sld.length === 0) {
+            var hash = jsmd5('default').toString();
+            features[i].set("featurestyle_class", hash);
+            if (typeof cachedDataSources[hash] === 'undefined') {
+                var vectorSource = new ol.source.Vector({featurestyle_class: hash});
+                cachedDataSources[hash] = vectorSource;
+            }
+
+            cachedDataSources[hash].addFeature(features[i]);
+
+            ol3.map2u.cachedDataSources[layerid] = cachedDataSources;
+            style = app.map2u.getDefaultStyle(geom_type.toString().toLowerCase());
+            if (typeof cachedStyles[hash] === 'undefined') {
+
+                cachedStyles[hash] = style;
+            }
+            ol3.map2u.cachedLayerStyles[layerid] = cachedStyles;
+        } else {
+
+            $.map(sld, function (sld_style) {
+                //   alert("1");
+                if (typeof sld_style.rule !== 'undefined') {
+                    var bRuleExist = false;
+                    $.map(sld_style.rule, function (rule) {
+                        style = new ol.style.Style();
+
+
+                        if (typeof rule === 'string') {
+                            rule = JSON.parse(rule);
+                        }
+                        var filter = null;
+
+                        if (rule.filter !== null && typeof rule.filter !== 'undefined') {
+
+                            filter = rule.filter;
+
+                        }
+                        //   alert("2");
+                        if (filter !== null && filter !== 'null' && filter !== '') {
+                            if (typeof filter === 'string') {
+                                filter = JSON.parse(filter);
+                            }
+                            if (filter.type === null || filter.type === 'null' || filter.type === '') {
+                                var frule = filter.rules[0];
+                                var value = features[i].get(frule.property);
+                                if (typeof value === 'undefined' && value !== null) {
+                                    value = features[i].get(frule.property.toString().toLowerCase());
+                                }
+                                if (typeof value !== 'undefined' && value !== null) {
+                                    value = value.trim().toLowerCase();
+                                    frule.value = frule.value.trim().toLowerCase();
+                                    var result = false;
+                                    if ($.isNumeric(value) && $.isNumeric(frule.value)) {
+                                        result = eval(value + ' ' + frule.type + ' ' + frule.value);
+                                    } else {
+                                        result = eval('"' + value.trim().toLowerCase() + '" ' + frule.type + ' "' + frule.value.trim().toLowerCase() + '"');
+                                    }
+                                    //      alert("3");
+                                    if (result === true || result === 'true') {
+                                        bRuleExist = true;
+                                        var hash = jsmd5(JSON.stringify(filter)).toString();
+                                        features[i].set("featurestyle_class", hash);
+                                        if (typeof cachedDataSources[hash] === 'undefined') {
+                                            var vectorSource = new ol.source.Vector({featurestyle_class: hash});
+                                            cachedDataSources[hash] = vectorSource;
+                                        }
+                                        cachedDataSources[hash].addFeature(features[i]);
+                                        ol3.map2u.cachedDataSources[layerid] = cachedDataSources;
+
+                                        //  alert("4");
+                                        style = app.map2u.getSymbolizers(rule.symbolizers);
+                                        if (typeof cachedStyles[hash] === 'undefined') {
+
+                                            cachedStyles[hash] = style;
+
+                                        }
+                                        ol3.map2u.cachedLayerStyles[layerid] = cachedStyles;
+                                    }
+                                    //    alert("5");
+                                }
+
+                            } else {
+                                var filterstr = '';
+                                var result = false;
+
+                                $.map(filter.rules, function (frule) {
+
+                                    var value = features[i].get(frule.property);
+                                    if (typeof value === 'undefined') {
+                                        value = features[i].get(frule.property.toString().toLowerCase());
+                                    }
+
+                                    if (typeof value !== 'undefined' && value !== null) {
+                                        if ($.isNumeric(value) && $.isNumeric(frule.value)) {
+
+                                            if (filterstr === '') {
+                                                filterstr = ' ( ' + value + frule.type + frule.value + ' ) ';
+                                            } else {
+                                                filterstr = filterstr + filter.type + ' ( ' + value + frule.type + frule.value + ' ) ';
+                                            }
+
+                                        } else {
+                                            value = value.trim().toLowerCase();
+                                            frule.value = frule.value.trim().toLowerCase();
+
+                                            if (filterstr === '') {
+                                                filterstr = ' ( ' + value + frule.type + frule.value + ' ) ';
+                                            } else {
+                                                filterstr = filterstr + filter.type + ' (" ' + value + '"' + frule.type + '"' + frule.value + '" ) ';
+                                            }
+                                        }
+                                    }
+                                });
+                                if (filterstr !== '') {
+                                    result = eval(filterstr);
+                                    if (result === true || result === 'true') {
+                                        bRuleExist = true;
+                                        var hash = jsmd5(JSON.stringify(filter.rules)).toString();
+                                        features[i].set("featurestyle_class", hash);
+                                        style = app.map2u.getSymbolizers(rule.symbolizers);
+                                        if (typeof cachedStyles[hash] === 'undefined') {
+
+                                            cachedStyles[hash] = style;
+
+                                        }
+                                        if (typeof cachedDataSources[hash] === 'undefined') {
+                                            var vectorSource = new ol.source.Vector({featurestyle_class: hash});
+                                            cachedDataSources[hash] = vectorSource;
+
+                                        }
+                                        cachedDataSources[hash].addFeature(features[i]);
+                                        ol3.map2u.cachedDataSources[layerid] = cachedDataSources;
+
+                                        ol3.map2u.cachedLayerStyles[layerid] = cachedStyles;
+                                    }
+                                }
+                            }
+                        } else {
+                            //    alert("23="+ typeof jsmd5);
+                            var hash = jsmd5(JSON.stringify(rule)).toString();
+                            //   alert("hash=  " + hash);
+                            style = app.map2u.getSymbolizers(rule.symbolizers);
+//                            var text;
+//                            if (geom_type === 'Polygon' && typeof feature.get('name') !== 'undefined') {
+//                                text = new ol.style.Text({
+//                                    text: this.get('name').toString(), fill: new ol.style.Fill({color: 'red'}), stroke: new ol.style.Stroke({color: 'black', width: 1})
+//                                });
+//                                style.setText(text);
+//                            }
+
+                            if (typeof cachedStyles[hash] === 'undefined') {
+
+                                cachedStyles[hash] = style;
+                            }
+                            //      features[i].setStyle(app.map2u.textStyle);
+                            features[i].set("featurestyle_class", hash);
+                            bRuleExist = true;
+                            if (typeof cachedDataSources[hash] === 'undefined') {
+                                //       alert("112");
+                                var vectorSource = new ol.source.Vector({featurestyle_class: hash});
+                                //      alert("113");
+                                cachedDataSources[hash] = vectorSource;
+                            }
+                            //     alert("114");
+                            cachedDataSources[hash].addFeature(features[i]);
+                            //      alert("115");
+                            //    alert(cachedDataSources[hash].getFeatures().length + "   " + Object.keys(cachedDataSources).length);
+                            ol3.map2u.cachedDataSources[layerid] = cachedDataSources;
+                            //alert("24");
+                            //    alert(ol3.map2u.cachedDataSources[layerid].length + "   " + layerid);
+
+                            ol3.map2u.cachedLayerStyles[layerid] = cachedStyles;
+                            //     alert("25");
+                        }
+                        if (bRuleExist === false) {
+
+                            var hash = jsmd5(JSON.stringify(rule)).toString();
+
+                            features[i].set("featurestyle_class", hash);
+                            bRuleExist = true;
+                            if (typeof cachedDataSources[hash] === 'undefined') {
+                                var vectorSource = new ol.source.Vector({featurestyle_class: hash});
+                                cachedDataSources[hash] = vectorSource;
+                            }
+                            cachedDataSources[hash].addFeature(features[i]);
+                            ol3.map2u.cachedDataSources[layerid] = cachedDataSources;
+                            if (typeof cachedStyles[hash] === 'undefined') {
+                                style = app.map2u.getSymbolizers(rule.symbolizers);
+                                if (style === null) {
+                                    style = app.map2u.getDefaultStyle(geom_type.toString().toLowerCase());
+                                }
+                                cachedStyles[hash] = style;
+                            }
+                            ol3.map2u.cachedLayerStyles[layerid] = cachedStyles;
+                        }
+                    });
+                }
+            });
+        }
+    }
+    app.map2u.createLayerGroup(layerid, name, sld, options);
+}
+;
+app.map2u.textStyle = function () {
+    return [
+        new ol.style.Style({
+            image: new ol.style.Icon({
+                anchor: [0.5, 46],
+                anchorXUnits: 'fraction',
+                anchorYUnits: 'pixels',
+                opacity: 0.75,
+                src: '//openlayers.org/en/v3.8.2/examples/data/icon.png'
+            }),
+            text: new ol.style.Text({
+                font: '12px Calibri,sans-serif',
+                fill: new ol.style.Fill({color: '#000'}),
+                stroke: new ol.style.Stroke({
+                    color: '#fff', width: 2
+                }),
+                // get the text from the feature (`this` is the feature)
+                text: this.get('text')
+            })
+        })
+    ];
+//    var text= new ol.style.Text({
+//        font: '12px Calibri,sans-serif',
+//        fill: new ol.style.Fill({ color: '#000' }),
+//        stroke: new ol.style.Stroke({
+//          color: '#fff', width: 2
+//        }),
+//        // get the text from the feature (`this` is the feature)
+//        text: this.get('text')
+//      });
+//      style.setText(text);
+//  return [style];
+};
+
 app.map2u.getDefaultStyle = function (geom_type) {
     var fill = new ol.style.Fill({color: '#f04'});
-    var stroke = new ol.style.Stroke({color: '', width: 1});
+    var stroke = new ol.style.Stroke({color: '#00f', width: 1});
     var polygon = new ol.style.Style({fill: fill});
     var strokedPolygon = new ol.style.Style({fill: fill, stroke: stroke});
     var line = new ol.style.Style({stroke: stroke});
@@ -1927,7 +2763,7 @@ app.viewingscale = function (map) {
             center = map.getView().getCenter();
             //  map.getView().setCenter(center);
             //  map.getView().setZoom(parseInt(scale));
-            createSearchFeatureIcon(map, center[0], center[1], address);
+        //    createSearchFeatureIcon(map, center[0], center[1], address);
 
             return;
         }
@@ -1944,7 +2780,7 @@ app.viewingscale = function (map) {
 
             map.getView().setCenter([Number(center[0]), Number(center[1])]);
             map.getView().setZoom(scale);
-            createSearchFeatureIcon(map, Number(center[0]), Number(center[1]), address);
+         //   createSearchFeatureIcon(map, Number(center[0]), Number(center[1]), address);
         }
     });
 };
@@ -2029,4 +2865,13 @@ function createSearchFeatureIcon(map, lng, lat, address, route, text, type) {
     feature.setStyle(style);
 
     ol3.map2u.userdrawItems.addFeature(feature);
+}
+app.map2u.guid = function () {
+    function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+                .toString(16)
+                .substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+            s4() + '-' + s4() + s4() + s4();
 }
