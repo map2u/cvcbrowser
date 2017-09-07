@@ -697,12 +697,12 @@ function PrevMapExtent(map) {
     // history.goBack();
 }
 function showStoryOnLeftsidebar(id) {
-    $('div#leafmap').spin();
+    $('body').spin();
     $.ajax({
         url: Routing.generate('homepage_leftsidebar_view', {_locale: window.locale, id: id, view: "story"}),
         method: 'GET',
         complete: function () {
-            $('div#leafmap').spin(false);
+            $('body').spin(false);
         },
         success: function (response) {
             $("div#leaflet_content.overlay-sidebar #sidebar_content").html(response);

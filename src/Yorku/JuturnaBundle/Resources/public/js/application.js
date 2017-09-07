@@ -2658,7 +2658,7 @@ app.map2u.setMapSidebarContent = function (id, url, parameters) {
         data: parameters,
         type: 'POST',
         complete: function () {
-            $('div#leafmap').spin(false);
+            $('body').spin(false);
         },
         success: function (data) {
 

@@ -384,7 +384,23 @@
                                         transparent: true,
                                         attribution: ""
                                     };
-                                    var layer = new L.TileLayer.WMS("http://" + hostName, option);
+
+                                    //        var layer = new L.TileLayer.WMS("http://" + hostName, option);
+
+                                    var layer = new ol.layer.Tile({
+                                        source: new ol.source.TileWMS({
+                                            url: '"http://" + hostName',
+                                            params: {
+                                                'LAYERS': layerName,
+                                                'VERSION': '1.1.1',
+                                                'FORMAT': 'image/png',
+                                                'TILED': true
+                                            }
+                                        })
+                                    });
+
+
+
                                     layer.id = id;
                                     layer.zIndex = 300 - position;
                                     layer.name = $(this).attr('name');
